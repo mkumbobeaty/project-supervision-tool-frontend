@@ -1,24 +1,20 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { HashRouter,Switch, Route, Redirect} from 'react-router-dom';
+import PrivateRoute from './Auth/PrivateRoute';
+import SignIn from './Auth/components/SignIn';
+import BaseLayout from './layouts/BaseLayout';
 
-function App() {
+const  App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <HashRouter>
+        <Switch>
+        <PrivateRoute path="/app" component={BaseLayout} />
+          <Route path="/signin" component={SignIn}></Route>
+          <Redirect to="/app" />
+        </Switch>
+      </HashRouter>
     </div>
   );
 }

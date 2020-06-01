@@ -1,0 +1,24 @@
+.SignIn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.SignIn img {
+  margin: 10px;
+}
+
+.version-text {
+  padding: 10px;
+  float: right;
+}
+.signIn-form-button {
+  width: 100%;
+}
+
+/* override antd css*/
+.SignIn .ant-form {
+  width: 300px;
+}

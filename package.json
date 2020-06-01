@@ -8,8 +8,10 @@
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.3.0",
     "commitizen": "^4.1.2",
+    "history": "^4.10.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1"
   },
   "scripts": {
