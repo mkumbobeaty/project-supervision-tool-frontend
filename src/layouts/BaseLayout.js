@@ -2,58 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AppstoreOutlined } from '@ant-design/icons';
 import { Breadcrumb, Button, Col, Layout, Popover, Row } from 'antd';
-import { Link, Switch } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import UserMenu from '../navigation/UserMenu';
-
-import EventActions from '../Events/EventActions';
-import PageNotFound from '../components/UIState/PageNotFound';
+import PageNotFound from '../PageNotFound';
 import Home from '../navigation/Home';
-import AdministrativeAreas from '../GeographicalFeatures/AdministrativeAreas';
-import AdministrativeLevels from '../GeographicalFeatures/AdministrativeLevels';
-import StakeholdersAgencies from '../Stakeholders/Agencies';
-import StakeholdersFocalPeople from '../Stakeholders/FocalPeople';
-import AgenciesOwnerships from '../Stakeholders/AgenciesOwnerships';
-import NotificationTemplates from '../Stakeholders/NotificationTemplates';
-import Events from '../Events/Events';
-import EventFunctions from '../Events/EventFunctions';
-import EventTypes from '../Events/EventTypes';
-import EventSeverity from '../Events/EventSeverity';
-import EventCertainty from '../Events/EventCertainty';
-import EventResponses from '../Events/EventResponses';
-import EventUrgencies from '../Events/EventUrgencies';
-import EventQuestions from '../Events/EventQuestions';
-import EventTopics from '../Events/EventTopics';
-import EventGroups from '../Events/EventGroups';
-import StakeholderGroups from '../Stakeholders/StakeholderGroups';
-import EventLevels from '../Events/EventLevels';
-import EventIndicator from '../Events/EventIndicator';
-import Features from '../GeographicalFeatures/CriticalFacilities';
-import ActionCatalogue from '../Events/ActionCatalogues';
-import EventStatuses from '../Events/EventStatuses';
-import FeatureTypes from '../GeographicalFeatures/FeatureTypes';
-import Units from '../Units';
-// import StakeholdersNotifications from '../Stakeholders/Notifications';
-import StakeholdersRoles from '../Stakeholders/Roles';
-import Vehicles from '../VehicleDispatches/Vehicles';
-import VehicleDispatches from '../VehicleDispatches/Dispatches';
-import VehicleMakes from '../VehicleDispatches/VehicleMakes';
-import VehicleModels from '../VehicleDispatches/VehicleModels';
-import VehicleTypes from '../VehicleDispatches/VehicleTypes';
-import VehicleStatuses from '../VehicleDispatches/VehicleStatuses';
-import Settings from '../navigation/Settings';
-import ActionsTaken from '../Dashboards/ActionsTaken';
-import SecureRoute from '../Auth/SecureRoute';
+import PrivateRoute from '../Auth/PrivateRoute';
 import HeaderNavMenu from '../navigation/HeaderNavMenu';
-// Dashboards
-import Dashboards from '../navigation/Dashboards';
-import OverviewDashboard from '../Dashboards/Overview';
-import EventsOverviewDashboard from '../Dashboards/EventsOverview';
-import StakeholdersDashboard from '../Dashboards/Stakeholders';
-import VehicleDispatchesDashboard from '../Dashboards/VehicleDispatches';
-// Resources
-import Resources from '../navigation/Resources';
-
+import Dashboards from '../Dashboards';
+import Needs from '../Needs';
+import Materials from '../Materials';
+import Agencies from '../Agencies';
+import Initiatives from '../Initiatives';
+import HumanResources from '../HumanResources';
 import './styles.css';
+
 
 /* constants */
 const { Header, Content } = Layout;
@@ -62,195 +24,34 @@ const breadcrumbNameMap = {
     name: 'Home',
     title: 'Early Warning, Early Action Menu',
   },
-  /* event routes */
-  '/app/actions': {
-    name: 'Actions Taken',
-    title: 'List of all performed actions',
+  '/app/needs': {
+    name: 'Needs',
+    title: 'List of all needs',
   },
-  '/app/actioncatalogue': {
-    name: 'Action Catalogue',
-    title: 'List of all actions to be performed',
+  '/app/materials': {
+    name: 'Materials',
+    title: 'List of all available materials',
   },
-  '/app/events': {
-    name: 'Emergencies',
-    title: 'List of all Emergencies(Alerts and Incidents)',
+  '/app/humanResources': {
+    name: 'Human Resources',
+    title: 'List of all human resources',
   },
 
-  /* stakeholders routes */
-  '/app/focalpeople': {
-    name: 'Focal People',
-    title: 'List of all focal persons',
+  '/app/initiatives': {
+    name: 'Initiatives',
+    title: 'List of all Initiatives',
   },
   '/app/agencies': {
     name: 'Agencies',
     title: 'List of all agencies',
   },
-  '/app/stakeholders': { name: 'Stakeholders', title: 'Stakeholders module' },
-
-  /* vehicle dispatch routes */
-  '/app/dispatches': {
-    name: 'Vehicle Dispatches',
-    title: 'Vehicle Dispatches Module',
-  },
-
   /* dashboards routes */
   '/app/dashboards': {
     name: 'Dashboards',
     title: 'Dashboards',
   },
-  '/app/dashboards/overview': {
-    name: 'Overview Dashboard',
-    title: 'Overview Dashboard',
-  },
-  '/app/dashboards/indicators': {
-    name: 'Indicators Dashboard',
-    title: 'Indicators Dashboard',
-  },
-  '/app/dashboards/needs': {
-    name: 'Needs Dashboard',
-    title: 'Needs Dashboard',
-  },
-  '/app/dashboards/effects': {
-    name: 'Effects Dashboard',
-    title: 'Effects Dashboard',
-  },
-  '/app/dashboards/stakeholders': {
-    name: 'Stakeholders Dashboard',
-    title: 'Stakeholders Dashboard',
-  },
-  '/app/dashboards/events': {
-    name: 'Emergencies Dashboard',
-    title: 'Emergencies Dashboard',
-  },
-  '/app/dashboards/dispatches': {
-    name: 'Vehicle Dispatches',
-    title: 'Vehicle Dispatches Dashboard',
-  },
+  
 
-  /* Resources routes */
-  '/app/resources': {
-    name: 'Resources',
-    title: 'Resources Module',
-  },
-  '/app/resources/vehicles': {
-    name: 'Vehicles',
-    title: 'Vehicles',
-  },
-
-  /* settings routes */
-  '/app/settings': {
-    name: 'Settings',
-    title: 'System Wide Settings',
-  },
-  '/app/settings/administrativeareas': {
-    name: 'Administrative Areas',
-    title: 'List of administrative areas',
-  },
-  '/app/settings/administrativelevels': {
-    name: 'Administrative Levels',
-    title: 'List of administrative levels',
-  },
-  '/app/settings/features': {
-    name: 'Critical Infrastructures',
-    title: 'List of all critical infrastructures',
-  },
-  '/app/settings/featuretypes': {
-    name: 'Feature Types',
-    title: 'List of all feature types',
-  },
-  '/app/settings/eventactions': {
-    name: 'Event Actions',
-    title: 'Event Actions Module',
-  },
-  '/app/settings/functions': {
-    name: 'Emergency Functions',
-    title: 'Emergency functions module',
-  },
-  '/app/settings/roles': {
-    name: 'Roles',
-    title: 'Roles of Stakeholders',
-  },
-  '/app/settings/eventtypes': {
-    name: 'Event Types',
-    title: 'Event Types module',
-  },
-  '/app/settings/eventcertainty': {
-    name: 'Event Certainties',
-    title: 'Event Certainty module',
-  },
-  '/app/settings/eventquestions': {
-    name: 'Event Questions',
-    title: 'Event Questions module',
-  },
-  '/app/settings/eventseverity': {
-    name: 'Event Severities',
-    title: 'Event Severity module',
-  },
-  '/app/settings/notificationtemplates': {
-    name: 'Notification Templates',
-    title: 'Notification template module',
-  },
-  '/app/settings/eventtopics': {
-    name: 'Event Topics',
-    title: 'Event Topics module',
-  },
-  '/app/settings/eventgroups': {
-    name: 'Event Groups',
-    title: 'Event Groups module',
-  },
-
-  '/app/settings/stakeholdergroups': {
-    name: 'Stakeholders Groups',
-    title: 'Stakeholders Groups module',
-  },
-  '/app/settings/agenciesownerships': {
-    name: 'Agencies Ownerships',
-    title: 'List of Agencies Ownerships',
-  },
-  '/app/settings/eventindicator': {
-    name: 'Event Indicators',
-    title: 'Event Indicator module',
-  },
-  '/app/settings/eventlevels': {
-    name: 'Event Levels',
-    title: 'Event Level module',
-  },
-  '/app/settings/eventurgencies': {
-    name: 'Event Urgencies',
-    title: 'Event Urgencies Module',
-  },
-  '/app/settings/eventresponses': {
-    name: 'Event Responses',
-    title: 'Event Responses Module',
-  },
-  '/app/settings/eventstatuses': {
-    name: 'Event Statuses',
-    title: 'Event Statuses Module',
-  },
-  '/app/settings/units': {
-    name: 'Units',
-    title: 'Units module',
-  },
-  '/app/settings/vehicles': {
-    name: 'Vehicles',
-    title: 'Vehicles Module',
-  },
-  '/app/settings/vehiclemakes': {
-    name: 'Vehicle Makes',
-    title: 'Vehicle Makes Module',
-  },
-  '/app/settings/vehiclemodels': {
-    name: 'Vehicle Models',
-    title: 'Vehicle Models Module',
-  },
-  '/app/settings/vehiclestatuses': {
-    name: 'Vehicle Statuses',
-    title: 'Vehicle Statuses Module',
-  },
-  '/app/settings/vehicletypes': {
-    name: 'Vehicle Types',
-    title: 'Vehicle Types Module',
-  },
 };
 
 /**
@@ -320,7 +121,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
                 </Col>
               )}
               <Col span={12}>
-                <UserMenu />
+                  <UserMenu />
               </Col>
             </Row>
           </Col>
@@ -328,67 +129,35 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
       </Header>
       <Content className="BaseLayoutContent">
         <Switch>
-          <SecureRoute exact path={`${baseUrl}/`} component={Home} />
-          <SecureRoute path={`${baseUrl}/events`} component={Events} />
+          <Route exact path={`${baseUrl}/`} component={Home} />
+          <PrivateRoute path={`${baseUrl}/needs`} component={Needs} />
 
-          <SecureRoute
-            path={`${baseUrl}/focalpeople`}
-            component={StakeholdersFocalPeople}
+          <PrivateRoute
+            path={`${baseUrl}/materials`}
+            component={Materials}
           />
-          <SecureRoute
+          <PrivateRoute
             path={`${baseUrl}/agencies`}
-            component={StakeholdersAgencies}
+            component={Agencies}
           />
-          <SecureRoute
-            path={`${baseUrl}/actioncatalogue`}
-            component={ActionCatalogue}
+          <PrivateRoute
+            path={`${baseUrl}/initiatives`}
+            component={Initiatives}
           />
-          <SecureRoute
+          <PrivateRoute
             exact
-            path={`${baseUrl}/dispatches`}
-            component={VehicleDispatches}
+            path={`${baseUrl}/humanResources`}
+            component={HumanResources}
           />
 
           {/* Dashboard routes */}
-          <SecureRoute
+          <PrivateRoute
             exact
             path={`${baseUrl}/dashboards`}
             component={Dashboards}
           />
-          <SecureRoute
-            path={`${baseUrl}/dashboards/overview`}
-            component={OverviewDashboard}
-          />
-          <SecureRoute
-            path={`${baseUrl}/dashboards/stakeholders`}
-            component={StakeholdersDashboard}
-          />
-          <SecureRoute
-            path={`${baseUrl}/dashboards/events`}
-            component={EventsOverviewDashboard}
-          />
 
-          <SecureRoute
-            path={`${baseUrl}/dashboards/dispatches`}
-            component={VehicleDispatchesDashboard}
-          />
-          {/* end dashboard routes */}
-
-          {/* Resources routes */}
-
-          <SecureRoute
-            exact
-            path={`${baseUrl}/resources`}
-            component={Resources}
-          />
-          <SecureRoute
-            path={`${baseUrl}/resources/vehicles`}
-            component={Vehicles}
-          />
-          {/* end Resources routes */}
-
-
-          <SecureRoute component={PageNotFound} />
+          <PrivateRoute component={PageNotFound} />
         </Switch>
       </Content>
     </Layout>

@@ -6,7 +6,7 @@ import agenciesIcon from '../assets/icons/agencies.svg';
 import needsIcon from '../assets/icons/needs.svg';
 import mapIcon from '../assets/icons/map.svg';
 import materialsIcon from '../assets/icons/materials.svg';
-import humanResourcesIcon from '../assets/humanResources.svg';
+import humanResourcesIcon from '../assets/icons/humanResources.svg';
 import NavigationMenu from '../components/NavigationMenu';
 import modules from '../modules.json';
 
@@ -17,31 +17,31 @@ const routes = [
     name: 'Human Resources',
     path: '/humanResources',
     icon: humanResourcesIcon,
-    description: modules.alertsIssued,
+    description: modules.humanResource,
   },
   {
     name: 'Materials',
     path: '/materials',
     icon: materialsIcon,
-    description: modules.alertsActions,
+    description: modules.material,
   },
   {
     name: 'Initiatives',
     path: '/initiatives',
     icon: initiativesIcon,
-    description: modules.alertsIssued,
+    description: modules.initiatives,
   },
   {
     name: 'Map',
     path: '/map',
     icon: mapIcon,
-    description: modules.stakeholdersFocalPeople,
+    description: modules.map,
   },
   {
     name: 'Agencies',
     path: '/agencies',
     icon: agenciesIcon,
-    description: modules.stakeholdersAgencies,
+    description: modules.agencies,
   },
   {
     name: 'Dashboards',

@@ -1,10 +1,8 @@
 import { LockOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Menu, Modal } from 'antd';
-import { signOut as logout } from '@codetanzania/ewea-api-states';
+import { Button, Dropdown, Menu } from 'antd';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
-import ChangePasswordForm from '../Auth/components/ChangePassword';
 import './styles.css';
 
 /**
@@ -20,24 +18,13 @@ import './styles.css';
  */
 const UserMenu = ({ history: { push } }) => {
   const [showChangePasswordForm, setShowChangePassword] = useState(false);
-  /**
-   * @function
-   * @name signOut
-   * @description signOut user from EWEA system
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  const signOut = () => {
-    logout();
-    push('/signin');
-  };
+
 
   const onClickMenu = ({ key }) => {
     if (key === 'changePassword') {
       setShowChangePassword(true);
     } else {
-      signOut();
+      // signOut();
     }
   };
 
@@ -59,17 +46,6 @@ const UserMenu = ({ history: { push } }) => {
       <Dropdown overlay={menu}>
         <Button className="UserButton" icon={<UserOutlined />} />
       </Dropdown>
-
-      <Modal
-        title="Change Password"
-        visible={showChangePasswordForm}
-        onCancel={() => setShowChangePassword(false)}
-        footer={null}
-        maskClosable={false}
-        destroyOnClose
-      >
-        <ChangePasswordForm onCancel={() => setShowChangePassword(false)} />
-      </Modal>
     </div>
   );
 };

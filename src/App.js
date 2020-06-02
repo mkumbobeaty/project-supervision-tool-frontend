@@ -8,9 +8,9 @@ import BaseLayout from './layouts/BaseLayout';
 const  App = () => {
   return (
     <div className="App">
-      <HashRouter>
+      <HashRouter  hashType="hashbang">
         <Switch>
-        <PrivateRoute path="/app" component={BaseLayout} />
+        <Route path="/app" component={BaseLayout} />
           <Route path="/signin" component={SignIn}></Route>
           <Redirect to="/app" />
         </Switch>

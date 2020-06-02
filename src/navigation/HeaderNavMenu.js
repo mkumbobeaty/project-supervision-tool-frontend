@@ -2,68 +2,8 @@ import { Col, Row } from 'antd';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import dashboardIcon from '../assets/icons/dashboards.svg';
-import settingsIcon from '../assets/icons/settings.svg';
-import agenciesIcon from '../assets/icons/agencies.svg';
-import focalPeopleIcon from '../assets/icons/focalpeople.svg';
-import eventsIcon from '../assets/icons/events.svg';
-// import actionsTakenIcon from '../assets/icons/actionstaken.svg';
-import actionCatalogueIcon from '../assets/icons/actioncatalog.svg';
-import caseManagementIcon from '../assets/icons/dashboards/case-management-disabled.svg';
-import resourceManagementIcon from '../assets/icons/dashboards/resource-management.svg';
-import vehicleDispatchIcon from '../assets/icons/dashboards/vehicle-dispatch-disabled.svg';
 import './styles.css';
 
-/* constants */
-const routes = [
-  {
-    name: 'Events',
-    path: '/app/events',
-    icon: eventsIcon,
-  },
-  {
-    name: 'Cases',
-    path: '/app/dashboards/casemanagement',
-    icon: caseManagementIcon,
-    disabled: true,
-  },
-  {
-    name: 'Vehicle Dispatches',
-    path: '/app/dashboards/vehicledispatch',
-    icon: vehicleDispatchIcon,
-    disabled: true,
-  },
-  {
-    name: 'Resources',
-    path: '/app/resources',
-    icon: resourceManagementIcon,
-  },
-  {
-    name: 'Action Catalogue',
-    path: '/app/actioncatalogue',
-    icon: actionCatalogueIcon,
-  },
-  {
-    name: 'Focal People',
-    path: '/app/focalpeople',
-    icon: focalPeopleIcon,
-  },
-  {
-    name: 'Agencies',
-    path: '/app/agencies',
-    icon: agenciesIcon,
-  },
-  {
-    name: 'Dashboards',
-    path: '/app/dashboards',
-    icon: dashboardIcon,
-  },
-  {
-    name: 'Settings',
-    path: '/app/settings',
-    icon: settingsIcon,
-  },
-];
 
 /**
  * @function
@@ -109,19 +49,10 @@ const NavItem = ({ name, icon, path, disabled }) => (
 const ModuleNavMenu = () => (
   <div className="ModuleNavMenu">
     <Row type="flex" align="middle">
-      {routes.map((route) => (
-        <Col key={route.path} span={12}>
-          <NavItem
-            name={route.name}
-            icon={route.icon}
-            path={route.disabled ? '#' : route.path}
-            disabled={route.disabled}
-          />
-        </Col>
-      ))}
     </Row>
   </div>
 );
+
 
 /* props validation */
 NavItem.propTypes = {
