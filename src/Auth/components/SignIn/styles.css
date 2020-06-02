@@ -8,10 +8,11 @@
   height: 80vh;
 }
 
-.SignIn img {
-  margin: 10px;
+.background {
+  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTfUCrGxh6DDfXlhx8aI1T4kJg8VBNms2MPk3J57LYveGCJi_lt&usqp=CAU") no-repeat;
+  background-size: cover;
+  min-height: 100vh;
 }
-
 .version-text {
   padding: 10px;
   float: right;
@@ -51,8 +52,3 @@
   padding-bottom: 40px;
 }
 
-.background {
-  background: url("https://lh3.googleusercontent.com/proxy/HUs7aDY-Ug7gi4EDNIOD5q0-Ey104d0MMs7xMUVXemx-VmiyZsBzif-V_zJ6pqJCO3dXGaqLFjK8jobyj3pnjX6SMmHevYPyM3a8wbNiVHEylIKgB2Ks4QYYxIUrqnN7SMrfeEuXxG3kVDify84YpL_VewXhm4CXg1hXvge_HivLsLLD") no-repeat;
-  background-size: cover;
-  min-height: 100vh;
-}

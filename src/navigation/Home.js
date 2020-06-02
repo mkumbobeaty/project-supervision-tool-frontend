@@ -12,12 +12,12 @@ import modules from '../modules.json';
 
 /* constants */
 const routes = [
- 
+
   {
-    name: 'Human Resources',
-    path: '/humanResources',
-    icon: humanResourcesIcon,
-    description: modules.humanResource,
+    name: 'Initiatives',
+    path: '/initiatives',
+    icon: initiativesIcon,
+    description: modules.initiatives,
   },
   {
     name: 'Materials',
@@ -26,16 +26,17 @@ const routes = [
     description: modules.material,
   },
   {
-    name: 'Initiatives',
-    path: '/initiatives',
-    icon: initiativesIcon,
-    description: modules.initiatives,
+    name: 'Human Resources',
+    path: '/humanResources',
+    icon: humanResourcesIcon,
+    description: modules.humanResource,
   },
+ 
   {
-    name: 'Map',
-    path: '/map',
-    icon: mapIcon,
-    description: modules.map,
+    name: 'Needs',
+    path: '/needs',
+    icon: needsIcon,
+    description: modules.stakeholdersAgencies,
   },
   {
     name: 'Agencies',
@@ -44,17 +45,18 @@ const routes = [
     description: modules.agencies,
   },
   {
+    name: 'Map',
+    path: '/map',
+    icon: mapIcon,
+    description: modules.map,
+  },
+  {
     name: 'Dashboards',
     path: '/dashboards',
     icon: dashboardIcon,
     description: modules.dashboards,
   },
-  {
-    name: 'Needs',
-    path: '/needs',
-    icon: needsIcon,
-    description: modules.stakeholdersAgencies,
-  },
+  
 ];
 
 /**

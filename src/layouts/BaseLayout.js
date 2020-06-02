@@ -1,57 +1,52 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { AppstoreOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Col, Layout, Popover, Row } from 'antd';
-import { Link, Switch, Route } from 'react-router-dom';
-import UserMenu from '../navigation/UserMenu';
-import PageNotFound from '../PageNotFound';
-import Home from '../navigation/Home';
-import PrivateRoute from '../Auth/PrivateRoute';
-import HeaderNavMenu from '../navigation/HeaderNavMenu';
-import Dashboards from '../Dashboards';
-import Needs from '../Needs';
-import Materials from '../Materials';
-import Agencies from '../Agencies';
-import Initiatives from '../Initiatives';
-import HumanResources from '../HumanResources';
-import './styles.css';
-
+import React from "react";
+import PropTypes from "prop-types";
+import { Breadcrumb, Col, Layout, Row } from "antd";
+import { Link, Switch, Route } from "react-router-dom";
+import UserMenu from "../navigation/UserMenu";
+import PageNotFound from "../PageNotFound";
+import Home from "../navigation/Home";
+import PrivateRoute from "../Auth/PrivateRoute";
+import Dashboards from "../Dashboards";
+import Needs from "../Needs";
+import Materials from "../Materials";
+import Agencies from "../Agencies";
+import Initiatives from "../Initiatives";
+import HumanResources from "../HumanResources";
+import "./styles.css";
 
 /* constants */
 const { Header, Content } = Layout;
 const breadcrumbNameMap = {
-  '/app': {
-    name: 'Home',
-    title: 'Early Warning, Early Action Menu',
+  "/app": {
+    name: "Home",
+    title: "Tukutane Menu",
   },
-  '/app/needs': {
-    name: 'Needs',
-    title: 'List of all needs',
+  "/app/needs": {
+    name: "Needs",
+    title: "List of all needs",
   },
-  '/app/materials': {
-    name: 'Materials',
-    title: 'List of all available materials',
+  "/app/materials": {
+    name: "Materials",
+    title: "List of all available materials",
   },
-  '/app/humanResources': {
-    name: 'Human Resources',
-    title: 'List of all human resources',
+  "/app/humanResources": {
+    name: "Human Resources",
+    title: "List of all human resources",
   },
 
-  '/app/initiatives': {
-    name: 'Initiatives',
-    title: 'List of all Initiatives',
+  "/app/initiatives": {
+    name: "Initiatives",
+    title: "List of all Initiatives",
   },
-  '/app/agencies': {
-    name: 'Agencies',
-    title: 'List of all agencies',
+  "/app/agencies": {
+    name: "Agencies",
+    title: "List of all agencies",
   },
   /* dashboards routes */
-  '/app/dashboards': {
-    name: 'Dashboards',
-    title: 'Dashboards',
+  "/app/dashboards": {
+    name: "Dashboards",
+    title: "Dashboards",
   },
-  
-
 };
 
 /**
@@ -67,12 +62,12 @@ const breadcrumbNameMap = {
  * @since 0.1.0
  */
 const BaseLayout = ({ location, match: { url: baseUrl } }) => {
-  const pathSnippets = location.pathname.split('/').filter((i) => i);
+  const pathSnippets = location.pathname.split("/").filter((i) => i);
   const lastPath = pathSnippets[pathSnippets.length - 1];
 
   // generate dynamic breadcrumb items
   const extraBreadcrumbItems = pathSnippets.map((_, index) => {
-    const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
+    const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
 
     if (breadcrumbNameMap[url]) {
       return (
@@ -107,23 +102,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           {/* breadcrumb section end */}
 
           <Col xxl={2} xl={2} lg={2} md={2} sm={4} xs={4}>
-            <Row type="flex" justify="end">
-              {/* control showing module navigation menu */}
-              {location.pathname !== '/' && (
-                <Col span={12}>
-                  <Popover
-                    placement="bottom"
-                    content={<HeaderNavMenu />}
-                    trigger="click"
-                  >
-                    <Button icon={<AppstoreOutlined />} />
-                  </Popover>
-                </Col>
-              )}
-              <Col span={12}>
-                  <UserMenu />
-              </Col>
-            </Row>
+            <UserMenu />
           </Col>
         </Row>
       </Header>
@@ -131,15 +110,8 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
         <Switch>
           <Route exact path={`${baseUrl}/`} component={Home} />
           <PrivateRoute path={`${baseUrl}/needs`} component={Needs} />
-
-          <PrivateRoute
-            path={`${baseUrl}/materials`}
-            component={Materials}
-          />
-          <PrivateRoute
-            path={`${baseUrl}/agencies`}
-            component={Agencies}
-          />
+          <PrivateRoute path={`${baseUrl}/materials`} component={Materials} />
+          <PrivateRoute path={`${baseUrl}/agencies`} component={Agencies} />
           <PrivateRoute
             path={`${baseUrl}/initiatives`}
             component={Initiatives}
