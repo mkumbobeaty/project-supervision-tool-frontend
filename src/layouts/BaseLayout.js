@@ -91,18 +91,24 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
 
   return (
     <Layout className="BaseLayout">
-      <Header className="BaseLayoutHeader">
+          <Header className="BaseLayoutHeader">
         <Row type="flex" align="middle">
           {/* breadcrumb section start */}
-          <Col xxl={22} xl={22} lg={22} md={22} sm={20} xs={20}>
+          <Col xxl={22} xl={22} lg={22} md={22} sm={20} xs={20} justify="start">
+          <Row type="flex"  justify="start">
             <Breadcrumb className="Breadcrumb" separator=">">
               {breadcrumbItems}
             </Breadcrumb>
+            </Row>
           </Col>
           {/* breadcrumb section end */}
 
           <Col xxl={2} xl={2} lg={2} md={2} sm={4} xs={4}>
-            <UserMenu />
+            <Row type="flex" justify="end">
+              <Col span={12}>
+                <UserMenu />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Header>
