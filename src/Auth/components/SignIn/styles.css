@@ -1,4 +1,6 @@
-.SignIn {
+.SignIn {}
+
+.SignInForm {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,11 +16,43 @@
   padding: 10px;
   float: right;
 }
+
 .signIn-form-button {
   width: 100%;
 }
 
 /* override antd css*/
+
 .SignIn .ant-form {
-  width: 300px;
+  width: 400px;
+}
+
+.Logo h1 {
+  color: #57addd;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 40px;
+  margin-bottom: 0;
+}
+
+.Logo span {
+  text-transform: uppercase;
+  color: #7c7c7c;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.SignIn h5 {
+  text-transform: uppercase;
+  color: #7c7c7c;
+  font-size: 18px;
+  font-weight: 600;
+  padding-top: 70px;
+  padding-bottom: 40px;
+}
+
+.background {
+  background: url("https://lh3.googleusercontent.com/proxy/HUs7aDY-Ug7gi4EDNIOD5q0-Ey104d0MMs7xMUVXemx-VmiyZsBzif-V_zJ6pqJCO3dXGaqLFjK8jobyj3pnjX6SMmHevYPyM3a8wbNiVHEylIKgB2Ks4QYYxIUrqnN7SMrfeEuXxG3kVDify84YpL_VewXhm4CXg1hXvge_HivLsLLD") no-repeat;
+  background-size: cover;
+  min-height: 100vh;
 }
