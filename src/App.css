@@ -1,4 +1,13 @@
 @import '~antd/dist/antd.css';
+@font-face {
+  font-family: 'Lato';
+  src: url('./assets/fonts/Lato/Lato-Regular.ttf') format('truetype'),
+    url('./assets/fonts/Lato/Lato-Bold.ttf') format('truetype'),
+    url('./assets/fonts/Lato/Lato-BoldItalic.ttf') format('truetype'),
+    url('./assets/fonts/Lato/Lato-BlackItalic.ttf') format('truetype'),
+    url('./assets/fonts/Lato/Lato-Black.ttf') format('truetype'),
+    url('./assets/fonts/Lato/Lato-Italic.ttf') format('truetype');
+}
 .App {
   text-align: center;
   padding: 0 60px;

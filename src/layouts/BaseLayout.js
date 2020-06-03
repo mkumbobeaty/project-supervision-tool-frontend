@@ -8,10 +8,7 @@ import Home from "../navigation/Home";
 import PrivateRoute from "../Auth/PrivateRoute";
 import Dashboards from "../Dashboards";
 import Needs from "../Needs";
-import Materials from "../Materials";
-import Agencies from "../Agencies";
-import Initiatives from "../Initiatives";
-import HumanResources from "../HumanResources";
+import Resources from "../Resources";
 import "./styles.css";
 
 /* constants */
@@ -19,28 +16,20 @@ const { Header, Content } = Layout;
 const breadcrumbNameMap = {
   "/app": {
     name: "Home",
-    title: "Tukutane Menu",
+    title: "Pamoja Menu",
   },
   "/app/needs": {
     name: "Needs",
-    title: "List of all needs",
-  },
-  "/app/materials": {
-    name: "Materials",
-    title: "List of all available materials",
-  },
-  "/app/humanResources": {
-    name: "Human Resources",
-    title: "List of all human resources",
+    title: "Needs module",
   },
 
-  "/app/initiatives": {
-    name: "Initiatives",
-    title: "List of all Initiatives",
+  "/app/resources": {
+    name: "Resources",
+    title: "Resources Module",
   },
-  "/app/agencies": {
-    name: "Agencies",
-    title: "List of all agencies",
+  "/app/settings": {
+    name: "Settings",
+    title: "Settings module",
   },
   /* dashboards routes */
   "/app/dashboards": {
@@ -116,18 +105,12 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
         <Switch>
           <Route exact path={`${baseUrl}/`} component={Home} />
           <PrivateRoute path={`${baseUrl}/needs`} component={Needs} />
-          <PrivateRoute path={`${baseUrl}/materials`} component={Materials} />
-          <PrivateRoute path={`${baseUrl}/agencies`} component={Agencies} />
-          <PrivateRoute
-            path={`${baseUrl}/initiatives`}
-            component={Initiatives}
-          />
-          <PrivateRoute
+          <PrivateRoute path={`${baseUrl}/map`} component={Map} />
+          <Route
             exact
-            path={`${baseUrl}/humanResources`}
-            component={HumanResources}
+            path={`${baseUrl}/resources`}
+            component={Resources}
           />
-
           {/* Dashboard routes */}
           <PrivateRoute
             exact
