@@ -7,9 +7,17 @@ import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
 import PrivateRoute from "../Auth/PrivateRoute";
 import Dashboards from "../Dashboards";
-import Needs from "../Needs";
-import Resources from "../Resources";
 import "./styles.css";
+import ResourceNavMenu from "../navigation/Resources";
+import Donations from "../Resources/Donations";
+import Initiatives from "../Resources/Initiatives";
+import KnowledgeResources from "../Resources/KnowledgeResources";
+import HumanResources from "../Resources";
+import ProductionCapacity from "../Resources/ProductionCapacity";
+import NeedsNavMenu from "../navigation/Needs";
+import NeedsByGovernment from "../Needs/NeedByGovernment";
+import NeedsCovid from "../Needs/NeedsCovid";
+import NeedsAssessment from "../Needs/NeedsAssessments";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -18,14 +26,51 @@ const breadcrumbNameMap = {
     name: "Home",
     title: "Pamoja Menu",
   },
+  /* needs routes */
   "/app/needs": {
     name: "Needs",
     title: "Needs module",
   },
-
+  "/app/needsassessment": {
+    name: "'Needs assessment report",
+    title: "List of all assessment report",
+  },
+  "/app/needscovid": {
+    name: "Needs of covid response partner",
+    title: "List of all need covid response partner",
+  },
+  "/app/needsbygovernment": {
+    name: "Needs identified by government",
+    title: "List af all needs identified by government",
+  },
+  /* resources routes */
   "/app/resources": {
     name: "Resources",
     title: "Resources Module",
+  },
+  "/app/resources/initiatives": {
+    name: "Initiatives",
+    title: "List of all initiatives",
+  },
+  "/app/resources/donations": {
+    name: "In kind donations",
+    title: "List of all In kind donations",
+  },
+  "/app/resources/knowledgeresources": {
+    name: "Knowledge Resources",
+    title: "List of all Knowledge Resources",
+  },
+  "/app/resources/financialresources": {
+    name: "Financial Resources",
+    title: "List of all Knowledge Resources",
+  },
+  "/app/resources/humanresources": {
+    name: "Human Resources",
+    title: "List of all Human Resources",
+  },
+  "/app/resources/productioncapacity": {
+    name: "Production Capacity",
+    title: "List of all Production Capacity",
   },
   "/app/settings": {
     name: "Settings",
@@ -80,14 +125,14 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
 
   return (
     <Layout className="BaseLayout">
-          <Header className="BaseLayoutHeader">
+      <Header className="BaseLayoutHeader">
         <Row type="flex" align="middle">
           {/* breadcrumb section start */}
           <Col xxl={22} xl={22} lg={22} md={22} sm={20} xs={20} justify="start">
-          <Row type="flex"  justify="start">
-            <Breadcrumb className="Breadcrumb" separator=">">
-              {breadcrumbItems}
-            </Breadcrumb>
+            <Row type="flex" justify="start">
+              <Breadcrumb className="Breadcrumb" separator=">">
+                {breadcrumbItems}
+              </Breadcrumb>
             </Row>
           </Col>
           {/* breadcrumb section end */}
@@ -104,20 +149,51 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
       <Content className="BaseLayoutContent">
         <Switch>
           <Route exact path={`${baseUrl}/`} component={Home} />
-          <PrivateRoute path={`${baseUrl}/needs`} component={Needs} />
-          <PrivateRoute path={`${baseUrl}/map`} component={Map} />
+          {/* needs routes */}
+          <Route path={`${baseUrl}/needs`} component={NeedsNavMenu} />
+          <Route
+            path={`${baseUrl}/needsbygovernment`}
+            component={NeedsByGovernment}
+          />
+          <Route path={`${baseUrl}/needscovid`} component={NeedsCovid} />
+          <Route
+            path={`${baseUrl}/needsassessment`}
+            component={NeedsAssessment}
+          />
+          {/* Resources routes */}
           <Route
             exact
             path={`${baseUrl}/resources`}
-            component={Resources}
+            component={ResourceNavMenu}
           />
+          <Route exact path={`${baseUrl}/donation`} component={Donations} />{" "}
+          <Route
+            exact
+            path={`${baseUrl}/initiatives`}
+            component={Initiatives}
+          />{" "}
+          <Route
+            exact
+            path={`${baseUrl}/knowledgeresources`}
+            component={KnowledgeResources}
+          />{" "}
+          <Route
+            exact
+            path={`${baseUrl}/humanresources`}
+            component={HumanResources}
+          />{" "}
+          <Route
+            exact
+            path={`${baseUrl}/productioncapacity`}
+            component={ProductionCapacity}
+          />
+          <PrivateRoute path={`${baseUrl}/map`} component={Map} />
           {/* Dashboard routes */}
           <PrivateRoute
             exact
             path={`${baseUrl}/dashboards`}
             component={Dashboards}
           />
-
           <PrivateRoute component={PageNotFound} />
         </Switch>
       </Content>

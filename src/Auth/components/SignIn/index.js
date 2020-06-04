@@ -23,7 +23,7 @@ const SignIn = ({ loading, history }) => {
         </Col>
         <Col span={10} className="SignInForm" >
           <div className="Logo">
-            <h1>Tukutane</h1>
+            <h1>Pamoja</h1>
             <span>A platform for matching needs and resources</span>
             <h5>Please Login to your account</h5>
           </div>
