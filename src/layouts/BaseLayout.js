@@ -7,7 +7,6 @@ import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
 import PrivateRoute from "../Auth/PrivateRoute";
 import Dashboards from "../Dashboards";
-import "./styles.css";
 import ResourceNavMenu from "../navigation/Resources";
 import Donations from "../Resources/Donations";
 import Initiatives from "../Resources/Initiatives";
@@ -18,6 +17,7 @@ import NeedsNavMenu from "../navigation/Needs";
 import NeedsByGovernment from "../Needs/NeedByGovernment";
 import NeedsCovid from "../Needs/NeedsCovid";
 import NeedsAssessment from "../Needs/NeedsAssessments";
+import "./styles.css";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -31,15 +31,15 @@ const breadcrumbNameMap = {
     name: "Needs",
     title: "Needs module",
   },
-  "/app/needsassessment": {
-    name: "'Needs assessment report",
+  "/app/needs/needsassessment": {
+    name: "Needs assessment report",
     title: "List of all assessment report",
   },
-  "/app/needscovid": {
+  "/app/needs/needscovid": {
     name: "Needs of covid response partner",
     title: "List of all need covid response partner",
   },
-  "/app/needsbygovernment": {
+  "/app/needs/needsbygovernment": {
     name: "Needs identified by government",
     title: "List af all needs identified by government",
   },
