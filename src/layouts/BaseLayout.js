@@ -166,25 +166,25 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             path={`${baseUrl}/resources`}
             component={ResourceNavMenu}
           />
-          <Route exact path={`${baseUrl}/donation`} component={Donations} />{" "}
+          <Route exact path={`${baseUrl}/resources/donation`} component={Donations} />{" "}
           <Route
             exact
-            path={`${baseUrl}/initiatives`}
+            path={`${baseUrl}/resources/resourcesinitiatives`}
             component={Initiatives}
           />{" "}
           <Route
             exact
-            path={`${baseUrl}/knowledgeresources`}
+            path={`${baseUrl}/resources/knowledgeresources`}
             component={KnowledgeResources}
           />{" "}
           <Route
             exact
-            path={`${baseUrl}/humanresources`}
+            path={`${baseUrl}/resources/humanresources`}
             component={HumanResources}
           />{" "}
           <Route
             exact
-            path={`${baseUrl}/productioncapacity`}
+            path={`${baseUrl}/resources/productioncapacity`}
             component={ProductionCapacity}
           />
           <PrivateRoute path={`${baseUrl}/map`} component={Map} />
