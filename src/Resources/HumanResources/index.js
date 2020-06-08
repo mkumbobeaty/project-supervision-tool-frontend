@@ -4,11 +4,11 @@ import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import Topbar from "../../components/Topbar";
-import ItemList from "../../components/List";
+import HumanResourcesList from "../../components/List";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import {
-  generateEventActionCatalogueVCard,
+  generateHumanResourceVCard,
   joinArrayOfObjectToString,
   notifyError,
   notifySuccess,
@@ -17,18 +17,16 @@ import {
 import "./styles.css";
 
 /* constants */
-const eventTypeSpan = { xxl: 3, xl: 3, lg: 3, md: 3, sm: 4, xs: 6 };
-const eventFunctionSpan = { xxl: 4, xl: 4, lg: 3, md: 0, sm: 0, xs: 0 };
-const actionSpan = { xxl: 6, xl: 6, lg: 7, md: 7, sm: 8, xs: 12 };
-const rolesSpan = { xxl: 5, xl: 5, lg: 5, md: 6, sm: 8, xs: 0 };
-const groupsSpan = { xxl: 4, xl: 4, lg: 4, md: 5, sm: 0, xs: 0 };
+const TypeSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
+const numberSpan = { xxl: 5, xl: 6, lg: 5, md: 0, sm: 0, xs: 0 };
+const partnerSpan = { xxl: 7, xl: 7, lg: 7, md: 9, sm: 8, xs: 12 };
+const locationSpan = { xxl: 7, xl: 7, lg: 7, md: 7, sm: 8, xs: 0 };
 
 const headerLayout = [
-  { ...eventTypeSpan, header: "Event Type" },
-  { ...eventFunctionSpan, header: "Function" },
-  { ...actionSpan, header: "Action" },
-  { ...rolesSpan, header: "Roles" },
-  { ...groupsSpan, header: "Groups" },
+  { ...TypeSpan, header: "Type" },
+  { ...numberSpan, header: "Number" },
+  { ...partnerSpan, header: "Implementing Partner" },
+  { ...locationSpan, header: "Location" },
 ];
 
 const { confirm } = Modal;
@@ -36,7 +34,7 @@ const { confirm } = Modal;
 /**
  * @class
  * @name HumanResources
- * @description Render actions list which have search box, actions and Event Action Catalogue list
+ * @description Render actions list which have search box, actions and Event Human Resources list
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -45,6 +43,7 @@ class HumanResources extends Component {
   // eslint-disable-next-line react/state-in-constructor
   state = {
     showFilters: false,
+    showShare:false,
     isEditForm: false,
     notificationSubject: undefined,
     notificationBody: undefined,
@@ -52,7 +51,7 @@ class HumanResources extends Component {
   };
 
   componentDidMount() {
-    // getEventActionCatalogues();
+    // getHumanResourcess();
   }
 
   /**
@@ -111,30 +110,30 @@ class HumanResources extends Component {
 
   /**
    * @function
-   * @name openEventActionCatalogueForm
-   * @description Open Event Action Catalogue form
+   * @name openHumanResourceForm
+   * @description Open Event Human Resources form
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-  openEventActionCatalogueForm = () => {
+  openHumanResourceForm = () => {
   };
 
   /**
    * @function
-   * @name openEventActionCatalogueForm
-   * @description close Event Action Catalogue form
+   * @name closeHumanResourceForm
+   * @description close Event Human Resources form
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-  closeEventActionCatalogueForm = () => {
+  closeHumanResourcesForm = () => {
     this.setState({ isEditForm: false });
   };
 
   /**
    * @function
-   * @name searchEventActionCatalogues
+   * @name searchHumanResources
    * @description Search Event Human Resources List based on supplied filter word
    *
    * @param {object} event - Event instance
@@ -142,7 +141,7 @@ class HumanResources extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  searchEventActionCatalogues = (event) => {
+  searchHumanResources = (event) => {
   };
 
   /**
@@ -150,47 +149,13 @@ class HumanResources extends Component {
    * @name handleEdit
    * @description Handle on Edit action for list item
    *
-   * @param {object} eventActionCatalogue Event Action Catalogue to be edited
+   * @param {object} HumanResources Event Action Catalogue to be edited
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-  handleEdit = (eventActionCatalogue) => {
+  handleEdit = (HumanResources) => {
     this.setState({ isEditForm: true });
-  };
-
-  /**
-   * @function
-   * @name handleShare
-   * @description Handle share single EventActionCatalogue action
-   *
-   * @param {object| object[]} eventActionCatalogues EventActionCatalogue to be shared
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  handleShare = (eventActionCatalogues) => {
-    let message;
-    let subject;
-    if (isArray(eventActionCatalogues)) {
-      const eventActionCataloguesList = eventActionCatalogues.map(
-        (eventActionCatalogue) =>
-          generateEventActionCatalogueVCard(eventActionCatalogue).body
-      );
-      subject = "Action Catalogue details";
-      message = eventActionCataloguesList.join("\n\n\n");
-    } else {
-      const { body, subject: title } = generateEventActionCatalogueVCard(
-        eventActionCatalogues
-      );
-      subject = title;
-      message = body;
-    }
-
-    this.setState({
-      notificationSubject: subject,
-      notificationBody: message,
-    });
   };
 
   /**
@@ -207,14 +172,14 @@ class HumanResources extends Component {
 
   /**
    * @function
-   * @name handleRefreshEventActionCatalogues
+   * @name handleRefreshHumanResourcess
    * @description Handle list refresh action
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-  handleRefreshEventActionCatalogues = () => {
-    // refreshEventActionCatalogues(
+  handleRefreshHumanResourcess = () => {
+    // refreshHumanResourcess(
     //   () => {
     //     notifySuccess("Event Human Resources refreshed successfully");
     //   },
@@ -226,10 +191,14 @@ class HumanResources extends Component {
     // );
   };
 
+  paginateHumanResources(e) {
+console.log(e) 
+ }
+
   /**
    * @function
    * @name showArchiveConfirm
-   * @description show confirm modal before archiving a Event Action Catalogue
+   * @description show confirm modal before archiving a Event Human Resources
    * @param {object} item Resource item to be archived
    *
    * @version 0.1.0
@@ -242,12 +211,12 @@ class HumanResources extends Component {
       okType: "danger",
       cancelText: "No",
       onOk() {
-        // deleteEventActionCatalogue(
+        // deleteHumanResources(
         //   item._id, // eslint-disable-line
-        //   () => notifySuccess(" Action Catalogue was archived successfully"),
+        //   () => notifySuccess(" Human Resources was archived successfully"),
         //   () =>
         //     notifyError(
-        //       "An error occurred while archiving Action Catalogue, Please contact your system Administrator"
+        //       "An error occurred while archiving Human Resources, Please contact your system Administrator"
         //     )
         // );
       },
@@ -256,7 +225,7 @@ class HumanResources extends Component {
 
   render() {
     const {
-      eventActionCatalogues,
+      HumanResourcess,
       loading,
       page,
       showForm,
@@ -274,7 +243,7 @@ class HumanResources extends Component {
           search={{
             size: "large",
             placeholder: "Search for Human Resources here ...",
-            onChange: this.searchEventActionCatalogues,
+            onChange: this.searchHumanResources,
             value: searchQuery,
           }}
           actions={[
@@ -283,30 +252,30 @@ class HumanResources extends Component {
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New Human Resources",
-              onClick: this.openEventActionCatalogueForm,
+              onClick: this.openHumanResourcesForm,
             },
           ]}
         />
         {/* end Topbar */}
 
         {/* list starts */}
-        <ItemList
+        <HumanResourcesList
           itemName="Human Resources"
-          items={eventActionCatalogues}
+          items={HumanResourcess}
           page={page}
           itemCount={total}
           loading={loading}
           onFilter={this.openFiltersModal}
-          onShare={this.handleShare}
-          onRefresh={this.handleRefreshEventActionCatalogues}
-          onPaginate={(nextPage) => this.showArchiveConfirm(nextPage)}
+          onRefresh={this.handleRefreshEvents}
+          onPaginate={(nextPage) => this.paginateHumanResources(nextPage)}
+          // generateExportUrl={"testing"}
           headerLayout={headerLayout}
           renderListItem={({
             item,
             isSelected,
             onSelectItem,
             onDeselectItem,
-          }) => (
+          }) =>  (
             <ListItem
               key={item._id} // eslint-disable-line
               name={item.strings.name.en}
@@ -336,22 +305,19 @@ class HumanResources extends Component {
               )}
             >
               {/* eslint-disable react/jsx-props-no-spreading */}
-              <Col {...eventTypeSpan}>
+              <Col {...TypeSpan}>
                 {item.relations.type
                   ? item.relations.type.strings.name.en
                   : "All"}
               </Col>
-              <Col {...eventFunctionSpan}>
+              <Col {...numberSpan}>
                 {item.relations.function.strings.name.en}
               </Col>
-              <Col {...actionSpan} title={item.strings.name.en}>
+              <Col {...partnerSpan} title={item.strings.name.en}>
                 {truncateString(item.strings.name.en, 50)}
               </Col>
-              <Col {...rolesSpan}>
+              <Col {...locationSpan}>
                 {joinArrayOfObjectToString(item.relations.roles) || "N/A"}
-              </Col>
-              <Col {...groupsSpan}>
-                {joinArrayOfObjectToString(item.relations.groups) || "N/A"}
               </Col>
               {/* eslint-enable react/jsx-props-no-spreading */}
             </ListItem>
@@ -369,7 +335,7 @@ class HumanResources extends Component {
           maskClosable={false}
           className="FormModal"
         >
-          {/* <EventActionCatalogueFilters
+          {/* <HumanResourcesFilters
             onCancel={this.closeFiltersModal}
             cached={cached}
             onCache={this.handleOnCachedValues}
@@ -383,16 +349,16 @@ class HumanResources extends Component {
           visible={showForm}
           className="FormModal"
           footer={null}
-          onCancel={this.closeEventActionCatalogueForm}
+          onCancel={this.closeHumanResourcesForm}
           destroyOnClose
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
         >
-          {/* <EventActionCatalogueForm
+          {/* <HumanResourcesForm
             posting={posting}
             isEditForm={isEditForm}
-            eventActionCatalogue={eventActionCatalogue}
-            onCancel={this.closeEventActionCatalogueForm}
+            HumanResources={HumanResources}
+            onCancel={this.closeHumanResourcesForm}
           /> */}
         </Modal>
         {/* end create/edit form modal */}
@@ -404,10 +370,10 @@ class HumanResources extends Component {
 HumanResources.propTypes = {
   loading: PropTypes.bool.isRequired,
   posting: PropTypes.bool.isRequired,
-  eventActionCatalogues: PropTypes.arrayOf(
+  HumanResourcess: PropTypes.arrayOf(
     PropTypes.shape({ name: PropTypes.string })
   ).isRequired,
-  eventActionCatalogue: PropTypes.shape({ name: PropTypes.string }),
+  HumanResources: PropTypes.shape({ name: PropTypes.string }),
   page: PropTypes.number.isRequired,
   showForm: PropTypes.bool.isRequired,
   searchQuery: PropTypes.string,
@@ -415,7 +381,7 @@ HumanResources.propTypes = {
 };
 
 HumanResources.defaultProps = {
-  eventActionCatalogue: null,
+  HumanResources: null,
   searchQuery: undefined,
 };
 

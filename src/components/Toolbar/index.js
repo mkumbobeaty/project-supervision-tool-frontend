@@ -1,18 +1,9 @@
-import {
-  CloudDownloadOutlined,
-  FilterOutlined,
-  HddOutlined,
-  MailOutlined,
-  ReloadOutlined,
-  ShareAltOutlined,
-} from '@ant-design/icons';
-
-import { Button, Col, Pagination, Row } from 'antd';
-import { pluralize, singularize } from 'inflection';
-import startCase from 'lodash/startCase';
-import PropTypes from 'prop-types';
-import React from 'react';
-import './styles.css';
+import { Button, Col, Pagination, Row } from "antd";
+import { pluralize, singularize } from "inflection";
+import startCase from "lodash/startCase";
+import PropTypes from "prop-types";
+import React from "react";
+import "./styles.css";
 
 /**
  * @function
@@ -58,63 +49,78 @@ const Toolbar = ({
         <Row>
           {/* refresh  action */}
           {onRefresh && (
-            <Col xxl={2} xl={2} lg={3} md={4} sm={6} xs={6}>
+            <Col xxl={2} xl={3} lg={6} md={6} sm={6} xs={6}>
               <Button
-                shape="circle"
-                icon={<ReloadOutlined />}
                 title="Refresh "
                 className="actionButton"
                 size="large"
                 onClick={onRefresh}
-              />
+              >
+                Refresh
+              </Button>
             </Col>
           )}
           {/* end refresh  action */}
 
-          {/* notify action */}
-          {onNotify && (
-            <Col xxl={2} xl={2} lg={3} md={4} sm={6} xs={6}>
-              <Button
-                type="circle"
-                icon={<MailOutlined />}
-                title={`Send Notification to${
-                  selectedItemsCount > 0 ? 'selected' : ''
-                } `}
-                className="actionButton"
-                size="large"
-                onClick={onNotify}
-              />
-            </Col>
-          )}
-          {/* end notify action  */}
-
           {/* export action */}
           {exportUrl && (
-            <Col xxl={2} xl={2} lg={3} md={4} sm={6} xs={6}>
+            <Col xxl={3} xl={3} lg={3} md={4} sm={6} xs={6}>
               <a href={exportUrl} download>
                 <Button
-                  type="circle"
-                  icon={<CloudDownloadOutlined />}
                   title="Export Data"
                   className="actionButton"
                   size="large"
-                />
+                >
+                  Export
+                </Button>
               </a>
             </Col>
           )}
           {/* end export action */}
 
+          {/* filter action */}
+          {onFilter && (
+            <Col xxl={3} xl={3} lg={4} md={4} sm={0} xs={0} >
+              <Button
+                title="Filter"
+                className="actionButton"
+                size="large"
+                onClick={onFilter}
+              >
+                Filter
+              </Button>
+            </Col>
+          )}
+          {/* end filter action */}
+
+          {/* notify action */}
+          {onNotify && (
+            <Col xxl={3} xl={3} lg={3} md={4} sm={6} xs={6}>
+              <Button
+                title={`Send Notification to${
+                  selectedItemsCount > 0 ? "selected" : ""
+                } `}
+                className="actionButton"
+                size="large"
+                onClick={onNotify}
+              >
+                Notify
+              </Button>
+            </Col>
+          )}
+          {/* end notify action  */}
+
           {/* bulk share action */}
           {selectedItemsCount > 0 && onShare && (
             <Col xxl={2} xl={2} lg={3} md={4} sm={6} xs={6}>
               <Button
-                type="circle"
-                icon={<ShareAltOutlined />}
                 title="Share selected "
                 className="actionButton"
                 size="large"
                 onClick={onShare}
-              />
+              >
+                Share
+              </Button>
             </Col>
           )}
           {/* end bulk share action */}
@@ -123,13 +129,13 @@ const Toolbar = ({
           {selectedItemsCount > 0 && onArchive && (
             <Col xxl={1} xl={1} lg={1} md={4} sm={6} xs={6}>
               <Button
-                type="circle"
-                icon={<HddOutlined />}
                 title="Archive selected "
                 className="actionButton"
                 size="large"
                 onClick={onArchive}
-              />
+              >
+                Archive
+              </Button>
             </Col>
           )}
           {/* end bulk archive action */}
@@ -144,11 +150,11 @@ const Toolbar = ({
           <Col xxl={10} xl={12} lg={13} md={12} sm={0} xs={0}>
             {selectedItemsCount > 0 && (
               <span
-                style={{ color: '#959595' }}
+                style={{ color: "#959595" }}
               >{`selected ${selectedItemsCount} out of `}</span>
             )}
             <span
-              style={{ color: '#959595', fontSize: 15, fontWeight: 600 }}
+              style={{ color: "#959595", fontSize: 15, fontWeight: 600 }}
             >{`${total} ${
               total > 1
                 ? startCase(pluralize(itemName))
@@ -156,21 +162,6 @@ const Toolbar = ({
             }`}</span>
           </Col>
           {/* end selected and  number summary */}
-
-          {/* filter action */}
-          {onFilter && (
-            <Col xxl={2} xl={2} lg={2} md={3} sm={0} xs={0}>
-              <Button
-                type="circle"
-                icon={<FilterOutlined />}
-                title="Filter"
-                className="actionButton"
-                size="large"
-                onClick={onFilter}
-              />
-            </Col>
-          )}
-          {/* end filter action */}
 
           {/* pagination */}
           {onPaginate && total > 0 && (

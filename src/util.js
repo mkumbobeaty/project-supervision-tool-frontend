@@ -230,56 +230,36 @@ export const generateAgencyVCard = (agency) => {
 
 /**
  * @function
- * @name generateEventActionCatalogueVCard
- * @param {object} eventActionCatalogue Event Action Catalogue object for V-Card generation
+ * @name generateHumanResourceVCard
+ * @param {object} humanResources Event Action Catalogue object for V-Card generation
  * @returns {object} Formatted Focal person details to be shared
  * @version 0.1.0
  * @since 0.1.0
  */
-export const generateEventActionCatalogueVCard = (eventActionCatalogue) => {
-  const subject = `Action Catalogue details for ${eventActionCatalogue.strings.name.en}`;
-  const body = `Name: ${eventActionCatalogue.strings.name.en}\nEvent: ${get(
-    eventActionCatalogue,
+export const generateHumanResourceVCard = (humanResources) => {
+  const subject = `Action Catalogue details for ${humanResources.strings.name.en}`;
+  const body = `Name: ${humanResources.strings.name.en}\nEvent: ${get(
+    humanResources,
     'relations.type.strings.name.en',
     'All'
   )}\nFunction: ${get(
-    eventActionCatalogue,
+    humanResources,
     'relations.function.strings.name.en',
     'N/A'
   )}\nAction: ${get(
-    eventActionCatalogue,
+    humanResources,
     'relations.action.strings.name.en',
     'All'
   )}\nRoles: ${joinArrayOfObjectToString(
-    eventActionCatalogue.relations.roles
+    humanResources.relations.roles
   )}\nGroups: ${joinArrayOfObjectToString(
-    eventActionCatalogue.relations.groups
+    humanResources.relations.groups
   )}\nArea: ${get(
-    eventActionCatalogue,
+    humanResources,
     'relations.area.strings.name.en',
     'N/A'
   )}
   `;
 
-  return { subject, body };
-};
-
-/**
- * @function
- * @name generateVehicleDispatchShareableDetails
- * @param {object} vehicleDispatch Vehicle dispatch object for V-Card generation
- * @returns {object} Formatted Focal person details to be shared
- * @version 0.1.0
- * @since 0.1.0
- */
-export const generateVehicleDispatchShareableDetails = (vehicleDispatch) => {
-  const subject = `Vehicle dispatch details for ${vehicleDispatch.number}`;
-  const body = `Number: ${vehicleDispatch.number}\nDispatcher: ${get(
-    vehicleDispatch,
-    'dispatcher.party.name',
-    'N/A'
-  )}\nRequested Date: ${moment(vehicleDispatch.createdAt).format(
-    'YYYY-MM-DD HH:mm:ss'
-  )}`;
   return { subject, body };
 };
