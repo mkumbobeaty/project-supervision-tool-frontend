@@ -11,7 +11,7 @@ import ResourceNavMenu from "../navigation/Resources";
 import Donations from "../Resources/Donations";
 import Initiatives from "../Resources/Initiatives";
 import KnowledgeResources from "../Resources/KnowledgeResources";
-import HumanResources from "../Resources";
+import HumanResources from "../Resources/HumanResources";
 import ProductionCapacity from "../Resources/ProductionCapacity";
 import NeedsNavMenu from "../navigation/Needs";
 import NeedsByGovernment from "../Needs/NeedByGovernment";
