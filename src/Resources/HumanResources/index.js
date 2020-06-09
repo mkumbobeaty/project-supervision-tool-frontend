@@ -15,6 +15,9 @@ import {
   truncateString,
 } from "../../util";
 import "./styles.css";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { getHumanResources } from "../../common/actions";
 
 /* constants */
 const TypeSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
@@ -43,7 +46,7 @@ class HumanResources extends Component {
   // eslint-disable-next-line react/state-in-constructor
   state = {
     showFilters: false,
-    showShare:false,
+    showShare: false,
     isEditForm: false,
     notificationSubject: undefined,
     notificationBody: undefined,
@@ -51,7 +54,8 @@ class HumanResources extends Component {
   };
 
   componentDidMount() {
-    // getHumanResourcess();
+    const { getHumanResources } = this.props;
+    getHumanResources();
   }
 
   /**
@@ -116,8 +120,7 @@ class HumanResources extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  openHumanResourceForm = () => {
-  };
+  openHumanResourceForm = () => {};
 
   /**
    * @function
@@ -141,8 +144,7 @@ class HumanResources extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  searchHumanResources = (event) => {
-  };
+  searchHumanResources = (event) => {};
 
   /**
    * @function
@@ -172,14 +174,14 @@ class HumanResources extends Component {
 
   /**
    * @function
-   * @name handleRefreshHumanResourcess
+   * @name handleRefreshHumanResources
    * @description Handle list refresh action
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-  handleRefreshHumanResourcess = () => {
-    // refreshHumanResourcess(
+  handleRefreshHumanResources = () => {
+    // refreshHumanResources(
     //   () => {
     //     notifySuccess("Event Human Resources refreshed successfully");
     //   },
@@ -191,9 +193,9 @@ class HumanResources extends Component {
     // );
   };
 
-  paginateHumanResources(e) {
-console.log(e) 
- }
+  paginateHumanResources = (e) => {
+    console.log(e);
+  };
 
   /**
    * @function
@@ -225,17 +227,14 @@ console.log(e)
 
   render() {
     const {
-      HumanResourcess,
+      HumanResources,
       loading,
       page,
       showForm,
       searchQuery,
       total,
     } = this.props;
-    const {
-      showFilters,
-      isEditForm,
-    } = this.state;
+    const { showFilters, isEditForm } = this.state;
     return (
       <>
         {/* Topbar */}
@@ -261,7 +260,7 @@ console.log(e)
         {/* list starts */}
         <HumanResourcesList
           itemName="Human Resources"
-          items={HumanResourcess}
+          items={HumanResources}
           page={page}
           itemCount={total}
           loading={loading}
@@ -275,10 +274,10 @@ console.log(e)
             isSelected,
             onSelectItem,
             onDeselectItem,
-          }) =>  (
+          }) => (
             <ListItem
-              key={item._id} // eslint-disable-line
-              name={item.strings.name.en}
+              key={item.id} // eslint-disable-line
+              name={item.name}
               item={item}
               isSelected={isSelected}
               onSelectItem={onSelectItem}
@@ -305,20 +304,10 @@ console.log(e)
               )}
             >
               {/* eslint-disable react/jsx-props-no-spreading */}
-              <Col {...TypeSpan}>
-                {item.relations.type
-                  ? item.relations.type.strings.name.en
-                  : "All"}
-              </Col>
-              <Col {...numberSpan}>
-                {item.relations.function.strings.name.en}
-              </Col>
-              <Col {...partnerSpan} title={item.strings.name.en}>
-                {truncateString(item.strings.name.en, 50)}
-              </Col>
-              <Col {...locationSpan}>
-                {joinArrayOfObjectToString(item.relations.roles) || "N/A"}
-              </Col>
+              <Col {...TypeSpan}>{item.name ? item.name : "All"}</Col>
+              <Col {...numberSpan}>{item.year}</Col>
+              <Col {...partnerSpan}>{item.pantone_value}</Col>
+              <Col {...locationSpan}>{item.color}</Col>
               {/* eslint-enable react/jsx-props-no-spreading */}
             </ListItem>
           )}
@@ -345,7 +334,9 @@ console.log(e)
         {/* end filter modal */}
 
         <Modal
-          title={isEditForm ? "Edit Human Resources" : "Add New Human Resources"}
+          title={
+            isEditForm ? "Edit Human Resources" : "Add New Human Resources"
+          }
           visible={showForm}
           className="FormModal"
           footer={null}
@@ -370,9 +361,8 @@ console.log(e)
 HumanResources.propTypes = {
   loading: PropTypes.bool.isRequired,
   posting: PropTypes.bool.isRequired,
-  HumanResourcess: PropTypes.arrayOf(
-    PropTypes.shape({ name: PropTypes.string })
-  ).isRequired,
+  HumanResources: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+    .isRequired,
   HumanResources: PropTypes.shape({ name: PropTypes.string }),
   page: PropTypes.number.isRequired,
   showForm: PropTypes.bool.isRequired,
@@ -385,4 +375,17 @@ HumanResources.defaultProps = {
   searchQuery: undefined,
 };
 
-export default HumanResources;
+const mapStateToProps = (state) => {
+  return {
+    HumanResources: state.humanResourcesReducer.data
+      ? state.humanResourcesReducer.data
+      : [],
+    total: state.humanResourcesReducer.total,
+    page: state.humanResourcesReducer.page,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  getHumanResources: bindActionCreators(getHumanResources, dispatch),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(HumanResources);

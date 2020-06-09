@@ -5,9 +5,10 @@ import PrivateRoute from './Auth/PrivateRoute';
 import SignIn from './Auth/components/SignIn';
 import BaseLayout from './layouts/BaseLayout';
 
+
 const  App = () => {
   return (
-    <div className="App">
+   <div className="App">
       <HashRouter  hashType="hashbang">
         <Switch>
         <Route path="/app" component={BaseLayout} />

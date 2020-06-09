@@ -126,7 +126,7 @@ code {
 
 .actionButton {
   border-radius: 4px;
-  color: #000000;
+  color: rgb(149, 149, 149);
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 
