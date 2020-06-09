@@ -1,4 +1,3 @@
-import isArray from "lodash/isArray";
 import { Modal, Col } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -7,13 +6,7 @@ import Topbar from "../../components/Topbar";
 import HumanResourcesList from "../../components/List";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
-import {
-  generateHumanResourceVCard,
-  joinArrayOfObjectToString,
-  notifyError,
-  notifySuccess,
-  truncateString,
-} from "../../util";
+
 import "./styles.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -181,6 +174,7 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   handleRefreshHumanResources = () => {
+    window.location.reload();
     // refreshHumanResources(
     //   () => {
     //     notifySuccess("Event Human Resources refreshed successfully");
@@ -193,8 +187,10 @@ class HumanResources extends Component {
     // );
   };
 
-  paginateHumanResources = (e) => {
-    console.log(e);
+  paginateHumanResources = (page) => {
+    const {getHumanResources} = this.props
+    getHumanResources(page)
+    console.log("pagination", page)
   };
 
   /**
@@ -265,8 +261,9 @@ class HumanResources extends Component {
           itemCount={total}
           loading={loading}
           onFilter={this.openFiltersModal}
-          onRefresh={this.handleRefreshEvents}
-          onPaginate={(nextPage) => this.paginateHumanResources(nextPage)}
+          onRefresh={this.handleRefreshHumanResources}
+          onPaginate={(nextPage) => {this.paginateHumanResources(nextPage)
+          }}
           // generateExportUrl={"testing"}
           headerLayout={headerLayout}
           renderListItem={({
@@ -288,7 +285,7 @@ class HumanResources extends Component {
                     name: "Edit Human Resources",
                     title: "Update Human Resources Details",
                     onClick: () => this.handleEdit(item),
-                  }}
+                  }}c
                   share={{
                     name: "Share Human Resources",
                     title: "Share Human Resources details with others",
@@ -363,7 +360,6 @@ HumanResources.propTypes = {
   posting: PropTypes.bool.isRequired,
   HumanResources: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
     .isRequired,
-  HumanResources: PropTypes.shape({ name: PropTypes.string }),
   page: PropTypes.number.isRequired,
   showForm: PropTypes.bool.isRequired,
   searchQuery: PropTypes.string,
