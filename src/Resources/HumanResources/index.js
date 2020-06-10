@@ -1,4 +1,4 @@
-import { Modal, Col } from "antd";
+import { Modal, Col, Drawer, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -6,11 +6,11 @@ import Topbar from "../../components/Topbar";
 import HumanResourcesList from "../../components/List";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
-
-import "./styles.css";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getHumanResources } from "../../common/actions";
+import { getHumanResources, openResourceForm } from "../../common/actions";
+import HumanResourceForm from "./Form";
+import "./styles.css";
 
 /* constants */
 const TypeSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
@@ -44,6 +44,7 @@ class HumanResources extends Component {
     notificationSubject: undefined,
     notificationBody: undefined,
     cached: null,
+    visible: false,
   };
 
   componentDidMount() {
@@ -113,7 +114,11 @@ class HumanResources extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  openHumanResourceForm = () => {};
+  openHumanResourceForm = () => {
+    const { openHumanResourceForm } = this.props;
+    openHumanResourceForm();
+    console.log("clicking", openHumanResourceForm());
+  };
 
   /**
    * @function
@@ -124,7 +129,7 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   closeHumanResourcesForm = () => {
-    this.setState({ isEditForm: false });
+    this.setState({ isEditForm: false, visible: false });
   };
 
   /**
@@ -188,9 +193,9 @@ class HumanResources extends Component {
   };
 
   paginateHumanResources = (page) => {
-    const {getHumanResources} = this.props
-    getHumanResources(page)
-    console.log("pagination", page)
+    const { getHumanResources } = this.props;
+    getHumanResources(page);
+    console.log("pagination", page);
   };
 
   /**
@@ -247,7 +252,7 @@ class HumanResources extends Component {
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New Human Resources",
-              onClick: this.openHumanResourcesForm,
+              onClick: this.openHumanResourceForm,
             },
           ]}
         />
@@ -262,7 +267,8 @@ class HumanResources extends Component {
           loading={loading}
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefreshHumanResources}
-          onPaginate={(nextPage) => {this.paginateHumanResources(nextPage)
+          onPaginate={(nextPage) => {
+            this.paginateHumanResources(nextPage);
           }}
           // generateExportUrl={"testing"}
           headerLayout={headerLayout}
@@ -285,11 +291,6 @@ class HumanResources extends Component {
                     name: "Edit Human Resources",
                     title: "Update Human Resources Details",
                     onClick: () => this.handleEdit(item),
-                  }}c
-                  share={{
-                    name: "Share Human Resources",
-                    title: "Share Human Resources details with others",
-                    onClick: () => this.handleShare(item),
                   }}
                   archive={{
                     name: "Archive Human Resources",
@@ -314,7 +315,7 @@ class HumanResources extends Component {
         {/* filter modal */}
         <Modal
           title="Filter Event Human Resources"
-          visible={showFilters}
+          // visible={showFilters}
           onCancel={this.closeFiltersModal}
           footer={null}
           destroyOnClose
@@ -330,25 +331,39 @@ class HumanResources extends Component {
         </Modal>
         {/* end filter modal */}
 
-        <Modal
+        <Drawer
           title={
             isEditForm ? "Edit Human Resources" : "Add New Human Resources"
           }
+          width={720}
           visible={showForm}
-          className="FormModal"
-          footer={null}
           onCancel={this.closeHumanResourcesForm}
           destroyOnClose
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
+          bodyStyle={{ paddingBottom: 80 }}
+          footer={
+            <div
+              style={{
+                textAlign: "right",
+              }}
+            >
+              <Button onClick={this.onClose} style={{ marginRight: 8 }}>
+                Cancel
+              </Button>
+              <Button onClick={this.onClose} type="primary">
+                Submit
+              </Button>
+            </div>
+          }
         >
-          {/* <HumanResourcesForm
-            posting={posting}
+          {/* <HumanResourceForm
+            // posting={posting}
             isEditForm={isEditForm}
             HumanResources={HumanResources}
             onCancel={this.closeHumanResourcesForm}
           /> */}
-        </Modal>
+        </Drawer>
         {/* end create/edit form modal */}
       </>
     );
@@ -378,10 +393,12 @@ const mapStateToProps = (state) => {
       : [],
     total: state.humanResourcesReducer.total,
     page: state.humanResourcesReducer.page,
+    showForm:state.humanResourcesReducer.showForm
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
   getHumanResources: bindActionCreators(getHumanResources, dispatch),
+  openHumanResourceForm: bindActionCreators(openResourceForm, dispatch),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(HumanResources);

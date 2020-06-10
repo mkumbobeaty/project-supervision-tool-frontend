@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import {humanResourcesReducer} from './index';
 const rootReducer = combineReducers({
-    humanResourcesReducer
+    humanResourcesReducer,
 });
 
 export default rootReducer;
