@@ -3,6 +3,7 @@ import {
   GET_HUMAN_RESOURCES_SUCCESS,
   GET_HUMAN_RESOURCES_FAILURE,
   OPEN_HUMAN_RESOURCES_FORM,
+  CLOSE_HUMAN_RESOURCES_FORM,
 } from "../actions/index";
 
 const initialState = {
@@ -28,7 +29,7 @@ export function humanResourcesReducer(state = initialState, action) {
           total: action.humanResources.total,
           page: action.humanResources.page,
           initLoading: false,
-          showForm:false,
+          showForm: false,
           loading: true,
         }
       );
@@ -36,6 +37,8 @@ export function humanResourcesReducer(state = initialState, action) {
       return Object.assign({}, { ...state, error: action.message });
     case OPEN_HUMAN_RESOURCES_FORM:
       return Object.assign({}, state, { showForm: true });
+    case CLOSE_HUMAN_RESOURCES_FORM:
+      return Object.assign({}, state, { showForm: false });
     default:
       return state;
   }

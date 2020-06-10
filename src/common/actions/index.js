@@ -38,10 +38,9 @@ export function openResourceForm() {
   };
 }
 
-export function openFormFailure(message) {
+export function closeResourceForm() {
   return {
     type: CLOSE_HUMAN_RESOURCES_FORM,
-    message,
   };
 }
 

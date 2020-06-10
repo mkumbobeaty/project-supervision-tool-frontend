@@ -8,7 +8,7 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getHumanResources, openResourceForm } from "../../common/actions";
+import { getHumanResources, openResourceForm, closeResourceForm } from "../../common/actions";
 import HumanResourceForm from "./Form";
 import "./styles.css";
 
@@ -117,7 +117,6 @@ class HumanResources extends Component {
   openHumanResourceForm = () => {
     const { openHumanResourceForm } = this.props;
     openHumanResourceForm();
-    console.log("clicking", openHumanResourceForm());
   };
 
   /**
@@ -128,8 +127,10 @@ class HumanResources extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  closeHumanResourcesForm = () => {
+  closeHumanResourceForm = () => {
     this.setState({ isEditForm: false, visible: false });
+    const {closeHumanResourceForm} = this.props;
+    closeHumanResourceForm()
   };
 
   /**
@@ -315,7 +316,7 @@ class HumanResources extends Component {
         {/* filter modal */}
         <Modal
           title="Filter Event Human Resources"
-          // visible={showFilters}
+          visible={showFilters}
           onCancel={this.closeFiltersModal}
           footer={null}
           destroyOnClose
@@ -337,7 +338,7 @@ class HumanResources extends Component {
           }
           width={720}
           visible={showForm}
-          onCancel={this.closeHumanResourcesForm}
+          onCancel={this.closeHumanResourceForm}
           destroyOnClose
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
@@ -348,7 +349,7 @@ class HumanResources extends Component {
                 textAlign: "right",
               }}
             >
-              <Button onClick={this.onClose} style={{ marginRight: 8 }}>
+              <Button onClick={this.closeHumanResourceForm} style={{ marginRight: 8 }}>
                 Cancel
               </Button>
               <Button onClick={this.onClose} type="primary">
@@ -400,5 +401,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   getHumanResources: bindActionCreators(getHumanResources, dispatch),
   openHumanResourceForm: bindActionCreators(openResourceForm, dispatch),
+  closeHumanResourceForm: bindActionCreators(closeResourceForm, dispatch)
 });
 export default connect(mapStateToProps, mapDispatchToProps)(HumanResources);
