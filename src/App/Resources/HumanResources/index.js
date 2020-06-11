@@ -8,7 +8,7 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getHumanResources, openResourceForm, closeResourceForm } from "../../../common/actions";
+import { appOperations } from "../../duck/";
 import HumanResourceForm from "./Form";
 import "./styles.css";
 
@@ -408,8 +408,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getHumanResources: bindActionCreators(getHumanResources, dispatch),
-  openHumanResourceForm: bindActionCreators(openResourceForm, dispatch),
-  closeHumanResourceForm: bindActionCreators(closeResourceForm, dispatch)
+  getHumanResources: bindActionCreators(appOperations.getHumanResources, dispatch),
+  openHumanResourceForm: bindActionCreators(appOperations.openResourceForm, dispatch),
+  closeHumanResourceForm: bindActionCreators(appOperations.closeResourceForm, dispatch)
 });
 export default connect(mapStateToProps, mapDispatchToProps)(HumanResources);
