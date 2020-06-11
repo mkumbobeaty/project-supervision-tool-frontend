@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import initiativesIcon from '../assets/icons/initiatives.svg';
-import financialResourcesIcon from '../assets/icons/financial-resources.svg';
-import inKindDonationIcon from '../assets/icons/in-kind-donations.svg';
-import humanResourcesIcon from '../assets/icons/human-resources.svg';
-import productionCapacityIcon from '../assets/icons/production-capacity.svg';
-import knowledgeResourcesIcon from '../assets/icons/knowledge-resources.svg';
+import initiativesIcon from '../../assets/icons/initiatives.svg';
+import financialResourcesIcon from '../../assets/icons/financial-resources.svg';
+import inKindDonationIcon from '../../assets/icons/in-kind-donations.svg';
+import humanResourcesIcon from '../../assets/icons/human-resources.svg';
+import productionCapacityIcon from '../../assets/icons/production-capacity.svg';
+import knowledgeResourcesIcon from '../../assets/icons/knowledge-resources.svg';
 import NavigationMenu from '../components/NavigationMenu';
-import modules from '../modules.json';
+import modules from '../../modules.json';
 
 // TODO update module descriptions to point to right descriptions
 

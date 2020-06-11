@@ -8,7 +8,7 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getHumanResources, openResourceForm, closeResourceForm } from "../../common/actions";
+import { getHumanResources, openResourceForm, closeResourceForm } from "../../../common/actions";
 import HumanResourceForm from "./Form";
 import "./styles.css";
 

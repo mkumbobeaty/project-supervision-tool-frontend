@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import needByGovernmentIcon from '../assets/icons/needs-by-government.svg';
-import needsAssessmentsIcon from '../assets/icons/needs-assessment.svg';
-import needsCovidIcon from '../assets/icons/needs-covid.svg';
+import needByGovernmentIcon from '../../assets/icons/needs-by-government.svg';
+import needsAssessmentsIcon from '../../assets/icons/needs-assessment.svg';
+import needsCovidIcon from '../../assets/icons/needs-covid.svg';
 import NavigationMenu from '../components/NavigationMenu';
-import modules from '../modules.json';
+import modules from '../../modules.json';
 
 // TODO update module descriptions to point to right descriptions
 

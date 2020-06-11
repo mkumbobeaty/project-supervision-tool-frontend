@@ -1,9 +1,9 @@
 import React from 'react';
 import './App.css';
 import { HashRouter,Switch, Route, Redirect} from 'react-router-dom';
-import PrivateRoute from './Auth/PrivateRoute';
-import SignIn from './Auth/components/SignIn';
-import BaseLayout from './layouts/BaseLayout';
+import PrivateRoute from './App/Auth/PrivateRoute';
+import SignIn from './App/Auth/components/SignIn';
+import BaseLayout from './App/layouts/BaseLayout';
 
 
 const  App = () => {
