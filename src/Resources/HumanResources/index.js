@@ -14,14 +14,20 @@ import "./styles.css";
 
 /* constants */
 const TypeSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
-const numberSpan = { xxl: 5, xl: 6, lg: 5, md: 0, sm: 0, xs: 0 };
-const partnerSpan = { xxl: 7, xl: 7, lg: 7, md: 9, sm: 8, xs: 12 };
-const locationSpan = { xxl: 7, xl: 7, lg: 7, md: 7, sm: 8, xs: 0 };
+const partnerSpan = { xxl: 3, xl: 3, lg: 3, md: 5, sm: 6, xs: 7 };
+const numberSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
+const descriptionSpan = { xxl: 6, xl: 7, lg: 7, md: 8, sm: 10, xs: 11 };
+const locationSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
+const endDateSpan = { xxl: 2, xl: 2, lg: 3, md: 3, sm: 4, xs: 0 };
 
 const headerLayout = [
   { ...TypeSpan, header: "Type" },
-  { ...numberSpan, header: "Number" },
+  { ...descriptionSpan, header: "Description" },
   { ...partnerSpan, header: "Implementing Partner" },
+  { ...startDateSpan, header: "Start Date" },
+  { ...endDateSpan, header: "End Date" },
+  { ...numberSpan, header: "Number" },
   { ...locationSpan, header: "Location" },
 ];
 
@@ -304,8 +310,11 @@ class HumanResources extends Component {
             >
               {/* eslint-disable react/jsx-props-no-spreading */}
               <Col {...TypeSpan}>{item.name ? item.name : "All"}</Col>
-              <Col {...numberSpan}>{item.year}</Col>
+              <Col {...descriptionSpan}>{item.name}</Col>
               <Col {...partnerSpan}>{item.pantone_value}</Col>
+              <Col {...numberSpan}>{item.year}</Col>
+              <Col {...startDateSpan}>{item.pantone_value}</Col>
+              <Col {...endDateSpan}>{item.year}</Col>
               <Col {...locationSpan}>{item.color}</Col>
               {/* eslint-enable react/jsx-props-no-spreading */}
             </ListItem>
