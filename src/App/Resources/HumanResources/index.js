@@ -2,6 +2,7 @@ import { Modal, Col, Drawer, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import moment from 'moment';
 import Topbar from "../../components/Topbar";
 import HumanResourcesList from "../../components/List";
 import ListItem from "../../components/ListItem";
@@ -25,9 +26,9 @@ const headerLayout = [
   { ...TypeSpan, header: "Type" },
   { ...descriptionSpan, header: "Description" },
   { ...partnerSpan, header: "Implementing Partner" },
+  { ...numberSpan, header: "Number" },
   { ...startDateSpan, header: "Start Date" },
   { ...endDateSpan, header: "End Date" },
-  { ...numberSpan, header: "Number" },
   { ...locationSpan, header: "Location" },
 ];
 
@@ -233,6 +234,25 @@ class HumanResources extends Component {
     });
   };
 
+  /**
+ * converts ISO date string to human readable
+ * date and time
+ *
+ * @function
+ * @name isoDateToHumanReadableDate
+ *
+ * @param {string} isoFormattDate
+ *
+ * @returns {string} human readable date
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+isoDateToHumanReadableDate = (isoFormattDate) => {
+  return moment(isoFormattDate)
+    .utc()
+    .format('MMMM Do YYYY');
+}
+
   render() {
     const {
       HumanResources,
@@ -309,13 +329,13 @@ class HumanResources extends Component {
               )}
             >
               {/* eslint-disable react/jsx-props-no-spreading */}
-              <Col {...TypeSpan}>{item.name ? item.name : "All"}</Col>
-              <Col {...descriptionSpan}>{item.name}</Col>
-              <Col {...partnerSpan}>{item.pantone_value}</Col>
-              <Col {...numberSpan}>{item.year}</Col>
-              <Col {...startDateSpan}>{item.pantone_value}</Col>
-              <Col {...endDateSpan}>{item.year}</Col>
-              <Col {...locationSpan}>{item.color}</Col>
+              <Col {...TypeSpan}>{item.item_id }</Col>
+              <Col {...descriptionSpan}>{item.item_id}</Col>
+              <Col {...partnerSpan}>{item.agency_id}</Col>
+              <Col {...numberSpan}>{item.quantity}</Col>
+              <Col {...startDateSpan}>{this.isoDateToHumanReadableDate(item.start_date)}</Col>
+              <Col {...endDateSpan}>{this.isoDateToHumanReadableDate(item.end_date)}</Col>
+              <Col {...locationSpan}>{item.location_id}</Col>
               {/* eslint-enable react/jsx-props-no-spreading */}
             </ListItem>
           )}
