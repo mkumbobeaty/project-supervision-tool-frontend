@@ -8,7 +8,6 @@ export const openResourceForm = actions.openResourceForm;
 export const closeResourceForm = actions.closeResourceForm;
 
 export function getHumanResources(page) {
-    debugger;
     return dispatch => {
         dispatch(getHumanResourcesRequest());
         appServices.fetchHumanResources(page).then(
