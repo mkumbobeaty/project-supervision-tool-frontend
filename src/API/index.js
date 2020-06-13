@@ -37,7 +37,7 @@ const axios = Axios.create({
 
 
 /**
- * Fetch all vendor categories from API
+ * Fetch all human resources from API
  *
  */
  const fetchHumanResources = () =>
@@ -46,3 +46,16 @@ const axios = Axios.create({
 export const appServices = ({
   fetchHumanResources
 })
+
+/**
+* detaches a human resources from list
+*
+* @function
+* @name detachHumanResource
+*
+* @version 0.1.0
+* @since 0.1.0
+*/
+export const detachHumanResource = (humanResourcesId) => {
+  return axios.delete(`/human_resources/${humanResourcesId}`).then(response => response.data);
+}
