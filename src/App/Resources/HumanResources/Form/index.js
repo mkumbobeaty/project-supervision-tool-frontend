@@ -63,6 +63,7 @@ const HumanResourceForm = ({
   posting,
   items,
   agencies,
+  locations,
   onCancel,
 }) => {
   // form finish(submit) handler
@@ -134,7 +135,6 @@ const HumanResourceForm = ({
         <Form.Item
           label="Location"
           title="humanResources location is required  e.g Dar Es Salaam"
-          name={["strings", "name", "en"]}
           rules={[
             {
               required: true,
@@ -142,7 +142,9 @@ const HumanResourceForm = ({
             },
           ]}
         >
-          <Input />
+          <Select>
+            {locations.map(location => <Select.Option value={location.id}>{location.name}</Select.Option>)}
+          </Select>
         </Form.Item>
         {/* end:location */}
 
@@ -153,7 +155,6 @@ const HumanResourceForm = ({
             <Form.Item
               label="Start Date"
               title="humanResource start date e.g 06-20-2020"
-              name={["strings", "abbreviation", "en"]}
               rules={[
                 {
                   required: true,
@@ -185,17 +186,6 @@ const HumanResourceForm = ({
           {/* end:end date */}
         </Row>
         {/* end: start date & end date */}
-
-        {/* start:description */}
-        <Form.Item
-          label="Description"
-          title="humanResource usage description"
-          name={["strings", "description", "en"]}
-
-        >
-          <TextArea autoSize={{ minRows: 3, maxRows: 10 }} />
-        </Form.Item>
-        {/* end:description */}
 
         {/* start:form actions */}
         <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>

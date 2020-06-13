@@ -243,6 +243,7 @@ class HumanResources extends Component {
       HumanResources,
       items,
       agencies,
+      locations,
       loading,
       page,
       showForm,
@@ -364,6 +365,7 @@ class HumanResources extends Component {
             posting={false}
             items={items}
             agencies={agencies}
+            locations={locations}
             isEditForm={false}
             HumanResources={HumanResources}
             onCancel={this.closeHumanResourceForm}
@@ -379,6 +381,7 @@ HumanResources.propTypes = {
   loading: PropTypes.bool.isRequired,
   items: PropTypes.array.isRequired,
   agencies: PropTypes.array.isRequired,
+  locations: PropTypes.array.isRequired,
   posting: PropTypes.bool.isRequired,
   getItems: PropTypes.func.isRequired,
   getAgencies: PropTypes.func.isRequired,
@@ -398,7 +401,8 @@ HumanResources.defaultProps = {
   getAgencies: () => {},
   getLocations: () => {},
   items: [],
-  agencies: []
+  agencies: [],
+  locations: []
 };
 
 const mapStateToProps = (state) => {
@@ -408,6 +412,7 @@ const mapStateToProps = (state) => {
       : [],
     items: state.resources?.items?.data,
     agencies: state.resources?.agencies?.data,
+    locations: state.resources?.locations?.data,
     total: state.humanResourcesReducer.total,
     page: state.humanResourcesReducer.page,
     showForm:state.humanResourcesReducer.showForm
