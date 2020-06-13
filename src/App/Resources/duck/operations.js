@@ -54,3 +54,14 @@ export const updateHumanResource = ({payload}) => (dispatch) => {
         .then( res => dispatch(actions.updateHumanResourceSuccess(res)) )
         .catch( err => dispatch(actions.updateHumanResourceFailure(err)))
 }
+
+/**
+ * delete human resources operation
+ */
+export const deleteHumanResource = (payload) => (dispatch) => {
+    dispatch(actions.deleteHumanResourceStart());
+    debugger
+    API.deleteHumanResource(payload)
+        .then( res => dispatch(actions.deleteHumanResourceSuccess(res)) )
+        .catch( err => dispatch(actions.deleteHumanResourceFailure(err)))
+}

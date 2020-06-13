@@ -107,6 +107,10 @@ const humanResource = (state = [], action) => {
       return action.payload;
     case types.CREATE_HUMAN_RESOURCES_FAILURE:
       return action.payload;
+    case types.DELETE_HUMAN_RESOURCES_SUCCESS:
+      return action.payload;
+    case types.DELETE_HUMAN_RESOURCES_FAILURE:
+      return action.payload;
     default:
       return state;
   }
@@ -116,23 +120,36 @@ const humanResource = (state = [], action) => {
 
 const updateHumanResource = (state = false, action) => {
   switch (action.type) {
-    case types.CREATE_HUMAN_RESOURCES_START:
+    case types.UPDATE_HUMAN_RESOURCES_START:
       return true;
-    case types.CREATE_HUMAN_RESOURCES_SUCCESS:
+    case types.UPDATE_HUMAN_RESOURCES_SUCCESS:
       return false;
-    case types.CREATE_HUMAN_RESOURCES_FAILURE:
+    case types.UPDATE_HUMAN_RESOURCES_FAILURE:
       return false;
     default:
       return state;
   }
 };
 
-const updatedhumanResource = (state = [], action) => {
+const updatedHumanResource = (state = [], action) => {
   switch (action.type) {
     case types.UPDATE_HUMAN_RESOURCES_SUCCESS:
       return action.payload;
     case types.UPDATE_HUMAN_RESOURCES_FAILURE:
       return action.payload;
+    default:
+      return state;
+  }
+};
+
+const deleteHumanResource = (state = false, action) => {
+  switch (action.type) {
+    case types.DELETE_HUMAN_RESOURCES_START:
+      return true;
+    case types.DELETE_HUMAN_RESOURCES_SUCCESS:
+      return false;
+    case types.DELETE_HUMAN_RESOURCES_FAILURE:
+      return false;
     default:
       return state;
   }
@@ -148,5 +165,6 @@ export const resources = combineReducers({
   creatingHumanResource,
   humanResource,
   updateHumanResource,
-  updatedhumanResource,
+  updatedHumanResource,
+  deleteHumanResource
 });

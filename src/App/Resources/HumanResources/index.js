@@ -224,20 +224,16 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   showArchiveConfirm = (item) => {
+    const {deleteHumanResource} = this.props;
     confirm({
       title: `Are you sure you want to archive this record ?`,
       okText: "Yes",
       okType: "danger",
       cancelText: "No",
       onOk() {
-        // deleteHumanResources(
-        //   item._id, // eslint-disable-line
-        //   () => notifySuccess(" Human Resources was archived successfully"),
-        //   () =>
-        //     notifyError(
-        //       "An error occurred while archiving Human Resources, Please contact your system Administrator"
-        //     )
-        // );
+        deleteHumanResource(
+          item.id
+        );
       },
     });
   };
@@ -456,6 +452,7 @@ const mapDispatchToProps = (dispatch) => ({
   getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
   getLocations: bindActionCreators(resourceOperations.getLocations, dispatch),
   createHumanResource: bindActionCreators(resourceOperations.createHumanResource, dispatch),
+  deleteHumanResource: bindActionCreators(resourceOperations.deleteHumanResource, dispatch),
   updateHumanResource: bindActionCreators(resourceOperations.updateHumanResource, dispatch),
   openHumanResourceForm: bindActionCreators(appOperations.openResourceForm, dispatch),
   selectHumanResource: bindActionCreators(resourceOperations.selectHumanResource, dispatch),

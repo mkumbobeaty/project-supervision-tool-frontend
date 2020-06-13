@@ -113,6 +113,27 @@ export function updateHumanResourceFailure(error) {
     };
 }
 
+// deleting human resource
+export function deleteHumanResourceStart() {
+    return {
+        type: types.DELETE_HUMAN_RESOURCES_START,
+    };
+}
+
+export function deleteHumanResourceSuccess(humanResource) {
+    return {
+        type: types.DELETE_HUMAN_RESOURCES_SUCCESS,
+        payload: humanResource,
+    };
+}
+
+export function deleteHumanResourceFailure(error) {
+    return {
+        type: types.DELETE_HUMAN_RESOURCES_FAILURE,
+        payload: error,
+    };
+}
+
 // select single human resource
 export const selectHumanResource = selectedHumanResource => ({
     type: types.SELECT_HUMAN_RESOURCE,

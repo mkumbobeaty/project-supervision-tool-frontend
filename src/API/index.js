@@ -94,3 +94,17 @@ export const appServices = ({
 export const updateHumanResource = (humanResource, id) => {
   return axios.patch(`/human_resources/${id}`, humanResource).then(response => response.data);
 }
+
+/**
+* detaches a human resource from list
+*
+* @function
+* @name deleteHumanResource
+*
+* @version 0.1.0
+* @since 0.1.0
+*/
+export const deleteHumanResource = (humanResource_id) => {
+  debugger
+  return axios.delete(`human_resources/${humanResource_id}`).then(response => response.data);
+}
