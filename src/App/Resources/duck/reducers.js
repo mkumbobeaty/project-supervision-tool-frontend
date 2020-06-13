@@ -11,6 +11,8 @@ import {default as humanResourcesReducer} from "../../duck";
  * items: Object[], // items
  * agencies: Object[], // agencies
  * locations: Object[], // locations
+ * creatingHumanResource: boolean,
+ * humanResource: Object
  * }
  */
 
@@ -87,7 +89,31 @@ import {default as humanResourcesReducer} from "../../duck";
     }
 };
 
+ const creatingHumanResource = (state = false, action) => {
+    switch (action.type) {
+        case types.CREATE_HUMAN_RESOURCES_START:
+            return true;
+        case types.CREATE_HUMAN_RESOURCES_SUCCESS:
+            return false;
+        case types.CREATE_HUMAN_RESOURCES_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+};
+
+ const humanResource = (state = [], action) => {
+    switch (action.type) {
+        case types.CREATE_HUMAN_RESOURCES_SUCCESS:
+            return action.payload;
+        case types.CREATE_HUMAN_RESOURCES_FAILURE:
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
 
 export const resources   = combineReducers({
-    fetchingItems, items, fetchingAgencies, agencies, fetchingLocations, locations
+    fetchingItems, items, fetchingAgencies, agencies, fetchingLocations, locations, creatingHumanResource, humanResource
 });

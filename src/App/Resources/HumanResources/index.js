@@ -248,6 +248,7 @@ class HumanResources extends Component {
       page,
       showForm,
       searchQuery,
+      createHumanResource,
       total,
     } = this.props;
     const { showFilters, isEditForm } = this.state;
@@ -368,6 +369,7 @@ class HumanResources extends Component {
             locations={locations}
             isEditForm={false}
             HumanResources={HumanResources}
+            createHumanResource={createHumanResource}
             onCancel={this.closeHumanResourceForm}
           />
         </Drawer>
@@ -386,6 +388,7 @@ HumanResources.propTypes = {
   getItems: PropTypes.func.isRequired,
   getAgencies: PropTypes.func.isRequired,
   getLocations: PropTypes.func.isRequired,
+  createHumanResource: PropTypes.func.isRequired,
   HumanResources: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
     .isRequired,
   page: PropTypes.number.isRequired,
@@ -400,6 +403,7 @@ HumanResources.defaultProps = {
   getItems: () => {},
   getAgencies: () => {},
   getLocations: () => {},
+  createHumanResource: () => {},
   items: [],
   agencies: [],
   locations: []
@@ -424,6 +428,7 @@ const mapDispatchToProps = (dispatch) => ({
   getItems: bindActionCreators(resourceOperations.getItems, dispatch),
   getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
   getLocations: bindActionCreators(resourceOperations.getLocations, dispatch),
+  createHumanResource: bindActionCreators(resourceOperations.createHumanResource, dispatch),
   openHumanResourceForm: bindActionCreators(appOperations.openResourceForm, dispatch),
   closeHumanResourceForm: bindActionCreators(appOperations.closeResourceForm, dispatch)
 });

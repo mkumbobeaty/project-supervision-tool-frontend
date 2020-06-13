@@ -18,3 +18,21 @@ export const isoDateToHumanReadableDate = (isoFormattDate) => {
         .utc()
         .format('MMMM Do YYYY');
 }
+
+/**
+ * converts moment date  object to date string
+ *
+ * @function
+ * @name generateDateString
+ *
+ * @param {Object} dateObject
+ *
+ * @returns {string} date string
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export const generateDateString = (dateObject) => {
+    return moment(dateObject)
+        .utc()
+        .format('YYYY-MM-DD');
+}

@@ -67,3 +67,27 @@ export function getLocationsFailure(error) {
         payload: error,
     };
 }
+
+
+
+/*  Human Resources Action creators */
+
+export function createHumanResourceStart() {
+    return {
+        type: types.CREATE_HUMAN_RESOURCES_START,
+    };
+}
+
+export function createHumanResourceSuccess(locations) {
+    return {
+        type: types.CREATE_HUMAN_RESOURCES_SUCCESS,
+        payload: locations,
+    };
+}
+
+export function createHumanResourceFailure(error) {
+    return {
+        type: types.CREATE_HUMAN_RESOURCES_FAILURE,
+        payload: error,
+    };
+}

@@ -31,3 +31,13 @@ export const getLocations = () => (dispatch) => {
         .then( res => dispatch(actions.getLocationsSuccess(res)) )
         .catch( err => dispatch(actions.getLocationsFailure(err)))
 }
+
+/**
+ * crete  human resources operation
+ */
+export const createHumanResource = (payload) => (dispatch) => {
+    dispatch(actions.createHumanResourceStart());
+    API.createHumanResource(payload)
+        .then( res => dispatch(actions.createHumanResourceSuccess(res)) )
+        .catch( err => dispatch(actions.createHumanResourceFailure(err)))
+}

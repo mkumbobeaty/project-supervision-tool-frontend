@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Input, Form, Row, Col, Select } from "antd";
+
+import { generateDateString } from '../../../../Util';
+import { Button, Input, Form, Row, Col, Select, DatePicker, InputNumber } from "antd";
 
 /* state actions */
 
@@ -61,6 +63,7 @@ const HumanResourceForm = ({
   humanResource,
   isEditForm,
   posting,
+  createHumanResource,
   items,
   agencies,
   locations,
@@ -68,9 +71,17 @@ const HumanResourceForm = ({
 }) => {
   // form finish(submit) handler
   const onFinish = (values) => {
+    const start_date = generateDateString(values.start_date);
+    const end_date = generateDateString(values.end_date);
+    const  payload = { ...values, start_date, end_date};
+
     if (isEditForm) {
-      const updates = {...humanResource, ...values};
+      const updates = {...humanResource, ...payload};
     }
+    else {
+      createHumanResource(payload);
+    }
+
   }
 
     return (
@@ -84,6 +95,7 @@ const HumanResourceForm = ({
         {/* start:type */}
         <Form.Item
           label="Type"
+          name="item_id"
           title="humanResource type e.g People"
           rules={[
             {
@@ -101,6 +113,7 @@ const HumanResourceForm = ({
         {/* start:implementing partner */}
         <Form.Item
           label="Implementing Partner"
+          name="agency_id"
           title="humanResource Implementing Partner e.g Tanzania Red cross society"
           rules={[
             {
@@ -119,7 +132,7 @@ const HumanResourceForm = ({
         <Form.Item
           label="Number"
           title=" available humanResources in number  e.g 30"
-          name={["strings", "name", "en"]}
+          name="quantity"
           rules={[
             {
               required: true,
@@ -127,13 +140,14 @@ const HumanResourceForm = ({
             },
           ]}
         >
-          <Input />
+          <InputNumber />
         </Form.Item>
         {/* end:number */}
 
         {/* start:location */}
         <Form.Item
           label="Location"
+          name="location_id"
           title="humanResources location is required  e.g Dar Es Salaam"
           rules={[
             {
@@ -154,6 +168,7 @@ const HumanResourceForm = ({
           <Col span={11}>
             <Form.Item
               label="Start Date"
+              name="start_date"
               title="humanResource start date e.g 06-20-2020"
               rules={[
                 {
@@ -162,7 +177,7 @@ const HumanResourceForm = ({
                 },
               ]}
             >
-              <Input />
+              <DatePicker />
             </Form.Item>
           </Col>
           {/* end:start date */}
@@ -172,7 +187,7 @@ const HumanResourceForm = ({
             <Form.Item
               label="End Date"
               title="humanResource end date e.g 07-30-2020"
-              name={["strings", "symbol"]}
+              name="end_date"
               rules={[
               {
                 required: true,
@@ -180,7 +195,7 @@ const HumanResourceForm = ({
               },
             ]}
             >
-              <Input />
+              <DatePicker />
             </Form.Item>
           </Col>
           {/* end:end date */}

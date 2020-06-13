@@ -63,6 +63,19 @@ const axios = Axios.create({
      axios.get(`/locations`).then(response => response.data);
 
 
+/**
+ * create new human resource
+ *
+ * @function
+ * @name createHumanResource
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export const createHumanResource = humanResource =>
+    axios.post(`/human_resources`, humanResource).then(response => response.data);
+
+
  // TODO just export the API
 export const appServices = ({
   fetchHumanResources
