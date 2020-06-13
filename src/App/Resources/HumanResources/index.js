@@ -2,6 +2,7 @@ import { Modal, Col, Drawer, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { isoDateToHumanReadableDate } from '../../../Util';
 import Topbar from "../../components/Topbar";
 import HumanResourcesList from "../../components/List";
 import ListItem from "../../components/ListItem";
@@ -25,9 +26,9 @@ const headerLayout = [
   { ...TypeSpan, header: "Type" },
   { ...descriptionSpan, header: "Description" },
   { ...partnerSpan, header: "Implementing Partner" },
+  { ...numberSpan, header: "Number" },
   { ...startDateSpan, header: "Start Date" },
   { ...endDateSpan, header: "End Date" },
-  { ...numberSpan, header: "Number" },
   { ...locationSpan, header: "Location" },
 ];
 
@@ -309,13 +310,13 @@ class HumanResources extends Component {
               )}
             >
               {/* eslint-disable react/jsx-props-no-spreading */}
-              <Col {...TypeSpan}>{item.name ? item.name : "All"}</Col>
-              <Col {...descriptionSpan}>{item.name}</Col>
-              <Col {...partnerSpan}>{item.pantone_value}</Col>
-              <Col {...numberSpan}>{item.year}</Col>
-              <Col {...startDateSpan}>{item.pantone_value}</Col>
-              <Col {...endDateSpan}>{item.year}</Col>
-              <Col {...locationSpan}>{item.color}</Col>
+              <Col {...TypeSpan}>{item.item.name ? item.item.name : "All"}</Col>
+              <Col {...descriptionSpan}>{item.item.description}</Col>
+              <Col {...partnerSpan}>{item.agency.name}</Col>
+              <Col {...numberSpan}>{item.quantity}</Col>
+              <Col {...startDateSpan}>{isoDateToHumanReadableDate(item.start_date)}</Col>
+              <Col {...endDateSpan}>{isoDateToHumanReadableDate(item.end_date)}</Col>
+              <Col {...locationSpan}>{item.location.name}</Col>
               {/* eslint-enable react/jsx-props-no-spreading */}
             </ListItem>
           )}
