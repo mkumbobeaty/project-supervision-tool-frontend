@@ -1,7 +1,9 @@
 import { combineReducers } from "redux";
-import { default as humanResourcesReducer } from './duck';
+import { default as initReducers } from './duck';
+import { default as resourcesReducer } from './Resources/duck';
 const rootReducer = combineReducers({
-    ...humanResourcesReducer,
+    ...initReducers,
+    ...resourcesReducer
 });
 
 export default rootReducer;

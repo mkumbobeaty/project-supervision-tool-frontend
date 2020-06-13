@@ -2,7 +2,8 @@ import { Modal, Col, Drawer, Button } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import moment from 'moment';
+import { moment} from 'moment';
+import { isoDateToHumanReadableDate } from '../../../Util';
 import Topbar from "../../components/Topbar";
 import HumanResourcesList from "../../components/List";
 import ListItem from "../../components/ListItem";
@@ -10,6 +11,7 @@ import ListItemActions from "../../components/ListItemActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { appOperations } from "../../duck/";
+import { resourceOperations } from "../duck";
 import HumanResourceForm from "./Form";
 import "./styles.css";
 
@@ -55,8 +57,11 @@ class HumanResources extends Component {
   };
 
   componentDidMount() {
-    const { getHumanResources } = this.props;
+    const { getHumanResources, getItems, getAgencies, getLocations } = this.props;
     getHumanResources();
+    getItems();
+    getAgencies();
+    getLocations();
   }
 
   /**
@@ -162,8 +167,11 @@ class HumanResources extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  handleEdit = (HumanResources) => {
+  handleEdit = (humanResource) => {
+    const {selectHumanResource, openHumanResourceForm} = this.props;
+    selectHumanResource(humanResource);
     this.setState({ isEditForm: true });
+    openHumanResourceForm();
   };
 
   /**
@@ -256,10 +264,15 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
   render() {
     const {
       HumanResources,
+      items,
+      agencies,
+      locations,
       loading,
       page,
       showForm,
       searchQuery,
+      createHumanResource,
+      updateHumanResource,
       total,
     } = this.props;
     const { showFilters, isEditForm } = this.state;
@@ -329,13 +342,13 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
               )}
             >
               {/* eslint-disable react/jsx-props-no-spreading */}
-              <Col {...TypeSpan}>{item.item_id }</Col>
-              <Col {...descriptionSpan}>{item.item_id}</Col>
-              <Col {...partnerSpan}>{item.agency_id}</Col>
+              <Col {...TypeSpan}>{item.item.name ? item.item.name : "All"}</Col>
+              <Col {...descriptionSpan}>{item.item.description}</Col>
+              <Col {...partnerSpan}>{item.agency.name}</Col>
               <Col {...numberSpan}>{item.quantity}</Col>
-              <Col {...startDateSpan}>{this.isoDateToHumanReadableDate(item.start_date)}</Col>
-              <Col {...endDateSpan}>{this.isoDateToHumanReadableDate(item.end_date)}</Col>
-              <Col {...locationSpan}>{item.location_id}</Col>
+              <Col {...startDateSpan}>{isoDateToHumanReadableDate(item.start_date)}</Col>
+              <Col {...endDateSpan}>{isoDateToHumanReadableDate(item.end_date)}</Col>
+              <Col {...locationSpan}>{item.location.name}</Col>
               {/* eslint-enable react/jsx-props-no-spreading */}
             </ListItem>
           )}
@@ -372,27 +385,18 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
           bodyStyle={{ paddingBottom: 80 }}
-          footer={
-            <div
-              style={{
-                textAlign: "right",
-              }}
-            >
-              <Button onClick={this.closeHumanResourceForm} style={{ marginRight: 8 }}>
-                Cancel
-              </Button>
-              <Button onClick={this.onClose} type="primary">
-                Submit
-              </Button>
-            </div>
-          }
         >
-          {/* <HumanResourceForm
-            // posting={posting}
+           <HumanResourceForm
+            posting={false}
+            items={items}
+            agencies={agencies}
+            locations={locations}
             isEditForm={isEditForm}
             HumanResources={HumanResources}
-            onCancel={this.closeHumanResourcesForm}
-          /> */}
+            createHumanResource={createHumanResource}
+            updateHumanResource={updateHumanResource}
+            onCancel={this.closeHumanResourceForm}
+          />
         </Drawer>
         {/* end create/edit form modal */}
       </>
@@ -402,7 +406,15 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
 
 HumanResources.propTypes = {
   loading: PropTypes.bool.isRequired,
+  items: PropTypes.array.isRequired,
+  agencies: PropTypes.array.isRequired,
+  locations: PropTypes.array.isRequired,
   posting: PropTypes.bool.isRequired,
+  getItems: PropTypes.func.isRequired,
+  getAgencies: PropTypes.func.isRequired,
+  getLocations: PropTypes.func.isRequired,
+  createHumanResource: PropTypes.func.isRequired,
+  updateHumanResource: PropTypes.func.isRequired,
   HumanResources: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
     .isRequired,
   page: PropTypes.number.isRequired,
@@ -414,6 +426,14 @@ HumanResources.propTypes = {
 HumanResources.defaultProps = {
   HumanResources: null,
   searchQuery: undefined,
+  getItems: () => {},
+  getAgencies: () => {},
+  getLocations: () => {},
+  createHumanResource: () => {},
+  updateHumanResource: () => {},
+  items: [],
+  agencies: [],
+  locations: []
 };
 
 const mapStateToProps = (state) => {
@@ -421,6 +441,9 @@ const mapStateToProps = (state) => {
     HumanResources: state.humanResourcesReducer.data
       ? state.humanResourcesReducer.data
       : [],
+    items: state.resources?.items?.data,
+    agencies: state.resources?.agencies?.data,
+    locations: state.resources?.locations?.data,
     total: state.humanResourcesReducer.total,
     page: state.humanResourcesReducer.page,
     showForm:state.humanResourcesReducer.showForm
@@ -429,7 +452,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getHumanResources: bindActionCreators(appOperations.getHumanResources, dispatch),
+  getItems: bindActionCreators(resourceOperations.getItems, dispatch),
+  getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
+  getLocations: bindActionCreators(resourceOperations.getLocations, dispatch),
+  createHumanResource: bindActionCreators(resourceOperations.createHumanResource, dispatch),
+  updateHumanResource: bindActionCreators(resourceOperations.updateHumanResource, dispatch),
   openHumanResourceForm: bindActionCreators(appOperations.openResourceForm, dispatch),
-  closeHumanResourceForm: bindActionCreators(appOperations.closeResourceForm, dispatch)
+  selectHumanResource: bindActionCreators(resourceOperations.selectHumanResource, dispatch),
+  closeHumanResourceForm: bindActionCreators(appOperations.closeResourceForm, dispatch),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(HumanResources);

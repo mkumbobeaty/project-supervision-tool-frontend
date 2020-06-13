@@ -43,19 +43,54 @@ const axios = Axios.create({
  const fetchHumanResources = () =>
     axios.get(`/human_resources`).then(response => response.data);
 
+ /**
+  * get all items from API
+  * */
+ export const  getItems = () =>
+     axios.get(`/items`).then(response => response.data);
+
+ /**
+  * get all agencies from API
+  * */
+ export const  getAgencies = () =>
+     axios.get(`/agencies`).then(response => response.data);
+
+
+ /**
+  * get all locations from API
+  * */
+ export const  getLocations = () =>
+     axios.get(`/locations`).then(response => response.data);
+
+
+/**
+ * create new human resource
+ *
+ * @function
+ * @name createHumanResource
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export const createHumanResource = humanResource =>
+    axios.post(`/human_resources`, humanResource).then(response => response.data);
+
+
+ // TODO just export the API
 export const appServices = ({
   fetchHumanResources
 })
 
+
 /**
-* detaches a human resources from list
-*
-* @function
-* @name detachHumanResource
-*
-* @version 0.1.0
-* @since 0.1.0
-*/
-export const detachHumanResource = (humanResourcesId) => {
-  return axios.delete(`/human_resources/${humanResourcesId}`).then(response => response.data);
+ * edit existing human resources
+ *
+ * @function
+ * @name editHumanResources
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export const updateHumanResource = (humanResource, id) => {
+  return axios.patch(`/human_resources/${id}`, humanResource).then(response => response.data);
 }
