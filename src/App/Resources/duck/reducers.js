@@ -7,8 +7,10 @@ import {default as humanResourcesReducer} from "../../duck";
  * {
  * fetchingAgencies: boolean
  * fetchingItems: boolean
+ * fetchingLocations: boolean
  * items: Object[], // items
  * agencies: Object[], // agencies
+ * locations: Object[], // locations
  * }
  */
 
@@ -61,7 +63,31 @@ import {default as humanResourcesReducer} from "../../duck";
     }
 };
 
+ const fetchingLocations = (state = false, action) => {
+    switch (action.type) {
+        case types.GET_LOCATIONS_START:
+            return true;
+        case types.GET_LOCATIONS_SUCCESS:
+            return false;
+        case types.GET_LOCATIONS_FAILURE:
+            return false;
+        default:
+            return state;
+    }
+};
+
+ const locations = (state = [], action) => {
+    switch (action.type) {
+        case types.GET_LOCATIONS_SUCCESS:
+            return action.payload;
+        case types.GET_LOCATIONS_FAILURE:
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
 
 export const resources   = combineReducers({
-    fetchingItems, items, fetchingAgencies, agencies
+    fetchingItems, items, fetchingAgencies, agencies, fetchingLocations, locations
 });

@@ -43,3 +43,27 @@ export function getAgenciesFailure(error) {
         payload: error,
     };
 }
+
+
+
+/*  Agencies Action creators */
+
+export function getLocationsStart() {
+    return {
+        type: types.GET_LOCATIONS_START,
+    };
+}
+
+export function getLocationsSuccess(locations) {
+    return {
+        type: types.GET_LOCATIONS_SUCCESS,
+        payload: locations,
+    };
+}
+
+export function getLocationsFailure(error) {
+    return {
+        type: types.GET_LOCATIONS_FAILURE,
+        payload: error,
+    };
+}

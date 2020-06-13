@@ -56,6 +56,13 @@ const axios = Axios.create({
      axios.get(`/agencies`).then(response => response.data);
 
 
+ /**
+  * get all locations from API
+  * */
+ export const  getLocations = () =>
+     axios.get(`/locations`).then(response => response.data);
+
+
  // TODO just export the API
 export const appServices = ({
   fetchHumanResources

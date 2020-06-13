@@ -56,10 +56,11 @@ class HumanResources extends Component {
   };
 
   componentDidMount() {
-    const { getHumanResources, getItems, getAgencies } = this.props;
+    const { getHumanResources, getItems, getAgencies, getLocations } = this.props;
     getHumanResources();
     getItems();
     getAgencies();
+    getLocations();
   }
 
   /**
@@ -381,6 +382,7 @@ HumanResources.propTypes = {
   posting: PropTypes.bool.isRequired,
   getItems: PropTypes.func.isRequired,
   getAgencies: PropTypes.func.isRequired,
+  getLocations: PropTypes.func.isRequired,
   HumanResources: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
     .isRequired,
   page: PropTypes.number.isRequired,
@@ -394,6 +396,7 @@ HumanResources.defaultProps = {
   searchQuery: undefined,
   getItems: () => {},
   getAgencies: () => {},
+  getLocations: () => {},
   items: [],
   agencies: []
 };
@@ -415,6 +418,7 @@ const mapDispatchToProps = (dispatch) => ({
   getHumanResources: bindActionCreators(appOperations.getHumanResources, dispatch),
   getItems: bindActionCreators(resourceOperations.getItems, dispatch),
   getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
+  getLocations: bindActionCreators(resourceOperations.getLocations, dispatch),
   openHumanResourceForm: bindActionCreators(appOperations.openResourceForm, dispatch),
   closeHumanResourceForm: bindActionCreators(appOperations.closeResourceForm, dispatch)
 });

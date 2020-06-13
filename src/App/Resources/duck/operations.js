@@ -21,3 +21,13 @@ export const getAgencies = () => (dispatch) => {
         .then( res => dispatch(actions.getAgenciesSuccess(res)) )
         .catch( err => dispatch(actions.getAgenciesFailure(err)))
 }
+
+/**
+ * get locations operation
+ */
+export const getLocations = () => (dispatch) => {
+    dispatch(actions.getLocationsStart());
+    API.getLocations()
+        .then( res => dispatch(actions.getLocationsSuccess(res)) )
+        .catch( err => dispatch(actions.getLocationsFailure(err)))
+}
