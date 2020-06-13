@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Button, Input, Form, Row, Col } from "antd";
+import { Button, Input, Form, Row, Col, Select } from "antd";
 
 /* state actions */
 
@@ -61,13 +61,16 @@ const HumanResourceForm = ({
   humanResource,
   isEditForm,
   posting,
+  items,
+  agencies,
   onCancel,
 }) => {
   // form finish(submit) handler
   const onFinish = (values) => {
     if (isEditForm) {
-      const updates = { ...humanResource, ...values };
+      const updates = {...humanResource, ...values};
     }
+  }
 
     return (
       <Form
@@ -80,57 +83,115 @@ const HumanResourceForm = ({
         {/* start:type */}
         <Form.Item
           label="Type"
-          title="humanResource name e.g Kilogram"
+          title="humanResource type e.g People"
+          rules={[
+            {
+              required: true,
+              message: "humanResource type is required",
+            },
+          ]}
+        >
+          <Select>
+            {items.map(item => <Select.Option value={item.id}>{item.name}</Select.Option>)}
+          </Select>
+        </Form.Item>
+        {/* end:type */}
+
+        {/* start:implementing partner */}
+        <Form.Item
+          label="Implementing Partner"
+          title="humanResource Implementing Partner e.g Tanzania Red cross society"
+          rules={[
+            {
+              required: true,
+              message: "humanResource Implementing Partner is required",
+            },
+          ]}
+        >
+          <Select>
+            {agencies.map(agency => <Select.Option value={agency.id}>{agency.name}</Select.Option>)}
+          </Select>
+        </Form.Item>
+        {/* end:implementing partner */}
+
+        {/* start:number */}
+        <Form.Item
+          label="Number"
+          title=" available humanResources in number  e.g 30"
           name={["strings", "name", "en"]}
           rules={[
             {
               required: true,
-              message: "humanResource name is required",
+              message: "humanResource number  is required",
             },
           ]}
         >
           <Input />
         </Form.Item>
-        {/* end:name */}
+        {/* end:number */}
 
-        {/* start: abbreviation & symbol */}
+        {/* start:location */}
+        <Form.Item
+          label="Location"
+          title="humanResources location is required  e.g Dar Es Salaam"
+          name={["strings", "name", "en"]}
+          rules={[
+            {
+              required: true,
+              message: "humanResource number  is required",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        {/* end:location */}
+
+        {/* start: start date & end date */}
         <Row justify="space-between">
-          {/* start:abbreviation */}
+          {/* start:start date */}
           <Col span={11}>
             <Form.Item
-              label="Abbreviation"
-              title="humanResource abbreviation e.g kg"
+              label="Start Date"
+              title="humanResource start date e.g 06-20-2020"
               name={["strings", "abbreviation", "en"]}
               rules={[
                 {
                   required: true,
-                  message: "humanResource abbreviation is required",
+                  message: "humanResource start date is required",
                 },
               ]}
             >
               <Input />
             </Form.Item>
           </Col>
-          {/* end:abbreviation */}
-          {/* start:symbol */}
+          {/* end:start date */}
+
+          {/* start:end date */}
           <Col span={11}>
             <Form.Item
-              label="Symbol"
-              title="humanResource symbol e.g $"
+              label="End Date"
+              title="humanResource end date e.g 07-30-2020"
               name={["strings", "symbol"]}
+              rules={[
+              {
+                required: true,
+                message: "humanResource end date is required",
+              },
+            ]}
             >
               <Input />
             </Form.Item>
           </Col>
-          {/* end:symbol */}
+          {/* end:end date */}
         </Row>
-        {/* end: abbreviation & symbol */}
+        {/* end: start date & end date */}
 
         {/* start:description */}
         <Form.Item
           label="Description"
           title="humanResource usage description"
           name={["strings", "description", "en"]}
+
         >
           <TextArea autoSize={{ minRows: 3, maxRows: 10 }} />
         </Form.Item>
@@ -172,7 +233,8 @@ const HumanResourceForm = ({
     }),
     isEditForm: PropTypes.bool.isRequired,
     posting: PropTypes.bool.isRequired,
+    items: PropTypes.array,
     onCancel: PropTypes.func.isRequired,
   };
-};
+
 export default HumanResourceForm;

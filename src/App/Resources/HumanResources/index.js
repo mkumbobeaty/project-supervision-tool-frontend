@@ -10,6 +10,7 @@ import ListItemActions from "../../components/ListItemActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { appOperations } from "../../duck/";
+import { resourceOperations } from "../duck";
 import HumanResourceForm from "./Form";
 import "./styles.css";
 
@@ -55,8 +56,10 @@ class HumanResources extends Component {
   };
 
   componentDidMount() {
-    const { getHumanResources } = this.props;
+    const { getHumanResources, getItems, getAgencies } = this.props;
     getHumanResources();
+    getItems();
+    getAgencies();
   }
 
   /**
@@ -237,6 +240,8 @@ class HumanResources extends Component {
   render() {
     const {
       HumanResources,
+      items,
+      agencies,
       loading,
       page,
       showForm,
@@ -353,27 +358,15 @@ class HumanResources extends Component {
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
           bodyStyle={{ paddingBottom: 80 }}
-          footer={
-            <div
-              style={{
-                textAlign: "right",
-              }}
-            >
-              <Button onClick={this.closeHumanResourceForm} style={{ marginRight: 8 }}>
-                Cancel
-              </Button>
-              <Button onClick={this.onClose} type="primary">
-                Submit
-              </Button>
-            </div>
-          }
         >
-          {/* <HumanResourceForm
-            // posting={posting}
-            isEditForm={isEditForm}
+           <HumanResourceForm
+            posting={false}
+            items={items}
+            agencies={agencies}
+            isEditForm={false}
             HumanResources={HumanResources}
-            onCancel={this.closeHumanResourcesForm}
-          /> */}
+            onCancel={this.closeHumanResourceForm}
+          />
         </Drawer>
         {/* end create/edit form modal */}
       </>
@@ -383,7 +376,11 @@ class HumanResources extends Component {
 
 HumanResources.propTypes = {
   loading: PropTypes.bool.isRequired,
+  items: PropTypes.array.isRequired,
+  agencies: PropTypes.array.isRequired,
   posting: PropTypes.bool.isRequired,
+  getItems: PropTypes.func.isRequired,
+  getAgencies: PropTypes.func.isRequired,
   HumanResources: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
     .isRequired,
   page: PropTypes.number.isRequired,
@@ -395,6 +392,10 @@ HumanResources.propTypes = {
 HumanResources.defaultProps = {
   HumanResources: null,
   searchQuery: undefined,
+  getItems: () => {},
+  getAgencies: () => {},
+  items: [],
+  agencies: []
 };
 
 const mapStateToProps = (state) => {
@@ -402,6 +403,8 @@ const mapStateToProps = (state) => {
     HumanResources: state.humanResourcesReducer.data
       ? state.humanResourcesReducer.data
       : [],
+    items: state.resources?.items?.data,
+    agencies: state.resources?.agencies?.data,
     total: state.humanResourcesReducer.total,
     page: state.humanResourcesReducer.page,
     showForm:state.humanResourcesReducer.showForm
@@ -410,6 +413,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   getHumanResources: bindActionCreators(appOperations.getHumanResources, dispatch),
+  getItems: bindActionCreators(resourceOperations.getItems, dispatch),
+  getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
   openHumanResourceForm: bindActionCreators(appOperations.openResourceForm, dispatch),
   closeHumanResourceForm: bindActionCreators(appOperations.closeResourceForm, dispatch)
 });

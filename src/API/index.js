@@ -43,6 +43,20 @@ const axios = Axios.create({
  const fetchHumanResources = () =>
     axios.get(`/human_resources`).then(response => response.data);
 
+ /**
+  * get all items from API
+  * */
+ export const  getItems = () =>
+     axios.get(`/items`).then(response => response.data);
+
+ /**
+  * get all agencies from API
+  * */
+ export const  getAgencies = () =>
+     axios.get(`/agencies`).then(response => response.data);
+
+
+ // TODO just export the API
 export const appServices = ({
   fetchHumanResources
 })
