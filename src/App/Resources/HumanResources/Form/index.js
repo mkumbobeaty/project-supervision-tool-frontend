@@ -68,11 +68,12 @@ const HumanResourceForm = ({
     const payload = { ...values, start_date, end_date };
 
     if (isEditForm) {
-      const updates = { ...humanResource, ...payload };
-      debugger;
+      const updates = { humanResource, ...payload };
       updateHumanResource(updates);
     } else {
       createHumanResource(payload);
+      onCancel()
+      
     }
   };
 
@@ -83,9 +84,6 @@ const HumanResourceForm = ({
       onFinish={onFinish}
       initialValues={{
         ...humanResource,
-        item_id: get(humanResource, "item_id.id"),
-        agency_id: get(humanResource, "agency_id._id"),
-        location_id: get(humanResource, "location_id.id"),
       }}
       autoComplete="off"
     >
@@ -101,11 +99,7 @@ const HumanResourceForm = ({
           },
         ]}
       >
-        <Select
-          initialValue={
-            isEditForm && humanResource ? humanResource.item_id : undefined
-          }
-        >
+        <Select>
           {items.map((item) => (
             <Select.Option value={item.id}>{item.name}</Select.Option>
           ))}

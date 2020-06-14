@@ -48,8 +48,9 @@ export const createHumanResource = (payload) => (dispatch) => {
 /**
  * update human resources operation
  */
-export const updateHumanResource = ({payload}) => (dispatch) => {
+export const updateHumanResource = (payload) => (dispatch) => {
     dispatch(actions.updateHumanResourceStart());
+debugger
     API.updateHumanResource(payload)
         .then( res => dispatch(actions.updateHumanResourceSuccess(res)) )
         .catch( err => dispatch(actions.updateHumanResourceFailure(err)))
@@ -60,7 +61,6 @@ export const updateHumanResource = ({payload}) => (dispatch) => {
  */
 export const deleteHumanResource = (payload) => (dispatch) => {
     dispatch(actions.deleteHumanResourceStart());
-    debugger
     API.deleteHumanResource(payload)
         .then( res => dispatch(actions.deleteHumanResourceSuccess(res)) )
         .catch( err => dispatch(actions.deleteHumanResourceFailure(err)))

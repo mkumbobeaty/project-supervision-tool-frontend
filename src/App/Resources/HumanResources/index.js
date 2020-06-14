@@ -169,6 +169,7 @@ class HumanResources extends Component {
    */
   handleEdit = (humanResource) => {
     const {selectHumanResource, openHumanResourceForm} = this.props;
+  
     selectHumanResource(humanResource);
     this.setState({ isEditForm: true });
     openHumanResourceForm();
