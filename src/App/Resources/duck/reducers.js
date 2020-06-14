@@ -15,6 +15,28 @@ import { combineReducers } from "redux";
  * humanResource: Object
  * }
  */
+const defaultHumanResource = {
+  data: [],
+  total: 0,
+  initLoading: true,
+  loading: false,
+  error: null,
+  showForm: false,
+  page: 0,
+};
+
+const fetchHumanResources = (state = false, action) => {
+  switch (action.type) {
+    case types.CREATE_HUMAN_RESOURCES_START:
+      return true;
+    case types.CREATE_HUMAN_RESOURCES_SUCCESS:
+      return false;
+    case types.CREATE_HUMAN_RESOURCES_FAILURE:
+      return false;
+    default:
+      return state;
+};
+}
 
 const fetchingAgencies = (state = false, action) => {
   switch (action.type) {
@@ -101,8 +123,27 @@ const creatingHumanResource = (state = false, action) => {
   }
 };
 
-const humanResource = (state = [], action) => {
+const humanResource = (state = defaultHumanResource, action) => {
   switch (action.type) {
+    case types.GET_HUMAN_RESOURCES_SUCCESS:
+      return Object.assign(
+        {},
+        {
+          ...state,
+          data: action.humanResources.data,
+          total: action.humanResources.total,
+          page: action.humanResources.page,
+          initLoading: false,
+          showForm: false,
+          loading: true,
+        }
+      );
+    case types.GET_HUMAN_RESOURCES_FAILURE:
+      return Object.assign({}, { ...state, error: action.message });
+    case types.OPEN_HUMAN_RESOURCES_FORM:
+      return Object.assign({}, state, { showForm: true });
+    case types.CLOSE_HUMAN_RESOURCES_FORM:
+      return Object.assign({}, state, { showForm: false });
     case types.CREATE_HUMAN_RESOURCES_SUCCESS:
       return action.payload;
     case types.CREATE_HUMAN_RESOURCES_FAILURE:
@@ -162,9 +203,10 @@ export const resources = combineReducers({
   agencies,
   fetchingLocations,
   locations,
+  fetchHumanResources,
   creatingHumanResource,
   humanResource,
   updateHumanResource,
   updatedHumanResource,
-  deleteHumanResource
+  deleteHumanResource,
 });

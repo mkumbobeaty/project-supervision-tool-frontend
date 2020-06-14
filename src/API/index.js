@@ -15,32 +15,12 @@ const axios = Axios.create({
 });
 
 
-// function that fetch human Resources from API
-
-// const fetchHumanResources = params => {
-//   return fetch(API_BASE_URL,{
-//     params
-//   } ).then(res => res.json())
-//   .then(data => {
-//     return data;
-//   })
-//   .catch(error => {
-//     console.log(error);
-//   });
-// }
-//
-// export const appServices = ({
-//   fetchHumanResources
-// })
-
-
-
 
 /**
  * Fetch all human resources from API
  *
  */
- const fetchHumanResources = () =>
+ export const fetchHumanResources = () =>
     axios.get(`/human_resources`).then(response => response.data);
 
  /**
@@ -74,12 +54,6 @@ const axios = Axios.create({
  */
 export const createHumanResource = humanResource =>
     axios.post(`/human_resources`, humanResource).then(response => response.data);
-
-
- // TODO just export the API
-export const appServices = ({
-  fetchHumanResources
-})
 
 
 /**

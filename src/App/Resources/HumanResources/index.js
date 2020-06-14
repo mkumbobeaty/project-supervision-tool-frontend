@@ -435,28 +435,28 @@ HumanResources.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    HumanResources: state.humanResourcesReducer.data
-      ? state.humanResourcesReducer.data
+    HumanResources: state.resources.humanResource.data
+      ? state.resources.humanResource.data
       : [],
     items: state.resources?.items?.data,
     agencies: state.resources?.agencies?.data,
     locations: state.resources?.locations?.data,
-    total: state.humanResourcesReducer.total,
-    page: state.humanResourcesReducer.page,
-    showForm:state.humanResourcesReducer.showForm
+    total: state.resources.humanResource.total,
+    page: state.resources.humanResource.page,
+    showForm:state.resources.humanResource.showForm
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getHumanResources: bindActionCreators(appOperations.getHumanResources, dispatch),
+  getHumanResources: bindActionCreators(resourceOperations.getHumanResources, dispatch),
   getItems: bindActionCreators(resourceOperations.getItems, dispatch),
   getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
   getLocations: bindActionCreators(resourceOperations.getLocations, dispatch),
   createHumanResource: bindActionCreators(resourceOperations.createHumanResource, dispatch),
   deleteHumanResource: bindActionCreators(resourceOperations.deleteHumanResource, dispatch),
   updateHumanResource: bindActionCreators(resourceOperations.updateHumanResource, dispatch),
-  openHumanResourceForm: bindActionCreators(appOperations.openResourceForm, dispatch),
+  openHumanResourceForm: bindActionCreators(resourceOperations.openResourceForm, dispatch),
   selectHumanResource: bindActionCreators(resourceOperations.selectHumanResource, dispatch),
-  closeHumanResourceForm: bindActionCreators(appOperations.closeResourceForm, dispatch),
+  closeHumanResourceForm: bindActionCreators(resourceOperations.closeResourceForm, dispatch),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(HumanResources);
