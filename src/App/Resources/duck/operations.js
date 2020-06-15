@@ -59,7 +59,7 @@ export const createHumanResource = (payload) => (dispatch) => {
 export const updateHumanResource = (payload) => (dispatch) => {
   dispatch(actions.updateHumanResourceStart());
   debugger;
-  API.updateHumanResource(payload)
+  API.updateHumanResource(payload, payload.id)
     .then((res) => dispatch(actions.updateHumanResourceSuccess(res)))
     .catch((err) => dispatch(actions.updateHumanResourceFailure(err)));
 };

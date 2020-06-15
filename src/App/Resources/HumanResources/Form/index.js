@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { generateDateString } from "../../../../Util";
+import { generateDateString, createDateFromString } from "../../../../Util";
 import { Button, Form, Row, Col, Select, DatePicker, InputNumber } from "antd";
 
 /* state actions */
@@ -50,12 +50,12 @@ const wrapperCol = {
  *
  */
 const HumanResourceForm = ({
-  humanResource,
   isEditForm,
   posting,
   createHumanResource,
   updateHumanResource,
   items,
+  selected,
   agencies,
   locations,
   onCancel,
@@ -67,21 +67,25 @@ const HumanResourceForm = ({
     const payload = { ...values, start_date, end_date };
 
     if (isEditForm) {
-      const updates = { humanResource, ...payload };
+      const updates = { ...selected, payload };
       updateHumanResource(updates);
     } else {
       createHumanResource(payload);
     
     }
   };
-
   return (
     <Form
       labelCol={labelCol}
       wrapperCol={wrapperCol}
       onFinish={onFinish}
       initialValues={{
-        ...humanResource,
+        item_id: selected?.item.id,
+        agency_id: selected?.agency.id,
+        location_id: selected?.location.id,
+        quantity: selected?.quantity,
+        start_date: createDateFromString(selected?.start_date),
+        end_date: createDateFromString(selected?.end_date),
       }}
       autoComplete="off"
       className='HumanResourceForm'
