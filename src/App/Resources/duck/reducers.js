@@ -7,6 +7,7 @@ import { combineReducers } from "redux";
  * {
  * fetchingAgencies: boolean
  * fetchingItems: boolean
+ * selectedHumanResource: Object
  * fetchingLocations: boolean
  * items: Object[], // items
  * agencies: Object[], // agencies
@@ -142,6 +143,17 @@ const updatedHumanResource = (state = [], action) => {
   }
 };
 
+// selected human resource
+const selectedHumanResource = (state =null, action) => {
+  switch (action.type) {
+    case types.SELECT_HUMAN_RESOURCE:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+
 const deleteHumanResource = (state = false, action) => {
   switch (action.type) {
     case types.DELETE_HUMAN_RESOURCES_START:
@@ -157,6 +169,7 @@ const deleteHumanResource = (state = false, action) => {
 
 export const resources = combineReducers({
   fetchingItems,
+  selectedHumanResource,
   items,
   fetchingAgencies,
   agencies,

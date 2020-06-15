@@ -162,7 +162,7 @@ class HumanResources extends Component {
    * @name handleEdit
    * @description Handle on Edit action for list item
    *
-   * @param {object} HumanResources Event Action Catalogue to be edited
+   * @param {object} humanResource Event Action Catalogue to be edited
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -262,6 +262,7 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
     const {
       HumanResources,
       items,
+      selected,
       agencies,
       locations,
       loading,
@@ -386,6 +387,7 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
            <HumanResourceForm
             posting={false}
             items={items}
+            selected={selected}
             agencies={agencies}
             locations={locations}
             isEditForm={isEditForm}
@@ -405,6 +407,7 @@ HumanResources.propTypes = {
   loading: PropTypes.bool.isRequired,
   items: PropTypes.array.isRequired,
   agencies: PropTypes.array.isRequired,
+  selected: PropTypes.object.isRequired,
   locations: PropTypes.array.isRequired,
   posting: PropTypes.bool.isRequired,
   getItems: PropTypes.func.isRequired,
@@ -430,7 +433,8 @@ HumanResources.defaultProps = {
   updateHumanResource: () => {},
   items: [],
   agencies: [],
-  locations: []
+  locations: [],
+  selected: null,
 };
 
 const mapStateToProps = (state) => {
@@ -441,6 +445,7 @@ const mapStateToProps = (state) => {
     items: state.resources?.items?.data,
     agencies: state.resources?.agencies?.data,
     locations: state.resources?.locations?.data,
+    selected: state.resources?.selectedHumanResource,
     total: state.humanResourcesReducer.total,
     page: state.humanResourcesReducer.page,
     showForm:state.humanResourcesReducer.showForm

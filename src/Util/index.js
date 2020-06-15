@@ -36,3 +36,19 @@ export const generateDateString = (dateObject) => {
         .utc()
         .format('YYYY-MM-DD');
 }
+
+/**
+ * create moment date  object from ISO string
+ *
+ * @function
+ * @name createDateFromString
+ *
+ * @param {String} dateString
+ *
+ * @returns {Object} date
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export const createDateFromString = (dateString) => {
+    return moment(dateString);
+}

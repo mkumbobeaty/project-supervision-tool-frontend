@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import get from "lodash/get";
-import { generateDateString } from "../../../../Util";
+import { generateDateString, createDateFromString } from "../../../../Util";
 import { Button, Form, Row, Col, Select, DatePicker, InputNumber } from "antd";
 
 /* state actions */
@@ -57,6 +57,7 @@ const HumanResourceForm = ({
   createHumanResource,
   updateHumanResource,
   items,
+  selected,
   agencies,
   locations,
   onCancel,
@@ -76,14 +77,18 @@ const HumanResourceForm = ({
       
     }
   };
-
   return (
     <Form
       labelCol={labelCol}
       wrapperCol={wrapperCol}
       onFinish={onFinish}
       initialValues={{
-        ...humanResource,
+        item_id: selected?.item.id,
+        agency_id: selected?.agency.id,
+        location_id: selected?.location.id,
+        quantity: selected?.quantity,
+        start_date: createDateFromString(selected?.start_date),
+        end_date: createDateFromString(selected?.end_date),
       }}
       autoComplete="off"
     >
