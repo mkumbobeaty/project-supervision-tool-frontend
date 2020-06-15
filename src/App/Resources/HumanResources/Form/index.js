@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import get from "lodash/get";
 import { generateDateString } from "../../../../Util";
 import { Button, Form, Row, Col, Select, DatePicker, InputNumber } from "antd";
 
@@ -72,8 +71,7 @@ const HumanResourceForm = ({
       updateHumanResource(updates);
     } else {
       createHumanResource(payload);
-      onCancel()
-      
+    
     }
   };
 
@@ -86,6 +84,7 @@ const HumanResourceForm = ({
         ...humanResource,
       }}
       autoComplete="off"
+      className='HumanResourceForm'
     >
       {/* start:type */}
       <Form.Item

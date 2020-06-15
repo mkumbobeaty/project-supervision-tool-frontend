@@ -19,4 +19,8 @@
       width: 90% !important;
     }
   }
-  
+
+  .HumanResourceForm .ant-input-number,
+  .HumanResourceForm .ant-picker{
+    width: 100% !important;
+  }

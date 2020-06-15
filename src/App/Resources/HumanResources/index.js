@@ -1,4 +1,4 @@
-import { Modal, Col, Drawer, Button } from "antd";
+import { Modal, Col, Drawer } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
@@ -10,7 +10,6 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { appOperations } from "../../duck/";
 import { resourceOperations } from "../duck";
 import HumanResourceForm from "./Form";
 import "./styles.css";
@@ -271,6 +270,7 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
       createHumanResource,
       updateHumanResource,
       total,
+      posting
     } = this.props;
     const { showFilters, isEditForm } = this.state;
     return (
@@ -384,7 +384,7 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
           bodyStyle={{ paddingBottom: 80 }}
         >
            <HumanResourceForm
-            posting={false}
+            posting={posting}
             items={items}
             agencies={agencies}
             locations={locations}
@@ -443,6 +443,7 @@ const mapStateToProps = (state) => {
     locations: state.resources?.locations?.data,
     total: state.resources.humanResource.total,
     page: state.resources.humanResource.page,
+    posting: state.resources.humanResource.posting,
     showForm:state.resources.humanResource.showForm
   };
 };

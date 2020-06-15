@@ -22,6 +22,7 @@ const defaultHumanResource = {
   loading: false,
   error: null,
   showForm: false,
+  posting: false,
   page: 0,
 };
 
@@ -145,9 +146,11 @@ const humanResource = (state = defaultHumanResource, action) => {
     case types.CLOSE_HUMAN_RESOURCES_FORM:
       return Object.assign({}, state, { showForm: false });
     case types.CREATE_HUMAN_RESOURCES_SUCCESS:
-      return action.payload;
+      // return action.payload;
+      return Object.assign({}, state, { posting: false, showForm: false });
     case types.CREATE_HUMAN_RESOURCES_FAILURE:
-      return action.payload;
+      // return action.payload;
+      return Object.assign({}, state, { error: action.payload.error });
     case types.DELETE_HUMAN_RESOURCES_SUCCESS:
       return action.payload;
     case types.DELETE_HUMAN_RESOURCES_FAILURE:
