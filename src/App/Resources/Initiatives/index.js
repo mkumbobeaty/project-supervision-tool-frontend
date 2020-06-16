@@ -468,8 +468,11 @@ const mapDispatchToProps = (dispatch) => ({
   createInitiative: bindActionCreators(resourceOperations.createInitiative, dispatch),
   deleteInitiative: bindActionCreators(resourceOperations.deleteInitiative, dispatch),
   updateInitiative: bindActionCreators(resourceOperations.updateInitiative, dispatch),
+  openResourceForm: bindActionCreators(resourceOperations.openResourceForm, dispatch),
   openInitiativeForm: bindActionCreators(resourceOperations.openInitiativeForm, dispatch),
-  selectInitiative: bindActionCreators(resourceOperations.selectInitiative, dispatch),
-  closeInitiativeForm: bindActionCreators(resourceOperations.closeInitiativeForm, dispatch),
+  selectInitiative: bindActionCreators(resourceOperations.selectHumanResource, dispatch),
+  closeResourceForm: bindActionCreators(resourceOperations.closeResourceForm, dispatch),
+  closeInitiativeForm:bindActionCreators(resourceOperations.closeInitiativeForm, dispatch),
+
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Initiative);

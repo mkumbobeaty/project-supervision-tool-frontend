@@ -27,6 +27,18 @@ const defaultHumanResource = {
   page: 0,
 };
 
+const defaultInitiative
+= {
+  data: [],
+  total: 0,
+  initLoading: true,
+  loading: false,
+  error: null,
+  showForm: false,
+  posting: false,
+  page: 0,
+};
+
 const fetchHumanResources = (state = false, action) => {
   switch (action.type) {
     case types.GET_HUMAN_RESOURCES_START:
@@ -204,8 +216,101 @@ const deleteHumanResource = (state = false, action) => {
   }
 };
 
+// Initiatives
+
+const creatingInitiative = (state = false, action) => {
+  switch (action.type) {
+    case types.CREATE_INITIATIVE_START:
+      return true;
+    case types.CREATE_INITIATIVE_SUCCESS:
+      return false;
+    case types.CREATE_INITIATIVE_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const initiative = (state = defaultInitiative, action) => {
+  switch (action.type) {
+    case types.GET_INITIATIVES_START:
+      return {loading:true}
+    case types.GET_INITIATIVES_SUCCESS:
+      return Object.assign(
+        {},
+        {
+          ...state,
+          data: action.initiatives.data,
+          total: action.initiatives.total,
+          page: action.initiatives.page,
+          initLoading: false,
+          showForm: false,
+          loading: false,
+        }
+      );
+    case types.GET_INITIATIVES_FAILURE:
+      return Object.assign({}, { ...state, error: action.message, loading:false });
+    case types.OPEN_INITIATIVES_FORM:
+      return Object.assign({}, state, { showForm: true });
+    case types.CLOSE_INITIATIVES_FORM:
+      return Object.assign({}, state, { showForm: false });
+    case types.CREATE_INITIATIVE_SUCCESS:
+      return Object.assign({}, state, { posting: false, showForm: false, loading:true });
+    case types.CREATE_INITIATIVE_FAILURE:
+      // return action.payload;
+      return Object.assign({}, state, { error: action.payload.error });
+    case types.UPDATE_INITIATIVE_SUCCESS:
+      return action.payload;
+    case types.UPDATE_INITIATIVE_FAILURE:
+      return action.payload;
+    case types.DELETE_INITIATIVE_SUCCESS:
+      return action.payload;
+    case types.DELETE_INITIATIVE_FAILURE:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+
+const updateInitiative = (state = false, action) => {
+  switch (action.type) {
+    case types.UPDATE_INITIATIVE_START:
+      return true;
+    case types.UPDATE_INITIATIVE_SUCCESS:
+      return false;
+    case types.UPDATE_INITIATIVE_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const selectedInitiative = (state = null, action) => {
+  switch (action.type) {
+    case types.SELECT_INITIATIVE:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+const deleteInitiative = (state = false, action) => {
+  switch (action.type) {
+    case types.DELETE_INITIATIVE_START:
+      return true;
+    case types.DELETE_INITIATIVE_SUCCESS:
+      return false;
+    case types.DELETE_INITIATIVE_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+}
+
 export const resources = combineReducers({
   fetchingItems,
+  selectedInitiative,
   selectedHumanResource,
   items,
   fetchingAgencies,
@@ -217,4 +322,9 @@ export const resources = combineReducers({
   humanResource,
   updateHumanResource,
   deleteHumanResource,
+  creatingInitiative,
+  updateInitiative,
+  initiative,
+  deleteInitiative,
+
 });
