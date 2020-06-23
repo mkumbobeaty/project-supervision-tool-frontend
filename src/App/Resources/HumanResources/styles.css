@@ -24,3 +24,9 @@
   .HumanResourceForm .ant-picker{
     width: 100% !important;
   }
+  .humanResourceEllipse
+  {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }

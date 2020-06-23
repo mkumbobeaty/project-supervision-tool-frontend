@@ -2,8 +2,8 @@ import { Modal, Col, Drawer } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { moment} from 'moment';
-import { isoDateToHumanReadableDate } from '../../../Util';
+import { moment } from "moment";
+import { isoDateToHumanReadableDate } from "../../../Util";
 import Topbar from "../../components/Topbar";
 import HumanResourcesList from "../../components/List";
 import ListItem from "../../components/ListItem";
@@ -18,19 +18,21 @@ import "./styles.css";
 const TypeSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
 const partnerSpan = { xxl: 3, xl: 3, lg: 3, md: 5, sm: 6, xs: 7 };
 const numberSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
-const descriptionSpan = { xxl: 6, xl: 7, lg: 7, md: 8, sm: 10, xs: 11 };
+const descriptionSpan = { xxl: 4, xl: 5, lg: 7, md: 8, sm: 10, xs: 11 };
 const locationSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const levelSpan = { xxl: 2, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
 const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
 const endDateSpan = { xxl: 2, xl: 2, lg: 3, md: 3, sm: 4, xs: 0 };
 
 const headerLayout = [
   { ...TypeSpan, header: "Type" },
   { ...descriptionSpan, header: "Description" },
-  { ...partnerSpan, header: "Implementing Partner" },
   { ...numberSpan, header: "Number" },
+  { ...partnerSpan, header: "Implementing Partner" },
   { ...startDateSpan, header: "Start Date" },
   { ...endDateSpan, header: "End Date" },
   { ...locationSpan, header: "Location" },
+  { ...levelSpan, header: "Level" },
 ];
 
 const { confirm } = Modal;
@@ -56,7 +58,12 @@ class HumanResources extends Component {
   };
 
   componentDidMount() {
-    const { getHumanResources, getItems, getAgencies, getLocations } = this.props;
+    const {
+      getHumanResources,
+      getItems,
+      getAgencies,
+      getLocations,
+    } = this.props;
     getHumanResources();
     getItems();
     getAgencies();
@@ -140,8 +147,8 @@ class HumanResources extends Component {
    */
   closeHumanResourceForm = () => {
     this.setState({ isEditForm: false, visible: false });
-    const {closeHumanResourceForm} = this.props;
-    closeHumanResourceForm()
+    const { closeHumanResourceForm } = this.props;
+    closeHumanResourceForm();
   };
 
   /**
@@ -167,8 +174,8 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   handleEdit = (humanResource) => {
-    const {selectHumanResource, openHumanResourceForm} = this.props;
-  
+    const { selectHumanResource, openHumanResourceForm } = this.props;
+
     selectHumanResource(humanResource);
     this.setState({ isEditForm: true });
     openHumanResourceForm();
@@ -224,38 +231,34 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   showArchiveConfirm = (item) => {
-    const {deleteHumanResource} = this.props;
+    const { deleteHumanResource } = this.props;
     confirm({
       title: `Are you sure you want to archive this record ?`,
       okText: "Yes",
       okType: "danger",
       cancelText: "No",
       onOk() {
-        deleteHumanResource(
-          item.id
-        );
+        deleteHumanResource(item.id);
       },
     });
   };
 
   /**
- * converts ISO date string to human readable
- * date and time
- *
- * @function
- * @name isoDateToHumanReadableDate
- *
- * @param {string} isoFormattDate
- *
- * @returns {string} human readable date
- * @version 0.1.0
- * @since 0.1.0
- */
-isoDateToHumanReadableDate = (isoFormattDate) => {
-  return moment(isoFormattDate)
-    .utc()
-    .format('MMMM Do YYYY');
-}
+   * converts ISO date string to human readable
+   * date and time
+   *
+   * @function
+   * @name isoDateToHumanReadableDate
+   *
+   * @param {string} isoFormattDate
+   *
+   * @returns {string} human readable date
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  isoDateToHumanReadableDate = (isoFormattDate) => {
+    return moment(isoFormattDate).utc().format("MMMM Do YYYY");
+  };
 
   render() {
     const {
@@ -271,7 +274,7 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
       createHumanResource,
       updateHumanResource,
       total,
-      posting
+      posting,
     } = this.props;
     const { showFilters, isEditForm } = this.state;
     return (
@@ -341,12 +344,29 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
             >
               {/* eslint-disable react/jsx-props-no-spreading */}
               <Col {...TypeSpan}>{item.item.name ? item.item.name : "All"}</Col>
-              <Col {...descriptionSpan}>{item.item.description}</Col>
-              <Col {...partnerSpan}>{item.agency.name}</Col>
+              <Col
+                {...descriptionSpan}
+                className="humanResourceEllipse"
+                title={item.item.description}
+              >
+                {item.item.description}
+              </Col>
               <Col {...numberSpan}>{item.quantity}</Col>
-              <Col {...startDateSpan}>{isoDateToHumanReadableDate(item.start_date)}</Col>
-              <Col {...endDateSpan}>{isoDateToHumanReadableDate(item.end_date)}</Col>
+              <Col
+                {...partnerSpan}
+                className="humanResourceEllipse"
+                title={item.agency.name}
+              >
+                {item.agency.name}
+              </Col>
+              <Col {...startDateSpan}>
+                {isoDateToHumanReadableDate(item.start_date)}
+              </Col>
+              <Col {...endDateSpan}>
+                {isoDateToHumanReadableDate(item.end_date)}
+              </Col>
               <Col {...locationSpan}>{item.location.name}</Col>
+              <Col {...levelSpan}>{item.location.level}</Col>
               {/* eslint-enable react/jsx-props-no-spreading */}
             </ListItem>
           )}
@@ -384,7 +404,7 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
           afterClose={this.handleAfterCloseForm}
           bodyStyle={{ paddingBottom: 80 }}
         >
-           <HumanResourceForm
+          <HumanResourceForm
             posting={posting}
             items={items}
             selected={selected}
@@ -449,21 +469,42 @@ const mapStateToProps = (state) => {
     page: state.resources.humanResource.page,
     loading: state.resources.humanResource.loading,
     posting: state.resources.humanResource.posting,
-    showForm:state.resources.humanResource.showForm,
+    showForm: state.resources.humanResource.showForm,
     selected: state.resources?.selectedHumanResource,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getHumanResources: bindActionCreators(resourceOperations.getHumanResources, dispatch),
+  getHumanResources: bindActionCreators(
+    resourceOperations.getHumanResources,
+    dispatch
+  ),
   getItems: bindActionCreators(resourceOperations.getItems, dispatch),
   getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
   getLocations: bindActionCreators(resourceOperations.getLocations, dispatch),
-  createHumanResource: bindActionCreators(resourceOperations.createHumanResource, dispatch),
-  deleteHumanResource: bindActionCreators(resourceOperations.deleteHumanResource, dispatch),
-  updateHumanResource: bindActionCreators(resourceOperations.updateHumanResource, dispatch),
-  openHumanResourceForm: bindActionCreators(resourceOperations.openResourceForm, dispatch),
-  selectHumanResource: bindActionCreators(resourceOperations.selectHumanResource, dispatch),
-  closeHumanResourceForm: bindActionCreators(resourceOperations.closeResourceForm, dispatch),
+  createHumanResource: bindActionCreators(
+    resourceOperations.createHumanResource,
+    dispatch
+  ),
+  deleteHumanResource: bindActionCreators(
+    resourceOperations.deleteHumanResource,
+    dispatch
+  ),
+  updateHumanResource: bindActionCreators(
+    resourceOperations.updateHumanResource,
+    dispatch
+  ),
+  openHumanResourceForm: bindActionCreators(
+    resourceOperations.openResourceForm,
+    dispatch
+  ),
+  selectHumanResource: bindActionCreators(
+    resourceOperations.selectHumanResource,
+    dispatch
+  ),
+  closeHumanResourceForm: bindActionCreators(
+    resourceOperations.closeResourceForm,
+    dispatch
+  ),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(HumanResources);
