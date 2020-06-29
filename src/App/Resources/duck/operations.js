@@ -63,9 +63,13 @@ export const updateHumanResource = (payload) => (dispatch) => {
   dispatch(actions.updateHumanResourceStart());
   debugger;
   API.updateHumanResource(payload, payload.id)
-    .then((res) => dispatch(actions.updateHumanResourceSuccess(res)))
+    .then((res) => {
+      dispatch(actions.updateHumanResourceSuccess(res));
+      dispatch(getHumanResources());
+    })
     .catch((err) => dispatch(actions.updateHumanResourceFailure(err)));
 };
+
 
 /**
  * delete human resources operation
