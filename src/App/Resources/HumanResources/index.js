@@ -190,6 +190,8 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   handleAfterCloseForm = () => {
+    const { selectHumanResource } = this.props; 
+    selectHumanResource(null);
     this.setState({ isEditForm: false });
   };
 
@@ -399,9 +401,10 @@ class HumanResources extends Component {
           width={720}
           visible={showForm}
           onCancel={this.closeHumanResourceForm}
-          destroyOnClose
+          destroyOnClose={true}
           maskClosable={false}
-          afterClose={this.handleAfterCloseForm}
+          closable={false}
+          afterVisibleChange={this.handleAfterCloseForm}
           bodyStyle={{ paddingBottom: 80 }}
         >
           <HumanResourceForm

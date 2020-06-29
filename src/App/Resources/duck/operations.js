@@ -49,7 +49,10 @@ export const getLocations = () => (dispatch) => {
 export const createHumanResource = (payload) => (dispatch) => {
   dispatch(actions.createHumanResourceStart());
   API.createHumanResource(payload)
-    .then((res) => dispatch(actions.createHumanResourceSuccess(res)))
+    .then((res) => {
+      dispatch(actions.createHumanResourceSuccess(res));
+      dispatch(getHumanResources());
+    })
     .catch((err) => dispatch(actions.createHumanResourceFailure(err)));
 };
 
@@ -70,6 +73,9 @@ export const updateHumanResource = (payload) => (dispatch) => {
 export const deleteHumanResource = (payload) => (dispatch) => {
   dispatch(actions.deleteHumanResourceStart());
   API.deleteHumanResource(payload)
-    .then((res) => dispatch(actions.deleteHumanResourceSuccess(res)))
+    .then((res) => {
+      dispatch(actions.deleteHumanResourceSuccess(res));
+      dispatch(getHumanResources());
+    })
     .catch((err) => dispatch(actions.deleteHumanResourceFailure(err)));
 };
