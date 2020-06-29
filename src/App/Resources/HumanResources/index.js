@@ -191,7 +191,7 @@ class HumanResources extends Component {
    */
   handleAfterCloseForm = () => {
     const { selectHumanResource } = this.props; 
-    selectHumanResource(null);
+    // selectHumanResource(null);
     this.setState({ isEditForm: false });
   };
 
@@ -278,7 +278,7 @@ class HumanResources extends Component {
       total,
       posting,
     } = this.props;
-    const { showFilters, isEditForm } = this.state;
+    const { isEditForm } = this.state;
     return (
       <>
         {/* Topbar */}
@@ -375,25 +375,6 @@ class HumanResources extends Component {
         />
         {/* end list */}
 
-        {/* filter modal */}
-        <Modal
-          title="Filter Event Human Resources"
-          visible={showFilters}
-          onCancel={this.closeFiltersModal}
-          footer={null}
-          destroyOnClose
-          maskClosable={false}
-          className="FormModal"
-        >
-          {/* <HumanResourcesFilters
-            onCancel={this.closeFiltersModal}
-            cached={cached}
-            onCache={this.handleOnCachedValues}
-            onClearCache={this.handleClearCachedValues}
-          /> */}
-        </Modal>
-        {/* end filter modal */}
-
         <Drawer
           title={
             isEditForm ? "Edit Human Resources" : "Add New Human Resources"
@@ -404,7 +385,6 @@ class HumanResources extends Component {
           destroyOnClose={true}
           maskClosable={false}
           closable={false}
-          afterVisibleChange={this.handleAfterCloseForm}
           bodyStyle={{ paddingBottom: 80 }}
         >
           <HumanResourceForm
