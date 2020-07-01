@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { HashRouter,Switch, Route, Redirect} from 'react-router-dom';
+import { Spin } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import PrivateRoute from './App/Auth/PrivateRoute';
+import SignIn from './App/Auth/components/SignIn';
+import BaseLayout from './App/layouts/BaseLayout';
 
-function App() {
+Spin.setDefaultIndicator(<LoadingOutlined style={{ fontSize: 24 }} spin />);
+const  App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+   <div className="App">
+      <HashRouter  hashType="hashbang">
+        <Switch>
+        <Route path="/app" component={BaseLayout} />
+          <Route path="/signin" component={SignIn}></Route>
+          <Redirect to="/app" />
+        </Switch>
+      </HashRouter>
     </div>
   );
 }

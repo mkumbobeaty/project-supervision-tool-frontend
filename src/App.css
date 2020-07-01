@@ -1,38 +1,193 @@
+@import '~antd/dist/antd.css';
+@font-face {
+  font-family: 'Lato';
+  src: url('./assets/fonts/Lato/Lato-Regular.ttf') format('truetype'),
+    url('./assets/fonts/Lato/Lato-Bold.ttf') format('truetype'),
+    url('./assets/fonts/Lato/Lato-BoldItalic.ttf') format('truetype'),
+    url('./assets/fonts/Lato/Lato-BlackItalic.ttf') format('truetype'),
+    url('./assets/fonts/Lato/Lato-Black.ttf') format('truetype'),
+    url('./assets/fonts/Lato/Lato-Italic.ttf') format('truetype');
+}
 .App {
   text-align: center;
+  padding: 0 60px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* Utils styles*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+i,
+u,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+fieldset,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video,
+input,
+button,
+select,
+textarea .normal {
+  font-family: Lato, 'Helvetica Neue', 'HelveticaNeue-Light', Helvetica, Arial,
+    sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+textarea {
+  resize: none;
+}
+
+body {
+  font-family: Lato, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.actionButton {
+  border-radius: 4px;
+  color: rgb(149, 149, 149);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.actionButton:hover,
+.actionButton:active,
+.actionButton:focus {
+  /* background-color: #e8e8e8; */
+  /* color: #949494; */
+  background-color: #1890ff20;
+  /* color: #1890ff; */
+  cursor: pointer;
+}
+
+.print-only {
+  display: none;
+}
+
+@media print {
+  .print-only {
+    display: block;
+  }
+
+  .not-printable {
+    display: none;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.FormModal {
+  width: 50% !important;
 }
 
-.App-link {
-  color: #61dafb;
+.FormModal-80 {
+  width: 80% !important;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media screen and (max-width: 1024px) {
+  .FormModal {
+    width: 80% !important;
   }
-  to {
-    transform: rotate(360deg);
+
+  .FormModal-80 {
+    width: 70% !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .FormModal {
+    width: 80% !important;
+  }
+
+  .FormModal-80 {
+    width: 80% !important;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .FormModal {
+    width: 90% !important;
+  }
+
+  .FormModal-80 {
+    width: 90% !important;
   }
 }

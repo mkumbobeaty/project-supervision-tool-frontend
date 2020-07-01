@@ -1,0 +1,13 @@
+.ListHeader {
+  height: 50px;
+  padding-top: 10px;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.ListHeader .title {
+  font-weight: 600;
+}
+
+.ListHeader .checkbox {
+  padding-left: 8px;
+}

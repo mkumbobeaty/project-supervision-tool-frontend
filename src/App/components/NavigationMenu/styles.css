@@ -1,0 +1,40 @@
+.NavigationMenu {
+  width: 60%;
+  margin: 80px auto;
+}
+
+.NavigationMenu .NavigationMenuItem {
+  margin: 20px;
+}
+
+.NavigationMenu .NavigationMenuItem:hover {
+  background-color: #fafafb;
+}
+
+.NavigationMenu .NavigationMenuItem .image {
+  display: block;
+  margin: 0 auto;
+}
+
+.NavigationMenu .NavigationMenuItem .text {
+  display: block;
+  text-align: center;
+  text-transform: uppercase;
+  color: #1b98d1;
+}
+
+.NavigationMenu .NavigationMenuItem .text-disabled {
+  color: #a0b0b8;
+}
+
+@media screen and (max-width: 768px) {
+  .NavigationMenu {
+    width: 80%;
+  }
+}
+ 
+ @media screen and (max-width: 426px) {
+  .NavigationMenu {
+    width: 100%;
+  }
+}

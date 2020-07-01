@@ -1,0 +1,54 @@
+.SignIn {}
+
+.SignInForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+.background {
+  background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTfUCrGxh6DDfXlhx8aI1T4kJg8VBNms2MPk3J57LYveGCJi_lt&usqp=CAU") no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+}
+.version-text {
+  padding: 10px;
+  float: right;
+}
+
+.signIn-form-button {
+  width: 100%;
+}
+
+/* override antd css*/
+
+.SignIn .ant-form {
+  width: 400px;
+}
+
+.Logo h1 {
+  color: #57addd;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 40px;
+  margin-bottom: 0;
+}
+
+.Logo span {
+  text-transform: uppercase;
+  color: #7c7c7c;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.SignIn h5 {
+  text-transform: uppercase;
+  color: #7c7c7c;
+  font-size: 18px;
+  font-weight: 600;
+  padding-top: 70px;
+  padding-bottom: 40px;
+}
+
