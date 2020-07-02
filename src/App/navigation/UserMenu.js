@@ -17,7 +17,7 @@ import './styles.css';
  * @since 0.1.0
  */
 const UserMenu = ({ history: { push } }) => {
-  const [showChangePasswordForm, setShowChangePassword] = useState(false);
+  const [setShowChangePassword] = useState(false);
 
 
   const onClickMenu = ({ key }) => {

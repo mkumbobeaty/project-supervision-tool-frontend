@@ -161,7 +161,7 @@ class HumanResources extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  searchHumanResources = (event) => {};
+  searchHumanResources = (event) => { };
 
   /**
    * @function
@@ -190,7 +190,7 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   handleAfterCloseForm = () => {
-    const { selectHumanResource } = this.props; 
+    // const { selectHumanResource } = this.props; 
     // selectHumanResource(null);
     this.setState({ isEditForm: false });
   };
@@ -321,57 +321,57 @@ class HumanResources extends Component {
             onSelectItem,
             onDeselectItem,
           }) => (
-            <ListItem
-              key={item.id} // eslint-disable-line
-              name={item.name}
-              item={item}
-              isSelected={isSelected}
-              onSelectItem={onSelectItem}
-              onDeselectItem={onDeselectItem}
-              renderActions={() => (
-                <ListItemActions
-                  edit={{
-                    name: "Edit Human Resources",
-                    title: "Update Human Resources Details",
-                    onClick: () => this.handleEdit(item),
-                  }}
-                  archive={{
-                    name: "Archive Human Resources",
-                    title:
-                      "Remove Human Resources from list of active Human Resources",
-                    onClick: () => this.showArchiveConfirm(item),
-                  }}
-                />
-              )}
-            >
-              {/* eslint-disable react/jsx-props-no-spreading */}
-              <Col {...TypeSpan}>{item.item.name ? item.item.name : "All"}</Col>
-              <Col
-                {...descriptionSpan}
-                className="humanResourceEllipse"
-                title={item.item.description}
+              <ListItem
+                key={item.id} // eslint-disable-line
+                name={item.name}
+                item={item}
+                isSelected={isSelected}
+                onSelectItem={onSelectItem}
+                onDeselectItem={onDeselectItem}
+                renderActions={() => (
+                  <ListItemActions
+                    edit={{
+                      name: "Edit Human Resources",
+                      title: "Update Human Resources Details",
+                      onClick: () => this.handleEdit(item),
+                    }}
+                    archive={{
+                      name: "Archive Human Resources",
+                      title:
+                        "Remove Human Resources from list of active Human Resources",
+                      onClick: () => this.showArchiveConfirm(item),
+                    }}
+                  />
+                )}
               >
-                {item.item.description}
-              </Col>
-              <Col {...numberSpan}>{item.quantity}</Col>
-              <Col
-                {...partnerSpan}
-                className="humanResourceEllipse"
-                title={item.agency.name}
-              >
-                {item.agency.name}
-              </Col>
-              <Col {...startDateSpan}>
-                {isoDateToHumanReadableDate(item.start_date)}
-              </Col>
-              <Col {...endDateSpan}>
-                {isoDateToHumanReadableDate(item.end_date)}
-              </Col>
-              <Col {...locationSpan}>{item.location.name}</Col>
-              <Col {...levelSpan}>{item.location.level}</Col>
-              {/* eslint-enable react/jsx-props-no-spreading */}
-            </ListItem>
-          )}
+                {/* eslint-disable react/jsx-props-no-spreading */}
+                <Col {...TypeSpan}>{item.item.name ? item.item.name : "All"}</Col>
+                <Col
+                  {...descriptionSpan}
+                  className="humanResourceEllipse"
+                  title={item.item.description}
+                >
+                  {item.item.description}
+                </Col>
+                <Col {...numberSpan}>{item.quantity}</Col>
+                <Col
+                  {...partnerSpan}
+                  className="humanResourceEllipse"
+                  title={item.agency.name}
+                >
+                  {item.agency.name}
+                </Col>
+                <Col {...startDateSpan}>
+                  {isoDateToHumanReadableDate(item.start_date)}
+                </Col>
+                <Col {...endDateSpan}>
+                  {isoDateToHumanReadableDate(item.end_date)}
+                </Col>
+                <Col {...locationSpan}>{item.location.name}</Col>
+                <Col {...levelSpan}>{item.location.level}</Col>
+                {/* eslint-enable react/jsx-props-no-spreading */}
+              </ListItem>
+            )}
         />
         {/* end list */}
 
@@ -429,11 +429,11 @@ HumanResources.propTypes = {
 HumanResources.defaultProps = {
   HumanResources: null,
   searchQuery: undefined,
-  getItems: () => {},
-  getAgencies: () => {},
-  getLocations: () => {},
-  createHumanResource: () => {},
-  updateHumanResource: () => {},
+  getItems: () => { },
+  getAgencies: () => { },
+  getLocations: () => { },
+  createHumanResource: () => { },
+  updateHumanResource: () => { },
   items: [],
   agencies: [],
   locations: [],
