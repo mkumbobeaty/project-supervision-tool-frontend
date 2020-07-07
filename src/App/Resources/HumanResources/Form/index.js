@@ -66,9 +66,8 @@ const HumanResourceForm = ({
     const end_date = generateDateString(values.end_date);
     const payload = { ...values, start_date, end_date };
 
-    if (isEditForm) {
-      const updates = { ...selected, payload };
-      updateHumanResource(updates);
+    if (isEditForm) {    
+      updateHumanResource(payload, selected.id);
     } else {
       createHumanResource(payload);
     

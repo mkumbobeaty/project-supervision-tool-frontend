@@ -202,7 +202,7 @@ Toolbar.propTypes = {
 Toolbar.defaultProps = {
   exportUrl: undefined,
   onFilter: null,
-  onShare: null,
+  onShare: () => {},
   onNotify: null,
   onArchive: null,
 };

@@ -40,8 +40,7 @@ const { confirm } = Modal;
 /**
  * @class
  * @name HumanResources
- * @description Render actions list which have search box, actions and Event Human Resources list
- *
+ * @description Render actions list which have search box, actions and Human Resources list
  * @version 0.1.0
  * @since 0.1.0
  */
@@ -51,9 +50,6 @@ class HumanResources extends Component {
     showFilters: false,
     showShare: false,
     isEditForm: false,
-    notificationSubject: undefined,
-    notificationBody: undefined,
-    cached: null,
     visible: false,
   };
 
@@ -69,34 +65,6 @@ class HumanResources extends Component {
     getAgencies();
     getLocations();
   }
-
-  /**
-   * @function
-   * @name handleOnCachedValues
-   * @description Cached selected values for filters
-   *
-   * @param {object} cached values to be cached from filter
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  handleOnCachedValues = (cached) => {
-    const { cached: previousCached } = this.state;
-    const values = { ...previousCached, ...cached };
-    this.setState({ cached: values });
-  };
-
-  /**
-   * @function
-   * @name handleClearCachedValues
-   * @description Clear cached values
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  handleClearCachedValues = () => {
-    this.setState({ cached: null });
-  };
 
   /**
    * @function
@@ -127,7 +95,7 @@ class HumanResources extends Component {
   /**
    * @function
    * @name openHumanResourceForm
-   * @description Open Event Human Resources form
+   * @description Open Human Resources form
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -140,7 +108,7 @@ class HumanResources extends Component {
   /**
    * @function
    * @name closeHumanResourceForm
-   * @description close Event Human Resources form
+   * @description close Human Resources form
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -154,21 +122,21 @@ class HumanResources extends Component {
   /**
    * @function
    * @name searchHumanResources
-   * @description Search Event Human Resources List based on supplied filter word
+   * @description Search Human Resources List based on supplied filter word
    *
-   * @param {object} event - Event instance
+   * @param {object} humanResource - instance
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-  searchHumanResources = (event) => {};
+  searchHumanResources = (humanResource) => {};
 
   /**
    * @function
    * @name handleEdit
    * @description Handle on Edit action for list item
    *
-   * @param {object} humanResource Event Action Catalogue to be edited
+   * @param {object} humanResource Action Catalogue to be edited
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -191,7 +159,7 @@ class HumanResources extends Component {
    */
   handleAfterCloseForm = () => {
     const { selectHumanResource } = this.props; 
-    // selectHumanResource(null);
+    selectHumanResource(null);
     this.setState({ isEditForm: false });
   };
 
@@ -205,28 +173,17 @@ class HumanResources extends Component {
    */
   handleRefreshHumanResources = () => {
     window.location.reload();
-    // refreshHumanResources(
-    //   () => {
-    //     notifySuccess("Event Human Resources refreshed successfully");
-    //   },
-    //   () => {
-    //     notifyError(
-    //       "An error occurred while refreshing Event Human Resources please contact system administrator"
-    //     );
-    //   }
-    // );
   };
 
   paginateHumanResources = (page) => {
     const { getHumanResources } = this.props;
     getHumanResources(page);
-    console.log("pagination", page);
   };
 
   /**
    * @function
    * @name showArchiveConfirm
-   * @description show confirm modal before archiving a Event Human Resources
+   * @description show confirm modal before archiving a Human Resource
    * @param {object} item Resource item to be archived
    *
    * @version 0.1.0
@@ -313,7 +270,6 @@ class HumanResources extends Component {
           onPaginate={(nextPage) => {
             this.paginateHumanResources(nextPage);
           }}
-          // generateExportUrl={"testing"}
           headerLayout={headerLayout}
           renderListItem={({
             item,
@@ -406,40 +362,6 @@ class HumanResources extends Component {
   }
 }
 
-HumanResources.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  items: PropTypes.array.isRequired,
-  agencies: PropTypes.array.isRequired,
-  selected: PropTypes.object.isRequired,
-  locations: PropTypes.array.isRequired,
-  posting: PropTypes.bool.isRequired,
-  getItems: PropTypes.func.isRequired,
-  getAgencies: PropTypes.func.isRequired,
-  getLocations: PropTypes.func.isRequired,
-  createHumanResource: PropTypes.func.isRequired,
-  updateHumanResource: PropTypes.func.isRequired,
-  HumanResources: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
-    .isRequired,
-  page: PropTypes.number.isRequired,
-  showForm: PropTypes.bool.isRequired,
-  searchQuery: PropTypes.string,
-  total: PropTypes.number.isRequired,
-};
-
-HumanResources.defaultProps = {
-  HumanResources: null,
-  searchQuery: undefined,
-  getItems: () => {},
-  getAgencies: () => {},
-  getLocations: () => {},
-  createHumanResource: () => {},
-  updateHumanResource: () => {},
-  items: [],
-  agencies: [],
-  locations: [],
-  selected: null,
-};
-
 const mapStateToProps = (state) => {
   return {
     HumanResources: state.resources.humanResource.data
@@ -491,3 +413,38 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(HumanResources);
+
+
+HumanResources.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  items: PropTypes.array.isRequired,
+  agencies: PropTypes.array.isRequired,
+  selected: PropTypes.object,
+  locations: PropTypes.array.isRequired,
+  posting: PropTypes.bool.isRequired,
+  getItems: PropTypes.func.isRequired,
+  getAgencies: PropTypes.func.isRequired,
+  getLocations: PropTypes.func.isRequired,
+  createHumanResource: PropTypes.func.isRequired,
+  updateHumanResource: PropTypes.func.isRequired,
+  HumanResources: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+    .isRequired,
+  page: PropTypes.number.isRequired,
+  showForm: PropTypes.bool.isRequired,
+  searchQuery: PropTypes.string,
+  total: PropTypes.number.isRequired,
+};
+
+HumanResources.defaultProps = {
+  HumanResources: null,
+  searchQuery: undefined,
+  getItems: () => {},
+  getAgencies: () => {},
+  getLocations: () => {},
+  createHumanResource: () => {},
+  updateHumanResource: () => {},
+  items: [],
+  agencies: [],
+  locations: [],
+  selected: {},
+};

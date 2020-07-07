@@ -59,10 +59,9 @@ export const createHumanResource = (payload) => (dispatch) => {
 /**
  * update human resources operation
  */
-export const updateHumanResource = (payload) => (dispatch) => {
+export const updateHumanResource = (payload,humanResourceId) => (dispatch) => {
   dispatch(actions.updateHumanResourceStart());
-  debugger;
-  API.updateHumanResource(payload, payload.id)
+  API.updateHumanResource(payload, humanResourceId)
     .then((res) => {
       dispatch(actions.updateHumanResourceSuccess(res));
       dispatch(getHumanResources());

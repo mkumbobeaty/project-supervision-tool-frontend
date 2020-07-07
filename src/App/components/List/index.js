@@ -191,6 +191,7 @@ CustomList.defaultProps = {
   onFilter: null,
   onNotify: null,
   generateExportUrl: null,
+  onShare: () => {},
 };
 
 export default CustomList;
