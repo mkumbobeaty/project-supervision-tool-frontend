@@ -72,9 +72,9 @@ const breadcrumbNameMap = {
     name: "Production Capacity",
     title: "List of all Production Capacity",
   },
-  "/app/settings": {
-    name: "Settings",
-    title: "Settings module",
+  "/app/adminpanel": {
+    name: "Admin Panel",
+    title: "Admin Panel module",
   },
   /* dashboards routes */
   "/app/dashboards": {

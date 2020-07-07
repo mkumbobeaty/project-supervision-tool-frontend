@@ -10,25 +10,27 @@ import modules from '../../modules.json';
 
 /* constants */
 const routes = [
- {
-    name: 'Map Virtualization',
-    path: '/map',
-    icon: mapIcon,
-    description: modules.map,
-  },
-  {
-    name: 'Needs',
-    path: '/needs',
-    icon: needsIcon,
-    description: modules.needs,
-  },
-  
+
   {
     name: 'Resources',
     path: '/resources',
     icon: resourcesIcon,
     description: modules.humanResource,
   },
+ 
+  {
+    name: 'Needs',
+    path: '/needs',
+    icon: needsIcon,
+    description: modules.needs,
+  },
+  {
+    name: 'Map Virtualization',
+    path: '/map',
+    icon: mapIcon,
+    description: modules.map,
+  },
+  
   {
     name: 'Dashboards',
     path: '/dashboards',
@@ -36,8 +38,14 @@ const routes = [
     description: modules.dashboards,
   },
   {
-    name: 'Settings',
-    path: '/settings',
+    name: 'Admin Panel',
+    path: '/adminpanel',
+    icon: settingsIcons,
+    description: modules.dashboards,
+  },
+  {
+    name: 'Advance Search',
+    path: '/dvancesearch',
     icon: settingsIcons,
     description: modules.dashboards,
   },
