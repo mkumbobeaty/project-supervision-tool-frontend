@@ -9,9 +9,11 @@ import PrivateRoute from "../Auth/PrivateRoute";
 import Dashboards from "../Dashboards";
 import ResourceNavMenu from "../navigation/Resources";
 import Donations from "../Resources/Donations";
+import FinancialResources from "../Resources/FinancialResources";
 import Initiatives from "../Resources/Initiatives";
 import KnowledgeResources from "../Resources/KnowledgeResources";
 import HumanResources from "../Resources/HumanResources";
+import HumanResource from  "../Resources/HumanResources/HumanResource";
 import ProductionCapacity from "../Resources/ProductionCapacity";
 import NeedsNavMenu from "../navigation/Needs";
 import NeedsByGovernment from "../Needs/NeedByGovernment";
@@ -67,6 +69,10 @@ const breadcrumbNameMap = {
   "/app/resources/humanresources": {
     name: "Human Resources",
     title: "List of all Human Resources",
+  },
+  "/app/resources/humanresources/:type": {
+    name: "Human Resource",
+    title: "Detail of Human Resource",
   },
   "/app/resources/productioncapacity": {
     name: "Production Capacity",
@@ -166,16 +172,21 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             path={`${baseUrl}/resources`}
             component={ResourceNavMenu}
           />
-          <Route exact path={`${baseUrl}/resources/donation`} component={Donations} />{" "}
+          <Route exact path={`${baseUrl}/resources/donations`} component={Donations} />{" "}
           <Route
             exact
-            path={`${baseUrl}/resources/resourcesinitiatives`}
+            path={`${baseUrl}/resources/initiatives`}
             component={Initiatives}
           />{" "}
           <Route
             exact
             path={`${baseUrl}/resources/knowledgeresources`}
             component={KnowledgeResources}
+          />{" "}
+          <Route
+            exact
+            path={`${baseUrl}/resources/financialresources`}
+            component={FinancialResources}
           />{" "}
           <Route
             exact
@@ -187,6 +198,12 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             path={`${baseUrl}/resources/productioncapacity`}
             component={ProductionCapacity}
           />
+          <Route
+            exact
+            path={`${baseUrl}/resources/humanresources/:type`}
+            component={HumanResource}
+          />
+          
           <PrivateRoute path={`${baseUrl}/map`} component={Map} />
           {/* Dashboard routes */}
           <PrivateRoute

@@ -13,6 +13,7 @@ import { bindActionCreators } from "redux";
 import { resourceOperations } from "../duck";
 import HumanResourceForm from "./Form";
 import "./styles.css";
+import { Link } from "react-router-dom";
 
 /* constants */
 const TypeSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
@@ -159,7 +160,7 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   handleAfterCloseForm = () => {
-    const { selectHumanResource } = this.props; 
+    const { selectHumanResource } = this.props;
     selectHumanResource(null);
     this.setState({ isEditForm: false });
   };
@@ -235,6 +236,7 @@ class HumanResources extends Component {
       updateHumanResource,
       total,
       posting,
+      match: { url: baseUrl },
     } = this.props;
     const { isEditForm } = this.state;
     return (
@@ -302,7 +304,14 @@ class HumanResources extends Component {
               )}
             >
               {/* eslint-disable react/jsx-props-no-spreading */}
-              <Col {...TypeSpan}>{item.item.name ? item.item.name : "All"}</Col>
+              <Col {...TypeSpan}>
+                {" "}
+                <Link
+                  to={{ pathname: `/app/resources/humanresources/${item.item.name}` }}
+                >
+                  {item.item.name ? item.item.name : "All"}
+                </Link>
+              </Col>
               <Col
                 {...descriptionSpan}
                 className="humanResourceEllipse"
@@ -415,7 +424,6 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(HumanResources);
-
 
 HumanResources.propTypes = {
   loading: PropTypes.bool.isRequired,
