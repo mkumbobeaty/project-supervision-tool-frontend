@@ -236,7 +236,6 @@ class HumanResources extends Component {
       updateHumanResource,
       total,
       posting,
-      match: { url: baseUrl },
     } = this.props;
     const { isEditForm } = this.state;
     return (
@@ -307,7 +306,9 @@ class HumanResources extends Component {
               <Col {...TypeSpan}>
                 {" "}
                 <Link
-                  to={{ pathname: `/app/resources/humanresources/${item.item.name}` }}
+                  to={{
+                    pathname: `/app/resources/humanresources/${item.item.name}`,
+                  }}
                 >
                   {item.item.name ? item.item.name : "All"}
                 </Link>
@@ -375,9 +376,9 @@ class HumanResources extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    HumanResources: state.resources.humanResource.data
-      ? state.resources.humanResource.data
-      : [],
+      HumanResources: state.resources.humanResource.data
+        ? state.resources.humanResource.data
+        : [],
     items: state.resources?.items?.data,
     agencies: state.resources?.agencies?.data,
     locations: state.resources?.locations?.data,
