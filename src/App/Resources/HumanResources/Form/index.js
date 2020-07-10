@@ -1,7 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { generateDateString, createDateFromString } from "../../../../Util";
-import { Button, Form, Row, Col, Select, DatePicker, InputNumber } from "antd";
+import {
+  Button,
+  Form,
+  Row,
+  Col,
+  Select,
+  DatePicker,
+  InputNumber,
+  Input,
+} from "antd";
 
 /* state actions */
 
@@ -66,6 +75,7 @@ const HumanResourceForm = ({
     const start_date = generateDateString(values.start_date);
     const end_date = generateDateString(values.end_date);
     const payload = { ...values, start_date, end_date };
+    debugger
 
     if (isEditForm) {
       updateHumanResource(payload, selected.id);
@@ -73,7 +83,6 @@ const HumanResourceForm = ({
       createHumanResource(payload);
     }
     handleAfterCloseForm();
-
   };
   return (
     <Form
@@ -110,6 +119,22 @@ const HumanResourceForm = ({
         </Select>
       </Form.Item>
       {/* end:type */}
+
+      {/* start:Description */}
+      <Form.Item
+        label="Description"
+        name="description"
+        title="humanResource Description e.g doctor of heart"
+        rules={[
+          {
+            required: true,
+            message: "humanResource Description is required",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      {/* end:Description */}
 
       {/* start:implementing partner */}
       <Form.Item

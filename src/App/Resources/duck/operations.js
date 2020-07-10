@@ -51,6 +51,7 @@ export const createHumanResource = (payload) => (dispatch) => {
   API.createHumanResource(payload)
     .then((res) => {
       dispatch(actions.createHumanResourceSuccess(res));
+      debugger
       dispatch(getHumanResources());
     })
     .catch((err) => dispatch(actions.createHumanResourceFailure(err)));
