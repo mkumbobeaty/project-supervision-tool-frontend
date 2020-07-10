@@ -54,6 +54,7 @@ const HumanResourceForm = ({
   posting,
   createHumanResource,
   updateHumanResource,
+  handleAfterCloseForm,
   items,
   selected,
   agencies,
@@ -66,12 +67,13 @@ const HumanResourceForm = ({
     const end_date = generateDateString(values.end_date);
     const payload = { ...values, start_date, end_date };
 
-    if (isEditForm) {    
+    if (isEditForm) {
       updateHumanResource(payload, selected.id);
     } else {
       createHumanResource(payload);
-    
     }
+    handleAfterCloseForm();
+
   };
   return (
     <Form
@@ -87,7 +89,7 @@ const HumanResourceForm = ({
         end_date: createDateFromString(selected?.end_date),
       }}
       autoComplete="off"
-      className='HumanResourceForm'
+      className="HumanResourceForm"
     >
       {/* start:type */}
       <Form.Item

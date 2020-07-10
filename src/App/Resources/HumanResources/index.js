@@ -115,7 +115,8 @@ class HumanResources extends Component {
    */
   closeHumanResourceForm = () => {
     this.setState({ isEditForm: false, visible: false });
-    const { closeHumanResourceForm } = this.props;
+    const { closeHumanResourceForm, selectHumanResource } = this.props;
+    selectHumanResource(null);
     closeHumanResourceForm();
   };
 
@@ -351,6 +352,7 @@ class HumanResources extends Component {
             locations={locations}
             isEditForm={isEditForm}
             HumanResources={HumanResources}
+            handleAfterCloseForm={this.handleAfterCloseForm}
             createHumanResource={createHumanResource}
             updateHumanResource={updateHumanResource}
             onCancel={this.closeHumanResourceForm}

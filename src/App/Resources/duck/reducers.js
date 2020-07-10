@@ -153,7 +153,7 @@ const humanResource = (state = defaultHumanResource, action) => {
     case types.CREATE_HUMAN_RESOURCES_FAILURE:
       return { error: action.payload.error };
     case types.UPDATE_HUMAN_RESOURCES_START:
-        return { ...state}
+      return { ...state };
     case types.UPDATE_HUMAN_RESOURCES_SUCCESS:
       return { ...state, showForm: false };
     case types.UPDATE_HUMAN_RESOURCES_FAILURE:
