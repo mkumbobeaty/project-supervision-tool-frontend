@@ -1,3 +1,42 @@
-.HumanResourceDetail{
+.HumanResource {
     padding: 0 50px;
+}
+
+.HumanResourceDetail {
+    padding: 0 20px;
+}
+
+.humanResourceTitle {
+    text-transform: uppercase;
+    color: #1b98d1;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding-top: 20px;
+}
+
+.Detail {
+    padding-top: 40px;
+}
+
+.Detail h4 {
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: capitalize;
+}
+.HumanResourceProgress{
+    padding:20px;
+}
+.progress {
+    border: 1px solid #959595;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 50px 30px 20px 30px;
+
+}
+.progress h2 {
+    font-weight: 700;
+}
+
+.progress h2, .progress span {
+    color: #1b98d1;
 }

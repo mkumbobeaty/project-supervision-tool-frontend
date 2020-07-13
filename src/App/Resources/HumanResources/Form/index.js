@@ -75,8 +75,6 @@ const HumanResourceForm = ({
     const start_date = generateDateString(values.start_date);
     const end_date = generateDateString(values.end_date);
     const payload = { ...values, start_date, end_date };
-    debugger
-
     if (isEditForm) {
       updateHumanResource(payload, selected.id);
     } else {
