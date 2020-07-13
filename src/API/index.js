@@ -81,3 +81,19 @@ export const updateHumanResource = (humanResource, id) => {
 export const deleteHumanResource = (humanResource_id) => {
   return axios.delete(`human_resources/${humanResource_id}`).then(response => response.data);
 }
+
+/**
+ * Get a human resource from the API
+ *
+ * @function
+ * @name getHumanResource
+ *
+ * @param {Object} id - Id of an Human resource
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export function getHumanResource(id) {
+  return Axios.get(`/human_resources/${id}`);
+}
