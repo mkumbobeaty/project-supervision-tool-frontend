@@ -169,7 +169,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           <Route exact path={`${baseUrl}/resources/donation`} component={Donations} />{" "}
           <Route
             exact
-            path={`${baseUrl}/resources/resourcesinitiatives`}
+            path={`${baseUrl}/resources/initiatives`}
             component={Initiatives}
           />{" "}
           <Route
