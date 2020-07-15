@@ -137,7 +137,7 @@ const humanResource = (state = defaultHumanResource, action) => {
         loading: true,
       };
     case types.GET_HUMAN_RESOURCE_SUCCESS:
-      return { ...state, resource: action.humanResource.data, loading: false };
+      return { ...state, resource: action.payload, loading: false };
     case types.GET_HUMAN_RESOURCE_FAILURE:
       return { ...state, error: action.message, loading: false };
     case types.OPEN_HUMAN_RESOURCES_FORM:

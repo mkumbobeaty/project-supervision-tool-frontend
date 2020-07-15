@@ -57,6 +57,7 @@ class HumanResources extends Component {
   componentDidMount() {
     const {
       getHumanResources,
+      getHumanResource,
       getItems,
       getAgencies,
       getLocations,
@@ -66,6 +67,7 @@ class HumanResources extends Component {
     getAgencies();
     getLocations();
   }
+
 
   /**
    * @function
@@ -307,7 +309,7 @@ class HumanResources extends Component {
                 {" "}
                 <Link
                   to={{
-                    pathname: `/app/resources/humanresources/${item.item.name}`,
+                    pathname: `/app/resources/humanresources/${item.id}`,
                   }}
                   
                 >

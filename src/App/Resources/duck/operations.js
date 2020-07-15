@@ -88,11 +88,10 @@ export const deleteHumanResource = (payload) => (dispatch) => {
  */
 export const getHumanResource = (payload) => (dispatch) => {
   dispatch(actions.getHumanResourceStart());
-  debugger
   API.getHumanResource(payload)
     .then((res) => {
-      dispatch(actions.getHumanResourceFailure(res));
+      dispatch(actions.getHumanResourceSuccess(res));
     })
-    .catch((err) => dispatch(actions.getHumanResourceFailure(err)));
+    // .catch((err) => dispatch(actions.getHumanResourceFailure(err)));
 };
 

@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { useParams } from "react-router-dom";
+import { withRouter } from "react-router";
 import { bindActionCreators } from "redux";
 import { resourceOperations } from "../../duck";
 import Toolbar from "../../../components/Toolbar";
@@ -18,8 +20,8 @@ class HumanResource extends Component {
   };
 
   componentDidMount() {
-    const { getHumanResource } = this.props;
-    getHumanResource();
+    const { getHumanResource, match: {params} } = this.props;
+    getHumanResource(params.id);
   }
 
   /**
@@ -182,4 +184,4 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HumanResource);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HumanResource));

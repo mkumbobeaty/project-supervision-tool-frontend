@@ -200,8 +200,8 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           />
           <Route
             exact
-            path={`${baseUrl}/resources/humanresources/:type`}
-            component={HumanResource}
+            path={`${baseUrl}/resources/humanresources/:id`}
+            render={({match}) => <HumanResource match={match}/>}
           />
           
           <PrivateRoute path={`${baseUrl}/map`} component={Map} />
