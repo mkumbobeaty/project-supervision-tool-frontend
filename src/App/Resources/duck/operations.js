@@ -92,6 +92,6 @@ export const getHumanResource = (payload) => (dispatch) => {
     .then((res) => {
       dispatch(actions.getHumanResourceSuccess(res));
     })
-    // .catch((err) => dispatch(actions.getHumanResourceFailure(err)));
+    .catch((err) => dispatch(actions.getHumanResourceFailure(err)));
 };
 

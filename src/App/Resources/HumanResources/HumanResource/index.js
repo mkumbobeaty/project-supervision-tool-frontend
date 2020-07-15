@@ -66,6 +66,7 @@ class HumanResource extends Component {
       <div className="HumanResource">
         <Toolbar
           itemName="Human resource"
+          humanResource
           page={page}
           total={total}
           loading={loading}
@@ -168,9 +169,9 @@ class HumanResource extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    HumanResources: state.resources.humanResource.data
-      ? state.resources.humanResource.data
-      : [],
+    humanResource: state.resources.humanResource.humanresourceDetail
+      ? state.resources.humanResource.humanresourceDetail
+      : {},
     total: state.resources.humanResource.total,
     page: state.resources.humanResource.page,
     loading: state.resources.humanResource.loading,

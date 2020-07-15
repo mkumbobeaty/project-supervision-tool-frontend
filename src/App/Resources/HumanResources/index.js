@@ -68,7 +68,6 @@ class HumanResources extends Component {
     getLocations();
   }
 
-
   /**
    * @function
    * @name openFiltersModal
@@ -311,26 +310,30 @@ class HumanResources extends Component {
                   to={{
                     pathname: `/app/resources/humanresources/${item.id}`,
                   }}
-                  
                 >
-                  {item.item.name ? item.item.name : "All"}
+                  {item.hr_type.name ? item.hr_type.name : "All"}
                 </Link>
               </Col>
               <Col
                 {...descriptionSpan}
                 className="humanResourceEllipse"
-                title={item.item.description}
+                title={item.description}
               >
-                {item.item.description}
+                {item.description}
               </Col>
               <Col {...numberSpan}>{item.quantity}</Col>
               <Col
-                {...partnerSpan}
-                className="humanResourceEllipse"
-                title={item.agency.name}
-              >
-                {item.agency.name}
-              </Col>
+                  {...partnerSpan}
+                  className="humanResourceEllipse"
+                >
+                  {" "}
+                  {item.implementing ? item.implementing : "All"}{" "}
+                </Col>
+              {/* {item.implementing_partners.map((partner) => {
+                return (
+                  
+                )
+              })} */}
               <Col {...startDateSpan}>
                 {isoDateToHumanReadableDate(item.start_date)}
               </Col>
@@ -379,9 +382,9 @@ class HumanResources extends Component {
 
 const mapStateToProps = (state) => {
   return {
-      HumanResources: state.resources.humanResource.data
-        ? state.resources.humanResource.data
-        : [],
+    HumanResources: state.resources.humanResource.data
+      ? state.resources.humanResource.data
+      : [],
     items: state.resources?.items?.data,
     agencies: state.resources?.agencies?.data,
     locations: state.resources?.locations?.data,

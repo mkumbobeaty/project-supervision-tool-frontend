@@ -99,7 +99,7 @@ const ListItem = ({
       />
     ) : (
       <Avatar style={{ backgroundColor: avatarBackground }}>
-        {(name || item.item.name).toUpperCase().charAt(0)}
+        {(name || item.hr_type.name).toUpperCase().charAt(0)}
       </Avatar>
     );
   };
