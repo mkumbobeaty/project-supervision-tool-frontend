@@ -27,13 +27,13 @@ const axios = Axios.create({
   * get all items from API
   * */
  export const  getItems = () =>
-     axios.get(`/items`).then(response => response.data);
+     axios.get(`/hr_types`).then(response => response.data);
 
  /**
   * get all agencies from API
   * */
  export const  getAgencies = () =>
-     axios.get(`/agencies`).then(response => response.data);
+     axios.get(`/implementing_partners`).then(response => response.data);
 
 
  /**

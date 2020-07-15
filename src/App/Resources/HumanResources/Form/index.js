@@ -88,10 +88,11 @@ const HumanResourceForm = ({
       wrapperCol={wrapperCol}
       onFinish={onFinish}
       initialValues={{
-        item_id: selected?.item.id,
-        agency_id: selected?.agency.id,
+        // hr_types_id: selected?.item.id,
+        // agency_id: selected?.agency.id,
         location_id: selected?.location.id,
         quantity: selected?.quantity,
+        description:selected?.description,
         start_date: createDateFromString(selected?.start_date),
         end_date: createDateFromString(selected?.end_date),
       }}
@@ -99,9 +100,9 @@ const HumanResourceForm = ({
       className="HumanResourceForm"
     >
       {/* start:type */}
-      <Form.Item
+      {/* <Form.Item
         label="Type"
-        name="item_id"
+        name="hr_types_id"
         title="humanResource type e.g People"
         rules={[
           {
@@ -112,10 +113,10 @@ const HumanResourceForm = ({
       >
         <Select>
           {items.map((item) => (
-            <Select.Option value={item.id}>{item.name}</Select.Option>
+            <Select.Option value={item.id}>{item.hr_type}</Select.Option>
           ))}
         </Select>
-      </Form.Item>
+      </Form.Item> */}
       {/* end:type */}
 
       {/* start:Description */}
