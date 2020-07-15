@@ -19,6 +19,7 @@ import { combineReducers } from "redux";
 const defaultHumanResource = {
   data: [],
   total: 0,
+  resource: {},
   initLoading: true,
   loading: false,
   error: null,
@@ -130,6 +131,14 @@ const humanResource = (state = defaultHumanResource, action) => {
         }
       );
     case types.GET_HUMAN_RESOURCES_FAILURE:
+      return { ...state, error: action.message, loading: false };
+    case types.GET_HUMAN_RESOURCE_START:
+      return {
+        loading: true,
+      };
+    case types.GET_HUMAN_RESOURCE_SUCCESS:
+      return { ...state, resource: action.humanResource.data, loading: false };
+    case types.GET_HUMAN_RESOURCE_FAILURE:
       return { ...state, error: action.message, loading: false };
     case types.OPEN_HUMAN_RESOURCES_FORM:
       return { ...state, showForm: true };

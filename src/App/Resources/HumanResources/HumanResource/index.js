@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { resourceOperations } from "../../duck";
 import Toolbar from "../../../components/Toolbar";
-import "./styles.css";
 import { Row, Col } from "antd";
+
+import "./styles.css";
 
 /* constants */
 const rowOneSpan = { xxl: 10, xl: 12, lg: 12, md: 24, sm: 24, xs: 24 };
@@ -13,6 +16,12 @@ class HumanResource extends Component {
   state = {
     showFilters: false,
   };
+
+  componentDidMount() {
+    const { getHumanResource } = this.props;
+    getHumanResource();
+  }
+
   /**
    * @function
    * @name openFiltersModal
@@ -165,4 +174,12 @@ const mapStateToProps = (state) => {
     loading: state.resources.humanResource.loading,
   };
 };
-export default connect(mapStateToProps)(HumanResource);
+
+const mapDispatchToProps = (dispatch) => ({
+  getHumanResource: bindActionCreators(
+    resourceOperations.getHumanResource,
+    dispatch
+  ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HumanResource);

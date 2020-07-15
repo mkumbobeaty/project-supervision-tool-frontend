@@ -82,3 +82,17 @@ export const deleteHumanResource = (payload) => (dispatch) => {
     })
     .catch((err) => dispatch(actions.deleteHumanResourceFailure(err)));
 };
+
+/**
+ * get  single human resource operation
+ */
+export const getHumanResource = (payload) => (dispatch) => {
+  dispatch(actions.getHumanResourceStart());
+  debugger
+  API.getHumanResource(payload)
+    .then((res) => {
+      dispatch(actions.getHumanResourceFailure(res));
+    })
+    .catch((err) => dispatch(actions.getHumanResourceFailure(err)));
+};
+

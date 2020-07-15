@@ -95,5 +95,6 @@ export const deleteHumanResource = (humanResource_id) => {
  * @since 0.1.0
  */
 export function getHumanResource(id) {
+  debugger
   return Axios.get(`/human_resources/${id}`);
 }

@@ -103,7 +103,7 @@ export function getLocationsFailure(error) {
 
 
 
-/*  Human Resources Action creators */
+/*  create Human Resources Action creators */
 
 export function createHumanResourceStart() {
     return {
@@ -172,4 +172,25 @@ export const selectHumanResource = selectedHumanResource => ({
     type: types.SELECT_HUMAN_RESOURCE,
     payload: selectedHumanResource,
   });
+
+/*  Single Human Resource  Action creators */
+export function getHumanResourceStart() {
+    return {
+        type: types.GET_HUMAN_RESOURCE_START,
+    };
+}
+
+export function getHumanResourceSuccess(data) {
+    return {
+        type: types.GET_HUMAN_RESOURCE_SUCCESS,
+        payload: data,
+    };
+}
+
+export function getHumanResourceFailure(error) {
+    return {
+        type: types.GET_HUMAN_RESOURCE_FAILURE,
+        payload: error,
+    };
+}
   

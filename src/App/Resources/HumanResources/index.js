@@ -309,6 +309,7 @@ class HumanResources extends Component {
                   to={{
                     pathname: `/app/resources/humanresources/${item.item.name}`,
                   }}
+                  
                 >
                   {item.item.name ? item.item.name : "All"}
                 </Link>
