@@ -7,20 +7,20 @@ import { Button, Form, Row, Col, Select, DatePicker, InputNumber, Input } from "
 
 /* ui */
 const labelCol = {
-  xs: { span: 24 },
-  sm: { span: 24 },
-  md: { span: 24 },
-  lg: { span: 24 },
-  xl: { span: 24 },
-  xxl: { span: 24 },
+  xs: { span: 12 },
+  sm: { span: 12 },
+  md: { span: 12 },
+  lg: { span: 12 },
+  xl: { span: 12 },
+  xxl: { span: 12 },
 };
 const wrapperCol = {
-  xs: { span: 24 },
-  sm: { span: 24 },
-  md: { span: 24 },
-  lg: { span: 24 },
-  xl: { span: 24 },
-  xxl: { span: 24 },
+  xs: { span: 12 },
+  sm: { span: 12 },
+  md: { span: 12 },
+  lg: { span: 12 },
+  xl: { span: 12 },
+  xxl: { span: 12 },
 };
 
 /**
@@ -71,7 +71,7 @@ const HumanResourceForm = ({
       updateHumanResource(updates);
     } else {
       createHumanResource(payload);
-    
+
     }
   };
   return (
@@ -172,7 +172,7 @@ const HumanResourceForm = ({
             <Select.Option value={location.id}>{location.name}</Select.Option>
           ))}
         </Select>
-        
+
       </Form.Item>
       {/* end:location */}
 
@@ -193,7 +193,7 @@ const HumanResourceForm = ({
             <Select.Option value={location.id}>{location.name}</Select.Option>
           ))}
         </Select>
-        
+
       </Form.Item>
       {/* end:location */}
 
