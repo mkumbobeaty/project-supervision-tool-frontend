@@ -30,3 +30,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
   }
+  .humanResourceEllipse > a{
+    color: #333333;
+
+  }

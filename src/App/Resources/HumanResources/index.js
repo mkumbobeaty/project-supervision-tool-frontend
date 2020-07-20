@@ -287,7 +287,7 @@ class HumanResources extends Component {
               )}
             >
               {/* eslint-disable react/jsx-props-no-spreading */}
-              <Col {...TypeSpan}>
+              <Col {...TypeSpan} className="humanResourceEllipse">
                 {" "}
                 <Link
                   to={{
@@ -358,17 +358,17 @@ class HumanResources extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    HumanResources: state.resources.humanResource.data
-      ? state.resources.humanResource.data
+    HumanResources: state.resources.humanResources.data
+      ? state.resources.humanResources.data
       : [],
     items: state.resources?.items?.data,
     agencies: state.resources?.agencies?.data,
     locations: state.resources?.locations?.data,
-    total: state.resources.humanResource.total,
-    page: state.resources.humanResource.page,
-    loading: state.resources.humanResource.loading,
-    posting: state.resources.humanResource.posting,
-    showForm: state.resources.humanResource.showForm,
+    total: state.resources.humanResources.total,
+    page: state.resources.humanResources.page,
+    loading: state.resources.humanResources.loading,
+    posting: state.resources.humanResources.posting,
+    showForm: state.resources.humanResources.showForm,
     selected: state.resources?.selectedHumanResource,
   };
 };

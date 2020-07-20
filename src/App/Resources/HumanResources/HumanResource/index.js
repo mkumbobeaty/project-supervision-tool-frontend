@@ -80,7 +80,9 @@ class HumanResource extends Component {
           }}
         />
         <div className="HumanResourceDetail">
-          <h2 className="humanResourceTitle">{humanResource.hr_type ? humanResource.hr_type.name : "N/A"}</h2>
+          <h2 className="humanResourceTitle">
+            {humanResource.hr_type ? humanResource.hr_type.name : "N/A"}
+          </h2>
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
             <Col {...rowOneSpan}>
               <div className="Detail">
@@ -104,15 +106,23 @@ class HumanResource extends Component {
               </div>
               <div className="Detail">
                 <h4>Implementing Actor</h4>
-                {/* {humanResource.implementing_partners.map((partner) => (
-                <span>{partner ? partner.name : "N/A"}</span>
-                ))} */}
+                {humanResource.implementing_partners
+                  ? humanResource.implementing_partners.map(
+                      (partner, index) => (
+                        <span>{(index ? ", " : "") + partner.name}</span>
+                      )
+                    )
+                  : "N/A"}
               </div>
               <div className="Detail">
                 <h4>Implementing Actor Type</h4>
-                {/* {humanResource.implementing_partners.map((partner) => (
-                <span>{partner ? partner.type : "N/A"}</span>
-                ))} */}
+                {humanResource.implementing_partners
+                  ? humanResource.implementing_partners.map(
+                      (partner, index) => (
+                        <span>{(index ? ", " : "") + partner.type}</span>
+                      )
+                    )
+                  : "N/A"}
               </div>
             </Col>
             <Col {...rowThreeSpan}>
@@ -124,11 +134,17 @@ class HumanResource extends Component {
               </div>
               <div className="Detail">
                 <h4>Aggregate level</h4>
-                <span>{humanResource.location ? humanResource.location.level : "N/A"}</span>
+                <span>
+                  {humanResource.location
+                    ? humanResource.location.level
+                    : "N/A"}
+                </span>
               </div>
               <div className="Detail">
                 <h4>Location</h4>
-                <span>{humanResource.location ? humanResource.location.name : "N/A"}</span>
+                <span>
+                  {humanResource.location ? humanResource.location.name : "N/A"}
+                </span>
               </div>
             </Col>
           </Row>
@@ -140,28 +156,36 @@ class HumanResource extends Component {
             <Col {...rowThreeSpan}>
               <div className="progress">
                 <h2>{humanResource.quantity}</h2>
-                <h4>{humanResource.hr_type ? humanResource.hr_type.name : "N/A"}</h4>
+                <h4>
+                  {humanResource.hr_type ? humanResource.hr_type.name : "N/A"}
+                </h4>
                 <span>Deployed to the site</span>
               </div>{" "}
             </Col>
             <Col {...rowThreeSpan}>
               <div className="progress">
                 <h2>{humanResource.quantity}</h2>
-                <h4>{humanResource.hr_type ? humanResource.hr_type.name : "N/A"}</h4>
+                <h4>
+                  {humanResource.hr_type ? humanResource.hr_type.name : "N/A"}
+                </h4>
                 <span>Deployed to the site</span>
               </div>
             </Col>
             <Col {...rowThreeSpan}>
               <div className="progress">
                 <h2>{humanResource.quantity}</h2>
-                <h4>{humanResource.hr_type ? humanResource.hr_type.name : "N/A"}</h4>
+                <h4>
+                  {humanResource.hr_type ? humanResource.hr_type.name : "N/A"}
+                </h4>
                 <span>Deployed to the site</span>
               </div>{" "}
             </Col>
             <Col {...rowThreeSpan}>
               <div className="progress">
                 <h2>{humanResource.quantity}</h2>
-                <h4>{humanResource.hr_type ? humanResource.hr_type.name : "N/A"}</h4>
+                <h4>
+                  {humanResource.hr_type ? humanResource.hr_type.name : "N/A"}
+                </h4>
                 <span>Deployed to the site</span>
               </div>{" "}
             </Col>
@@ -177,9 +201,9 @@ const mapStateToProps = (state) => {
     humanResource: state.resources.humanResource.humanresourceDetail
       ? state.resources.humanResource.humanresourceDetail
       : {},
-    total: state.resources.humanResource.total,
-    page: state.resources.humanResource.page,
-    loading: state.resources.humanResource.loading,
+    total: state.resources.humanResources.total,
+    page: state.resources.humanResources.page,
+    loading: state.resources.humanResources.loading,
   };
 };
 
