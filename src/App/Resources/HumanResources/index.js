@@ -2,7 +2,6 @@ import { Modal, Col, Drawer } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { moment } from "moment";
 import { isoDateToHumanReadableDate } from "../../../Util";
 import Topbar from "../../components/Topbar";
 import HumanResourcesList from "../../components/List";
@@ -58,7 +57,6 @@ class HumanResources extends Component {
   componentDidMount() {
     const {
       getHumanResources,
-      getHumanResource,
       getItems,
       getAgencies,
       getLocations,
@@ -176,9 +174,9 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   handleRefreshHumanResources = () => {
-    window.location.reload();
+    const { page,paginateHumanResources } = this.props;
+    paginateHumanResources(page)
   };
-
 
   /**
    * @function
@@ -304,8 +302,9 @@ class HumanResources extends Component {
               </Col>
               <Col {...numberSpan}>{item.quantity}</Col>
               <Col {...partnerSpan} className="humanResourceEllipse">
-                {item.implementing_partners.map((partner, index) => {return (index ? ', ' : '') + partner.name}
-              )}
+                {item.implementing_partners.map((partner, index) => {
+                  return (index ? ", " : "") + partner.name;
+                })}
               </Col>
 
               <Col {...startDateSpan}>
