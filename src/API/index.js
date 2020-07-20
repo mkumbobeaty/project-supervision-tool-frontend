@@ -20,8 +20,8 @@ const axios = Axios.create({
  * Fetch all human resources from API
  *
  */
- export const fetchHumanResources = () =>
-    axios.get(`/human_resources`).then(response => response.data);
+ export const fetchHumanResources = (params = {}) =>
+    axios.get(`/human_resources`,{params}).then(response => response.data);
 
  /**
   * get all items from API

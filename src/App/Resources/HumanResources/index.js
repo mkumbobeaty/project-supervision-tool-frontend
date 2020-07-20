@@ -14,6 +14,7 @@ import { resourceOperations } from "../duck";
 import HumanResourceForm from "./Form";
 import "./styles.css";
 import { Link } from "react-router-dom";
+import { getHumanResources } from "../duck/operations";
 
 /* constants */
 const TypeSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
@@ -178,10 +179,6 @@ class HumanResources extends Component {
     window.location.reload();
   };
 
-  paginateHumanResources = (page) => {
-    const { getHumanResources } = this.props;
-    getHumanResources(page);
-  };
 
   /**
    * @function
@@ -218,6 +215,7 @@ class HumanResources extends Component {
       searchQuery,
       createHumanResource,
       updateHumanResource,
+      paginateHumanResources,
       total,
       posting,
     } = this.props;
@@ -254,7 +252,7 @@ class HumanResources extends Component {
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefreshHumanResources}
           onPaginate={(nextPage) => {
-            this.paginateHumanResources(nextPage);
+            paginateHumanResources(nextPage);
           }}
           headerLayout={headerLayout}
           renderListItem={({
@@ -378,6 +376,9 @@ const mapDispatchToProps = (dispatch) => ({
     resourceOperations.getHumanResources,
     dispatch
   ),
+  paginateHumanResources(page) {
+    dispatch(getHumanResources({ page }));
+  },
   getItems: bindActionCreators(resourceOperations.getItems, dispatch),
   getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
   getLocations: bindActionCreators(resourceOperations.getLocations, dispatch),

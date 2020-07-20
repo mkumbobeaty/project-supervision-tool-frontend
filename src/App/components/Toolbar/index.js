@@ -170,6 +170,7 @@ const Toolbar = ({
                 simple
                 current={page}
                 defaultCurrent={page}
+                defaultPageSize={15}
                 total={total}
                 className="pagination"
                 onChange={onPaginate}
