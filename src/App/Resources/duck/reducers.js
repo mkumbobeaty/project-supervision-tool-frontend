@@ -150,7 +150,7 @@ const humanResources = (state = defaultHumanResource, action) => {
     case types.UPDATE_HUMAN_RESOURCES_START:
       return { ...state, posting: true };
     case types.UPDATE_HUMAN_RESOURCES_SUCCESS:
-      return { ...state, showForm: false };
+      return { ...state, showForm: false,posting:false };
     case types.UPDATE_HUMAN_RESOURCES_FAILURE:
       return action.payload;
     case types.DELETE_HUMAN_RESOURCES_SUCCESS:

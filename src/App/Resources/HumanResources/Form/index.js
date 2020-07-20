@@ -76,6 +76,7 @@ const HumanResourceForm = ({
     const end_date = generateDateString(values.end_date);
     const payload = { ...values, start_date, end_date };
     if (isEditForm) {
+      debugger
       updateHumanResource(payload, selected.id);
     } else {
       createHumanResource(payload);
@@ -89,7 +90,7 @@ const HumanResourceForm = ({
       onFinish={onFinish}
       initialValues={{
         hr_type_id: selected?.hr_type.id,
-        implementing_partners: selected?.implementing_partners.id,
+        implementing_partners: selected?.implementing_partners.map((partner => partner.id)),
         location_id: selected?.location.id,
         quantity: selected?.quantity,
         description: selected?.description,
@@ -147,7 +148,7 @@ const HumanResourceForm = ({
           },
         ]}
       >
-        <Select >
+        <Select mode="multiple">
           {agencies.map((agency) => (
             <Select.Option value={agency.id}>{agency.name}</Select.Option>
           ))}
