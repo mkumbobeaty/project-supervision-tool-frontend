@@ -28,6 +28,9 @@ const defaultHumanResource = {
 
 const humanResourceState = {
   humanresourceDetail: {},
+  total: 1,
+  page: 1,
+  loading: false,
 };
 
 const fetchHumanResources = (state = false, action) => {
@@ -141,7 +144,7 @@ const humanResources = (state = defaultHumanResource, action) => {
     case types.CREATE_HUMAN_RESOURCES_START:
       return { ...state, posting: true };
     case types.CREATE_HUMAN_RESOURCES_SUCCESS:
-      return { posting: false, showForm: false, loading: true };
+      return { ...state, posting: false, showForm: false, loading: true };
     case types.CREATE_HUMAN_RESOURCES_FAILURE:
       return { error: action.payload.error };
     case types.UPDATE_HUMAN_RESOURCES_START:
@@ -164,9 +167,10 @@ const humanResource = (state = humanResourceState, action) => {
     case types.GET_HUMAN_RESOURCE_START:
       return {
         loading: true,
+        ...state,
       };
     case types.GET_HUMAN_RESOURCE_SUCCESS:
-      return { humanresourceDetail: action.payload, loading: false };
+      return { ...state, humanresourceDetail: action.payload, loading: false };
     case types.GET_HUMAN_RESOURCE_FAILURE:
       return { ...state, error: action.message, loading: false };
     default:

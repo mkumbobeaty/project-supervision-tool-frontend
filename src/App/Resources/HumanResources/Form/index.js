@@ -89,10 +89,10 @@ const HumanResourceForm = ({
       onFinish={onFinish}
       initialValues={{
         hr_type_id: selected?.hr_type.id,
-        implementing_partners_id: selected?.implementing_partners.id,
+        implementing_partners: selected?.implementing_partners.id,
         location_id: selected?.location.id,
         quantity: selected?.quantity,
-        description:selected?.description,
+        description: selected?.description,
         start_date: createDateFromString(selected?.start_date),
         end_date: createDateFromString(selected?.end_date),
       }}
@@ -113,7 +113,7 @@ const HumanResourceForm = ({
       >
         <Select>
           {items.map((item) => (
-            <Select.Option value={item.id}>{item.description}</Select.Option>
+            <Select.Option value={item.id}>{item.name}</Select.Option>
           ))}
         </Select>
       </Form.Item>
@@ -138,7 +138,7 @@ const HumanResourceForm = ({
       {/* start:implementing partner */}
       <Form.Item
         label="Implementing Partner"
-        name="implementing_partners_id"
+        name="implementing_partners"
         title="humanResource Implementing Partner e.g Tanzania Red cross society"
         rules={[
           {
@@ -147,7 +147,7 @@ const HumanResourceForm = ({
           },
         ]}
       >
-        <Select>
+        <Select >
           {agencies.map((agency) => (
             <Select.Option value={agency.id}>{agency.name}</Select.Option>
           ))}

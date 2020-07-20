@@ -201,9 +201,9 @@ const mapStateToProps = (state) => {
     humanResource: state.resources.humanResource.humanresourceDetail
       ? state.resources.humanResource.humanresourceDetail
       : {},
-    total: state.resources.humanResources.total,
-    page: state.resources.humanResources.page,
-    loading: state.resources.humanResources.loading,
+    total: state.resources.humanResource.total,
+    page: state.resources.humanResource.page,
+    loading: state.resources.humanResource.loading,
   };
 };
 

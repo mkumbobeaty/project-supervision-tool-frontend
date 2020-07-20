@@ -362,8 +362,8 @@ const mapStateToProps = (state) => {
       ? state.resources.humanResources.data
       : [],
     items: state.resources?.items?.data,
-    agencies: state.resources?.agencies?.data,
-    locations: state.resources?.locations?.data,
+    agencies: state.resources?.agencies?.data?.data,
+    locations: state.resources?.locations?.data?.data,
     total: state.resources.humanResources.total,
     page: state.resources.humanResources.page,
     loading: state.resources.humanResources.loading,
