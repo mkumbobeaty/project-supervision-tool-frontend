@@ -88,8 +88,8 @@ const HumanResourceForm = ({
       wrapperCol={wrapperCol}
       onFinish={onFinish}
       initialValues={{
-        // hr_types_id: selected?.item.id,
-        // agency_id: selected?.agency.id,
+        hr_type_id: selected?.hr_type.id,
+        implementing_partners_id: selected?.implementing_partners.id,
         location_id: selected?.location.id,
         quantity: selected?.quantity,
         description:selected?.description,
@@ -100,9 +100,9 @@ const HumanResourceForm = ({
       className="HumanResourceForm"
     >
       {/* start:type */}
-      {/* <Form.Item
+      <Form.Item
         label="Type"
-        name="hr_types_id"
+        name="hr_type_id"
         title="humanResource type e.g People"
         rules={[
           {
@@ -113,10 +113,10 @@ const HumanResourceForm = ({
       >
         <Select>
           {items.map((item) => (
-            <Select.Option value={item.id}>{item.hr_type}</Select.Option>
+            <Select.Option value={item.id}>{item.description}</Select.Option>
           ))}
         </Select>
-      </Form.Item> */}
+      </Form.Item>
       {/* end:type */}
 
       {/* start:Description */}
@@ -138,7 +138,7 @@ const HumanResourceForm = ({
       {/* start:implementing partner */}
       <Form.Item
         label="Implementing Partner"
-        name="agency_id"
+        name="implementing_partners_id"
         title="humanResource Implementing Partner e.g Tanzania Red cross society"
         rules={[
           {

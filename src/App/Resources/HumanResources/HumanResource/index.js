@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { useParams } from "react-router-dom";
 import { withRouter } from "react-router";
 import { bindActionCreators } from "redux";
 import { resourceOperations } from "../../duck";
 import Toolbar from "../../../components/Toolbar";
+import { isoDateToHumanReadableDate } from "../../../../Util";
 import { Row, Col } from "antd";
 
 import "./styles.css";
@@ -20,7 +20,10 @@ class HumanResource extends Component {
   };
 
   componentDidMount() {
-    const { getHumanResource, match: {params} } = this.props;
+    const {
+      getHumanResource,
+      match: { params },
+    } = this.props;
     getHumanResource(params.id);
   }
 
@@ -60,7 +63,7 @@ class HumanResource extends Component {
   paginateHumanResources = (page) => {};
 
   render() {
-    const { page, loading, total } = this.props;
+    const { page, loading, total, humanResource } = this.props;
 
     return (
       <div className="HumanResource">
@@ -77,18 +80,12 @@ class HumanResource extends Component {
           }}
         />
         <div className="HumanResourceDetail">
-          <h2 className="humanResourceTitle">Doctors</h2>
+          <h2 className="humanResourceTitle">{humanResource.hr_type ? humanResource.hr_type.name : "N/A"}</h2>
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
             <Col {...rowOneSpan}>
               <div className="Detail">
                 <h4>Description</h4>
-                <span>
-                  ist ein einfacher Demo-Text für die Print- und
-                  Schriftindustrie. Lorem Ipsum ist in der Industrie bereits der
-                  Standard Demo-Text seit 1500, als ein unbekannter
-                  Schriftsteller eine Hand voll Wörter nahm und diese
-                  durcheinander warf um ein Musterbuch zu erstellen. E
-                </span>
+                <span>{humanResource.description}</span>
               </div>
               <div className="Detail">
                 <h4>Initiative currently being supported</h4>
@@ -101,29 +98,37 @@ class HumanResource extends Component {
             <Col {...rowTwoSpan} offset={2}>
               <div className="Detail">
                 <h4>Start Date</h4>
-                <span>ist ein einfacher</span>
+                <span>
+                  {isoDateToHumanReadableDate(humanResource.start_date)}
+                </span>
               </div>
               <div className="Detail">
                 <h4>Implementing Actor</h4>
-                <span>ist ein einfacher Demo</span>
+                {/* {humanResource.implementing_partners.map((partner) => (
+                <span>{partner ? partner.name : "N/A"}</span>
+                ))} */}
               </div>
               <div className="Detail">
                 <h4>Implementing Actor Type</h4>
-                <span>ist ein einfacher</span>
+                {/* {humanResource.implementing_partners.map((partner) => (
+                <span>{partner ? partner.type : "N/A"}</span>
+                ))} */}
               </div>
             </Col>
             <Col {...rowThreeSpan}>
               <div className="Detail">
                 <h4>End Date</h4>
-                <span>ist ein einfacher</span>
+                <span>
+                  {isoDateToHumanReadableDate(humanResource.end_date)}
+                </span>
               </div>
               <div className="Detail">
                 <h4>Aggregate level</h4>
-                <span>ist ein einfacher Demo</span>
+                <span>{humanResource.location ? humanResource.location.level : "N/A"}</span>
               </div>
               <div className="Detail">
                 <h4>Location</h4>
-                <span>ist ein einfacher</span>
+                <span>{humanResource.location ? humanResource.location.name : "N/A"}</span>
               </div>
             </Col>
           </Row>
@@ -134,29 +139,29 @@ class HumanResource extends Component {
           <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
             <Col {...rowThreeSpan}>
               <div className="progress">
-                <h2>67</h2>
-                <h4>Doctors</h4>
+                <h2>{humanResource.quantity}</h2>
+                <h4>{humanResource.hr_type ? humanResource.hr_type.name : "N/A"}</h4>
                 <span>Deployed to the site</span>
               </div>{" "}
             </Col>
             <Col {...rowThreeSpan}>
               <div className="progress">
-                <h2>67</h2>
-                <h4>Doctors</h4>
+                <h2>{humanResource.quantity}</h2>
+                <h4>{humanResource.hr_type ? humanResource.hr_type.name : "N/A"}</h4>
                 <span>Deployed to the site</span>
               </div>
             </Col>
             <Col {...rowThreeSpan}>
               <div className="progress">
-                <h2>67</h2>
-                <h4>Doctors</h4>
+                <h2>{humanResource.quantity}</h2>
+                <h4>{humanResource.hr_type ? humanResource.hr_type.name : "N/A"}</h4>
                 <span>Deployed to the site</span>
               </div>{" "}
             </Col>
             <Col {...rowThreeSpan}>
               <div className="progress">
-                <h2>67</h2>
-                <h4>Doctors</h4>
+                <h2>{humanResource.quantity}</h2>
+                <h4>{humanResource.hr_type ? humanResource.hr_type.name : "N/A"}</h4>
                 <span>Deployed to the site</span>
               </div>{" "}
             </Col>
@@ -185,4 +190,7 @@ const mapDispatchToProps = (dispatch) => ({
   ),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(HumanResource));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(HumanResource));

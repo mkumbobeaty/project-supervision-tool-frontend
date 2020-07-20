@@ -205,23 +205,6 @@ class HumanResources extends Component {
     });
   };
 
-  /**
-   * converts ISO date string to human readable
-   * date and time
-   *
-   * @function
-   * @name isoDateToHumanReadableDate
-   *
-   * @param {string} isoFormattDate
-   *
-   * @returns {string} human readable date
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  isoDateToHumanReadableDate = (isoFormattDate) => {
-    return moment(isoFormattDate).utc().format("MMMM Do YYYY");
-  };
-
   render() {
     const {
       HumanResources,
@@ -322,18 +305,11 @@ class HumanResources extends Component {
                 {item.description}
               </Col>
               <Col {...numberSpan}>{item.quantity}</Col>
-              <Col
-                  {...partnerSpan}
-                  className="humanResourceEllipse"
-                >
-                  {" "}
-                  {item.implementing ? item.implementing : "All"}{" "}
-                </Col>
-              {/* {item.implementing_partners.map((partner) => {
-                return (
-                  
-                )
-              })} */}
+              <Col {...partnerSpan} className="humanResourceEllipse">
+                {item.implementing_partners.map((partner, index) => {return (index ? ', ' : '') + partner.name}
+              )}
+              </Col>
+
               <Col {...startDateSpan}>
                 {isoDateToHumanReadableDate(item.start_date)}
               </Col>

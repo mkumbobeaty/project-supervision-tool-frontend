@@ -90,7 +90,8 @@ export const getHumanResource = (payload) => (dispatch) => {
   dispatch(actions.getHumanResourceStart());
   API.getHumanResource(payload)
     .then((res) => {
-      dispatch(actions.getHumanResourceSuccess(res));
+      debugger
+      dispatch(actions.getHumanResourceSuccess(res.data));
     })
     .catch((err) => dispatch(actions.getHumanResourceFailure(err)));
 };
