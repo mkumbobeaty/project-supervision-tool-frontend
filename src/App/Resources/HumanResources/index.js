@@ -131,7 +131,11 @@ class HumanResources extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  searchHumanResources = (humanResource) => {};
+  searchHumanResources = (searchValue) => {
+    const {searchHumanResources} = this.props;
+    debugger
+    searchHumanResources(searchValue)
+  };
 
   /**
    * @function
@@ -174,8 +178,8 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   handleRefreshHumanResources = () => {
-    const { page,paginateHumanResources } = this.props;
-    paginateHumanResources(page)
+    const { page, paginateHumanResources } = this.props;
+    paginateHumanResources(page);
   };
 
   /**
@@ -367,6 +371,8 @@ const mapStateToProps = (state) => {
     posting: state.resources.humanResources.posting,
     showForm: state.resources.humanResources.showForm,
     selected: state.resources?.selectedHumanResource,
+    // searchQuery: st,
+
   };
 };
 
@@ -403,6 +409,10 @@ const mapDispatchToProps = (dispatch) => ({
   ),
   closeHumanResourceForm: bindActionCreators(
     resourceOperations.closeResourceForm,
+    dispatch
+  ),
+  searchHumanResources: bindActionCreators(
+    resourceOperations.searchHumanResources,
     dispatch
   ),
 });

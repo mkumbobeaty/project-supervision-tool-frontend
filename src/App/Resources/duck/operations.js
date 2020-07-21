@@ -17,12 +17,14 @@ export const getItems = () => (dispatch) => {
 export const openResourceForm = actions.openResourceForm;
 export const closeResourceForm = actions.closeResourceForm;
 
+/** get human resources operation */
 export const getHumanResources = (page) => (dispatch) => {
   dispatch(actions.getHumanResourcesRequest());
   API.fetchHumanResources(page)
     .then((res) => dispatch(actions.getHumanResourcesSuccess(res)))
     .catch((err) => dispatch(actions.getHumanResourcesFailure(err)));
 };
+
 /**
  * get agencies operation
  */
@@ -59,7 +61,7 @@ export const createHumanResource = (payload) => (dispatch) => {
 /**
  * update human resources operation
  */
-export const updateHumanResource = (payload,humanResourceId) => (dispatch) => {
+export const updateHumanResource = (payload, humanResourceId) => (dispatch) => {
   dispatch(actions.updateHumanResourceStart());
   API.updateHumanResource(payload, humanResourceId)
     .then((res) => {
@@ -68,7 +70,6 @@ export const updateHumanResource = (payload,humanResourceId) => (dispatch) => {
     })
     .catch((err) => dispatch(actions.updateHumanResourceFailure(err)));
 };
-
 
 /**
  * delete human resources operation
@@ -84,7 +85,7 @@ export const deleteHumanResource = (payload) => (dispatch) => {
 };
 
 /**
- * get  single human resource operation
+ * get single human resource operation
  */
 export const getHumanResource = (payload) => (dispatch) => {
   dispatch(actions.getHumanResourceStart());
@@ -95,3 +96,11 @@ export const getHumanResource = (payload) => (dispatch) => {
     .catch((err) => dispatch(actions.getHumanResourceFailure(err)));
 };
 
+/** search human resources */
+export const searchHumanResources = (searchValue) => (dispatch) => {
+  dispatch(actions.getHumanResourcesRequest());
+  debugger
+  API.searchHumanResource(searchValue)
+    .then((res) => dispatch(actions.getHumanResourcesSuccess(res)))
+    .catch((err) => dispatch(actions.getHumanResourcesFailure(err)));
+};

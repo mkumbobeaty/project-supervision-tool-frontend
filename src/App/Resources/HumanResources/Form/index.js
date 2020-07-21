@@ -89,7 +89,9 @@ const HumanResourceForm = ({
       onFinish={onFinish}
       initialValues={{
         hr_type_id: selected?.hr_type.id,
-        implementing_partners: selected?.implementing_partners.map((partner => partner.id)),
+        implementing_partners: selected?.implementing_partners.map(
+          (partner) => partner.id
+        ),
         location_id: selected?.location.id,
         quantity: selected?.quantity,
         description: selected?.description,
