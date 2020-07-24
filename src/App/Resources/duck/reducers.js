@@ -165,12 +165,13 @@ const humanResources = (state = defaultHumanResource, action) => {
 const humanResource = (state = humanResourceState, action) => {
   switch (action.type) {
     case types.GET_HUMAN_RESOURCE_START:
-      return {
-        loading: true,
-        ...state,
-      };
+      return { ...state, loading: true }
     case types.GET_HUMAN_RESOURCE_SUCCESS:
-      return { ...state, humanresourceDetail: action.payload, loading: false };
+      return  {
+        ...state,
+        humanresourceDetail: action.payload,
+        loading: false,
+      };
     case types.GET_HUMAN_RESOURCE_FAILURE:
       return { ...state, error: action.message, loading: false };
     default:

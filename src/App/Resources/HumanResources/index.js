@@ -13,7 +13,6 @@ import { resourceOperations } from "../duck";
 import HumanResourceForm from "./Form";
 import "./styles.css";
 import { Link } from "react-router-dom";
-import { getHumanResources } from "../duck/operations";
 
 /* constants */
 const TypeSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
@@ -382,7 +381,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch
   ),
   paginateHumanResources(page) {
-    dispatch(getHumanResources({ page }));
+    dispatch(resourceOperations.getHumanResources({ page }));
   },
   getItems: bindActionCreators(resourceOperations.getItems, dispatch),
   getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
