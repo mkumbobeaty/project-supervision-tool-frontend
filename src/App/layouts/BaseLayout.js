@@ -10,6 +10,7 @@ import Dashboards from "../Dashboards";
 import ResourceNavMenu from "../navigation/Resources";
 import Donations from "../Resources/Donations";
 import Initiatives from "../Resources/Initiatives";
+import Initiative from '../Resources/Initiatives/Initiative'
 import KnowledgeResources from "../Resources/KnowledgeResources";
 import HumanResources from "../Resources/HumanResources";
 import ProductionCapacity from "../Resources/ProductionCapacity";
@@ -51,6 +52,10 @@ const breadcrumbNameMap = {
   "/app/resources/initiatives": {
     name: "Initiatives",
     title: "List of all initiatives",
+  },
+  "/app/resources/initiatives/initiative": {
+    name: "Initiative",
+    title: "detais of each initiative",
   },
   "/app/resources/donations": {
     name: "In kind donations",
@@ -171,6 +176,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/resources/initiatives`}
             component={Initiatives}
+          />{" "}
+          <Route
+            exact
+            path={`${baseUrl}/resources/initiatives/initiative`}
+            component={Initiative}
           />{" "}
           <Route
             exact
