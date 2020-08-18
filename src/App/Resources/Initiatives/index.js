@@ -2,7 +2,7 @@ import { Modal, Col, Drawer } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { moment} from 'moment';
+import { moment } from 'moment';
 import { isoDateToHumanReadableDate } from '../../../Util';
 import Topbar from "../../components/Topbar";
 import InitiativesList from "../../components/List";
@@ -13,6 +13,7 @@ import { bindActionCreators } from "redux";
 import { resourceOperations } from "../duck";
 import InitiativeForm from "./Form";
 import "./styles.css";
+
 
 /* constants */
 const TitleSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
@@ -144,7 +145,7 @@ class Initiative extends Component {
    */
   closeInitiativeForm = () => {
     this.setState({ isEditForm: false, visible: false });
-    const {closeInitiativeForm} = this.props;
+    const { closeInitiativeForm } = this.props;
     closeInitiativeForm()
   };
 
@@ -158,7 +159,7 @@ class Initiative extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  searchInitiative = (event) => {};
+  searchInitiative = (event) => { };
 
   /**
    * @function
@@ -171,8 +172,8 @@ class Initiative extends Component {
    * @since 0.1.0
    */
   handleEdit = (Initiative) => {
-    const {selectInitiative, openInitiativeForm} = this.props;
-  
+    const { selectInitiative, openInitiativeForm } = this.props;
+
     selectInitiative(Initiative);
     this.setState({ isEditForm: true });
     openInitiativeForm();
@@ -228,7 +229,7 @@ class Initiative extends Component {
    * @since 0.1.0
    */
   showArchiveConfirm = (item) => {
-    const {deleteInitiative} = this.props;
+    const { deleteInitiative } = this.props;
     confirm({
       title: `Are you sure you want to archive this record ?`,
       okText: "Yes",
@@ -255,13 +256,14 @@ class Initiative extends Component {
  * @version 0.1.0
  * @since 0.1.0
  */
-isoDateToHumanReadableDate = (isoFormattDate) => {
-  return moment(isoFormattDate)
-    .utc()
-    .format('MMMM Do YYYY');
-}
+  isoDateToHumanReadableDate = (isoFormattDate) => {
+    return moment(isoFormattDate)
+      .utc()
+      .format('MMMM Do YYYY');
+  }
 
   render() {
+
     const {
       Initiatives,
       items,
@@ -320,42 +322,42 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
             onSelectItem,
             onDeselectItem,
           }) => (
-            <ListItem
-              key={item.id} // eslint-disable-line
-              name={item.name}
-              item={item}
-              isSelected={isSelected}
-              onSelectItem={onSelectItem}
-              onDeselectItem={onDeselectItem}
-              renderActions={() => (
-                <ListItemActions
-                  edit={{
-                    name: "Edit Initiative",
-                    title: "Update Initiative Details",
-                    onClick: () => this.handleEdit(item),
-                  }}
-                  archive={{
-                    name: "Archive Initiative",
-                    title:
-                      "Remove Initiative from list of active Initiative",
-                    onClick: () => this.showArchiveConfirm(item),
-                  }}
-                />
-              )}
-            >
-              {/* eslint-disable react/jsx-props-no-spreading */}
-              <Col {...TitleSpan}>{item.item.name ? item.item.name : "All"}</Col>
-              <Col {...actorTypeSpan}>{item.item.description}</Col>
-              <Col {...partnerSpan}>{item.agency.name}</Col>
-              <Col {...startDateSpan}>{isoDateToHumanReadableDate(item.start_date)}</Col>
-              <Col {...endDateSpan}>{isoDateToHumanReadableDate(item.end_date)}</Col>
-              <Col {...costSpan}>{item.quantity}</Col>
-              <Col {...locationSpan}>{item.location.name}</Col>
-              <Col {...focalPersonSpan}>{item.location.name}</Col>
+              <ListItem
+                key={item.id} // eslint-disable-line
+                name={item.name}
+                item={item}
+                isSelected={isSelected}
+                onSelectItem={onSelectItem}
+                onDeselectItem={onDeselectItem}
+                renderActions={() => (
+                  <ListItemActions
+                    edit={{
+                      name: "Edit Initiative",
+                      title: "Update Initiative Details",
+                      onClick: () => this.handleEdit(item),
+                    }}
+                    archive={{
+                      name: "Archive Initiative",
+                      title:
+                        "Remove Initiative from list of active Initiative",
+                      onClick: () => this.showArchiveConfirm(item),
+                    }}
+                  />
+                )}
+              >
+                {/* eslint-disable react/jsx-props-no-spreading */}
+                <Col {...TitleSpan}>{item.item.name ? item.item.name : "All"}</Col>
+                <Col {...actorTypeSpan}>{item.item.description}</Col>
+                <Col {...partnerSpan}>{item.agency.name}</Col>
+                <Col {...startDateSpan}>{isoDateToHumanReadableDate(item.start_date)}</Col>
+                <Col {...endDateSpan}>{isoDateToHumanReadableDate(item.end_date)}</Col>
+                <Col {...costSpan}>{item.quantity}</Col>
+                <Col {...locationSpan}>{item.location.name}</Col>
+                <Col {...focalPersonSpan}>{item.location.name}</Col>
 
-              {/* eslint-enable react/jsx-props-no-spreading */}
-            </ListItem>
-          )}
+                {/* eslint-enable react/jsx-props-no-spreading */}
+              </ListItem>
+            )}
         />
         {/* end list */}
 
@@ -380,17 +382,19 @@ isoDateToHumanReadableDate = (isoFormattDate) => {
 
         <Drawer
           title={
-            isEditForm ? "Edit Initiative" : "Add New Initiative"
+            isEditForm ? <span class="text">Edit Initiative</span> : <span class="text">Add New Initiative</span>
           }
-          width={720}
+          width={500}
           visible={showForm}
           onCancel={this.closeInitiativeForm}
           destroyOnClose
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
           bodyStyle={{ paddingBottom: 80 }}
+          headerStyle={{ textAlign: 'center', color: "#959595" }}
+
         >
-           <InitiativeForm
+          <InitiativeForm
             posting={posting}
             items={items}
             selected={selected}
@@ -432,11 +436,11 @@ Initiative.propTypes = {
 Initiative.defaultProps = {
   Initiatives: null,
   searchQuery: undefined,
-  getItems: () => {},
-  getAgencies: () => {},
-  getLocations: () => {},
-  createInitiative: () => {},
-  updateInitiative: () => {},
+  getItems: () => { },
+  getAgencies: () => { },
+  getLocations: () => { },
+  createInitiative: () => { },
+  updateInitiative: () => { },
   items: [],
   agencies: [],
   locations: [],
@@ -455,7 +459,7 @@ const mapStateToProps = (state) => {
     page: state.resources.initiative.page,
     loading: state.resources.initiative.loading,
     posting: state.resources.initiative.posting,
-    showForm:state.resources.initiative.showForm,
+    showForm: state.resources.initiative.showForm,
     selected: state.resources?.selectedInitiative,
   };
 };
@@ -472,7 +476,7 @@ const mapDispatchToProps = (dispatch) => ({
   openInitiativeForm: bindActionCreators(resourceOperations.openInitiativeForm, dispatch),
   selectInitiative: bindActionCreators(resourceOperations.selectHumanResource, dispatch),
   closeResourceForm: bindActionCreators(resourceOperations.closeResourceForm, dispatch),
-  closeInitiativeForm:bindActionCreators(resourceOperations.closeInitiativeForm, dispatch),
+  closeInitiativeForm: bindActionCreators(resourceOperations.closeInitiativeForm, dispatch),
 
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Initiative);
