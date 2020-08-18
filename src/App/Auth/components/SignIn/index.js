@@ -4,6 +4,7 @@ import { Input, Button, Form, Row, Col } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import "./styles.css";
 
+
 /**
  * @function
  * @name SignIn
@@ -67,6 +68,7 @@ const SignIn = ({ loading, history }) => {
                 htmlType="submit"
                 className="signIn-form-button"
                 loading={loading}
+                onClick={() => history.push('/')}
               >
                 Sign In
               </Button>
