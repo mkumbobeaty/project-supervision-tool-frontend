@@ -1,5 +1,7 @@
 .List {
   padding: 0 40px;
+  text-align: center;
+
 }
 
 @media screen and (max-width: 768px) {

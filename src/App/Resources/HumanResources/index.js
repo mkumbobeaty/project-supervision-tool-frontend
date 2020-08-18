@@ -2,7 +2,6 @@ import { Modal, Col, Drawer } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { moment } from "moment";
 import { isoDateToHumanReadableDate } from "../../../Util";
 import Topbar from "../../components/Topbar";
 import HumanResourcesList from "../../components/List";
@@ -13,6 +12,7 @@ import { bindActionCreators } from "redux";
 import { resourceOperations } from "../duck";
 import HumanResourceForm from "./Form";
 import "./styles.css";
+import { Link } from "react-router-dom";
 
 /* constants */
 const TypeSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
@@ -40,8 +40,7 @@ const { confirm } = Modal;
 /**
  * @class
  * @name HumanResources
- * @description Render actions list which have search box, actions and Event Human Resources list
- *
+ * @description Render actions list which have search box, actions and Human Resources list
  * @version 0.1.0
  * @since 0.1.0
  */
@@ -51,9 +50,6 @@ class HumanResources extends Component {
     showFilters: false,
     showShare: false,
     isEditForm: false,
-    notificationSubject: undefined,
-    notificationBody: undefined,
-    cached: null,
     visible: false,
   };
 
@@ -69,34 +65,6 @@ class HumanResources extends Component {
     getAgencies();
     getLocations();
   }
-
-  /**
-   * @function
-   * @name handleOnCachedValues
-   * @description Cached selected values for filters
-   *
-   * @param {object} cached values to be cached from filter
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  handleOnCachedValues = (cached) => {
-    const { cached: previousCached } = this.state;
-    const values = { ...previousCached, ...cached };
-    this.setState({ cached: values });
-  };
-
-  /**
-   * @function
-   * @name handleClearCachedValues
-   * @description Clear cached values
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  handleClearCachedValues = () => {
-    this.setState({ cached: null });
-  };
 
   /**
    * @function
@@ -127,7 +95,7 @@ class HumanResources extends Component {
   /**
    * @function
    * @name openHumanResourceForm
-   * @description Open Event Human Resources form
+   * @description Open Human Resources form
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -140,35 +108,40 @@ class HumanResources extends Component {
   /**
    * @function
    * @name closeHumanResourceForm
-   * @description close Event Human Resources form
+   * @description close Human Resources form
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   closeHumanResourceForm = () => {
     this.setState({ isEditForm: false, visible: false });
-    const { closeHumanResourceForm } = this.props;
+    const { closeHumanResourceForm, selectHumanResource } = this.props;
+    selectHumanResource(null);
     closeHumanResourceForm();
   };
 
   /**
    * @function
    * @name searchHumanResources
-   * @description Search Event Human Resources List based on supplied filter word
+   * @description Search Human Resources List based on supplied filter word
    *
-   * @param {object} event - Event instance
+   * @param {object} humanResource - instance
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-  searchHumanResources = (event) => { };
+  searchHumanResources = (searchValue) => {
+    const {searchHumanResources} = this.props;
+    debugger
+    searchHumanResources(searchValue)
+  };
 
   /**
    * @function
    * @name handleEdit
    * @description Handle on Edit action for list item
    *
-   * @param {object} humanResource Event Action Catalogue to be edited
+   * @param {object} humanResource Action Catalogue to be edited
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -190,8 +163,8 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   handleAfterCloseForm = () => {
-    // const { selectHumanResource } = this.props; 
-    // selectHumanResource(null);
+    const { selectHumanResource } = this.props;
+    selectHumanResource(null);
     this.setState({ isEditForm: false });
   };
 
@@ -204,29 +177,14 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   handleRefreshHumanResources = () => {
-    window.location.reload();
-    // refreshHumanResources(
-    //   () => {
-    //     notifySuccess("Event Human Resources refreshed successfully");
-    //   },
-    //   () => {
-    //     notifyError(
-    //       "An error occurred while refreshing Event Human Resources please contact system administrator"
-    //     );
-    //   }
-    // );
-  };
-
-  paginateHumanResources = (page) => {
-    const { getHumanResources } = this.props;
-    getHumanResources(page);
-    console.log("pagination", page);
+    const { page, paginateHumanResources } = this.props;
+    paginateHumanResources(page);
   };
 
   /**
    * @function
    * @name showArchiveConfirm
-   * @description show confirm modal before archiving a Event Human Resources
+   * @description show confirm modal before archiving a Human Resource
    * @param {object} item Resource item to be archived
    *
    * @version 0.1.0
@@ -245,23 +203,6 @@ class HumanResources extends Component {
     });
   };
 
-  /**
-   * converts ISO date string to human readable
-   * date and time
-   *
-   * @function
-   * @name isoDateToHumanReadableDate
-   *
-   * @param {string} isoFormattDate
-   *
-   * @returns {string} human readable date
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  isoDateToHumanReadableDate = (isoFormattDate) => {
-    return moment(isoFormattDate).utc().format("MMMM Do YYYY");
-  };
-
   render() {
     const {
       HumanResources,
@@ -275,6 +216,7 @@ class HumanResources extends Component {
       searchQuery,
       createHumanResource,
       updateHumanResource,
+      paginateHumanResources,
       total,
       posting,
     } = this.props;
@@ -311,9 +253,8 @@ class HumanResources extends Component {
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefreshHumanResources}
           onPaginate={(nextPage) => {
-            this.paginateHumanResources(nextPage);
+            paginateHumanResources(nextPage);
           }}
-          // generateExportUrl={"testing"}
           headerLayout={headerLayout}
           renderListItem={({
             item,
@@ -321,57 +262,65 @@ class HumanResources extends Component {
             onSelectItem,
             onDeselectItem,
           }) => (
-              <ListItem
-                key={item.id} // eslint-disable-line
-                name={item.name}
-                item={item}
-                isSelected={isSelected}
-                onSelectItem={onSelectItem}
-                onDeselectItem={onDeselectItem}
-                renderActions={() => (
-                  <ListItemActions
-                    edit={{
-                      name: "Edit Human Resources",
-                      title: "Update Human Resources Details",
-                      onClick: () => this.handleEdit(item),
-                    }}
-                    archive={{
-                      name: "Archive Human Resources",
-                      title:
-                        "Remove Human Resources from list of active Human Resources",
-                      onClick: () => this.showArchiveConfirm(item),
-                    }}
-                  />
-                )}
+            <ListItem
+              key={item.id} // eslint-disable-line
+              name={item.name}
+              item={item}
+              isSelected={isSelected}
+              onSelectItem={onSelectItem}
+              onDeselectItem={onDeselectItem}
+              renderActions={() => (
+                <ListItemActions
+                  edit={{
+                    name: "Edit Human Resources",
+                    title: "Update Human Resources Details",
+                    onClick: () => this.handleEdit(item),
+                  }}
+                  archive={{
+                    name: "Archive Human Resources",
+                    title:
+                      "Remove Human Resources from list of active Human Resources",
+                    onClick: () => this.showArchiveConfirm(item),
+                  }}
+                />
+              )}
+            >
+              {/* eslint-disable react/jsx-props-no-spreading */}
+              <Col {...TypeSpan} className="humanResourceEllipse">
+                {" "}
+                <Link
+                  to={{
+                    pathname: `/app/resources/humanresources/${item.id}`,
+                  }}
+                >
+                  {item.hr_type.name ? item.hr_type.name : "All"}
+                </Link>
+              </Col>
+              <Col
+                {...descriptionSpan}
+                className="humanResourceEllipse"
+                title={item.description}
               >
-                {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...TypeSpan}>{item.item.name ? item.item.name : "All"}</Col>
-                <Col
-                  {...descriptionSpan}
-                  className="humanResourceEllipse"
-                  title={item.item.description}
-                >
-                  {item.item.description}
-                </Col>
-                <Col {...numberSpan}>{item.quantity}</Col>
-                <Col
-                  {...partnerSpan}
-                  className="humanResourceEllipse"
-                  title={item.agency.name}
-                >
-                  {item.agency.name}
-                </Col>
-                <Col {...startDateSpan}>
-                  {isoDateToHumanReadableDate(item.start_date)}
-                </Col>
-                <Col {...endDateSpan}>
-                  {isoDateToHumanReadableDate(item.end_date)}
-                </Col>
-                <Col {...locationSpan}>{item.location.name}</Col>
-                <Col {...levelSpan}>{item.location.level}</Col>
-                {/* eslint-enable react/jsx-props-no-spreading */}
-              </ListItem>
-            )}
+                {item.description}
+              </Col>
+              <Col {...numberSpan}>{item.quantity}</Col>
+              <Col {...partnerSpan} className="humanResourceEllipse">
+                {item.implementing_partners.map((partner, index) => {
+                  return (index ? ", " : "") + partner.name;
+                })}
+              </Col>
+
+              <Col {...startDateSpan}>
+                {isoDateToHumanReadableDate(item.start_date)}
+              </Col>
+              <Col {...endDateSpan}>
+                {isoDateToHumanReadableDate(item.end_date)}
+              </Col>
+              <Col {...locationSpan}>{item.location.name}</Col>
+              <Col {...levelSpan}>{item.location.level}</Col>
+              {/* eslint-enable react/jsx-props-no-spreading */}
+            </ListItem>
+          )}
         />
         {/* end list */}
 
@@ -395,6 +344,7 @@ class HumanResources extends Component {
             locations={locations}
             isEditForm={isEditForm}
             HumanResources={HumanResources}
+            handleAfterCloseForm={this.handleAfterCloseForm}
             createHumanResource={createHumanResource}
             updateHumanResource={updateHumanResource}
             onCancel={this.closeHumanResourceForm}
@@ -405,55 +355,22 @@ class HumanResources extends Component {
     );
   }
 }
-
-HumanResources.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  items: PropTypes.array.isRequired,
-  agencies: PropTypes.array.isRequired,
-  selected: PropTypes.object.isRequired,
-  locations: PropTypes.array.isRequired,
-  posting: PropTypes.bool.isRequired,
-  getItems: PropTypes.func.isRequired,
-  getAgencies: PropTypes.func.isRequired,
-  getLocations: PropTypes.func.isRequired,
-  createHumanResource: PropTypes.func.isRequired,
-  updateHumanResource: PropTypes.func.isRequired,
-  HumanResources: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
-    .isRequired,
-  page: PropTypes.number.isRequired,
-  showForm: PropTypes.bool.isRequired,
-  searchQuery: PropTypes.string,
-  total: PropTypes.number.isRequired,
-};
-
-HumanResources.defaultProps = {
-  HumanResources: null,
-  searchQuery: undefined,
-  getItems: () => { },
-  getAgencies: () => { },
-  getLocations: () => { },
-  createHumanResource: () => { },
-  updateHumanResource: () => { },
-  items: [],
-  agencies: [],
-  locations: [],
-  selected: null,
-};
-
 const mapStateToProps = (state) => {
   return {
-    HumanResources: state.resources.humanResource.data
-      ? state.resources.humanResource.data
+    HumanResources: state.resources.humanResources.data
+      ? state.resources.humanResources.data
       : [],
     items: state.resources?.items?.data,
-    agencies: state.resources?.agencies?.data,
-    locations: state.resources?.locations?.data,
-    total: state.resources.humanResource.total,
-    page: state.resources.humanResource.page,
-    loading: state.resources.humanResource.loading,
-    posting: state.resources.humanResource.posting,
-    showForm: state.resources.humanResource.showForm,
+    agencies: state.resources?.agencies?.data?.data,
+    locations: state.resources?.locations?.data?.data,
+    total: state.resources.humanResources.total,
+    page: state.resources.humanResources.page,
+    loading: state.resources.humanResources.loading,
+    posting: state.resources.humanResources.posting,
+    showForm: state.resources.humanResources.showForm,
     selected: state.resources?.selectedHumanResource,
+    // searchQuery: st,
+
   };
 };
 
@@ -462,6 +379,9 @@ const mapDispatchToProps = (dispatch) => ({
     resourceOperations.getHumanResources,
     dispatch
   ),
+  paginateHumanResources(page) {
+    dispatch(resourceOperations.getHumanResources({ page }));
+  },
   getItems: bindActionCreators(resourceOperations.getItems, dispatch),
   getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
   getLocations: bindActionCreators(resourceOperations.getLocations, dispatch),
@@ -489,5 +409,43 @@ const mapDispatchToProps = (dispatch) => ({
     resourceOperations.closeResourceForm,
     dispatch
   ),
+  searchHumanResources: bindActionCreators(
+    resourceOperations.searchHumanResources,
+    dispatch
+  ),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(HumanResources);
+
+HumanResources.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  items: PropTypes.array.isRequired,
+  agencies: PropTypes.array.isRequired,
+  selected: PropTypes.object,
+  locations: PropTypes.array.isRequired,
+  posting: PropTypes.bool.isRequired,
+  getItems: PropTypes.func.isRequired,
+  getAgencies: PropTypes.func.isRequired,
+  getLocations: PropTypes.func.isRequired,
+  createHumanResource: PropTypes.func.isRequired,
+  updateHumanResource: PropTypes.func.isRequired,
+  HumanResources: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+    .isRequired,
+  page: PropTypes.number.isRequired,
+  showForm: PropTypes.bool.isRequired,
+  searchQuery: PropTypes.string,
+  total: PropTypes.number.isRequired,
+};
+
+HumanResources.defaultProps = {
+  HumanResources: null,
+  searchQuery: undefined,
+  getItems: () => {},
+  getAgencies: () => {},
+  getLocations: () => {},
+  createHumanResource: () => {},
+  updateHumanResource: () => {},
+  items: [],
+  agencies: [],
+  locations: [],
+  selected: {},
+};

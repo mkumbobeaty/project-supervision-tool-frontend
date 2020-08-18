@@ -9,7 +9,6 @@
     url('./assets/fonts/Lato/Lato-Italic.ttf') format('truetype');
 }
 .App {
-  text-align: center;
   padding: 0 60px;
 }
 

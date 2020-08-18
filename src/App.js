@@ -7,6 +7,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import SignIn from './App/Auth/components/SignIn';
 import BaseLayout from './App/layouts/BaseLayout';
 
+
 Spin.setDefaultIndicator(<LoadingOutlined style={{ fontSize: 24 }} spin />);
 const App = () => {
   return (
@@ -15,6 +16,7 @@ const App = () => {
         <Switch>
           <Route path="/app" component={BaseLayout} />
           <Route path="/signin" component={SignIn}></Route>
+
           <Redirect to="/app" />
         </Switch>
       </HashRouter>

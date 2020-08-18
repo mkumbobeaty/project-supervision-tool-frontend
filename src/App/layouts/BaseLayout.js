@@ -9,9 +9,12 @@ import PrivateRoute from "../Auth/PrivateRoute";
 import Dashboards from "../Dashboards";
 import ResourceNavMenu from "../navigation/Resources";
 import Donations from "../Resources/Donations";
+import FinancialResources from "../Resources/FinancialResources";
 import Initiatives from "../Resources/Initiatives";
+import Initiative from '../Resources/Initiatives/Initiative'
 import KnowledgeResources from "../Resources/KnowledgeResources";
 import HumanResources from "../Resources/HumanResources";
+import HumanResource from  "../Resources/HumanResources/HumanResource";
 import ProductionCapacity from "../Resources/ProductionCapacity";
 import NeedsNavMenu from "../navigation/Needs";
 import NeedsByGovernment from "../Needs/NeedByGovernment";
@@ -52,6 +55,10 @@ const breadcrumbNameMap = {
     name: "Initiatives",
     title: "List of all initiatives",
   },
+  "/app/resources/initiatives/initiative": {
+    name: "Initiative",
+    title: "detais of each initiative",
+  },
   "/app/resources/donations": {
     name: "In kind donations",
     title: "List of all In kind donations",
@@ -67,6 +74,10 @@ const breadcrumbNameMap = {
   "/app/resources/humanresources": {
     name: "Human Resources",
     title: "List of all Human Resources",
+  },
+  "/app/resources/humanresources/:type": {
+    name: "Human Resource",
+    title: "Detail of Human Resource",
   },
   "/app/resources/productioncapacity": {
     name: "Production Capacity",
@@ -166,16 +177,26 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             path={`${baseUrl}/resources`}
             component={ResourceNavMenu}
           />
-          <Route exact path={`${baseUrl}/resources/donation`} component={Donations} />{" "}
+          <Route exact path={`${baseUrl}/resources/donations`} component={Donations} />{" "}
           <Route
             exact
-            path={`${baseUrl}/resources/resourcesinitiatives`}
+            path={`${baseUrl}/resources/initiatives`}
             component={Initiatives}
+          />{" "}
+          <Route
+            exact
+            path={`${baseUrl}/resources/initiatives/initiative`}
+            component={Initiative}
           />{" "}
           <Route
             exact
             path={`${baseUrl}/resources/knowledgeresources`}
             component={KnowledgeResources}
+          />{" "}
+          <Route
+            exact
+            path={`${baseUrl}/resources/financialresources`}
+            component={FinancialResources}
           />{" "}
           <Route
             exact
@@ -187,6 +208,12 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             path={`${baseUrl}/resources/productioncapacity`}
             component={ProductionCapacity}
           />
+          <Route
+            exact
+            path={`${baseUrl}/resources/humanresources/:id`}
+            render={({match}) => <HumanResource match={match}/>}
+          />
+          
           <PrivateRoute path={`${baseUrl}/map`} component={Map} />
           {/* Admin panel */}
           <Route path={`${baseUrl}/adminpanel`} component={() => {

@@ -139,9 +139,9 @@ const CustomList = ({
         exportUrl={
           generateExportUrl
             ? generateExportUrl({
-                filter: { _id: map(selectedItems, '_id') },
-                // token: getJwtToken(),
-              })
+              filter: { _id: map(selectedItems, '_id') },
+              // token: getJwtToken(),
+            })
             : null
         }
       />
@@ -191,6 +191,7 @@ CustomList.defaultProps = {
   onFilter: null,
   onNotify: null,
   generateExportUrl: null,
+  onShare: () => {},
 };
 
 export default CustomList;

@@ -1,35 +1,26 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { generateDateString, createDateFromString } from "../../../../Util";
-import {
-  Button,
-  Form,
-  Row,
-  Col,
-  Select,
-  DatePicker,
-  InputNumber,
-  Input,
-} from "antd";
+import { Button, Form, Row, Col, Select, DatePicker, InputNumber, Input } from "antd";
 
 /* state actions */
 
 /* ui */
 const labelCol = {
-  xs: { span: 24 },
-  sm: { span: 24 },
-  md: { span: 24 },
-  lg: { span: 24 },
-  xl: { span: 24 },
-  xxl: { span: 24 },
+  xs: { span: 12 },
+  sm: { span: 12 },
+  md: { span: 12 },
+  lg: { span: 12 },
+  xl: { span: 12 },
+  xxl: { span: 12 },
 };
 const wrapperCol = {
-  xs: { span: 24 },
-  sm: { span: 24 },
-  md: { span: 24 },
-  lg: { span: 24 },
-  xl: { span: 24 },
-  xxl: { span: 24 },
+  xs: { span: 12 },
+  sm: { span: 12 },
+  md: { span: 12 },
+  lg: { span: 12 },
+  xl: { span: 12 },
+  xxl: { span: 12 },
 };
 
 /**
@@ -63,7 +54,6 @@ const HumanResourceForm = ({
   posting,
   createHumanResource,
   updateHumanResource,
-  handleAfterCloseForm,
   items,
   selected,
   agencies,
@@ -75,12 +65,14 @@ const HumanResourceForm = ({
     const start_date = generateDateString(values.start_date);
     const end_date = generateDateString(values.end_date);
     const payload = { ...values, start_date, end_date };
+
     if (isEditForm) {
-      updateHumanResource(payload, selected.id);
+      const updates = { ...selected, payload };
+      updateHumanResource(updates);
     } else {
       createHumanResource(payload);
+
     }
-    handleAfterCloseForm();
   };
   return (
     <Form
@@ -88,59 +80,49 @@ const HumanResourceForm = ({
       wrapperCol={wrapperCol}
       onFinish={onFinish}
       initialValues={{
-        hr_type_id: selected?.hr_type.id,
-        implementing_partners: selected?.implementing_partners.map(
-          (partner) => partner.id
-        ),
+        item_id: selected?.item.id,
+        agency_id: selected?.agency.id,
         location_id: selected?.location.id,
         quantity: selected?.quantity,
-        description: selected?.description,
         start_date: createDateFromString(selected?.start_date),
         end_date: createDateFromString(selected?.end_date),
       }}
       autoComplete="off"
-      className="HumanResourceForm"
+      className='HumanResourceForm'
     >
-      {/* start:type */}
-      <Form.Item
-        label="Type"
-        name="hr_type_id"
-        title="humanResource type e.g People"
-        rules={[
-          {
-            required: true,
-            message: "humanResource type is required",
-          },
-        ]}
-      >
-        <Select>
-          {items.map((item) => (
-            <Select.Option value={item.id}>{item.name}</Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
-      {/* end:type */}
 
-      {/* start:Description */}
       <Form.Item
-        label="Description"
-        name="description"
-        title="humanResource Description e.g doctor of heart"
+        label="Title"
+        title=" available initiative title  e.g 30"
+        name="quantity"
         rules={[
           {
             required: true,
-            message: "humanResource Description is required",
+            message: "initiative title is required",
           },
         ]}
       >
         <Input />
       </Form.Item>
-      {/* end:Description */}
+
+      <Form.Item
+        label="Action Types"
+        title=" available Action Types   e.g 30"
+        name="quantity"
+        rules={[
+          {
+            required: true,
+            message: "Action Types is required",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
 
       {/* start:implementing partner */}
       <Form.Item
         label="Implementing Partner"
-        name="implementing_partners"
+        name="agency_id"
         title="humanResource Implementing Partner e.g Tanzania Red cross society"
         rules={[
           {
@@ -149,7 +131,7 @@ const HumanResourceForm = ({
           },
         ]}
       >
-        <Select mode="multiple">
+        <Select>
           {agencies.map((agency) => (
             <Select.Option value={agency.id}>{agency.name}</Select.Option>
           ))}
@@ -159,13 +141,13 @@ const HumanResourceForm = ({
 
       {/* start:number */}
       <Form.Item
-        label="Number"
-        title=" available humanResources in number  e.g 30"
+        label="Cost"
+        title=" available initiative in cost  e.g 30"
         name="quantity"
         rules={[
           {
             required: true,
-            message: "humanResource number  is required",
+            message: "initiative cost is required",
           },
         ]}
       >
@@ -190,6 +172,28 @@ const HumanResourceForm = ({
             <Select.Option value={location.id}>{location.name}</Select.Option>
           ))}
         </Select>
+
+      </Form.Item>
+      {/* end:location */}
+
+      {/* start:location */}
+      <Form.Item
+        label="FocalPerson"
+        name="location_id"
+        title="initiative FocalPerson is required  e.g Dar Es Salaam"
+        rules={[
+          {
+            required: true,
+            message: "initiative FocalPerson is required",
+          },
+        ]}
+      >
+        <Select>
+          {locations.map((location) => (
+            <Select.Option value={location.id}>{location.name}</Select.Option>
+          ))}
+        </Select>
+
       </Form.Item>
       {/* end:location */}
 
@@ -200,11 +204,11 @@ const HumanResourceForm = ({
           <Form.Item
             label="Start Date"
             name="start_date"
-            title="humanResource start date e.g 06-20-2020"
+            title="Initiative start date e.g 06-20-2020"
             rules={[
               {
                 required: true,
-                message: "humanResource start date is required",
+                message: "Initiative start date is required",
               },
             ]}
           >
@@ -217,12 +221,12 @@ const HumanResourceForm = ({
         <Col span={11}>
           <Form.Item
             label="End Date"
-            title="humanResource end date e.g 07-30-2020"
+            title="Initiative end date e.g 07-30-2020"
             name="end_date"
             rules={[
               {
                 required: true,
-                message: "humanResource end date is required",
+                message: "Initiative end date is required",
               },
             ]}
           >
