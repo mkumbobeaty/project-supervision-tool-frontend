@@ -142,7 +142,6 @@ const Toolbar = ({
           </Row>
         </Col>
         {/* end action bar */}
-
         {/* filter bar */}
         <Col xxl={12} xl={12} lg={12} md={14} sm={10} xs={12}>
           <Row type="flex" justify="end">
@@ -202,7 +201,7 @@ Toolbar.propTypes = {
 Toolbar.defaultProps = {
   exportUrl: undefined,
   onFilter: null,
-  onShare: null,
+  onShare: () => {},
   onNotify: null,
   onArchive: null,
 };

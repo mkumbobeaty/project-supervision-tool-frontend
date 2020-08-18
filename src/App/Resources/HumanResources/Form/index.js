@@ -1,7 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { generateDateString, createDateFromString } from "../../../../Util";
-import { Button, Form, Row, Col, Select, DatePicker, InputNumber } from "antd";
+import {
+  Button,
+  Form,
+  Row,
+  Col,
+  Select,
+  DatePicker,
+  InputNumber,
+  Input,
+} from "antd";
 
 /* state actions */
 
@@ -54,6 +63,7 @@ const HumanResourceForm = ({
   posting,
   createHumanResource,
   updateHumanResource,
+  handleAfterCloseForm,
   items,
   selected,
   agencies,
@@ -65,14 +75,12 @@ const HumanResourceForm = ({
     const start_date = generateDateString(values.start_date);
     const end_date = generateDateString(values.end_date);
     const payload = { ...values, start_date, end_date };
-
     if (isEditForm) {
-      const updates = { ...selected, payload };
-      updateHumanResource(updates);
+      updateHumanResource(payload, selected.id);
     } else {
       createHumanResource(payload);
-    
     }
+    handleAfterCloseForm();
   };
   return (
     <Form
@@ -80,20 +88,23 @@ const HumanResourceForm = ({
       wrapperCol={wrapperCol}
       onFinish={onFinish}
       initialValues={{
-        item_id: selected?.item.id,
-        agency_id: selected?.agency.id,
+        hr_type_id: selected?.hr_type.id,
+        implementing_partners: selected?.implementing_partners.map(
+          (partner) => partner.id
+        ),
         location_id: selected?.location.id,
         quantity: selected?.quantity,
+        description: selected?.description,
         start_date: createDateFromString(selected?.start_date),
         end_date: createDateFromString(selected?.end_date),
       }}
       autoComplete="off"
-      className='HumanResourceForm'
+      className="HumanResourceForm"
     >
       {/* start:type */}
       <Form.Item
         label="Type"
-        name="item_id"
+        name="hr_type_id"
         title="humanResource type e.g People"
         rules={[
           {
@@ -110,10 +121,26 @@ const HumanResourceForm = ({
       </Form.Item>
       {/* end:type */}
 
+      {/* start:Description */}
+      <Form.Item
+        label="Description"
+        name="description"
+        title="humanResource Description e.g doctor of heart"
+        rules={[
+          {
+            required: true,
+            message: "humanResource Description is required",
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      {/* end:Description */}
+
       {/* start:implementing partner */}
       <Form.Item
         label="Implementing Partner"
-        name="agency_id"
+        name="implementing_partners"
         title="humanResource Implementing Partner e.g Tanzania Red cross society"
         rules={[
           {
@@ -122,7 +149,7 @@ const HumanResourceForm = ({
           },
         ]}
       >
-        <Select>
+        <Select mode="multiple">
           {agencies.map((agency) => (
             <Select.Option value={agency.id}>{agency.name}</Select.Option>
           ))}

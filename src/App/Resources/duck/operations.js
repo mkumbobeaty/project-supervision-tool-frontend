@@ -19,12 +19,14 @@ export const closeResourceForm = actions.closeResourceForm;
 export const openInitiativeForm = actions.openInitiativeForm;
 export const closeInitiativeForm = actions.closeInitiativeForm;
 
+/** get human resources operation */
 export const getHumanResources = (page) => (dispatch) => {
   dispatch(actions.getHumanResourcesRequest());
   API.fetchHumanResources(page)
     .then((res) => dispatch(actions.getHumanResourcesSuccess(res)))
     .catch((err) => dispatch(actions.getHumanResourcesFailure(err)));
 };
+
 /**
  * get agencies operation
  */
@@ -61,17 +63,15 @@ export const createHumanResource = (payload) => (dispatch) => {
 /**
  * update human resources operation
  */
-export const updateHumanResource = (payload) => (dispatch) => {
+export const updateHumanResource = (payload, humanResourceId) => (dispatch) => {
   dispatch(actions.updateHumanResourceStart());
-  debugger;
-  API.updateHumanResource(payload, payload.id)
+  API.updateHumanResource(payload, humanResourceId)
     .then((res) => {
       dispatch(actions.updateHumanResourceSuccess(res));
       dispatch(getHumanResources());
     })
     .catch((err) => dispatch(actions.updateHumanResourceFailure(err)));
 };
-
 
 /**
  * delete human resources operation
@@ -86,6 +86,26 @@ export const deleteHumanResource = (payload) => (dispatch) => {
     .catch((err) => dispatch(actions.deleteHumanResourceFailure(err)));
 };
 
+/**
+ * get single human resource operation
+ */
+export const getHumanResource = (payload) => (dispatch) => {
+  dispatch(actions.getHumanResourceStart());
+  API.getHumanResource(payload)
+    .then((res) => {
+      dispatch(actions.getHumanResourceSuccess(res.data));
+    })
+    .catch((err) => dispatch(actions.getHumanResourceFailure(err)));
+};
+
+/** search human resources */
+export const searchHumanResources = (searchValue) => (dispatch) => {
+  dispatch(actions.getHumanResourcesRequest());
+  debugger
+  API.searchHumanResource(searchValue)
+    .then((res) => dispatch(actions.getHumanResourcesSuccess(res)))
+    .catch((err) => dispatch(actions.getHumanResourcesFailure(err)));
+};
 
 // Initiative
 export const getInitiatives = (page) => (dispatch) => {

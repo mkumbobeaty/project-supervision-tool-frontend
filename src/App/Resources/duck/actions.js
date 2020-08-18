@@ -248,6 +248,32 @@ export function deleteInitiativeFailure(error) {
 }
 
 // select single human resource
+export const selectHumanResource = selectedHumanResource => ({
+    type: types.SELECT_HUMAN_RESOURCE,
+    payload: selectedHumanResource,
+  });
+
+/*  Single Human Resource  Action creators */
+export function getHumanResourceStart() {
+    return {
+        type: types.GET_HUMAN_RESOURCE_START,
+    };
+}
+
+export function getHumanResourceSuccess(data) {
+    return {
+        type: types.GET_HUMAN_RESOURCE_SUCCESS,
+        payload: data,
+    };
+}
+
+export function getHumanResourceFailure(error) {
+    return {
+        type: types.GET_HUMAN_RESOURCE_FAILURE,
+        payload: error,
+    };
+}
+  
 export const selectInitiative = (selectedInitiative) => ({
   type: types.SELECT_INITIATIVE,
   payload: selectedInitiative,

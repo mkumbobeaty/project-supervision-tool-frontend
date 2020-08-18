@@ -87,4 +87,8 @@ SignIn.propTypes = {
   loading: PropTypes.bool.isRequired,
 };
 
+SignIn.defaultProps = {
+  loading: null
+}
+
 export default SignIn;

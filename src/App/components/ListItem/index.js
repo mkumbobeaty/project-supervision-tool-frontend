@@ -108,10 +108,10 @@ const ListItem = ({
         checked={isSelected}
       />
     ) : (
-        <Avatar style={{ backgroundColor: avatarBackground }}>
-          {(name || item.item.name).toUpperCase().charAt(0)}
-        </Avatar>
-      );
+      <Avatar style={{ backgroundColor: avatarBackground }}>
+        {(name || item.hr_type.name).toUpperCase().charAt(0)}
+      </Avatar>
+    );
   };
 
   return (

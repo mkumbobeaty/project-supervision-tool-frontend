@@ -18,13 +18,19 @@ import { combineReducers } from "redux";
  */
 const defaultHumanResource = {
   data: [],
-  total: 0,
-  initLoading: true,
+  total: 1,
   loading: false,
   error: null,
   showForm: false,
   posting: false,
-  page: 0,
+  page: 1,
+};
+
+const humanResourceState = {
+  humanresourceDetail: {},
+  total: 1,
+  page: 1,
+  loading: false,
 };
 
 const defaultInitiative
@@ -124,48 +130,39 @@ const locations = (state = [], action) => {
   }
 };
 
-const creatingHumanResource = (state = false, action) => {
-  switch (action.type) {
-    case types.CREATE_HUMAN_RESOURCES_START:
-      return true;
-    case types.CREATE_HUMAN_RESOURCES_SUCCESS:
-      return false;
-    case types.CREATE_HUMAN_RESOURCES_FAILURE:
-      return false;
-    default:
-      return state;
-  }
-};
-
-const humanResource = (state = defaultHumanResource, action) => {
+const humanResources = (state = defaultHumanResource, action) => {
   switch (action.type) {
     case types.GET_HUMAN_RESOURCES_START:
-      return { loading: true };
+      return { ...state, loading: true };
     case types.GET_HUMAN_RESOURCES_SUCCESS:
       return Object.assign(
         {},
         {
           ...state,
           data: action.humanResources.data,
-          total: action.humanResources.total,
-          page: action.humanResources.page,
-          initLoading: false,
+          total: action.humanResources.meta.total,
+          page: action.humanResources.meta.current_page,
           showForm: false,
           loading: false,
         }
       );
     case types.GET_HUMAN_RESOURCES_FAILURE:
       return { ...state, error: action.message, loading: false };
+
     case types.OPEN_HUMAN_RESOURCES_FORM:
-      return { ...state,showForm: true };
+      return { ...state, showForm: true };
     case types.CLOSE_HUMAN_RESOURCES_FORM:
       return { ...state, showForm: false };
+    case types.CREATE_HUMAN_RESOURCES_START:
+      return { ...state, posting: true };
     case types.CREATE_HUMAN_RESOURCES_SUCCESS:
-      return { posting: false, showForm: false, loading: true };
+      return { ...state, posting: false, showForm: false, loading: true };
     case types.CREATE_HUMAN_RESOURCES_FAILURE:
       return { error: action.payload.error };
+    case types.UPDATE_HUMAN_RESOURCES_START:
+      return { ...state, posting: true };
     case types.UPDATE_HUMAN_RESOURCES_SUCCESS:
-      return action.payload;
+      return { ...state, showForm: false,posting:false };
     case types.UPDATE_HUMAN_RESOURCES_FAILURE:
       return action.payload;
     case types.DELETE_HUMAN_RESOURCES_SUCCESS:
@@ -177,16 +174,18 @@ const humanResource = (state = defaultHumanResource, action) => {
   }
 };
 
-// update human resources
-
-const updateHumanResource = (state = false, action) => {
+const humanResource = (state = humanResourceState, action) => {
   switch (action.type) {
-    case types.UPDATE_HUMAN_RESOURCES_START:
-      return true;
-    case types.UPDATE_HUMAN_RESOURCES_SUCCESS:
-      return false;
-    case types.UPDATE_HUMAN_RESOURCES_FAILURE:
-      return false;
+    case types.GET_HUMAN_RESOURCE_START:
+      return { ...state, loading: true }
+    case types.GET_HUMAN_RESOURCE_SUCCESS:
+      return  {
+        ...state,
+        humanresourceDetail: action.payload,
+        loading: false,
+      };
+    case types.GET_HUMAN_RESOURCE_FAILURE:
+      return { ...state, error: action.message, loading: false };
     default:
       return state;
   }
@@ -317,9 +316,8 @@ export const resources = combineReducers({
   fetchingLocations,
   locations,
   fetchHumanResources,
-  creatingHumanResource,
+  humanResources,
   humanResource,
-  updateHumanResource,
   deleteHumanResource,
   creatingInitiative,
   updateInitiative,
