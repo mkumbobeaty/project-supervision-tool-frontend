@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Avatar, Checkbox, Col, Row } from 'antd';
 import randomColor from 'randomcolor';
 import './styles.css';
+import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 /* constants */
 const sideSpan = { xxl: 1, xl: 1, lg: 1, md: 2, sm: 2, xs: 3 };
@@ -72,6 +74,14 @@ const ListItem = ({
    * @version 0.1.0
    * @since 0.1.0
    */
+  const history = useHistory()
+  const handleClickItem = () => {
+    console.log("clicked")
+    history.push('/app/resources/initiatives/initiative')
+
+    // history.goBack()
+
+  }
   const handleToggleSelect = (event) => {
     if (event.target.checked) {
       onSelectItem();
@@ -109,16 +119,22 @@ const ListItem = ({
       className="ListItem"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClickItem}
+
     >
       <Row align="middle">
         {/* eslint-disable react/jsx-props-no-spreading */}
         <Col {...sideSpan}>{renderSideComponent()}</Col>
         {children}
+        {/* <Link to="/SingleInitiative" >{children}</Link> */}
         <Col {...isHoveredSpan}>
           {/* eslint-enable react/jsx-props-no-spreading */}
           {renderActions()}
         </Col>
       </Row>
+      <div>
+
+      </div>
     </div>
   );
 };

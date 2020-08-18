@@ -15,7 +15,7 @@ const axios = Axios.create({
 });
 
 /**
- * Fetch all human resources from API
+ * Fetch all Human resource from API
  *
  */
 export const fetchHumanResources = (params = {}) =>
@@ -113,4 +113,51 @@ export function getHumanResource(id) {
  */
 export function searchHumanResource(searchValue) {
   return Axios.get(`/human_resources?q=${searchValue}`).then((res) => res.data);
+}
+
+
+/**
+ * get saddaInitiative from API
+ *
+ */
+ export const fetchInitiatives = () =>
+    axios.get(`/human_resources`).then(response => response.data);
+
+/**
+ * create new Initiative
+ *
+ * @function
+ * @name createInitiative
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export const createInitiative= initiative =>
+    axios.post(`/human_resources`, initiative).then(response => response.data);
+
+
+/**
+ * edit existing Initiatives
+ *
+ * @function
+ * @name editHumanResources
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export const updateInitiative = (initiative, id) => {
+  return axios.patch(`/human_resources/${id}`, initiative).then(response => response.data);
+}
+
+/**
+* detaches a Initiative from list
+*
+* @function
+* @name deleteInitiative
+*
+* @version 0.1.0
+* @since 0.1.0
+*/
+export const deleteInitiative = (initiative_id) => {
+  return axios.delete(`human_resources/${initiative_id}`).then(response => response.data);
 }
