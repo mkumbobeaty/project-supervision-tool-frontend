@@ -215,6 +215,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           />
           
           <PrivateRoute path={`${baseUrl}/map`} component={Map} />
+          {/* Admin panel */}
+          <Route path={`${baseUrl}/adminpanel`} component={() => {
+            window.location.href = 'https://pamoja-backend.herokuapp.com/';
+            return null;
+          }} />
           {/* Dashboard routes */}
           <PrivateRoute
             exact

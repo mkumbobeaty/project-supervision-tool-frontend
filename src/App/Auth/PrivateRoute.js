@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
  */
 const PrivateRoute = (properties) => {
   const { component: Component, ...rest } = properties;
-  const [isAuthenticated, setIsauthenticated] = useState(false);
+  const [isAuthenticated] = useState(false);
 
   return (
     <Route
@@ -28,10 +28,10 @@ const PrivateRoute = (properties) => {
           // eslint-disable-next-line react/jsx-props-no-spreading
           <Component {...props} />
         ) : (
-          <Redirect
-            to={{ pathname: '/signin', state: { from: props.location } }} // eslint-disable-line
-          />
-        )
+            <Redirect
+              to={{ pathname: '/signin', state: { from: props.location } }} // eslint-disable-line
+            />
+          )
       }
     />
   );

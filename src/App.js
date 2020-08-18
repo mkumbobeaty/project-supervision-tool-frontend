@@ -3,7 +3,7 @@ import './App.css';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
-import PrivateRoute from './App/Auth/PrivateRoute';
+// import PrivateRoute from './App/Auth/PrivateRoute';
 import SignIn from './App/Auth/components/SignIn';
 import BaseLayout from './App/layouts/BaseLayout';
 

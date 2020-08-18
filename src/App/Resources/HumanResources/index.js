@@ -355,7 +355,6 @@ class HumanResources extends Component {
     );
   }
 }
-
 const mapStateToProps = (state) => {
   return {
     HumanResources: state.resources.humanResources.data
