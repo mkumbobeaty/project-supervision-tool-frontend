@@ -46,10 +46,9 @@ const headerLayout = [
  * @since 0.1.0
  */
 const displayLocation = (location) => {
-  const {region, district } = location;
-  const regionLevel = `${region?.name}`;
-  const districtLvel = `${region?.name}, ${district?.name}`;
-  return district ? districtLvel : regionLevel;
+  const regionLevel = `${location?.region?.name}`;
+  const districtLvel = `${location?.region?.name}, ${location?.district?.name}`;
+  return location?.district ? districtLvel : regionLevel;
 }
 
 const { confirm } = Modal;
@@ -75,12 +74,12 @@ class HumanResources extends Component {
       getHumanResources,
       getItems,
       getAgencies,
-      getLocations,
+      getRegions,
     } = this.props;
     getHumanResources();
     getItems();
     getAgencies();
-    getLocations();
+    getRegions();
   }
 
   /**
@@ -226,10 +225,12 @@ class HumanResources extends Component {
       items,
       selected,
       agencies,
-      locations,
+      regions,
+      districts,
       loading,
       page,
       showForm,
+      getDistricts,
       searchQuery,
       createHumanResource,
       updateHumanResource,
@@ -334,7 +335,7 @@ class HumanResources extends Component {
                 {isoDateToHumanReadableDate(item.end_date)}
               </Col>
               <Col {...locationSpan}>{displayLocation(item.location)}</Col>
-              <Col {...levelSpan}>{item.location.level}</Col>
+              <Col {...levelSpan}>{item.location?.level}</Col>
               {/* eslint-enable react/jsx-props-no-spreading */}
             </ListItem>
           )}
@@ -358,7 +359,9 @@ class HumanResources extends Component {
             items={items}
             selected={selected}
             agencies={agencies}
-            locations={locations}
+            regions={regions}
+            districts={districts}
+            getDistricts={getDistricts}
             isEditForm={isEditForm}
             HumanResources={HumanResources}
             handleAfterCloseForm={this.handleAfterCloseForm}
@@ -379,7 +382,8 @@ const mapStateToProps = (state) => {
       : [],
     items: state.resources?.items?.data,
     agencies: state.resources?.agencies?.data?.data,
-    locations: state.resources?.locations?.data?.data,
+    regions: state.resources?.regions?.data,
+    districts: state.resources?.districts?.data,
     total: state.resources.humanResources.total,
     page: state.resources.humanResources.page,
     loading: state.resources.humanResources.loading,
@@ -401,7 +405,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getItems: bindActionCreators(resourceOperations.getItems, dispatch),
   getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
-  getLocations: bindActionCreators(resourceOperations.getLocations, dispatch),
+  getRegions: bindActionCreators(resourceOperations.getRegions, dispatch),
+  getDistricts: bindActionCreators(resourceOperations.getDistricts, dispatch),
   createHumanResource: bindActionCreators(
     resourceOperations.createHumanResource,
     dispatch
@@ -438,11 +443,13 @@ HumanResources.propTypes = {
   items: PropTypes.array.isRequired,
   agencies: PropTypes.array.isRequired,
   selected: PropTypes.object,
-  locations: PropTypes.array.isRequired,
+  regions: PropTypes.array.isRequired,
+  districts: PropTypes.array.isRequired,
   posting: PropTypes.bool.isRequired,
   getItems: PropTypes.func.isRequired,
   getAgencies: PropTypes.func.isRequired,
-  getLocations: PropTypes.func.isRequired,
+  getRegions: PropTypes.func.isRequired,
+  getDistricts: PropTypes.func.isRequired,
   createHumanResource: PropTypes.func.isRequired,
   updateHumanResource: PropTypes.func.isRequired,
   HumanResources: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
@@ -458,11 +465,12 @@ HumanResources.defaultProps = {
   searchQuery: undefined,
   getItems: () => {},
   getAgencies: () => {},
-  getLocations: () => {},
+  getRegions: () => {},
+  getDistricts: () => {},
   createHumanResource: () => {},
   updateHumanResource: () => {},
   items: [],
   agencies: [],
-  locations: [],
+  districts: [],
   selected: {},
 };

@@ -57,22 +57,44 @@ export function getAgenciesFailure(error) {
 
 /*  Agencies Action creators */
 
-export function getLocationsStart() {
+export function getRegionsStart() {
   return {
-    type: types.GET_LOCATIONS_START,
+    type: types.GET_REGIONS_START,
   };
 }
 
-export function getLocationsSuccess(locations) {
+export function getRegionsSuccess(regions) {
   return {
-    type: types.GET_LOCATIONS_SUCCESS,
-    payload: locations,
+    type: types.GET_REGIONS_SUCCESS,
+    payload: regions,
   };
 }
 
-export function getLocationsFailure(error) {
+export function getRegionsFailure(error) {
   return {
-    type: types.GET_LOCATIONS_FAILURE,
+    type: types.GET_REGIONS_FAILURE,
+    payload: error,
+  };
+}
+
+/*  Districts Action creators */
+
+export function getDistrictsStart() {
+  return {
+    type: types.GET_DISTRICTS_START,
+  };
+}
+
+export function getDistrictsSuccess(districts) {
+  return {
+    type: types.GET_DISTRICTS_SUCCESS,
+    payload: districts,
+  };
+}
+
+export function getDistrictsFailure(error) {
+  return {
+    type: types.GET_DISTRICTS_FAILURE,
     payload: error,
   };
 }

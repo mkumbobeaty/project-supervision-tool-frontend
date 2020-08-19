@@ -34,10 +34,16 @@ export const getAgencies = () =>
   axios.get(`/implementing_partners`).then((response) => response.data);
 
 /**
- * get all locations from API
+ * get all regions from API
  * */
-export const getLocations = () =>
-  axios.get(`/locations`).then((response) => response.data);
+export const getRegions = () =>
+  axios.get(`/locations/regions`).then((response) => response.data);
+
+/**
+ * get all districts from API
+ * */
+export const getDistricts = (regionId) =>
+  axios.get(`/locations/districts/${regionId}`).then((response) => response.data);
 
 /**
  * create new human resource

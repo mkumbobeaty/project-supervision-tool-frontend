@@ -106,24 +106,48 @@ const items = (state = [], action) => {
   }
 };
 
-const fetchingLocations = (state = false, action) => {
+const fetchingRegions = (state = false, action) => {
   switch (action.type) {
-    case types.GET_LOCATIONS_START:
+    case types.GET_REGIONS_START:
       return true;
-    case types.GET_LOCATIONS_SUCCESS:
+    case types.GET_REGIONS_SUCCESS:
       return false;
-    case types.GET_LOCATIONS_FAILURE:
+    case types.GET_REGIONS_FAILURE:
       return false;
     default:
       return state;
   }
 };
 
-const locations = (state = [], action) => {
+const fetchingDistricts = (state = false, action) => {
   switch (action.type) {
-    case types.GET_LOCATIONS_SUCCESS:
+    case types.GET_DISTRICTS_START:
+      return true;
+    case types.GET_DISTRICTS_SUCCESS:
+      return false;
+    case types.GET_DISTRICTS_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const regions = (state = [], action) => {
+  switch (action.type) {
+    case types.GET_REGIONS_SUCCESS:
       return action.payload;
-    case types.GET_LOCATIONS_FAILURE:
+    case types.GET_REGIONS_FAILURE:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+const districts = (state = [], action) => {
+  switch (action.type) {
+    case types.GET_DISTRICTS_SUCCESS:
+      return action.payload;
+    case types.GET_DISTRICTS_FAILURE:
       return action.payload;
     default:
       return state;
@@ -313,8 +337,10 @@ export const resources = combineReducers({
   items,
   fetchingAgencies,
   agencies,
-  fetchingLocations,
-  locations,
+  fetchingRegions,
+  fetchingDistricts,
+  regions,
+  districts,
   fetchHumanResources,
   humanResources,
   humanResource,

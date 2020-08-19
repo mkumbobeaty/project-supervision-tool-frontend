@@ -38,13 +38,23 @@ export const getAgencies = () => (dispatch) => {
 };
 
 /**
- * get locations operation
+ * get regions operation
  */
-export const getLocations = () => (dispatch) => {
-  dispatch(actions.getLocationsStart());
-  API.getLocations()
-    .then((res) => dispatch(actions.getLocationsSuccess(res)))
-    .catch((err) => dispatch(actions.getLocationsFailure(err)));
+export const getRegions = () => (dispatch) => {
+  dispatch(actions.getRegionsStart());
+  API.getRegions()
+    .then((res) => dispatch(actions.getRegionsSuccess(res)))
+    .catch((err) => dispatch(actions.getRegionsFailure(err)));
+};
+
+/**
+ * get districts operation
+ */
+export const getDistricts = (regionId) => (dispatch) => {
+  dispatch(actions.getDistrictsStart());
+  API.getDistricts(regionId)
+    .then((res) => dispatch(actions.getDistrictsSuccess(res)))
+    .catch((err) => dispatch(actions.getDistrictsFailure(err)));
 };
 
 /**
