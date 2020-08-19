@@ -247,11 +247,6 @@ export function deleteInitiativeFailure(error) {
   };
 }
 
-// select single human resource
-export const selectHumanResource = selectedHumanResource => ({
-    type: types.SELECT_HUMAN_RESOURCE,
-    payload: selectedHumanResource,
-  });
 
 /*  Single Human Resource  Action creators */
 export function getHumanResourceStart() {

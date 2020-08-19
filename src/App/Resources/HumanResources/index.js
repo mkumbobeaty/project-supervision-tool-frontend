@@ -35,6 +35,23 @@ const headerLayout = [
   { ...levelSpan, header: "Level" },
 ];
 
+
+/**
+ * @function
+ * @name displayLocation
+ * @description display location of human resource
+ * @param {object} location to be display
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const displayLocation = (location) => {
+  const {region, district } = location;
+  const regionLevel = `${region?.name}`;
+  const districtLvel = `${region?.name}, ${district?.name}`;
+  return district ? districtLvel : regionLevel;
+}
+
 const { confirm } = Modal;
 
 /**
@@ -316,7 +333,7 @@ class HumanResources extends Component {
               <Col {...endDateSpan}>
                 {isoDateToHumanReadableDate(item.end_date)}
               </Col>
-              <Col {...locationSpan}>{item.location.name}</Col>
+              <Col {...locationSpan}>{displayLocation(item.location)}</Col>
               <Col {...levelSpan}>{item.location.level}</Col>
               {/* eslint-enable react/jsx-props-no-spreading */}
             </ListItem>
