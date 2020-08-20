@@ -75,13 +75,7 @@ const ListItem = ({
    * @since 0.1.0
    */
   const history = useHistory()
-  const handleClickItem = () => {
-    console.log("clicked")
-    history.push('/app/resources/initiatives/initiative')
-
-    // history.goBack()
-
-  }
+  const handleClickItem = () => {}
   const handleToggleSelect = (event) => {
     if (event.target.checked) {
       onSelectItem();

@@ -95,7 +95,16 @@ class HumanResourceForm extends Component{
     }
      this.props.handleAfterCloseForm();
   };
-  render() {
+
+  componentDidMount() {
+      const {selected, getDistricts} = this.props;
+      if (selected && selected.location.level === 'district') {
+          this.setState({showDistrictsSelect: true})
+          getDistricts(selected?.location?.region.id);
+      }
+  }
+
+    render() {
 
     const {
       posting,
@@ -114,6 +123,9 @@ class HumanResourceForm extends Component{
             onFinish={this.onFinish}
             initialValues={{
               hr_type_id: selected?.hr_type.id,
+              level: selected?.location?.level,
+              region_id: selected?.location?.region?.id,
+              district_id: selected?.location?.district?.id,
               implementing_partners: selected?.implementing_partners.map(
                   (partner) => partner.id
               ),
