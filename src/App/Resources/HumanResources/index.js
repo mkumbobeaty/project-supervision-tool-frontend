@@ -35,7 +35,6 @@ const headerLayout = [
   { ...levelSpan, header: "Level" },
 ];
 
-
 /**
  * @function
  * @name displayLocation
@@ -49,7 +48,7 @@ const displayLocation = (location) => {
   const regionLevel = `${location?.region?.name}`;
   const districtLvel = `${location?.region?.name}, ${location?.district?.name}`;
   return location?.district ? districtLvel : regionLevel;
-}
+};
 
 const { confirm } = Modal;
 
@@ -70,12 +69,7 @@ class HumanResources extends Component {
   };
 
   componentDidMount() {
-    const {
-      getHumanResources,
-      getItems,
-      getAgencies,
-      getRegions,
-    } = this.props;
+    const { getHumanResources, getItems, getAgencies, getRegions } = this.props;
     getHumanResources();
     getItems();
     getAgencies();
@@ -147,9 +141,9 @@ class HumanResources extends Component {
    * @since 0.1.0
    */
   searchHumanResources = (searchValue) => {
-    const {searchHumanResources} = this.props;
-    debugger
-    searchHumanResources(searchValue)
+    const { searchHumanResources } = this.props;
+    debugger;
+    searchHumanResources(searchValue);
   };
 
   /**
@@ -391,7 +385,6 @@ const mapStateToProps = (state) => {
     showForm: state.resources.humanResources.showForm,
     selected: state.resources?.selectedHumanResource,
     // searchQuery: st,
-
   };
 };
 
