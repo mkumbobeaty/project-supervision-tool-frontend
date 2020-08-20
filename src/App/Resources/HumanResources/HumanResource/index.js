@@ -16,6 +16,20 @@ const rowTwoSpan = { xxl: 5, xl: 6, lg: 6, md: 24, sm: 24, xs: 24 };
 const rowThreeSpan = { xxl: 6, xl: 6, lg: 6, md: 24, sm: 24, xs: 24 };
 const antIcon = <LoadingOutlined className="spinLoader" spin />;
 
+/**
+ * @function
+ * @name displayLocation
+ * @description display location of human resource
+ * @param {object} location to be display
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const displayLocation = (location) => {
+  const regionLevel = `${location?.region?.name}`;
+  const districtLvel = `${location?.region?.name}, ${location?.district?.name}`;
+  return location?.district ? districtLvel : regionLevel;
+};
 class HumanResource extends Component {
   state = {
     showFilters: false,
@@ -144,7 +158,7 @@ class HumanResource extends Component {
                     <h4>Location</h4>
                     <span>
                       {humanResource.location
-                        ? humanResource.location.name
+                        ? displayLocation(humanResource.location)
                         : "N/A"}
                     </span>
                   </div>
