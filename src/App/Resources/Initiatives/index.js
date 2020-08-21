@@ -324,7 +324,7 @@ class Initiative extends Component {
           }) => (
               <ListItem
                 key={item.id} // eslint-disable-line
-                name={item.name}
+                name={item.title}
                 item={item}
                 isSelected={isSelected}
                 onSelectItem={onSelectItem}
@@ -346,14 +346,18 @@ class Initiative extends Component {
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...TitleSpan}>{item.item.name ? item.item.name : "All"}</Col>
-                <Col {...actorTypeSpan}>{item.item.description}</Col>
-                <Col {...partnerSpan}>{item.agency.name}</Col>
+                <Col {...TitleSpan}>{item.title ? item.title : "All"}</Col>
+                <Col {...actorTypeSpan}>{item.actor_type.name}</Col>
+                <Col {...partnerSpan}>{item.implementing_partners.map((partner, index) => {
+                  return (index ? ", " : "") + partner.name;
+                })}</Col>
                 <Col {...startDateSpan}>{isoDateToHumanReadableDate(item.start_date)}</Col>
                 <Col {...endDateSpan}>{isoDateToHumanReadableDate(item.end_date)}</Col>
-                <Col {...costSpan}>{item.quantity}</Col>
-                <Col {...locationSpan}>{item.location.name}</Col>
-                <Col {...focalPersonSpan}>{item.location.name}</Col>
+                <Col {...costSpan}>{item.funding_organisations.map((partner, index) => {
+                  return (index ? ", " : "") + partner.name;
+                })}</Col>
+                <Col {...locationSpan}>{item.location.level}</Col>
+                <Col {...focalPersonSpan}></Col>
 
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
@@ -468,7 +472,6 @@ const mapDispatchToProps = (dispatch) => ({
   getInitiatives: bindActionCreators(resourceOperations.getInitiatives, dispatch),
   getItems: bindActionCreators(resourceOperations.getItems, dispatch),
   getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
-  getLocations: bindActionCreators(resourceOperations.getLocations, dispatch),
   createInitiative: bindActionCreators(resourceOperations.createInitiative, dispatch),
   deleteInitiative: bindActionCreators(resourceOperations.deleteInitiative, dispatch),
   updateInitiative: bindActionCreators(resourceOperations.updateInitiative, dispatch),
@@ -477,6 +480,7 @@ const mapDispatchToProps = (dispatch) => ({
   selectInitiative: bindActionCreators(resourceOperations.selectHumanResource, dispatch),
   closeResourceForm: bindActionCreators(resourceOperations.closeResourceForm, dispatch),
   closeInitiativeForm: bindActionCreators(resourceOperations.closeInitiativeForm, dispatch),
+
 
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Initiative);
