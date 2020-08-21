@@ -13,29 +13,45 @@ import { bindActionCreators } from "redux";
 import { resourceOperations } from "../duck";
 import InitiativeForm from "./Form";
 import "./styles.css";
+import {Link} from "react-router-dom";
 
 
 /* constants */
-const TitleSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
+const TypeSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
 const partnerSpan = { xxl: 3, xl: 3, lg: 3, md: 5, sm: 6, xs: 7 };
-const costSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
-const actorTypeSpan = { xxl: 4, xl: 4, lg: 4, md: 5, sm: 6, xs: 11 };
+const numberSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
+const descriptionSpan = { xxl: 4, xl: 5, lg: 7, md: 8, sm: 10, xs: 11 };
 const locationSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const levelSpan = { xxl: 2, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
 const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
 const endDateSpan = { xxl: 2, xl: 2, lg: 3, md: 3, sm: 4, xs: 0 };
-const focalPersonSpan = { xxl: 2, xl: 3, lg: 3, md: 3, sm: 4, xs: 0 };
 
+
+
+/**
+ * @function
+ * @name displayLocation
+ * @description display location of human resource
+ * @param {object} location to be display
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const displayLocation = (location) => {
+  const regionLevel = `${location?.region?.name}`;
+  const districtLvel = `${location?.region?.name}, ${location?.district?.name}`;
+  return location?.district ? districtLvel : regionLevel;
+};
 
 const headerLayout = [
-  { ...TitleSpan, header: "Title" },
-  { ...actorTypeSpan, header: "Actor Type" },
+  { ...TypeSpan, header: " Actor Type" },
+  { ...descriptionSpan, header: "Initiative Type" },
+  { ...numberSpan, header: "Title" },
   { ...partnerSpan, header: "Implementing Partner" },
   { ...startDateSpan, header: "Start Date" },
   { ...endDateSpan, header: "End Date" },
-  { ...costSpan, header: "Cost" },
   { ...locationSpan, header: "Location" },
-  { ...focalPersonSpan, header: "focal Person" },
-
+  { ...levelSpan, header: "Level" },
 ];
 
 const { confirm } = Modal;
@@ -333,34 +349,53 @@ class Initiative extends Component {
                 onDeselectItem={onDeselectItem}
                 renderActions={() => (
                   <ListItemActions
-                    edit={{
-                      name: "Edit Initiative",
-                      title: "Update Initiative Details",
-                      onClick: () => this.handleEdit(item),
-                    }}
-                    archive={{
-                      name: "Archive Initiative",
-                      title:
-                        "Remove Initiative from list of active Initiative",
-                      onClick: () => this.showArchiveConfirm(item),
-                    }}
+                      edit={{
+                        name: "Edit Human Resources",
+                        title: "Update Human Resources Details",
+                        onClick: () => this.handleEdit(item),
+                      }}
+                      archive={{
+                        name: "Archive Human Resources",
+                        title:
+                            "Remove Human Resources from list of active Human Resources",
+                        onClick: () => this.showArchiveConfirm(item),
+                      }}
                   />
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...TitleSpan}>{item.title ? item.title : "All"}</Col>
-                <Col {...actorTypeSpan}>{item.actor_type.name}</Col>
-                <Col {...partnerSpan}>{item.implementing_partners.map((partner, index) => {
-                  return (index ? ", " : "") + partner.name;
-                })}</Col>
-                <Col {...startDateSpan}>{isoDateToHumanReadableDate(item.start_date)}</Col>
-                <Col {...endDateSpan}>{isoDateToHumanReadableDate(item.end_date)}</Col>
-                <Col {...costSpan}>{item.funding_organisations.map((partner, index) => {
-                  return (index ? ", " : "") + partner.name;
-                })}</Col>
-                <Col {...locationSpan}>{item.location.level}</Col>
-                <Col {...focalPersonSpan}></Col>
+                <Col {...TypeSpan} className="humanResourceEllipse">
+                  {" "}
+                  <Link
+                      to={{
+                        pathname: `/app/resources/initiatives/${item.id}`,
+                      }}
+                  >
+                    {item.actor_type.name ? item.actor_type.name : "All"}
+                  </Link>
+                </Col>
+                <Col
+                    {...descriptionSpan}
+                    className="humanResourceEllipse"
+                    title={item.initiative_type}
+                >
+                  {item.initiative_type}
+                </Col>
+                <Col {...numberSpan}>{item.title}</Col>
+                <Col {...partnerSpan} className="humanResourceEllipse">
+                  {item.implementing_partners.map((partner, index) => {
+                    return (index ? ", " : "") + partner.name;
+                  })}
+                </Col>
 
+                <Col {...startDateSpan}>
+                  {isoDateToHumanReadableDate(item.start_date)}
+                </Col>
+                <Col {...endDateSpan}>
+                  {isoDateToHumanReadableDate(item.end_date)}
+                </Col>
+                <Col {...locationSpan}>{displayLocation(item.location)}</Col>
+                <Col {...levelSpan}>{item.location?.level}</Col>
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             )}
