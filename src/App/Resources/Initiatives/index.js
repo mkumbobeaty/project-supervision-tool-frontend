@@ -61,11 +61,11 @@ class Initiative extends Component {
   };
 
   componentDidMount() {
-    const { getInitiatives, getItems, getAgencies, getLocations } = this.props;
+    const { getInitiatives, getItems, getAgencies, getRegions } = this.props;
     getInitiatives();
     getItems();
     getAgencies();
-    getLocations();
+    getRegions();
   }
 
   /**
@@ -269,7 +269,9 @@ class Initiative extends Component {
       items,
       selected,
       agencies,
-      locations,
+      regions,
+      districts,
+      getDistricts,
       loading,
       page,
       showForm,
@@ -403,7 +405,9 @@ class Initiative extends Component {
             items={items}
             selected={selected}
             agencies={agencies}
-            locations={locations}
+            regions={regions}
+            getDistricts={getDistricts}
+            districts={districts}
             isEditForm={isEditForm}
             Initiatives={Initiatives}
             createInitiative={createInitiative}
@@ -426,7 +430,7 @@ Initiative.propTypes = {
   posting: PropTypes.bool.isRequired,
   getItems: PropTypes.func.isRequired,
   getAgencies: PropTypes.func.isRequired,
-  getLocations: PropTypes.func.isRequired,
+  getRegions: PropTypes.func.isRequired,
   createInitiative: PropTypes.func.isRequired,
   updateInitiative: PropTypes.func.isRequired,
   Initiative: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
@@ -442,12 +446,13 @@ Initiative.defaultProps = {
   searchQuery: undefined,
   getItems: () => { },
   getAgencies: () => { },
-  getLocations: () => { },
+  getRegions: () => { },
   createInitiative: () => { },
   updateInitiative: () => { },
   items: [],
   agencies: [],
-  locations: [],
+  regions: [],
+  districts: [],
   selected: null,
 };
 
@@ -457,8 +462,9 @@ const mapStateToProps = (state) => {
       ? state.resources.initiative.data
       : [],
     items: state.resources?.items?.data,
-    agencies: state.resources?.agencies?.data,
-    locations: state.resources?.locations?.data,
+    agencies: state.resources?.agencies?.data?.data,
+    regions: state.resources?.regions?.data,
+    districts: state.resources?.districts?.data,
     total: state.resources.initiative.total,
     page: state.resources.initiative.page,
     loading: state.resources.initiative.loading,
@@ -472,6 +478,8 @@ const mapDispatchToProps = (dispatch) => ({
   getInitiatives: bindActionCreators(resourceOperations.getInitiatives, dispatch),
   getItems: bindActionCreators(resourceOperations.getItems, dispatch),
   getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
+  getRegions: bindActionCreators(resourceOperations.getRegions, dispatch),
+  getDistricts: bindActionCreators(resourceOperations.getDistricts, dispatch),
   createInitiative: bindActionCreators(resourceOperations.createInitiative, dispatch),
   deleteInitiative: bindActionCreators(resourceOperations.deleteInitiative, dispatch),
   updateInitiative: bindActionCreators(resourceOperations.updateInitiative, dispatch),

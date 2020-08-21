@@ -1,39 +1,70 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
 import { generateDateString, createDateFromString } from "../../../../Util";
-import { Button, Form, Row, Col, Select, DatePicker, InputNumber, Input } from "antd";
+import {
+  Button,
+  Form,
+  Row,
+  Col,
+  Select,
+  DatePicker,
+  InputNumber,
+  Input,
+} from "antd";
 
 /* state actions */
 
 /* ui */
 const labelCol = {
-  xs: { span: 12 },
-  sm: { span: 12 },
-  md: { span: 12 },
-  lg: { span: 12 },
-  xl: { span: 12 },
-  xxl: { span: 12 },
+  xs: { span: 24 },
+  sm: { span: 24 },
+  md: { span: 24 },
+  lg: { span: 24 },
+  xl: { span: 24 },
+  xxl: { span: 24 },
 };
 const wrapperCol = {
-  xs: { span: 12 },
-  sm: { span: 12 },
-  md: { span: 12 },
-  lg: { span: 12 },
-  xl: { span: 12 },
-  xxl: { span: 12 },
+  xs: { span: 24 },
+  sm: { span: 24 },
+  md: { span: 24 },
+  lg: { span: 24 },
+  xl: { span: 24 },
+  xxl: { span: 24 },
 };
 
+
+const renderDistricts = (districts) => {
+  return (
+      <Form.Item
+          label="District"
+          name="district_id"
+          title="initiative District is required  e.g Ilala"
+          rules={[
+            {
+              required: true,
+              message: "initiative district  is required",
+            },
+          ]}
+      >
+        <Select>
+          { districts.map((district) => (
+              <Select.Option value={district.id}>{district.name}</Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
+  );
+}
+
 /**
- * @function HumanResourceForm
- * @name HumanResourceForm
- * @description Form for create and edit humanResource of measure
+ * @function InitiativeForm
+ * @name InitiativeForm
+ * @description Form for create and edit initiative of measure
  * @param {object} props Valid form properties
- * @param {object} props.humanResource Valid humanResource object
+ * @param {object} props.initiative Valid initiative object
  * @param {boolean} props.isEditForm Flag whether form is on edit mode
  * @param {boolean} props.posting Flag whether form is posting data
  * @param {Function} props.onCancel Form cancel callback
- * @returns {object} HumanResourceForm component
- * @author lally elias <lallyelias87@gmail.com>
+ * @returns {object} InitiativeForm component
  * @license MIT
  * @since 0.1.0
  * @version 0.1.0
@@ -41,225 +72,255 @@ const wrapperCol = {
  * @public
  * @example
  *
- * <HumanResourceForm
- *   humanResource={humanResource}
+ * <InitiativeForm
+ *   initiative={initiative}
  *   isEditForm={isEditForm}
  *   posting={posting}
- *   onCancel={this.handleClosehumanResourceForm}
+ *   onCancel={this.handleCloseinitiativeForm}
  * />
  *
  */
-const HumanResourceForm = ({
-  isEditForm,
-  posting,
-  createHumanResource,
-  updateHumanResource,
-  items,
-  selected,
-  agencies,
-  locations,
-  onCancel,
-}) => {
+class InitiativeForm extends Component{
+  state = {showDistrictsSelect: false}
   // form finish(submit) handler
-  const onFinish = (values) => {
+  onFinish = (values) => {
     const start_date = generateDateString(values.start_date);
     const end_date = generateDateString(values.end_date);
     const payload = { ...values, start_date, end_date };
-
-    if (isEditForm) {
-      const updates = { ...selected, payload };
-      updateHumanResource(updates);
+    if (this.props.isEditForm) {
+      this.props.updateInitiative(payload, this.props.selected.id);
     } else {
-      createHumanResource(payload);
-
+      this.props.createInitiative(payload);
     }
+    this.props.handleAfterCloseForm();
   };
-  return (
-    <Form
-      labelCol={labelCol}
-      wrapperCol={wrapperCol}
-      onFinish={onFinish}
-      initialValues={{
-        item_id: selected?.item.id,
-        agency_id: selected?.agency.id,
-        location_id: selected?.location.id,
-        quantity: selected?.quantity,
-        start_date: createDateFromString(selected?.start_date),
-        end_date: createDateFromString(selected?.end_date),
-      }}
-      autoComplete="off"
-      className='HumanResourceForm'
-    >
 
-      <Form.Item
-        label="Title"
-        title=" available initiative title  e.g 30"
-        name="quantity"
-        rules={[
-          {
-            required: true,
-            message: "initiative title is required",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+  componentDidMount() {
+    const {selected, getDistricts} = this.props;
+    if (selected && selected.location.level === 'district') {
+      this.setState({showDistrictsSelect: true})
+      getDistricts(selected?.location?.region.id);
+    }
+  }
 
-      <Form.Item
-        label="Action Types"
-        title=" available Action Types   e.g 30"
-        name="quantity"
-        rules={[
-          {
-            required: true,
-            message: "Action Types is required",
-          },
-        ]}
-      >
-        <Input />
-      </Form.Item>
+  render() {
 
-      {/* start:implementing partner */}
-      <Form.Item
-        label="Implementing Partner"
-        name="agency_id"
-        title="humanResource Implementing Partner e.g Tanzania Red cross society"
-        rules={[
-          {
-            required: true,
-            message: "humanResource Implementing Partner is required",
-          },
-        ]}
-      >
-        <Select>
-          {agencies.map((agency) => (
-            <Select.Option value={agency.id}>{agency.name}</Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
-      {/* end:implementing partner */}
-
-      {/* start:number */}
-      <Form.Item
-        label="Cost"
-        title=" available initiative in cost  e.g 30"
-        name="quantity"
-        rules={[
-          {
-            required: true,
-            message: "initiative cost is required",
-          },
-        ]}
-      >
-        <InputNumber />
-      </Form.Item>
-      {/* end:number */}
-
-      {/* start:location */}
-      <Form.Item
-        label="Location"
-        name="location_id"
-        title="humanResources location is required  e.g Dar Es Salaam"
-        rules={[
-          {
-            required: true,
-            message: "humanResource number  is required",
-          },
-        ]}
-      >
-        <Select>
-          {locations.map((location) => (
-            <Select.Option value={location.id}>{location.name}</Select.Option>
-          ))}
-        </Select>
-
-      </Form.Item>
-      {/* end:location */}
-
-      {/* start:location */}
-      <Form.Item
-        label="FocalPerson"
-        name="location_id"
-        title="initiative FocalPerson is required  e.g Dar Es Salaam"
-        rules={[
-          {
-            required: true,
-            message: "initiative FocalPerson is required",
-          },
-        ]}
-      >
-        <Select>
-          {locations.map((location) => (
-            <Select.Option value={location.id}>{location.name}</Select.Option>
-          ))}
-        </Select>
-
-      </Form.Item>
-      {/* end:location */}
-
-      {/* start: start date & end date */}
-      <Row justify="space-between">
-        {/* start:start date */}
-        <Col span={11}>
-          <Form.Item
-            label="Start Date"
-            name="start_date"
-            title="Initiative start date e.g 06-20-2020"
-            rules={[
-              {
-                required: true,
-                message: "Initiative start date is required",
-              },
-            ]}
-          >
-            <DatePicker />
-          </Form.Item>
-        </Col>
-        {/* end:start date */}
-
-        {/* start:end date */}
-        <Col span={11}>
-          <Form.Item
-            label="End Date"
-            title="Initiative end date e.g 07-30-2020"
-            name="end_date"
-            rules={[
-              {
-                required: true,
-                message: "Initiative end date is required",
-              },
-            ]}
-          >
-            <DatePicker />
-          </Form.Item>
-        </Col>
-        {/* end:end date */}
-      </Row>
-      {/* end: start date & end date */}
-
-      {/* start:form actions */}
-      <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
-        <Button onClick={onCancel}>Cancel</Button>
-        <Button
-          style={{ marginLeft: 8 }}
-          type="primary"
-          htmlType="submit"
-          loading={posting}
+    const {
+      posting,
+      getDistricts,
+      items,
+      selected,
+      agencies,
+      regions,
+      districts,
+      onCancel,
+    } = this.props;
+    return (
+        <Form
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
+            onFinish={this.onFinish}
+            initialValues={{
+              actor_type_id: selected?.actor_type_id.id,
+              level: selected?.location?.level,
+              region_id: selected?.location?.region?.id,
+              district_id: selected?.location?.district?.id,
+              implementing_partners: selected?.implementing_partners.map(
+                  (partner) => partner.id
+              ),
+              location_id: selected?.location.id,
+              initiative_type: selected?.quantity,
+              description: selected?.description,
+              start_date: createDateFromString(selected?.start_date),
+              end_date: createDateFromString(selected?.end_date),
+            }}
+            autoComplete="off"
+            className="InitiativeForm"
         >
-          Save
-        </Button>
-      </Form.Item>
-      {/* end:form actions */}
-    </Form>
-  );
+          {/* start:type */}
+          <Form.Item
+              label="Actor Type"
+              name="actor_type_id"
+              title="initiative type e.g People"
+              rules={[
+                {
+                  required: true,
+                  message: "initiative type is required",
+                },
+              ]}
+          >
+            <Select>
+              {items.map((item) => (
+                  <Select.Option value={item.id}>{item.name}</Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          {/* end:type */}
+
+          {/* start:Description */}
+          <Form.Item
+              label="Title"
+              name="title"
+              title="initiative Title"
+              rules={[
+                {
+                  required: true,
+                  message: "initiative Title is required",
+                },
+              ]}
+          >
+            <Input />
+          </Form.Item>
+          {/* end:Description */}
+
+          {/* start:Description */}
+          <Form.Item
+              label="Initiative Type"
+              name="initiative_type"
+              title="initiative Type"
+              rules={[
+                {
+                  required: true,
+                  message: "initiative Type is required",
+                },
+              ]}
+          >
+            <Input />
+          </Form.Item>
+          {/* end:Description */}
+
+          {/* start:implementing partner */}
+          <Form.Item
+              label="Implementing Partner"
+              name="implementing_partners"
+              title="initiative Implementing Partner e.g Tanzania Red cross society"
+              rules={[
+                {
+                  required: true,
+                  message: "initiative Implementing Partner is required",
+                },
+              ]}
+          >
+            <Select mode="multiple">
+              {agencies.map((agency) => (
+                  <Select.Option value={agency.id}>{agency.name}</Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          {/* end:implementing partner */}
+
+          {/* start:level */}
+          <Form.Item
+              label="Level"
+              name="level"
+              title="initiative Level is required  e.g District"
+              rules={[
+                {
+                  required: true,
+                  message: "initiative level  is required",
+                },
+              ]}
+          >
+            <Select
+                onSelect={(value) => value === 'district' ? this.setState({showDistrictsSelect: true}) : this.setState({showDistrictsSelect: false})}
+            >
+              <Select.Option value="region">Region</Select.Option>
+              <Select.Option value="district">District</Select.Option>
+            </Select>
+          </Form.Item>
+          {/* end:level */}
+
+
+          {/* start:region */}
+          <Form.Item
+              label="Region"
+              name="region_id"
+              title="initiative Region is required  e.g Dar Es Salaam"
+              rules={[
+                {
+                  required: true,
+                  message: "initiative region  is required",
+                },
+              ]}
+          >
+            <Select onSelect={(value) => getDistricts(value)}>
+              { regions.map((region) => (
+                  <Select.Option value={region.id}>{region.name}</Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          {/* end:region */}
+
+
+          {/* start:district */}
+          { this.state.showDistrictsSelect ? renderDistricts(districts) : ''}
+          {/* end:district */}
+
+          {/* start: start date & end date */}
+          <Row justify="space-between">
+            {/* start:start date */}
+            <Col span={11}>
+              <Form.Item
+                  label="Start Date"
+                  name="start_date"
+                  title="initiative start date e.g 06-20-2020"
+                  rules={[
+                    {
+                      required: true,
+                      message: "initiative start date is required",
+                    },
+                  ]}
+              >
+                <DatePicker />
+              </Form.Item>
+            </Col>
+            {/* end:start date */}
+
+            {/* start:end date */}
+            <Col span={11}>
+              <Form.Item
+                  label="End Date"
+                  title="initiative end date e.g 07-30-2020"
+                  name="end_date"
+                  rules={[
+                    {
+                      required: true,
+                      message: "initiative end date is required",
+                    },
+                  ]}
+              >
+                <DatePicker />
+              </Form.Item>
+            </Col>
+            {/* end:end date */}
+          </Row>
+          {/* end: start date & end date */}
+
+          {/* start:form actions */}
+          <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+            <Button onClick={onCancel}>Cancel</Button>
+            <Button
+                style={{ marginLeft: 8 }}
+                type="primary"
+                htmlType="submit"
+                loading={posting}
+            >
+              Save
+            </Button>
+          </Form.Item>
+          {/* end:form actions */}
+        </Form>
+    );
+  }
+
+}
+
+InitiativeForm.defaultProps = {
+  initiative: {},
 };
 
-HumanResourceForm.defaultProps = {
-  humanResource: {},
-};
-
-HumanResourceForm.propTypes = {
-  humanResource: PropTypes.shape({
+InitiativeForm.propTypes = {
+  initiative: PropTypes.shape({
     _id: PropTypes.string,
     strings: PropTypes.shape({
       code: PropTypes.string.isRequired,
@@ -277,4 +338,4 @@ HumanResourceForm.propTypes = {
   onCancel: PropTypes.func.isRequired,
 };
 
-export default HumanResourceForm;
+export default InitiativeForm;
