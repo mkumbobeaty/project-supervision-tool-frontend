@@ -126,8 +126,8 @@ export function searchHumanResource(searchValue) {
  * get saddaInitiative from API
  *
  */
- export const fetchInitiatives = () =>
-    axios.get(`/human_resources`).then(response => response.data);
+ export const fetchInitiatives = (params = {}) =>
+    axios.get(`/initiatives`, { params }).then((response) => response.data);
 
 /**
  * create new Initiative
@@ -139,7 +139,7 @@ export function searchHumanResource(searchValue) {
  * @since 0.1.0
  */
 export const createInitiative= initiative =>
-    axios.post(`/human_resources`, initiative).then(response => response.data);
+    axios.post(`/initiatives`, initiative).then(response => response.data);
 
 
 /**
