@@ -17,8 +17,9 @@ import {Link} from "react-router-dom";
 
 
 /* constants */
-const TypeSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 4, xs: 6 };
-const partnerSpan = { xxl: 3, xl: 3, lg: 3, md: 5, sm: 6, xs: 7 };
+const TypeSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
+const partnerSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 4, xs: 5 };
+const organisationSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 4, xs: 5 };
 const numberSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
 const descriptionSpan = { xxl: 4, xl: 5, lg: 7, md: 8, sm: 10, xs: 11 };
 const locationSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
@@ -48,10 +49,11 @@ const headerLayout = [
   { ...descriptionSpan, header: "Initiative Type" },
   { ...numberSpan, header: "Title" },
   { ...partnerSpan, header: "Implementing Partner" },
-  { ...startDateSpan, header: "Start Date" },
+  { ...organisationSpan, header: "Funding Organisation" },
+  { ...startDateSpan, header  : "Start Date" },
   { ...endDateSpan, header: "End Date" },
   { ...locationSpan, header: "Location" },
-  { ...levelSpan, header: "Level" },
+  { ...levelSpan, header: "Focal Person" },
 ];
 
 const { confirm } = Modal;
@@ -379,12 +381,17 @@ class Initiative extends Component {
                     className="humanResourceEllipse"
                     title={item.initiative_type}
                 >
-                  {item.initiative_type}
+                  {item.initiative_type.name}
                 </Col>
                 <Col {...numberSpan}>{item.title}</Col>
                 <Col {...partnerSpan} className="humanResourceEllipse">
                   {item.implementing_partners.map((partner, index) => {
                     return (index ? ", " : "") + partner.name;
+                  })}
+                </Col>
+                <Col {...organisationSpan} className="humanResourceEllipse">
+                  {item.funding_organisations.map((org, index) => {
+                    return (index ? ", " : "") + org.name;
                   })}
                 </Col>
 
@@ -395,7 +402,7 @@ class Initiative extends Component {
                   {isoDateToHumanReadableDate(item.end_date)}
                 </Col>
                 <Col {...locationSpan}>{displayLocation(item.location)}</Col>
-                <Col {...levelSpan}>{item.location?.level}</Col>
+                <Col {...levelSpan}>{item.focal_person.first_name } { item.focal_person.last_name }</Col>
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             )}
