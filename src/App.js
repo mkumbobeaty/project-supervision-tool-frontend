@@ -1,4 +1,5 @@
 import React from 'react';
+import 'leaflet/dist/leaflet.css';
 import './App.css';
 import { HashRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Spin } from 'antd';

@@ -14,6 +14,8 @@ import { resourceOperations } from "../duck";
 import InitiativeForm from "./Form";
 import "./styles.css";
 import {Link} from "react-router-dom";
+import Maps from "../../Map";
+import BaseMap from "../../Map";
 
 
 /* constants */
@@ -71,6 +73,7 @@ class Initiative extends Component {
   state = {
     showFilters: false,
     showShare: false,
+    showMap: false,
     isEditForm: false,
     notificationSubject: undefined,
     notificationBody: undefined,
@@ -166,6 +169,33 @@ class Initiative extends Component {
     const { closeInitiativeForm } = this.props;
     closeInitiativeForm()
   };
+
+
+  /**
+   * @function
+   * @name closeMapPreview
+   * @description close event details drawer
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  closeMapPreview = () => {
+    this.setState({ showMap: false });
+  };
+
+
+  /**
+   * @function
+   * @name handleMapPreview
+   * @description Handle map preview
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleMapPreview = () => {
+    this.setState({ showMap: true });
+  };
+
 
   /**
    * @function
@@ -301,7 +331,7 @@ class Initiative extends Component {
     } = this.props;
     const { showFilters, isEditForm } = this.state;
     return (
-      <>
+      <div>
         {/* Topbar */}
         <Topbar
           search={{
@@ -351,6 +381,11 @@ class Initiative extends Component {
                 onDeselectItem={onDeselectItem}
                 renderActions={() => (
                   <ListItemActions
+                      onMapPreview={{
+                        name: 'Preview Initiative on Map',
+                        title: 'Preview Initiative on Map',
+                        onClick: this.handleMapPreview,
+                      }}
                       edit={{
                         name: "Edit Human Resources",
                         title: "Update Human Resources Details",
@@ -458,7 +493,20 @@ class Initiative extends Component {
           />
         </Drawer>
         {/* end create/edit form modal */}
-      </>
+        {/* Map preview drawer */}
+        <Drawer
+            title="Preview Initiative on Map"
+            placement="right"
+            width="100%"
+            className="map-drawer"
+            onClose={this.closeMapPreview}
+            visible={this.state.showMap}
+        >
+          <BaseMap />
+        </Drawer>
+
+        {/* End Map preview drawer */}
+      </div>
     );
   }
 }
