@@ -21,6 +21,7 @@ import NeedsByGovernment from "../Needs/NeedByGovernment";
 import NeedsCovid from "../Needs/NeedsCovid";
 import NeedsAssessment from "../Needs/NeedsAssessments";
 import "./styles.css";
+import MapDashboard from "../Map";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -214,7 +215,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             render={({match}) => <HumanResource match={match}/>}
           />
           
-          <PrivateRoute path={`${baseUrl}/map`} component={Map} />
+          <Route path={`${baseUrl}/map`} component={MapDashboard} />
           {/* Admin panel */}
           <Route path={`${baseUrl}/adminpanel`} component={() => {
             window.location.href = 'https://pamoja-backend.herokuapp.com/';

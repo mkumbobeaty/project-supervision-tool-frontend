@@ -1,31 +1,38 @@
+
+
 import React, {Component} from 'react';
-import {connect} from "react-redux";
-import {Map, TileLayer} from 'react-leaflet';
+import {GeoJSON} from 'react-leaflet';
+import {getGeoJsonFromLocation} from '../../Util';
 import "./styles.css";
-import 'leaflet/dist/leaflet.css';
+import BaseMap from "./BaseMap";
+import SideMenu from "./components/SideMenu";
 
-const accessToken = 'pk.eyJ1IjoibWxvd2VlZGdhciIsImEiOiJjaWxqZXh4ZTAwMDl4dzhsend0a2cxY3JqIn0.KtlMeVuCRdoDod0giDBAdQ'
-const state = {
-    lat: -6.161184,
-    lng: 35.745426,
-    zoom: 7,
+
+class MapDashboard extends  Component {
+    state = {
+        lat: -6.161184,
+        lng: 35.745426,
+        zoom: 7,
+    }
+
+    constructor(props) {
+        super(props);
+        this.map = React.createRef();
+    }
+
+    render() {
+
+        return (
+            <div className="MapDashboard">
+                <SideMenu/>
+                <BaseMap ref={this.map} zoomControl={false}>
+                </BaseMap>
+            </div>
+
+        )
+    }
 }
-const position = [state.lat, state.lng]
 
-const BaseMap = React.forwardRef((props, ref) => (
 
-    <Map center={position} zoom={state.zoom} className="base-map" ref={ref}>
-        <TileLayer
-            attribution='Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
-            url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"
-            maxZoom={18}
-            id='mapbox/streets-v11'
-            tileSize={512}
-            zoomOffset={-1}
-            accessToken={accessToken}
-        />
-        {props.children}
-    </Map>
-));
+export default MapDashboard;
 
-export default BaseMap

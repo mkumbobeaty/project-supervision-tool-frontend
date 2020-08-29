@@ -3,17 +3,10 @@ import L from 'leaflet';
 import {GeoJSON} from 'react-leaflet';
 import "./styles.css";
 import BaseMap from "../../../Map";
+import {getGeoJsonFromLocation} from '../../../../Util';
 
 const accessToken = 'pk.eyJ1IjoibWxvd2VlZGdhciIsImEiOiJjaWxqZXh4ZTAwMDl4dzhsend0a2cxY3JqIn0.KtlMeVuCRdoDod0giDBAdQ'
 
-const getGeoJsonFromLocation = initiative => {
-    switch (initiative?.location.level) {
-        case 'district':
-            return initiative?.location?.district?.geo_json;
-        default:
-            return initiative?.location?.region?.geo_json;
-    }
-}
 
 class PreviewInitiativeOnMap extends  Component {
     state = {
@@ -33,7 +26,6 @@ class PreviewInitiativeOnMap extends  Component {
         map.on('layeradd', ({layer}) => {
             if (layer instanceof L.GeoJSON){
                 map.fitBounds(layer.getBounds());
-
             }
         });
     }

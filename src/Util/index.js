@@ -52,3 +52,24 @@ export const generateDateString = (dateObject) => {
 export const createDateFromString = (dateString) => {
     return moment(dateString);
 }
+
+/**
+ * get Geojson Object from an  location object
+ *
+ * @function
+ * @name getGeoJsonFromLocation
+ *
+ * @param {Object} location
+ *
+ * @returns {Object}
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export const getGeoJsonFromLocation = ({ location }) => {
+    switch (location.level) {
+        case 'district':
+            return location?.district?.geo_json;
+        default:
+            return location?.region?.geo_json;
+    }
+}
