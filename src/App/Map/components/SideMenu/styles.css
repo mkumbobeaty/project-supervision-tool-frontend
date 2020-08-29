@@ -3,8 +3,10 @@
     position: absolute;
     left: 0;
     top: 6.7%;
+    width: 5%;
     height: 93vh;
     z-index: 1000;
-    padding: 0 0 0 10px;
-    background: #2d97d3;
+    background: #2d98d4;
 }
+
+

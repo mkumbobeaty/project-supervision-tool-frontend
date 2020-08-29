@@ -16,7 +16,6 @@ const App = () => {
       <HashRouter hashType="hashbang">
         <Switch>
           <Route path="/app" component={BaseLayout} />
-          <Route path="/app" component={BaseLayout} />
           <Redirect to="/signin" />
         </Switch>
       </HashRouter>
