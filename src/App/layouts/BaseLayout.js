@@ -181,8 +181,8 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           <Route
             exact
             path={`${baseUrl}/resources/initiatives`}
-            component={Initiatives}
-          />{" "}
+            render={(props) => <Initiatives {...props}/>}
+          />
           <Route
             exact
             path={`${baseUrl}/resources/initiatives/initiative`}

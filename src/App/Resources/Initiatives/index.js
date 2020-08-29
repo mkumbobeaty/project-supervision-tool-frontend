@@ -14,8 +14,7 @@ import { resourceOperations } from "../duck";
 import InitiativeForm from "./Form";
 import "./styles.css";
 import {Link} from "react-router-dom";
-import Maps from "../../Map";
-import BaseMap from "../../Map";
+import PreviewInitiativeOnMap from "./PreviewInitiativeOnMap";
 
 
 /* constants */
@@ -73,7 +72,7 @@ class Initiative extends Component {
   state = {
     showFilters: false,
     showShare: false,
-    showMap: false,
+    previewOnMap: false,
     isEditForm: false,
     notificationSubject: undefined,
     notificationBody: undefined,
@@ -161,7 +160,7 @@ class Initiative extends Component {
    * @name closeInitiativeForm
    * @description close Event Initiative form
    *
-   * @version 0.1.0
+   * @version 0.1.0Initiative
    * @since 0.1.0
    */
   closeInitiativeForm = () => {
@@ -170,18 +169,6 @@ class Initiative extends Component {
     closeInitiativeForm()
   };
 
-
-  /**
-   * @function
-   * @name closeMapPreview
-   * @description close event details drawer
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  closeMapPreview = () => {
-    this.setState({ showMap: false });
-  };
 
 
   /**
@@ -192,8 +179,11 @@ class Initiative extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  handleMapPreview = () => {
-    this.setState({ showMap: true });
+  handleMapPreview = (initiative) => {
+    const { selectInitiative } = this.props;
+    const { previewOnMap } = this.state;
+    selectInitiative(initiative);
+    this.setState({previewOnMap: true })
   };
 
 
@@ -249,16 +239,6 @@ class Initiative extends Component {
    */
   handleRefreshInitiative = () => {
     window.location.reload();
-    // refreshInitiatives(
-    //   () => {
-    //     notifySuccess("Event Initiative refreshed successfully");
-    //   },
-    //   () => {
-    //     notifyError(
-    //       "An error occurred while refreshing Event Initiative please contact system administrator"
-    //     );
-    //   }
-    // );
   };
 
   paginateInitiative = (page) => {
@@ -311,7 +291,6 @@ class Initiative extends Component {
   }
 
   render() {
-
     const {
       Initiatives,
       items,
@@ -329,8 +308,8 @@ class Initiative extends Component {
       total,
       posting
     } = this.props;
-    const { showFilters, isEditForm } = this.state;
-    return (
+    const { showFilters, isEditForm, previewOnMap } = this.state;
+    return previewOnMap ? <PreviewInitiativeOnMap initiative={selected}/> : (
       <div>
         {/* Topbar */}
         <Topbar
@@ -384,7 +363,7 @@ class Initiative extends Component {
                       onMapPreview={{
                         name: 'Preview Initiative on Map',
                         title: 'Preview Initiative on Map',
-                        onClick: this.handleMapPreview,
+                        onClick: () => this.handleMapPreview(item),
                       }}
                       edit={{
                         name: "Edit Human Resources",
@@ -493,19 +472,6 @@ class Initiative extends Component {
           />
         </Drawer>
         {/* end create/edit form modal */}
-        {/* Map preview drawer */}
-        <Drawer
-            title="Preview Initiative on Map"
-            placement="right"
-            width="100%"
-            className="map-drawer"
-            onClose={this.closeMapPreview}
-            visible={this.state.showMap}
-        >
-          <BaseMap />
-        </Drawer>
-
-        {/* End Map preview drawer */}
       </div>
     );
   }
@@ -575,7 +541,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateInitiative: bindActionCreators(resourceOperations.updateInitiative, dispatch),
   openResourceForm: bindActionCreators(resourceOperations.openResourceForm, dispatch),
   openInitiativeForm: bindActionCreators(resourceOperations.openInitiativeForm, dispatch),
-  selectInitiative: bindActionCreators(resourceOperations.selectHumanResource, dispatch),
+  selectInitiative: bindActionCreators(resourceOperations.selectInitiative, dispatch),
   closeResourceForm: bindActionCreators(resourceOperations.closeResourceForm, dispatch),
   closeInitiativeForm: bindActionCreators(resourceOperations.closeInitiativeForm, dispatch),
 

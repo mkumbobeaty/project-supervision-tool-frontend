@@ -3,6 +3,7 @@ import * as API from "../../../API";
 
 //
 export const selectHumanResource = actions.selectHumanResource;
+export const selectInitiative = actions.selectInitiative;
 
 /**
  * get items operation

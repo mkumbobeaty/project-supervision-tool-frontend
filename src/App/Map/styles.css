@@ -3,5 +3,9 @@
 }
 
 .base-map {
-    height:90vh;
+    height:100vh;
+}
+
+.App {
+    padding: 0;
 }
