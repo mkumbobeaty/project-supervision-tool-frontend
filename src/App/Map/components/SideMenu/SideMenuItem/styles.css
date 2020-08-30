@@ -4,10 +4,10 @@
     align-items: center;
     padding: 5px;
     border-bottom: 1px solid #ffffff47;
+    cursor: pointer;
 }
 
 .SideMenuItem .side-menu-item-title {
     font-size: 1.2em;
-    color: white;
     text-align: center;
 }
