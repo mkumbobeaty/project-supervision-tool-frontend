@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 import { default as initReducers } from './duck';
 import { default as resourcesReducer } from './Resources/duck';
+import { default as mapReducer } from './Map/duck';
 const rootReducer = combineReducers({
     ...initReducers,
-    ...resourcesReducer
+    ...resourcesReducer,
+    ...mapReducer,
 });
 
 export default rootReducer;

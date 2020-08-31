@@ -8,23 +8,24 @@ import whiteHhumanResourceImg from '../../../../assets/icons/white-human-resourc
 
 
 import SideMenuItem from "./SideMenuItem";
- const SideMenu = () => {
-     const [active, setActive] = useState('initiative');
+ const SideMenu = ({ active,setActiveMapSideMenuItem,getInitiatives,getHumanResources }) => {
  return (
      <div className="SideMenu">
          <SideMenuItem
              bgImage={active === "initiative" ? initiativeImg : whitIinitiativeImg}
              title="Initiative"
-             setActive={setActive}
+             getData={getInitiatives}
+             setActive={setActiveMapSideMenuItem}
              active={active}
-             ItemKey="initiative"
+             itemKey="initiative"
          />
          <SideMenuItem
              bgImage={active === "human-resource" ? humanResourceImg : whitIinitiativeImg}
              title="Human Resources"
-             setActive={setActive}
+             getData={getHumanResources}
+             setActive={setActiveMapSideMenuItem}
              active={active}
-             ItemKey="human-resource"
+             itemKey="human-resource"
          />
      </div>
  )
