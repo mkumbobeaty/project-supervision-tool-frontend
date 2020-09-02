@@ -1,6 +1,7 @@
 
 
 import React, {Component} from 'react';
+import { Spin } from 'antd';
 import { connect } from 'react-redux';
 import {GeoJSON} from 'react-leaflet';
 import {getGeoJsonFromLocation} from '../../Util'
@@ -82,8 +83,14 @@ class MapDashboard extends  Component {
             activeMapSideMenuItem,
             humanResourcesGeoJson,
             initiativesGeoJson,
+            loadingInitiative,
+            loadingHumanResources,
         } = this.props;
-        const {data} = this.state;
+
+        const loadingInitiativeGeoJson = initiativesGeoJson.length > 0 ? false : loadingInitiative;
+        const loadingHumanResourceGeoJson = humanResourcesGeoJson.length > 0 ? false : loadingHumanResources;
+        const loading = loadingInitiativeGeoJson || loadingHumanResourceGeoJson;
+
         return (
             <div className="MapDashboard">
                 <SideMenu
@@ -92,9 +99,11 @@ class MapDashboard extends  Component {
                     setActiveMapSideMenuItem={setActiveMapSideMenuItem}
                     active={activeMapSideMenuItem}
                 />
-                <BaseMap ref={this.map} zoomControl={false}>
-                    { customGeojson(activeMapSideMenuItem,initiativesGeoJson, humanResourcesGeoJson ) }
-                </BaseMap>
+                <Spin spinning={loading} tip="Loading data...">
+                    <BaseMap ref={this.map} zoomControl={false}>
+                        { customGeojson(activeMapSideMenuItem,initiativesGeoJson, humanResourcesGeoJson ) }
+                    </BaseMap>
+                </Spin>
             </div>
 
         )
@@ -110,6 +119,7 @@ const mapStateToProps = (state) => {
             ? state.resources.humanResources.data
             : [],
         loadingInitiative: state.resources.initiative.loading,
+        loadingHumanResources: state.resources.humanResources.loading,
         selectedInitiative: state.resources?.selectedInitiative,
         activeMapSideMenuItem: state.map.activeMapSideMenuItem,
         initiativesGeoJson: state.map.initiativesGeoJson,
