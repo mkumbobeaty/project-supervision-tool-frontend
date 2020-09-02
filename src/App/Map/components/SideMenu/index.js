@@ -20,7 +20,7 @@ import SideMenuItem from "./SideMenuItem";
              itemKey="initiative"
          />
          <SideMenuItem
-             bgImage={active === "human-resource" ? humanResourceImg : whitIinitiativeImg}
+             bgImage={active === "human-resource" ? humanResourceImg : whiteHhumanResourceImg}
              title="Human Resources"
              getData={getHumanResources}
              setActive={setActiveMapSideMenuItem}
