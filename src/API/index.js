@@ -2,7 +2,7 @@
 import Axios from "axios";
 
 const API_BASE_URL =
-  process.env.REACT_APP_API_URL || "http://pamoja-backend.herokuapp.com";
+  process.env.REACT_APP_API_URL || "https://pamoja-backend.herokuapp.com";
 Axios.defaults.baseURL = `${API_BASE_URL}/api/v1`;
 
 /**
