@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import L from 'leaflet';
 import {GeoJSON} from 'react-leaflet';
 import "./styles.css";
-import BaseMap from "../../../Map";
+import BaseMap from "../../../Map/BaseMap";
 import {getGeoJsonFromLocation} from '../../../../Util';
 
 const accessToken = 'pk.eyJ1IjoibWxvd2VlZGdhciIsImEiOiJjaWxqZXh4ZTAwMDl4dzhsend0a2cxY3JqIn0.KtlMeVuCRdoDod0giDBAdQ'
