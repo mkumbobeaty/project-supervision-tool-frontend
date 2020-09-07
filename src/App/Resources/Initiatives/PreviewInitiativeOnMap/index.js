@@ -5,9 +5,6 @@ import "./styles.css";
 import BaseMap from "../../../Map/BaseMap";
 import {getGeoJsonFromLocation} from '../../../../Util';
 
-const accessToken = 'pk.eyJ1IjoibWxvd2VlZGdhciIsImEiOiJjaWxqZXh4ZTAwMDl4dzhsend0a2cxY3JqIn0.KtlMeVuCRdoDod0giDBAdQ'
-
-
 class PreviewInitiativeOnMap extends  Component {
     state = {
         lat: -6.161184,

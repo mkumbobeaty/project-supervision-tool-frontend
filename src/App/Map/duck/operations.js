@@ -3,6 +3,7 @@ import * as API from "../../../API";
 import {getGeoJsonFromLocation} from "../../../Util";
 
 export const setActiveMapSideMenuItem = actions.setActiveMapSideMenuItem;
+export const setShowFeatureDetails = actions.setShowFeatureDetails;
 
 
 export const setInitiativesGeoJson = (initiatives = []) => (dispatch) => {

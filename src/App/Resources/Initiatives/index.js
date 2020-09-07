@@ -15,6 +15,7 @@ import InitiativeForm from "./Form";
 import "./styles.css";
 import {Link} from "react-router-dom";
 import PreviewInitiativeOnMap from "./PreviewInitiativeOnMap";
+import PreviewOnMap from "../../Map/components/PreviewOnMap";
 
 
 /* constants */
@@ -309,7 +310,7 @@ class Initiative extends Component {
       posting
     } = this.props;
     const { showFilters, isEditForm, previewOnMap } = this.state;
-    return previewOnMap ? <PreviewInitiativeOnMap initiative={selected}/> : (
+    return previewOnMap ? <PreviewOnMap data={selected}/> : (
       <div>
         {/* Topbar */}
         <Topbar
