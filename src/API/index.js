@@ -60,6 +60,20 @@ export const createHumanResource = (humanResource) =>
     .then((response) => response.data);
 
 /**
+ * login focal person
+ *
+ * @function
+ * @name createHumanResource
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export const login = (payload) =>
+  axios
+    .post(`/focal_people/login`, payload)
+    .then((response) => response.data);
+
+/**
  * edit existing human resources
  *
  * @function
