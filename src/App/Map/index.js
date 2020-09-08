@@ -1,7 +1,7 @@
 
 
 import React, {Component} from 'react';
-import {Drawer, Spin} from 'antd';
+import {Drawer, Spin, List} from 'antd';
 import { connect } from 'react-redux';
 import {GeoJSON} from 'react-leaflet';
 import L from 'leaflet';
@@ -14,7 +14,6 @@ import {resourceOperations} from "../Resources/duck";
 import {mapOperations } from "./duck";
 import PropTypes from "prop-types";
 import MapDetailItem from "./components/MapDetailItem";
-import {layers} from "leaflet/src/control/Control.Layers";
 
 class MapDashboard extends  Component {
     state = {
@@ -169,17 +168,22 @@ class MapDashboard extends  Component {
                     </BaseMap>
                 </Spin>
                 <Drawer
-                    title="Resource Details"
+                    title={`${activeMapSideMenuItem === 'initiative' ? 'Initiatives' : 'Human Resources'}`}
                     width={600}
                     visible={showFeatureDetails}
                     onClose={() => setShowFeatureDetails(false)}
                     destroyOnClose
                     maskClosable={false}
-                    bodyStyle={{ paddingBottom: 80 }}
+                    bodyStyle={{ padding: 0 }}
                     headerStyle={{ textAlign: 'center', color: "#959595" }}
 
                 >
-                  <div>{ this.renderSelectedResources(selectedResources)}</div>
+                    <List
+                        size="small"
+                        bordered
+                        dataSource={selectedResources}
+                        renderItem={item => <List.Item><MapDetailItem item={item}/></List.Item>}
+                    />
                 </Drawer>
             </div>
 

@@ -68,7 +68,7 @@ const SignIn = ({ loading, history }) => {
                 htmlType="submit"
                 className="signIn-form-button"
                 loading={loading}
-                onClick={() => history.push('/app')}
+                onClick={() => history.push('/app/map')}
               >
                 Sign In
               </Button>
