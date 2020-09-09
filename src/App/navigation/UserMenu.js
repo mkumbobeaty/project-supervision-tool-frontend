@@ -22,9 +22,9 @@ const UserMenu = ({ history: { push } }) => {
 
   const onClickMenu = ({ key }) => {
     if (key === 'changePassword') {
-      setShowChangePassword(true);
+      // setShowChangePassword(true);
     } else {
-      // signOut();
+      push('/')
     }
   };
 

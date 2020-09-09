@@ -222,12 +222,12 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             return null;
           }} />
           {/* Dashboard routes */}
-          <PrivateRoute
+          <Route
             exact
             path={`${baseUrl}/dashboards`}
             component={Dashboards}
           />
-          <PrivateRoute component={PageNotFound} />
+          <Route component={PageNotFound} />
         </Switch>
       </Content>
     </Layout>

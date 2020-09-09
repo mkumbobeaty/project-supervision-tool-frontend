@@ -114,7 +114,7 @@ const mapStateToProps = (state) => {
     return {
         loading: state.auth.isLogin,
         accessToken: state.auth.login?.data?.access_token,
-        errorMsg: state.auth.login?.message,
+        errorMsg: state.auth.login?.failed,
     };
 };
 

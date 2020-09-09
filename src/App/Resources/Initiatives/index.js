@@ -337,7 +337,7 @@ class Initiative extends Component {
           itemName="Initiatives"
           items={Initiatives}
           page={page}
-          itemCount={total}
+          itemCount={Initiatives.length}
           loading={loading}
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefreshInitiative}

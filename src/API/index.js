@@ -2,16 +2,16 @@
 import Axios from "axios";
 
 const API_BASE_URL =
-  process.env.REACT_APP_API_URL || "https://pamoja-backend.herokuapp.com";
+    process.env.REACT_APP_API_URL || "https://pamoja-backend.herokuapp.com";
 Axios.defaults.baseURL = `${API_BASE_URL}/api/v1`;
 
 /**
  * Axios public instance
  */
 const axios = Axios.create({
-  headers: {
-    Accept: "application/json",
-  },
+    headers: {
+        Accept: "application/json",
+    },
 });
 
 /**
@@ -19,31 +19,31 @@ const axios = Axios.create({
  *
  */
 export const fetchHumanResources = (params = {}) =>
-  axios.get(`/human_resources`, { params }).then((response) => response.data);
+    axios.get(`/human_resources`, {params}).then((response) => response.data);
 
 /**
  * get all items from API
  * */
 export const getItems = () =>
-  axios.get(`/hr_types`).then((response) => response.data);
+    axios.get(`/hr_types`).then((response) => response.data);
 
 /**
  * get all agencies from API
  * */
 export const getAgencies = () =>
-  axios.get(`/implementing_partners`).then((response) => response.data);
+    axios.get(`/implementing_partners`).then((response) => response.data);
 
 /**
  * get all regions from API
  * */
 export const getRegions = () =>
-  axios.get(`/locations/regions`).then((response) => response.data);
+    axios.get(`/locations/regions`).then((response) => response.data);
 
 /**
  * get all districts from API
  * */
 export const getDistricts = (regionId) =>
-  axios.get(`/locations/districts/${regionId}`).then((response) => response.data);
+    axios.get(`/locations/districts/${regionId}`).then((response) => response.data);
 
 /**
  * create new human resource
@@ -55,9 +55,9 @@ export const getDistricts = (regionId) =>
  * @since 0.1.0
  */
 export const createHumanResource = (humanResource) =>
-  axios
-    .post(`/human_resources`, humanResource)
-    .then((response) => response.data);
+    axios
+        .post(`/human_resources`, humanResource)
+        .then((response) => response.data);
 
 /**
  * login focal person
@@ -69,9 +69,10 @@ export const createHumanResource = (humanResource) =>
  * @since 0.1.0
  */
 export const login = (payload) =>
-  axios
-    .post(`/focal_people/login`, payload)
-    .then((response) => response.data);
+    axios
+        .post(`/focal_people/login`, payload)
+        .then((response) => response.data)
+        .catch(err => err)
 
 /**
  * edit existing human resources
@@ -83,9 +84,9 @@ export const login = (payload) =>
  * @since 0.1.0
  */
 export const updateHumanResource = (humanResource, id) => {
-  return axios
-    .patch(`/human_resources/${id}`, humanResource)
-    .then((response) => response.data);
+    return axios
+        .patch(`/human_resources/${id}`, humanResource)
+        .then((response) => response.data);
 };
 
 /**
@@ -98,9 +99,9 @@ export const updateHumanResource = (humanResource, id) => {
  * @since 0.1.0
  */
 export const deleteHumanResource = (humanResource_id) => {
-  return axios
-    .delete(`human_resources/${humanResource_id}`)
-    .then((response) => response.data);
+    return axios
+        .delete(`human_resources/${humanResource_id}`)
+        .then((response) => response.data);
 };
 
 /**
@@ -116,7 +117,7 @@ export const deleteHumanResource = (humanResource_id) => {
  * @since 0.1.0
  */
 export function getHumanResource(id) {
-  return Axios.get(`/human_resources/${id}`).then((response) => response.data);
+    return Axios.get(`/human_resources/${id}`).then((response) => response.data);
 }
 
 /**
@@ -132,7 +133,7 @@ export function getHumanResource(id) {
  * @since 0.1.0
  */
 export function searchHumanResource(searchValue) {
-  return Axios.get(`/human_resources?q=${searchValue}`).then((res) => res.data);
+    return Axios.get(`/human_resources?q=${searchValue}`).then((res) => res.data);
 }
 
 
@@ -140,8 +141,8 @@ export function searchHumanResource(searchValue) {
  * get saddaInitiative from API
  *
  */
- export const fetchInitiatives = (params = {}) =>
-    axios.get(`/initiatives`, { params }).then((response) => response.data);
+export const fetchInitiatives = (params = {}) =>
+    axios.get(`/initiatives`, {params}).then((response) => response.data);
 
 /**
  * create new Initiative
@@ -152,7 +153,7 @@ export function searchHumanResource(searchValue) {
  * @version 0.1.0
  * @since 0.1.0
  */
-export const createInitiative= initiative =>
+export const createInitiative = initiative =>
     axios.post(`/initiatives`, initiative).then(response => response.data);
 
 
@@ -166,18 +167,18 @@ export const createInitiative= initiative =>
  * @since 0.1.0
  */
 export const updateInitiative = (initiative, id) => {
-  return axios.patch(`/human_resources/${id}`, initiative).then(response => response.data);
+    return axios.patch(`/human_resources/${id}`, initiative).then(response => response.data);
 }
 
 /**
-* detaches a Initiative from list
-*
-* @function
-* @name deleteInitiative
-*
-* @version 0.1.0
-* @since 0.1.0
-*/
+ * detaches a Initiative from list
+ *
+ * @function
+ * @name deleteInitiative
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
 export const deleteInitiative = (initiative_id) => {
-  return axios.delete(`human_resources/${initiative_id}`).then(response => response.data);
+    return axios.delete(`human_resources/${initiative_id}`).then(response => response.data);
 }
