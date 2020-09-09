@@ -1,8 +1,7 @@
 // const url = process.env.REACT_APP_API_URL;
 import Axios from "axios";
 
-const API_BASE_URL =
-    process.env.REACT_APP_API_URL || "https://pamoja-backend.herokuapp.com";
+const API_BASE_URL ="https://pamoja-backend.herokuapp.com";
 Axios.defaults.baseURL = `${API_BASE_URL}/api/v1`;
 
 /**
@@ -32,6 +31,13 @@ export const getItems = () =>
  * */
 export const getAgencies = () =>
     axios.get(`/implementing_partners`).then((response) => response.data);
+
+
+/**
+ * get all funding organisations from API
+ * */
+export const getFundingOrganisations = () =>
+    axios.get(`/funding_organisations`).then((response) => response.data);
 
 /**
  * get all regions from API
@@ -143,6 +149,20 @@ export function searchHumanResource(searchValue) {
  */
 export const fetchInitiatives = (params = {}) =>
     axios.get(`/initiatives`, {params}).then((response) => response.data);
+
+/**
+ * get initiative types
+ *
+ */
+export const fetchInitiativeTypes = (params = {}) =>
+    axios.get(`/initiative_types`, {params}).then((response) => response.data);
+
+/**
+ * get actor types
+ *
+ */
+export const fetchActorTypes = (params = {}) =>
+    axios.get(`/actor_types`, {params}).then((response) => response.data);
 
 /**
  * create new Initiative

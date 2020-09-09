@@ -82,11 +82,10 @@ class Initiative extends Component {
   };
 
   componentDidMount() {
-    const { getInitiatives, getItems, getAgencies, getRegions } = this.props;
+    const { getInitiatives, getItems, getAgencies } = this.props;
     getInitiatives();
     getItems();
     getAgencies();
-    getRegions();
   }
 
   /**

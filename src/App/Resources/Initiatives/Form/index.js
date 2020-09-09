@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+import { fetchInitiativeTypes, fetchActorTypes, getFundingOrganisations, getRegions } from '../../../../API';
 import { generateDateString, createDateFromString } from "../../../../Util";
 import {
   Button,
@@ -81,7 +82,13 @@ const renderDistricts = (districts) => {
  *
  */
 class InitiativeForm extends Component{
-  state = {showDistrictsSelect: false}
+  state = {
+      showDistrictsSelect: false,
+      initiativeTypes: [],
+      actorTypes: [],
+      regions: [],
+      fundingOrganisations: [],
+  }
   // form finish(submit) handler
   onFinish = (values) => {
     const start_date = generateDateString(values.start_date);
@@ -101,17 +108,27 @@ class InitiativeForm extends Component{
       this.setState({showDistrictsSelect: true})
       getDistricts(selected?.location?.region.id);
     }
+    fetchInitiativeTypes()
+        .then(res => this.setState({initiativeTypes: res.data}));
+
+      fetchActorTypes()
+        .then(res => this.setState({actorTypes: res.data}));
+
+      getFundingOrganisations()
+        .then(res => this.setState({fundingOrganisations: res.data}));
+
+      getRegions()
+        .then(res => this.setState({regions: res.data}));
+
   }
 
   render() {
-
+      const { initiativeTypes, actorTypes, fundingOrganisations, regions } = this.state;
     const {
       posting,
       getDistricts,
-      items,
       selected,
       agencies,
-      regions,
       districts,
       onCancel,
     } = this.props;
@@ -141,6 +158,26 @@ class InitiativeForm extends Component{
           <Form.Item
               label="Actor Type"
               name="actor_type_id"
+              title="actor type e.g Donor"
+              rules={[
+                {
+                  required: true,
+                  message: "actor type is required",
+                },
+              ]}
+          >
+            <Select>
+              {actorTypes.map((actorType) => (
+                  <Select.Option value={actorType.id}>{actorType.name}</Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          {/* end:type */}
+
+          {/* start:type */}
+          <Form.Item
+              label="Initiative Type"
+              name="initiative_type_id"
               title="initiative type e.g People"
               rules={[
                 {
@@ -150,9 +187,9 @@ class InitiativeForm extends Component{
               ]}
           >
             <Select>
-              {items.map((item) => (
-                  <Select.Option value={item.id}>{item.name}</Select.Option>
-              ))}
+                {initiativeTypes.map((initiativeType) => (
+                    <Select.Option value={initiativeType.id}>{initiativeType.name}</Select.Option>
+                ))}
             </Select>
           </Form.Item>
           {/* end:type */}
@@ -166,22 +203,6 @@ class InitiativeForm extends Component{
                 {
                   required: true,
                   message: "initiative Title is required",
-                },
-              ]}
-          >
-            <Input />
-          </Form.Item>
-          {/* end:Description */}
-
-          {/* start:Description */}
-          <Form.Item
-              label="Initiative Type"
-              name="initiative_type"
-              title="initiative Type"
-              rules={[
-                {
-                  required: true,
-                  message: "initiative Type is required",
                 },
               ]}
           >
@@ -204,6 +225,26 @@ class InitiativeForm extends Component{
             <Select mode="multiple">
               {agencies.map((agency) => (
                   <Select.Option value={agency.id}>{agency.name}</Select.Option>
+              ))}
+            </Select>
+          </Form.Item>
+          {/* end:implementing partner */}
+
+          {/* start:funding organisation */}
+          <Form.Item
+              label="Funding Organisation"
+              name="funding_organisations"
+              title="initiative Funding Organisation e.g Tanzania Red cross society"
+              rules={[
+                {
+                  required: true,
+                  message: "initiative Funding Organisation is required",
+                },
+              ]}
+          >
+            <Select mode="multiple">
+              {fundingOrganisations.map((fundingOrganisation) => (
+                  <Select.Option value={fundingOrganisation.id}>{fundingOrganisation.name}</Select.Option>
               ))}
             </Select>
           </Form.Item>
