@@ -371,18 +371,18 @@ class HumanResources extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    HumanResources: state.resources.humanResources.data
-      ? state.resources.humanResources.data
+    HumanResources: state.resources
+      ? state.resources
       : [],
     items: state.resources?.items?.data,
     agencies: state.resources?.agencies?.data?.data,
     regions: state.resources?.regions?.data,
     districts: state.resources?.districts?.data,
-    total: state.resources.humanResources.total,
-    page: state.resources.humanResources.page,
-    loading: state.resources.humanResources.loading,
-    posting: state.resources.humanResources.posting,
-    showForm: state.resources.humanResources.showForm,
+    total: state.resources.total,
+    page: state.resources.page,
+    loading: state.resources.loading,
+    posting: state.resources.posting,
+    showForm: state.resources.showForm,
     selected: state.resources?.selectedHumanResource,
     // searchQuery: st,
   };

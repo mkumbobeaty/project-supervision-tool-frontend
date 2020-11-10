@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import dashboardIcon from '../../assets/icons/overview-dashboard.svg';
-import needsIcon from '../../assets/icons/needs.svg';
-import mapIcon from '../../assets/icons/maps.svg';
 import resourcesIcon from '../../assets/icons/resources.svg';
 import settingsIcons from '../../assets/icons/admin-settings.svg';
 import NavigationMenu from '../components/NavigationMenu';
@@ -16,19 +14,6 @@ const routes = [
     path: '/projects',
     icon: resourcesIcon,
     description: modules.humanResource,
-  },
- 
-  {
-    name: 'Needs',
-    path: '/needs',
-    icon: needsIcon,
-    description: modules.needs,
-  },
-  {
-    name: 'Map Virtualization',
-    path: '/map',
-    icon: mapIcon,
-    description: modules.map,
   },
   
   {

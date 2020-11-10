@@ -11,10 +11,9 @@ import ResourceNavMenu from "../navigation/Projects";
 import Initiatives from "../Projects/Sub-projects";
 import HumanResources from "../Projects/Projects";
 import HumanResource from  "../Projects/Projects/HumanResource";
-import NeedsNavMenu from "../navigation/Needs";
-import NeedsByGovernment from "../Needs/NeedByGovernment";
-import NeedsCovid from "../Needs/NeedsCovid";
-import NeedsAssessment from "../Needs/NeedsAssessments";
+
+
+
 import "./styles.css";
 import MapDashboard from "../Map";
 
@@ -25,23 +24,7 @@ const breadcrumbNameMap = {
     name: "Home",
     title: "Projects Supervison Tool",
   },
-  /* needs routes */
-  "/app/needs": {
-    name: "Needs",
-    title: "Needs module",
-  },
-  "/app/needs/needsassessment": {
-    name: "Needs assessment report",
-    title: "List of all assessment report",
-  },
-  "/app/needs/needscovid": {
-    name: "Needs of covid response partner",
-    title: "List of all need covid response partner",
-  },
-  "/app/needs/needsbygovernment": {
-    name: "Needs identified by government",
-    title: "List af all needs identified by government",
-  },
+
   /* Projects routes */
   "/app/projects": {
     name: "projects",
@@ -136,17 +119,6 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
       <Content className="BaseLayoutContent">
         <Switch>
           <Route exact path={`${baseUrl}/`} component={Home} />
-          {/* needs routes */}
-          <Route path={`${baseUrl}/needs`} component={NeedsNavMenu} />
-          <Route
-            path={`${baseUrl}/needsbygovernment`}
-            component={NeedsByGovernment}
-          />
-          <Route path={`${baseUrl}/needscovid`} component={NeedsCovid} />
-          <Route
-            path={`${baseUrl}/needsassessment`}
-            component={NeedsAssessment}
-          />
           {/* Projects routes */}
           <Route
             exact
