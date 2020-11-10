@@ -28,7 +28,7 @@ const { Header, Content } = Layout;
 const breadcrumbNameMap = {
   "/app": {
     name: "Home",
-    title: "Pamoja Menu",
+    title: "Projects Supervison Tool",
   },
   /* needs routes */
   "/app/needs": {

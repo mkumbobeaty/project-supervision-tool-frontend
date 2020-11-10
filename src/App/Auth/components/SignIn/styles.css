@@ -1,4 +1,3 @@
-.SignIn {}
 
 .SignInForm {
   display: flex;
@@ -28,11 +27,11 @@
   width: 400px;
 }
 
-.Logo h1 {
-  color: #57addd;
+.Logo h2 {
+  color: #009fda;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 40px;
+  /* font-size: 40px; */
   margin-bottom: 0;
 }
 
@@ -45,10 +44,13 @@
 
 .SignIn h5 {
   text-transform: uppercase;
-  color: #7c7c7c;
-  font-size: 18px;
+  color: #515151;
+  font-size: 16px;
   font-weight: 600;
-  padding-top: 70px;
-  padding-bottom: 40px;
+  padding-top: 60px;
+  padding-bottom: 20px;
 }
 
+.signIn-form-button{
+  background: #009fda;
+}

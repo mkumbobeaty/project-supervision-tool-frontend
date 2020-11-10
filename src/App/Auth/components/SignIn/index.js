@@ -35,13 +35,9 @@ class SignIn extends Component {
         const {loading, errorMsg} = this.props;
         return (
             <div className="SignIn">
-                <Row>
-                    <Col span={13} offset={1} className="background">
-                    </Col>
-                    <Col span={10} className="SignInForm">
+                    <div className="SignInForm">
                         <div className="Logo">
-                            <h1>Pamoja</h1>
-                            <span>A platform for matching needs and resources</span>
+                            <h2>Projects Supervison tool</h2>
                             <h5>Please Login to your account</h5>
                         </div>
                         <div style={{color: 'red'}}>{!loading && errorMsg ? errorMsg : ''}</div>
@@ -86,14 +82,12 @@ class SignIn extends Component {
                                     className="signIn-form-button"
                                     loading={loading}
                                 >
-                                    Sign In
+                                    Log In
                                 </Button>
-                                <div className="version-text">version: 1.0.0</div>
                             </Form.Item>
                             {/* end submit button */}
                         </Form>
-                    </Col>
-                </Row>
+                        </div>
             </div>
         );
     }
