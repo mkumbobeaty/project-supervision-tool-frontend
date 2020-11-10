@@ -4,7 +4,7 @@ import {Input, Button, Form, Row, Col} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import "./styles.css";
 import {bindActionCreators} from "redux";
-import {resourceOperations} from "../../../Resources/duck";
+import {resourceOperations} from "../../../Projects/duck";
 import {connect} from "react-redux";
 import {appOperations} from "../../../duck";
 

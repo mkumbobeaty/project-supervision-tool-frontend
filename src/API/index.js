@@ -14,10 +14,10 @@ const axios = Axios.create({
 });
 
 /**
- * Fetch all Human resource from API
+ * Fetch all projects from API
  *
  */
-export const fetchHumanResources = (params = {}) =>
+export const fetchProjects = (params = {}) =>
     axios.get(`/human_resources`, {params}).then((response) => response.data);
 
 /**
@@ -52,24 +52,24 @@ export const getDistricts = (regionId) =>
     axios.get(`/locations/districts/${regionId}`).then((response) => response.data);
 
 /**
- * create new human resource
+ * create new Project
  *
  * @function
- * @name createHumanResource
+ * @name createProject
  *
  * @version 0.1.0
  * @since 0.1.0
  */
-export const createHumanResource = (humanResource) =>
+export const createProjects = (project) =>
     axios
-        .post(`/human_resources`, humanResource)
+        .post(`/human_resources`, project)
         .then((response) => response.data);
 
 /**
  * login focal person
  *
  * @function
- * @name createHumanResource
+ * @name createProjects
  *
  * @version 0.1.0
  * @since 0.1.0
@@ -84,37 +84,37 @@ export const login = (payload) =>
  * edit existing human resources
  *
  * @function
- * @name editHumanResources
+ * @name editProjects
  *
  * @version 0.1.0
  * @since 0.1.0
  */
-export const updateHumanResource = (humanResource, id) => {
+export const updateProject = (project, id) => {
     return axios
-        .patch(`/human_resources/${id}`, humanResource)
+        .patch(`/human_resources/${id}`, project)
         .then((response) => response.data);
 };
 
 /**
- * detaches a human resource from list
+ * detaches a project from list
  *
  * @function
- * @name deleteHumanResource
+ * @name deleteProject
  *
  * @version 0.1.0
  * @since 0.1.0
  */
-export const deleteHumanResource = (humanResource_id) => {
+export const deleteProject = (project) => {
     return axios
-        .delete(`human_resources/${humanResource_id}`)
+        .delete(`human_resources/${project}`)
         .then((response) => response.data);
 };
 
 /**
- * Get a human resource from the API
+ * Get a projects from the API
  *
  * @function
- * @name getHumanResource
+ * @name getProjects
  *
  * @param {Object} id - Id of an Human resource
  * @returns {Promise}
@@ -122,23 +122,23 @@ export const deleteHumanResource = (humanResource_id) => {
  * @version 0.1.0
  * @since 0.1.0
  */
-export function getHumanResource(id) {
+export function getProject(id) {
     return Axios.get(`/human_resources/${id}`).then((response) => response.data);
 }
 
 /**
- * Search human resource from the API
+ * Search projects from the API
  *
  * @function
- * @name getHumanResource
+ * @name getProjects
  *
- * @param {Object} id - Id of an Human resource
+ * @param {Object} id - Id of an Project
  * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
  */
-export function searchHumanResource(searchValue) {
+export function searchProjects(searchValue) {
     return Axios.get(`/human_resources?q=${searchValue}`).then((res) => res.data);
 }
 
@@ -181,7 +181,7 @@ export const createInitiative = initiative =>
  * edit existing Initiatives
  *
  * @function
- * @name editHumanResources
+ * @name editProjectss
  *
  * @version 0.1.0
  * @since 0.1.0

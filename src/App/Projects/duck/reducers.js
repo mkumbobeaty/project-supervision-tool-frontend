@@ -1,22 +1,22 @@
 import * as types from "./types";
 import { combineReducers } from "redux";
-// import { default as humanResourcesReducer } from "../../duck";
+// import { default as ProjectsReducer } from "../../duck";
 
 /**
  * State shape
  * {
  * fetchingAgencies: boolean
  * fetchingItems: boolean
- * selectedHumanResource: Object
+ * selectedProjects: Object
  * fetchingLocations: boolean
  * items: Object[], // items
  * agencies: Object[], // agencies
  * locations: Object[], // locations
- * creatingHumanResource: boolean,
- * humanResource: Object
+ * creatingProjects: boolean,
+ * Projects: Object
  * }
  */
-const defaultHumanResource = {
+const defaultProjects = {
   data: [],
   total: 1,
   loading: false,
@@ -26,8 +26,8 @@ const defaultHumanResource = {
   page: 1,
 };
 
-const humanResourceState = {
-  humanresourceDetail: {},
+const projectstate = {
+  ProjectsDetail: {},
   total: 1,
   page: 1,
   loading: false,
@@ -43,19 +43,6 @@ const defaultInitiative
   showForm: false,
   posting: false,
   page: 0,
-};
-
-const fetchHumanResources = (state = false, action) => {
-  switch (action.type) {
-    case types.GET_HUMAN_RESOURCES_START:
-      return true;
-    case types.GET_HUMAN_RESOURCES_SUCCESS:
-      return false;
-    case types.GET_HUMAN_RESOURCES_FAILURE:
-      return false;
-    default:
-      return state;
-  }
 };
 
 const fetchingAgencies = (state = false, action) => {
@@ -154,61 +141,75 @@ const districts = (state = [], action) => {
   }
 };
 
-const humanResources = (state = defaultHumanResource, action) => {
+// fetching projects reducers
+const fetchProjects = (state = false, action) => {
   switch (action.type) {
-    case types.GET_HUMAN_RESOURCES_START:
+    case types.GET_PROJECTS_START:
+      return true;
+    case types.GET_PROJECTS_SUCCESS:
+      return false;
+    case types.GET_PROJECTS_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const Projects = (state = defaultProjects, action) => {
+  switch (action.type) {
+    case types.GET_PROJECTS_START:
       return { ...state, loading: true };
-    case types.GET_HUMAN_RESOURCES_SUCCESS:
+    case types.GET_PROJECTS_SUCCESS:
       return Object.assign(
         {},
         {
           ...state,
-          data: action.humanResources.data,
-          total: action.humanResources.meta.total,
-          page: action.humanResources.meta.current_page,
+          data: action.Projects.data,
+          total: action.Projects.meta.total,
+          page: action.Projects.meta.current_page,
           showForm: false,
           loading: false,
         }
       );
-    case types.GET_HUMAN_RESOURCES_FAILURE:
+    case types.GET_PROJECTS_FAILURE:
       return { ...state, error: action.message, loading: false };
 
-    case types.OPEN_HUMAN_RESOURCES_FORM:
+    case types.OPEN_PROJECTS_FORM:
       return { ...state, showForm: true };
-    case types.CLOSE_HUMAN_RESOURCES_FORM:
+    case types.CLOSE_PROJECTS_FORM:
       return { ...state, showForm: false };
-    case types.CREATE_HUMAN_RESOURCES_START:
+    case types.CREATE_PROJECT_START:
       return { ...state, posting: true };
-    case types.CREATE_HUMAN_RESOURCES_SUCCESS:
+    case types.CREATE_PROJECT_SUCCESS:
       return { ...state, posting: false, showForm: false, loading: true };
-    case types.CREATE_HUMAN_RESOURCES_FAILURE:
+    case types.CREATE_PROJECT_FAILURE:
       return { error: action.payload.error };
-    case types.UPDATE_HUMAN_RESOURCES_START:
+    case types.UPDATE_PROJECT_START:
       return { ...state, posting: true };
-    case types.UPDATE_HUMAN_RESOURCES_SUCCESS:
+    case types.UPDATE_PROJECT_SUCCESS:
       return { ...state, showForm: false,posting:false };
-    case types.UPDATE_HUMAN_RESOURCES_FAILURE:
+    case types.UPDATE_PROJECT_FAILURE:
       return action.payload;
-    case types.DELETE_HUMAN_RESOURCES_SUCCESS:
+    case types.DELETE_PROJECT_SUCCESS:
       return action.payload;
-    case types.DELETE_HUMAN_RESOURCES_FAILURE:
+    case types.DELETE_PROJECT_FAILURE:
       return action.payload;
     default:
       return state;
   }
 };
 
-const humanResource = (state = humanResourceState, action) => {
+const Project = (state = projectstate, action) => {
   switch (action.type) {
-    case types.GET_HUMAN_RESOURCE_START:
+    case types.GET_PROJECT_START:
       return { ...state, loading: true }
-    case types.GET_HUMAN_RESOURCE_SUCCESS:
+    case types.GET_PROJECT_SUCCESS:
       return  {
         ...state,
-        humanresourceDetail: action.payload,
+        ProjectsDetail: action.payload,
         loading: false,
       };
-    case types.GET_HUMAN_RESOURCE_FAILURE:
+    case types.GET_PROJECT_FAILURE:
       return { ...state, error: action.message, loading: false };
     default:
       return state;
@@ -216,22 +217,22 @@ const humanResource = (state = humanResourceState, action) => {
 };
 
 // selected human resource
-const selectedHumanResource = (state = null, action) => {
+const selectedProjects = (state = null, action) => {
   switch (action.type) {
-    case types.SELECT_HUMAN_RESOURCE:
+    case types.SELECT_PROJECT:
       return action.payload;
     default:
       return state;
   }
 };
 
-const deleteHumanResource = (state = false, action) => {
+const deleteProjects = (state = false, action) => {
   switch (action.type) {
-    case types.DELETE_HUMAN_RESOURCES_START:
+    case types.DELETE_PROJECT_START:
       return true;
-    case types.DELETE_HUMAN_RESOURCES_SUCCESS:
+    case types.DELETE_PROJECT_SUCCESS:
       return false;
-    case types.DELETE_HUMAN_RESOURCES_FAILURE:
+    case types.DELETE_PROJECT_FAILURE:
       return false;
     default:
       return state;
@@ -333,7 +334,7 @@ const deleteInitiative = (state = false, action) => {
 export const resources = combineReducers({
   fetchingItems,
   selectedInitiative,
-  selectedHumanResource,
+  selectedProjects,
   items,
   fetchingAgencies,
   agencies,
@@ -341,10 +342,10 @@ export const resources = combineReducers({
   fetchingDistricts,
   regions,
   districts,
-  fetchHumanResources,
-  humanResources,
-  humanResource,
-  deleteHumanResource,
+  fetchProjects,
+  Projects,
+  Project,
+  deleteProjects,
   creatingInitiative,
   updateInitiative,
   initiative,

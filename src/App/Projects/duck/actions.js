@@ -2,15 +2,15 @@
 
 import * as types from "./types";
 
-export function openResourceForm() {
+export function openProjectForm() {
   return {
-    type: types.OPEN_HUMAN_RESOURCES_FORM,
+    type: types.OPEN_PROJECTS_FORM,
   };
 }
 
-export function closeResourceForm() {
+export function closeProjectForm() {
   return {
-    type: types.CLOSE_HUMAN_RESOURCES_FORM,
+    type: types.CLOSE_PROJECTS_FORM,
   };
 }
 
@@ -20,10 +20,10 @@ export function getItemsStart() {
   };
 }
 
-export function getItemsSuccess(humanResources) {
+export function getItemsSuccess(items) {
   return {
     type: types.GET_ITEMS_SUCCESS,
-    payload: humanResources,
+    payload: items,
   };
 }
 
@@ -100,92 +100,112 @@ export function getDistrictsFailure(error) {
   };
 }
 
-/*  Human Resources Action creators */
-export function getHumanResourcesRequest() {
+/*  Projects Action creators */
+export function getProjectsRequest() {
   return {
-    type: types.GET_HUMAN_RESOURCES_START,
+    type: types.GET_PROJECTS_START,
   };
 }
 
-export function getHumanResourcesSuccess(humanResources) {
+export function getProjectsSuccess(projects) {
   return {
-    type: types.GET_HUMAN_RESOURCES_SUCCESS,
-    humanResources,
+    type: types.GET_PROJECTS_SUCCESS,
+    projects,
   };
 }
 
-export function getHumanResourcesFailure(message) {
+export function getProjectsFailure(message) {
   return {
-    type: types.GET_HUMAN_RESOURCES_FAILURE,
+    type: types.GET_PROJECTS_FAILURE,
     message,
   };
 }
 
-export function createHumanResourceStart() {
+export function createProjectStart() {
   return {
-    type: types.CREATE_HUMAN_RESOURCES_START,
+    type: types.CREATE_PROJECT_START,
   };
 }
 
-export function createHumanResourceSuccess(humanResource) {
+export function createProjectSuccess(project) {
   return {
-    type: types.CREATE_HUMAN_RESOURCES_SUCCESS,
-    payload: humanResource,
+    type: types.CREATE_PROJECT_SUCCESS,
+    payload: project,
   };
 }
 
-export function createHumanResourceFailure(error) {
+export function createProjectFailure(error) {
   return {
-    type: types.CREATE_HUMAN_RESOURCES_FAILURE,
+    type: types.CREATE_PROJECT_FAILURE,
     payload: error,
   };
 }
 
-export function updateHumanResourceStart() {
+export function updateProjectStart() {
   return {
-    type: types.UPDATE_HUMAN_RESOURCES_START,
+    type: types.UPDATE_PROJECT_START,
   };
 }
 
-export function updateHumanResourceSuccess(humanResource) {
+export function updateProjectSuccess(project) {
   return {
-    type: types.UPDATE_HUMAN_RESOURCES_SUCCESS,
-    payload: humanResource,
+    type: types.UPDATE_PROJECT_SUCCESS,
+    payload: project,
   };
 }
 
-export function updateHumanResourceFailure(error) {
+export function updateProjectFailure(error) {
   return {
-    type: types.UPDATE_HUMAN_RESOURCES_FAILURE,
+    type: types.UPDATE_PROJECT_FAILURE,
     payload: error,
   };
 }
 
-// deleting human resource
-export function deleteHumanResourceStart() {
+// deleting Project
+export function deleteProjectStart() {
   return {
-    type: types.DELETE_HUMAN_RESOURCES_START,
+    type: types.DELETE_PROJECT_START,
   };
 }
 
-export function deleteHumanResourceSuccess(humanResource) {
+export function deleteProjectSuccess(project) {
   return {
-    type: types.DELETE_HUMAN_RESOURCES_SUCCESS,
-    payload: humanResource,
+    type: types.DELETE_PROJECT_SUCCESS,
+    payload: project,
   };
 }
 
-export function deleteHumanResourceFailure(error) {
+export function deleteProjectFailure(error) {
   return {
-    type: types.DELETE_HUMAN_RESOURCES_FAILURE,
+    type: types.DELETE_PROJECT_FAILURE,
     payload: error,
   };
 }
 
-// select single human resource
-export const selectHumanResource = (selectedHumanResource) => ({
-  type: types.SELECT_HUMAN_RESOURCE,
-  payload: selectedHumanResource,
+/*  Single Project Action creators */
+export function getProjectStart() {
+  return {
+      type: types.GET_PROJECT_START,
+  };
+}
+
+export function getProjectSuccess(data) {
+  return {
+      type: types.GET_PROJECT_SUCCESS,
+      payload: data,
+  };
+}
+
+export function getProjectFailure(error) {
+  return {
+      type: types.GET_PROJECT_FAILURE,
+      payload: error,
+  };
+}
+// select single Project
+export const selectProject= (selectedProject) => ({
+  type: types.SELECT_PROJECT,
+  payload: selectedProject,
 });
 
 //  Initiatives
@@ -249,7 +269,7 @@ export function updateInitiativeFailure(error) {
   };
 }
 
-// deleting human resource
+// deleting 
 export function deleteInitiativeStart() {
   return {
     type: types.DELETE_INITIATIVE_START,
@@ -271,26 +291,7 @@ export function deleteInitiativeFailure(error) {
 }
 
 
-/*  Single Human Resource  Action creators */
-export function getHumanResourceStart() {
-    return {
-        type: types.GET_HUMAN_RESOURCE_START,
-    };
-}
 
-export function getHumanResourceSuccess(data) {
-    return {
-        type: types.GET_HUMAN_RESOURCE_SUCCESS,
-        payload: data,
-    };
-}
-
-export function getHumanResourceFailure(error) {
-    return {
-        type: types.GET_HUMAN_RESOURCE_FAILURE,
-        payload: error,
-    };
-}
   
 export const selectInitiative = (selectedInitiative) => ({
   type: types.SELECT_INITIATIVE,

@@ -2,7 +2,7 @@ import * as actions from "./actions";
 import * as API from "../../../API";
 
 //
-export const selectHumanResource = actions.selectHumanResource;
+export const selectProject = actions.selectProject;
 export const selectInitiative = actions.selectInitiative;
 
 /**
@@ -15,18 +15,10 @@ export const getItems = () => (dispatch) => {
     .catch((err) => dispatch(actions.getItemsFailure(err)));
 };
 
-export const openResourceForm = actions.openResourceForm;
-export const closeResourceForm = actions.closeResourceForm;
+export const openProjectForm = actions.openProjectForm;
+export const closeProjectForm = actions.closeProjectForm;
 export const openInitiativeForm = actions.openInitiativeForm;
 export const closeInitiativeForm = actions.closeInitiativeForm;
-
-/** get human resources operation */
-export const getHumanResources = (page) => (dispatch) => {
-  dispatch(actions.getHumanResourcesRequest());
-  API.fetchHumanResources(page)
-    .then((res) => dispatch(actions.getHumanResourcesSuccess(res)))
-    .catch((err) => dispatch(actions.getHumanResourcesFailure(err)));
-};
 
 /**
  * get agencies operation
@@ -58,64 +50,72 @@ export const getDistricts = (regionId) => (dispatch) => {
     .catch((err) => dispatch(actions.getDistrictsFailure(err)));
 };
 
-/**
- * create  human resources operation
- */
-export const createHumanResource = (payload) => (dispatch) => {
-  dispatch(actions.createHumanResourceStart());
-  API.createHumanResource(payload)
-    .then((res) => {
-      dispatch(actions.createHumanResourceSuccess(res));
-      dispatch(getHumanResources());
-    })
-    .catch((err) => dispatch(actions.createHumanResourceFailure(err)));
+/** get projects operation */
+export const getProjects = (page) => (dispatch) => {
+  dispatch(actions.getProjectsRequest());
+  API.fetchProjects(page)
+    .then((res) => dispatch(actions.getProjectsSuccess(res)))
+    .catch((err) => dispatch(actions.getProjectsFailure(err)));
 };
 
 /**
- * update human resources operation
+ * create  project operation
  */
-export const updateHumanResource = (payload, humanResourceId) => (dispatch) => {
-  dispatch(actions.updateHumanResourceStart());
-  API.updateHumanResource(payload, humanResourceId)
+export const createProject = (payload) => (dispatch) => {
+  dispatch(actions.createProjectStart());
+  API.createProjects(payload)
     .then((res) => {
-      dispatch(actions.updateHumanResourceSuccess(res));
-      dispatch(getHumanResources());
+      dispatch(actions.createProjectSuccess(res));
+      dispatch(getProjects());
     })
-    .catch((err) => dispatch(actions.updateHumanResourceFailure(err)));
+    .catch((err) => dispatch(actions.createProjectFailure(err)));
 };
 
 /**
- * delete human resources operation
+ * update project operation
  */
-export const deleteHumanResource = (payload) => (dispatch) => {
-  dispatch(actions.deleteHumanResourceStart());
-  API.deleteHumanResource(payload)
+export const updateProject = (payload, projectId) => (dispatch) => {
+  dispatch(actions.updateProjectStart());
+  API.updateProject(payload, projectId)
     .then((res) => {
-      dispatch(actions.deleteHumanResourceSuccess(res));
-      dispatch(getHumanResources());
+      dispatch(actions.updateProjectSuccess(res));
+      dispatch(getProjects());
     })
-    .catch((err) => dispatch(actions.deleteHumanResourceFailure(err)));
+    .catch((err) => dispatch(actions.updateProjectFailure(err)));
+};
+
+/**
+ * delete project operation
+ */
+export const deleteProject = (payload) => (dispatch) => {
+  dispatch(actions.deleteProjectStart());
+  API.deleteProject(payload)
+    .then((res) => {
+      dispatch(actions.deleteProjectSuccess(res));
+      dispatch(getProjects());
+    })
+    .catch((err) => dispatch(actions.deleteProjectFailure(err)));
 };
 
 /**
  * get single human resource operation
  */
-export const getHumanResource = (payload) => (dispatch) => {
-  dispatch(actions.getHumanResourceStart());
-  API.getHumanResource(payload)
+export const getProject = (payload) => (dispatch) => {
+  dispatch(actions.getProjectStart());
+  API.getProject(payload)
     .then((res) => {
-      dispatch(actions.getHumanResourceSuccess(res.data));
+      dispatch(actions.getProjectSuccess(res.data));
     })
-    .catch((err) => dispatch(actions.getHumanResourceFailure(err)));
+    .catch((err) => dispatch(actions.getProjectFailure(err)));
 };
 
-/** search human resources */
-export const searchHumanResources = (searchValue) => (dispatch) => {
-  dispatch(actions.getHumanResourcesRequest());
+/** search projects */
+export const searchProjects = (searchValue) => (dispatch) => {
+  dispatch(actions.getProjectsRequest());
   debugger
-  API.searchHumanResource(searchValue)
-    .then((res) => dispatch(actions.getHumanResourcesSuccess(res)))
-    .catch((err) => dispatch(actions.getHumanResourcesFailure(err)));
+  API.searchProjects(searchValue)
+    .then((res) => dispatch(actions.getProjectsSuccess(res)))
+    .catch((err) => dispatch(actions.getProjectsFailure(err)));
 };
 
 // Initiative
@@ -127,7 +127,7 @@ export const getInitiatives = (page) => (dispatch) => {
 };
 
 /**
- * create  human resources operation
+ * cretives operation
  */
 export const createInitiative = (payload) => (dispatch) => {
   dispatch(actions.createInitiativeStart());
@@ -137,7 +137,7 @@ export const createInitiative = (payload) => (dispatch) => {
 };
 
 /**
- * update human resources operation
+ * uptives operation
  */
 export const updateInitiative = (payload) => (dispatch) => {
   dispatch(actions.updateInitiativeStart());
@@ -148,7 +148,7 @@ export const updateInitiative = (payload) => (dispatch) => {
 };
 
 /**
- * delete human resources operation
+ * delete Initiatives operation
  */
 export const deleteInitiative = (payload) => (dispatch) => {
   dispatch(actions.deleteInitiativeStart());
