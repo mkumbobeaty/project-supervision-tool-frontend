@@ -10,7 +10,7 @@ import "./styles.css";
 import BaseMap from "./BaseMap";
 import SideMenu from "./components/SideMenu";
 import {bindActionCreators} from "redux";
-import {resourceOperations} from "../Resources/duck";
+import {resourceOperations} from "../Projects/duck";
 import {mapOperations } from "./duck";
 import PropTypes from "prop-types";
 import MapDetailItem from "./components/MapDetailItem";
