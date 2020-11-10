@@ -8,14 +8,9 @@ import Home from "../navigation/Home";
 import PrivateRoute from "../Auth/PrivateRoute";
 import Dashboards from "../Dashboards";
 import ResourceNavMenu from "../navigation/Resources";
-import Donations from "../Resources/Donations";
-import FinancialResources from "../Resources/FinancialResources";
 import Initiatives from "../Resources/Initiatives";
-import Initiative from '../Resources/Initiatives/Initiative'
-import KnowledgeResources from "../Resources/KnowledgeResources";
 import HumanResources from "../Resources/HumanResources";
 import HumanResource from  "../Resources/HumanResources/HumanResource";
-import ProductionCapacity from "../Resources/ProductionCapacity";
 import NeedsNavMenu from "../navigation/Needs";
 import NeedsByGovernment from "../Needs/NeedByGovernment";
 import NeedsCovid from "../Needs/NeedsCovid";
@@ -47,42 +42,22 @@ const breadcrumbNameMap = {
     name: "Needs identified by government",
     title: "List af all needs identified by government",
   },
-  /* resources routes */
-  "/app/resources": {
-    name: "Resources",
-    title: "Resources Module",
+  /* Projects routes */
+  "/app/projects": {
+    name: "projects",
+    title: "projects Module",
   },
-  "/app/resources/initiatives": {
-    name: "Initiatives",
-    title: "List of all initiatives",
+  "/app/projects/sub-projects": {
+    name: "sub-projects",
+    title: "List of all Sub-projects",
   },
-  "/app/resources/initiatives/initiative": {
-    name: "Initiative",
-    title: "detais of each initiative",
+  "/app/projects/project": {
+    name: "projects",
+    title: "List of all Projects",
   },
-  "/app/resources/donations": {
-    name: "In kind donations",
-    title: "List of all In kind donations",
-  },
-  "/app/resources/knowledgeresources": {
-    name: "Knowledge Resources",
-    title: "List of all Knowledge Resources",
-  },
-  "/app/resources/financialresources": {
-    name: "Financial Resources",
-    title: "List of all Knowledge Resources",
-  },
-  "/app/resources/humanresources": {
-    name: "Human Resources",
-    title: "List of all Human Resources",
-  },
-  "/app/resources/humanresources/:type": {
-    name: "Human Resource",
-    title: "Detail of Human Resource",
-  },
-  "/app/resources/productioncapacity": {
-    name: "Production Capacity",
-    title: "List of all Production Capacity",
+  "/app/projects/roject/:type": {
+    name: "Project",
+    title: "Detail of single project",
   },
   "/app/adminpanel": {
     name: "Admin Panel",
@@ -172,46 +147,25 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             path={`${baseUrl}/needsassessment`}
             component={NeedsAssessment}
           />
-          {/* Resources routes */}
+          {/* Projects routes */}
           <Route
             exact
-            path={`${baseUrl}/resources`}
+            path={`${baseUrl}/projects`}
             component={ResourceNavMenu}
           />
-          <Route exact path={`${baseUrl}/resources/donations`} component={Donations} />{" "}
           <Route
             exact
-            path={`${baseUrl}/resources/initiatives`}
+            path={`${baseUrl}/projects/sub-projects`}
             render={(props) => <Initiatives {...props}/>}
           />
           <Route
             exact
-            path={`${baseUrl}/resources/initiatives/initiative`}
-            component={Initiative}
-          />{" "}
-          <Route
-            exact
-            path={`${baseUrl}/resources/knowledgeresources`}
-            component={KnowledgeResources}
-          />{" "}
-          <Route
-            exact
-            path={`${baseUrl}/resources/financialresources`}
-            component={FinancialResources}
-          />{" "}
-          <Route
-            exact
-            path={`${baseUrl}/resources/humanresources`}
+            path={`${baseUrl}/projects/projects`}
             component={HumanResources}
           />{" "}
           <Route
             exact
-            path={`${baseUrl}/resources/productioncapacity`}
-            component={ProductionCapacity}
-          />
-          <Route
-            exact
-            path={`${baseUrl}/resources/humanresources/:id`}
+            path={`${baseUrl}/projects/projects/:id`}
             render={({match}) => <HumanResource match={match}/>}
           />
           

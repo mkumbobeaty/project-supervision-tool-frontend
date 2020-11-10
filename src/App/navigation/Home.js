@@ -12,8 +12,8 @@ import modules from '../../modules.json';
 const routes = [
 
   {
-    name: 'Resources',
-    path: '/resources',
+    name: 'Projects',
+    path: '/projects',
     icon: resourcesIcon,
     description: modules.humanResource,
   },
