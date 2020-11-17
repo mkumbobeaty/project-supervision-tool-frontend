@@ -14,13 +14,6 @@ const axios = Axios.create({
 });
 
 /**
- * Fetch all projects from API
- *
- */
-export const fetchProjects = (params = {}) =>
-    axios.get(`/human_resources`, {params}).then((response) => response.data);
-
-/**
  * get all items from API
  * */
 export const getItems = () =>
@@ -81,10 +74,18 @@ export const login = (payload) =>
         .catch(err => err)
 
 /**
+ * Fetch all projects from API
+ *
+ */
+export const fetchProjects = (params = {}) =>
+    axios.get(`https://randomuser.me/api`, {params}).then((response) =>{return (console.log(response.results), response.results)} );
+
+
+/**
  * edit existing human resources
  *
  * @function
- * @name editProjects
+ * @name edit Projects
  *
  * @version 0.1.0
  * @since 0.1.0

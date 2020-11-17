@@ -7,11 +7,12 @@ import rootReducer from "./rootReducer";
 const epicMiddleware = createEpicMiddleware();
 
 const store = createStore(
-    rootReducer, 
-    composeWithDevTools(applyMiddleware(epicMiddleware)
-    )
+  rootReducer,
+  composeWithDevTools(applyMiddleware(epicMiddleware)
+  )
 );
 
 epicMiddleware.run(rootEpic)
 
 export default store;
+
