@@ -33,17 +33,7 @@ const projectstate = {
   loading: false,
 };
 
-const defaultInitiative
-  = {
-  data: [],
-  total: 0,
-  initLoading: true,
-  loading: false,
-  error: null,
-  showForm: false,
-  posting: false,
-  page: 0,
-};
+
 
 const fetchingAgencies = (state = false, action) => {
   switch (action.type) {

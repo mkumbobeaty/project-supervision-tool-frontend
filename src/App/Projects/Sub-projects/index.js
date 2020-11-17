@@ -14,7 +14,6 @@ import { projectOperation } from "../duck";
 import InitiativeForm from "./Form";
 import "./styles.css";
 import {Link} from "react-router-dom";
-import PreviewInitiativeOnMap from "./PreviewInitiativeOnMap";
 import PreviewOnMap from "../../Map/components/PreviewOnMap";
 
 

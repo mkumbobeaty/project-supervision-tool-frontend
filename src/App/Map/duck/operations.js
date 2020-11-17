@@ -1,5 +1,4 @@
 import * as actions from './actions';
-import * as API from "../../../API";
 import {getGeoJsonFromLocation} from "../../../Util";
 
 export const setActiveMapSideMenuItem = actions.setActiveMapSideMenuItem;

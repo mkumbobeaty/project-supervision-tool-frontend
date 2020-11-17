@@ -4,7 +4,6 @@ import { Avatar, Checkbox, Col, Row } from 'antd';
 import randomColor from 'randomcolor';
 import './styles.css';
 import { useHistory } from 'react-router-dom';
-import { Link } from 'react-router-dom'
 
 /* constants */
 const sideSpan = { xxl: 1, xl: 1, lg: 1, md: 2, sm: 2, xs: 3 };

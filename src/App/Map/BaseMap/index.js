@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import {Map, TileLayer} from 'react-leaflet';
 import "./styles.css";

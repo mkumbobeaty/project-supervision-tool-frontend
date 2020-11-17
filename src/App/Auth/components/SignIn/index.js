@@ -1,10 +1,9 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {Input, Button, Form, Row, Col} from "antd";
+import {Input, Button, Form} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import "./styles.css";
 import {bindActionCreators} from "redux";
-import {resourceOperations} from "../../../Projects/duck";
 import {connect} from "react-redux";
 import {appOperations} from "../../../duck";
 

@@ -5,7 +5,6 @@ import { Link, Switch, Route } from "react-router-dom";
 import UserMenu from "../navigation/UserMenu";
 import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
-import PrivateRoute from "../Auth/PrivateRoute";
 import Dashboards from "../Dashboards";
 import ResourceNavMenu from "../navigation/Projects";
 import Initiatives from "../Projects/Sub-projects";
@@ -33,8 +32,8 @@ const breadcrumbNameMap = {
     name: "sub-projects",
     title: "List of all Sub-projects",
   },
-  "/app/projects/project": {
-    name: "projects",
+  "/app/projects/projectsList": {
+    name: "project list",
     title: "List of all Projects",
   },
   "/app/projects/roject/:type": {
@@ -131,7 +130,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           />
           <Route
             exact
-            path={`${baseUrl}/projects/projects`}
+            path={`${baseUrl}/projects/projectsList`}
             component={Projects}
           />{" "}
                    
