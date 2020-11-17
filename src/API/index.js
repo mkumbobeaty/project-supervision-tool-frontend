@@ -77,8 +77,8 @@ export const login = (payload) =>
  * Fetch all projects from API
  *
  */
-export const fetchProjects = (params = {}) =>
-    axios.get(`https://randomuser.me/api`, {params}).then((response) =>{return (console.log(response.results), response.results)} );
+export const getProjects = () =>
+axios.get(`https://api.github.com/repos/octocat/Hello-World/issues`).then((response) => response.data);
 
 
 /**

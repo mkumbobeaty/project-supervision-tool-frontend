@@ -10,7 +10,7 @@ import "./styles.css";
 import BaseMap from "./BaseMap";
 import SideMenu from "./components/SideMenu";
 import {bindActionCreators} from "redux";
-import {resourceOperations} from "../Projects/duck";
+import {projectOperation} from "../Projects/duck";
 import {mapOperations } from "./duck";
 import PropTypes from "prop-types";
 import MapDetailItem from "./components/MapDetailItem";
@@ -210,10 +210,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getInitiatives: bindActionCreators(resourceOperations.getInitiatives, dispatch),
-    getHumanResources: bindActionCreators(resourceOperations.getHumanResources, dispatch),
-    selectInitiative: bindActionCreators(resourceOperations.selectInitiative, dispatch),
-    selectHumanResource: bindActionCreators(resourceOperations.selectHumanResource, dispatch),
+    getInitiatives: bindActionCreators(projectOperation.getInitiatives, dispatch),
+    getHumanResources: bindActionCreators(projectOperation.getHumanResources, dispatch),
+    selectInitiative: bindActionCreators(projectOperation.selectInitiative, dispatch),
+    selectHumanResource: bindActionCreators(projectOperation.selectHumanResource, dispatch),
     setActiveMapSideMenuItem: bindActionCreators(mapOperations.setActiveMapSideMenuItem, dispatch),
     setInitiativesGeoJson: bindActionCreators(mapOperations.setInitiativesGeoJson, dispatch),
     setHumanResourceGeoJson: bindActionCreators(mapOperations.setHumanResourceGeoJson, dispatch),

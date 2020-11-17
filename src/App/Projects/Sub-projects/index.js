@@ -10,7 +10,7 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { resourceOperations } from "../duck";
+import { projectOperation } from "../duck";
 import InitiativeForm from "./Form";
 import "./styles.css";
 import {Link} from "react-router-dom";
@@ -531,19 +531,19 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  getInitiatives: bindActionCreators(resourceOperations.getInitiatives, dispatch),
-  getItems: bindActionCreators(resourceOperations.getItems, dispatch),
-  getAgencies: bindActionCreators(resourceOperations.getAgencies, dispatch),
-  getRegions: bindActionCreators(resourceOperations.getRegions, dispatch),
-  getDistricts: bindActionCreators(resourceOperations.getDistricts, dispatch),
-  createInitiative: bindActionCreators(resourceOperations.createInitiative, dispatch),
-  deleteInitiative: bindActionCreators(resourceOperations.deleteInitiative, dispatch),
-  updateInitiative: bindActionCreators(resourceOperations.updateInitiative, dispatch),
-  openResourceForm: bindActionCreators(resourceOperations.openResourceForm, dispatch),
-  openInitiativeForm: bindActionCreators(resourceOperations.openInitiativeForm, dispatch),
-  selectInitiative: bindActionCreators(resourceOperations.selectInitiative, dispatch),
-  closeResourceForm: bindActionCreators(resourceOperations.closeResourceForm, dispatch),
-  closeInitiativeForm: bindActionCreators(resourceOperations.closeInitiativeForm, dispatch),
+  getInitiatives: bindActionCreators(projectOperation.getInitiatives, dispatch),
+  getItems: bindActionCreators(projectOperation.getItems, dispatch),
+  getAgencies: bindActionCreators(projectOperation.getAgencies, dispatch),
+  getRegions: bindActionCreators(projectOperation.getRegions, dispatch),
+  getDistricts: bindActionCreators(projectOperation.getDistricts, dispatch),
+  createInitiative: bindActionCreators(projectOperation.createInitiative, dispatch),
+  deleteInitiative: bindActionCreators(projectOperation.deleteInitiative, dispatch),
+  updateInitiative: bindActionCreators(projectOperation.updateInitiative, dispatch),
+  openResourceForm: bindActionCreators(projectOperation.openResourceForm, dispatch),
+  openInitiativeForm: bindActionCreators(projectOperation.openInitiativeForm, dispatch),
+  selectInitiative: bindActionCreators(projectOperation.selectInitiative, dispatch),
+  closeResourceForm: bindActionCreators(projectOperation.closeResourceForm, dispatch),
+  closeInitiativeForm: bindActionCreators(projectOperation.closeInitiativeForm, dispatch),
 
 
 });

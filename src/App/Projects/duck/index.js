@@ -1,8 +1,8 @@
 import * as reducer from './reducers';
 
-import * as resourceTypes from './types';
-import * as resourceOperations from './operations';
+import * as projectTypes from './types';
+import * as projectOperation from './operations';
 
-export { resourceTypes, resourceOperations };
+export { projectTypes, projectOperation };
 
 export default reducer;

@@ -1,213 +1,210 @@
-/*  Items Action creators */
-
+/*  Projects Action creators */
 import * as types from "./types";
 
-export function openProjectForm() {
-  return {
-    type: types.OPEN_PROJECTS_FORM,
-  };
-}
-
-export function closeProjectForm() {
-  return {
-    type: types.CLOSE_PROJECTS_FORM,
-  };
-}
-
-export function getItemsStart() {
-  return {
-    type: types.GET_ITEMS_START,
-  };
-}
-
-export function getItemsSuccess(items) {
-  return {
-    type: types.GET_ITEMS_SUCCESS,
-    payload: items,
-  };
-}
-
-export function getItemsFailure(error) {
-  return {
-    type: types.GET_AGENCIES_FAILURE,
-    payload: error,
-  };
-}
-
-/*  Agencies Action creators */
-
-export function getAgenciesStart() {
-  return {
-    type: types.GET_AGENCIES_START,
-  };
-}
-
-export function getAgenciesSuccess(agencies) {
-  return {
-    type: types.GET_AGENCIES_SUCCESS,
-    payload: agencies,
-  };
-}
-
-export function getAgenciesFailure(error) {
-  return {
-    type: types.GET_AGENCIES_FAILURE,
-    payload: error,
-  };
-}
-
-/*  Agencies Action creators */
-
-export function getRegionsStart() {
-  return {
-    type: types.GET_REGIONS_START,
-  };
-}
-
-export function getRegionsSuccess(regions) {
-  return {
-    type: types.GET_REGIONS_SUCCESS,
-    payload: regions,
-  };
-}
-
-export function getRegionsFailure(error) {
-  return {
-    type: types.GET_REGIONS_FAILURE,
-    payload: error,
-  };
-}
-
-/*  Districts Action creators */
-
-export function getDistrictsStart() {
-  return {
-    type: types.GET_DISTRICTS_START,
-  };
-}
-
-export function getDistrictsSuccess(districts) {
-  return {
-    type: types.GET_DISTRICTS_SUCCESS,
-    payload: districts,
-  };
-}
-
-export function getDistrictsFailure(error) {
-  return {
-    type: types.GET_DISTRICTS_FAILURE,
-    payload: error,
-  };
-}
-
-/*  Projects Action creators */
-export function getProjectsRequest() {
-  return {
-    type: types.GET_PROJECTS_START,
-  };
-}
-
-export function getProjectsSuccess(projects) {
-  return {
-    type: types.GET_PROJECTS_SUCCESS,
-    projects,
-  };
-}
-
-export function getProjectsFailure(message) {
-  return {
-    type: types.GET_PROJECTS_FAILURE,
-    message,
-  };
-}
-
-export function createProjectStart() {
-  return {
-    type: types.CREATE_PROJECT_START,
-  };
-}
-
-export function createProjectSuccess(project) {
-  return {
-    type: types.CREATE_PROJECT_SUCCESS,
-    payload: project,
-  };
-}
-
-export function createProjectFailure(error) {
-  return {
-    type: types.CREATE_PROJECT_FAILURE,
-    payload: error,
-  };
-}
-
-export function updateProjectStart() {
-  return {
-    type: types.UPDATE_PROJECT_START,
-  };
-}
-
-export function updateProjectSuccess(project) {
-  return {
-    type: types.UPDATE_PROJECT_SUCCESS,
-    payload: project,
-  };
-}
-
-export function updateProjectFailure(error) {
-  return {
-    type: types.UPDATE_PROJECT_FAILURE,
-    payload: error,
-  };
-}
-
-// deleting Project
-export function deleteProjectStart() {
-  return {
-    type: types.DELETE_PROJECT_START,
-  };
-}
-
-export function deleteProjectSuccess(project) {
-  return {
-    type: types.DELETE_PROJECT_SUCCESS,
-    payload: project,
-  };
-}
-
-export function deleteProjectFailure(error) {
-  return {
-    type: types.DELETE_PROJECT_FAILURE,
-    payload: error,
-  };
-}
-
-/*  Single Project Action creators */
-export function getProjectStart() {
-  return {
-      type: types.GET_PROJECT_START,
-  };
-}
-
-export function getProjectSuccess(data) {
-  return {
-      type: types.GET_PROJECT_SUCCESS,
-      payload: data,
-  };
-}
-
-export function getProjectFailure(error) {
-  return {
-      type: types.GET_PROJECT_FAILURE,
+// action creator for fetching project
+export function getProjectsStart() {
+    return {
+      type: types.GET_PROJECTS_START,
+    };
+  }
+  
+  export function getProjectsSuccess(projects) {
+    return {
+      type: types.GET_PROJECTS_SUCCESS,
+      payload:projects,
+    };
+  }
+  
+  export function getProjectsFailure(message) {
+    return {
+      type: types.GET_PROJECTS_FAILURE,
+      message,
+    };
+  }
+  
+//  creating project
+  export function createProjectStart() {
+    return {
+      type: types.CREATE_PROJECT_START,
+    };
+  }
+  
+  export function createProjectSuccess(project) {
+    return {
+      type: types.CREATE_PROJECT_SUCCESS,
+      payload: project,
+    };
+  }
+  
+  export function createProjectFailure(error) {
+    return {
+      type: types.CREATE_PROJECT_FAILURE,
       payload: error,
-  };
-}
-// select single Project
-export const selectProject= (selectedProject) => ({
-  type: types.SELECT_PROJECT,
-  payload: selectedProject,
-});
+    };
+  }
+  
+//   action creator for updating project
+  export function updateProjectStart() {
+    return {
+      type: types.UPDATE_PROJECT_START,
+    };
+  }
+  
+  export function updateProjectSuccess(project) {
+    return {
+      type: types.UPDATE_PROJECT_SUCCESS,
+      payload: project,
+    };
+  }
+  
+  export function updateProjectFailure(error) {
+    return {
+      type: types.UPDATE_PROJECT_FAILURE,
+      payload: error,
+    };
+  }
+  
+  // deleting Project
+  export function deleteProjectStart() {
+    return {
+      type: types.DELETE_PROJECT_START,
+    };
+  }
+  
+  export function deleteProjectSuccess(project) {
+    return {
+      type: types.DELETE_PROJECT_SUCCESS,
+      payload: project,
+    };
+  }
+  
+  export function deleteProjectFailure(error) {
+    return {
+      type: types.DELETE_PROJECT_FAILURE,
+      payload: error,
+    };
+  }
+  
+  /*  Single Project Action creators */
+  export function getProjectStart() {
+    return {
+        type: types.GET_PROJECT_START,
+    };
+  }
+  
+  export function getProjectSuccess(data) {
+    return {
+        type: types.GET_PROJECT_SUCCESS,
+        payload: data,
+    };
+  }
+  
+  export function getProjectFailure(error) {
+    return {
+        type: types.GET_PROJECT_FAILURE,
+        payload: error,
+    };
+  }
 
+
+  export function openProjectForm() {
+    return {
+      type: types.OPEN_PROJECTS_FORM,
+    };
+  }
+  
+  export function closeProjectForm() {
+    return {
+      type: types.CLOSE_PROJECTS_FORM,
+    };
+  }
+  
+  export function getItemsStart() {
+    return {
+      type: types.GET_ITEMS_START,
+    };
+  }
+  
+  export function getItemsSuccess(items) {
+    return {
+      type: types.GET_ITEMS_SUCCESS,
+      payload: items,
+    };
+  }
+  
+  export function getItemsFailure(error) {
+    return {
+      type: types.GET_AGENCIES_FAILURE,
+      payload: error,
+    };
+  }
+  
+  /*  Agencies Action creators */
+  
+  export function getAgenciesStart() {
+    return {
+      type: types.GET_AGENCIES_START,
+    };
+  }
+  
+  export function getAgenciesSuccess(agencies) {
+    return {
+      type: types.GET_AGENCIES_SUCCESS,
+      payload: agencies,
+    };
+  }
+  
+  export function getAgenciesFailure(error) {
+    return {
+      type: types.GET_AGENCIES_FAILURE,
+      payload: error,
+    };
+  }
+  
+  /*  Agencies Action creators */
+  
+  export function getRegionsStart() {
+    return {
+      type: types.GET_REGIONS_START,
+    };
+  }
+  
+  export function getRegionsSuccess(regions) {
+    return {
+      type: types.GET_REGIONS_SUCCESS,
+      payload: regions,
+    };
+  }
+  
+  export function getRegionsFailure(error) {
+    return {
+      type: types.GET_REGIONS_FAILURE,
+      payload: error,
+    };
+  }
+  
+  /*  Districts Action creators */
+  
+  export function getDistrictsStart() {
+    return {
+      type: types.GET_DISTRICTS_START,
+    };
+  }
+  
+  export function getDistrictsSuccess(districts) {
+    return {
+      type: types.GET_DISTRICTS_SUCCESS,
+      payload: districts,
+    };
+  }
+  
+  export function getDistrictsFailure(error) {
+    return {
+      type: types.GET_DISTRICTS_FAILURE,
+      payload: error,
+    };
+  }
+   
 //  Initiatives
 
 export function getInitiativesRequest() {
@@ -289,9 +286,6 @@ export function deleteInitiativeFailure(error) {
     payload: error,
   };
 }
-
-
-
   
 export const selectInitiative = (selectedInitiative) => ({
   type: types.SELECT_INITIATIVE,

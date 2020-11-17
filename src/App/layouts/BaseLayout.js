@@ -9,13 +9,12 @@ import PrivateRoute from "../Auth/PrivateRoute";
 import Dashboards from "../Dashboards";
 import ResourceNavMenu from "../navigation/Projects";
 import Initiatives from "../Projects/Sub-projects";
-import HumanResources from "../Projects/Projects";
-import HumanResource from  "../Projects/Projects/HumanResource";
 
 
 
 import "./styles.css";
 import MapDashboard from "../Map";
+import Projects from "../Projects/Projects";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -133,14 +132,9 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           <Route
             exact
             path={`${baseUrl}/projects/projects`}
-            component={HumanResources}
+            component={Projects}
           />{" "}
-          <Route
-            exact
-            path={`${baseUrl}/projects/projects/:id`}
-            render={({match}) => <HumanResource match={match}/>}
-          />
-          
+                   
           <Route path={`${baseUrl}/map`} component={MapDashboard} />
           {/* Admin panel */}
           <Route path={`${baseUrl}/adminpanel`} component={() => {

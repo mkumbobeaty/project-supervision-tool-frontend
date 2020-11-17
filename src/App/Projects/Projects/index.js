@@ -1,9 +1,12 @@
 import React from 'react';
-import { resourceOperations } from '../duck';
+import { connect } from "react-redux";
+import { projectOperation } from '../duck';
 
-class HumanResources extends React.Component {
+
+class Projects extends React.Component {
     componentDidMount(){
-      resourceOperations.getProjectsEpic()
+      const { fetchProjects } = this.props;
+      fetchProjects()
     }
     render(){
       return (
@@ -11,4 +14,18 @@ class HumanResources extends React.Component {
       )
     }
 }
-export default HumanResources;
+const mapStateToProps = state => {
+  return {
+    // items: state.items.items
+  };
+};
+
+const mapDispatchToProps = {
+  fetchProjects: projectOperation.getProjectsStart
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Projects);
+
