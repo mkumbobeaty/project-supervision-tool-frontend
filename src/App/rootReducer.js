@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import { default as initReducers } from './duck';
 import { default as mapReducer } from './Map/duck';
 import { default as projectReducer } from './Projects/duck';
+import { default as authReducer } from './Auth/duck';
 
 const rootReducer = combineReducers({
     ...projectReducer,
-    ...initReducers,
     ...mapReducer,
+    ...authReducer,
 });
 
 export default rootReducer;

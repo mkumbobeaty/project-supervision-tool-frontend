@@ -5,7 +5,7 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import "./styles.css";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {appOperations} from "../../../duck";
+import {authActions} from "../../duck";
 
 
 /**
@@ -112,7 +112,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    login: bindActionCreators(appOperations.login, dispatch),
+    login: bindActionCreators(authActions.loginStart, dispatch),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
 

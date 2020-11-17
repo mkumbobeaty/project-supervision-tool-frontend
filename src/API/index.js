@@ -1,7 +1,7 @@
 // const url = process.env.REACT_APP_API_URL;
 import Axios from "axios";
 
-const API_BASE_URL ="https://pamoja-backend.herokuapp.com";
+const API_BASE_URL ="https://project-supervision-tool-api.herokuapp.com";
 Axios.defaults.baseURL = `${API_BASE_URL}/api/v1`;
 
 /**
@@ -71,7 +71,6 @@ export const login = (payload) =>
     axios
         .post(`/focal_people/login`, payload)
         .then((response) => response.data)
-        .catch(err => err)
 
 /**
  * Fetch all projects from API

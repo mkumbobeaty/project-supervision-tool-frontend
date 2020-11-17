@@ -193,14 +193,10 @@ class MapDashboard extends  Component {
 
 const mapStateToProps = (state) => {
     return {
-        initiatives: state.resources.initiative.data
-            ? state.resources.initiative.data
-            : [],
-        humanResources: state.resources.humanResources.data
-            ? state.resources.humanResources.data
-            : [],
-        loadingInitiative: state.resources.initiative.loading,
-        loadingHumanResources: state.resources.humanResources.loading,
+        initiatives: [],
+        humanResources: [],
+        loadingInitiative: false,
+        loadingHumanResources: false,
         selectedInitiative: state.resources?.selectedInitiative,
         activeMapSideMenuItem: state.map.activeMapSideMenuItem,
         initiativesGeoJson: state.map.initiativesGeoJson,
@@ -210,10 +206,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getInitiatives: bindActionCreators(projectOperation.getInitiatives, dispatch),
-    getHumanResources: bindActionCreators(projectOperation.getHumanResources, dispatch),
-    selectInitiative: bindActionCreators(projectOperation.selectInitiative, dispatch),
-    selectHumanResource: bindActionCreators(projectOperation.selectHumanResource, dispatch),
+    getInitiatives: bindActionCreators(() => {}, dispatch),
+    getHumanResources: bindActionCreators(() => {}, dispatch),
+    selectInitiative: bindActionCreators(() => {}, dispatch),
+    selectHumanResource: bindActionCreators(() => {}, dispatch),
     setActiveMapSideMenuItem: bindActionCreators(mapOperations.setActiveMapSideMenuItem, dispatch),
     setInitiativesGeoJson: bindActionCreators(mapOperations.setInitiativesGeoJson, dispatch),
     setHumanResourceGeoJson: bindActionCreators(mapOperations.setHumanResourceGeoJson, dispatch),

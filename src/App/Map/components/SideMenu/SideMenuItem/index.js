@@ -11,7 +11,7 @@ const SideMenuItem = ({title, bgImage, setActive, itemKey, active, getData}) => 
     useEffect(() => {
         if (active === itemKey)
         {
-            getData();
+            // getData();
         }
     }, [active])
 
