@@ -6,13 +6,16 @@ import * as actions from './actions';
 import * as types from './types'
 
 
-export const loginEpic = action$ =>
-    action$.pipe(
+export const loginEpic = action$ => {
+    console.log('inside  loginEpic');
+    return action$.pipe(
         ofType(types.LOGIN_START),
         switchMap(({payload}) => {
-            return Rx.from(API.login(payload))
+            return Rx.from(API.login(payload)).pipe(
+                switchMap(res => { return Rx.of(actions.loginSuccess(res))}),
+                catchError(error => Rx.of(actions.loginFailure(error)))
+            )
         }),
-        switchMap(res => { return Rx.of(actions.loginSuccess(res))}),
-        catchError(error => Rx.of(actions.loginFailure(error))
-        )
     );
+}
+
