@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { projectOperation } from '../duck';
-import {  Col,  } from "antd";
+import { Col, } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import { isoDateToHumanReadableDate } from '../../../Util';
@@ -10,7 +10,7 @@ import Topbar from "../../components/Topbar";
 import ProjectsList from "../../components/List";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./styles.css";
 
 
@@ -51,7 +51,7 @@ const headerLayout = [
   { ...sectorSpan, header: "Sectors" },
   { ...countrySpan, header: "Country" },
   { ...statusSpan, header: "Project status" },
-  { ...approvalSpan, header  : "Approval FY" },
+  { ...approvalSpan, header: "Approval FY" },
 ];
 
 
@@ -74,7 +74,7 @@ class Projects extends Component {
 
   componentDidMount() {
     const { fetchProjects } = this.props;
-      fetchProjects()
+    fetchProjects()
   }
 
   /**
@@ -111,9 +111,9 @@ class Projects extends Component {
       loading,
       page,
       searchQuery,
-      
+
     } = this.props;
-    return  (
+    return (
       <div>
         {/* Topbar */}
         <Topbar
@@ -162,17 +162,17 @@ class Projects extends Component {
                 onDeselectItem={onDeselectItem}
                 renderActions={() => (
                   <ListItemActions
-                      edit={{
-                        name: "Edit Human Resources",
-                        title: "Update Human Resources Details",
-                        onClick: () => this.handleEdit(item),
-                      }}
-                      archive={{
-                        name: "Archive Human Resources",
-                        title:
-                            "Remove Human Resources from list of active Human Resources",
-                        onClick: () => this.showArchiveConfirm(item),
-                      }}
+                    edit={{
+                      name: "Edit Human Resources",
+                      title: "Update Human Resources Details",
+                      onClick: () => this.handleEdit(item),
+                    }}
+                    archive={{
+                      name: "Archive Human Resources",
+                      title:
+                        "Remove Human Resources from list of active Human Resources",
+                      onClick: () => this.showArchiveConfirm(item),
+                    }}
                   />
                 )}
               >
@@ -180,17 +180,17 @@ class Projects extends Component {
                 <Col {...projectIdSpan} className="humanResourceEllipse">
                   {" "}
                   <Link
-                      to={{
-                        pathname: `/app/resources/initiatives/${item.id}`,
-                      }}
+                    to={{
+                      pathname: `/app/resources/initiatives/${item.id}`,
+                    }}
                   >
                     {item.details.project_id ? item.details.project_id : "All"}
                   </Link>
                 </Col>
                 <Col
-                    {...projectNameSpan}
-                    className="humanResourceEllipse"
-                    title={item.description}
+                  {...projectNameSpan}
+                  className="humanResourceEllipse"
+                  title={item.description}
                 >
                   {item.name}
                 </Col>
@@ -198,16 +198,16 @@ class Projects extends Component {
                 <Col {...borrowerSpan}>{item.details.borrower.name}</Col>
                 <Col {...agencySpan}>{item.details.implementing_agency.name}</Col>
                 <Col {...sectorSpan} className="humanResourceEllipse">
-                  {item.sectors.map(({name}, index) => {
+                  {item.sectors.length <= 0 ? "Null" : item.sectors.map(({ name }, index) => {
                     return (index ? ", " : "") + name;
                   })}
                 </Col>
                 <Col {...countrySpan}>{item.details.country.name}, {item.details.project_region}</Col>
-                <Col {...statusSpan}>{item.details.status ? item.details.status : 'Null' }</Col>
+                <Col {...statusSpan}>{item.details.status.toString()}</Col>
                 <Col {...approvalSpan}>
                   {isoDateToHumanReadableDate(item.details.approval_fy)}
                 </Col>
-  
+
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             )}
