@@ -45,7 +45,7 @@ class SideNav extends Component {
                         setActiveItem={setActiveItem}
                     />
                 </div>
-                <NavItemDetails/>
+                <NavItemDetails activeItem={activeItem}/>
             </div>
         );
     }

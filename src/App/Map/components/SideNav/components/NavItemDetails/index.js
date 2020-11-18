@@ -1,8 +1,13 @@
 import React from 'react';
+import './styles.css'
 
-function NavItemDetails() {
+const styles = {width: '16vw'}
 
-    return(<div>NavItemDetails</div>);
+function NavItemDetails({ activeItem }) {
+
+    return(
+        <div style={activeItem === '' ? { display: 'none'} : styles } className='NavItemDetails'>NavItemDetails</div>
+    );
 }
 
 export default NavItemDetails;
