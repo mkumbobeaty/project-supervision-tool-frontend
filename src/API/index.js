@@ -13,6 +13,17 @@ const axios = Axios.create({
     },
 });
 
+// Default config options
+
+  // Create instance
+
+  // Set the AUTH token for any request
+  axios.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('access_token');
+    config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    return config;
+  });
+
 /**
  * get all items from API
  * */
@@ -77,7 +88,7 @@ export const login = (payload) =>
  *
  */
 export const getProjects = () =>
-axios.get(`https://api.github.com/repos/octocat/Hello-World/issues`).then((response) => response.data);
+axios.get(`/projects`).then((response) => response.data);
 
 
 /**

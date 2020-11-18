@@ -11,7 +11,7 @@ export const projectsListEpic = action$ =>
         switchMap(() => {
             return from(API.getProjects())
         }),
-        switchMap(data => { return of(actions.getProjectsSuccess(data))}),
+        switchMap(result => { return of(actions.getProjectsSuccess(result.data))}),
         catchError(error => of(actions.getProjectsFailure(error))
         )
     );
