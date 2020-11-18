@@ -145,7 +145,7 @@ const fetchProjects = (state = false, action) => {
   }
 };
 
-const Projects = (state = defaultProjects, action) => {
+const main_projects = (state = defaultProjects, action) => {
   switch (action.type) {
     case types.GET_PROJECTS_START:
       return { ...state, loading: true };
@@ -225,7 +225,7 @@ const deleteProjects = (state = false, action) => {
   }
 };
 
-export const resources = combineReducers({
+export const projects = combineReducers({
   fetchingItems,
   selectedProjects,
   items,
@@ -236,7 +236,7 @@ export const resources = combineReducers({
   regions,
   districts,
   fetchProjects,
-  Projects,
+  main_projects,
   Project,
   deleteProjects,
   });
