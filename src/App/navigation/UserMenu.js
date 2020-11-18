@@ -1,9 +1,35 @@
 import { LockOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
+
 import { Button, Dropdown, Menu } from 'antd';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, {Component, useState} from 'react';
 import './styles.css';
+import {bindActionCreators} from "redux";
+import {authActions} from '../Auth/duck';
+/**
+ * @class
+ * @name SignOut
+ * @description carries  sing out component
+ */
+class SignOut extends Component{
+    handleOnClick = () => {
+        console.log('inse click');
+        localStorage.removeItem('accessToken');
+        return this.props.logout();
+    }
+   render() {
+       return <div onClick={this.handleOnClick}> <LogoutOutlined /><span style={{padding: 10}}>Sign Out</span></div>
+   }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+    logout: bindActionCreators(authActions.logout, dispatch)
+
+});
+
+const SignOutWrapper = connect(() => {}, mapDispatchToProps)(SignOut);
 
 /**
  * @function
@@ -35,8 +61,7 @@ const UserMenu = ({ history: { push } }) => {
         Change Password
       </Menu.Item>
       <Menu.Item key="signOut">
-        <LogoutOutlined />
-        Sign Out
+        <SignOutWrapper/>
       </Menu.Item>
     </Menu>
   );
@@ -57,3 +82,5 @@ UserMenu.propTypes = {
 };
 
 export default withRouter(UserMenu);
+
+

@@ -5,7 +5,7 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import "./styles.css";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {authActions} from "../../duck";
+import {authActions, authSelectors} from "../../duck";
 
 
 /**
@@ -17,15 +17,20 @@ import {authActions} from "../../duck";
  */
 class SignIn extends Component {
 
+    /**
+     * @function
+     * @name onFinish
+     * @description collects values submitted in form
+     * and dispatches login start action
+     * @param {Object} values
+     */
     onFinish = (values) => {
-        console.log(values);
         this.props.login(values)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.accessToken !== this.props.accessToken) {
             if (this.props.accessToken) {
-                localStorage.setItem("access_token", this.props.accessToken)
                 this.props.history.push('/app/map');
             }
         }
@@ -106,9 +111,9 @@ SignIn.defaultProps = {
 
 const mapStateToProps = (state) => {
     return {
-        loading: state.auth.isLogin,
-        accessToken: state.auth.login?.data?.access_token,
-        errorMsg: state.auth.login?.failed,
+        loading: authSelectors.isLoginSelector(state),
+        accessToken: authSelectors.accessTokenSelector(state),
+        errorMsg: authSelectors.loginErrorMessageSelector(state),
     };
 };
 

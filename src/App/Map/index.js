@@ -14,6 +14,7 @@ import {projectOperation} from "../Projects/duck";
 import {mapOperations } from "./duck";
 import PropTypes from "prop-types";
 import MapDetailItem from "./components/MapDetailItem";
+import SideNav from "./components/SideNav";
 
 class MapDashboard extends  Component {
     state = {
@@ -156,35 +157,12 @@ class MapDashboard extends  Component {
 
         return (
             <div className="MapDashboard">
-                <SideMenu
-                    getInitiatives={getInitiatives}
-                    getHumanResources={getHumanResources}
-                    setActiveMapSideMenuItem={setActiveMapSideMenuItem}
-                    active={activeMapSideMenuItem}
-                />
+               <SideNav/>
                 <Spin spinning={loading} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>
                         { this.customGeojson(activeMapSideMenuItem,initiativesGeoJson, humanResourcesGeoJson ) }
                     </BaseMap>
                 </Spin>
-                <Drawer
-                    title={`${activeMapSideMenuItem === 'initiative' ? 'Initiatives' : 'Human Resources'}`}
-                    width={600}
-                    visible={showFeatureDetails}
-                    onClose={() => setShowFeatureDetails(false)}
-                    destroyOnClose
-                    maskClosable={false}
-                    bodyStyle={{ padding: 0 }}
-                    headerStyle={{ textAlign: 'center', color: "#959595" }}
-
-                >
-                    <List
-                        size="small"
-                        bordered
-                        dataSource={selectedResources}
-                        renderItem={item => <List.Item><MapDetailItem item={item}/></List.Item>}
-                    />
-                </Drawer>
             </div>
 
         )

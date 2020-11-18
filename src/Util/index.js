@@ -110,3 +110,21 @@ export const getSelectedResources = (level, id, resources) => {
 
     }
 }
+
+
+/**
+ * @function
+ * @name makeActionCreator
+ * @description generates action creator function
+ * @param {String} type action type
+ * @param {String} argNames properties applicable to action object
+ */
+export  function makeActionCreator(type, ...argNames) {
+    return function (...args) {
+        const action = { type }
+        argNames.forEach((arg, index) => {
+            action[argNames[index]] = args[index]
+        })
+        return action
+    }
+}

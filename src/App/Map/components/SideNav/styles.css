@@ -1,0 +1,11 @@
+
+.SideNav {
+    position: absolute;
+    left: 0;
+    top: 6.7%;
+    width: 5%;
+    height: 93vh;
+    padding: 5px 0 0 0;
+    z-index: 1000;
+    background: #2d98d4;
+}

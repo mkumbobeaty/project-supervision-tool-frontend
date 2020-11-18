@@ -1,0 +1,13 @@
+.SideNavItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    border-bottom: 1px solid #ffffff47;
+    cursor: pointer;
+}
+
+.SideNavItem .side-nav-item-title {
+    font-size: 1.2em;
+    text-align: center;
+}

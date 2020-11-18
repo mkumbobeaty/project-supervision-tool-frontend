@@ -1,0 +1,3 @@
+
+export const RELOAD_PAGE = 'RELOAD_PAGE';
+export const RESTORE_ACCESS_TOKEN = 'RESTORE_ACCESS_TOKEN';
