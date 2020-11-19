@@ -7,13 +7,10 @@ import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
 import Dashboards from "../Dashboards";
 import ResourceNavMenu from "../navigation/Projects";
-import Initiatives from "../Projects/Sub-projects";
-
-
-
-import "./styles.css";
 import MapDashboard from "../Map";
 import Projects from "../Projects/Projects";
+import SubProjects from "../Projects/Sub-projects";
+import "./styles.css";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -126,7 +123,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           <Route
             exact
             path={`${baseUrl}/projects/sub-projects`}
-            render={(props) => <Initiatives {...props}/>}
+            render={(props) => <SubProjects {...props}/>}
           />
           <Route
             exact

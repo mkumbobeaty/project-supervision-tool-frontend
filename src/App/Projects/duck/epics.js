@@ -23,10 +23,19 @@ export const deleteProjectEpic = action$ => {
         switchMap(data => {
             return from(API.deleteProject(data.payload)).pipe(
                 switchMap(res => { return of(actions.deleteProjectSuccess(res)) }),
+                catchError(error => of(actions.deleteProjectFailure(error)))
             )
         }),
-        switchMap(() => of(actions.getProjectsSuccess)),
-        catchError(error => of(actions.deleteProjectFailure(error)))
 
     );
 }
+export const subProjectsEpic = action$ =>
+    action$.pipe(
+        ofType(types.GET_SUB_PROJECTS_START),
+        switchMap(() => {
+            return from(API.getSubProjects())
+        }),
+        switchMap(result => { return of(actions.getSubProjectsSuccess(result.data)) }),
+        catchError(error => of(actions.getSubProjectsFailure(error))
+        )
+    );

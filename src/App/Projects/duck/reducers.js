@@ -34,6 +34,14 @@ const projectstate = {
 };
 
 
+const defaultSubProjects
+= {
+  data: [],
+  total: 0,
+  loading: false,
+  error: null,
+  page: 0,
+};
 
 const fetchingAgencies = (state = false, action) => {
   switch (action.type) {
@@ -225,6 +233,71 @@ const deleteProjects = (state = false, action) => {
   }
 };
 
+// sub-projects reducers
+const creatingSubProjects = (state = false, action) => {
+  switch (action.type) {
+    case types.CREATE_SUB_PROJECT_START:
+      return true;
+    case types.CREATE_SUB_PROJECT_SUCCESS:
+      return false;
+    case types.CREATE_SUB_PROJECT_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const sub_projects = (state = defaultSubProjects, action) => {
+  switch (action.type) {
+    case types.GET_SUB_PROJECTS_START:
+      return {loading:true}
+    case types.GET_SUB_PROJECTS_SUCCESS:
+      return Object.assign(
+        {},
+        {
+          ...state,
+          data: action.payload,
+          loading: false,
+        }
+      );
+    case types.GET_SUB_PROJECTS_FAILURE:
+      return Object.assign({}, { ...state, error: action.message, loading:false });
+    case types.OPEN_SUB_PROJECTS_FORM:
+      return Object.assign({}, state, { showForm: true });
+    case types.CLOSE_SUB_PROJECTS_FORM:
+      return Object.assign({}, state, { showForm: false });
+    case types.CREATE_SUB_PROJECT_SUCCESS:
+      return Object.assign({}, state, { posting: false, showForm: false, loading:true });
+    case types.CREATE_SUB_PROJECT_FAILURE:
+      // return action.payload;
+      return Object.assign({}, state, { error: action.payload.error });
+    case types.UPDATE_SUB_PROJECT_SUCCESS:
+      return action.payload;
+    case types.UPDATE_SUB_PROJECT_FAILURE:
+      return action.payload;
+    case types.DELETE_SUB_PROJECT_SUCCESS:
+      return action.payload;
+    case types.DELETE_SUB_PROJECT_FAILURE:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+
+const deleteSubProject = (state = false, action) => {
+  switch (action.type) {
+    case types.DELETE_SUB_PROJECT_START:
+      return true;
+    case types.DELETE_SUB_PROJECT_SUCCESS:
+      return false;
+    case types.DELETE_SUB_PROJECT_FAILURE:
+      return false;
+    default:
+      return state;
+  }
+}
+
 export const projects = combineReducers({
   fetchingItems,
   selectedProjects,
@@ -239,4 +312,7 @@ export const projects = combineReducers({
   main_projects,
   Project,
   deleteProjects,
+  sub_projects, 
+  creatingSubProjects,
+  deleteSubProject
   });

@@ -206,101 +206,101 @@ export function getProjectsStart() {
     };
   }
    
-//  Initiatives
+//  SubProjects
 
-export function getInitiativesRequest() {
+export function getSubProjectsStart() {
   return {
-    type: types.GET_INITIATIVES_START,
+    type: types.GET_SUB_PROJECTS_START,
   };
 }
 
-export function getInitiativesSuccess(initiatives) {
+export function getSubProjectsSuccess(sub_projects) {
   return {
-    type: types.GET_INITIATIVES_SUCCESS,
-    initiatives,
+    type: types.GET_SUB_PROJECTS_SUCCESS,
+    payload:sub_projects,
   };
 }
 
-export function getInitiativesFailure(message) {
+export function getSubProjectsFailure(message) {
   return {
-    type: types.GET_INITIATIVES_FAILURE,
+    type: types.GET_SUB_PROJECTS_FAILURE,
     message,
   };
 }
-export function createInitiativeStart() {
+export function createSubProjectStart() {
   return {
-    type: types.CREATE_INITIATIVE_START,
+    type: types.CREATE_SUB_PROJECT_START,
   };
 }
 
-export function createInitiativeSuccess(initiative) {
+export function createSubProjectSuccess(sub_project) {
   return {
-    type: types.CREATE_INITIATIVE_SUCCESS,
-    payload: initiative,
+    type: types.CREATE_SUB_PROJECT_SUCCESS,
+    payload: sub_project,
   };
 }
 
-export function createInitiativeFailure(error) {
+export function createSubProjectFailure(error) {
   return {
-    type: types.CREATE_INITIATIVE_FAILURE,
+    type: types.CREATE_SUB_PROJECT_FAILURE,
     payload: error,
   };
 }
 
-export function updateInitiativeStart() {
+export function updateSubProjectStart() {
   return {
-    type: types.UPDATE_INITIATIVE_START,
+    type: types.UPDATE_SUB_PROJECT_START,
   };
 }
 
-export function updateInitiativeSuccess(initiative) {
+export function updateSubProjectSuccess(sub_project) {
   return {
-    type: types.UPDATE_INITIATIVE_SUCCESS,
-    payload: initiative,
+    type: types.UPDATE_SUB_PROJECT_SUCCESS,
+    payload: sub_project,
   };
 }
 
-export function updateInitiativeFailure(error) {
+export function updateSubProjectFailure(error) {
   return {
-    type: types.UPDATE_INITIATIVE_FAILURE,
+    type: types.UPDATE_SUB_PROJECT_FAILURE,
     payload: error,
   };
 }
 
 // deleting 
-export function deleteInitiativeStart() {
+export function deleteSubProjectStart() {
   return {
-    type: types.DELETE_INITIATIVE_START,
+    type: types.DELETE_SUB_PROJECT_START,
   };
 }
 
-export function deleteInitiativeSuccess(initiative) {
+export function deleteSubProjectSuccess(sub_project) {
   return {
-    type: types.DELETE_INITIATIVE_SUCCESS,
-    payload: initiative,
+    type: types.DELETE_PROJECT_SUCCESS,
+    payload: sub_project,
   };
 }
 
-export function deleteInitiativeFailure(error) {
+export function deleteSubProjectFailure(error) {
   return {
-    type: types.DELETE_INITIATIVE_FAILURE,
+    type: types.DELETE_PROJECT_FAILURE,
     payload: error,
   };
 }
   
-export const selectInitiative = (selectedInitiative) => ({
-  type: types.SELECT_INITIATIVE,
-  payload: selectedInitiative,
+export const selectSubProject = (selected_sub_project) => ({
+  type: types.SELECT_SUB_PROJECT,
+  payload: selected_sub_project,
 });
 
-export function openInitiativeForm() {
+export function openSubProjectForm() {
   return {
-    type: types.OPEN_INITIATIVES_FORM,
+    type: types.OPEN_SUB_PROJECTS_FORM,
   };
 }
 
-export function closeInitiativeForm() {
+export function closeSubProjectForm() {
   return {
-    type: types.CLOSE_INITIATIVES_FORM,
+    type: types.CLOSE_SUB_PROJECTS_FORM,
   };
 }
