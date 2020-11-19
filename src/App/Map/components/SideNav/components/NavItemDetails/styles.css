@@ -1,6 +1,7 @@
 
 .NavItemDetails .overview-table {
     display: flex;
+    margin-bottom: 40px;
     justify-content: space-around;
     background: #e8eaf3;
 }

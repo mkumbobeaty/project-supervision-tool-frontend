@@ -7,12 +7,37 @@ import SummarySection from "./components/SummarySection";
 const styles = {width: '16vw'}
 
 function NavItemDetails({activeItem}) {
-    const projectStatusData = [
-        {name: 'Active', count: 120},
-        {name: 'Closed', count: 30},
-        {name: 'Dropped', count: 4},
-        {name: 'Pipeline', count: 6},
-        ]
+    const projectSummaryDetails = [
+        {
+            title: 'Project Status',
+            data: [
+                {name: 'Active', count: 120},
+                {name: 'Closed', count: 30},
+                {name: 'Dropped', count: 4},
+                {name: 'Pipeline', count: 6},
+            ]},
+        {
+            title: 'Project Sectors',
+            data: [
+                {name: 'Urban Transport', count: 30},
+                {name: 'Water Supply, Sanitation and  waste management', count: 10},
+                {name: 'Sub-National Government', count: 50},
+                {name: 'Other Transportation', count: 80},
+                {name: 'Other Public Administration', count: 200},
+            ]},
+        {
+            title: 'Project Themes',
+            data: [
+                {name: 'Public Sector Management', count: 20},
+                {name: 'Urban and Rural Development', count: 90},
+                {name: 'Environment and Natural Resource Management', count: 250}
+            ]},
+
+    ];
+
+    const renderProjectSummaryDetails = (arr) => arr.map(({title, data}) =>
+        <SummarySection sectionName={title} items={data}/>
+        );
 
     return (
         <div
@@ -43,7 +68,7 @@ function NavItemDetails({activeItem}) {
                         <div>134</div>
                     </div>
                 </section>
-                <SummarySection sectionName='Project status' items={projectStatusData}/>
+                {renderProjectSummaryDetails(projectSummaryDetails)}
             </section>
         </div>
     );

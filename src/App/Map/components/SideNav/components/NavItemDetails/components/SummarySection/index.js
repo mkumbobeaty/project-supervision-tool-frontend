@@ -4,7 +4,7 @@ import './styles.css'
 
 const SummaryItem = ({name, count}) => (
     <article className='SummaryItem'>
-        <div title={name}>{name}</div>
+        <div title={name} className='summary-item-title'>{name}</div>
         <div>{count}</div>
     </article>
 );
