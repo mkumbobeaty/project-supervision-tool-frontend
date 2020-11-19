@@ -21,7 +21,7 @@
 
 .NavItemDetails .overview .overview-details{
     display: flex;
-    padding: 20px  0 10px 0px  ;
+    padding: 20px  0 10px 0;
     justify-content: space-between;
     align-items: center;
 }
