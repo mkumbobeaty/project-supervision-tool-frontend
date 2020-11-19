@@ -137,16 +137,13 @@ class MapDashboard extends  Component {
 
     render() {
         const {
-            getInitiatives,
-            getHumanResources,
-            setActiveMapSideMenuItem,
+
             activeMapSideMenuItem,
             humanResourcesGeoJson,
             initiativesGeoJson,
             loadingInitiative,
             loadingHumanResources,
-            setShowFeatureDetails,
-            showFeatureDetails,
+            setActiveMapSideMenuItem,
         } = this.props;
         const { selectedResources } = this.state;
         console.log(selectedResources);
@@ -157,7 +154,7 @@ class MapDashboard extends  Component {
 
         return (
             <div className="MapDashboard">
-               <SideNav/>
+               <SideNav activeItem={activeMapSideMenuItem} setActiveItem={setActiveMapSideMenuItem}/>
                 <Spin spinning={loading} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>
                         { this.customGeojson(activeMapSideMenuItem,initiativesGeoJson, humanResourcesGeoJson ) }
