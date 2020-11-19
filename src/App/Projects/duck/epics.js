@@ -15,3 +15,13 @@ export const projectsListEpic = action$ =>
         catchError(error => of(actions.getProjectsFailure(error))
         )
     );
+
+export const deleteProjectEpic = action$ => 
+    action$.pipe(
+        ofType(types.DELETE_PROJECT_START),
+        switchMap(project_id => {
+            return from(API.deleteProject(project_id))
+        }),
+        switchMap(result => {return of(actions.deleteProjectSuccess(result.data))}),
+        catchError(error => of(actions.deleteProjectFailure(error)))
+    );

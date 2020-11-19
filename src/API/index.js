@@ -115,9 +115,9 @@ export const updateProject = (project, id) => {
  * @version 0.1.0
  * @since 0.1.0
  */
-export const deleteProject = (project) => {
+export const deleteProject = (project_id) => {
     return axios
-        .delete(`human_resources/${project}`)
+        .delete(`/projects/${project_id}`)
         .then((response) => response.data);
 };
 
