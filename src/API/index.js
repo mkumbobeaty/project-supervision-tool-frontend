@@ -158,8 +158,8 @@ export function searchProjects(searchValue) {
  * get saddaInitiative from API
  *
  */
-export const getSubProjects = (params = {}) =>
-    axios.get(`/sub_projects`, {params}).then((response) => response.data);
+export const getSubProjects = () =>
+    axios.get(`/sub_projects`).then((response) => {return response.data});
 
 /**
  * get initiative types

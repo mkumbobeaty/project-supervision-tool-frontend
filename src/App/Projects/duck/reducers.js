@@ -34,8 +34,7 @@ const projectstate = {
 };
 
 
-const defaultSubProjects
-= {
+const defaultSubProjects = {
   data: [],
   total: 0,
   loading: false,
@@ -250,12 +249,11 @@ const creatingSubProjects = (state = false, action) => {
 const sub_projects = (state = defaultSubProjects, action) => {
   switch (action.type) {
     case types.GET_SUB_PROJECTS_START:
-      return {loading:true}
+      return {...state, loading:true}
     case types.GET_SUB_PROJECTS_SUCCESS:
       return Object.assign(
         {},
         {
-          ...state,
           data: action.payload,
           loading: false,
         }

@@ -35,7 +35,9 @@ export const subProjectsEpic = action$ =>
         switchMap(() => {
             return from(API.getSubProjects())
         }),
-        switchMap(result => { return of(actions.getSubProjectsSuccess(result.data)) }),
+        switchMap(result => {
+            return of(actions.getSubProjectsSuccess(result.data))
+         }),
         catchError(error => of(actions.getSubProjectsFailure(error))
         )
     );
