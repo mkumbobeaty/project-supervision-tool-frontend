@@ -3,7 +3,8 @@ import './styles.css'
 
 const styles = {
     color: '#2d98d4',
-    backgroundColor: '#ffffff'
+    backgroundColor: '#ffffff',
+    borderRight: '2px solid #dcd9d954'
 }
 
 function SideNavItem({title, activeThumbnail, inactiveThumbnail, itemId, activeItem, setActiveItem}) {

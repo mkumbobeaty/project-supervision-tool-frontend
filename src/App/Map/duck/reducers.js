@@ -1,7 +1,7 @@
 import * as types from "./types";
 
 const initialState = {
-    activeMapSideMenuItem: '',
+    activeMapSideMenuItem: 'projects',
     humanResourcesGeoJson: [],
     initiativesGeoJson: [],
     showFeatureDetails: false
