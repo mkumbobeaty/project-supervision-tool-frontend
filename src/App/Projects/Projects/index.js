@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { projectOperation } from '../duck';
-import { Col, } from "antd";
+import { Col,Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import { isoDateToHumanReadableDate } from '../../../Util';
@@ -25,6 +25,7 @@ const countrySpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
 const statusSpan = { xxl: 2, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
 const approvalSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
 
+const { confirm } = Modal;
 
 
 /**
@@ -105,6 +106,29 @@ class Projects extends Component {
     this.setState({ cached: null });
   };
 
+  /**
+   * @function
+   * @name showArchiveConfirm
+   * @description show confirm modal before archiving a Event Initiative
+   * @param {object} item Resource item to be archived
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  showArchiveConfirm = (item) => {
+    const { deleteProject } = this.props;
+    console.log(item.id)
+    debugger
+    confirm({
+      title: `Are you sure you want to archive this record ?`,
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        deleteProject(item.id);
+      },
+    });
+  };
   render() {
     const {
       projects,
@@ -163,14 +187,14 @@ class Projects extends Component {
                 renderActions={() => (
                   <ListItemActions
                     edit={{
-                      name: "Edit Human Resources",
-                      title: "Update Human Resources Details",
+                      name: "Edit project",
+                      title: "Update project details",
                       onClick: () => this.handleEdit(item),
                     }}
                     archive={{
-                      name: "Archive Human Resources",
+                      name: "Archive project",
                       title:
-                        "Remove Human Resources from list of active Human Resources",
+                        "Remove project from list of active Projects",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
                   />
@@ -241,7 +265,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  fetchProjects: projectOperation.getProjectsStart
+  fetchProjects: projectOperation.getProjectsStart,
+  deleteProject: projectOperation.deleteProjectStart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

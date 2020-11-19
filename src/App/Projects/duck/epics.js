@@ -11,17 +11,22 @@ export const projectsListEpic = action$ =>
         switchMap(() => {
             return from(API.getProjects())
         }),
-        switchMap(result => { return of(actions.getProjectsSuccess(result.data))}),
+        switchMap(result => { return of(actions.getProjectsSuccess(result.data)) }),
         catchError(error => of(actions.getProjectsFailure(error))
         )
     );
 
-export const deleteProjectEpic = action$ => 
-    action$.pipe(
+
+export const deleteProjectEpic = action$ => {
+    return action$.pipe(
         ofType(types.DELETE_PROJECT_START),
-        switchMap(project_id => {
-            return from(API.deleteProject(project_id))
+        switchMap(data => {
+            return from(API.deleteProject(data.payload)).pipe(
+                switchMap(res => { return of(actions.deleteProjectSuccess(res)) }),
+            )
         }),
-        switchMap(result => {return of(actions.deleteProjectSuccess(result.data))}),
+        switchMap(() => of(actions.getProjectsSuccess)),
         catchError(error => of(actions.deleteProjectFailure(error)))
+
     );
+}

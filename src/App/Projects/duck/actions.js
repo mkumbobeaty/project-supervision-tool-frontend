@@ -65,16 +65,17 @@ export function getProjectsStart() {
   }
   
   // deleting Project
-  export function deleteProjectStart() {
+  export function deleteProjectStart(project_id) {
     return {
       type: types.DELETE_PROJECT_START,
+      payload:project_id
     };
   }
   
-  export function deleteProjectSuccess(project) {
+  export function deleteProjectSuccess(project_id) {
     return {
       type: types.DELETE_PROJECT_SUCCESS,
-      payload: project,
+      payload: project_id,
     };
   }
   
