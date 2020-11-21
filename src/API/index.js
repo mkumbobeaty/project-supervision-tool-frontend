@@ -19,10 +19,21 @@ const axios = Axios.create({
 
   // Set the AUTH token for any request
   axios.interceptors.request.use(function (config) {
-    const token = localStorage.getItem('access_token');
+    const token = localStorage.getItem('accessToken');
     config.headers.Authorization =  token ? `Bearer ${token}` : '';
     return config;
   });
+
+
+
+  // projects
+/**
+ * @function
+ * @name getProjectOverview
+ * @description get project overview per region
+ * */
+export const getProjectOverview = () =>
+    axios.get(`/locations/regions/projects_overview`).then((response) => response.data);
 
 /**
  * get all items from API
@@ -87,8 +98,10 @@ export const login = (payload) =>
  * Fetch all projects from API
  *
  */
-export const getProjects = () =>
-axios.get(`/projects`).then((response) => response.data);
+export const getProjects = () => {
+    console.log('inside get projects');
+    return axios.get(`/projects`).then((response) => response.data);
+}
 
 
 /**

@@ -8,9 +8,8 @@ import L from 'leaflet';
 import {getGeoJsonFromLocation, getSelectedResources } from '../../Util'
 import "./styles.css";
 import BaseMap from "./BaseMap";
-import SideMenu from "./components/SideMenu";
 import {bindActionCreators} from "redux";
-import {projectOperation} from "../Projects/duck";
+import {projectActions} from "../Projects/duck";
 import {mapOperations } from "./duck";
 import PropTypes from "prop-types";
 import MapDetailItem from "./components/MapDetailItem";
@@ -144,6 +143,8 @@ class MapDashboard extends  Component {
             loadingInitiative,
             loadingHumanResources,
             setActiveMapSideMenuItem,
+            getProjects,
+
         } = this.props;
         const { selectedResources } = this.state;
         console.log(selectedResources);
@@ -154,7 +155,11 @@ class MapDashboard extends  Component {
 
         return (
             <div className="MapDashboard">
-               <SideNav activeItem={activeMapSideMenuItem} setActiveItem={setActiveMapSideMenuItem}/>
+               <SideNav
+                   activeItem={activeMapSideMenuItem}
+                   setActiveItem={setActiveMapSideMenuItem}
+                   getProjects={getProjects}
+               />
                 <Spin spinning={loading} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>
                         { this.customGeojson(activeMapSideMenuItem,initiativesGeoJson, humanResourcesGeoJson ) }
@@ -181,7 +186,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getInitiatives: bindActionCreators(() => {}, dispatch),
+    getProjects: bindActionCreators(projectActions.getProjectsStart, dispatch),
     getHumanResources: bindActionCreators(() => {}, dispatch),
     selectInitiative: bindActionCreators(() => {}, dispatch),
     selectHumanResource: bindActionCreators(() => {}, dispatch),

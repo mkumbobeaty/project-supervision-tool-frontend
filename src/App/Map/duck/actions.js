@@ -1,4 +1,13 @@
 import * as types from "./types";
+import {makeActionCreator} from '../../../Util';
+
+
+/**
+ * @function
+ * @name setProjectsSpatialData
+ * @param {Array} payload transiformed projects with spatial data
+ */
+export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATIAL_DATA, 'payload');
 
 export function setInitiativesGeoJson(initiativesGeoJson) {
     return {
