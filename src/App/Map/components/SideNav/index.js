@@ -8,7 +8,11 @@ import NavItemDetails from "./components/NavItemDetails";
 class SideNav extends Component {
 
     render() {
-        const { activeItem, setActiveItem, getProjects}  = this.props;
+        const {
+            activeItem,
+            setActiveItem,
+            getProjectOverview,
+        }  = this.props;
         return (
             <div className='SideNav'>
                 <div className='nav-items-list'>
@@ -19,7 +23,7 @@ class SideNav extends Component {
                         itemId='projects'
                         activeItem={activeItem}
                         setActiveItem={setActiveItem}
-                        getData={getProjects}
+                        getOverview={getProjectOverview}
                     />
                     <SideNavItem
                         title="Sub Projects"
@@ -28,7 +32,7 @@ class SideNav extends Component {
                         itemId='sub-projects'
                         activeItem={activeItem}
                         setActiveItem={setActiveItem}
-                        getData={() => {}}
+                        getOverview={() => {}}
                     />
                     <SideNavItem
                         title="Locations"
@@ -37,7 +41,7 @@ class SideNav extends Component {
                         itemId='locations'
                         activeItem={activeItem}
                         setActiveItem={setActiveItem}
-                        getData={() => {}}
+                        getOverview={() => {}}
                     />
                     <SideNavItem
                         title="Data Sets"
@@ -46,7 +50,7 @@ class SideNav extends Component {
                         itemId='data-sets'
                         activeItem={activeItem}
                         setActiveItem={setActiveItem}
-                        getData={() => {}}
+                        getOverview={() => {}}
                     />
                 </div>
                 <NavItemDetails activeItem={activeItem}/>

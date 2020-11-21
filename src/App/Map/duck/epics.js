@@ -1,24 +1,20 @@
 import {ofType} from "redux-observable";
-import {projectTypes} from "../../Projects/duck";
-import {switchMap} from "rxjs/operators";
-import {of} from "rxjs";
+import * as types from "./types";
+import {catchError, switchMap} from "rxjs/operators";
+import {from, of} from "rxjs";
+import * as API from "../../../API";
+import * as actions from "./actions";
 
 
-export const projectsPolygons = action$ =>  action$.pipe(
-        ofType(projectTypes.GET_PROJECTS_SUCCESS),
-        switchMap(({payload}) => {
-            const projects = payload.data;
-            const transformedProjects = projects.map((project) => {
-                const { locations } = project;
-                return locations.map( location => ({
-                    location,
-                    projectId: project.id,
-                    projectName: project.name,
-                    projectDescription: project.description,
-                }));
-            });
-
-            // group projects by region
-            return of()
+export const getProjectsOverviewEpic = action$ =>
+{
+    return action$.pipe(
+        ofType(types.GET_PROJECTS_OVERVIEW_START),
+        switchMap(() => {
+            return from(API.getProjectOverview()).pipe(
+                switchMap(res =>  of(actions.getProjectsOverviewSuccess(res.data))),
+                catchError(error => of(actions.getProjectsOverviewFailure(error)))
+            );
         }),
     );
+}

@@ -9,6 +9,28 @@ import {makeActionCreator} from '../../../Util';
  */
 export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATIAL_DATA, 'payload');
 
+
+// get project overview
+
+/**
+ * @function
+ * @name getProjectsOverviewStart
+ */
+export const getProjectsOverviewStart = makeActionCreator(types.GET_PROJECTS_OVERVIEW_START);
+
+/**
+ * @function
+ * @name getProjectsOverviewSuccess
+ */
+export const getProjectsOverviewSuccess = makeActionCreator(types.GET_PROJECTS_OVERVIEW_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getProjectsOverviewFailure
+ */
+export const getProjectsOverviewFailure = makeActionCreator(types.GET_PROJECTS_OVERVIEW_FAILURE, 'payload');
+
+
 export function setInitiativesGeoJson(initiativesGeoJson) {
     return {
         type: types.SET_INITIATIVES_GEO_JSON,

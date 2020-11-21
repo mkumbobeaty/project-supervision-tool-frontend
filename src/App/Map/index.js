@@ -1,26 +1,24 @@
 
 
 import React, {Component} from 'react';
-import {Drawer, Spin, List} from 'antd';
+import {Spin} from 'antd';
+import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import {GeoJSON} from 'react-leaflet';
 import L from 'leaflet';
 import {getGeoJsonFromLocation, getSelectedResources } from '../../Util'
 import "./styles.css";
 import BaseMap from "./BaseMap";
 import {bindActionCreators} from "redux";
 import {projectActions} from "../Projects/duck";
-import {mapOperations } from "./duck";
-import PropTypes from "prop-types";
-import MapDetailItem from "./components/MapDetailItem";
+import {mapActions, mapSelectors } from "./duck";
 import SideNav from "./components/SideNav";
+import {GeoJSON} from "react-leaflet";
 
 class MapDashboard extends  Component {
     state = {
         lat: -6.161184,
         lng: 35.745426,
         zoom: 7,
-        selectedResources: [],
     }
 
     constructor(props) {
@@ -68,101 +66,44 @@ class MapDashboard extends  Component {
         this.displayRemoteLayers();
     }
 
-    clickToFeature(e) {
-        const { geometry } =  e.target.feature;
-        const { level, id } = geometry.property;
-        const { activeMapSideMenuItem, humanResources, initiatives } = this.props;
-        const data = activeMapSideMenuItem === 'initiative' ? initiatives : humanResources
-       const selectedResources = getSelectedResources(level, id, data);
-        this.setState({selectedResources});
-        this.props.setShowFeatureDetails();
-    }
+    renderProjectsOverview = (data) => data.map(({geometry,id, region_name, projects_count}) => {
+            const geoJsonObject= {
+                "type": "Feature",
+                "geometry": {
+                    "type": geometry.type,
+                    "coordinates": geometry.coordinates
+                },
+                "properties": {
+                    "name": region_name,
+                    "id": id,
+                    "projects_count": projects_count
+                }
+            }
 
-    onEachFeature = (feature, layer) => {
-        layer.on({
-            click: this.clickToFeature.bind(this)
+            return <GeoJSON data={geoJsonObject} key={id}/>
         });
-    }
 
-    setInitiativesData(initiatives) {
-        if(initiatives.length > 0){
-            this.props.setInitiativesGeoJson(initiatives);
-        }
-    }
-    setHumanResourcesData(humanResources) {
-        if(humanResources.length > 0){
-            this.props.setHumanResourceGeoJson(humanResources);
-        }
-    }
-
-    customGeojson = (activeMenuItem, initiativeGeoJsons, humanResourcesGeoJsons) => {
-        switch (activeMenuItem) {
-            case 'initiative':
-                return initiativeGeoJsons.length > 0 ? initiativeGeoJsons.map((initiativeGeoJson, index) => {
-                    const i = `initiative-${index}`;
-                    return (<GeoJSON data={initiativeGeoJson} key={i} onEachFeature={this.onEachFeature.bind(this)}/> );
-                }) : '';
-            case 'human-resource':
-                return humanResourcesGeoJsons.length > 0 ? humanResourcesGeoJsons.map((humanResourcesGeoJson, index) => {
-                    const i = `human-resource-${index}`;
-                    return (<GeoJSON data={humanResourcesGeoJson} key={i} onEachFeature={this.onEachFeature.bind(this)}/> )
-                }) : '';
-
-            default:
-                return initiativeGeoJsons.length > 0 ? initiativeGeoJsons.map((initiativeGeoJson, index) => {
-                    const i = `initiative-${index}`;
-                    return (<GeoJSON data={initiativeGeoJson} key={i} onEachFeature={this.onEachFeature.bind(this)}/> );
-                }) : '';
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.initiatives !== this.props.initiatives){
-            const data = this.props.initiatives.map(initiative => getGeoJsonFromLocation(initiative));
-            this.setInitiativesData(this.props.initiatives)
-            this.setState({data})
-        }
-
-        if (prevProps.humanResources !== this.props.humanResources){
-            const data = this.props.humanResources.map(humanResource => getGeoJsonFromLocation(humanResource));
-            this.setHumanResourcesData(this.props.humanResources)
-            this.setState({data})
-        }
-
-    }
-
-    renderSelectedResources = (data) => data.map(obj => (<MapDetailItem item ={obj}/>));
 
 
     render() {
         const {
 
             activeMapSideMenuItem,
-            humanResourcesGeoJson,
-            initiativesGeoJson,
-            loadingInitiative,
-            loadingHumanResources,
             setActiveMapSideMenuItem,
-            getProjects,
+            getProjectOverview,
+            projectsOverview,
 
         } = this.props;
-        const { selectedResources } = this.state;
-        console.log(selectedResources);
-
-        const loadingInitiativeGeoJson = initiativesGeoJson.length > 0 ? false : loadingInitiative;
-        const loadingHumanResourceGeoJson = humanResourcesGeoJson.length > 0 ? false : loadingHumanResources;
-        const loading = loadingInitiativeGeoJson || loadingHumanResourceGeoJson;
-
         return (
             <div className="MapDashboard">
                <SideNav
                    activeItem={activeMapSideMenuItem}
                    setActiveItem={setActiveMapSideMenuItem}
-                   getProjects={getProjects}
+                   getProjectOverview={getProjectOverview}
                />
-                <Spin spinning={loading} tip="Loading data...">
+                <Spin spinning={false} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>
-                        { this.customGeojson(activeMapSideMenuItem,initiativesGeoJson, humanResourcesGeoJson ) }
+                        { projectsOverview.length > 0 ? this.renderProjectsOverview(projectsOverview) : ''}
                     </BaseMap>
                 </Spin>
             </div>
@@ -173,42 +114,28 @@ class MapDashboard extends  Component {
 
 const mapStateToProps = (state) => {
     return {
-        initiatives: [],
-        humanResources: [],
-        loadingInitiative: false,
-        loadingHumanResources: false,
-        selectedInitiative: state.resources?.selectedInitiative,
-        activeMapSideMenuItem: state.map.activeMapSideMenuItem,
-        initiativesGeoJson: state.map.initiativesGeoJson,
-        showFeatureDetails: state.map.showFeatureDetails,
-        humanResourcesGeoJson: state.map.humanResourcesGeoJson,
+        activeMapSideMenuItem: mapSelectors.getActiveMapSideMenuItem(state),
+        projectsOverview: mapSelectors.getProjectsOverview(state),
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getProjects: bindActionCreators(projectActions.getProjectsStart, dispatch),
-    getHumanResources: bindActionCreators(() => {}, dispatch),
-    selectInitiative: bindActionCreators(() => {}, dispatch),
-    selectHumanResource: bindActionCreators(() => {}, dispatch),
-    setActiveMapSideMenuItem: bindActionCreators(mapOperations.setActiveMapSideMenuItem, dispatch),
-    setInitiativesGeoJson: bindActionCreators(mapOperations.setInitiativesGeoJson, dispatch),
-    setHumanResourceGeoJson: bindActionCreators(mapOperations.setHumanResourceGeoJson, dispatch),
-    setShowFeatureDetails: bindActionCreators(mapOperations.setShowFeatureDetails, dispatch),
+    setActiveMapSideMenuItem: bindActionCreators(mapActions.setActiveMapSideMenuItem, dispatch),
+    getProjectOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
 
 });
 
 
 
 MapDashboard.propTypes = {
-    selectedInitiative: PropTypes.object,
-    initiative: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string })),
-    humanResources: PropTypes.array,
+    activeMapSideMenuItem: PropTypes.bool.isRequired,
+    getProjectOverview: PropTypes.func.isRequired,
+    projectsOverview: PropTypes.array.isRequired,
 };
 
 MapDashboard.defaultProps = {
-    initiatives: [],
-    humanResources: [],
-    selectedInitiative: null,
+    projectsOverview: [],
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapDashboard);
