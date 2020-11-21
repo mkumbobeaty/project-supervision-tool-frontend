@@ -37,6 +37,12 @@ export const getProjectsOverviewSuccess = makeActionCreator(types.GET_PROJECTS_O
  */
 export const getProjectsOverviewFailure = makeActionCreator(types.GET_PROJECTS_OVERVIEW_FAILURE, 'payload');
 
+/**
+ * @function
+ * @name showMapLoader
+ */
+export const showMapLoader = makeActionCreator(types.SHOW_MAP_LOADER, 'payload');
+
 
 export function setInitiativesGeoJson(initiativesGeoJson) {
     return {
