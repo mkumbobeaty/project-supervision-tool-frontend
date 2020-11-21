@@ -18,6 +18,13 @@ export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATI
  */
 export const getProjectsOverviewStart = makeActionCreator(types.GET_PROJECTS_OVERVIEW_START);
 
+
+/**
+ * @function
+ * @name clearProjectsOverview
+ */
+export const clearProjectsOverview = makeActionCreator(types.CLEAR_PROJECTS_OVERVIEW);
+
 /**
  * @function
  * @name getProjectsOverviewSuccess

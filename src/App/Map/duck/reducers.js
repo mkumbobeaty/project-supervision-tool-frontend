@@ -27,6 +27,8 @@ const config = (state = initialConfigState, action) => {
     switch (action.type) {
         case types.GET_PROJECTS_OVERVIEW_SUCCESS:
             return {...state, data: action.payload};
+        case types.CLEAR_PROJECTS_OVERVIEW:
+            return {...state, data: []};
         case types.GET_PROJECTS_OVERVIEW_FAILURE:
             return {...state, error: action.payload};
         default:

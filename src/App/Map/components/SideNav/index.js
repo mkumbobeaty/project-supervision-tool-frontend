@@ -12,6 +12,7 @@ class SideNav extends Component {
             activeItem,
             setActiveItem,
             getProjectOverview,
+            clearProjectsOverview,
         }  = this.props;
         return (
             <div className='SideNav'>
@@ -24,6 +25,7 @@ class SideNav extends Component {
                         activeItem={activeItem}
                         setActiveItem={setActiveItem}
                         getOverview={getProjectOverview}
+                        clearOverview={clearProjectsOverview}
                     />
                     <SideNavItem
                         title="Sub Projects"
@@ -33,6 +35,7 @@ class SideNav extends Component {
                         activeItem={activeItem}
                         setActiveItem={setActiveItem}
                         getOverview={() => {}}
+                        clearOverview={() => {}}
                     />
                     <SideNavItem
                         title="Locations"
@@ -42,6 +45,7 @@ class SideNav extends Component {
                         activeItem={activeItem}
                         setActiveItem={setActiveItem}
                         getOverview={() => {}}
+                        clearOverview={() => {}}
                     />
                     <SideNavItem
                         title="Data Sets"
@@ -51,6 +55,7 @@ class SideNav extends Component {
                         activeItem={activeItem}
                         setActiveItem={setActiveItem}
                         getOverview={() => {}}
+                        clearOverview={() => {}}
                     />
                 </div>
                 <NavItemDetails activeItem={activeItem}/>
