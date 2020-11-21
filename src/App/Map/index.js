@@ -103,6 +103,7 @@ class MapDashboard extends  Component {
                    setActiveItem={setActiveMapSideMenuItem}
                    getProjectOverview={getProjectOverview}
                    clearProjectsOverview={clearProjectsOverview}
+                   projectsOverview={projectsOverview}
                />
                 <Spin spinning={mapLoading} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>

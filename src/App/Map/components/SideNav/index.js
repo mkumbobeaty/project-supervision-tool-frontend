@@ -13,6 +13,7 @@ class SideNav extends Component {
             setActiveItem,
             getProjectOverview,
             clearProjectsOverview,
+            projectsOverview,
         }  = this.props;
         return (
             <div className='SideNav'>
@@ -58,7 +59,7 @@ class SideNav extends Component {
                         clearOverview={() => {}}
                     />
                 </div>
-                <NavItemDetails activeItem={activeItem}/>
+                <NavItemDetails projectsOverview={projectsOverview} activeItem={activeItem} />
             </div>
         );
     }
