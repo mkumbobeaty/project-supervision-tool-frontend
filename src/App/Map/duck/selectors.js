@@ -9,6 +9,13 @@ export const getActiveMapSideMenuItem = (state) => state?.map?.config?.activeMap
 
 /**
  * @function
+ * @name getMapLoadingSelector
+ * @param {Object} state redux state
+ */
+export const getMapLoadingSelector = (state) => state?.map?.config?.mapLoading;
+
+/**
+ * @function
  * @name getProjectsOverview
  * @param {Object} state redux state
  */

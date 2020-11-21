@@ -3,7 +3,8 @@ import {combineReducers} from "redux";
 
 const initialConfigState = {
     activeMapSideMenuItem: '',
-    showFeatureDetails: false
+    showFeatureDetails: false,
+    mapLoading: false,
 
 }
 
@@ -14,6 +15,8 @@ const  initialProjectOverViewState = {
 
 const config = (state = initialConfigState, action) => {
     switch (action.type) {
+        case types.SHOW_MAP_LOADER:
+            return {...state, mapLoading: action.payload};
         case types.SET_ACTIVE_MAP_SIDE_MENU_ITEM:
             return {...state, activeMapSideMenuItem: action.payload};
         case types.SET_SHOW_FEATURE_DETAILS:

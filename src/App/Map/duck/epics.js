@@ -12,9 +12,14 @@ export const getProjectsOverviewEpic = action$ =>
         ofType(types.GET_PROJECTS_OVERVIEW_START),
         switchMap(() => {
             return from(API.getProjectOverview()).pipe(
-                switchMap(res =>  of(actions.getProjectsOverviewSuccess(res.data))),
-                catchError(error => of(actions.getProjectsOverviewFailure(error)))
+                switchMap(res =>  from([actions.getProjectsOverviewSuccess(res.data), actions.showMapLoader(false)])),
+                catchError(error => from([actions.getProjectsOverviewFailure(error), actions.showMapLoader(false)]))
             );
         }),
     );
 }
+
+export const handleMapLoaderEpic = actions$ => actions$.pipe(
+    ofType(types.GET_PROJECTS_OVERVIEW_START),
+    switchMap(() => of(actions.showMapLoader(true)))
+);

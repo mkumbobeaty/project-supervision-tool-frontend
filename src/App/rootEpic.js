@@ -1,6 +1,6 @@
 import { combineEpics } from "redux-observable";
 import { projectsListEpic } from "./Projects/duck/epics";
-import { getProjectsOverviewEpic } from "./Map/duck/epics";
+import { getProjectsOverviewEpic, handleMapLoaderEpic } from "./Map/duck/epics";
 import { restoreAccessTokenEpic } from './duck/epics';
 import { loginEpic } from "./Auth/duck/epics";
 
@@ -9,4 +9,5 @@ export const rootEpic = combineEpics(
         loginEpic,
     restoreAccessTokenEpic,
     getProjectsOverviewEpic,
+    handleMapLoaderEpic,
 )

@@ -93,6 +93,7 @@ class MapDashboard extends  Component {
             getProjectOverview,
             projectsOverview,
             clearProjectsOverview,
+            mapLoading,
 
         } = this.props;
         return (
@@ -103,7 +104,7 @@ class MapDashboard extends  Component {
                    getProjectOverview={getProjectOverview}
                    clearProjectsOverview={clearProjectsOverview}
                />
-                <Spin spinning={false} tip="Loading data...">
+                <Spin spinning={mapLoading} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>
                         { this.renderProjectsOverview(projectsOverview) }
                     </BaseMap>
@@ -117,6 +118,7 @@ class MapDashboard extends  Component {
 const mapStateToProps = (state) => {
     return {
         activeMapSideMenuItem: mapSelectors.getActiveMapSideMenuItem(state),
+        mapLoading: mapSelectors.getMapLoadingSelector(state),
         projectsOverview: mapSelectors.getProjectsOverview(state),
     };
 };
@@ -132,6 +134,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 MapDashboard.propTypes = {
     activeMapSideMenuItem: PropTypes.bool.isRequired,
+    mapLoading: PropTypes.bool.isRequired,
     getProjectOverview: PropTypes.func.isRequired,
     clearProjectsOverview: PropTypes.func.isRequired,
     projectsOverview: PropTypes.array.isRequired,
