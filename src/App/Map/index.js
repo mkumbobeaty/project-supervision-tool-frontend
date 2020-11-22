@@ -13,6 +13,7 @@ import {projectActions} from "../Projects/duck";
 import {mapActions, mapSelectors } from "./duck";
 import SideNav from "./components/SideNav";
 import {GeoJSON} from "react-leaflet";
+import Legend from "./components/Legend";
 
 class MapDashboard extends  Component {
     state = {
@@ -58,7 +59,7 @@ class MapDashboard extends  Component {
 
         //add zoom control with your options
         L.control.zoom({
-            position:'bottomright'
+            position:'topright'
         }).addTo(leafletMap);
     }
 
@@ -108,6 +109,7 @@ class MapDashboard extends  Component {
                 <Spin spinning={mapLoading} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>
                         { this.renderProjectsOverview(projectsOverview) }
+                        {projectsOverview.length > 0 ? <Legend key="projects-legend"/> : ''}
                     </BaseMap>
                 </Spin>
             </div>
