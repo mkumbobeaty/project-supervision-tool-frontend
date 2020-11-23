@@ -17,13 +17,13 @@ import "./styles.css";
 /* constants */
 const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
 const projectNameSpan = { xxl: 3, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
-const organisationSpan = { xxl: 3, xl: 3, lg: 2, md: 3, sm: 4, xs: 5 };
-const borrowerSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
+const contractorSpan = { xxl: 3, xl: 3, lg: 2, md: 3, sm: 4, xs: 5 };
+const phaseSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
 const agencySpan = { xxl: 2, xl: 2, lg: 4, md: 3, sm: 4, xs: 5 };
-const sectorSpan = { xxl: 2, xl: 2, lg: 3, md: 3, sm: 4, xs: 0 };
-const countrySpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
-const statusSpan = { xxl: 2, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
-const approvalSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
+const actorSpan = { xxl: 2, xl: 2, lg: 3, md: 3, sm: 4, xs: 0 };
+const locationSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const humanResourcesSpan = { xxl: 2, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
 
 const { confirm } = Modal;
 
@@ -46,13 +46,13 @@ const displayLocation = (location) => {
 const headerLayout = [
   { ...projectIdSpan, header: "Project ID" },
   { ...projectNameSpan, header: "Project Name" },
-  { ...organisationSpan, header: "Funding Organisation" },
-  { ...borrowerSpan, header: "Borrower" },
-  { ...agencySpan, header: "Implementing Agency" },
-  { ...sectorSpan, header: "Sectors" },
-  { ...countrySpan, header: "Country" },
-  { ...statusSpan, header: "Project status" },
-  { ...approvalSpan, header: "Approval FY" },
+  { ...contractorSpan, header: "Contractor" },
+  { ...phaseSpan, header: "Phase" },
+  { ...agencySpan, header: "Supervision Agency" },
+  { ...actorSpan, header: "Actor(LGA)" },
+  { ...locationSpan, header: "Location" },
+  { ...humanResourcesSpan, header: "Human resources" },
+  { ...startDateSpan, header: "Start Date" },
 ];
 
 
@@ -181,10 +181,10 @@ class SubProjects extends Component {
                   {" "}
                   <Link
                     to={{
-                      pathname: `/app/resources/initiatives/${item.id}`,
+                      pathname: `/app/resources/initiatives/${item.project_id}`,
                     }}
                   >
-                    {item.details.project_id ? item.details.project_id : "All"}
+                    {item.project_id ? item.project_id : "All"}
                   </Link>
                 </Col>
                 <Col
@@ -194,18 +194,22 @@ class SubProjects extends Component {
                 >
                   {item.name}
                 </Col>
-                <Col {...organisationSpan}>{item.details.funding_organisation.name}</Col>
-                <Col {...borrowerSpan}>{item.details.borrower.name}</Col>
-                <Col {...agencySpan}>{item.details.implementing_agency.name}</Col>
-                <Col {...sectorSpan} className="humanResourceEllipse">
-                  {item.sectors.length <= 0 ? "Null" : item.sectors.map(({ name }, index) => {
-                    return (index ? ", " : "") + name;
+                <Col {...contractorSpan}>{item.details ? item.details.contractor.name : "Null"}</Col>
+                <Col {...phaseSpan}>{item.details ? item.details.phase.name: "Null"}</Col>
+                <Col {...agencySpan}>{item.details ? item.details.supervising_agency.name : "Null"}</Col>
+                <Col {...actorSpan}>{item.details ? item.details.actor.name : "Null"}</Col>
+                <Col {...locationSpan}>
+                {item.sub_project_locations.length <= 0 ? "Null" : item.sub_project_locations.map(({ quantity }, index) => {
+                    return (index ? ", " : "") + quantity;
+                  })}
+                  </Col>
+                  <Col {...humanResourcesSpan} className="humanResourceEllipse">
+                  {item.human_resources.length <= 0 ? "Null" : item.human_resources.map(({ quantity }, index) => {
+                    return (index ? ", " : "") + quantity;
                   })}
                 </Col>
-                <Col {...countrySpan}>{item.details.country.name}, {item.details.project_region}</Col>
-                <Col {...statusSpan}>{item.details.status.toString()}</Col>
-                <Col {...approvalSpan}>
-                  {isoDateToHumanReadableDate(item.details.approval_fy)}
+                <Col {...startDateSpan}>
+                  {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'Not set')}
                 </Col>
 
                 {/* eslint-enable react/jsx-props-no-spreading */}
@@ -234,8 +238,8 @@ SubProjects.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.projects.main_projects.data
-      ? state.projects.main_projects.data
+    projects: state.projects.sub_projects.data
+      ? state.projects.sub_projects.data
       : []
   };
 };
