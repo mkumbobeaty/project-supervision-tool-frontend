@@ -31,6 +31,7 @@ export const deleteProjectEpic = action$ => {
 
     );
 }
+
 export const subProjectsEpic = action$ =>
     action$.pipe(
         ofType(types.GET_SUB_PROJECTS_START),
@@ -43,3 +44,15 @@ export const subProjectsEpic = action$ =>
         catchError(error => of(actions.getSubProjectsFailure(error))
         )
     );
+
+export const deleteSubProjectEpic = action$ =>
+    action$.pipe(
+        ofType(types.DELETE_SUB_PROJECT_START),
+        switchMap(data => {
+            return from(API.deleteSubProject(data.payload)).pipe(
+                switchMap(res => { return of(actions.deleteSubProjectSuccess(res)) }),
+                catchError(error => of(actions.deleteSubProjectFailure(error)))
+            )
+        }),
+        
+    )

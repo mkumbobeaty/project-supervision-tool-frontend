@@ -215,7 +215,7 @@ export const updateInitiative = (initiative, id) => {
 }
 
 /**
- * detaches a Initiative from list
+ * detaches a sub project from list
  *
  * @function
  * @name deleteInitiative
@@ -223,6 +223,6 @@ export const updateInitiative = (initiative, id) => {
  * @version 0.1.0
  * @since 0.1.0
  */
-export const deleteInitiative = (initiative_id) => {
-    return axios.delete(`human_resources/${initiative_id}`).then(response => response.data);
+export const deleteSubProject = (subp_id) => {
+    return axios.delete(`sub_projects/${subp_id}`).then(response => response.data);
 }
