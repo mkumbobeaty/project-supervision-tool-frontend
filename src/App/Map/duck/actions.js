@@ -5,9 +5,53 @@ import {makeActionCreator} from '../../../Util';
 /**
  * @function
  * @name setProjectsSpatialData
- * @param {Array} payload transiformed projects with spatial data
+ * @param {Array} payload transformed projects with spatial data
  */
 export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATIAL_DATA, 'payload');
+
+
+// get projects by region
+/**
+ * @function
+ * @name getProjectsByRegionStart
+ */
+ export const getProjectsByRegionStart = makeActionCreator(types.GET_PROJECTS_BY_REGION_START);
+
+/**
+ * @function
+ * @name getProjectsByRegionSuccess
+ * @param {Array} payload fetched projects
+ */
+ export const getProjectsByRegionSuccess = makeActionCreator(types.GET_PROJECTS_BY_REGION_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getProjectsByRegionFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getProjectsByRegionFailures = makeActionCreator(types.GET_PROJECTS_BY_REGION_FAILURE, 'payload');
+
+
+// get region details
+/**
+ * @function
+ * @name getRegionStart
+ */
+ export const getRegionStart = makeActionCreator(types.GET_REGION_START);
+
+/**
+ * @function
+ * @name getRegionSuccess
+ * @param {Array} payload fetched projects
+ */
+ export const getRegionSuccess = makeActionCreator(types.GET_REGION_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getRegionFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getRegionFailures = makeActionCreator(types.GET_REGION_FAILURE, 'payload');
 
 
 // get project overview
