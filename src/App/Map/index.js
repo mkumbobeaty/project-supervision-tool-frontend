@@ -5,7 +5,7 @@ import {Spin} from 'antd';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import L from 'leaflet';
-import {getGeoJsonFromLocation, getSelectedResources } from '../../Util'
+import {generateColor, generateNumberRange, getGeoJsonFromLocation, getSelectedResources} from '../../Util'
 import "./styles.css";
 import BaseMap from "./BaseMap";
 import {bindActionCreators} from "redux";
@@ -67,6 +67,16 @@ class MapDashboard extends  Component {
         this.displayRemoteLayers();
     }
 
+    getColor = (numberRange, projects_count) => {
+        if (projects_count <= numberRange[1]) return generateColor(0);
+        if (projects_count < numberRange[2] && projects_count > numberRange[1]) return generateColor(1);
+        if (projects_count < numberRange[3] && projects_count > numberRange[2]) return generateColor(2);
+        if (projects_count < numberRange[4] && projects_count > numberRange[3]) return generateColor(3);
+        if (projects_count < numberRange[5] && projects_count > numberRange[4]) return generateColor(4);
+        if (projects_count > numberRange[5] ) return generateColor(5);
+
+    }
+
     renderProjectsOverview = (data) => data.map(({geometry,id, region_name, projects_count}) => {
             const geoJsonObject= {
                 "type": "Feature",
@@ -80,8 +90,17 @@ class MapDashboard extends  Component {
                     "projects_count": projects_count
                 }
             }
+            const numberRange = generateNumberRange(9);
+            const color = this.getColor(numberRange, projects_count)
+        console.log('color', color);
+        const generateStyle = () => ( {
+            "color": color,
+            "fillColor": color,
+            "fillOpacity": 0.8,
+            "opacity": 0.8
+        });
 
-            return <GeoJSON data={geoJsonObject} key={id}/>
+            return <GeoJSON data={geoJsonObject} key={id} style={generateStyle}/>
         });
 
 
