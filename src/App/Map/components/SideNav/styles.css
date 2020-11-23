@@ -1,0 +1,15 @@
+
+.SideNav {
+    display: flex;
+    position: absolute;
+    left: 0;
+    top: 6.7%;
+    height: 93vh;
+    z-index: 1000;
+    background: #ffffff;
+    border-top: 4px solid #2d98d4;
+}
+
+.SideNav .nav-items-list {
+    background: #2d98d4;
+}

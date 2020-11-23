@@ -1,9 +1,6 @@
 import * as actions from './actions';
 import {getGeoJsonFromLocation} from "../../../Util";
 
-export const setActiveMapSideMenuItem = actions.setActiveMapSideMenuItem;
-export const setShowFeatureDetails = actions.setShowFeatureDetails;
-
 
 export const setInitiativesGeoJson = (initiatives = []) => (dispatch) => {
     const data = initiatives.map(initiative => getGeoJsonFromLocation(initiative));

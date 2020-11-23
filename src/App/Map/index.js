@@ -1,26 +1,24 @@
 
 
 import React, {Component} from 'react';
-import {Drawer, Spin, List} from 'antd';
+import {Spin} from 'antd';
+import PropTypes from "prop-types";
+import {GeoJSON, Tooltip} from "react-leaflet";
 import { connect } from 'react-redux';
-import {GeoJSON} from 'react-leaflet';
 import L from 'leaflet';
-import {getGeoJsonFromLocation, getSelectedResources } from '../../Util'
+import {generateColor, generateNumberRange, getGeoJsonFromLocation, getSelectedResources} from '../../Util'
 import "./styles.css";
 import BaseMap from "./BaseMap";
-import SideMenu from "./components/SideMenu";
 import {bindActionCreators} from "redux";
-import {projectOperation} from "../Projects/duck";
-import {mapOperations } from "./duck";
-import PropTypes from "prop-types";
-import MapDetailItem from "./components/MapDetailItem";
+import {mapActions, mapSelectors } from "./duck";
+import SideNav from "./components/SideNav";
+import Legend from "./components/Legend";
 
 class MapDashboard extends  Component {
     state = {
         lat: -6.161184,
         lng: 35.745426,
         zoom: 7,
-        selectedResources: [],
     }
 
     constructor(props) {
@@ -60,7 +58,7 @@ class MapDashboard extends  Component {
 
         //add zoom control with your options
         L.control.zoom({
-            position:'bottomright'
+            position:'topright'
         }).addTo(leafletMap);
     }
 
@@ -68,123 +66,83 @@ class MapDashboard extends  Component {
         this.displayRemoteLayers();
     }
 
-    clickToFeature(e) {
-        const { geometry } =  e.target.feature;
-        const { level, id } = geometry.property;
-        const { activeMapSideMenuItem, humanResources, initiatives } = this.props;
-        const data = activeMapSideMenuItem === 'initiative' ? initiatives : humanResources
-       const selectedResources = getSelectedResources(level, id, data);
-        this.setState({selectedResources});
-        this.props.setShowFeatureDetails();
+    getColor = (numberRange, projects_count) => {
+        if (projects_count <= numberRange[1]) return generateColor(0);
+        if (projects_count < numberRange[2] && projects_count > numberRange[1]) return generateColor(1);
+        if (projects_count < numberRange[3] && projects_count > numberRange[2]) return generateColor(2);
+        if (projects_count < numberRange[4] && projects_count > numberRange[3]) return generateColor(3);
+        if (projects_count < numberRange[5] && projects_count > numberRange[4]) return generateColor(4);
+        if (projects_count > numberRange[5] ) return generateColor(5);
+
     }
 
     onEachFeature = (feature, layer) => {
-        layer.on({
-            click: this.clickToFeature.bind(this)
+
+    }
+
+    renderProjectsOverview = (data) => data.map(({geometry,id, region_name, projects_count}) => {
+            const geoJsonObject= {
+                "type": "Feature",
+                "geometry": {
+                    "type": geometry.type,
+                    "coordinates": geometry.coordinates
+                },
+                "properties": {
+                    "name": region_name,
+                    "id": id,
+                    "projects_count": projects_count
+                }
+            }
+            const numberRange = generateNumberRange(9);
+            const color = this.getColor(numberRange, projects_count)
+        console.log('color', color);
+        const generateStyle = () => ( {
+            "fillColor": color,
+            "fillOpacity": 0.8,
+            "opacity": 0.2
         });
-    }
 
-    setInitiativesData(initiatives) {
-        if(initiatives.length > 0){
-            this.props.setInitiativesGeoJson(initiatives);
-        }
-    }
-    setHumanResourcesData(humanResources) {
-        if(humanResources.length > 0){
-            this.props.setHumanResourceGeoJson(humanResources);
-        }
-    }
+        return(
+            <GeoJSON
+                data={geoJsonObject}
+                key={id}
+                style={generateStyle}>
+                <Tooltip sticky key={id}>
+                    <div><b>Region:</b> {region_name}</div>
+                    <div><b>total projects:</b> {projects_count}</div>
+                </Tooltip>
+            </GeoJSON>
+        );
+        });
 
-    customGeojson = (activeMenuItem, initiativeGeoJsons, humanResourcesGeoJsons) => {
-        switch (activeMenuItem) {
-            case 'initiative':
-                return initiativeGeoJsons.length > 0 ? initiativeGeoJsons.map((initiativeGeoJson, index) => {
-                    const i = `initiative-${index}`;
-                    return (<GeoJSON data={initiativeGeoJson} key={i} onEachFeature={this.onEachFeature.bind(this)}/> );
-                }) : '';
-            case 'human-resource':
-                return humanResourcesGeoJsons.length > 0 ? humanResourcesGeoJsons.map((humanResourcesGeoJson, index) => {
-                    const i = `human-resource-${index}`;
-                    return (<GeoJSON data={humanResourcesGeoJson} key={i} onEachFeature={this.onEachFeature.bind(this)}/> )
-                }) : '';
-
-            default:
-                return initiativeGeoJsons.length > 0 ? initiativeGeoJsons.map((initiativeGeoJson, index) => {
-                    const i = `initiative-${index}`;
-                    return (<GeoJSON data={initiativeGeoJson} key={i} onEachFeature={this.onEachFeature.bind(this)}/> );
-                }) : '';
-        }
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.initiatives !== this.props.initiatives){
-            const data = this.props.initiatives.map(initiative => getGeoJsonFromLocation(initiative));
-            this.setInitiativesData(this.props.initiatives)
-            this.setState({data})
-        }
-
-        if (prevProps.humanResources !== this.props.humanResources){
-            const data = this.props.humanResources.map(humanResource => getGeoJsonFromLocation(humanResource));
-            this.setHumanResourcesData(this.props.humanResources)
-            this.setState({data})
-        }
-
-    }
-
-    renderSelectedResources = (data) => data.map(obj => (<MapDetailItem item ={obj}/>));
 
 
     render() {
         const {
-            getInitiatives,
-            getHumanResources,
-            setActiveMapSideMenuItem,
+
             activeMapSideMenuItem,
-            humanResourcesGeoJson,
-            initiativesGeoJson,
-            loadingInitiative,
-            loadingHumanResources,
-            setShowFeatureDetails,
-            showFeatureDetails,
+            setActiveMapSideMenuItem,
+            getProjectOverview,
+            projectsOverview,
+            clearProjectsOverview,
+            mapLoading,
+
         } = this.props;
-        const { selectedResources } = this.state;
-        console.log(selectedResources);
-
-        const loadingInitiativeGeoJson = initiativesGeoJson.length > 0 ? false : loadingInitiative;
-        const loadingHumanResourceGeoJson = humanResourcesGeoJson.length > 0 ? false : loadingHumanResources;
-        const loading = loadingInitiativeGeoJson || loadingHumanResourceGeoJson;
-
         return (
             <div className="MapDashboard">
-                <SideMenu
-                    getInitiatives={getInitiatives}
-                    getHumanResources={getHumanResources}
-                    setActiveMapSideMenuItem={setActiveMapSideMenuItem}
-                    active={activeMapSideMenuItem}
-                />
-                <Spin spinning={loading} tip="Loading data...">
+               <SideNav
+                   activeItem={activeMapSideMenuItem}
+                   setActiveItem={setActiveMapSideMenuItem}
+                   getProjectOverview={getProjectOverview}
+                   clearProjectsOverview={clearProjectsOverview}
+                   projectsOverview={projectsOverview}
+               />
+                <Spin spinning={mapLoading} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>
-                        { this.customGeojson(activeMapSideMenuItem,initiativesGeoJson, humanResourcesGeoJson ) }
+                        { this.renderProjectsOverview(projectsOverview) }
+                        {projectsOverview.length > 0 ? <Legend key="projects-legend"/> : ''}
                     </BaseMap>
                 </Spin>
-                <Drawer
-                    title={`${activeMapSideMenuItem === 'initiative' ? 'Initiatives' : 'Human Resources'}`}
-                    width={600}
-                    visible={showFeatureDetails}
-                    onClose={() => setShowFeatureDetails(false)}
-                    destroyOnClose
-                    maskClosable={false}
-                    bodyStyle={{ padding: 0 }}
-                    headerStyle={{ textAlign: 'center', color: "#959595" }}
-
-                >
-                    <List
-                        size="small"
-                        bordered
-                        dataSource={selectedResources}
-                        renderItem={item => <List.Item><MapDetailItem item={item}/></List.Item>}
-                    />
-                </Drawer>
             </div>
 
         )
@@ -193,42 +151,33 @@ class MapDashboard extends  Component {
 
 const mapStateToProps = (state) => {
     return {
-        initiatives: [],
-        humanResources: [],
-        loadingInitiative: false,
-        loadingHumanResources: false,
-        selectedInitiative: state.resources?.selectedInitiative,
-        activeMapSideMenuItem: state.map.activeMapSideMenuItem,
-        initiativesGeoJson: state.map.initiativesGeoJson,
-        showFeatureDetails: state.map.showFeatureDetails,
-        humanResourcesGeoJson: state.map.humanResourcesGeoJson,
+        activeMapSideMenuItem: mapSelectors.getActiveMapSideMenuItem(state),
+        mapLoading: mapSelectors.getMapLoadingSelector(state),
+        projectsOverview: mapSelectors.getProjectsOverview(state),
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    getInitiatives: bindActionCreators(() => {}, dispatch),
-    getHumanResources: bindActionCreators(() => {}, dispatch),
-    selectInitiative: bindActionCreators(() => {}, dispatch),
-    selectHumanResource: bindActionCreators(() => {}, dispatch),
-    setActiveMapSideMenuItem: bindActionCreators(mapOperations.setActiveMapSideMenuItem, dispatch),
-    setInitiativesGeoJson: bindActionCreators(mapOperations.setInitiativesGeoJson, dispatch),
-    setHumanResourceGeoJson: bindActionCreators(mapOperations.setHumanResourceGeoJson, dispatch),
-    setShowFeatureDetails: bindActionCreators(mapOperations.setShowFeatureDetails, dispatch),
+    setActiveMapSideMenuItem: bindActionCreators(mapActions.setActiveMapSideMenuItem, dispatch),
+    getProjectOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
+    clearProjectsOverview: bindActionCreators(mapActions.clearProjectsOverview, dispatch),
 
 });
 
 
 
 MapDashboard.propTypes = {
-    selectedInitiative: PropTypes.object,
-    initiative: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string })),
-    humanResources: PropTypes.array,
+    activeMapSideMenuItem: PropTypes.bool.isRequired,
+    mapLoading: PropTypes.bool.isRequired,
+    getProjectOverview: PropTypes.func.isRequired,
+    clearProjectsOverview: PropTypes.func.isRequired,
+    projectsOverview: PropTypes.array.isRequired,
 };
 
 MapDashboard.defaultProps = {
-    initiatives: [],
-    humanResources: [],
-    selectedInitiative: null,
+    projectsOverview: [],
+    clearProjectsOverview: () => {},
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapDashboard);

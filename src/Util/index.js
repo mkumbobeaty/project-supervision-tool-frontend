@@ -110,3 +110,71 @@ export const getSelectedResources = (level, id, resources) => {
 
     }
 }
+
+
+/**
+ * @function
+ * @name makeActionCreator
+ * @description generates action creator function
+ * @param {String} type action type
+ * @param {String} argNames properties applicable to action object
+ */
+export  function makeActionCreator(type, ...argNames) {
+    return function (...args) {
+        const action = { type }
+        argNames.forEach((arg, index) => {
+            action[argNames[index]] = args[index]
+        })
+        return action
+    }
+}
+
+
+/**
+ * @function
+ * @name generateColor
+ * @description generates based on a number
+ * @param {Number} num
+ * @returns {String} color
+ */
+export const generateColor = (num) => {
+    switch (num) {
+        case 0:
+            return "#97bffa";
+        case 1:
+            return "#7da5e0";
+        case 2:
+            return "#638bc6";
+        case 3:
+            return "#4971ac";
+        case 4:
+            return "#2f5792";
+        case 5:
+            return "#153d78";
+        case 6:
+            return "#BD0026";
+        case 7:
+            return "#800026";
+        default:
+            return "#800026";
+    }
+}
+
+/**
+ * @function
+ * @name generateNumberRange
+ * @description generates number range based on a number
+ * @param {Number} num
+ * @returns {String} color
+ */
+export const generateNumberRange = (num) => {
+    const digitsCount = String(num).length;
+    let factorString = 1 + '';
+
+    while (factorString.length < digitsCount) {
+        factorString = factorString + '0';
+    }
+    let factor = parseInt(factorString);
+
+    return [0,1,3,5, 7,9].map(n => n*factor);
+}

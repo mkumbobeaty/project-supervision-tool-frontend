@@ -13,7 +13,7 @@ import SideMenuItem from "./SideMenuItem";
      <div className="SideMenu">
          <SideMenuItem
              bgImage={active === "initiative" ? initiativeImg : whitIinitiativeImg}
-             title="Initiative"
+             title="Projects"
              getData={getInitiatives}
              setActive={setActiveMapSideMenuItem}
              active={active}
