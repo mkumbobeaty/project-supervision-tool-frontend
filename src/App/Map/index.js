@@ -3,16 +3,15 @@
 import React, {Component} from 'react';
 import {Spin} from 'antd';
 import PropTypes from "prop-types";
+import {GeoJSON, Tooltip} from "react-leaflet";
 import { connect } from 'react-redux';
 import L from 'leaflet';
 import {generateColor, generateNumberRange, getGeoJsonFromLocation, getSelectedResources} from '../../Util'
 import "./styles.css";
 import BaseMap from "./BaseMap";
 import {bindActionCreators} from "redux";
-import {projectActions} from "../Projects/duck";
 import {mapActions, mapSelectors } from "./duck";
 import SideNav from "./components/SideNav";
-import {GeoJSON} from "react-leaflet";
 import Legend from "./components/Legend";
 
 class MapDashboard extends  Component {
@@ -77,6 +76,10 @@ class MapDashboard extends  Component {
 
     }
 
+    onEachFeature = (feature, layer) => {
+
+    }
+
     renderProjectsOverview = (data) => data.map(({geometry,id, region_name, projects_count}) => {
             const geoJsonObject= {
                 "type": "Feature",
@@ -94,13 +97,22 @@ class MapDashboard extends  Component {
             const color = this.getColor(numberRange, projects_count)
         console.log('color', color);
         const generateStyle = () => ( {
-            "color": color,
             "fillColor": color,
             "fillOpacity": 0.8,
-            "opacity": 0.8
+            "opacity": 0.2
         });
 
-            return <GeoJSON data={geoJsonObject} key={id} style={generateStyle}/>
+        return(
+            <GeoJSON
+                data={geoJsonObject}
+                key={id}
+                style={generateStyle}>
+                <Tooltip sticky key={id}>
+                    <div><b>Region:</b> {region_name}</div>
+                    <div><b>total projects:</b> {projects_count}</div>
+                </Tooltip>
+            </GeoJSON>
+        );
         });
 
 
