@@ -26,6 +26,40 @@ const config = (state = initialConfigState, action) => {
     }
 };
 
+
+const  initialRegionProjects = {
+    data: [],
+    error: {}
+}
+
+const regionProjects = (state = initialRegionProjects, action) => {
+    switch (action.type) {
+        case types.GET_PROJECTS_BY_REGION_SUCCESS:
+            return {...state, data: action.payload};
+        case types.GET_PROJECTS_BY_REGION_FAILURE:
+            return {...state, error: action.payload};
+        default:
+            return state;
+    }
+};
+
+
+
+const  initialRegionDetails = {
+    data: [],
+    error: {}
+}
+const regionDetails = (state = initialRegionDetails, action) => {
+    switch (action.type) {
+        case types.GET_REGION_SUCCESS:
+            return {...state, data: action.payload};
+        case types.GET_REGION_FAILURE:
+            return {...state, error: action.payload};
+        default:
+            return state;
+    }
+};
+
  const projectOverview = (state = initialProjectOverViewState, action) => {
     switch (action.type) {
         case types.GET_PROJECTS_OVERVIEW_SUCCESS:
@@ -45,4 +79,6 @@ const config = (state = initialConfigState, action) => {
 export const map = combineReducers({
     config,
     projectOverview,
+    regionDetails,
+    regionProjects
 });

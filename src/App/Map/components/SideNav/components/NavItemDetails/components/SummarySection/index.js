@@ -15,7 +15,7 @@ function SummarySection({items, sectionName}) {
         <section className='SummarySection'>
             <div className='summary-header'>{ sectionName }</div>
             <ol className='summary-contents'>
-                    {items.map(({name, count}) => <li><SummaryItem name={name} count={count}/></li>)}
+                    {items.map(({name, count}, i) => <li key={i}><SummaryItem name={name} count={count} key={name}/></li>)}
             </ol>
         </section>
     );

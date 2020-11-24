@@ -76,8 +76,15 @@ class MapDashboard extends  Component {
 
     }
 
-    onEachFeature = (feature, layer) => {
+    handleOnClickGeojson = ({properties}) => {
+        this.props.getProjectsByRegion(properties.id);
+        console.log('inside handleOnClickGeojson', properties.id);
+    }
 
+     onEachFeature = (feature, layer) => {
+        layer.on({
+            click: () => this.handleOnClickGeojson(feature)
+        });
     }
 
     renderProjectsOverview = (data) => data.map(({geometry,id, region_name, projects_count}) => {
@@ -95,7 +102,6 @@ class MapDashboard extends  Component {
             }
             const numberRange = generateNumberRange(9);
             const color = this.getColor(numberRange, projects_count)
-        console.log('color', color);
         const generateStyle = () => ( {
             "fillColor": color,
             "fillOpacity": 0.8,
@@ -106,7 +112,8 @@ class MapDashboard extends  Component {
             <GeoJSON
                 data={geoJsonObject}
                 key={id}
-                style={generateStyle}>
+                style={generateStyle}
+                onEachFeature={this.onEachFeature}>
                 <Tooltip sticky key={id}>
                     <div><b>Region:</b> {region_name}</div>
                     <div><b>total projects:</b> {projects_count}</div>
@@ -119,7 +126,6 @@ class MapDashboard extends  Component {
 
     render() {
         const {
-
             activeMapSideMenuItem,
             setActiveMapSideMenuItem,
             getProjectOverview,
@@ -161,6 +167,7 @@ const mapDispatchToProps = (dispatch) => ({
     setActiveMapSideMenuItem: bindActionCreators(mapActions.setActiveMapSideMenuItem, dispatch),
     getProjectOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
     clearProjectsOverview: bindActionCreators(mapActions.clearProjectsOverview, dispatch),
+    getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
 
 });
 
@@ -171,12 +178,14 @@ MapDashboard.propTypes = {
     mapLoading: PropTypes.bool.isRequired,
     getProjectOverview: PropTypes.func.isRequired,
     clearProjectsOverview: PropTypes.func.isRequired,
+    getProjectsByRegion: PropTypes.func.isRequired,
     projectsOverview: PropTypes.array.isRequired,
 };
 
 MapDashboard.defaultProps = {
     projectsOverview: [],
     clearProjectsOverview: () => {},
+    getProjectsByRegion: () => {},
 
 };
 

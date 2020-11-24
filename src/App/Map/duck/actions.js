@@ -14,8 +14,9 @@ export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATI
 /**
  * @function
  * @name getProjectsByRegionStart
+ * @param {String} payload region id
  */
- export const getProjectsByRegionStart = makeActionCreator(types.GET_PROJECTS_BY_REGION_START);
+ export const getProjectsByRegionStart = makeActionCreator(types.GET_PROJECTS_BY_REGION_START, 'payload');
 
 /**
  * @function
@@ -36,8 +37,9 @@ export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATI
 /**
  * @function
  * @name getRegionStart
+ *  @param {String} payload region id
  */
- export const getRegionStart = makeActionCreator(types.GET_REGION_START);
+ export const getRegionStart = makeActionCreator(types.GET_REGION_START, 'payload');
 
 /**
  * @function
@@ -51,7 +53,7 @@ export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATI
  * @name getRegionFailure
  * @param {Object} payload error object returned by server
  */
- export const getRegionFailures = makeActionCreator(types.GET_REGION_FAILURE, 'payload');
+ export const getRegionFailure = makeActionCreator(types.GET_REGION_FAILURE, 'payload');
 
 
 // get project overview

@@ -12,7 +12,6 @@ class Legend extends MapControl {
         legend.onAdd = () => {
             const div = L.DomUtil.create("div", "info legend");
             const grades = generateNumberRange(9);
-            console.log('grades', grades);
             let labels = [];
             let from;
             let to;
