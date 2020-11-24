@@ -10,7 +10,7 @@ import React from "react";
 const ProjectStatistics = () => (
     <>
         <section className='overview-details'>
-            <div className='overview-title'>Projects Overview</div>
+            <div className='overview-title'>Overview</div>
             <Button type="primary" style={{fontSize: 10}} size='small'>FILTERS</Button>
         </section>
         <section className='overview-table'>

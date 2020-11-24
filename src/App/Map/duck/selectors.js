@@ -20,3 +20,10 @@ export const getMapLoadingSelector = (state) => state?.map?.config?.mapLoading;
  * @param {Object} state redux state
  */
 export const getProjectsOverview = (state) => state?.map?.projectOverview?.data;
+
+/**
+ * @function
+ * @name getRegionProjectsSelector
+ * @param {Object} state redux state
+ */
+export const getRegionProjectsSelector = (state) => state?.map?.regionProjects?.data;

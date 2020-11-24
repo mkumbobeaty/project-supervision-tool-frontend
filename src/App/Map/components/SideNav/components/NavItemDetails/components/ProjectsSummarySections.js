@@ -19,7 +19,7 @@ function ProjectsSummarySections({ projectsOverview }) {
     );
 
 
-    return ( <>{ renderProjectSummaryDetails(projectSummaryDetails)}</>);
+    return projectsOverview.length ? ( <>{ renderProjectSummaryDetails(projectSummaryDetails)}</>) : '';
 }
 
 export default ProjectsSummarySections;

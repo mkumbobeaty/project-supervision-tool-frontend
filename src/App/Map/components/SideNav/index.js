@@ -1,20 +1,39 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import PropTypes from "prop-types";
 import './styles.css';
 import SideNavItem from "./components/SideNavItem";
 import humanResourceImg from '../../../../assets/icons/human-resources-zero-opacity.svg'
 import whiteHhumanResourceImg from '../../../../assets/icons/white-human-resources.svg'
 import NavItemDetails from "./components/NavItemDetails";
+import {mapActions, mapSelectors} from "../../duck";
+import {bindActionCreators} from "redux";
 
 class SideNav extends Component {
 
+    static propTypes = {
+        regionProjects: PropTypes.array,
+        setActiveMapSideMenuItem: PropTypes.string,
+        getProjectOverview: PropTypes.func,
+        clearProjectsOverview: PropTypes.func,
+    }
+
+    static defaultProps = {
+        setActiveMapSideMenuItem: '',
+        regionProjects: [],
+        getProjectOverview: () => {},
+        clearProjectsOverview: () => {},
+    }
+
     render() {
         const {
-            activeItem,
-            setActiveItem,
+            activeMapSideMenuItem,
+            setActiveMapSideMenuItem,
             getProjectOverview,
             clearProjectsOverview,
             projectsOverview,
-        }  = this.props;
+            regionProjects,
+        } = this.props;
         return (
             <div className='SideNav'>
                 <div className='nav-items-list'>
@@ -23,8 +42,8 @@ class SideNav extends Component {
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteHhumanResourceImg}
                         itemId='projects'
-                        activeItem={activeItem}
-                        setActiveItem={setActiveItem}
+                        activeItem={activeMapSideMenuItem}
+                        setActiveItem={setActiveMapSideMenuItem}
                         getOverview={getProjectOverview}
                         clearOverview={clearProjectsOverview}
                     />
@@ -33,36 +52,60 @@ class SideNav extends Component {
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteHhumanResourceImg}
                         itemId='sub-projects'
-                        activeItem={activeItem}
-                        setActiveItem={setActiveItem}
-                        getOverview={() => {}}
-                        clearOverview={() => {}}
+                        activeItem={activeMapSideMenuItem}
+                        setActiveItem={setActiveMapSideMenuItem}
+                        getOverview={() => {
+                        }}
+                        clearOverview={() => {
+                        }}
                     />
                     <SideNavItem
                         title="Locations"
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteHhumanResourceImg}
                         itemId='locations'
-                        activeItem={activeItem}
-                        setActiveItem={setActiveItem}
-                        getOverview={() => {}}
-                        clearOverview={() => {}}
+                        activeItem={activeMapSideMenuItem}
+                        setActiveItem={setActiveMapSideMenuItem}
+                        getOverview={() => {
+                        }}
+                        clearOverview={() => {
+                        }}
                     />
                     <SideNavItem
                         title="Data Sets"
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteHhumanResourceImg}
                         itemId='data-sets'
-                        activeItem={activeItem}
-                        setActiveItem={setActiveItem}
-                        getOverview={() => {}}
-                        clearOverview={() => {}}
+                        activeItem={activeMapSideMenuItem}
+                        setActiveItem={setActiveMapSideMenuItem}
+                        getOverview={() => {
+                        }}
+                        clearOverview={() => {
+                        }}
                     />
                 </div>
-                <NavItemDetails projectsOverview={projectsOverview} activeItem={activeItem} />
+                <NavItemDetails
+                    projectsOverview={projectsOverview}
+                    activeItem={activeMapSideMenuItem}
+                    regionProjects={regionProjects}
+                />
             </div>
         );
     }
 }
 
-export default SideNav;
+
+const mapStateToProps = (state) => ({
+    activeMapSideMenuItem: mapSelectors.getActiveMapSideMenuItem(state),
+    regionProjects: mapSelectors.getRegionProjectsSelector(state),
+    projectsOverview: mapSelectors.getProjectsOverview(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setActiveMapSideMenuItem: bindActionCreators(mapActions.setActiveMapSideMenuItem, dispatch),
+    getProjectOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
+    clearProjectsOverview: bindActionCreators(mapActions.clearProjectsOverview, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SideNav);
+

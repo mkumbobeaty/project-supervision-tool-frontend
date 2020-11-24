@@ -1,28 +1,54 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './styles.css'
 import CustomSearch from "./components/CustomSearch";
 import ProjectsSummarySections from "./components/ProjectsSummarySections";
 import ProjectStatistics from './components/ProjectStatistics';
+import RegionProjectsSummarySections from './components/RegionProjectsSummarySections';
 
-const styles = {width: '16vw'}
+function SummarySections({projectsOverview, regionProjects}){
 
-function NavItemDetails({activeItem, projectsOverview}) {
+    const renderSections = () => {
+        if (projectsOverview.length > 0) {
+            return <ProjectsSummarySections projectsOverview={projectsOverview}/>;
+        }
+        else if (regionProjects.length > 0) {
+            return <RegionProjectsSummarySections regionProjects={regionProjects} />;
+        }
+        else {
+            return '';
+        }
+
+    }
+
+    return (<>{renderSections()}</>)
+}
 
 
+function NavItemDetails({activeItem, projectsOverview, regionProjects}) {
 
-return (
+
+    return (
         <div
-            style={activeItem === '' ? {display: 'none'} : styles}
+            style={activeItem === '' ? {display: 'none'} : { width: '16vw'}}
             className='NavItemDetails'
         >
             <section className='overview'>
                 <CustomSearch/>
-                <ProjectStatistics />
-                { projectsOverview.length > 0 ? <ProjectsSummarySections projectsOverview={projectsOverview}/>: ''}
-
+                <ProjectStatistics/>
+                <SummarySections
+                    projectsOverview={projectsOverview}
+                    regionProjects={regionProjects}
+                />
             </section>
         </div>
     );
 }
 
 export default NavItemDetails;
+
+NavItemDetails.propTypes = {
+    activeItem: PropTypes.string.isRequired,
+    projectsOverview: PropTypes.array.isRequired,
+    regionProjects: PropTypes.array.isRequired,
+}
