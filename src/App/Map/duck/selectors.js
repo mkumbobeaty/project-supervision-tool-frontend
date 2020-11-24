@@ -12,7 +12,7 @@ export const getActiveMapSideMenuItem = (state) => state?.map?.config?.activeMap
  * @name getMapLoadingSelector
  * @param {Object} state redux state
  */
-export const getMapLoadingSelector = (state) => state?.map?.config?.mapLoading;
+export const getMapLoadingSelector = (state) => state?.map?.mapLoading;
 
 /**
  * @function
@@ -27,3 +27,11 @@ export const getProjectsOverview = (state) => state?.map?.projectOverview?.data;
  * @param {Object} state redux state
  */
 export const getRegionProjectsSelector = (state) => state?.map?.regionProjects?.data;
+
+
+/**
+ * @function
+ * @name getRegionDetailsSelector
+ * @param {Object} state redux state
+ */
+export const getRegionDetailsSelector = (state) => state?.map?.regionDetails?.data;
