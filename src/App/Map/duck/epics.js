@@ -2,7 +2,7 @@ import {combineEpics, ofType} from "redux-observable";
 import * as types from "./types";
 import {catchError, switchMap} from "rxjs/operators";
 import {from, of} from "rxjs";
-import * as API from "../../../API";
+import API from "../../../API";
 import * as actions from "./actions";
 
 /**

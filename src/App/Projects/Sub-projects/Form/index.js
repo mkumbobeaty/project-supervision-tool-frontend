@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import { fetchInitiativeTypes, fetchActorTypes, getFundingOrganisations, getRegions } from '../../../../API';
+import API from '../../../../API';
 import { generateDateString, createDateFromString } from "../../../../Util";
 import {
   Button,
@@ -11,6 +11,8 @@ import {
   DatePicker,
   Input,
 } from "antd";
+
+const { fetchInitiativeTypes, fetchActorTypes, getFundingOrganisations, getRegions } = API;
 
 /* state actions */
 

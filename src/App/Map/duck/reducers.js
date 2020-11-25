@@ -15,12 +15,29 @@ const  initialProjectOverViewState = {
 
 const config = (state = initialConfigState, action) => {
     switch (action.type) {
-        case types.SHOW_MAP_LOADER:
-            return {...state, mapLoading: action.payload};
         case types.SET_ACTIVE_MAP_SIDE_MENU_ITEM:
             return {...state, activeMapSideMenuItem: action.payload};
         case types.SET_SHOW_FEATURE_DETAILS:
             return {...state, showFeatureDetails: action.payload};
+        default:
+            return state;
+    }
+};
+
+const mapLoading = (state = false, action) => {
+    switch (action.type) {
+        case types.GET_PROJECTS_OVERVIEW_START:
+            return true;
+        case types.GET_PROJECTS_OVERVIEW_SUCCESS:
+            return false;
+        case types.GET_PROJECTS_OVERVIEW_FAILURE:
+            return false;
+        case types.GET_REGION_START:
+            return true;
+        case types.GET_REGION_SUCCESS:
+            return false;
+        case types.GET_REGION_FAILURE:
+            return false;
         default:
             return state;
     }
@@ -75,10 +92,10 @@ const regionDetails = (state = initialRegionDetails, action) => {
 
 
 
-
 export const map = combineReducers({
     config,
     projectOverview,
     regionDetails,
+    mapLoading,
     regionProjects
 });
