@@ -25,15 +25,12 @@ const breadcrumbNameMap = {
     name: "projects",
     title: "projects Module",
   },
-  "/app/projects/sub-projects": {
+  "/app/sub-projects": {
     name: "sub-projects",
     title: "List of all Sub-projects",
   },
-  "/app/projects/projectsList": {
-    name: "project list",
-    title: "List of all Projects",
-  },
-  "/app/projects/roject/:type": {
+
+  "/app//roject/:type": {
     name: "Project",
     title: "Detail of single project",
   },
@@ -118,19 +115,13 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           <Route
             exact
             path={`${baseUrl}/projects`}
-            component={ResourceNavMenu}
-          />
-          <Route
-            exact
-            path={`${baseUrl}/projects/sub-projects`}
-            render={(props) => <SubProjects {...props}/>}
-          />
-          <Route
-            exact
-            path={`${baseUrl}/projects/projectsList`}
             component={Projects}
           />{" "}
-                   
+          <Route
+            exact
+            path={`${baseUrl}/sub-projects`}
+            render={(props) => <SubProjects {...props}/>}
+          />          
           <Route path={`${baseUrl}/map`} component={MapDashboard} />
           {/* Admin panel */}
           <Route path={`${baseUrl}/adminpanel`} component={() => {
