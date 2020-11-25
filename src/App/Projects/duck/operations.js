@@ -28,8 +28,13 @@ import {
   deleteSubProjectFailure,
   selectSubProject,
   openSubProjectForm,
-  closeSubProjectForm
+  closeSubProjectForm,
+  closeProjectForm,
+  openProjectForm
 } from './actions';
+
+export const opensProjectForm = openProjectForm;
+export const closesProjectForm = closeProjectForm;
 
 export {
   getProjectsStart,

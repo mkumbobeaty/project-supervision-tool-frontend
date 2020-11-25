@@ -164,6 +164,8 @@ const main_projects = (state = defaultProjects, action) => {
         {
           data: action.payload,
           loading: false,
+          showForm: false,
+
         }
       );
     case types.GET_PROJECTS_FAILURE:

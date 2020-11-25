@@ -5,19 +5,17 @@ import { ofType } from 'redux-observable';
 import { of, from } from 'rxjs';
 import { switchMap, catchError, } from "rxjs/operators";
 
-export const projectsListEpic = action$ =>
-{
+export const projectsListEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_PROJECTS_START),
         switchMap(() => {
             return from(API.getProjects()).pipe(
-                switchMap(res => { return of(actions.getProjectsSuccess(res.data))}),
+                switchMap(res => { return of(actions.getProjectsSuccess(res.data)) }),
                 catchError(error => of(actions.getProjectsFailure(error)))
             );
         }),
     )
 };
-
 
 export const deleteProjectEpic = action$ => {
     return action$.pipe(
@@ -25,10 +23,9 @@ export const deleteProjectEpic = action$ => {
         switchMap(data => {
             return from(API.deleteProject(data.payload)).pipe(
                 switchMap(res => { return of(actions.deleteProjectSuccess(res)) }),
-                catchError(error => of(actions.deleteProjectFailure(error)))
             )
         }),
-
+        catchError(error => of(actions.deleteProjectFailure(error)))
     );
 }
 
@@ -40,7 +37,7 @@ export const subProjectsEpic = action$ =>
         }),
         switchMap(result => {
             return of(actions.getSubProjectsSuccess(result.data))
-         }),
+        }),
         catchError(error => of(actions.getSubProjectsFailure(error))
         )
     );
@@ -54,5 +51,6 @@ export const deleteSubProjectEpic = action$ =>
                 catchError(error => of(actions.deleteSubProjectFailure(error)))
             )
         }),
-        
+        switchMap(() => of(actions.getSubProjectsStart()))
     )
+ 

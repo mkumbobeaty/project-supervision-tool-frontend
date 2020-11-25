@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { projectOperation } from '../duck';
-import { Col,Modal } from "antd";
+import { Col, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import { isoDateToHumanReadableDate } from '../../../Util';
@@ -71,6 +71,7 @@ class Projects extends Component {
     isEditForm: false,
     cached: null,
     visible: false,
+
   };
 
   componentDidMount() {
@@ -117,8 +118,6 @@ class Projects extends Component {
    */
   showArchiveConfirm = (item) => {
     const { deleteProject } = this.props;
-    console.log(item.id)
-    debugger
     confirm({
       title: `Are you sure you want to archive this record ?`,
       okText: "Yes",
@@ -129,7 +128,37 @@ class Projects extends Component {
       },
     });
   };
-  
+
+
+  /**
+   * @function
+   * @name openHumanResourceForm
+   * @description Open Human Resources form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  openHumanResourceForm = () => {
+    // const { openHumanResourceForm } = this.props;
+    // openHumanResourceForm();
+  };
+
+  /**
+   * @function
+   * @name closeHumanResourceForm
+   * @description close Human Resources form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  closeHumanResourceForm = () => {
+    this.setState({ isEditForm: false, visible: false });
+    // const { closeHumanResourceForm, selectHumanResource } = this.props;
+    // selectHumanResource(null);
+    // closeHumanResourceForm();
+  };
+
+
   render() {
     const {
       projects,
@@ -137,8 +166,11 @@ class Projects extends Component {
       page,
       total,
       searchQuery,
-
+      showForm,
     } = this.props;
+
+    const { isEditForm  } = this.state;
+    
     return (
       <div>
         {/* Topbar */}
@@ -240,6 +272,22 @@ class Projects extends Component {
             )}
         />
         {/* end list */}
+
+        <Modal
+          title={
+            isEditForm ? "Edit Human Resources" : "Add New Human Resources"
+          } centered
+          visible={showForm}
+          footer={null}
+          onCancel={this.closeHumanResourceForm}
+          destroyOnClose
+          maskClosable={false}
+          afterClose={this.handleAfterCloseForm}
+        >
+          <p>some contents...</p>
+          <p>some contents...</p>
+          <p>some contents...</p>
+        </Modal>
       </div>
     );
   }
@@ -264,9 +312,10 @@ const mapStateToProps = (state) => {
     projects: state.projects.main_projects.data
       ? state.projects.main_projects.data
       : [],
-    loading:state.projects.main_projects.loading,
-    page:state.projects.main_projects.page,
-    total:state.projects.main_projects.total
+    loading: state.projects.main_projects.loading,
+    page: state.projects.main_projects.page,
+    total: state.projects.main_projects.total,
+    showForm: state.projects.main_projects.showForm,
   };
 };
 

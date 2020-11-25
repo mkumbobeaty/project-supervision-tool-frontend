@@ -305,3 +305,15 @@ export function closeSubProjectForm() {
     type: types.CLOSE_SUB_PROJECTS_FORM,
   };
 }
+
+export function openProjectsForm() {
+  return {
+    type: types.OPEN_PROJECTS_FORM,
+  };
+}
+
+export function closeProjectsForm() {
+  return {
+    type: types.CLOSE_PROJECTS_FORM 
+  };
+}

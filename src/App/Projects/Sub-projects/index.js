@@ -117,8 +117,6 @@ class SubProjects extends Component {
    */
   showArchiveConfirm = (item) => {
     const { deleteSubproject } = this.props;
-    console.log(item.id)
-    debugger
     confirm({
       title: `Are you sure you want to archive this record ?`,
       okText: "Yes",
