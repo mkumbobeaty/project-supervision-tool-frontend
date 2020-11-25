@@ -35,6 +35,27 @@ const axios = Axios.create({
 export const getProjectOverview = () =>
     axios.get(`/locations/regions/projects_overview`).then((response) => response.data);
 
+
+/**
+ * @function
+ * @name getProjectsByRegion
+ * @param {string} region_id
+ * @description get projects based on region
+ * */
+export const getProjectsByRegion = (region_id) =>
+    axios.get(`/locations/regions/${region_id}/projects`).then((response) => response.data);
+
+
+/**
+ * @function
+ * @name getRegionDetails
+ * @param {string} id
+ * @description get details of a region
+ * */
+export const getRegionDetails = (id) =>
+    axios.get(`/locations/region/${id}`).then((response) => response.data);
+
+
 /**
  * get all items from API
  * */

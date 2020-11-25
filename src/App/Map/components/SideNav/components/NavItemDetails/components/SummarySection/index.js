@@ -2,10 +2,10 @@ import React from 'react';
 
 import './styles.css'
 
-const SummaryItem = ({name, count}) => (
+const SummaryItem = ({name, count, countTitle}) => (
     <article className='SummaryItem'>
         <div title={name} className='summary-item-title'>{name}</div>
-        <div>{count}</div>
+        <div title={countTitle ? countTitle : ''}>{count}</div>
     </article>
 );
 
@@ -15,7 +15,7 @@ function SummarySection({items, sectionName}) {
         <section className='SummarySection'>
             <div className='summary-header'>{ sectionName }</div>
             <ol className='summary-contents'>
-                    {items.map(({name, count}) => <li><SummaryItem name={name} count={count}/></li>)}
+                    {items.map((item, i) => <li key={i}><SummaryItem name={item.name} countTitle={item?.count_title} count={item.count} key={item.name}/></li>)}
             </ol>
         </section>
     );

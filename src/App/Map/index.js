@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import {GeoJSON, Tooltip} from "react-leaflet";
 import { connect } from 'react-redux';
 import L from 'leaflet';
-import {generateColor, generateNumberRange, getGeoJsonFromLocation, getSelectedResources} from '../../Util'
+import {generateColor, generateNumberRange} from '../../Util'
 import "./styles.css";
 import BaseMap from "./BaseMap";
 import {bindActionCreators} from "redux";
@@ -76,9 +76,9 @@ class MapDashboard extends  Component {
 
     }
 
-    onEachFeature = (feature, layer) => {
+    handleOnClickGeojson = ({properties}) => this.props.getProjectsByRegion(properties.id);
 
-    }
+     onEachFeature = (feature, layer) =>  layer.on({ click: () => this.handleOnClickGeojson(feature)});
 
     renderProjectsOverview = (data) => data.map(({geometry,id, region_name, projects_count}) => {
             const geoJsonObject= {
@@ -95,7 +95,6 @@ class MapDashboard extends  Component {
             }
             const numberRange = generateNumberRange(9);
             const color = this.getColor(numberRange, projects_count)
-        console.log('color', color);
         const generateStyle = () => ( {
             "fillColor": color,
             "fillOpacity": 0.8,
@@ -106,7 +105,8 @@ class MapDashboard extends  Component {
             <GeoJSON
                 data={geoJsonObject}
                 key={id}
-                style={generateStyle}>
+                style={generateStyle}
+                onEachFeature={this.onEachFeature}>
                 <Tooltip sticky key={id}>
                     <div><b>Region:</b> {region_name}</div>
                     <div><b>total projects:</b> {projects_count}</div>
@@ -119,24 +119,12 @@ class MapDashboard extends  Component {
 
     render() {
         const {
-
-            activeMapSideMenuItem,
-            setActiveMapSideMenuItem,
-            getProjectOverview,
             projectsOverview,
-            clearProjectsOverview,
             mapLoading,
-
         } = this.props;
         return (
             <div className="MapDashboard">
-               <SideNav
-                   activeItem={activeMapSideMenuItem}
-                   setActiveItem={setActiveMapSideMenuItem}
-                   getProjectOverview={getProjectOverview}
-                   clearProjectsOverview={clearProjectsOverview}
-                   projectsOverview={projectsOverview}
-               />
+               <SideNav/>
                 <Spin spinning={mapLoading} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>
                         { this.renderProjectsOverview(projectsOverview) }
@@ -151,33 +139,26 @@ class MapDashboard extends  Component {
 
 const mapStateToProps = (state) => {
     return {
-        activeMapSideMenuItem: mapSelectors.getActiveMapSideMenuItem(state),
         mapLoading: mapSelectors.getMapLoadingSelector(state),
         projectsOverview: mapSelectors.getProjectsOverview(state),
     };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    setActiveMapSideMenuItem: bindActionCreators(mapActions.setActiveMapSideMenuItem, dispatch),
-    getProjectOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
-    clearProjectsOverview: bindActionCreators(mapActions.clearProjectsOverview, dispatch),
-
+    getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
 });
 
 
 
 MapDashboard.propTypes = {
-    activeMapSideMenuItem: PropTypes.bool.isRequired,
     mapLoading: PropTypes.bool.isRequired,
-    getProjectOverview: PropTypes.func.isRequired,
-    clearProjectsOverview: PropTypes.func.isRequired,
+    getProjectsByRegion: PropTypes.func.isRequired,
     projectsOverview: PropTypes.array.isRequired,
 };
 
 MapDashboard.defaultProps = {
     projectsOverview: [],
-    clearProjectsOverview: () => {},
-
+    getProjectsByRegion: () => {},
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapDashboard);

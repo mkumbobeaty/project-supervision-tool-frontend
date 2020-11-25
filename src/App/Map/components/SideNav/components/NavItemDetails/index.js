@@ -1,55 +1,54 @@
 import React from 'react';
-import {Button} from 'antd';
+import PropTypes from 'prop-types';
 import './styles.css'
 import CustomSearch from "./components/CustomSearch";
-import SummarySection from "./components/SummarySection";
+import ProjectsSummarySections from "./components/ProjectsSummarySections";
+import ProjectStatistics from './components/ProjectStatistics';
+import RegionProjectsSummarySections from './components/RegionProjectsSummarySections';
 
-const styles = {width: '16vw'}
+function SummarySections({projectsOverview, regionProjects}){
 
-function NavItemDetails({activeItem, projectsOverview}) {
-    const projectSummaryDetails = [
-        {
-            title: 'Regions',
-            data: projectsOverview.map(({region_name, projects_count}) => ({ name: region_name, count: projects_count}))}
-    ];
+    const renderSections = () => {
+        if (projectsOverview.length > 0) {
+            return <ProjectsSummarySections projectsOverview={projectsOverview}/>;
+        }
+        else if (regionProjects.length > 0) {
+            return <RegionProjectsSummarySections regionProjects={regionProjects} />;
+        }
+        else {
+            return '';
+        }
 
-    const renderProjectSummaryDetails = (arr) => arr.map(({title, data}) =>
-        <SummarySection sectionName={title} items={data}/>
-    );
+    }
+
+    return (<>{renderSections()}</>)
+}
+
+
+function NavItemDetails({activeItem, projectsOverview, regionProjects}) {
+
 
     return (
         <div
-            style={activeItem === '' ? {display: 'none'} : styles}
+            style={activeItem === '' ? {display: 'none'} : { width: '16vw'}}
             className='NavItemDetails'
         >
             <section className='overview'>
                 <CustomSearch/>
-                <section className='overview-details'>
-                    <div className='overview-title'>Projects Overview</div>
-                    <Button type="primary" style={{fontSize: 10}} size='small'>FILTERS</Button>
-                </section>
-                <section className='overview-table'>
-                    <div className='overview-table-item'>
-                        <div title='Total projects count'>Projects</div>
-                        <div>2,859</div>
-                    </div>
-                    <div className='overview-table-item'>
-                        <div title='Total Commitment Amount'>Com.Amt</div>
-                        <div>$295.74b</div>
-                    </div>
-                    <div className='overview-table-item'>
-                        <div title='Projects Locations at regional level'>Regions</div>
-                        <div>18,238</div>
-                    </div>
-                    <div className='overview-table-item'>
-                        <div title='Projects locations at district level'>Districts</div>
-                        <div>134</div>
-                    </div>
-                </section>
-                {renderProjectSummaryDetails(projectSummaryDetails)}
+                <ProjectStatistics/>
+                <SummarySections
+                    projectsOverview={projectsOverview}
+                    regionProjects={regionProjects}
+                />
             </section>
         </div>
     );
 }
 
 export default NavItemDetails;
+
+NavItemDetails.propTypes = {
+    activeItem: PropTypes.string.isRequired,
+    projectsOverview: PropTypes.array.isRequired,
+    regionProjects: PropTypes.array.isRequired,
+}
