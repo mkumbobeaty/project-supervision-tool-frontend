@@ -12,6 +12,8 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import { Link } from "react-router-dom";
 import "./styles.css";
+import ProjectForm from "./Form";
+import { selectsProject } from "../duck/operations";
 
 
 /* constants */
@@ -158,15 +160,29 @@ class Projects extends Component {
     closeProjectForm();
   };
 
-
+/**
+   * @function
+   * @name handleAfterCloseForm
+   * @description Perform post close form cleanups
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleAfterCloseForm = () => {
+    const { selectProject } = this.props;
+    selectProject();
+    this.setState({ isEditForm: false });
+  };
   render() {
     const {
       projects,
-      loading,
+      loading,      
       page,
       total,
       searchQuery,
       showForm,
+      selected,
+      posting
     } = this.props;
 
     const { isEditForm } = this.state;
@@ -277,16 +293,20 @@ class Projects extends Component {
           title={
             isEditForm ? "Edit Human Resources" : "Add New Human Resources"
           } centered
+          footer={null}
           visible={showForm}
-          // footer={null}
           onCancel={this.closeProjectForm}
           destroyOnClose
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
         >
-          <p>some contents...</p>
-          <p>some contents...</p>
-          <p>some contents...</p>
+          <ProjectForm
+           posting={posting}
+           selected={selected}
+           isEditForm={isEditForm}
+           Projects={projects}
+           handleAfterCloseForm={this.handleAfterCloseForm}
+           onCancel={this.closeProjectForm}/>
         </Modal>
       </div>
     );
