@@ -306,6 +306,11 @@ export function closeSubProjectForm() {
   };
 }
 
+export const selectProject = (selected_project) => ({
+  type: types.SELECT_PROJECT,
+  payload: selected_project,
+});
+
 export function openProjectsForm() {
   return {
     type: types.OPEN_PROJECTS_FORM,

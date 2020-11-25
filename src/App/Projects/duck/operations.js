@@ -30,11 +30,14 @@ import {
   openSubProjectForm,
   closeSubProjectForm,
   closeProjectForm,
-  openProjectForm
+  openProjectForm,
+  selectProject
 } from './actions';
 
 export const opensProjectForm = openProjectForm;
 export const closesProjectForm = closeProjectForm;
+export const selectsProject = selectProject;
+
 
 export {
   getProjectsStart,

@@ -77,7 +77,7 @@ export const getDistricts = (regionId) =>
  */
 export const createProjects = (project) =>
     axios
-        .post(`/human_resources`, project)
+        .post(`/projects`, project)
         .then((response) => response.data);
 
 /**

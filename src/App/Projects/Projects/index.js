@@ -132,30 +132,30 @@ class Projects extends Component {
 
   /**
    * @function
-   * @name openHumanResourceForm
+   * @name openProjectForm
    * @description Open Human Resources form
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-  openHumanResourceForm = () => {
-    // const { openHumanResourceForm } = this.props;
-    // openHumanResourceForm();
+  openProjectForm = () => {
+    const { openProjectForm } = this.props;
+    openProjectForm();
   };
 
   /**
    * @function
-   * @name closeHumanResourceForm
+   * @name closeProjectForm
    * @description close Human Resources form
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-  closeHumanResourceForm = () => {
+  closeProjectForm = () => {
     this.setState({ isEditForm: false, visible: false });
-    // const { closeHumanResourceForm, selectHumanResource } = this.props;
-    // selectHumanResource(null);
-    // closeHumanResourceForm();
+    const { closeProjectForm, selectProject } = this.props;
+    selectProject(null);
+    closeProjectForm();
   };
 
 
@@ -169,8 +169,8 @@ class Projects extends Component {
       showForm,
     } = this.props;
 
-    const { isEditForm  } = this.state;
-    
+    const { isEditForm } = this.state;
+
     return (
       <div>
         {/* Topbar */}
@@ -187,7 +187,7 @@ class Projects extends Component {
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New Project",
-              onClick: this.openInitiativeForm,
+              onClick: this.openProjectForm,
             },
           ]}
         />
@@ -278,8 +278,8 @@ class Projects extends Component {
             isEditForm ? "Edit Human Resources" : "Add New Human Resources"
           } centered
           visible={showForm}
-          footer={null}
-          onCancel={this.closeHumanResourceForm}
+          // footer={null}
+          onCancel={this.closeProjectForm}
           destroyOnClose
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
@@ -321,7 +321,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   fetchProjects: projectOperation.getProjectsStart,
-  deleteProject: projectOperation.deleteProjectStart
+  deleteProject: projectOperation.deleteProjectStart,
+  openProjectForm: projectOperation.opensProjectForm,
+  closeProjectForm: projectOperation.closesProjectForm,
+  selectProject: projectOperation.selectsProject
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

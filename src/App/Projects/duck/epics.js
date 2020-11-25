@@ -17,6 +17,17 @@ export const projectsListEpic = action$ => {
     )
 };
 
+export const createProjectPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_PROJECT_START),
+        switchMap(data => {
+            return from(API.createProjects(data.payload))
+        }),
+        switchMap(res => { return of(actions.createProjectSuccess(res)) }),
+        catchError(error => of(actions.createProjectFailure(error)))
+    )
+}
+
 export const deleteProjectEpic = action$ => {
     return action$.pipe(
         ofType(types.DELETE_PROJECT_START),
@@ -52,5 +63,6 @@ export const deleteSubProjectEpic = action$ =>
             )
         }),
         switchMap(() => of(actions.getSubProjectsStart()))
-    )
- 
+    );
+
+
