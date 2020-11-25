@@ -129,6 +129,7 @@ class Projects extends Component {
       },
     });
   };
+  
   render() {
     const {
       projects,

@@ -106,6 +106,29 @@ class SubProjects extends Component {
     this.setState({ cached: null });
   };
 
+  /**
+   * @function
+   * @name showArchiveConfirm
+   * @description show confirm modal before archiving a subproject
+   * @param {object} item Resource item to be archived
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  showArchiveConfirm = (item) => {
+    const { deleteSubproject } = this.props;
+    console.log(item.id)
+    debugger
+    confirm({
+      title: `Are you sure you want to archive this record ?`,
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        deleteSubproject(item.id);
+      },
+    });
+  };
 
   render() {
     const {
@@ -121,16 +144,16 @@ class SubProjects extends Component {
         <Topbar
           search={{
             size: "large",
-            placeholder: "Search for Projects here ...",
+            placeholder: "Search for Sub-project here ...",
             onChange: this.searchInitiative,
             value: searchQuery,
           }}
           actions={[
             {
-              label: "New Project",
+              label: "New Sub-project",
               icon: <PlusOutlined />,
               size: "large",
-              title: "Add New Project",
+              title: "Add New Sub-project",
               onClick: this.openInitiativeForm,
             },
           ]}
@@ -139,7 +162,7 @@ class SubProjects extends Component {
 
         {/* list starts */}
         <ProjectsList
-          itemName="Projects"
+          itemName="Sub-project"
           items={projects}
           page={page}
           loading={loading}
@@ -163,14 +186,14 @@ class SubProjects extends Component {
                 renderActions={() => (
                   <ListItemActions
                     edit={{
-                      name: "Edit project",
-                      title: "Update project details",
+                      name: "Edit Sub-project",
+                      title: "Update Sub-project details",
                       onClick: () => this.handleEdit(item),
                     }}
                     archive={{
-                      name: "Archive project",
+                      name: "Archive Sub-project",
                       title:
-                        "Remove project from list of active Projects",
+                        "Remove Sub project from list of active Sub Projects",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
                   />
@@ -246,6 +269,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   fetchSubProjects: projectOperation.getSubProjectsStart,
+  deleteSubproject: projectOperation.deleteSubProjectStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjects);

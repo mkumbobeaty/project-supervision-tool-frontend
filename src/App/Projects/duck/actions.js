@@ -274,10 +274,10 @@ export function deleteSubProjectStart() {
   };
 }
 
-export function deleteSubProjectSuccess(sub_project) {
+export function deleteSubProjectSuccess(sub_project_id) {
   return {
     type: types.DELETE_PROJECT_SUCCESS,
-    payload: sub_project,
+    payload: sub_project_id,
   };
 }
 
