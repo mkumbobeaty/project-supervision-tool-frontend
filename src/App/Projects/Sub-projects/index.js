@@ -135,6 +135,7 @@ class SubProjects extends Component {
       projects,
       loading,
       page,
+      total,
       searchQuery,
 
     } = this.props;
@@ -166,6 +167,7 @@ class SubProjects extends Component {
           items={projects}
           page={page}
           loading={loading}
+          itemCount={total}
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefreshInitiative}
           
@@ -263,7 +265,10 @@ const mapStateToProps = (state) => {
   return {
     projects: state.projects.sub_projects.data
       ? state.projects.sub_projects.data
-      : []
+      : [],
+    loading: state.projects.sub_projects.loading,
+    page:state.projects.sub_projects.page,
+    total: state.projects.sub_projects.total,
   };
 };
 

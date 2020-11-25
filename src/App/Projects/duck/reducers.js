@@ -36,10 +36,12 @@ const projectstate = {
 
 const defaultSubProjects = {
   data: [],
-  total: 0,
+  total: 1,
   loading: false,
   error: null,
-  page: 0,
+  showForm: false,
+  posting: false,
+  page: 1,
 };
 
 const fetchingAgencies = (state = false, action) => {

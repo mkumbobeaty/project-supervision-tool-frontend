@@ -135,6 +135,7 @@ class Projects extends Component {
       projects,
       loading,
       page,
+      total,
       searchQuery,
 
     } = this.props;
@@ -166,6 +167,7 @@ class Projects extends Component {
           items={projects}
           page={page}
           loading={loading}
+          itemCount={total}
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefreshInitiative}
           onPaginate={(nextPage) => {
@@ -261,7 +263,10 @@ const mapStateToProps = (state) => {
   return {
     projects: state.projects.main_projects.data
       ? state.projects.main_projects.data
-      : []
+      : [],
+    loading:state.projects.main_projects.loading,
+    page:state.projects.main_projects.page,
+    total:state.projects.main_projects.total
   };
 };
 

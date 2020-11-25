@@ -268,15 +268,16 @@ export function updateSubProjectFailure(error) {
 }
 
 // deleting 
-export function deleteSubProjectStart() {
+export function deleteSubProjectStart(project_id) {
   return {
     type: types.DELETE_SUB_PROJECT_START,
+    payload:project_id
   };
 }
 
 export function deleteSubProjectSuccess(sub_project_id) {
   return {
-    type: types.DELETE_PROJECT_SUCCESS,
+    type: types.DELETE_SUB_PROJECT_SUCCESS,
     payload: sub_project_id,
   };
 }
