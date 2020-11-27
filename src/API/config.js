@@ -1,6 +1,6 @@
 import Axios from "axios";
 
-const API_BASE_URL ="https://project-supervision-tool-api.herokuapp.com";
+const API_BASE_URL = process.env.REACT_APP_API_URL || "https://project-supervision-tool-api.herokuapp.com";
 Axios.defaults.baseURL = `${API_BASE_URL}/api/v1`;
 
 /**

@@ -63,7 +63,7 @@ const regionProjects = (state = initialRegionProjects, action) => {
 
 
 const  initialRegionDetails = {
-    data: [],
+    data: {},
     error: {}
 }
 const regionDetails = (state = initialRegionDetails, action) => {

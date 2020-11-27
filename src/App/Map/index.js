@@ -14,6 +14,7 @@ import {mapActions, mapSelectors } from "./duck";
 import SideNav from "./components/SideNav";
 import RegionsGeoJson from "./components/RegionsGeoJson";
 import RegionDetailGeoJson from "./components/RegionDetailsGeoJson";
+import ProjectPoints from "./components/ProjectPoints";
 
 class MapDashboard extends  Component {
     state = {
@@ -72,6 +73,7 @@ class MapDashboard extends  Component {
             projectsOverview,
             getProjectsByRegion,
             regionDetails,
+            regionProjects,
             mapLoading,
         } = this.props;
         return (
@@ -84,6 +86,7 @@ class MapDashboard extends  Component {
                             projectsOverview={projectsOverview}
                         />
                         <RegionDetailGeoJson data={regionDetails} />
+                        <ProjectPoints regionDetails={regionDetails} regionProjects={regionProjects}/>
                     </BaseMap>
                 </Spin>
             </div>
@@ -95,6 +98,7 @@ class MapDashboard extends  Component {
 const mapStateToProps = (state) => {
     return {
         mapLoading: mapSelectors.getMapLoadingSelector(state),
+        regionProjects: mapSelectors.getRegionProjectsSelector(state),
         regionDetails: mapSelectors.getRegionDetailsSelector(state),
         projectsOverview: mapSelectors.getProjectsOverview(state),
     };
@@ -111,10 +115,12 @@ MapDashboard.propTypes = {
     getProjectsByRegion: PropTypes.func.isRequired,
     regionDetails: PropTypes.object.isRequired,
     projectsOverview: PropTypes.array.isRequired,
+    regionProjects: PropTypes.array.isRequired,
 };
 
 MapDashboard.defaultProps = {
     projectsOverview: [],
+    regionProjects: [],
     regionDetails: null,
     getProjectsByRegion: () => {},
 };
