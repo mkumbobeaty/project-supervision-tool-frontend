@@ -26,7 +26,7 @@ class ProjectPoints extends Component {
     generateProjectMarkers = (regionProjects) => {
         const {regionDetails} = this.props;
         const regionId = regionDetails.id;
-        const points = regionProjects.map(regionProject => {
+        return regionProjects.map(regionProject => {
             const {locations} = regionProject;
             return locations.map(location => {
 
@@ -35,25 +35,20 @@ class ProjectPoints extends Component {
                     "geometry": location?.district.geom,
                 });
 
-                const key = `${regionProject.id}-${location?.district.id}`;
 
                 return {
                     ...pointOnDistrict, "properties": {
                         "name": regionProject.name,
                         "description": regionProject.description,
                         "districtId": location?.district.id,
-                        "key": key,
+                        "key": `${regionProject.id}-${location?.district.id}`,
                         "regionId": location?.district.region_id,
                         "districtName": location?.district.name,
                         "projectId": regionProject.id,
                     }
                 };
             });
-        });
-
-        const flattenedArrayOfPoint = points.flat();
-
-        return flattenedArrayOfPoint.filter(p => p.properties.regionId === regionId);
+        }).flat().filter(p => p.properties.regionId === regionId);
     }
 
 
