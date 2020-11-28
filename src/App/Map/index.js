@@ -3,10 +3,8 @@
 import React, {Component} from 'react';
 import {Spin} from 'antd';
 import PropTypes from "prop-types";
-import {GeoJSON, Tooltip} from "react-leaflet";
 import { connect } from 'react-redux';
 import L from 'leaflet';
-import {generateColor, generateNumberRange} from '../../Util'
 import "./styles.css";
 import BaseMap from "./BaseMap";
 import {bindActionCreators} from "redux";
