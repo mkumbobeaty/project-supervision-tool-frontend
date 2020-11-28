@@ -3,8 +3,11 @@ import {Button} from 'antd';
 import {LeftOutlined} from '@ant-design/icons';
 import './styles.css';
 import {isoDateToHumanReadableDate, moneyFormat} from "../../../../../../../../Util";
+import SummarySection from "../SummarySection";
 
 function ProjectInfo({project}) {
+
+    const items = project?.sub_projects.map(({name, id}) => ({name, id}))
 
     return project ? (
         <div className="ProjectInfo">
@@ -26,11 +29,11 @@ function ProjectInfo({project}) {
                 <article>
                     <div>
                         <span title="TOTAL PROJECT COST">TOTAL PROJECT COST</span><br/>
-                        <b>{ project?.details?.total_project_cost?.currency.iso} {moneyFormat(project?.details?.total_project_cost?.amount)}</b>
+                        <b>{project?.details?.total_project_cost?.currency.iso} {moneyFormat(project?.details?.total_project_cost?.amount)}</b>
                     </div>
                     <div>
                         <span title="TOTAL COMMITMENT AMOUNT">TOTAL COMMITMENT AMOUNT </span><br/>
-                        <b> { project?.details?.commitment_amount?.currency.iso} {moneyFormat(project?.details?.commitment_amount?.amount)}</b>
+                        <b> {project?.details?.commitment_amount?.currency.iso} {moneyFormat(project?.details?.commitment_amount?.amount)}</b>
                     </div>
                 </article>
                 <article>
@@ -49,6 +52,9 @@ function ProjectInfo({project}) {
                         <b>Active</b>
                     </div>
                 </article>
+            </section>
+            <section>
+                <SummarySection sectionName="Sub Projects" items={items}/>
             </section>
             <section className="link-actions">
                 <Button><a>VIEW FULL PROJECT</a></Button>
