@@ -1,16 +1,19 @@
+
+import React from "react";
+import PropTypes from 'prop-types';
 import ProjectsSummarySections from "./ProjectsSummarySections";
 import RegionProjectsSummarySections from "./RegionProjectsSummarySections";
-import React from "react";
 
 
-function SummarySections({projectsOverview, regionProjects}){
+function SummarySections({projectsOverview, regionProjects, getProject}){
+
 
     const renderSections = () => {
         if (projectsOverview.length > 0) {
             return <ProjectsSummarySections projectsOverview={projectsOverview}/>;
         }
         else if (regionProjects.length > 0) {
-            return <RegionProjectsSummarySections regionProjects={regionProjects} />;
+            return <RegionProjectsSummarySections regionProjects={regionProjects} getProject={getProject}/>;
         }
         else {
             return '';
@@ -22,3 +25,15 @@ function SummarySections({projectsOverview, regionProjects}){
 }
 
 export default SummarySections;
+
+SummarySections.propTypes = {
+    projectsOverview: PropTypes.array,
+    regionProjects: PropTypes.array,
+    getProject: PropTypes.func,
+}
+
+SummarySections.defaultProps = {
+    projectsOverview: [],
+    regionProjects: [],
+    getProject: () => {},
+}

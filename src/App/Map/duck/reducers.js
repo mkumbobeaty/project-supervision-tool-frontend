@@ -28,6 +28,8 @@ const mapLoading = (state = false, action) => {
     switch (action.type) {
         case types.GET_PROJECTS_OVERVIEW_START:
             return true;
+        case types.SHOW_MAP_LOADER:
+            return action.payload;
         case types.GET_PROJECTS_OVERVIEW_SUCCESS:
             return false;
         case types.GET_PROJECTS_OVERVIEW_FAILURE:
@@ -55,6 +57,8 @@ const regionProjects = (state = initialRegionProjects, action) => {
             return {...state, data: action.payload};
         case types.GET_PROJECTS_BY_REGION_FAILURE:
             return {...state, error: action.payload};
+        case types.CLEAR_REGION_PROJECTS:
+            return {...state, data: []};
         default:
             return state;
     }

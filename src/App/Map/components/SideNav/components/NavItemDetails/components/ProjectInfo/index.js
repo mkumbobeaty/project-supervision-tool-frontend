@@ -3,9 +3,9 @@ import {Button} from 'antd';
 import {LeftOutlined} from '@ant-design/icons';
 import './styles.css';
 
-function ProjectInfo({project, show}) {
+function ProjectInfo({project}) {
 
-    return show ? (
+    return project ? (
         <div className="ProjectInfo">
             <section className="top-section">
                 <div className='project-title'>

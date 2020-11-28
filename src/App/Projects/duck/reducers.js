@@ -202,6 +202,21 @@ const Project = (state = projectstate, action) => {
   }
 };
 
+// TODO note: reducer added by EDGAR
+const project = (state = {data: null, error: null, loading: false}, action) => {
+  switch (action.type) {
+    case types.GET_PROJECT_START:
+      return { ...state, loading: true}
+    case types.GET_PROJECT_SUCCESS:
+      return { ...state, data: action.payload, loading: false}
+    case types.GET_PROJECT_FAILURE:
+      return { ...state, error: action.payload, loading: false}
+    default:
+      return state;
+
+  }
+}
+
 // selected human resource
 const selectedProjects = (state = null, action) => {
   switch (action.type) {
@@ -239,4 +254,5 @@ export const resources = combineReducers({
   Projects,
   Project,
   deleteProjects,
+  project,
   });

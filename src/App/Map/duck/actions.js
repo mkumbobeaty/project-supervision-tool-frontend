@@ -71,6 +71,14 @@ export const getProjectsOverviewStart = makeActionCreator(types.GET_PROJECTS_OVE
  */
 export const clearProjectsOverview = makeActionCreator(types.CLEAR_PROJECTS_OVERVIEW);
 
+
+
+/**
+ * @function
+ * @name clearRegionProjects
+ */
+export const clearRegionProjects = makeActionCreator(types.CLEAR_REGION_PROJECTS);
+
 /**
  * @function
  * @name getProjectsOverviewSuccess
@@ -86,6 +94,8 @@ export const getProjectsOverviewFailure = makeActionCreator(types.GET_PROJECTS_O
 /**
  * @function
  * @name showMapLoader
+ * @description initiate/stops map loader
+ * @param {boolean} loaderStatus loader status
  */
 export const showMapLoader = makeActionCreator(types.SHOW_MAP_LOADER, 'payload');
 
