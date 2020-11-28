@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import './styles.css'
 import OverView from './components/OverView';
 import ProjectInfo from "./components/ProjectInfo";
-import {mapActions, mapSelectors} from "../../../../duck";
-import {projectActions} from "../../../../../Projects/duck";
+import { mapSelectors} from "../../../../duck";
+import {projectActions, projectSelectors } from "../../../../../Projects/duck";
 
 import {bindActionCreators} from "redux";
 
@@ -47,6 +47,7 @@ class NavItemDetails extends Component{
 
 const mapStateToProps = (state) => ({
     activeItem: mapSelectors.getActiveMapSideMenuItem(state),
+    project: projectSelectors.getProjectSelector(state),
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     projectsOverview: mapSelectors.getProjectsOverview(state),
 });

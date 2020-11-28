@@ -2,6 +2,7 @@ import React from "react";
 import {Button} from 'antd';
 import {LeftOutlined} from '@ant-design/icons';
 import './styles.css';
+import {isoDateToHumanReadableDate, moneyFormat} from "../../../../../../../../Util";
 
 function ProjectInfo({project}) {
 
@@ -9,8 +10,8 @@ function ProjectInfo({project}) {
         <div className="ProjectInfo">
             <section className="top-section">
                 <div className='project-title'>
-                    <div>Tanzania - Intermodal & Rail Development Project</div>
-                    <small>P127241</small>
+                    <div>{project.name}</div>
+                    <small>{project.id}</small>
                 </div>
 
                 <div className="back-button"><a> <LeftOutlined/> <span>Back</span></a></div>
@@ -20,29 +21,26 @@ function ProjectInfo({project}) {
                 Sector: Transportation
             </section>
             <hr/>
-            <section>
-                The project development objective is to deliver a reliable open access infrastructure on the Dar
-                es Salaam-Isaka rail segment.
-            </section>
+            <section>{project.description}</section>
             <section className="project-highlights">
                 <article>
                     <div>
-                        <span>COUNTRY</span><br/>
-                        <b>Tanzania</b>
+                        <span title="TOTAL PROJECT COST">TOTAL PROJECT COST</span><br/>
+                        <b>{ project?.details?.total_project_cost?.currency.iso} {moneyFormat(project?.details?.total_project_cost?.amount)}</b>
                     </div>
                     <div>
-                        <span>TOTAL COMMITMENT AMOUNT </span><br/>
-                        <b>$ 300m</b>
+                        <span title="TOTAL COMMITMENT AMOUNT">TOTAL COMMITMENT AMOUNT </span><br/>
+                        <b> { project?.details?.commitment_amount?.currency.iso} {moneyFormat(project?.details?.commitment_amount?.amount)}</b>
                     </div>
                 </article>
                 <article>
                     <div>
                         <span>APPROVAL DATE</span><br/>
-                        <b>24 Apr 2014</b>
+                        <b>{isoDateToHumanReadableDate(project?.details?.approval_date)}</b>
                     </div>
                     <div>
                         <span>CLOSING DATE</span><br/>
-                        <b>31 May 2021</b>
+                        <b>{isoDateToHumanReadableDate(project?.details?.closing_date)}</b>
                     </div>
                 </article>
                 <article>

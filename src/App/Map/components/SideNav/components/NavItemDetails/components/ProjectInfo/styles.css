@@ -24,6 +24,9 @@
 
 .ProjectInfo .project-highlights {
     padding-top: 10px;
+    font-size: 0.9em;
+    cursor: pointer;
+    padding-bottom: 10px;
 }
 
 .ProjectInfo .project-highlights article {
@@ -33,12 +36,12 @@
 }
 
 .ProjectInfo .project-highlights article div:nth-child(1) {
-    width: 40%;
+    width: 50%;
     text-align: left;
 }
 
 .ProjectInfo .project-highlights article div:nth-child(2) {
-    width: 60%;
+    width: 50%;
     text-align: right;
 }
 
