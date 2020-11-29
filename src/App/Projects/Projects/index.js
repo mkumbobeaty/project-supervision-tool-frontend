@@ -13,7 +13,7 @@ import ListItemActions from "../../components/ListItemActions";
 import { Link } from "react-router-dom";
 import "./styles.css";
 import ProjectForm from "./Form";
-import { selectsProject } from "../duck/operations";
+import { focalPeopleOperation } from "../../FocalPeople/duck";
 
 
 /* constants */
@@ -77,8 +77,9 @@ class Projects extends Component {
   };
 
   componentDidMount() {
-    const { fetchProjects } = this.props;
-    fetchProjects()
+    const { fetchProjects, focalPeople } = this.props;
+    fetchProjects();
+    focalPeople();
   }
 
   /**
@@ -160,23 +161,23 @@ class Projects extends Component {
     closeProjectForm();
   };
 
-/**
-   * @function
-   * @name handleAfterCloseForm
-   * @description Perform post close form cleanups
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
+  /**
+     * @function
+     * @name handleAfterCloseForm
+     * @description Perform post close form cleanups
+     *
+     * @version 0.1.0
+     * @since 0.1.0
+     */
   handleAfterCloseForm = () => {
     const { selectProject } = this.props;
-    selectProject();
+    selectProject(null);
     this.setState({ isEditForm: false });
   };
   render() {
     const {
       projects,
-      loading,      
+      loading,
       page,
       total,
       searchQuery,
@@ -301,12 +302,12 @@ class Projects extends Component {
           afterClose={this.handleAfterCloseForm}
         >
           <ProjectForm
-           posting={posting}
-           selected={selected}
-           isEditForm={isEditForm}
-           Projects={projects}
-           handleAfterCloseForm={this.handleAfterCloseForm}
-           onCancel={this.closeProjectForm}/>
+            posting={posting}
+            selected={selected}
+            isEditForm={isEditForm}
+            Projects={projects}
+            handleAfterCloseForm={this.handleAfterCloseForm}
+            onCancel={this.closeProjectForm} />
         </Modal>
       </div>
     );
@@ -344,7 +345,8 @@ const mapDispatchToProps = {
   deleteProject: projectOperation.deleteProjectStart,
   openProjectForm: projectOperation.opensProjectForm,
   closeProjectForm: projectOperation.closesProjectForm,
-  selectProject: projectOperation.selectsProject
+  selectProject: projectOperation.selectsProject,
+  focalPeople: focalPeopleOperation.getFocalPeopleStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

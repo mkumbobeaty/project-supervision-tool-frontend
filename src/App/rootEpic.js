@@ -4,6 +4,7 @@ import { getProjectsOverviewEpic, handleMapLoaderEpic } from "./Map/duck/epics";
 import { mapRootEpic } from "./Map/duck/epics";
 import { restoreAccessTokenEpic } from './duck/epics';
 import { loginEpic } from "./Auth/duck/epics";
+import { focalPeopleEpic } from "./FocalPeople/duck/epics";
 
 export const rootEpic = combineEpics(
     projectsListEpic,
@@ -14,4 +15,5 @@ export const rootEpic = combineEpics(
     loginEpic,
     restoreAccessTokenEpic,
     mapRootEpic,
+    focalPeopleEpic
 )
