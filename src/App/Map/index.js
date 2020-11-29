@@ -1,25 +1,39 @@
-
-
 import React, {Component} from 'react';
 import {Spin} from 'antd';
 import PropTypes from "prop-types";
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import L from 'leaflet';
 import "./styles.css";
 import BaseMap from "./BaseMap";
 import {bindActionCreators} from "redux";
-import {mapActions, mapSelectors } from "./duck";
+import {mapActions, mapSelectors} from "./duck";
 import SideNav from "./components/SideNav";
 import RegionsGeoJson from "./components/RegionsGeoJson";
 import RegionDetailGeoJson from "./components/RegionDetailsGeoJson";
 import ProjectPoints from "./components/ProjectPoints";
 
-class MapDashboard extends  Component {
+class MapDashboard extends Component {
     state = {
         lat: -6.161184,
         lng: 35.745426,
         zoom: 7,
     }
+
+    static propTypes = {
+        mapLoading: PropTypes.bool.isRequired,
+        getProjectsByRegion: PropTypes.func.isRequired,
+        regionDetails: PropTypes.object.isRequired,
+        projectsOverview: PropTypes.array.isRequired,
+        regionProjects: PropTypes.array.isRequired,
+    };
+
+    static defaultProps = {
+        projectsOverview: [],
+        regionProjects: [],
+        regionDetails: null,
+        getProjectsByRegion: () => {
+        },
+    };
 
     constructor(props) {
         super(props);
@@ -27,7 +41,7 @@ class MapDashboard extends  Component {
     }
 
     displayRemoteLayers() {
-        const leafletMap =  this.map.current.leafletElement;
+        const leafletMap = this.map.current.leafletElement;
         const Dar_es_Salaam_Office_Points = L.tileLayer.wms("https://geonode.resilienceacademy.ac.tz/geoserver/ows", {
             layers: 'geonode:Dar_es_Salaam_Office_Points',
             format: 'image/png',
@@ -58,7 +72,7 @@ class MapDashboard extends  Component {
 
         //add zoom control with your options
         L.control.zoom({
-            position:'topright'
+            position: 'topright'
         }).addTo(leafletMap);
     }
 
@@ -76,14 +90,14 @@ class MapDashboard extends  Component {
         } = this.props;
         return (
             <div className="MapDashboard">
-               <SideNav/>
+                <SideNav/>
                 <Spin spinning={mapLoading} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>
                         <RegionsGeoJson
                             getProjectsByRegion={getProjectsByRegion}
                             projectsOverview={projectsOverview}
                         />
-                        <RegionDetailGeoJson data={regionDetails} />
+                        <RegionDetailGeoJson data={regionDetails}/>
                         <ProjectPoints regionDetails={regionDetails} regionProjects={regionProjects}/>
                     </BaseMap>
                 </Spin>
@@ -93,35 +107,17 @@ class MapDashboard extends  Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        mapLoading: mapSelectors.getMapLoadingSelector(state),
-        regionProjects: mapSelectors.getRegionProjectsSelector(state),
-        regionDetails: mapSelectors.getRegionDetailsSelector(state),
-        projectsOverview: mapSelectors.getProjectsOverview(state),
-    };
-};
+const mapStateToProps = (state) => ({
+    mapLoading: mapSelectors.getMapLoadingSelector(state),
+    regionProjects: mapSelectors.getRegionProjectsSelector(state),
+    regionDetails: mapSelectors.getRegionDetailsSelector(state),
+    projectsOverview: mapSelectors.getProjectsOverview(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
     getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
 });
 
-
-
-MapDashboard.propTypes = {
-    mapLoading: PropTypes.bool.isRequired,
-    getProjectsByRegion: PropTypes.func.isRequired,
-    regionDetails: PropTypes.object.isRequired,
-    projectsOverview: PropTypes.array.isRequired,
-    regionProjects: PropTypes.array.isRequired,
-};
-
-MapDashboard.defaultProps = {
-    projectsOverview: [],
-    regionProjects: [],
-    regionDetails: null,
-    getProjectsByRegion: () => {},
-};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapDashboard);
 

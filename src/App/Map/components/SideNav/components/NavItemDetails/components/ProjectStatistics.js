@@ -1,6 +1,8 @@
 import {Button} from "antd";
 import React from "react";
 import {moneyFormat} from "../../../../../../../Util";
+import IntroSection from "./IntroSection";
+
 
 
 
@@ -17,24 +19,8 @@ function ProjectStatistics ({ projectsStatistics }) {
         {title: 'Regions', value: projectsStatistics.regions},
     ] : [];
 
-    const renderStatisticItems = (items) => items.map(({title, value }) => (
-        <div className='overview-table-item'>
-            <div title={title}>{title}</div>
-            <div>{value}</div>
-        </div>
-    ));
 
-    return projectsStatistics ? (
-        <>
-            <section className='overview-details'>
-                <div className='overview-title'>Overview</div>
-                <Button type="primary" style={{fontSize: 10}} size='small'>FILTERS</Button>
-            </section>
-            <section className='overview-table'>
-                { renderStatisticItems(data)}
-            </section>
-        </>
-    ) : '';
+    return data.length > 0 ? (<IntroSection data={data} title="OverView"/>) : '';
 }
 
 export default ProjectStatistics;
