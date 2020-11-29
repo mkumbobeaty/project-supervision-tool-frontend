@@ -18,7 +18,7 @@ function SummarySection({items, sectionName, getData}) {
                 {items.map((item, i) =>
                     <li
                         key={i}
-                        onClick={() => getData(item?.id)}
+                        onClick={() => getData(item)}
                     >
                         <SummaryItem
                             name={item.name}

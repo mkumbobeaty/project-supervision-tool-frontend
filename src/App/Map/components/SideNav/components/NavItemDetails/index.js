@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './styles.css'
 import OverView from './components/OverView';
 import ProjectInfo from "./components/ProjectInfo";
-import { mapSelectors} from "../../../../duck";
+import {mapActions, mapSelectors} from "../../../../duck";
 import {projectActions, projectSelectors } from "../../../../../Projects/duck";
 
 import {bindActionCreators} from "redux";
@@ -18,11 +18,13 @@ class NavItemDetails extends Component{
         regionProjects: PropTypes.array.isRequired,
         project: PropTypes.object,
         getProject: PropTypes.func,
+        getProjectsByRegion: PropTypes.func,
     }
 
     static defaultPropTypes = {
         project: null,
         getProject: () => {},
+        getProjectsByRegion: () => {},
     }
 
     render() {
@@ -31,8 +33,9 @@ class NavItemDetails extends Component{
             projectsOverview,
             regionProjects,
             project,
-            getProject ,
-            projectsStatistics ,
+            getProject,
+            projectsStatistics,
+            getProjectsByRegion,
         } = this.props;
         return (
             <div
@@ -45,6 +48,7 @@ class NavItemDetails extends Component{
                     projectsOverview={projectsOverview}
                     regionProjects={regionProjects}
                     projectsStatistics={projectsStatistics}
+                    getProjectsByRegion={getProjectsByRegion}
                 />
                 <ProjectInfo project={project}/>
             </div>
@@ -63,6 +67,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getProject: bindActionCreators(projectActions.getProjectStart, dispatch),
+    getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
 });
 
 
