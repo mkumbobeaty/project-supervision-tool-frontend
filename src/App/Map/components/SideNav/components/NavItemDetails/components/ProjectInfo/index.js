@@ -16,8 +16,7 @@ function ProjectInfo({project}) {
                     <div>{project.name}</div>
                     <small>{project.id}</small>
                 </div>
-
-                <div className="back-button"><a> <LeftOutlined/> <span>Back</span></a></div>
+                <div className="back-button"><a> <LeftOutlined style={{fontSize: 10}}/> <span>Back</span></a></div>
             </section>
             <hr/>
             <section className="sector">

@@ -9,6 +9,11 @@
 
 .ProjectInfo .top-section .back-button {
     width: 25%;
+    text-align: right;
+}
+
+.ProjectInfo .top-section .project-title {
+    width: 75%;
 }
 
 .ProjectInfo .top-section .project-title div, .ProjectInfo .sector {
