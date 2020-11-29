@@ -16,7 +16,11 @@ const getProjectsOverviewEpic = action$ =>
         ofType(types.GET_PROJECTS_OVERVIEW_START),
         switchMap(() => {
             return from(API.getProjectOverview()).pipe(
-                switchMap(res =>  from([actions.getProjectsOverviewSuccess(res.data), actions.showMapLoader(false)])),
+                switchMap(res =>  from([
+                    actions.getProjectsOverviewSuccess(res.data),
+                    actions.showMapLoader(false),
+                    actions.getProjectsStatisticsStart()
+                ])),
                 catchError(error => from([actions.getProjectsOverviewFailure(error), actions.showMapLoader(false)]))
             );
         }),
@@ -38,6 +42,48 @@ const getProjectsByRegionEpic = action$ =>
             return from(API.getProjectsByRegion(payload)).pipe(
                 switchMap(res =>  of(actions.getProjectsByRegionSuccess(res.data))),
                 catchError(error => of(actions.getProjectsByRegionFailures(error)))
+            );
+        }),
+    );
+}
+
+
+
+
+/**
+ *
+ * @function
+ * @name getProjectsStatistics
+ * @param action$ stream of actions
+ */
+const getProjectsStatistics = action$ =>
+{
+    return action$.pipe(
+        ofType(types.GET_PROJECTS_STATISTICS_START),
+        switchMap(() => {
+            return from(API.getProjectsStatistics()).pipe(
+                switchMap(res =>  of(actions.getProjectsStatisticsSuccess(res.data))),
+                catchError(error => of(actions.getProjectsStatisticsFailure(error)))
+            );
+        }),
+    );
+}
+
+
+/**
+ *
+ * @function
+ * @name getProjectStatistics
+ * @param action$ stream of actions
+ */
+const getProjectStatistics = action$ =>
+{
+    return action$.pipe(
+        ofType(types.GET_PROJECT_STATISTICS_START),
+        switchMap(({ payload }) => {
+            return from(API.getProjectsStatistics(payload)).pipe(
+                switchMap(res =>  of(actions.getProjectStatisticsSuccess(res.data))),
+                catchError(error => of(actions.getProjectStatisticsFailure(error)))
             );
         }),
     );
@@ -86,5 +132,7 @@ export const mapRootEpic = combineEpics(
     getProjectsByRegionEpic,
     triggerGetRegionDetailEpic,
     getRegionDetailEpic,
-    handleMapLoaderEpic
+    handleMapLoaderEpic,
+    getProjectsStatistics,
+    getProjectStatistics,
 );

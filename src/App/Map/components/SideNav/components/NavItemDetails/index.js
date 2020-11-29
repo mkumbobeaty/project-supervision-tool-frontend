@@ -26,7 +26,14 @@ class NavItemDetails extends Component{
     }
 
     render() {
-        const {activeItem, projectsOverview, regionProjects, project, getProject } = this.props;
+        const {
+            activeItem,
+            projectsOverview,
+            regionProjects,
+            project,
+            getProject ,
+            projectsStatistics ,
+        } = this.props;
         return (
             <div
                 style={activeItem === '' ? {display: 'none'} : { width: '16vw'}}
@@ -37,6 +44,7 @@ class NavItemDetails extends Component{
                     getProject={getProject}
                     projectsOverview={projectsOverview}
                     regionProjects={regionProjects}
+                    projectsStatistics={projectsStatistics}
                 />
                 <ProjectInfo project={project}/>
             </div>
@@ -50,6 +58,7 @@ const mapStateToProps = (state) => ({
     project: projectSelectors.getProjectSelector(state),
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     projectsOverview: mapSelectors.getProjectsOverview(state),
+    projectsStatistics: mapSelectors.getProjectsStatistics(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -94,6 +94,34 @@ const regionDetails = (state = initialRegionDetails, action) => {
     }
 };
 
+ const projectStatistics = (state = {data: null , loading: false, error: null  }, action) => {
+    switch (action.type) {
+        case types.GET_PROJECT_STATISTICS_START:
+            return { ...state, loading: true};
+        case types.GET_PROJECT_STATISTICS_SUCCESS:
+            return {...state, data: action.payload, loading: false};
+        case types.GET_PROJECT_STATISTICS_FAILURE:
+            return {...state, error: action.payload, loading: false};
+        default:
+            return state;
+    }
+};
+
+ const projectsStatistics = (state = {data: null , loading: false, error: null  }, action) => {
+    switch (action.type) {
+        case types.GET_PROJECTS_STATISTICS_START:
+            return { ...state, loading: true};
+        case types.GET_PROJECTS_STATISTICS_SUCCESS:
+            return {...state, data: action.payload, loading: false};
+        case types.GET_PROJECTS_STATISTICS_FAILURE:
+            return {...state, error: action.payload, loading: false};
+        default:
+            return state;
+    }
+};
+
+
+
 
 
 export const map = combineReducers({
@@ -101,5 +129,7 @@ export const map = combineReducers({
     projectOverview,
     regionDetails,
     mapLoading,
-    regionProjects
+    regionProjects,
+    projectsStatistics,
+    projectStatistics,
 });

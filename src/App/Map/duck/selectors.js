@@ -23,6 +23,13 @@ export const getProjectsOverview = (state) => state?.map?.projectOverview?.data;
 
 /**
  * @function
+ * @name getProjectsStatistics
+ * @param {Object} state redux state
+ */
+export const getProjectsStatistics = (state) => state?.map?.projectsStatistics?.data;
+
+/**
+ * @function
  * @name getRegionProjectsSelector
  * @param {Object} state redux state
  */
