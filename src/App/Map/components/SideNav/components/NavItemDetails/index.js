@@ -15,6 +15,8 @@ class NavItemDetails extends Component{
     static propTypes = {
         activeItem: PropTypes.string.isRequired,
         projectsOverview: PropTypes.array.isRequired,
+        regionProjectsStatistics: PropTypes.object,
+        projectsStatistics: PropTypes.object,
         regionProjects: PropTypes.array.isRequired,
         project: PropTypes.object,
         getProject: PropTypes.func,
@@ -23,6 +25,8 @@ class NavItemDetails extends Component{
 
     static defaultPropTypes = {
         project: null,
+        projectsStatistics: null,
+        regionProjectsStatistics: null,
         getProject: () => {},
         getProjectsByRegion: () => {},
     }
@@ -36,6 +40,7 @@ class NavItemDetails extends Component{
             getProject,
             projectsStatistics,
             getProjectsByRegion,
+            regionProjectsStatistics,
         } = this.props;
         return (
             <div
@@ -48,6 +53,7 @@ class NavItemDetails extends Component{
                     projectsOverview={projectsOverview}
                     regionProjects={regionProjects}
                     projectsStatistics={projectsStatistics}
+                    regionProjectsStatistics={regionProjectsStatistics}
                     getProjectsByRegion={getProjectsByRegion}
                 />
                 <ProjectInfo project={project}/>
@@ -63,6 +69,7 @@ const mapStateToProps = (state) => ({
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     projectsOverview: mapSelectors.getProjectsOverview(state),
     projectsStatistics: mapSelectors.getProjectsStatistics(state),
+    regionProjectsStatistics: mapSelectors.getRegionProjectsStatistics(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

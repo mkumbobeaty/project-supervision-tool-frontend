@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import CustomSearch from "./CustomSearch";
-import ProjectStatistics from "./ProjectStatistics";
+import Statistics from "./Statistics";
 import SummarySections from "./SummarySections";
 
 function OverView({
@@ -12,12 +12,15 @@ function OverView({
                       getProject,
                       projectsStatistics,
                       getProjectsByRegion,
+                      regionProjectsStatistics,
 }) {
+
+    console.log('inside OverView', regionProjectsStatistics);
 
     return show ? (
         <section className='overview'>
             <CustomSearch/>
-            <ProjectStatistics projectsStatistics={projectsStatistics}/>
+            <Statistics projectsStatistics={projectsStatistics} regionProjectsStatistics={regionProjectsStatistics}/>
             <SummarySections
                 projectsOverview={projectsOverview}
                 regionProjects={regionProjects}
@@ -37,6 +40,7 @@ OverView.propTypes = {
     show: PropTypes.bool.isRequired,
     getProject: PropTypes.func.isRequired,
     projectsStatistics: PropTypes.object.isRequired,
+    regionProjectsStatistics: PropTypes.object.isRequired,
     getProjectsByRegion: PropTypes.object.isRequired,
 }
 OverView.defaultProps = {

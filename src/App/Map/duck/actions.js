@@ -78,6 +78,13 @@ export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATI
  export const getRegionProjectStatisticsFailure = makeActionCreator(types.GET_REGION_PROJECT_STATISTICS_FAILURE, 'payload');
 
 
+/**
+ * @function
+ * @name clearRegionProjectsStatistics
+ */
+export const clearRegionProjectsStatistics = makeActionCreator(types.CLEAR_REGION_PROJECTS_STATISTICS);
+
+
 
 // get region project statistics
 /**
@@ -118,6 +125,12 @@ export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATI
  * @param {Array} payload fetched projects
  */
  export const getProjectsStatisticsSuccess = makeActionCreator(types.GET_PROJECTS_STATISTICS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name clearProjectsStatistics
+ */
+ export const clearProjectsStatistics = makeActionCreator(types.CLEAR_PROJECTS_STATISTICS);
 
 /**
  * @function

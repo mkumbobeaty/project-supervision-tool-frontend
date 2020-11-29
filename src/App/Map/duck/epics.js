@@ -40,8 +40,33 @@ const getProjectsByRegionEpic = action$ =>
         ofType(types.GET_PROJECTS_BY_REGION_START),
         switchMap(({ payload }) => {
             return from(API.getProjectsByRegion(payload)).pipe(
-                switchMap(res =>  of(actions.getProjectsByRegionSuccess(res.data))),
+                switchMap(res =>  from([
+                    actions.getProjectsByRegionSuccess(res.data),
+                    actions.clearProjectsStatistics(),
+                    actions.getRegionProjectStatisticsStart(payload),
+                ])),
                 catchError(error => of(actions.getProjectsByRegionFailures(error)))
+            );
+        }),
+    );
+}
+
+/**
+ *
+ * @function
+ * @name getRegionProjectStatisticsEpic
+ * @param action$ stream of actions
+ */
+const getRegionProjectStatisticsEpic = action$ =>
+{
+    return action$.pipe(
+        ofType(types.GET_REGION_PROJECT_STATISTICS_START),
+        switchMap(({ payload }) => {
+            return from(API.getRegionProjectStatistics(payload)).pipe(
+                switchMap(res =>  from([
+                    actions.getRegionProjectStatisticsSuccess(res.data),
+                ])),
+                catchError(error => of(actions.getRegionProjectStatisticsFailure(error)))
             );
         }),
     );
@@ -135,4 +160,5 @@ export const mapRootEpic = combineEpics(
     handleMapLoaderEpic,
     getProjectsStatistics,
     getProjectStatistics,
+    getRegionProjectStatisticsEpic,
 );

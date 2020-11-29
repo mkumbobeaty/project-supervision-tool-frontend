@@ -27,7 +27,7 @@ const getProjectsByRegion = (region_id) =>
  * @description get projects statistics based on region
  * */
 const getRegionProjectStatistics = (region_id) =>
-    axios.get(`/locations/regions/${region_id}/project_statistics`).then((response) => response.data);
+    axios.get(`/locations/region/${region_id}/project_statistics`).then((response) => response.data);
 
 /**
  * @function
