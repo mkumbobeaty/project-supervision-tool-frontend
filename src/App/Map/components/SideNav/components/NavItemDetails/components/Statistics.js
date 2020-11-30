@@ -1,4 +1,3 @@
-import {Button} from "antd";
 import React from "react";
 import {moneyFormat} from "../../../../../../../Util";
 import IntroSection from "./IntroSection";
@@ -10,7 +9,7 @@ import IntroSection from "./IntroSection";
  * @description a function components that show summary statics info
  * about a all projects in a country
  */
-function Statistics({projectsStatistics, regionProjectsStatistics}) {
+function Statistics({projectsStatistics, regionProjectsStatistics, region }) {
     const projectsStatisticsData = projectsStatistics ? [
         {title: 'Projects', value: projectsStatistics.projects},
         {
@@ -24,9 +23,9 @@ function Statistics({projectsStatistics, regionProjectsStatistics}) {
         {title: 'Projects', value: regionProjectsStatistics.projects},
         {
             title: 'Commitment Amount',
-            value: ''
+            value: `${regionProjectsStatistics.commitment_amount.iso} ${moneyFormat(regionProjectsStatistics.commitment_amount.total)}`
         },
-        {title: 'Sub-projects', value: ''},
+        {title: 'Sub Projects', value: regionProjectsStatistics?.sub_projects },
     ] : [];
 
 
@@ -35,7 +34,7 @@ function Statistics({projectsStatistics, regionProjectsStatistics}) {
             {projectsStatisticsData.length > 0 ?
                 <IntroSection title="OverView" data={projectsStatisticsData}/> :
                 regionProjectStatisticsData.length > 0 ?
-                    <IntroSection title="Region Name" data={regionProjectStatisticsData}/> : ''
+                    <IntroSection title={region.name} data={regionProjectStatisticsData}/> : ''
             }
         </>
     );

@@ -41,6 +41,7 @@ class NavItemDetails extends Component{
             projectsStatistics,
             getProjectsByRegion,
             regionProjectsStatistics,
+            region,
         } = this.props;
         return (
             <div
@@ -55,6 +56,7 @@ class NavItemDetails extends Component{
                     projectsStatistics={projectsStatistics}
                     regionProjectsStatistics={regionProjectsStatistics}
                     getProjectsByRegion={getProjectsByRegion}
+                    region={region}
                 />
                 <ProjectInfo project={project}/>
             </div>
@@ -68,6 +70,7 @@ const mapStateToProps = (state) => ({
     project: projectSelectors.getProjectSelector(state),
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     projectsOverview: mapSelectors.getProjectsOverview(state),
+    region: mapSelectors.getRegionDetailsSelector(state),
     projectsStatistics: mapSelectors.getProjectsStatistics(state),
     regionProjectsStatistics: mapSelectors.getRegionProjectsStatistics(state),
 });

@@ -13,14 +13,14 @@ function OverView({
                       projectsStatistics,
                       getProjectsByRegion,
                       regionProjectsStatistics,
+                      region,
 }) {
 
-    console.log('inside OverView', regionProjectsStatistics);
 
     return show ? (
         <section className='overview'>
             <CustomSearch/>
-            <Statistics projectsStatistics={projectsStatistics} regionProjectsStatistics={regionProjectsStatistics}/>
+            <Statistics projectsStatistics={projectsStatistics} regionProjectsStatistics={regionProjectsStatistics} region={region}/>
             <SummarySections
                 projectsOverview={projectsOverview}
                 regionProjects={regionProjects}
