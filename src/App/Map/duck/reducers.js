@@ -1,4 +1,5 @@
 import * as types from "./types";
+import { projectTypes } from "../../Projects/duck"
 import {combineReducers} from "redux";
 
 const initialConfigState = {
@@ -39,6 +40,12 @@ const mapLoading = (state = false, action) => {
         case types.GET_REGION_SUCCESS:
             return false;
         case types.GET_REGION_FAILURE:
+            return false;
+        case projectTypes.GET_PROJECT_START:
+            return true;
+        case projectTypes.GET_PROJECT_SUCCESS:
+            return false;
+        case projectTypes.GET_PROJECT_FAILURE:
             return false;
         default:
             return state;

@@ -11,8 +11,8 @@ import SummarySection from "./SummarySection";
 function RegionProjectsSummarySections({ regionProjects, getProject }){
     const summary = [
         {
-            title: 'Total sub-projects per project',
-            data: regionProjects.map(({ name, sub_projects_count, id }) => ({ name, count: sub_projects_count, id, count_title: 'total sub-projects'}))}
+            title: 'Projects',
+            data: regionProjects.map(({ name, sub_projects, id }) => ({ name, count: `${sub_projects.length}`, id, count_title: 'total sub-projects'}))}
     ];
     const getProjectWrapper = (item) => getProject(item?.id)
 
