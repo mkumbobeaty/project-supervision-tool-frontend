@@ -183,7 +183,9 @@ class Projects extends Component {
       searchQuery,
       showForm,
       selected,
-      posting
+      posting,
+      focalPeoples,
+      createProject
     } = this.props;
 
     const { isEditForm } = this.state;
@@ -305,6 +307,8 @@ class Projects extends Component {
             posting={posting}
             selected={selected}
             isEditForm={isEditForm}
+            createProject={createProject}
+            focalPeoples={focalPeoples}
             Projects={projects}
             handleAfterCloseForm={this.handleAfterCloseForm}
             onCancel={this.closeProjectForm} />
@@ -333,6 +337,8 @@ const mapStateToProps = (state) => {
     projects: state.projects.main_projects.data
       ? state.projects.main_projects.data
       : [],
+    focalPeoples: state.focalPeoples.fetchfocalPeoples.data.data
+      ? state.focalPeoples.fetchfocalPeoples.data.data : [],
     loading: state.projects.main_projects.loading,
     page: state.projects.main_projects.page,
     total: state.projects.main_projects.total,
@@ -347,6 +353,7 @@ const mapDispatchToProps = {
   closeProjectForm: projectOperation.closesProjectForm,
   selectProject: projectOperation.selectsProject,
   focalPeople: focalPeopleOperation.getFocalPeopleStart,
+  createProject:projectOperation.createProjectStart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

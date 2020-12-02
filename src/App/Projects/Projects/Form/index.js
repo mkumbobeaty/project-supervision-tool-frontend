@@ -11,6 +11,7 @@ import {
   InputNumber,
   Input,
 } from "antd";
+import { focalPeoples } from "../../../FocalPeople/duck/reducers";
 
 /* state actions */
 
@@ -85,55 +86,34 @@ class ProjectForm extends Component {
   state = { showDistrictsSelect: false }
   // form finish(submit) handler
   onFinish = (values) => {
-    const start_date = generateDateString(values.start_date);
-    const end_date = generateDateString(values.end_date);
-    const payload = { ...values, start_date, end_date };
+    const payload = { ...values};
     if (this.props.isEditForm) {
       this.props.updateHumanResource(payload, this.props.selected.id);
     } else {
-      this.props.createHumanResource(payload);
+      this.props.createProject(payload);
     }
     this.props.handleAfterCloseForm();
   };
 
-  componentDidMount() {
-    const { selected, getDistricts } = this.props;
-    if (selected && selected.location.level === 'district') {
-      this.setState({ showDistrictsSelect: true })
-      getDistricts(selected?.location?.region.id);
-    }
-  }
+  componentDidMount() {}
 
   render() {
-
     const {
       posting,
-      getDistricts,
-      items,
       selected,
-      agencies,
-      regions,
-      districts,
       onCancel,
+      focalPeoples
     } = this.props;
     return (
       <Form
         labelCol={labelCol}
         wrapperCol={wrapperCol}
         onFinish={this.onFinish}
-        initialValues={{
-          hr_type_id: selected?.hr_type.id,
-          level: selected?.location?.level,
-          region_id: selected?.location?.region?.id,
-          district_id: selected?.location?.district?.id,
-          implementing_partners: selected?.implementing_partners.map(
-            (partner) => partner.id
-          ),
-          location_id: selected?.location.id,
-          quantity: selected?.quantity,
+        projectsValues={{
+          projects_id: selected?.projects_id,
+          name: selected?.name,
+          leaders: selected?.leaders,
           description: selected?.description,
-          start_date: createDateFromString(selected?.start_date),
-          end_date: createDateFromString(selected?.end_date),
         }}
         autoComplete="off"
         className="ProjectForm"
@@ -186,27 +166,25 @@ class ProjectForm extends Component {
         {/* end:Description */}
 
 
-        {/* start:level */}
         <Form.Item
-          label="Level"
-          name="level"
-          title="humanResources Level is required  e.g District"
+          label="Leaders"
+          name="leaders"
+          title="leaders/focal people e.g People"
           rules={[
             {
               required: true,
-              message: "humanResource level  is required",
+              message: "leaders/focal people required",
             },
           ]}
         >
-          {/* <Select
-                onSelect={(value) => value === 'district' ? this.setState({showDistrictsSelect: true}) : this.setState({showDistrictsSelect: false})}
-            >
-              <Select.Option value="region">Region</Select.Option>
-              <Select.Option value="district">District</Select.Option>
-            </Select> */}
+          <Select mode="multiple"
+          >
+            {focalPeoples.map((focalPerson) => (
+              <Select.Option value={focalPerson.id}>{focalPerson.first_name}</Select.Option>
+            ))}
+          </Select>
         </Form.Item>
-        {/* end:level */}
-        
+
         {/* start:form actions */}
         <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
           <Button onClick={onCancel}>Cancel</Button>
