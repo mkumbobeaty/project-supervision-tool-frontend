@@ -55,6 +55,90 @@ export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATI
  */
  export const getRegionFailure = makeActionCreator(types.GET_REGION_FAILURE, 'payload');
 
+// get region project statistics
+/**
+ * @function
+ * @name getRegionProjectStatisticsStart
+ *  @param {String} payload region id
+ */
+ export const getRegionProjectStatisticsStart = makeActionCreator(types.GET_REGION_PROJECT_STATISTICS_START, 'payload');
+
+/**
+ * @function
+ * @name getRegionProjectStatisticsSuccess
+ * @param {Array} payload fetched projects
+ */
+ export const getRegionProjectStatisticsSuccess = makeActionCreator(types.GET_REGION_PROJECT_STATISTICS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getRegionProjectStatisticsFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getRegionProjectStatisticsFailure = makeActionCreator(types.GET_REGION_PROJECT_STATISTICS_FAILURE, 'payload');
+
+
+/**
+ * @function
+ * @name clearRegionProjectsStatistics
+ */
+export const clearRegionProjectsStatistics = makeActionCreator(types.CLEAR_REGION_PROJECTS_STATISTICS);
+
+
+
+// get region project statistics
+/**
+ * @function
+ * @name getProjectStatisticsStart
+ *  @param {String} payload region id
+ */
+ export const getProjectStatisticsStart = makeActionCreator(types.GET_PROJECT_STATISTICS_START, 'payload');
+
+/**
+ * @function
+ * @name getProjectStatisticsSuccess
+ * @param {Array} payload fetched projects
+ */
+ export const getProjectStatisticsSuccess = makeActionCreator(types.GET_PROJECT_STATISTICS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getProjectStatisticsFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getProjectStatisticsFailure = makeActionCreator(types.GET_PROJECT_STATISTICS_FAILURE, 'payload');
+
+
+
+
+// get region project statistics
+/**
+ * @function
+ * @name getProjectStatisticsStart
+ *  @param {String} payload region id
+ */
+ export const getProjectsStatisticsStart = makeActionCreator(types.GET_PROJECTS_STATISTICS_START, 'payload');
+
+/**
+ * @function
+ * @name getProjectStatisticsSuccess
+ * @param {Array} payload fetched projects
+ */
+ export const getProjectsStatisticsSuccess = makeActionCreator(types.GET_PROJECTS_STATISTICS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name clearProjectsStatistics
+ */
+ export const clearProjectsStatistics = makeActionCreator(types.CLEAR_PROJECTS_STATISTICS);
+
+/**
+ * @function
+ * @name getProjectStatisticsFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getProjectsStatisticsFailure = makeActionCreator(types.GET_PROJECTS_STATISTICS_FAILURE, 'payload');
+
 
 // get project overview
 
@@ -71,6 +155,14 @@ export const getProjectsOverviewStart = makeActionCreator(types.GET_PROJECTS_OVE
  */
 export const clearProjectsOverview = makeActionCreator(types.CLEAR_PROJECTS_OVERVIEW);
 
+
+
+/**
+ * @function
+ * @name clearRegionProjects
+ */
+export const clearRegionProjects = makeActionCreator(types.CLEAR_REGION_PROJECTS);
+
 /**
  * @function
  * @name getProjectsOverviewSuccess
@@ -86,6 +178,8 @@ export const getProjectsOverviewFailure = makeActionCreator(types.GET_PROJECTS_O
 /**
  * @function
  * @name showMapLoader
+ * @description initiate/stops map loader
+ * @param {boolean} loaderStatus loader status
  */
 export const showMapLoader = makeActionCreator(types.SHOW_MAP_LOADER, 'payload');
 

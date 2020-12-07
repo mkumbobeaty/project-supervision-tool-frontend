@@ -19,6 +19,16 @@ const getProjectOverview = () =>
 const getProjectsByRegion = (region_id) =>
     axios.get(`/locations/regions/${region_id}/projects`).then((response) => response.data);
 
+
+/**
+ * @function
+ * @name getRegionProjectStatistics
+ * @param {string} region_id
+ * @description get projects statistics based on region
+ * */
+const getRegionProjectStatistics = (region_id) =>
+    axios.get(`/locations/region/${region_id}/project_statistics`).then((response) => response.data);
+
 /**
  * @function
  * @name getRegionDetails
@@ -51,4 +61,5 @@ export default {
     getRegionDetails,
     getRegions,
     getDistricts,
+    getRegionProjectStatistics,
 }

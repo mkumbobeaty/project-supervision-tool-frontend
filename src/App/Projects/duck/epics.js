@@ -1,11 +1,12 @@
 import * as actions from './actions';
+import { mapActions } from '../../Map/duck';
 import * as types from './types';
 import API from '../../../API';
-import { ofType } from 'redux-observable';
+import { ofType, combineEpics } from 'redux-observable';
 import { of, from } from 'rxjs';
 import { switchMap, catchError, } from "rxjs/operators";
 
-export const projectsListEpic = action$ => {
+const projectsListEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_PROJECTS_START),
         switchMap(() => {
@@ -17,7 +18,7 @@ export const projectsListEpic = action$ => {
     )
 };
 
-export const createProjectPic = action$ => {
+const createProjectPic = action$ => {
     return action$.pipe(
         ofType(types.CREATE_PROJECT_START),
         switchMap(data => {
@@ -28,7 +29,7 @@ export const createProjectPic = action$ => {
     )
 }
 
-export const deleteProjectEpic = action$ => {
+const deleteProjectEpic = action$ => {
     return action$.pipe(
         ofType(types.DELETE_PROJECT_START),
         switchMap(data => {
@@ -40,7 +41,7 @@ export const deleteProjectEpic = action$ => {
     );
 }
 
-export const subProjectsEpic = action$ =>
+const subProjectsEpic = action$ =>
     action$.pipe(
         ofType(types.GET_SUB_PROJECTS_START),
         switchMap(() => {
@@ -53,7 +54,7 @@ export const subProjectsEpic = action$ =>
         )
     );
 
-export const deleteSubProjectEpic = action$ =>
+const deleteSubProjectEpic = action$ =>
     action$.pipe(
         ofType(types.DELETE_SUB_PROJECT_START),
         switchMap(data => {
@@ -63,6 +64,29 @@ export const deleteSubProjectEpic = action$ =>
             )
         }),
         switchMap(() => of(actions.getSubProjectsStart()))
+    );
+const getProjectEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_PROJECT_START),
+        switchMap(({ payload }) => {
+            return from(API.getProject(payload)).pipe(
+                switchMap(res => {
+                    return from([actions.getProjectSuccess(res.data), mapActions.clearRegionProjects()])
+                }),
+                catchError(error => from([actions.getProjectFailure(error), mapActions.clearRegionProjects()]))
+            );
+        }),
+    );
+}
+
+
+export const projectsRootEpic = combineEpics(
+    projectsListEpic, 
+    getProjectEpic,
+    deleteProjectEpic, 
+    createProjectPic, 
+    subProjectsEpic,
+    deleteSubProjectEpic
     );
 
 

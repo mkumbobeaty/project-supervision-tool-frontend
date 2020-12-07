@@ -1,54 +1,85 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './styles.css'
-import CustomSearch from "./components/CustomSearch";
-import ProjectsSummarySections from "./components/ProjectsSummarySections";
-import ProjectStatistics from './components/ProjectStatistics';
-import RegionProjectsSummarySections from './components/RegionProjectsSummarySections';
+import OverView from './components/OverView';
+import ProjectInfo from "./components/ProjectInfo";
+import {mapActions, mapSelectors} from "../../../../duck";
+import {projectActions, projectSelectors } from "../../../../../Projects/duck";
 
-function SummarySections({projectsOverview, regionProjects}){
+import {bindActionCreators} from "redux";
 
-    const renderSections = () => {
-        if (projectsOverview.length > 0) {
-            return <ProjectsSummarySections projectsOverview={projectsOverview}/>;
-        }
-        else if (regionProjects.length > 0) {
-            return <RegionProjectsSummarySections regionProjects={regionProjects} />;
-        }
-        else {
-            return '';
-        }
 
+class NavItemDetails extends Component{
+
+    static propTypes = {
+        activeItem: PropTypes.string.isRequired,
+        projectsOverview: PropTypes.array.isRequired,
+        regionProjectsStatistics: PropTypes.object,
+        projectsStatistics: PropTypes.object,
+        regionProjects: PropTypes.array.isRequired,
+        project: PropTypes.object,
+        getProject: PropTypes.func,
+        getProjectsByRegion: PropTypes.func,
     }
 
-    return (<>{renderSections()}</>)
-}
+    static defaultPropTypes = {
+        project: null,
+        projectsStatistics: null,
+        regionProjectsStatistics: null,
+        getProject: () => {},
+        getProjectsByRegion: () => {},
+    }
 
-
-function NavItemDetails({activeItem, projectsOverview, regionProjects}) {
-
-
-    return (
-        <div
-            style={activeItem === '' ? {display: 'none'} : { width: '16vw'}}
-            className='NavItemDetails'
-        >
-            <section className='overview'>
-                <CustomSearch/>
-                <ProjectStatistics/>
-                <SummarySections
+    render() {
+        const {
+            activeItem,
+            projectsOverview,
+            regionProjects,
+            project,
+            getProject,
+            projectsStatistics,
+            getProjectsByRegion,
+            regionProjectsStatistics,
+            region,
+        } = this.props;
+        return (
+            <div
+                style={activeItem === '' ? {display: 'none'} : { width: '16vw'}}
+                className='NavItemDetails'
+            >
+                <OverView
+                    show={!project}
+                    getProject={getProject}
                     projectsOverview={projectsOverview}
                     regionProjects={regionProjects}
+                    projectsStatistics={projectsStatistics}
+                    regionProjectsStatistics={regionProjectsStatistics}
+                    getProjectsByRegion={getProjectsByRegion}
+                    region={region}
                 />
-            </section>
-        </div>
-    );
+                <ProjectInfo project={project}/>
+            </div>
+        );
+    }
+
 }
 
-export default NavItemDetails;
+const mapStateToProps = (state) => ({
+    activeItem: mapSelectors.getActiveMapSideMenuItem(state),
+    project: projectSelectors.getProjectSelector(state),
+    regionProjects: mapSelectors.getRegionProjectsSelector(state),
+    projectsOverview: mapSelectors.getProjectsOverview(state),
+    region: mapSelectors.getRegionDetailsSelector(state),
+    projectsStatistics: mapSelectors.getProjectsStatistics(state),
+    regionProjectsStatistics: mapSelectors.getRegionProjectsStatistics(state),
+});
 
-NavItemDetails.propTypes = {
-    activeItem: PropTypes.string.isRequired,
-    projectsOverview: PropTypes.array.isRequired,
-    regionProjects: PropTypes.array.isRequired,
-}
+const mapDispatchToProps = (dispatch) => ({
+    getProject: bindActionCreators(projectActions.getProjectStart, dispatch),
+    getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
+});
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavItemDetails);

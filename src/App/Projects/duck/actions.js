@@ -87,9 +87,10 @@ export function getProjectsStart() {
   }
   
   /*  Single Project Action creators */
-  export function getProjectStart() {
+  export function getProjectStart(id) {
     return {
         type: types.GET_PROJECT_START,
+        payload: id,
     };
   }
   

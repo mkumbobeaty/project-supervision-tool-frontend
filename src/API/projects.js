@@ -71,6 +71,22 @@ const getProject = (id) => {
     return axios.get(`/projects/${id}`).then((response) => response.data);
 }
 
+/**
+ * @function
+ * @name getProjectsStatistics
+ * @description returns statistic of a project when project id is provided
+ * otherwise returns statistics  of specified project
+ * @param {Object} id - Id of project
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const getProjectsStatistics = (id ='') => {
+    return axios.get(`/projects/statistics${id}`, {params: {id}}).then((response) => response.data);
+}
+
+
 
 export default {
     createProjects,
@@ -78,4 +94,5 @@ export default {
     updateProject,
     deleteProject,
     getProject,
+    getProjectsStatistics,
 }

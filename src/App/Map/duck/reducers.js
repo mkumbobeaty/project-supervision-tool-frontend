@@ -1,4 +1,5 @@
 import * as types from "./types";
+import { projectTypes } from "../../Projects/duck"
 import {combineReducers} from "redux";
 
 const initialConfigState = {
@@ -28,6 +29,8 @@ const mapLoading = (state = false, action) => {
     switch (action.type) {
         case types.GET_PROJECTS_OVERVIEW_START:
             return true;
+        case types.SHOW_MAP_LOADER:
+            return action.payload;
         case types.GET_PROJECTS_OVERVIEW_SUCCESS:
             return false;
         case types.GET_PROJECTS_OVERVIEW_FAILURE:
@@ -37,6 +40,12 @@ const mapLoading = (state = false, action) => {
         case types.GET_REGION_SUCCESS:
             return false;
         case types.GET_REGION_FAILURE:
+            return false;
+        case projectTypes.GET_PROJECT_START:
+            return true;
+        case projectTypes.GET_PROJECT_SUCCESS:
+            return false;
+        case projectTypes.GET_PROJECT_FAILURE:
             return false;
         default:
             return state;
@@ -55,6 +64,8 @@ const regionProjects = (state = initialRegionProjects, action) => {
             return {...state, data: action.payload};
         case types.GET_PROJECTS_BY_REGION_FAILURE:
             return {...state, error: action.payload};
+        case types.CLEAR_REGION_PROJECTS:
+            return {...state, data: []};
         default:
             return state;
     }
@@ -63,7 +74,7 @@ const regionProjects = (state = initialRegionProjects, action) => {
 
 
 const  initialRegionDetails = {
-    data: [],
+    data: {},
     error: {}
 }
 const regionDetails = (state = initialRegionDetails, action) => {
@@ -90,6 +101,51 @@ const regionDetails = (state = initialRegionDetails, action) => {
     }
 };
 
+ const projectStatistics = (state = {data: null , loading: false, error: null  }, action) => {
+    switch (action.type) {
+        case types.GET_PROJECT_STATISTICS_START:
+            return { ...state, loading: true};
+        case types.GET_PROJECT_STATISTICS_SUCCESS:
+            return {...state, data: action.payload, loading: false};
+        case types.GET_PROJECT_STATISTICS_FAILURE:
+            return {...state, error: action.payload, loading: false};
+        default:
+            return state;
+    }
+};
+
+ const projectsStatistics = (state = {data: null , loading: false, error: null  }, action) => {
+    switch (action.type) {
+        case types.GET_PROJECTS_STATISTICS_START:
+            return { ...state, loading: true};
+        case types.GET_PROJECTS_STATISTICS_SUCCESS:
+            return {...state, data: action.payload, loading: false};
+        case types.CLEAR_PROJECTS_STATISTICS:
+            return {...state, data: null};
+        case types.GET_PROJECTS_STATISTICS_FAILURE:
+            return {...state, error: action.payload, loading: false};
+        default:
+            return state;
+    }
+};
+
+ const regionProjectsStatistics = (state = {data: null , loading: false, error: null  }, action) => {
+    switch (action.type) {
+        case types.GET_REGION_PROJECT_STATISTICS_START:
+            return { ...state, loading: true};
+        case types.GET_REGION_PROJECT_STATISTICS_SUCCESS:
+            return {...state, data: action.payload, loading: false};
+        case types.CLEAR_REGION_PROJECTS_STATISTICS:
+            return {...state, data: null};
+        case types.GET_REGION_PROJECT_STATISTICS_FAILURE:
+            return {...state, error: action.payload, loading: false};
+        default:
+            return state;
+    }
+};
+
+
+
 
 
 export const map = combineReducers({
@@ -97,5 +153,8 @@ export const map = combineReducers({
     projectOverview,
     regionDetails,
     mapLoading,
-    regionProjects
+    regionProjects,
+    projectsStatistics,
+    projectStatistics,
+    regionProjectsStatistics,
 });

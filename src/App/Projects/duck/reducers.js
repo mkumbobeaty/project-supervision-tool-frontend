@@ -196,22 +196,37 @@ const main_projects = (state = defaultProjects, action) => {
   }
 };
 
-const Project = (state = projectstate, action) => {
+// const Project = (state = projectstate, action) => {
+//   switch (action.type) {
+//     case types.GET_PROJECT_START:
+//       return { ...state, loading: true }
+//     case types.GET_PROJECT_SUCCESS:
+//       return {
+//         ...state,
+//         ProjectsDetail: action.payload,
+//         loading: false,
+//       };
+//     case types.GET_PROJECT_FAILURE:
+//       return { ...state, error: action.message, loading: false };
+//     default:
+//       return state;
+//   }
+// };
+
+// TODO note: reducer added by EDGAR
+const project = (state = {data: null, error: null, loading: false}, action) => {
   switch (action.type) {
     case types.GET_PROJECT_START:
-      return { ...state, loading: true }
+      return { ...state, loading: true}
     case types.GET_PROJECT_SUCCESS:
-      return {
-        ...state,
-        ProjectsDetail: action.payload,
-        loading: false,
-      };
+      return { ...state, data: action.payload, loading: false}
     case types.GET_PROJECT_FAILURE:
-      return { ...state, error: action.message, loading: false };
+      return { ...state, error: action.payload, loading: false}
     default:
       return state;
+
   }
-};
+}
 
 // selected human resource
 const selectedProjects = (state = null, action) => {
@@ -312,9 +327,9 @@ export const projects = combineReducers({
   districts,
   fetchProjects,
   main_projects,
-  Project,
   deleteProjects,
   sub_projects, 
   creatingSubProjects,
-  deleteSubProject
+  deleteSubProject,
+  project,
   });

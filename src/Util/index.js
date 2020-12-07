@@ -16,7 +16,7 @@ import moment from "moment";
 export const isoDateToHumanReadableDate = (isoFormattDate) => {
     return moment(isoFormattDate)
         .utc()
-        .format('MMMM Do YYYY');
+        .format('MMM Do YYYY');
 }
 
 /**
@@ -66,7 +66,7 @@ export const createDateFromString = (dateString) => {
  * @since 0.1.0
  */
 export const getGeoJsonFromLocation = (data) => {
-    const { location } = data;
+    const {location} = data;
     const notAllowed = ['location'];
 
     const filtered = Object.keys(data)
@@ -75,14 +75,13 @@ export const getGeoJsonFromLocation = (data) => {
             obj[key] = data[key];
             return obj;
         }, {});
-    if(location.level === 'district') {
+    if (location.level === 'district') {
         const districtGeo = location?.district?.geo_json;
-        const property = { level: location.level, id: location?.district.id }
+        const property = {level: location.level, id: location?.district.id}
         return {...districtGeo, property};
-    }
-    else {
+    } else {
         const regionGeo = location?.region?.geo_json;
-        const property = { level: location.level, id: location?.region.id }
+        const property = {level: location.level, id: location?.region.id}
         return {...regionGeo, property};
     }
 }
@@ -102,10 +101,9 @@ export const getGeoJsonFromLocation = (data) => {
  * @since 0.1.0
  */
 export const getSelectedResources = (level, id, resources) => {
-    if(level === 'district') {
+    if (level === 'district') {
         return resources.filter(({location}) => location?.district.id === id);
-    }
-    else {
+    } else {
         return resources.filter(({location}) => location?.region.id === id);
 
     }
@@ -119,9 +117,9 @@ export const getSelectedResources = (level, id, resources) => {
  * @param {String} type action type
  * @param {String} argNames properties applicable to action object
  */
-export  function makeActionCreator(type, ...argNames) {
+export function makeActionCreator(type, ...argNames) {
     return function (...args) {
-        const action = { type }
+        const action = {type}
         argNames.forEach((arg, index) => {
             action[argNames[index]] = args[index]
         })
@@ -165,7 +163,7 @@ export const generateColor = (num) => {
  * @name generateNumberRange
  * @description generates number range based on a number
  * @param {Number} num
- * @returns {String} color
+ * @returns {Array} array of integers
  */
 export const generateNumberRange = (num) => {
     const digitsCount = String(num).length;
@@ -176,5 +174,30 @@ export const generateNumberRange = (num) => {
     }
     let factor = parseInt(factorString);
 
-    return [0,1,3,5, 7,9].map(n => n*factor);
+    return [0, 1, 3, 5, 7, 9].map(n => n * factor);
+}
+
+/**
+ * @function
+ * @name moneyFormat
+ * @description generates number range based on a number
+ * @param {Number} labelValue
+ * @returns {String} rounded up number
+ */
+export const moneyFormat = (labelValue) => {
+    // Nine Zeroes for Billions
+    return Math.abs(Number(labelValue)) >= 1.0e+9
+
+        ? Math.abs(Number(labelValue)) / 1.0e+9 + "B"
+        // Six Zeroes for Millions
+        : Math.abs(Number(labelValue)) >= 1.0e+6
+
+            ? Math.abs(Number(labelValue)) / 1.0e+6 + "M"
+            // Three Zeroes for Thousands
+            : Math.abs(Number(labelValue)) >= 1.0e+3
+
+                ? Math.abs(Number(labelValue)) / 1.0e+3 + "K"
+
+                : Math.abs(Number(labelValue));
+
 }
