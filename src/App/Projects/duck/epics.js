@@ -91,6 +91,16 @@ const regionsEpic = action$ => {
     )
 }
 
+const districtsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_DISTRICTS_START),
+        switchMap((payload) => from(API.getDistricts(payload)).pipe(
+            switchMap(res => { return of(actions.getDistrictsSuccess(res.data)) }),
+            catchError(error => of(actions.getDistrictsFailure(error)))
+        )),
+    )
+}
+
 
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
@@ -99,7 +109,8 @@ export const projectsRootEpic = combineEpics(
     createProjectPic,
     subProjectsEpic,
     deleteSubProjectEpic,
-    regionsEpic
+    regionsEpic,
+    districtsEpic
 );
 
 

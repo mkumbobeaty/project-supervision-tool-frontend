@@ -77,10 +77,11 @@ class Projects extends Component {
   };
 
   componentDidMount() {
-    const { fetchProjects, focalPeople, getRegions } = this.props;
+    const { fetchProjects, focalPeople, getRegions,getDistricts } = this.props;
     fetchProjects();
     getRegions();
     focalPeople();
+    getDistricts()
   }
 
   /**
@@ -355,7 +356,8 @@ const mapDispatchToProps = {
   selectProject: projectOperation.selectsProject,
   focalPeople: focalPeopleOperation.getFocalPeopleStart,
   createProject: projectOperation.createProjectStart,
-  getRegions: projectOperation.getRegionsStart
+  getRegions: projectOperation.getRegionsStart,
+  getDistricts:projectOperation.getDistrictsStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
