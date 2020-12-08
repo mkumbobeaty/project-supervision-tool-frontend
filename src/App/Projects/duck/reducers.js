@@ -196,22 +196,7 @@ const main_projects = (state = defaultProjects, action) => {
   }
 };
 
-// const Project = (state = projectstate, action) => {
-//   switch (action.type) {
-//     case types.GET_PROJECT_START:
-//       return { ...state, loading: true }
-//     case types.GET_PROJECT_SUCCESS:
-//       return {
-//         ...state,
-//         ProjectsDetail: action.payload,
-//         loading: false,
-//       };
-//     case types.GET_PROJECT_FAILURE:
-//       return { ...state, error: action.message, loading: false };
-//     default:
-//       return state;
-//   }
-// };
+
 
 // TODO note: reducer added by EDGAR
 const project = (state = {data: null, error: null, loading: false}, action) => {
@@ -228,7 +213,7 @@ const project = (state = {data: null, error: null, loading: false}, action) => {
   }
 }
 
-// selected human resource
+// selected projects
 const selectedProjects = (state = null, action) => {
   switch (action.type) {
     case types.SELECT_PROJECT:

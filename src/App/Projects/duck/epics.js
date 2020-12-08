@@ -94,11 +94,13 @@ const regionsEpic = action$ => {
 const districtsEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_DISTRICTS_START),
-        switchMap((payload) => from(API.getDistricts(payload)).pipe(
+        switchMap(({payload}) =>  {
+            return from(API.getDistricts(payload)).pipe(
             switchMap(res => { return of(actions.getDistrictsSuccess(res.data)) }),
             catchError(error => of(actions.getDistrictsFailure(error)))
-        )),
-    )
+        )}
+        ),
+    )                                                                                                                                                                                                       
 }
 
 

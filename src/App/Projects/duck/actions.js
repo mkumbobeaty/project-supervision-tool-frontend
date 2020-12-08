@@ -120,49 +120,8 @@ export function getProjectsStart() {
       type: types.CLOSE_PROJECTS_FORM,
     };
   }
-  
-  export function getItemsStart() {
-    return {
-      type: types.GET_ITEMS_START,
-    };
-  }
-  
-  export function getItemsSuccess(items) {
-    return {
-      type: types.GET_ITEMS_SUCCESS,
-      payload: items,
-    };
-  }
-  
-  export function getItemsFailure(error) {
-    return {
-      type: types.GET_AGENCIES_FAILURE,
-      payload: error,
-    };
-  }
-  
-  /*  Agencies Action creators */
-  
-  export function getAgenciesStart() {
-    return {
-      type: types.GET_AGENCIES_START,
-    };
-  }
-  
-  export function getAgenciesSuccess(agencies) {
-    return {
-      type: types.GET_AGENCIES_SUCCESS,
-      payload: agencies,
-    };
-  }
-  
-  export function getAgenciesFailure(error) {
-    return {
-      type: types.GET_AGENCIES_FAILURE,
-      payload: error,
-    };
-  }
-  
+
+
   /*  Agencies Action creators */
   
   export function getRegionsStart() {
@@ -187,9 +146,10 @@ export function getProjectsStart() {
   
   /*  Districts Action creators */
   
-  export function getDistrictsStart() {
+  export function getDistrictsStart(region_id) {
     return {
       type: types.GET_DISTRICTS_START,
+      payload:region_id
     };
   }
   
@@ -208,7 +168,6 @@ export function getProjectsStart() {
   }
    
 //  SubProjects
-
 export function getSubProjectsStart() {
   return {
     type: types.GET_SUB_PROJECTS_START,

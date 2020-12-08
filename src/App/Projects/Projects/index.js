@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import ProjectForm from "./Form";
 import { focalPeopleOperation } from "../../FocalPeople/duck";
 import "./styles.css";
+import { selectsProject } from "../duck/operations";
+import { openProjectsForm } from "../duck/actions";
 
 
 /* constants */
@@ -77,12 +79,29 @@ class Projects extends Component {
   };
 
   componentDidMount() {
-    const { fetchProjects, focalPeople, getRegions,getDistricts } = this.props;
+    const { fetchProjects, focalPeople, getRegions } = this.props;
     fetchProjects();
     getRegions();
     focalPeople();
-    getDistricts()
   }
+
+  /**
+   * @function
+   * @name handleEdit
+   * @description Handle on Edit action for list item
+   *
+   * @param {object} project Action Catalogue to be edited
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleEdit = (project) => {
+    const { selectProject, openProjectForm } = this.props;
+
+    selectProject(project);
+    this.setState({ isEditForm: true });
+    openProjectForm();
+  };
 
   /**
    * @function
@@ -187,6 +206,9 @@ class Projects extends Component {
       selected,
       posting,
       focalPeoples,
+      regions,
+      districts,
+      getDistricts,
       createProject
     } = this.props;
 
@@ -308,6 +330,9 @@ class Projects extends Component {
           <ProjectForm
             posting={posting}
             selected={selected}
+            regions={regions}
+            districts={districts}
+            getDistricts={getDistricts}
             isEditForm={isEditForm}
             createProject={createProject}
             focalPeoples={focalPeoples}
@@ -336,15 +361,15 @@ Projects.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.projects.main_projects.data
-      ? state.projects.main_projects.data
-      : [],
-    focalPeoples: state.focalPeoples.fetchfocalPeoples.data.data
-      ? state.focalPeoples.fetchfocalPeoples.data.data : [],
+    projects: state.projects.main_projects?.data,
+    focalPeoples: state.focalPeoples.fetchfocalPeoples.data?.data,
+    regions: state.projects?.regions,
+    districts: state.projects?.districts,
     loading: state.projects.main_projects.loading,
     page: state.projects.main_projects.page,
     total: state.projects.main_projects.total,
     showForm: state.projects.main_projects.showForm,
+    selected: state.projects?.selectedProjects,
   };
 };
 

@@ -1,17 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { generateDateString, createDateFromString } from "../../../../Util";
 import {
   Button,
   Form,
   Row,
   Col,
   Select,
-  DatePicker,
-  InputNumber,
   Input,
 } from "antd";
-import { focalPeoples } from "../../../FocalPeople/duck/reducers";
 
 /* state actions */
 
@@ -86,7 +82,7 @@ class ProjectForm extends Component {
   state = { showDistrictsSelect: false }
   // form finish(submit) handler
   onFinish = (values) => {
-    const payload = { ...values};
+    const payload = { ...values };
     if (this.props.isEditForm) {
       this.props.updateHumanResource(payload, this.props.selected.id);
     } else {
@@ -95,14 +91,28 @@ class ProjectForm extends Component {
     this.props.handleAfterCloseForm();
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { selected, getDistricts } = this.props;
+    if (selected && selected.locations.map(location => location.level === 'district')) {
+      this.setState({ showDistrictsSelect: true })
+      const region_id = selected.locations.map(location => {
+        return (
+          location.region.id
+        )
+      })
+      getDistricts(region_id)
+    }
+  }
 
   render() {
     const {
       posting,
       selected,
       onCancel,
-      focalPeoples
+      focalPeoples,
+      regions,
+      districts,
+      getDistricts
     } = this.props;
     return (
       <Form
@@ -184,6 +194,56 @@ class ProjectForm extends Component {
             ))}
           </Select>
         </Form.Item>
+
+        {/* start:level */}
+        <Form.Item
+          label="Level"
+          name="level"
+          title="Projects Level is required  e.g District"
+          rules={[
+            {
+              required: true,
+              message: "Projects level  is required",
+            },
+          ]}
+        >
+          <Select
+            onSelect={(value) => value === 'district' ? this.setState({ showDistrictsSelect: true }) : this.setState({ showDistrictsSelect: false })}
+          >
+            <Select.Option value="region">Region</Select.Option>
+            <Select.Option value="district">District</Select.Option>
+          </Select>
+        </Form.Item>
+        {/* end:level */}
+
+
+        {/* start:region */}
+        <Form.Item
+          label="Region"
+          name="region_id"
+          title="Projects Region is required  e.g Dar Es Salaam"
+          rules={[
+            {
+              required: true,
+              message: "Projects region  is required",
+            },
+          ]}
+        >
+          <Select onSelect={(value) => {
+            getDistricts(value)
+          }}>
+            {regions.map((region) => (
+              <Select.Option value={region.id}>{region.name}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        {/* end:region */}
+
+
+        {/* start:district */}
+        { this.state.showDistrictsSelect ? renderDistricts(districts) : ''}
+        {/* end:district */}
+
 
         {/* start:form actions */}
         <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>

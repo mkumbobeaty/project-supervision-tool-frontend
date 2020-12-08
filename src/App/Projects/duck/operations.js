@@ -44,7 +44,6 @@ export const opensProjectForm = openProjectForm;
 export const closesProjectForm = closeProjectForm;
 export const selectsProject = selectProject;
 
-
 export {
   getProjectsStart,
   getProjectsSuccess,
