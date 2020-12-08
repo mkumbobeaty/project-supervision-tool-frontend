@@ -50,6 +50,12 @@ export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATI
 
 /**
  * @function
+ * @name clearRegionDetails
+ */
+ export const clearRegionDetails = makeActionCreator(types.CLEAR_REGION_DETAILS);
+
+/**
+ * @function
  * @name getRegionFailure
  * @param {Object} payload error object returned by server
  */

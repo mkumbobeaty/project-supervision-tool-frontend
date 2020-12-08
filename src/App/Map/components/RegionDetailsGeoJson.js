@@ -5,6 +5,11 @@ import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import {GeoJSON} from "react-leaflet";
 
+/**
+ * @class
+ * @name RegionDetailsGeoJson
+ * @description renders region projects on map
+ */
 class RegionDetailsGeoJson extends Component{
 
     static propTypes = {

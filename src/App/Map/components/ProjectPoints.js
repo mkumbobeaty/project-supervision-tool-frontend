@@ -25,6 +25,7 @@ class ProjectPoints extends Component {
 
     generateProjectMarkers = (regionProjects) => {
         const {regionDetails} = this.props;
+        if (!regionDetails) return [];
         const regionId = regionDetails.id;
         return regionProjects.map(regionProject => {
             const {locations} = regionProject;

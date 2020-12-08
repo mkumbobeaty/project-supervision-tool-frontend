@@ -1,12 +1,13 @@
 
-import React from 'react';
-import {GeoJSON, Tooltip} from "react-leaflet";
+import React, {Component} from 'react';
+import L from 'leaflet';
+import {GeoJSON, Tooltip, withLeaflet } from "react-leaflet";
 import {generateColor, generateNumberRange} from "../../../Util";
 import Legend from "./Legend";
 
-function RegionsGeoJson({ getProjectsByRegion,projectsOverview }) {
+class RegionsGeoJson extends Component{
 
-    const getColor = (numberRange, projects_count) => {
+    getColor = (numberRange, projects_count) => {
         if (projects_count <= numberRange[1]) return generateColor(0);
         if (projects_count < numberRange[2] && projects_count > numberRange[1]) return generateColor(1);
         if (projects_count < numberRange[3] && projects_count > numberRange[2]) return generateColor(2);
@@ -16,11 +17,17 @@ function RegionsGeoJson({ getProjectsByRegion,projectsOverview }) {
 
     }
 
-    const handleOnClickGeojson = ({properties}) => getProjectsByRegion(properties.id);
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (((prevProps.projectsOverview !== this.props.projectsOverview) && (this.props.projectsOverview.length > 0))){
+            const { map } = this.props.leaflet;
+            map.setView(L.latLng(-6.161184, 35.745426), 7);
+        }
+    }
 
-    const onEachFeature = (feature, layer) =>  layer.on({ click: () => handleOnClickGeojson(feature)});
+    handleOnClickGeojson = ({properties}) => this.props.getProjectsByRegion(properties.id);
+    onEachFeature = (feature, layer) =>  layer.on({ click: () => this.handleOnClickGeojson(feature)});
 
-    const renderProjectsOverview = (data) => data.map(({geometry,id, region_name, projects_count}) => {
+    renderProjectsOverview = (data) => data.map(({geometry,id, region_name, projects_count}) => {
         const geoJsonObject= {
             "type": "Feature",
             "geometry": {
@@ -34,7 +41,7 @@ function RegionsGeoJson({ getProjectsByRegion,projectsOverview }) {
             }
         }
         const numberRange = generateNumberRange(9);
-        const color = getColor(numberRange, projects_count)
+        const color = this.getColor(numberRange, projects_count)
         const generateStyle = () => ( {
             "fillColor": color,
             "fillOpacity": 0.8,
@@ -46,7 +53,7 @@ function RegionsGeoJson({ getProjectsByRegion,projectsOverview }) {
                 data={geoJsonObject}
                 key={id}
                 style={generateStyle}
-                onEachFeature={onEachFeature}>
+                onEachFeature={this.onEachFeature}>
                 <Tooltip sticky key={id}>
                     <div><b>Region:</b> {region_name}</div>
                     <div><b>total projects:</b> {projects_count}</div>
@@ -55,12 +62,18 @@ function RegionsGeoJson({ getProjectsByRegion,projectsOverview }) {
         );
     });
 
-    return (
-        <>
-            { renderProjectsOverview(projectsOverview) }
-            {projectsOverview.length > 0 ? <Legend key="projects-legend"/> : ''}
+    render() {
+
+        const { projectsOverview } = this.props;
+
+        return (
+            <>
+                { this.renderProjectsOverview(projectsOverview) }
+                {projectsOverview.length > 0 ? <Legend key="projects-legend"/> : ''}
             </>
-    );
+        );
+    }
 }
 
-export default RegionsGeoJson;
+
+export default withLeaflet(RegionsGeoJson);

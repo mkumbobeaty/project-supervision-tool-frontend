@@ -12,7 +12,7 @@ export const projectsListEpic = action$ => {
         switchMap(() => {
             return from(API.getProjects()).pipe(
                 switchMap(res => {
-                    return of(actions.getProjectsSuccess(res.data))
+                    return from([actions.getProjectsSuccess(res.data), mapActions.clearRegionDetails()])
                 }),
                 catchError(error => of(actions.getProjectsFailure(error)))
             );
@@ -26,9 +26,9 @@ export const getProjectEpic = action$ => {
         switchMap(({payload}) => {
             return from(API.getProject(payload)).pipe(
                 switchMap(res => {
-                    return from([actions.getProjectSuccess(res.data), mapActions.clearRegionProjects()])
+                    return from([actions.getProjectSuccess(res.data), mapActions.clearRegionDetails()])
                 }),
-                catchError(error => from([actions.getProjectFailure(error), mapActions.clearRegionProjects()]))
+                catchError(error => from([actions.getProjectFailure(error), mapActions.clearRegionDetails()]))
             );
         }),
     );
