@@ -31,7 +31,13 @@ import {
   closeSubProjectForm,
   closeProjectForm,
   openProjectForm,
-  selectProject
+  selectProject,
+  getRegionsStart,
+  getRegionsSuccess,
+  getRegionsFailure,
+  getDistrictsStart,
+  getDistrictsSuccess,
+  getDistrictsFailure
 } from './actions';
 
 export const opensProjectForm = openProjectForm;
@@ -70,4 +76,10 @@ export {
   selectSubProject,
   openSubProjectForm,
   closeSubProjectForm,
+  getRegionsStart,
+  getRegionsSuccess,
+  getRegionsFailure,
+  getDistrictsStart,
+  getDistrictsSuccess,
+  getDistrictsFailure
 };

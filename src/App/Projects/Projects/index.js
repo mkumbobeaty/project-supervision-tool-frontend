@@ -11,10 +11,9 @@ import ProjectsList from "../../components/List";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import { Link } from "react-router-dom";
-import "./styles.css";
 import ProjectForm from "./Form";
 import { focalPeopleOperation } from "../../FocalPeople/duck";
-import { appOperator } from "../../duck";
+import "./styles.css";
 
 
 /* constants */
@@ -356,7 +355,7 @@ const mapDispatchToProps = {
   selectProject: projectOperation.selectsProject,
   focalPeople: focalPeopleOperation.getFocalPeopleStart,
   createProject: projectOperation.createProjectStart,
-  getRegions: appOperator.getRegionsStart
+  getRegions: projectOperation.getRegionsStart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

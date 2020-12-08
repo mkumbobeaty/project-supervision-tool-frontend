@@ -65,6 +65,7 @@ const deleteSubProjectEpic = action$ =>
         }),
         switchMap(() => of(actions.getSubProjectsStart()))
     );
+
 const getProjectEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_PROJECT_START),
@@ -80,13 +81,25 @@ const getProjectEpic = action$ => {
 }
 
 
+const regionsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_REGIONS_START),
+        switchMap(() => from(API.getRegions()).pipe(
+            switchMap(res => { return of(actions.getRegionsSuccess(res.data)) }),
+            catchError(error => of(actions.getRegionsFailure(error)))
+        )),
+    )
+}
+
+
 export const projectsRootEpic = combineEpics(
-    projectsListEpic, 
+    projectsListEpic,
     getProjectEpic,
-    deleteProjectEpic, 
-    createProjectPic, 
+    deleteProjectEpic,
+    createProjectPic,
     subProjectsEpic,
-    deleteSubProjectEpic
-    );
+    deleteSubProjectEpic,
+    regionsEpic
+);
 
 
