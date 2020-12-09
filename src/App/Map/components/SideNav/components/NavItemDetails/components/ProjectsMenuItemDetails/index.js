@@ -2,15 +2,19 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { mapSelectors } from '../../../../../../duck';
+import ProjectsOverview from "./components/ProjectOverview";
 
-function ProjectsOverview() {
-    return (<div>Projects  Overview </div>)
-}
 
 function ProjectDetails() {
     return (<div>Project Details </div>)
 }
 
+/**
+ * @function
+ * @name ProjectsMenuItemDetails
+ * @description shows project menu item details such as project overview
+ * and project details
+ */
 function ProjectsMenuItemDetails({ isShowProjectOverview, isShowProjectDetails }) {
 
     return (
