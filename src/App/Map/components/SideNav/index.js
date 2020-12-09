@@ -16,6 +16,7 @@ class SideNav extends Component {
         setActiveMapSideMenuItem: PropTypes.string,
         getProjectOverview: PropTypes.func,
         clearProjectsOverview: PropTypes.func,
+        activeItem: PropTypes.string.isRequired,
     }
 
     static defaultProps = {
@@ -31,6 +32,7 @@ class SideNav extends Component {
             setActiveMapSideMenuItem,
             getProjectOverview,
             clearProjectsOverview,
+            activeItem,
         } = this.props;
         return (
             <div className='SideNav'>
@@ -82,7 +84,7 @@ class SideNav extends Component {
                         }}
                     />
                 </div>
-                <NavItemDetails/>
+                <NavItemDetails activeItem={activeItem}/>
             </div>
         );
     }
@@ -91,6 +93,7 @@ class SideNav extends Component {
 
 const mapStateToProps = (state) => ({
     activeMapSideMenuItem: mapSelectors.getActiveMapSideMenuItem(state),
+    activeItem: mapSelectors.getActiveMapSideMenuItem(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -32,7 +32,7 @@ function Statistics({projectsStatistics, regionProjectsStatistics, region }) {
     return (
         <>
             {projectsStatisticsData.length > 0 ?
-                <IntroSection title="OverView" data={projectsStatisticsData}/> :
+                <IntroSection title="Projects" data={projectsStatisticsData}/> :
                 regionProjectStatisticsData.length > 0 ?
                     <IntroSection title={region.name} data={regionProjectStatisticsData}/> : ''
             }

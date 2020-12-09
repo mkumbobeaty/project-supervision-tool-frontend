@@ -14,7 +14,7 @@ function ProjectInfo({project}) {
             <section className="top-section">
                 <div className='project-title'>
                     <div>{project.name}</div>
-                    <small>{project.id}</small>
+                    <small>({project.id})</small>
                 </div>
                 <div className="back-button"><a> <LeftOutlined style={{fontSize: 10}}/> <span>Back</span></a></div>
             </section>
@@ -49,6 +49,10 @@ function ProjectInfo({project}) {
                     <div>
                         <span>PROJECT STATUS</span><br/>
                         <b>Active</b>
+                    </div>
+                    <div>
+                        <span>PROJECT LOCATIONS</span><br/>
+                        <b>{project?.locations.length}</b>
                     </div>
                 </article>
             </section>
