@@ -1,23 +1,25 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import ProjectsTopSection from "../ProjectsTopSection";
+import NationalProjectsOverview from "../NationalProjectsOverview";
 
-function NationalProjectsOverview() {
-    return (<div>National Projects Overview</div>);
-
-}
 
 /**
  * @function
  * @name ProjectsOverview
  * @description renders projects overview information
  */
-function ProjectsOverview() {
+function ProjectsOverview({ projectsStatistics }) {
     return (
         <>
             <ProjectsTopSection/>
-            <NationalProjectsOverview/>
+            <NationalProjectsOverview projectsStatistics={projectsStatistics}/>
         </>
     );
 }
 
 export default ProjectsOverview;
+
+ProjectsOverview.propTypes = {
+    projectsStatistics: PropTypes.object.isRequired
+}
