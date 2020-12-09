@@ -14,8 +14,6 @@ import { Link } from "react-router-dom";
 import ProjectForm from "./Form";
 import { focalPeopleOperation } from "../../FocalPeople/duck";
 import "./styles.css";
-import { selectsProject } from "../duck/operations";
-import { openProjectsForm } from "../duck/actions";
 
 
 /* constants */
@@ -363,8 +361,8 @@ const mapStateToProps = (state) => {
   return {
     projects: state.projects.main_projects?.data,
     focalPeoples: state.focalPeoples.fetchfocalPeoples.data?.data,
-    regions: state.projects?.regions,
-    districts: state.projects?.districts,
+    regions: state.projects?.regions?.data,
+    districts: state.projects?.districts?.data,
     loading: state.projects.main_projects.loading,
     page: state.projects.main_projects.page,
     total: state.projects.main_projects.total,

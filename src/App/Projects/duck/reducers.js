@@ -26,13 +26,6 @@ const defaultProjects = {
   page: 1,
 };
 
-const projectstate = {
-  ProjectsDetail: {},
-  total: 1,
-  page: 1,
-  loading: false,
-};
-
 
 const defaultSubProjects = {
   data: [],
@@ -44,101 +37,33 @@ const defaultSubProjects = {
   page: 1,
 };
 
-const fetchingAgencies = (state = false, action) => {
-  switch (action.type) {
-    case types.GET_AGENCIES_START:
-      return true;
-    case types.GET_AGENCIES_SUCCESS:
-      return false;
-    case types.GET_AGENCIES_FAILURE:
-      return false;
-    default:
-      return state;
-  }
-};
 
-const agencies = (state = [], action) => {
-  switch (action.type) {
-    case types.GET_AGENCIES_SUCCESS:
-      return action.payload;
-    case types.GET_AGENCIES_FAILURE:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-const fetchingItems = (state = false, action) => {
-  switch (action.type) {
-    case types.GET_ITEMS_START:
-      return true;
-    case types.GET_ITEMS_SUCCESS:
-      return false;
-    case types.GET_ITEMS_FAILURE:
-      return false;
-    default:
-      return state;
-  }
-};
-
-const items = (state = [], action) => {
-  switch (action.type) {
-    case types.GET_ITEMS_SUCCESS:
-      return action.payload;
-    case types.GET_ITEMS_FAILURE:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-const fetchingRegions = (state = false, action) => {
+const regions = (state = { data: [], error: null, loading: false }, action) => {
   switch (action.type) {
     case types.GET_REGIONS_START:
-      return true;
+      return { ...state, loading: true }
     case types.GET_REGIONS_SUCCESS:
-      return false;
+      return {...state, data:action.payload, loading:false}
     case types.GET_REGIONS_FAILURE:
-      return false;
+      return { ...state, error: action.payload, loading: false }
     default:
       return state;
   }
 };
 
-const fetchingDistricts = (state = false, action) => {
+const districts = (state = { data: [], error: null, loading: false }, action) => {
   switch (action.type) {
     case types.GET_DISTRICTS_START:
-      return true;
+      return { ...state, loading: true }
     case types.GET_DISTRICTS_SUCCESS:
-      return false;
+      return { ...state, data: action.payload, loading: false }
     case types.GET_DISTRICTS_FAILURE:
-      return false;
+      return { ...state, error: action.payload, loading: false }
     default:
       return state;
-  }
-};
 
-const regions = (state = [], action) => {
-  switch (action.type) {
-    case types.GET_REGIONS_SUCCESS:
-      return action.payload;
-    case types.GET_REGIONS_FAILURE:
-      return action.payload;
-    default:
-      return state;
   }
-};
-
-const districts = (state = [], action) => {
-  switch (action.type) {
-    case types.GET_DISTRICTS_SUCCESS:
-      return action.payload;
-    case types.GET_DISTRICTS_FAILURE:
-      return action.payload;
-    default:
-      return state;
-  }
-};
+}
 
 // fetching projects reducers
 const fetchProjects = (state = false, action) => {
@@ -199,14 +124,14 @@ const main_projects = (state = defaultProjects, action) => {
 
 
 // TODO note: reducer added by EDGAR
-const project = (state = {data: null, error: null, loading: false}, action) => {
+const project = (state = { data: null, error: null, loading: false }, action) => {
   switch (action.type) {
     case types.GET_PROJECT_START:
-      return { ...state, loading: true}
+      return { ...state, loading: true }
     case types.GET_PROJECT_SUCCESS:
-      return { ...state, data: action.payload, loading: false}
+      return { ...state, data: action.payload, loading: false }
     case types.GET_PROJECT_FAILURE:
-      return { ...state, error: action.payload, loading: false}
+      return { ...state, error: action.payload, loading: false }
     default:
       return state;
 
@@ -253,7 +178,7 @@ const creatingSubProjects = (state = false, action) => {
 const sub_projects = (state = defaultSubProjects, action) => {
   switch (action.type) {
     case types.GET_SUB_PROJECTS_START:
-      return {...state, loading:true}
+      return { ...state, loading: true }
     case types.GET_SUB_PROJECTS_SUCCESS:
       return Object.assign(
         {},
@@ -263,13 +188,13 @@ const sub_projects = (state = defaultSubProjects, action) => {
         }
       );
     case types.GET_SUB_PROJECTS_FAILURE:
-      return Object.assign({}, { ...state, error: action.message, loading:false });
+      return Object.assign({}, { ...state, error: action.message, loading: false });
     case types.OPEN_SUB_PROJECTS_FORM:
       return Object.assign({}, state, { showForm: true });
     case types.CLOSE_SUB_PROJECTS_FORM:
       return Object.assign({}, state, { showForm: false });
     case types.CREATE_SUB_PROJECT_SUCCESS:
-      return Object.assign({}, state, { posting: false, showForm: false, loading:true });
+      return Object.assign({}, state, { posting: false, showForm: false, loading: true });
     case types.CREATE_SUB_PROJECT_FAILURE:
       // return action.payload;
       return Object.assign({}, state, { error: action.payload.error });
@@ -301,20 +226,14 @@ const deleteSubProject = (state = false, action) => {
 }
 
 export const projects = combineReducers({
-  fetchingItems,
   selectedProjects,
-  items,
-  fetchingAgencies,
-  agencies,
-  fetchingRegions,
-  fetchingDistricts,
   regions,
   districts,
   fetchProjects,
   main_projects,
   deleteProjects,
-  sub_projects, 
+  sub_projects,
   creatingSubProjects,
   deleteSubProject,
   project,
-  });
+});

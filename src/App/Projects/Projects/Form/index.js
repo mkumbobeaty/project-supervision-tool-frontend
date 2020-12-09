@@ -3,11 +3,10 @@ import PropTypes from "prop-types";
 import {
   Button,
   Form,
-  Row,
-  Col,
   Select,
   Input,
 } from "antd";
+import { connect } from "react-redux";
 
 /* state actions */
 
@@ -30,7 +29,7 @@ const wrapperCol = {
 };
 
 
-const renderDistricts = (districts) => {
+const renderDistricts = (districts,loadingDistrict) => {
   return (
     <Form.Item
       label="District"
@@ -43,7 +42,7 @@ const renderDistricts = (districts) => {
         },
       ]}
     >
-      <Select>
+      <Select loading={loadingDistrict}>
         {districts.map((district) => (
           <Select.Option value={district.id}>{district.name}</Select.Option>
         ))}
@@ -57,7 +56,6 @@ const renderDistricts = (districts) => {
  * @name ProjectForm
  * @description Form for create and edit humanResource of measure
  * @param {object} props Valid form properties
- * @param {object} props.humanResource Valid humanResource object
  * @param {boolean} props.isEditForm Flag whether form is on edit mode
  * @param {boolean} props.posting Flag whether form is posting data
  * @param {Function} props.onCancel Form cancel callback
@@ -68,14 +66,6 @@ const renderDistricts = (districts) => {
  * @version 0.1.0
  * @static
  * @public
- * @example
- *
- * <ProjectForm
- *   humanResource={humanResource}
- *   isEditForm={isEditForm}
- *   posting={posting}
- *   onCancel={this.handleCloseProjectForm}
- * />
  *
  */
 class ProjectForm extends Component {
@@ -112,7 +102,9 @@ class ProjectForm extends Component {
       focalPeoples,
       regions,
       districts,
-      getDistricts
+      getDistricts,
+      loadingRegion,
+      loadingDistrict,
     } = this.props;
     return (
       <Form
@@ -228,6 +220,7 @@ class ProjectForm extends Component {
               message: "Projects region  is required",
             },
           ]}
+          loading={loadingRegion}
         >
           <Select onSelect={(value) => {
             getDistricts(value)
@@ -241,7 +234,7 @@ class ProjectForm extends Component {
 
 
         {/* start:district */}
-        { this.state.showDistrictsSelect ? renderDistricts(districts) : ''}
+        { this.state.showDistrictsSelect ? renderDistricts(districts,loadingDistrict) : ''}
         {/* end:district */}
 
 
@@ -287,4 +280,12 @@ ProjectForm.propTypes = {
   onCancel: PropTypes.func.isRequired,
 };
 
-export default ProjectForm;
+const mapStateToProps = (state) => {
+  return {
+    loadingDistrict: state.projects?.districts?.loading,
+    loadingRegion: state.projects?.regions?.loading,
+  };
+};
+
+
+export default connect(mapStateToProps)(ProjectForm);
