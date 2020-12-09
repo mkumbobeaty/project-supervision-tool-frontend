@@ -47,6 +47,8 @@ class SideNav extends Component {
                         getOverview={getProjectOverview}
                         clearOverview={clearProjectsOverview}
                     />
+
+
                     <SideNavItem
                         title="Sub Projects"
                         activeThumbnail={humanResourceImg}
@@ -59,6 +61,8 @@ class SideNav extends Component {
                         clearOverview={() => {
                         }}
                     />
+
+
                     <SideNavItem
                         title="Locations"
                         activeThumbnail={humanResourceImg}
@@ -71,6 +75,8 @@ class SideNav extends Component {
                         clearOverview={() => {
                         }}
                     />
+
+
                     <SideNavItem
                         title="Data Sets"
                         activeThumbnail={humanResourceImg}
@@ -83,6 +89,7 @@ class SideNav extends Component {
                         clearOverview={() => {
                         }}
                     />
+
                 </div>
                 <NavItemDetails activeItem={activeItem}/>
             </div>

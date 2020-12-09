@@ -3,10 +3,7 @@ import { projectTypes } from "../../Projects/duck"
 import {combineReducers} from "redux";
 
 const initialConfigState = {
-    activeMapSideMenuItem: '',
     showFeatureDetails: false,
-    mapLoading: false,
-
 }
 
 const  initialProjectOverViewState = {
@@ -16,8 +13,6 @@ const  initialProjectOverViewState = {
 
 const config = (state = initialConfigState, action) => {
     switch (action.type) {
-        case types.SET_ACTIVE_MAP_SIDE_MENU_ITEM:
-            return {...state, activeMapSideMenuItem: action.payload};
         case types.SET_SHOW_FEATURE_DETAILS:
             return {...state, showFeatureDetails: action.payload};
         default:
@@ -147,12 +142,32 @@ const regionDetails = (state = initialRegionDetails, action) => {
 };
 
 
+ // initial state for
+// sideNavMenu
+const sideNavMenuInitialState = {
+    activeSideNavMenuItem: 'projects',
+    showProjectsOverview: true,
+    showProjectDetails: false
+}
 
-
+ /**
+  * @function
+  * @name sideNavMenu
+  * @description reducer that manages UI state of sideNavMenu
+  */
+ const sideNavMenu = (state = sideNavMenuInitialState, action) => {
+    switch (action.type) {
+        case types.SET_ACTIVE_MAP_SIDE_MENU_ITEM:
+            return { ...state, activeSideNavMenuItem: action.payload };
+        default:
+            return state;
+    }
+};
 
 export const map = combineReducers({
     config,
     projectOverview,
+    sideNavMenu,
     regionDetails,
     mapLoading,
     regionProjects,

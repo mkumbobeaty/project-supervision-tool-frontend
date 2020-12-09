@@ -2,10 +2,26 @@
 
 /**
  * @function
+ * @name showProjectsOverviewSelector
+ * @param {Object} state redux state
+ * @return {Boolean} showProjectOverview status
+ */
+export const showProjectsOverviewSelector = (state) => state?.map?.sideNavMenu?.showProjectsOverview;
+
+/**
+ * @function
  * @name getActiveMapSideMenuItem
  * @param {Object} state redux state
  */
-export const getActiveMapSideMenuItem = (state) => state?.map?.config?.activeMapSideMenuItem;
+export const getActiveMapSideMenuItem = (state) => state?.map?.sideNavMenu?.activeSideNavMenuItem;
+
+/**
+ * @function
+ * @name showProjectDetailsSelector
+ * @param {Object} state redux state
+ * @return {Boolean} showProjectDetails status
+ */
+export const showProjectDetailsSelector = (state) => state?.map?.sideNavMenu?.showProjectDetails;
 
 /**
  * @function
