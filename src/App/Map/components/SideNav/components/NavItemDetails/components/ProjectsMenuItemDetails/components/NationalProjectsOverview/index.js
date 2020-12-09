@@ -5,7 +5,12 @@ import './styles.css';
 import {LeftOutlined} from "@ant-design/icons";
 import {moneyFormat} from "../../../../../../../../../../Util";
 
-function ProjectOverviewTable({data}) {
+/**
+ * @function
+ * @name ProjectOverviewTable
+ * @description renders projects overview table
+ */
+function ProjectsOverviewTable({data}) {
 
     const renderData = (items) => items.map(({title, value}) => (
         <article>
@@ -20,6 +25,41 @@ function ProjectOverviewTable({data}) {
     );
 }
 
+/**
+ * @function
+ * @name ProjectsRegionsPredefinedFilter
+ * @description renders filter predefined aready with list of options
+ */
+function ProjectsRegionsPredefinedFilter({data, config}) {
+
+
+    const renderFilterItems = items => items.map(({ title, value }) => (
+        <li>
+            <article className='filter-item'>
+                <div className='filter-item-title'>{title}</div>
+                <div className='filter-item-value'>{ value }</div>
+            </article>
+        </li>
+    ));
+
+    return (
+        <div className='ProjectsRegionsPredefinedFilter'>
+            <div className='projects-regions-predefined-filter-title'>{config.filterTitle}</div>
+            <hr/>
+            <section>
+                <article className='filter-header'>
+                    <div>{config.filterRightTitle}</div>
+                    <div>{config.filterLeftTitle}</div>
+                </article>
+                <ol className='filter-list'>
+                    {renderFilterItems(data)}
+                </ol>
+            </section>
+        </div>
+    );
+
+}
+
 // generate project commitment amount string
 const getCommitmentAmount = ({ commitment_amount }) => {
     const { iso, total } = commitment_amount;
@@ -27,16 +67,26 @@ const getCommitmentAmount = ({ commitment_amount }) => {
     return `${iso} ${money}`;
 }
 
+// transform data into structure that
+// filter can display
+const getFilterData = (items) => items.map(({ region_name, projects_count}) => ({ title: region_name, value: projects_count}));
+
 /**
  * @function
  * @name NationalProjectsOverview
  * @description renders project overview at national level
  */
-function NationalProjectsOverview({ projectsStatistics, getProjectsOverview }) {
+function NationalProjectsOverview({ projectsStatistics, getProjectsOverview, projectsCountByRegion }) {
 
-    useEffect(()=> getProjectsOverview(), []);
+    useEffect(()=> {
+        getProjectsOverview();
+    }, []);
 
     const commitmentAmount = projectsStatistics ? getCommitmentAmount(projectsStatistics) : '';
+
+    // prepare data for ProjectsRegionsPredefinedFilter
+    const config = { filterTitle: 'Regions', filterRightTitle: 'Projects', filterLeftTitle: 'count'}
+    const filterData =  projectsCountByRegion.length > 0 ? getFilterData(projectsCountByRegion) : []
 
     const data = projectsStatistics ? [
         {title: 'Projects', value: projectsStatistics.projects},
@@ -45,6 +95,7 @@ function NationalProjectsOverview({ projectsStatistics, getProjectsOverview }) {
     ] : [];
     return (
         <div className='NationalProjectsOverview'>
+
             <section className='title-and-back-button'>
                 <div>National Overview</div>
                 <div className="back-button">
@@ -54,8 +105,13 @@ function NationalProjectsOverview({ projectsStatistics, getProjectsOverview }) {
                     </a>
                 </div>
             </section>
+
             <section className='project-over-view-table'>
-                <ProjectOverviewTable data={data}/>
+                <ProjectsOverviewTable data={data}/>
+            </section>
+
+            <section className='project-regions-filters'>
+                <ProjectsRegionsPredefinedFilter data={filterData} config={config} />
             </section>
         </div>
     );
