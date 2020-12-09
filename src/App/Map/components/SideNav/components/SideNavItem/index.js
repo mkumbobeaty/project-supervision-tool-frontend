@@ -14,7 +14,6 @@ function SideNavItem({
                          itemId,
                          activeItem,
                          setActiveItem,
-                         getOverview,
                          clearOverview,
                      }) {
     const handleClick = () => {
@@ -25,7 +24,6 @@ function SideNavItem({
             clearOverview();
             return setActiveItem('');
         }
-        getOverview();
         return setActiveItem(itemId);
     }
     const isActive = itemId === activeItem

@@ -14,7 +14,6 @@ class SideNav extends Component {
     static propTypes = {
         regionProjects: PropTypes.array,
         setActiveMapSideMenuItem: PropTypes.string,
-        getProjectOverview: PropTypes.func,
         clearProjectsOverview: PropTypes.func,
         activeItem: PropTypes.string.isRequired,
     }
@@ -105,7 +104,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     setActiveMapSideMenuItem: bindActionCreators(mapActions.setActiveMapSideMenuItem, dispatch),
-    getProjectOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
     clearProjectsOverview: bindActionCreators(mapActions.clearProjectsOverview, dispatch),
 });
 

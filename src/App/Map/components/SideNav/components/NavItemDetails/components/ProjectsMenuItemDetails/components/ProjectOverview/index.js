@@ -9,11 +9,11 @@ import NationalProjectsOverview from "../NationalProjectsOverview";
  * @name ProjectsOverview
  * @description renders projects overview information
  */
-function ProjectsOverview({ projectsStatistics }) {
+function ProjectsOverview({ projectsStatistics, getProjectsOverview }) {
     return (
         <>
             <ProjectsTopSection/>
-            <NationalProjectsOverview projectsStatistics={projectsStatistics}/>
+            <NationalProjectsOverview getProjectsOverview={getProjectsOverview} projectsStatistics={projectsStatistics}/>
         </>
     );
 }
@@ -21,5 +21,6 @@ function ProjectsOverview({ projectsStatistics }) {
 export default ProjectsOverview;
 
 ProjectsOverview.propTypes = {
-    projectsStatistics: PropTypes.object.isRequired
+    projectsStatistics: PropTypes.object.isRequired,
+    getProjectsOverview: PropTypes.func.isRequired,
 }

@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { mapSelectors } from '../../../../../../duck';
+import {mapActions, mapSelectors} from '../../../../../../duck';
 import ProjectsOverview from "./components/ProjectOverview";
+import {bindActionCreators} from "redux";
 
 
 function ProjectDetails() {
@@ -15,11 +16,22 @@ function ProjectDetails() {
  * @description shows project menu item details such as project overview
  * and project details
  */
-function ProjectsMenuItemDetails({ isShowProjectOverview, isShowProjectDetails, projectsStatistics}) {
+function ProjectsMenuItemDetails({
+                                     isShowProjectOverview,
+                                     isShowProjectDetails,
+                                     projectsStatistics,
+                                     getProjectsOverview,
+}) {
 
     return (
         <>
-            { isShowProjectOverview ? <ProjectsOverview projectsStatistics={projectsStatistics}/> : ''}
+            { isShowProjectOverview ?
+                <ProjectsOverview
+                projectsStatistics={projectsStatistics}
+                getProjectsOverview={getProjectsOverview}
+            />
+            : ''}
+
             { isShowProjectDetails ? <ProjectDetails /> : ''}
         </>
     );
@@ -31,11 +43,16 @@ const mapStateToProps = state => ({
     isShowProjectDetails: mapSelectors.showProjectDetailsSelector(state)
 });
 
-export default connect(mapStateToProps)(ProjectsMenuItemDetails);
+const mapDispatchToProps = (dispatch) => ({
+    getProjectsOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsMenuItemDetails);
 
 ProjectsMenuItemDetails.propTypes = {
     isShowProjectOverview: PropTypes.bool.isRequired,
     projectsStatistics: PropTypes.object.isRequired,
     isShowProjectDetails: PropTypes.bool.isRequired,
+    getProjectsOverview: PropTypes.func.isRequired,
 
 }

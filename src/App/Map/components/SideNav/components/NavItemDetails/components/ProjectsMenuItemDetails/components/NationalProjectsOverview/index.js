@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 
 import './styles.css';
@@ -20,13 +20,22 @@ function ProjectOverviewTable({data}) {
     );
 }
 
+// generate project commitment amount string
 const getCommitmentAmount = ({ commitment_amount }) => {
     const { iso, total } = commitment_amount;
     const  money = moneyFormat(total);
     return `${iso} ${money}`;
 }
 
-function NationalProjectsOverview({ projectsStatistics }) {
+/**
+ * @function
+ * @name NationalProjectsOverview
+ * @description renders project overview at national level
+ */
+function NationalProjectsOverview({ projectsStatistics, getProjectsOverview }) {
+
+    useEffect(()=> getProjectsOverview(), []);
+
     const commitmentAmount = projectsStatistics ? getCommitmentAmount(projectsStatistics) : '';
 
     const data = projectsStatistics ? [
@@ -56,5 +65,6 @@ function NationalProjectsOverview({ projectsStatistics }) {
 export default NationalProjectsOverview;
 
 NationalProjectsOverview.propTypes = {
-    projectsStatistics: PropTypes.bool.isRequired
+    projectsStatistics: PropTypes.bool.isRequired,
+    getProjectsOverview: PropTypes.func.isRequired
 }
