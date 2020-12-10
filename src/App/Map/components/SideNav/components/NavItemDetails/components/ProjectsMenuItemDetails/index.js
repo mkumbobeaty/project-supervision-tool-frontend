@@ -22,6 +22,7 @@ function ProjectsMenuItemDetails({
                                      projectsStatistics,
                                      getProjectsOverview,
                                      projectsCountByRegion,
+                                     getProjectsByRegion,
 }) {
 
     return (
@@ -31,6 +32,7 @@ function ProjectsMenuItemDetails({
                 projectsStatistics={projectsStatistics}
                 getProjectsOverview={getProjectsOverview}
                 projectsCountByRegion={projectsCountByRegion}
+                getProjectsByRegion={getProjectsByRegion}
             />
             : ''}
 
@@ -49,6 +51,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getProjectsOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
+    getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsMenuItemDetails);
@@ -60,5 +63,6 @@ ProjectsMenuItemDetails.propTypes = {
     regionProjectStatistics: PropTypes.object.isRequired,
     isShowProjectDetails: PropTypes.bool.isRequired,
     getProjectsOverview: PropTypes.func.isRequired,
+    getProjectsByRegion: PropTypes.func.isRequired,
 
 }

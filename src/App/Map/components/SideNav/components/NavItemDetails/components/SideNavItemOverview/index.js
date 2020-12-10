@@ -30,12 +30,12 @@ function ProjectsOverviewTable({data}) {
  * @name ProjectsRegionsPredefinedFilter
  * @description renders filter predefined aready with list of options
  */
-function ProjectsRegionsPredefinedFilter({data, config}) {
+function ProjectsRegionsPredefinedFilter({data, config, handleOnclickFilterItem}) {
 
 
-    const renderFilterItems = items => items.map(({title, value}) => (
+    const renderFilterItems = items => items.map(({title, value, id}) => (
         <li>
-            <article className='filter-item'>
+            <article className='filter-item' onClick={() => handleOnclickFilterItem(id)}>
                 <div className='filter-item-title'>{title}</div>
                 <div className='filter-item-value'>{value}</div>
             </article>
@@ -81,7 +81,14 @@ function BackButton({goBack}) {
  * @name SideNavItemOverview
  * @description renders project overview at national level
  */
-function SideNavItemOverview({overViewData, predefinedFilterData, predefinedFilterConfig, title, goBack}) {
+function SideNavItemOverview({
+                                 overViewData,
+                                 predefinedFilterData,
+                                 predefinedFilterConfig,
+                                 title,
+                                 goBack,
+                                 handleOnclickFilterItem,
+}) {
 
 
     return (
@@ -100,6 +107,7 @@ function SideNavItemOverview({overViewData, predefinedFilterData, predefinedFilt
                 <ProjectsRegionsPredefinedFilter
                     data={predefinedFilterData}
                     config={predefinedFilterConfig}
+                    handleOnclickFilterItem={handleOnclickFilterItem}
                 />
             </section>
         </div>
@@ -115,9 +123,11 @@ SideNavItemOverview.propTypes = {
     predefinedFilterData: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
     goBack: PropTypes.func,
+    handleOnclickFilterItem: PropTypes.func,
 
 }
 
 SideNavItemOverview.defaultProps = {
-    goBack: null
+    goBack: null,
+    handleOnclickFilterItem: () => {},
 }

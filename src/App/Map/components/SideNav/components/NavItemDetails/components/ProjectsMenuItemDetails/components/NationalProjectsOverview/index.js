@@ -1,21 +1,9 @@
 import React, {useEffect} from "react";
 import PropTypes from 'prop-types';
-
-import './styles.css';
 import SideNavItemOverview from "../../../SideNavItemOverview";
 import {moneyFormat} from "../../../../../../../../../../Util";
+import './styles.css';
 
-
-// generate project commitment amount string
-const getCommitmentAmount = ({ commitment_amount }) => {
-    const { iso, total } = commitment_amount;
-    const  money = moneyFormat(total);
-    return `${iso} ${money}`;
-}
-
-// transform data into structure that
-// filter can display
-const getFilterData = (items) => items.map(({ region_name, projects_count}) => ({ title: region_name, value: projects_count}));
 
 
 /**
@@ -23,8 +11,24 @@ const getFilterData = (items) => items.map(({ region_name, projects_count}) => (
  * @name NationalProjectsOverview
  * @description renders project overview at national level
  */
-function NationalProjectsOverview({ projectsStatistics, getProjectsOverview, projectsCountByRegion }) {
+function NationalProjectsOverview({
+                                      projectsStatistics,
+                                      getProjectsOverview,
+                                      projectsCountByRegion,
+                                      getProjectsByRegion,
+}) {
 
+
+    // generate project commitment amount string
+    const getCommitmentAmount = ({ commitment_amount }) => {
+        const { iso, total } = commitment_amount;
+        const  money = moneyFormat(total);
+        return `${iso} ${money}`;
+    }
+
+    // transform data into structure that
+    // filter can display
+    const getFilterData = (items) => items.map(({ region_name, projects_count, id }) => ({ title: region_name, value: projects_count, id}));
 
 
     // prepare data for projects overview table
@@ -34,6 +38,8 @@ function NationalProjectsOverview({ projectsStatistics, getProjectsOverview, pro
         {title: 'Commitment Amount', value: commitmentAmount},
         {title: 'Regions', value: projectsStatistics.regions},
     ] : [];
+
+    const handleOnClickFilterItem = (id) => getProjectsByRegion(id);
 
 
     // prepare data for ProjectsRegionsPredefinedFilter
@@ -49,6 +55,7 @@ function NationalProjectsOverview({ projectsStatistics, getProjectsOverview, pro
             overViewData={overViewData}
             predefinedFilterData={filterData}
             predefinedFilterConfig={filterConfig}
+            handleOnclickFilterItem={handleOnClickFilterItem}
             title='National Overview'
         />
         );
