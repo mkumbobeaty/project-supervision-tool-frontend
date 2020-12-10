@@ -60,25 +60,36 @@ function ProjectsRegionsPredefinedFilter({data, config}) {
 
 }
 
+function BackButton({goBack}) {
+    const handleOnclick = () => {
+        console.log('back button clicked');
+        goBack();
+    }
+
+    return (
+        <div className="back-button" onClick={handleOnclick}>
+            <a>
+                <LeftOutlined style={{fontSize: 10}}/>
+                <span>Back</span>
+            </a>
+        </div>
+    );
+}
+
 /**
  * @function
  * @name SideNavItemOverview
  * @description renders project overview at national level
  */
-function SideNavItemOverview({overViewData, predefinedFilterData, predefinedFilterConfig}) {
+function SideNavItemOverview({overViewData, predefinedFilterData, predefinedFilterConfig, title, goBack}) {
 
 
     return (
         <div className='SideNavItemOverview'>
 
             <section className='title-and-back-button'>
-                <div>National Overview</div>
-                <div className="back-button">
-                    <a>
-                        <LeftOutlined style={{fontSize: 10}}/>
-                        <span>Back</span>
-                    </a>
-                </div>
+                <div>{ title }</div>
+                {goBack ? <BackButton goBack={goBack} /> : ''}
             </section>
 
             <section className='project-over-view-table'>
@@ -99,5 +110,14 @@ function SideNavItemOverview({overViewData, predefinedFilterData, predefinedFilt
 export default SideNavItemOverview;
 
 SideNavItemOverview.propTypes = {
-    projectsStatistics: PropTypes.object.isRequired,
+    overViewData: PropTypes.object.isRequired,
+    predefinedFilterConfig: PropTypes.object.isRequired,
+    predefinedFilterData: PropTypes.array.isRequired,
+    title: PropTypes.string.isRequired,
+    goBack: PropTypes.func,
+
+}
+
+SideNavItemOverview.defaultProps = {
+    goBack: null
 }

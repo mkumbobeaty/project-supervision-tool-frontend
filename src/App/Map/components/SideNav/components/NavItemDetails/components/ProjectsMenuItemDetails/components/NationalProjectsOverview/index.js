@@ -49,6 +49,7 @@ function NationalProjectsOverview({ projectsStatistics, getProjectsOverview, pro
             overViewData={overViewData}
             predefinedFilterData={filterData}
             predefinedFilterConfig={filterConfig}
+            title='National Overview'
         />
         );
 
