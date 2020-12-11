@@ -12,26 +12,28 @@ import RegionalProjectsOverview from "../RegionalProjectsOverview";
  */
 function ProjectsOverview(
     {
-      projectsStatistics,
-      getProjectsOverview,
-      projectsCountByRegion,
-      getProjectsByRegion,
-      getRegionProjectStatistics,
+        projectsStatistics,
+        getProjectsOverview,
+        projectsCountByRegion,
+        getProjectsByRegion,
         showRegionalOverview,
         showNationalOverview,
-}
+        regionProjectStatistics,
+        regionProjects,
+    }
 ) {
     return (
         <>
             <ProjectsTopSection/>
-            { showNationalOverview ?  <NationalProjectsOverview
+            {showNationalOverview ? <NationalProjectsOverview
                 getProjectsOverview={getProjectsOverview}
                 projectsStatistics={projectsStatistics}
                 projectsCountByRegion={projectsCountByRegion}
                 getProjectsByRegion={getProjectsByRegion}
             /> : ''}
             {showRegionalOverview ? <RegionalProjectsOverview
-                getRegionProjectStatistics={getRegionProjectStatistics}
+                regionProjectStatistics={regionProjectStatistics}
+                regionProjects={regionProjects}
             /> : ''}
 
         </>
@@ -47,5 +49,5 @@ ProjectsOverview.propTypes = {
     projectsCountByRegion: PropTypes.object.isRequired,
     getProjectsOverview: PropTypes.func.isRequired,
     getProjectsByRegion: PropTypes.func.isRequired,
-    getRegionProjectStatistics: PropTypes.func.isRequired,
+    regionProjects: PropTypes.array.isRequired,
 }

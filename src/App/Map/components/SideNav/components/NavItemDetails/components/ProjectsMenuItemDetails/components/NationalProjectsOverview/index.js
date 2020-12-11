@@ -54,7 +54,7 @@ function NationalProjectsOverview(
 
 
     // prepare data for ProjectsRegionsPredefinedFilter
-    const filterConfig = {filterTitle: 'Regions', filterRightTitle: 'Projects', filterLeftTitle: 'count'}
+    const filterConfig = {filterTitle: 'Regions', filterRightTitle: 'Regions', filterLeftTitle: 'Projects'}
     const filterData = projectsCountByRegion.length > 0 ? getFilterData(projectsCountByRegion) : []
 
 
