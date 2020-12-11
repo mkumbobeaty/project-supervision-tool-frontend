@@ -8,6 +8,23 @@
  */
 export const showProjectsOverviewSelector = (state) => state?.map?.sideNavMenu?.showProjectsOverview;
 
+
+/**
+ * @function
+ * @name showNationalOverviewSelector
+ * @param {Object} state redux state
+ * @return {Boolean} showProjectOverview status
+ */
+export const showNationalOverviewSelector = (state) => state?.map?.sideNavMenu?.showNationalOverview;
+
+/**
+ * @function
+ * @name showRegionalOverviewSelector
+ * @param {Object} state redux state
+ * @return {Boolean} showProjectOverview status
+ */
+export const showRegionalOverviewSelector = (state) => state?.map?.sideNavMenu?.showRegionalOverview;
+
 /**
  * @function
  * @name getActiveMapSideMenuItem

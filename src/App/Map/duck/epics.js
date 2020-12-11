@@ -43,6 +43,8 @@ const getProjectsByRegionEpic = action$ =>
                 switchMap(res =>  from([
                     actions.getProjectsByRegionSuccess(res.data),
                     actions.clearProjectsStatistics(),
+                    actions.showRegionalProjectsOverview(true),
+                    actions.showNationalProjectsOverview(false),
                     actions.getRegionProjectStatisticsStart(payload),
                 ])),
                 catchError(error => of(actions.getProjectsByRegionFailures(error)))

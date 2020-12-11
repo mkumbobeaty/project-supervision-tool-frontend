@@ -2,6 +2,24 @@ import * as types from "./types";
 import {makeActionCreator} from '../../../Util';
 
 
+// SIDE NAV MENU ACTION CREATORS
+
+/**
+ * @function
+ * @name showNationalProjectsOverview
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const showNationalProjectsOverview = makeActionCreator(types.SHOW_NATIONAL_PROJECTS_OVERVIEW, 'payload');
+
+
+/**
+ * @function
+ * @name showRegionalProjectsOverview
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const showRegionalProjectsOverview = makeActionCreator(types.SHOW_REGIONAL_PROJECTS_OVERVIEW, 'payload');
+
+
 /**
  * @function
  * @name setProjectsSpatialData
@@ -65,6 +83,8 @@ export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATI
 /**
  * @function
  * @name getRegionProjectStatisticsStart
+ * @description trigger get region project statics api
+ * that returns statistics of that region
  *  @param {String} payload region id
  */
  export const getRegionProjectStatisticsStart = makeActionCreator(types.GET_REGION_PROJECT_STATISTICS_START, 'payload');
@@ -72,6 +92,7 @@ export const setProjectsSpatialData = makeActionCreator(types.SET_PROJECTS_SPATI
 /**
  * @function
  * @name getRegionProjectStatisticsSuccess
+ * @description returns project statistics based on that region
  * @param {Array} payload fetched projects
  */
  export const getRegionProjectStatisticsSuccess = makeActionCreator(types.GET_REGION_PROJECT_STATISTICS_SUCCESS, 'payload');

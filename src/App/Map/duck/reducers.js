@@ -147,7 +147,9 @@ const regionDetails = (state = initialRegionDetails, action) => {
 const sideNavMenuInitialState = {
     activeSideNavMenuItem: 'projects',
     showProjectsOverview: true,
-    showProjectDetails: false
+    showProjectDetails: false,
+    showNationalOverview: true,
+    showRegionalOverview: false,
 }
 
  /**
@@ -159,6 +161,10 @@ const sideNavMenuInitialState = {
     switch (action.type) {
         case types.SET_ACTIVE_MAP_SIDE_MENU_ITEM:
             return { ...state, activeSideNavMenuItem: action.payload };
+        case types.SHOW_NATIONAL_PROJECTS_OVERVIEW:
+            return { ...state, showNationalOverview: action.payload };
+        case types.SHOW_REGIONAL_PROJECTS_OVERVIEW:
+            return { ...state, showRegionalOverview: action.payload };
         default:
             return state;
     }

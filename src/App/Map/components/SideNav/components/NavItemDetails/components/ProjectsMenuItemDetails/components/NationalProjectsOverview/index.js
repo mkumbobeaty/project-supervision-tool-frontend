@@ -5,30 +5,41 @@ import {moneyFormat} from "../../../../../../../../../../Util";
 import './styles.css';
 
 
-
 /**
  * @function
  * @name NationalProjectsOverview
  * @description renders project overview at national level
  */
-function NationalProjectsOverview({
-                                      projectsStatistics,
-                                      getProjectsOverview,
-                                      projectsCountByRegion,
-                                      getProjectsByRegion,
-}) {
+function NationalProjectsOverview(
+    {
+        projectsStatistics,
+        getProjectsOverview,
+        projectsCountByRegion,
+        getProjectsByRegion,
+    }
+    ) {
+
+    // get project overview when
+    // a  component has mounted
+    useEffect(() => {
+        getProjectsOverview();
+    }, []);
 
 
     // generate project commitment amount string
-    const getCommitmentAmount = ({ commitment_amount }) => {
-        const { iso, total } = commitment_amount;
-        const  money = moneyFormat(total);
+    const getCommitmentAmount = ({commitment_amount}) => {
+        const {iso, total} = commitment_amount;
+        const money = moneyFormat(total);
         return `${iso} ${money}`;
     }
 
     // transform data into structure that
     // filter can display
-    const getFilterData = (items) => items.map(({ region_name, projects_count, id }) => ({ title: region_name, value: projects_count, id}));
+    const getFilterData = (items) => items.map(({region_name, projects_count, id}) => ({
+        title: region_name,
+        value: projects_count,
+        id
+    }));
 
 
     // prepare data for projects overview table
@@ -43,12 +54,9 @@ function NationalProjectsOverview({
 
 
     // prepare data for ProjectsRegionsPredefinedFilter
-    const filterConfig = { filterTitle: 'Regions', filterRightTitle: 'Projects', filterLeftTitle: 'count'}
-    const filterData =  projectsCountByRegion.length > 0 ? getFilterData(projectsCountByRegion) : []
+    const filterConfig = {filterTitle: 'Regions', filterRightTitle: 'Projects', filterLeftTitle: 'count'}
+    const filterData = projectsCountByRegion.length > 0 ? getFilterData(projectsCountByRegion) : []
 
-    useEffect(()=> {
-        getProjectsOverview();
-    }, []);
 
     return (
         <SideNavItemOverview
@@ -58,7 +66,7 @@ function NationalProjectsOverview({
             handleOnclickFilterItem={handleOnClickFilterItem}
             title='National Overview'
         />
-        );
+    );
 
 }
 
