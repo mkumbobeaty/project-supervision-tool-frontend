@@ -20,6 +20,7 @@ function ProjectsOverview(
         showNationalOverview,
         regionProjectStatistics,
         regionProjects,
+        getProject,
     }
 ) {
     return (
@@ -34,6 +35,7 @@ function ProjectsOverview(
             {showRegionalOverview ? <RegionalProjectsOverview
                 regionProjectStatistics={regionProjectStatistics}
                 regionProjects={regionProjects}
+                getProject={getProject}
             /> : ''}
 
         </>
@@ -49,5 +51,6 @@ ProjectsOverview.propTypes = {
     projectsCountByRegion: PropTypes.object.isRequired,
     getProjectsOverview: PropTypes.func.isRequired,
     getProjectsByRegion: PropTypes.func.isRequired,
+    getProject: PropTypes.func.isRequired,
     regionProjects: PropTypes.array.isRequired,
 }

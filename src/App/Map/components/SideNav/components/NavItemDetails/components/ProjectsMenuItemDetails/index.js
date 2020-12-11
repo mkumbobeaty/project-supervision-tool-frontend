@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {mapActions, mapSelectors} from '../../../../../../duck';
+import { projectActions } from '../../../../../../../Projects/duck';
 import ProjectsOverview from "./components/ProjectOverview";
 import {bindActionCreators} from "redux";
 
@@ -28,6 +29,7 @@ function ProjectsMenuItemDetails(
         showRegionalOverview,
         showNationalOverview,
         regionProjects,
+        getProject,
     }
 ) {
 
@@ -43,6 +45,7 @@ function ProjectsMenuItemDetails(
                     getProjectsByRegion={getProjectsByRegion}
                     regionProjectStatistics={regionProjectStatistics}
                     regionProjects={regionProjects}
+                    getProject={getProject}
                 />
                 : ''}
 
@@ -66,6 +69,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => ({
     getProjectsOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
     getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
+    getProject: bindActionCreators(projectActions.getProjectStart, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsMenuItemDetails);
@@ -81,5 +85,6 @@ ProjectsMenuItemDetails.propTypes = {
     getProjectsOverview: PropTypes.func.isRequired,
     getProjectsByRegion: PropTypes.func.isRequired,
     regionProjects: PropTypes.array.isRequired,
+    getProject: PropTypes.func.isRequired,
 
 }

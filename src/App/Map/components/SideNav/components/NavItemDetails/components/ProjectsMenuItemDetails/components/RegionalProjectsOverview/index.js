@@ -10,7 +10,7 @@ import './styles.css';
  * @name RegionalProjectsOverview
  * @description renders project overview at regional level
  */
-function RegionalProjectsOverview({regionProjectStatistics, regionProjects}) {
+function RegionalProjectsOverview({regionProjectStatistics, regionProjects, getProject}) {
 
     // generate project commitment amount string
     const getCommitmentAmount = ({commitment_amount}) => {
@@ -34,6 +34,8 @@ function RegionalProjectsOverview({regionProjectStatistics, regionProjects}) {
     const filterData = regionProjects.length > 0 ? regionProjects.map(({name, sub_projects, id}) =>
         ({title: name, value: `${sub_projects.length}`, id})) : '';
 
+    const handleOnClickFilterItem = (id) => getProject(id);
+
 
     return (
         <SideNavItemOverview
@@ -41,6 +43,7 @@ function RegionalProjectsOverview({regionProjectStatistics, regionProjects}) {
             predefinedFilterConfig={filterConfig}
             predefinedFilterData={filterData}
             title='Regional Overview'
+            handleOnclickFilterItem={handleOnClickFilterItem}
         />
     );
 
@@ -51,4 +54,5 @@ export default RegionalProjectsOverview;
 RegionalProjectsOverview.propTypes = {
     regionProjectStatistics: PropTypes.object.isRequired,
     regionProjects: PropTypes.array.isRequired,
+    getProject: PropTypes.func.isRequired,
 }
