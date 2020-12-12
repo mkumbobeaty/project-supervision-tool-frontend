@@ -31,6 +31,7 @@ class RegionDetailsGeoJson extends Component{
         return data?.geom ? <GeoJSON
             data={geoJsonObject}
             style={{ "opacity": 0.5, "fillOpacity": 0.05, "weight": 1 }}
+            key={data.id}
             onEachFeature={this.onEachFeature}
         /> : '';
     }

@@ -21,6 +21,9 @@ function ProjectsOverview(
         regionProjectStatistics,
         regionProjects,
         getProject,
+        setShowNationalOverview,
+        setShowRegionalOverview,
+        clearRegionalProjects,
     }
 ) {
     return (
@@ -36,6 +39,9 @@ function ProjectsOverview(
                 regionProjectStatistics={regionProjectStatistics}
                 regionProjects={regionProjects}
                 getProject={getProject}
+                setShowNationalOverview={setShowNationalOverview}
+                setShowRegionalOverview={setShowRegionalOverview}
+                clearRegionalProjects={clearRegionalProjects}
             /> : ''}
 
         </>
@@ -51,6 +57,9 @@ ProjectsOverview.propTypes = {
     projectsCountByRegion: PropTypes.object.isRequired,
     getProjectsOverview: PropTypes.func.isRequired,
     getProjectsByRegion: PropTypes.func.isRequired,
+    setShowNationalOverview: PropTypes.func.isRequired,
+    setShowRegionalOverview: PropTypes.func.isRequired,
+    clearRegionalProjects: PropTypes.func.isRequired,
     getProject: PropTypes.func.isRequired,
     regionProjects: PropTypes.array.isRequired,
 }

@@ -28,6 +28,9 @@ function ProjectsMenuItemDetails(
         showNationalOverview,
         regionProjects,
         getProject,
+        setShowNationalOverview,
+        setShowRegionalOverview,
+        clearRegionalProjects,
     }
 ) {
 
@@ -44,6 +47,9 @@ function ProjectsMenuItemDetails(
                     regionProjectStatistics={regionProjectStatistics}
                     regionProjects={regionProjects}
                     getProject={getProject}
+                    clearRegionalProjects={clearRegionalProjects}
+                    setShowNationalOverview={setShowNationalOverview}
+                    setShowRegionalOverview={setShowRegionalOverview}
                 />
                 : ''}
 
@@ -67,6 +73,9 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => ({
     getProjectsOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
     getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
+    setShowRegionalOverview: bindActionCreators(mapActions.showRegionalProjectsOverview, dispatch),
+    setShowNationalOverview: bindActionCreators(mapActions.showNationalProjectsOverview, dispatch),
+    clearRegionalProjects: bindActionCreators(mapActions.clearRegionProjects, dispatch),
     getProject: bindActionCreators(projectActions.getProjectStart, dispatch),
 });
 
@@ -82,6 +91,9 @@ ProjectsMenuItemDetails.propTypes = {
     isShowProjectDetails: PropTypes.bool.isRequired,
     getProjectsOverview: PropTypes.func.isRequired,
     getProjectsByRegion: PropTypes.func.isRequired,
+    clearRegionalProjects: PropTypes.func.isRequired,
+    setShowNationalOverview: PropTypes.func.isRequired,
+    setShowRegionalOverview: PropTypes.func.isRequired,
     regionProjects: PropTypes.array.isRequired,
     getProject: PropTypes.func.isRequired,
 

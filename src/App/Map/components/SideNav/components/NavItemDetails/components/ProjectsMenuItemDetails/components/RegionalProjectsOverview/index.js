@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import PropTypes from 'prop-types';
 import SideNavItemOverview from "../../../SideNavItemOverview";
 import {moneyFormat} from "../../../../../../../../../../Util";
@@ -10,7 +10,14 @@ import './styles.css';
  * @name RegionalProjectsOverview
  * @description renders project overview at regional level
  */
-function RegionalProjectsOverview({regionProjectStatistics, regionProjects, getProject}) {
+function RegionalProjectsOverview({
+                                      regionProjectStatistics,
+                                      regionProjects,
+                                      getProject,
+                                      setShowNationalOverview,
+                                      setShowRegionalOverview,
+                                      clearRegionalProjects,
+                                  }) {
 
     // generate project commitment amount string
     const getCommitmentAmount = ({commitment_amount}) => {
@@ -35,6 +42,11 @@ function RegionalProjectsOverview({regionProjectStatistics, regionProjects, getP
         ({title: name, value: `${sub_projects.length}`, id})) : '';
 
     const handleOnClickFilterItem = (id) => getProject(id);
+    const handleGoBack = () => {
+        setShowNationalOverview(true);
+        setShowRegionalOverview(false);
+        clearRegionalProjects();
+    }
 
 
     return (
@@ -44,6 +56,7 @@ function RegionalProjectsOverview({regionProjectStatistics, regionProjects, getP
             predefinedFilterData={filterData}
             title='Regional Overview'
             handleOnclickFilterItem={handleOnClickFilterItem}
+            goBack={handleGoBack}
         />
     );
 
@@ -53,6 +66,9 @@ export default RegionalProjectsOverview;
 
 RegionalProjectsOverview.propTypes = {
     regionProjectStatistics: PropTypes.object.isRequired,
+    setShowNationalOverview: PropTypes.func.isRequired,
+    setShowRegionalOverview: PropTypes.func.isRequired,
+    clearRegionalProjects: PropTypes.func.isRequired,
     regionProjects: PropTypes.array.isRequired,
     getProject: PropTypes.func.isRequired,
 }

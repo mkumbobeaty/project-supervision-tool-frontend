@@ -11,6 +11,10 @@ class ProjectPoints extends Component {
         data: PropTypes.object.isRequired
     }
 
+    componentDidMount() {
+        console.log(' ProjectPoints mounted');
+    }
+
     handleSpiderfyClick = marker => {
         console.log(marker);
     };

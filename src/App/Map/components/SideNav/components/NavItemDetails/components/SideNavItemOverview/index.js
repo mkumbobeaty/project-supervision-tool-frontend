@@ -61,13 +61,9 @@ function ProjectsRegionsPredefinedFilter({data, config, handleOnclickFilterItem}
 }
 
 function BackButton({goBack}) {
-    const handleOnclick = () => {
-        console.log('back button clicked');
-        goBack();
-    }
 
     return (
-        <div className="back-button" onClick={handleOnclick}>
+        <div className="back-button" onClick={goBack}>
             <a>
                 <LeftOutlined style={{fontSize: 10}}/>
                 <span>Back</span>

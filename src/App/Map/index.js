@@ -18,7 +18,7 @@ class MapDashboard extends Component {
     state = {
         lat: -6.161184,
         lng: 35.745426,
-        zoom: 8,
+        zoom: 6,
     }
 
     static propTypes = {
