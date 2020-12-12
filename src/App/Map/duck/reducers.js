@@ -165,6 +165,10 @@ const sideNavMenuInitialState = {
             return { ...state, showNationalOverview: action.payload };
         case types.SHOW_REGIONAL_PROJECTS_OVERVIEW:
             return { ...state, showRegionalOverview: action.payload };
+        case types.SHOW_PROJECTS_OVERVIEW:
+            return { ...state, showProjectsOverview: action.payload };
+        case types.SHOW_PROJECT_DETAILS:
+            return { ...state, showProjectDetails: action.payload };
         default:
             return state;
     }

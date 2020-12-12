@@ -12,25 +12,18 @@ import {bindActionCreators} from "redux";
 class SideNav extends Component {
 
     static propTypes = {
-        regionProjects: PropTypes.array,
         setActiveMapSideMenuItem: PropTypes.string,
-        clearProjectsOverview: PropTypes.func,
         activeItem: PropTypes.string.isRequired,
     }
 
     static defaultProps = {
         setActiveMapSideMenuItem: '',
         regionProjects: [],
-        getProjectOverview: () => {},
-        clearProjectsOverview: () => {},
     }
 
     render() {
         const {
-            activeMapSideMenuItem,
             setActiveMapSideMenuItem,
-            getProjectOverview,
-            clearProjectsOverview,
             activeItem,
         } = this.props;
         return (
@@ -41,38 +34,26 @@ class SideNav extends Component {
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteHhumanResourceImg}
                         itemId='projects'
-                        activeItem={activeMapSideMenuItem}
+                        activeItem={activeItem}
                         setActiveItem={setActiveMapSideMenuItem}
-                        getOverview={getProjectOverview}
-                        clearOverview={clearProjectsOverview}
                     />
-
 
                     <SideNavItem
                         title="Sub Projects"
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteHhumanResourceImg}
                         itemId='sub-projects'
-                        activeItem={activeMapSideMenuItem}
+                        activeItem={activeItem}
                         setActiveItem={setActiveMapSideMenuItem}
-                        getOverview={() => {
-                        }}
-                        clearOverview={() => {
-                        }}
                     />
-
 
                     <SideNavItem
                         title="Locations"
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteHhumanResourceImg}
                         itemId='locations'
-                        activeItem={activeMapSideMenuItem}
+                        activeItem={activeItem}
                         setActiveItem={setActiveMapSideMenuItem}
-                        getOverview={() => {
-                        }}
-                        clearOverview={() => {
-                        }}
                     />
 
 
@@ -81,7 +62,7 @@ class SideNav extends Component {
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteHhumanResourceImg}
                         itemId='data-sets'
-                        activeItem={activeMapSideMenuItem}
+                        activeItem={activeItem}
                         setActiveItem={setActiveMapSideMenuItem}
                         getOverview={() => {
                         }}
@@ -98,13 +79,11 @@ class SideNav extends Component {
 
 
 const mapStateToProps = (state) => ({
-    activeMapSideMenuItem: mapSelectors.getActiveMapSideMenuItem(state),
     activeItem: mapSelectors.getActiveMapSideMenuItem(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
     setActiveMapSideMenuItem: bindActionCreators(mapActions.setActiveMapSideMenuItem, dispatch),
-    clearProjectsOverview: bindActionCreators(mapActions.clearProjectsOverview, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideNav);

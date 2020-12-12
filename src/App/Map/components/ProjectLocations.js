@@ -8,7 +8,7 @@ class ProjectLocations extends Component{
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (((prevProps.project !== this.props.project) && this.props.project)){
             const { map } = this.props.leaflet;
-            map.setView(L.latLng(-6.161184, 35.745426), 7);
+            map.setView(L.latLng(-6.161184, 35.745426), 6);
         }
     }
     render () {

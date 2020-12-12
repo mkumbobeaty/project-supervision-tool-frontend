@@ -5,11 +5,9 @@ import {mapActions, mapSelectors} from '../../../../../../duck';
 import { projectActions } from '../../../../../../../Projects/duck';
 import ProjectsOverview from "./components/ProjectOverview";
 import {bindActionCreators} from "redux";
+import ProjectDetails from "./components/ProjectDetails";
 
 
-function ProjectDetails() {
-    return (<div>Project Details </div>)
-}
 
 /**
  * @function

@@ -14,6 +14,22 @@ export const showNationalProjectsOverview = makeActionCreator(types.SHOW_NATIONA
 
 /**
  * @function
+ * @name showProjectsOverview
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const showProjectsOverview = makeActionCreator(types.SHOW_PROJECTS_OVERVIEW, 'payload');
+
+
+/**
+ * @function
+ * @name showProjectDetails
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const showProjectDetails = makeActionCreator(types.SHOW_PROJECT_DETAILS, 'payload');
+
+
+/**
+ * @function
  * @name showRegionalProjectsOverview
  * @param {Boolean} payload value to ether show or hide
  */

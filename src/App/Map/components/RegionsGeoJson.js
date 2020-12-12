@@ -20,7 +20,7 @@ class RegionsGeoJson extends Component{
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (((prevProps.projectsOverview !== this.props.projectsOverview) && (this.props.projectsOverview.length > 0))){
             const { map } = this.props.leaflet;
-            map.setView(L.latLng(-6.161184, 35.745426), 7);
+            map.setView(L.latLng(-6.161184, 35.745426), 6);
         }
     }
 

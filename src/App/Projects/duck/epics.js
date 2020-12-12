@@ -26,7 +26,12 @@ export const getProjectEpic = action$ => {
         switchMap(({payload}) => {
             return from(API.getProject(payload)).pipe(
                 switchMap(res => {
-                    return from([actions.getProjectSuccess(res.data), mapActions.clearRegionDetails()])
+                    return from([
+                        actions.getProjectSuccess(res.data),
+                        mapActions.clearRegionDetails(),
+                        mapActions.showProjectsOverview(false),
+                        mapActions.showProjectDetails(true),
+                    ])
                 }),
                 catchError(error => from([actions.getProjectFailure(error), mapActions.clearRegionDetails()]))
             );
