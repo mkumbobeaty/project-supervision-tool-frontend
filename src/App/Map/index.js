@@ -7,16 +7,18 @@ import "./styles.css";
 import BaseMap from "./BaseMap";
 import {bindActionCreators} from "redux";
 import {mapActions, mapSelectors} from "./duck";
+import { projectSelectors } from '../Projects/duck'
 import SideNav from "./components/SideNav";
 import RegionsGeoJson from "./components/RegionsGeoJson";
 import RegionDetailGeoJson from "./components/RegionDetailsGeoJson";
 import ProjectPoints from "./components/ProjectPoints";
+import ProjectLocations from "./components/ProjectLocations";
 
 class MapDashboard extends Component {
     state = {
         lat: -6.161184,
         lng: 35.745426,
-        zoom: 7,
+        zoom: 6,
     }
 
     static propTypes = {
@@ -25,10 +27,12 @@ class MapDashboard extends Component {
         regionDetails: PropTypes.object.isRequired,
         projectsOverview: PropTypes.array.isRequired,
         regionProjects: PropTypes.array.isRequired,
+        project: PropTypes.object,
     };
 
     static defaultProps = {
         projectsOverview: [],
+        project: null,
         regionProjects: [],
         regionDetails: null,
         getProjectsByRegion: () => {
@@ -86,6 +90,7 @@ class MapDashboard extends Component {
             getProjectsByRegion,
             regionDetails,
             regionProjects,
+            project,
             mapLoading,
         } = this.props;
         return (
@@ -99,6 +104,7 @@ class MapDashboard extends Component {
                         />
                         <RegionDetailGeoJson data={regionDetails}/>
                         <ProjectPoints regionDetails={regionDetails} regionProjects={regionProjects}/>
+                        <ProjectLocations project={project}/>
                     </BaseMap>
                 </Spin>
             </div>
@@ -112,6 +118,7 @@ const mapStateToProps = (state) => ({
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     regionDetails: mapSelectors.getRegionDetailsSelector(state),
     projectsOverview: mapSelectors.getProjectsOverview(state),
+    project: projectSelectors.getProjectSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

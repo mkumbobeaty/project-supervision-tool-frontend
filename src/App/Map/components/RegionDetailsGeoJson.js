@@ -5,6 +5,11 @@ import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import {GeoJSON} from "react-leaflet";
 
+/**
+ * @class
+ * @name RegionDetailsGeoJson
+ * @description renders region projects on map
+ */
 class RegionDetailsGeoJson extends Component{
 
     static propTypes = {
@@ -26,6 +31,7 @@ class RegionDetailsGeoJson extends Component{
         return data?.geom ? <GeoJSON
             data={geoJsonObject}
             style={{ "opacity": 0.5, "fillOpacity": 0.05, "weight": 1 }}
+            key={data.id}
             onEachFeature={this.onEachFeature}
         /> : '';
     }

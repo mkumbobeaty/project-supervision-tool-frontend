@@ -17,7 +17,7 @@ const accessToken = 'pk.eyJ1IjoibWxvd2VlZGdhciIsImEiOiJjaWxqZXh4ZTAwMDl4dzhsend0
 const state = {
     lat: -6.161184,
     lng: 35.745426,
-    zoom: 7,
+    zoom: 6,
 }
 const position = [state.lat, state.lng]
 

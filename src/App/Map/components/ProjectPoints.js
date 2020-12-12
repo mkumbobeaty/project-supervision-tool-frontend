@@ -11,6 +11,10 @@ class ProjectPoints extends Component {
         data: PropTypes.object.isRequired
     }
 
+    componentDidMount() {
+        console.log(' ProjectPoints mounted');
+    }
+
     handleSpiderfyClick = marker => {
         console.log(marker);
     };
@@ -25,6 +29,7 @@ class ProjectPoints extends Component {
 
     generateProjectMarkers = (regionProjects) => {
         const {regionDetails} = this.props;
+        if (!regionDetails) return [];
         const regionId = regionDetails.id;
         return regionProjects.map(regionProject => {
             const {locations} = regionProject;
