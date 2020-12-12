@@ -24,6 +24,7 @@ function ProjectsOverview(
         setShowNationalOverview,
         setShowRegionalOverview,
         clearRegionalProjects,
+        region,
     }
 ) {
     return (
@@ -39,6 +40,7 @@ function ProjectsOverview(
                 regionProjectStatistics={regionProjectStatistics}
                 regionProjects={regionProjects}
                 getProject={getProject}
+                region={region}
                 setShowNationalOverview={setShowNationalOverview}
                 setShowRegionalOverview={setShowRegionalOverview}
                 clearRegionalProjects={clearRegionalProjects}

@@ -17,6 +17,7 @@ function RegionalProjectsOverview({
                                       setShowNationalOverview,
                                       setShowRegionalOverview,
                                       clearRegionalProjects,
+                                      region,
                                   }) {
 
     // generate project commitment amount string
@@ -54,7 +55,7 @@ function RegionalProjectsOverview({
             overViewData={overViewData}
             predefinedFilterConfig={filterConfig}
             predefinedFilterData={filterData}
-            title='Regional Overview'
+            title={region?.name}
             handleOnclickFilterItem={handleOnClickFilterItem}
             goBack={handleGoBack}
         />
@@ -66,6 +67,7 @@ export default RegionalProjectsOverview;
 
 RegionalProjectsOverview.propTypes = {
     regionProjectStatistics: PropTypes.object.isRequired,
+    region: PropTypes.object.isRequired,
     setShowNationalOverview: PropTypes.func.isRequired,
     setShowRegionalOverview: PropTypes.func.isRequired,
     clearRegionalProjects: PropTypes.func.isRequired,

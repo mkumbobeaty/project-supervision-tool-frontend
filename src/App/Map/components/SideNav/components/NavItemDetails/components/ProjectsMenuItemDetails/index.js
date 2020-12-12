@@ -31,6 +31,7 @@ function ProjectsMenuItemDetails(
         setShowNationalOverview,
         setShowRegionalOverview,
         clearRegionalProjects,
+        region,
     }
 ) {
 
@@ -50,6 +51,7 @@ function ProjectsMenuItemDetails(
                     clearRegionalProjects={clearRegionalProjects}
                     setShowNationalOverview={setShowNationalOverview}
                     setShowRegionalOverview={setShowRegionalOverview}
+                    region={region}
                 />
                 : ''}
 
@@ -68,6 +70,7 @@ const mapStateToProps = state => ({
     showNationalOverview: mapSelectors.showNationalOverviewSelector(state),
     showRegionalOverview: mapSelectors.showRegionalOverviewSelector(state),
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
+    region: mapSelectors.getRegionDetailsSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -87,6 +90,7 @@ ProjectsMenuItemDetails.propTypes = {
     isShowProjectOverview: PropTypes.bool.isRequired,
     projectsStatistics: PropTypes.object.isRequired,
     projectsCountByRegion: PropTypes.object.isRequired,
+    region: PropTypes.object.isRequired,
     regionProjectStatistics: PropTypes.object.isRequired,
     isShowProjectDetails: PropTypes.bool.isRequired,
     getProjectsOverview: PropTypes.func.isRequired,
