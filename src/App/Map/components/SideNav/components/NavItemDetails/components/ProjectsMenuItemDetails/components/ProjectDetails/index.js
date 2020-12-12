@@ -1,16 +1,41 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {Button} from "antd";
-import {projectSelectors} from '../../../../../../../../../Projects/duck'
+import {projectActions, projectSelectors} from '../../../../../../../../../Projects/duck'
 import {LeftOutlined} from "@ant-design/icons";
 import {isoDateToHumanReadableDate, moneyFormat} from "../../../../../../../../../../Util";
 import SummarySection from "../../../SummarySection";
 import './styles.css';
+import {mapActions, mapSelectors} from "../../../../../../../../duck";
+import {bindActionCreators} from "redux";
 
-function ProjectDetails({project}) {
+function BackLink({goBack}) {
+
+    return (
+        <div className="back-button" onClick={goBack}>
+            <a> <LeftOutlined style={{fontSize: 10}}/> <span>Back</span></a>
+        </div>
+
+    );
+
+}
+
+function ProjectDetails({
+                            project,
+                            regionId,
+                            getProjectsByRegion,
+                            showProjectsOverview,
+                            showProjectDetails,
+                        }) {
 
     const items = project?.sub_projects.map(({name, id}) => ({name, id}))
+
+    const handleGoBack = () => {
+        getProjectsByRegion(regionId);
+        showProjectsOverview(true);
+        showProjectDetails(false);
+    }
 
     return project ? (
         <div className="ProjectInfo">
@@ -19,7 +44,7 @@ function ProjectDetails({project}) {
                     <div>{project.name}</div>
                     <small>({project.id})</small>
                 </div>
-                <div className="back-button"><a> <LeftOutlined style={{fontSize: 10}}/> <span>Back</span></a></div>
+                <BackLink goBack={handleGoBack}/>
             </section>
             <hr/>
             <section className="sector">
@@ -69,10 +94,23 @@ function ProjectDetails({project}) {
     ) : '';
 }
 
-const mapStateToProps = state => ({ project: projectSelectors.getProjectSelector(state)});
+const mapStateToProps = state => ({
+    project: projectSelectors.getProjectSelector(state),
+    regionId: mapSelectors.selectedRegionIdSelector(state),
+});
 
-export default connect(mapStateToProps)(ProjectDetails);
+const mapDispatchToProps = (dispatch) => ({
+    getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
+    showProjectsOverview: bindActionCreators(mapActions.showProjectsOverview, dispatch),
+    showProjectDetails: bindActionCreators(mapActions.showProjectDetails, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);
 
 ProjectDetails.propTypes = {
-    project: PropTypes.object.isRequired
+    project: PropTypes.object.isRequired,
+    regionId: PropTypes.string.isRequired,
+    getProjectsByRegion: PropTypes.func.isRequired,
+    showProjectsOverview: PropTypes.func.isRequired,
+    showProjectDetails: PropTypes.func.isRequired,
 }

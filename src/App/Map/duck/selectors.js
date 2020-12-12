@@ -82,3 +82,11 @@ export const getRegionProjectsSelector = (state) => state?.map?.regionProjects?.
  * @param {Object} state redux state
  */
 export const getRegionDetailsSelector = (state) => state?.map?.regionDetails?.data;
+
+
+/**
+ * @function
+ * @name selectedRegionIdSelector
+ * @param {Object} state redux state
+ */
+export const selectedRegionIdSelector = (state) => state?.map?.regionDetails?.selectedRegionId;

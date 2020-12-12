@@ -70,12 +70,13 @@ const regionProjects = (state = initialRegionProjects, action) => {
 
 const  initialRegionDetails = {
     data: null,
+    selectedRegionId: null,
     error: null
 }
 const regionDetails = (state = initialRegionDetails, action) => {
     switch (action.type) {
         case types.GET_REGION_SUCCESS:
-            return {...state, data: action.payload};
+            return {...state, data: action.payload, selectedRegionId: action.payload.id};
         case types.CLEAR_REGION_DETAILS:
             return {...state, data: null};
         case types.GET_REGION_FAILURE:
