@@ -12,10 +12,8 @@ class ProjectLocations extends Component{
             map.setView(L.latLng(-6.161184, 35.745426), 6);
         }
     }
-    render () {
-const { project } = this.props;
 
-    const renderRegions = project?.locations.map(({ region, id }) => {
+    renderRegions = (project) => project?.locations.map(({ region, id }) => {
         const pointOnRegion = turf.pointOnFeature({
             "type": "Feature",
             "geometry": region.geom,
@@ -31,7 +29,11 @@ const { project } = this.props;
             </Marker>
         );
     })
-    return project ? (<>{renderRegions}</>) : '';
+
+    render () {
+const { project } = this.props;
+
+    return project ? (<>{this.renderRegions(project)}</>) : '';
 }
 }
 
