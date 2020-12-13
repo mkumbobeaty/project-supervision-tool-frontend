@@ -19,12 +19,6 @@ function SubProjectsMenuItemDetails() {
 
 }
 
-function LocationsMenuItemDetails() {
-
-    return <CommingSoon/>
-
-}
-
 function DataSetsMenuItemDetails() {
 
     return <CommingSoon/>
@@ -40,7 +34,6 @@ function NavItemDetails({activeItem}) {
         >
             {activeItem === 'projects' ? <ProjectsMenuItemDetails/> : ''}
             {activeItem === 'sub-projects' ? <SubProjectsMenuItemDetails/> : ''}
-            {activeItem === 'locations' ? <LocationsMenuItemDetails/> : ''}
             {activeItem === 'data-sets' ? <DataSetsMenuItemDetails/> : ''}
         </div>
     );

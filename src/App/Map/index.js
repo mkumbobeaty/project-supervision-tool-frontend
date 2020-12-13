@@ -7,7 +7,7 @@ import "./styles.css";
 import BaseMap from "./BaseMap";
 import {bindActionCreators} from "redux";
 import {mapActions, mapSelectors} from "./duck";
-import { projectSelectors } from '../Projects/duck'
+import {projectSelectors} from '../Projects/duck'
 import SideNav from "./components/SideNav";
 import RegionsGeoJson from "./components/RegionsGeoJson";
 import RegionDetailGeoJson from "./components/RegionDetailsGeoJson";
@@ -104,7 +104,7 @@ class MapDashboard extends Component {
                         />
                         <RegionDetailGeoJson data={regionDetails}/>
                         <ProjectPoints regionDetails={regionDetails} regionProjects={regionProjects}/>
-                        <ProjectLocations project={project}/>
+                        <ProjectLocations project={project} />
                     </BaseMap>
                 </Spin>
             </div>

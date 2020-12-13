@@ -209,6 +209,8 @@ const project = (state = {data: null, error: null, loading: false}, action) => {
       return { ...state, loading: true}
     case types.GET_PROJECT_SUCCESS:
       return { ...state, data: action.payload, loading: false}
+    case types.CLEAR_PROJECT:
+      return { ...state, data: null}
     case types.GET_PROJECT_FAILURE:
       return { ...state, error: action.payload, loading: false}
     default:

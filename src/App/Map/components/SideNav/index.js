@@ -48,16 +48,6 @@ class SideNav extends Component {
                     />
 
                     <SideNavItem
-                        title="Locations"
-                        activeThumbnail={humanResourceImg}
-                        inactiveThumbnail={whiteHhumanResourceImg}
-                        itemId='locations'
-                        activeItem={activeItem}
-                        setActiveItem={setActiveMapSideMenuItem}
-                    />
-
-
-                    <SideNavItem
                         title="Data Sets"
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteHhumanResourceImg}

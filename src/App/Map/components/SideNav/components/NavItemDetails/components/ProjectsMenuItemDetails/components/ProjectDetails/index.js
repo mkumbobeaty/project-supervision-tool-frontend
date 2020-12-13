@@ -26,6 +26,7 @@ function ProjectDetails({
                             regionId,
                             getProjectsByRegion,
                             showProjectsOverview,
+                            clearProject,
                             showProjectDetails,
                         }) {
 
@@ -35,6 +36,7 @@ function ProjectDetails({
         getProjectsByRegion(regionId);
         showProjectsOverview(true);
         showProjectDetails(false);
+        clearProject();
     }
 
     return project ? (
@@ -42,13 +44,12 @@ function ProjectDetails({
             <section className="top-section">
                 <div className='project-title'>
                     <div>{project.name}</div>
-                    <small>({project.id})</small>
                 </div>
                 <BackLink goBack={handleGoBack}/>
             </section>
             <hr/>
             <section className="sector">
-                Sector: Transportation
+                PROJECT ID :  {  project.id }
             </section>
             <hr/>
             <section>{project.description}</section>
@@ -102,6 +103,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => ({
     getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
     showProjectsOverview: bindActionCreators(mapActions.showProjectsOverview, dispatch),
+    clearProject: bindActionCreators(projectActions.clearProject, dispatch),
     showProjectDetails: bindActionCreators(mapActions.showProjectDetails, dispatch),
 });
 
@@ -112,5 +114,6 @@ ProjectDetails.propTypes = {
     regionId: PropTypes.string.isRequired,
     getProjectsByRegion: PropTypes.func.isRequired,
     showProjectsOverview: PropTypes.func.isRequired,
+    clearProject: PropTypes.func.isRequired,
     showProjectDetails: PropTypes.func.isRequired,
 }

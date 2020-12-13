@@ -1,6 +1,7 @@
 
 import React, {Component} from 'react';
-import {GeoJSON, withLeaflet } from "react-leaflet";
+import * as turf from '@turf/turf'
+import {Marker, Popup, withLeaflet} from "react-leaflet";
 import L from "leaflet";
 
 class ProjectLocations extends Component{
@@ -15,8 +16,20 @@ class ProjectLocations extends Component{
 const { project } = this.props;
 
     const renderRegions = project?.locations.map(({ region, id }) => {
-        console.log('region', region);
-        return <GeoJSON key={id} data={{ type: 'Feature', geometry: region.geom}}/>
+        const pointOnRegion = turf.pointOnFeature({
+            "type": "Feature",
+            "geometry": region.geom,
+        });
+        const { geometry: { coordinates } } = pointOnRegion;
+
+        return (
+            <Marker key={id} position={coordinates.reverse()}>
+                <Popup>
+                    <div><b>Project :</b> { project.name}</div>
+                    <div><b>Region :</b> { region.name}</div>
+                </Popup>
+            </Marker>
+        );
     })
     return project ? (<>{renderRegions}</>) : '';
 }
