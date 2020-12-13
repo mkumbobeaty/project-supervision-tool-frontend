@@ -1,9 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import PropTypes from 'prop-types';
-
-import './styles.css';
 import {LeftOutlined} from "@ant-design/icons";
-import {moneyFormat} from "../../../../../../../../Util";
+import PredefinedFilter from "../PredefinedFilter";
+import './styles.css';
 
 /**
  * @function
@@ -25,40 +24,7 @@ function ProjectsOverviewTable({data}) {
     );
 }
 
-/**
- * @function
- * @name ProjectsRegionsPredefinedFilter
- * @description renders filter predefined aready with list of options
- */
-function ProjectsRegionsPredefinedFilter({data, config, handleOnclickFilterItem}) {
 
-
-    const renderFilterItems = items => items.map(({title, value, id}) => (
-        <li>
-            <article className='filter-item' onClick={() => handleOnclickFilterItem(id)}>
-                <div className='filter-item-title'>{title}</div>
-                <div className='filter-item-value'>{value}</div>
-            </article>
-        </li>
-    ));
-
-    return (
-        <div className='ProjectsRegionsPredefinedFilter'>
-            <div className='projects-regions-predefined-filter-title'>{config.filterTitle}</div>
-            <hr/>
-            <section>
-                <article className='filter-header'>
-                    <div>{config.filterRightTitle}</div>
-                    <div>{config.filterLeftTitle}</div>
-                </article>
-                <ol className='filter-list'>
-                    {renderFilterItems(data)}
-                </ol>
-            </section>
-        </div>
-    );
-
-}
 
 function BackButton({goBack}) {
 
@@ -100,10 +66,11 @@ function SideNavItemOverview({
             </section>
 
             <section className='project-regions-filters'>
-                <ProjectsRegionsPredefinedFilter
+                <PredefinedFilter
                     data={predefinedFilterData}
                     config={predefinedFilterConfig}
                     handleOnclickFilterItem={handleOnclickFilterItem}
+                    filterTitle={predefinedFilterConfig.filterTitle}
                 />
             </section>
         </div>

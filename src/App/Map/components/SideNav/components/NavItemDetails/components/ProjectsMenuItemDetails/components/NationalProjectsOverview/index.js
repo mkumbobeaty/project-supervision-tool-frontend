@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import PropTypes from 'prop-types';
-import SideNavItemOverview from "../../../SideNavItemOverview";
+import SideNavItemOverview from "../SideNavItemOverview";
 import {moneyFormat} from "../../../../../../../../../../Util";
 import './styles.css';
 

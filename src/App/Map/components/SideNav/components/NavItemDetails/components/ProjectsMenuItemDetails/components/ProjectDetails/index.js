@@ -9,6 +9,7 @@ import SummarySection from "../../../SummarySection";
 import './styles.css';
 import {mapActions, mapSelectors} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
+import PredefinedFilter from "../PredefinedFilter";
 
 function BackLink({goBack}) {
 
@@ -30,7 +31,7 @@ function ProjectDetails({
                             showProjectDetails,
                         }) {
 
-    const items = project?.sub_projects.map(({name, id}) => ({name, id}))
+    const items = project?.sub_projects.map(({name, id}) => ({title:name, value: '', id}))
 
     const handleGoBack = () => {
         getProjectsByRegion(regionId);
@@ -86,7 +87,7 @@ function ProjectDetails({
                 </article>
             </section>
             <section>
-                <SummarySection sectionName="Sub Projects" items={items}/>
+                <PredefinedFilter sectionName="Sub Projects" data={items} filterTitle='Sub projects'/>
             </section>
             <section className="link-actions">
                 <Button><a>VIEW FULL PROJECT</a></Button>
