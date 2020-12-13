@@ -16,6 +16,16 @@ const login = (payload) =>
         .then((response) => response.data)
 
 
+/**
+ * Fetch all focal people from API
+ *
+ */
+const getFocalPeople = () => {
+    return axios.get(`/focal_people`).then((response) => response.data.data);
+}
+
+
 export default {
     login,
+    getFocalPeople
 }

@@ -1,6 +1,6 @@
 
 import * as types from './types'
-import {makeActionCreator} from '../../Util';
+import { makeActionCreator } from '../../Util';
 
 /**
  * @function
@@ -14,3 +14,4 @@ export const reloadPage = makeActionCreator(types.RELOAD_PAGE);
  * @param {String} payload the access token
  */
 export const restoreAccessToken = makeActionCreator(types.RESTORE_ACCESS_TOKEN, 'payload');
+

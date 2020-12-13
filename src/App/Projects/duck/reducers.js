@@ -150,16 +150,9 @@ const Projects = (state = defaultProjects, action) => {
     case types.GET_PROJECTS_START:
       return { ...state, loading: true };
     case types.GET_PROJECTS_SUCCESS:
-      return Object.assign(
-        {},
-        {
-          data: action.payload,
-          loading: false,
-        }
-      );
+      return {...state, data: action.payload, loading: false, total: action.payload.length }
     case types.GET_PROJECTS_FAILURE:
       return { ...state, error: action.message, loading: false };
-
     case types.OPEN_PROJECTS_FORM:
       return { ...state, showForm: true };
     case types.CLOSE_PROJECTS_FORM:
@@ -201,6 +194,9 @@ const Project = (state = projectstate, action) => {
       return state;
   }
 };
+
+
+
 
 // TODO note: reducer added by EDGAR
 const project = (state = {data: null, error: null, loading: false}, action) => {
