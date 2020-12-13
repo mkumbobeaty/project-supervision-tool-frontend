@@ -13,32 +13,32 @@ export const getProjectSelector = (state) => state?.resources?.project?.data;
  * @name getProjectsSelector
  * @param {Object} state redux state
  */
-export const getProjectsSelector = (state) => state?.resources?.projects?.data;
+export const getProjectsSelector = (state) => state?.resources?.Projects?.data;
 
 /**
  * @function
  * @name getProjectsLoadingSelector
  * @param {Object} state redux state
  */
-export const getProjectsLoadingSelector = (state) => state?.resources?.projects?.loading;
+export const getProjectsLoadingSelector = (state) => state?.resources?.Projects?.loading;
 
 /**
  * @function
  * @name getProjectsPageSelector
  * @param {Object} state redux state
  */
-export const getProjectsPageSelector = (state) => 1;
+export const getProjectsPageSelector = (state) => state?.resources?.Projects?.page;
 
 /**
  * @function
  * @name getProjectsTotalSelector
  * @param {Object} state redux state
  */
-export const getProjectsTotalSelector = (state) => 10;
+export const getProjectsTotalSelector = (state) => state?.resources?.Projects?.total;
 
 /**
  * @function
  * @name getProjectsShowFormSelector
  * @param {Object} state redux state
  */
-export const getProjectsShowFormSelector = (state) => false;
+export const getProjectsShowFormSelector = (state) => state?.resources?.Projects?.showForm;

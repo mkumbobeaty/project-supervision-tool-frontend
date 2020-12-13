@@ -150,16 +150,9 @@ const Projects = (state = defaultProjects, action) => {
     case types.GET_PROJECTS_START:
       return { ...state, loading: true };
     case types.GET_PROJECTS_SUCCESS:
-      return Object.assign(
-        {},
-        {
-          data: action.payload,
-          loading: false,
-        }
-      );
+      return {...state, data: action.payload, loading: false, total: action.payload.length }
     case types.GET_PROJECTS_FAILURE:
       return { ...state, error: action.message, loading: false };
-
     case types.OPEN_PROJECTS_FORM:
       return { ...state, showForm: true };
     case types.CLOSE_PROJECTS_FORM:
@@ -203,20 +196,7 @@ const Project = (state = projectstate, action) => {
 };
 
 
-// TODO note: project reducer added by edgar
-const projects = (state = {data: [], error: null, loading: false}, action) => {
-  switch (action.type) {
-    case types.GET_PROJECTS_START:
-      return { ...state, loading: true}
-    case types.GET_PROJECTS_SUCCESS:
-      return { ...state, data: action.payload, loading: false}
-    case types.GET_PROJECTS_FAILURE:
-      return { ...state, error: action.payload, loading: false}
-    default:
-      return state;
 
-  }
-}
 
 // TODO note: reducer added by EDGAR
 const project = (state = {data: null, error: null, loading: false}, action) => {
@@ -273,5 +253,4 @@ export const resources = combineReducers({
   Project,
   deleteProjects,
   project,
-  projects,
   });
