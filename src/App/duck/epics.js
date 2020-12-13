@@ -1,5 +1,5 @@
-import {ofType} from 'redux-observable';
-import {switchMap} from 'rxjs/operators';
+import { ofType } from 'redux-observable';
+import {  switchMap } from 'rxjs/operators';
 import * as Rx from 'rxjs';
 import * as actions from './actions';
 import * as types from './types'
@@ -14,3 +14,6 @@ export const restoreAccessTokenEpic = action$ => {
         }),
     );
 }
+
+
+

@@ -1,16 +1,12 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { generateDateString, createDateFromString } from "../../../../Util";
 import {
   Button,
   Form,
-  Row,
-  Col,
   Select,
-  DatePicker,
-  InputNumber,
   Input,
 } from "antd";
+import { connect } from "react-redux";
 
 /* state actions */
 
@@ -33,296 +29,239 @@ const wrapperCol = {
 };
 
 
-const renderDistricts = (districts) => {
+const renderDistricts = (districts,loadingDistrict) => {
   return (
-      <Form.Item
-          label="District"
-          name="district_id"
-          title="humanResources District is required  e.g Ilala"
-          rules={[
-            {
-              required: true,
-              message: "humanResource district  is required",
-            },
-          ]}
-      >
-        <Select>
-          { districts.map((district) => (
-              <Select.Option value={district.id}>{district.name}</Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
+    <Form.Item
+      label="District"
+      name="district_id"
+      title="humanResources District is required  e.g Ilala"
+      rules={[
+        {
+          required: true,
+          message: "humanResource district  is required",
+        },
+      ]}
+    >
+      <Select loading={loadingDistrict}>
+        {districts.map((district) => (
+          <Select.Option value={district.id}>{district.name}</Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 }
 
 /**
- * @function HumanResourceForm
- * @name HumanResourceForm
+ * @function ProjectForm
+ * @name ProjectForm
  * @description Form for create and edit humanResource of measure
  * @param {object} props Valid form properties
- * @param {object} props.humanResource Valid humanResource object
  * @param {boolean} props.isEditForm Flag whether form is on edit mode
  * @param {boolean} props.posting Flag whether form is posting data
  * @param {Function} props.onCancel Form cancel callback
- * @returns {object} HumanResourceForm component
+ * @returns {object} ProjectForm component
  * @author lally elias <lallyelias87@gmail.com>
  * @license MIT
  * @since 0.1.0
  * @version 0.1.0
  * @static
  * @public
- * @example
- *
- * <HumanResourceForm
- *   humanResource={humanResource}
- *   isEditForm={isEditForm}
- *   posting={posting}
- *   onCancel={this.handleClosehumanResourceForm}
- * />
  *
  */
-class HumanResourceForm extends Component{
-  state = {showDistrictsSelect: false}
+class ProjectForm extends Component {
+  state = { showDistrictsSelect: false }
   // form finish(submit) handler
-   onFinish = (values) => {
-    const start_date = generateDateString(values.start_date);
-    const end_date = generateDateString(values.end_date);
-    const payload = { ...values, start_date, end_date };
+  onFinish = (values) => {
+    const payload = { ...values };
     if (this.props.isEditForm) {
       this.props.updateHumanResource(payload, this.props.selected.id);
     } else {
-      this.props.createHumanResource(payload);
+      this.props.createProject(payload);
     }
-     this.props.handleAfterCloseForm();
+    this.props.handleAfterCloseForm();
   };
 
   componentDidMount() {
-      const {selected, getDistricts} = this.props;
-      if (selected && selected.location.level === 'district') {
-          this.setState({showDistrictsSelect: true})
-          getDistricts(selected?.location?.region.id);
-      }
+    const { selected, getDistricts } = this.props;
+    if (selected && selected.locations.map(location => location.level === 'district')) {
+      this.setState({ showDistrictsSelect: true })
+      const region_id = selected.locations.map(location => {
+        return (
+          location.region.id
+        )
+      })
+      getDistricts(region_id)
+    }
   }
 
-    render() {
-
+  render() {
     const {
       posting,
-      getDistricts,
-      items,
       selected,
-      agencies,
+      onCancel,
+      focalPeoples,
       regions,
       districts,
-      onCancel,
+      getDistricts,
+      loadingRegion,
+      loadingDistrict,
     } = this.props;
     return (
-        <Form
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
-            onFinish={this.onFinish}
-            initialValues={{
-              hr_type_id: selected?.hr_type.id,
-              level: selected?.location?.level,
-              region_id: selected?.location?.region?.id,
-              district_id: selected?.location?.district?.id,
-              implementing_partners: selected?.implementing_partners.map(
-                  (partner) => partner.id
-              ),
-              location_id: selected?.location.id,
-              quantity: selected?.quantity,
-              description: selected?.description,
-              start_date: createDateFromString(selected?.start_date),
-              end_date: createDateFromString(selected?.end_date),
-            }}
-            autoComplete="off"
-            className="HumanResourceForm"
+      <Form
+        labelCol={labelCol}
+        wrapperCol={wrapperCol}
+        onFinish={this.onFinish}
+        projectsValues={{
+          projects_id: selected?.projects_id,
+          name: selected?.name,
+          leaders: selected?.leaders,
+          description: selected?.description,
+        }}
+        autoComplete="off"
+        className="ProjectForm"
+      >
+        {/* start:type */}
+        <Form.Item
+          label="Project Id"
+          name="project_id"
+          title="Project id e.g 1236567"
+          rules={[
+            {
+              required: true,
+              message: "Project identity is required",
+            },
+          ]}
         >
-          {/* start:type */}
-          <Form.Item
-              label="Type"
-              name="hr_type_id"
-              title="humanResource type e.g People"
-              rules={[
-                {
-                  required: true,
-                  message: "humanResource type is required",
-                },
-              ]}
+          <Input />
+        </Form.Item>
+        {/* end:project id */}
+
+        <Form.Item
+          label="Project Name"
+          name="name"
+          title="Project name e.g DMDP"
+          rules={[
+            {
+              required: true,
+              message: "Project name is required",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        {/* end:project id */}
+
+        {/* start:Description */}
+        <Form.Item
+          label="Description"
+          name="description"
+          title="Project Description e.g water recyle project"
+          rules={[
+            {
+              required: true,
+              message: "Project description is required",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        {/* end:Description */}
+
+
+        <Form.Item
+          label="Leaders"
+          name="leaders"
+          title="leaders/focal people e.g People"
+          rules={[
+            {
+              required: true,
+              message: "leaders/focal people required",
+            },
+          ]}
+        >
+          <Select mode="multiple"
           >
-            <Select>
-              {items.map((item) => (
-                  <Select.Option value={item.id}>{item.name}</Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-          {/* end:type */}
+            {focalPeoples.map((focalPerson) => (
+              <Select.Option value={focalPerson.id}>{focalPerson.first_name}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
 
-          {/* start:Description */}
-          <Form.Item
-              label="Description"
-              name="description"
-              title="humanResource Description e.g doctor of heart"
-              rules={[
-                {
-                  required: true,
-                  message: "humanResource Description is required",
-                },
-              ]}
+        {/* start:level */}
+        <Form.Item
+          label="Level"
+          name="level"
+          title="Projects Level is required  e.g District"
+          rules={[
+            {
+              required: true,
+              message: "Projects level  is required",
+            },
+          ]}
+        >
+          <Select
+            onSelect={(value) => value === 'district' ? this.setState({ showDistrictsSelect: true }) : this.setState({ showDistrictsSelect: false })}
           >
-            <Input />
-          </Form.Item>
-          {/* end:Description */}
+            <Select.Option value="region">Region</Select.Option>
+            <Select.Option value="district">District</Select.Option>
+          </Select>
+        </Form.Item>
+        {/* end:level */}
 
-          {/* start:implementing partner */}
-          <Form.Item
-              label="Implementing Partner"
-              name="implementing_partners"
-              title="humanResource Implementing Partner e.g Tanzania Red cross society"
-              rules={[
-                {
-                  required: true,
-                  message: "humanResource Implementing Partner is required",
-                },
-              ]}
+
+        {/* start:region */}
+        <Form.Item
+          label="Region"
+          name="region_id"
+          title="Projects Region is required  e.g Dar Es Salaam"
+          rules={[
+            {
+              required: true,
+              message: "Projects region  is required",
+            },
+          ]}
+          loading={loadingRegion}
+        >
+          <Select onSelect={(value) => {
+            getDistricts(value)
+          }}>
+            {regions.map((region) => (
+              <Select.Option value={region.id}>{region.name}</Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+        {/* end:region */}
+
+
+        {/* start:district */}
+        { this.state.showDistrictsSelect ? renderDistricts(districts,loadingDistrict) : ''}
+        {/* end:district */}
+
+
+        {/* start:form actions */}
+        <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+          <Button onClick={onCancel}>Cancel</Button>
+          <Button
+            style={{ marginLeft: 8 }}
+            type="primary"
+            htmlType="submit"
+            loading={posting}
           >
-            <Select mode="multiple">
-              {agencies.map((agency) => (
-                  <Select.Option value={agency.id}>{agency.name}</Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-          {/* end:implementing partner */}
-
-          {/* start:number */}
-          <Form.Item
-              label="Number"
-              title=" available humanResources in number  e.g 30"
-              name="quantity"
-              rules={[
-                {
-                  required: true,
-                  message: "humanResource number  is required",
-                },
-              ]}
-          >
-            <InputNumber />
-          </Form.Item>
-          {/* end:number */}
-
-
-
-          {/* start:level */}
-          <Form.Item
-              label="Level"
-              name="level"
-              title="humanResources Level is required  e.g District"
-              rules={[
-                {
-                  required: true,
-                  message: "humanResource level  is required",
-                },
-              ]}
-          >
-            <Select
-                onSelect={(value) => value === 'district' ? this.setState({showDistrictsSelect: true}) : this.setState({showDistrictsSelect: false})}
-            >
-              <Select.Option value="region">Region</Select.Option>
-              <Select.Option value="district">District</Select.Option>
-            </Select>
-          </Form.Item>
-          {/* end:level */}
-
-
-          {/* start:region */}
-          <Form.Item
-              label="Region"
-              name="region_id"
-              title="humanResources Region is required  e.g Dar Es Salaam"
-              rules={[
-                {
-                  required: true,
-                  message: "humanResource region  is required",
-                },
-              ]}
-          >
-            <Select onSelect={(value) => getDistricts(value)}>
-              { regions.map((region) => (
-                  <Select.Option value={region.id}>{region.name}</Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-          {/* end:region */}
-
-
-          {/* start:district */}
-          { this.state.showDistrictsSelect ? renderDistricts(districts) : ''}
-          {/* end:district */}
-
-          {/* start: start date & end date */}
-          <Row justify="space-between">
-            {/* start:start date */}
-            <Col span={11}>
-              <Form.Item
-                  label="Start Date"
-                  name="start_date"
-                  title="humanResource start date e.g 06-20-2020"
-                  rules={[
-                    {
-                      required: true,
-                      message: "humanResource start date is required",
-                    },
-                  ]}
-              >
-                <DatePicker />
-              </Form.Item>
-            </Col>
-            {/* end:start date */}
-
-            {/* start:end date */}
-            <Col span={11}>
-              <Form.Item
-                  label="End Date"
-                  title="humanResource end date e.g 07-30-2020"
-                  name="end_date"
-                  rules={[
-                    {
-                      required: true,
-                      message: "humanResource end date is required",
-                    },
-                  ]}
-              >
-                <DatePicker />
-              </Form.Item>
-            </Col>
-            {/* end:end date */}
-          </Row>
-          {/* end: start date & end date */}
-
-          {/* start:form actions */}
-          <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
-            <Button onClick={onCancel}>Cancel</Button>
-            <Button
-                style={{ marginLeft: 8 }}
-                type="primary"
-                htmlType="submit"
-                loading={posting}
-            >
-              Save
+            Save
             </Button>
-          </Form.Item>
-          {/* end:form actions */}
-        </Form>
+        </Form.Item>
+        {/* end:form actions */}
+      </Form>
     );
   }
 
 }
 
-HumanResourceForm.defaultProps = {
+ProjectForm.defaultProps = {
   humanResource: {},
 };
 
-HumanResourceForm.propTypes = {
+ProjectForm.propTypes = {
   humanResource: PropTypes.shape({
     _id: PropTypes.string,
     strings: PropTypes.shape({
@@ -341,4 +280,12 @@ HumanResourceForm.propTypes = {
   onCancel: PropTypes.func.isRequired,
 };
 
-export default HumanResourceForm;
+const mapStateToProps = (state) => {
+  return {
+    loadingDistrict: state.projects?.districts?.loading,
+    loadingRegion: state.projects?.regions?.loading,
+  };
+};
+
+
+export default connect(mapStateToProps)(ProjectForm);

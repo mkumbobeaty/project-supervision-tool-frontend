@@ -4,6 +4,8 @@ import dashboardIcon from '../../assets/icons/overview-dashboard.svg';
 import resourcesIcon from '../../assets/icons/resources.svg';
 import settingsIcons from '../../assets/icons/admin-settings.svg';
 import NavigationMenu from '../components/NavigationMenu';
+import initiativesIcon from '../../assets/icons/initiatives.svg';
+import mapsIcon from "../../assets/icons/maps.svg";
 import modules from '../../modules.json';
 
 /* constants */
@@ -15,7 +17,19 @@ const routes = [
     icon: resourcesIcon,
     description: modules.humanResource,
   },
-  
+  {
+    name: 'Sub-Projects',
+    path: '/sub-projects',
+    icon: initiativesIcon,
+    description: modules.initiatives,
+  },
+  {
+    name: 'Map',
+    path: '/map',
+    icon: mapsIcon,
+    description: modules.map,
+  },
+
   {
     name: 'Dashboards',
     path: '/dashboards',
@@ -34,7 +48,7 @@ const routes = [
     icon: settingsIcons,
     description: modules.dashboards,
   },
-  
+
 ];
 
 /**

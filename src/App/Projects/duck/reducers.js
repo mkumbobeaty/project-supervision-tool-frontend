@@ -202,6 +202,22 @@ const Project = (state = projectstate, action) => {
   }
 };
 
+
+// TODO note: project reducer added by edgar
+const projects = (state = {data: [], error: null, loading: false}, action) => {
+  switch (action.type) {
+    case types.GET_PROJECTS_START:
+      return { ...state, loading: true}
+    case types.GET_PROJECTS_SUCCESS:
+      return { ...state, data: action.payload, loading: false}
+    case types.GET_PROJECTS_FAILURE:
+      return { ...state, error: action.payload, loading: false}
+    default:
+      return state;
+
+  }
+}
+
 // TODO note: reducer added by EDGAR
 const project = (state = {data: null, error: null, loading: false}, action) => {
   switch (action.type) {
@@ -257,4 +273,5 @@ export const resources = combineReducers({
   Project,
   deleteProjects,
   project,
+  projects,
   });
