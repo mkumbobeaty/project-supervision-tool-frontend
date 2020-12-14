@@ -18,6 +18,8 @@ class ProjectLocations extends Component{
             "type": "Feature",
             "geometry": region.geom,
         });
+        console.log('looking at region', region);
+        console.log('looking at poit on region', pointOnRegion);
         const { geometry: { coordinates } } = pointOnRegion;
 
         return (
