@@ -22,14 +22,7 @@ class ProjectLocations extends Component{
         console.log('looking at poit on region', pointOnRegion);
         const geometry = pointOnRegion?.geometry;
 
-        return (
-            <Marker key={id} position={geometry.coordinates.reverse()}>
-                <Popup>
-                    <div><b>Project :</b> { project.name}</div>
-                    <div><b>Region :</b> { region.name}</div>
-                </Popup>
-            </Marker>
-        );
+        return '';
     })
 
     render () {
