@@ -7,6 +7,7 @@ import {
   Input,
 } from "antd";
 import { connect } from "react-redux";
+import { projectOperation } from "../../duck";
 
 /* state actions */
 
@@ -84,7 +85,8 @@ class ProjectForm extends Component {
   };
 
   componentDidMount() {
-    const { selected, getDistricts } = this.props;
+    const { selected, getDistricts,getSectors} = this.props;
+    getSectors()
     if (selected && selected.locations.map(location => location.level === 'district')) {
       this.setState({ showDistrictsSelect: true })
       const region_id = selected.locations.map(location => {
@@ -258,5 +260,8 @@ const mapStateToProps = (state) => {
   };
 };
 
+const mapDispatchToProps = {
+  getSectors: projectOperation.getSectorsStart
+}
 
-export default connect(mapStateToProps)(ProjectForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
