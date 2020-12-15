@@ -73,9 +73,11 @@ class ProjectForm extends Component {
   // form finish(submit) handler
   onFinish = (values) => {
     const payload = { ...values };
+    debugger
     if (this.props.isEditForm) {
       this.props.updateHumanResource(payload, this.props.selected.id);
     } else {
+      debugger
       this.props.createProject(payload);
     }
     this.props.handleAfterCloseForm();
@@ -102,7 +104,7 @@ class ProjectForm extends Component {
       focalPeoples,
       regions,
       districts,
-      getDistricts,
+      locations,
       loadingRegion,
       loadingDistrict,
     } = this.props;
@@ -123,7 +125,7 @@ class ProjectForm extends Component {
         {/* start:type */}
         <Form.Item
           label="Project Id"
-          name="project_id"
+          name="id"
           title="Project id e.g 1236567"
           rules={[
             {
@@ -187,56 +189,25 @@ class ProjectForm extends Component {
           </Select>
         </Form.Item>
 
-        {/* start:level */}
+      
         <Form.Item
-          label="Level"
-          name="level"
-          title="Projects Level is required  e.g District"
+          label="Locations"
+          name="locations"
+          title="Projects Location is required  e.g Dar Es Salaam"
           rules={[
             {
               required: true,
-              message: "Projects level  is required",
+              message: "Projects Location  is required",
             },
           ]}
         >
-          <Select
-            onSelect={(value) => value === 'district' ? this.setState({ showDistrictsSelect: true }) : this.setState({ showDistrictsSelect: false })}
-          >
-            <Select.Option value="region">Region</Select.Option>
-            <Select.Option value="district">District</Select.Option>
-          </Select>
-        </Form.Item>
-        {/* end:level */}
-
-
-        {/* start:region */}
-        <Form.Item
-          label="Region"
-          name="region_id"
-          title="Projects Region is required  e.g Dar Es Salaam"
-          rules={[
-            {
-              required: true,
-              message: "Projects region  is required",
-            },
-          ]}
-          loading={loadingRegion}
-        >
-          <Select onSelect={(value) => {
-            getDistricts(value)
-          }}>
-            {regions.map((region) => (
-              <Select.Option value={region.id}>{region.name}</Select.Option>
+          <Select mode="multiple">
+            {locations.map((location) => (
+              <Select.Option value={location.id}>{location.region.name}</Select.Option>
             ))}
           </Select>
         </Form.Item>
         {/* end:region */}
-
-
-        {/* start:district */}
-        { this.state.showDistrictsSelect ? renderDistricts(districts,loadingDistrict) : ''}
-        {/* end:district */}
-
 
         {/* start:form actions */}
         <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>

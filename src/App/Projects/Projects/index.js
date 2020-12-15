@@ -77,10 +77,11 @@ class Projects extends Component {
   };
 
   componentDidMount() {
-    const { fetchProjects, focalPeople, getRegions } = this.props;
+    const { fetchProjects, focalPeople, getRegions,getLocations } = this.props;
     fetchProjects();
     getRegions();
     focalPeople();
+    getLocations();
   }
 
   /**
@@ -207,7 +208,8 @@ class Projects extends Component {
       regions,
       districts,
       getDistricts,
-      createProject
+      createProject,
+      locations
     } = this.props;
 
     const { isEditForm } = this.state;
@@ -284,7 +286,7 @@ class Projects extends Component {
                       pathname: `/app/resources/initiatives/${item.id}`,
                     }}
                   >
-                    {item.details.project_id ? item.details.project_id : "All"}
+                    {item.id ? item.id : "All"}
                   </Link>
                 </Col>
                 <Col
@@ -294,18 +296,16 @@ class Projects extends Component {
                 >
                   {item.name}
                 </Col>
-                <Col {...organisationSpan}>{item.details.funding_organisation.name}</Col>
-                <Col {...borrowerSpan}>{item.details.borrower.name}</Col>
-                <Col {...agencySpan}>{item.details.implementing_agency.name}</Col>
+                  <Col {...organisationSpan}>{'null'}</Col>
+                <Col {...borrowerSpan}>{'null'}</Col>
+                <Col {...agencySpan}>{'null'}</Col>
                 <Col {...sectorSpan} className="humanResourceEllipse">
-                  {item.sectors.length <= 0 ? "Null" : item.sectors.map(({ name }, index) => {
-                    return (index ? ", " : "") + name;
-                  })}
+                  {'null'}
                 </Col>
-                <Col {...countrySpan}>{item.details.country.name}, {item.details.project_region}</Col>
-                <Col {...statusSpan}>{item.details.status.toString()}</Col>
+                <Col {...countrySpan}>{'null'}</Col>
+                <Col {...statusSpan}>{'null'}</Col>
                 <Col {...approvalSpan}>
-                  {isoDateToHumanReadableDate(item.details.approval_fy)}
+                  {'null'}
                 </Col>
 
                 {/* eslint-enable react/jsx-props-no-spreading */}
@@ -329,6 +329,7 @@ class Projects extends Component {
             posting={posting}
             selected={selected}
             regions={regions}
+            locations={locations}
             districts={districts}
             getDistricts={getDistricts}
             isEditForm={isEditForm}
@@ -362,6 +363,7 @@ const mapStateToProps = (state) => {
     projects: state.projects.main_projects?.data,
     focalPeoples: state.focalPeoples.fetchfocalPeoples.data?.data,
     regions: state.projects?.regions?.data,
+    locations: state.projects?.locations,
     districts: state.projects?.districts?.data,
     loading: state.projects.main_projects.loading,
     page: state.projects.main_projects.page,
@@ -381,6 +383,7 @@ const mapDispatchToProps = {
   createProject: projectOperation.createProjectStart,
   getRegions: projectOperation.getRegionsStart,
   getDistricts:projectOperation.getDistrictsStart,
+  getLocations:projectOperation.getLocationsStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

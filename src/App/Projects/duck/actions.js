@@ -23,9 +23,10 @@ export function getProjectsStart() {
   }
   
 //  creating project
-  export function createProjectStart() {
+  export function createProjectStart(project) {
     return {
       type: types.CREATE_PROJECT_START,
+      payload:project
     };
   }
   
@@ -280,5 +281,41 @@ export function openProjectsForm() {
 export function closeProjectsForm() {
   return {
     type: types.CLOSE_PROJECTS_FORM 
+  };
+}
+
+
+/**
+ * @function
+ * @name getLocationsStart
+ * @param {String} payload the location
+ */  
+ export function getLocationsStart() {
+  return {
+    type: types.GET_LOCATIONS_START,
+  };
+}
+
+/**
+ * @function
+ * @name getLocationsSuccess
+ * @param {*} location 
+ */
+export function getLocationsSuccess(locations) {
+  return {
+    type: types.GET_LOCATIONS_SUCCESS,
+    payload: locations,
+  };
+}
+
+/**
+ * @function
+ * @name getLocationsFailure
+ * @param {*} error 
+ */
+export function getLocationsFailure(error) {
+  return {
+    type: types.GET_PROJECTS_FAILURE,
+    payload: error,
   };
 }

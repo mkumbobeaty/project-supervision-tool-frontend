@@ -21,8 +21,9 @@ const projectsListEpic = action$ => {
 const createProjectPic = action$ => {
     return action$.pipe(
         ofType(types.CREATE_PROJECT_START),
-        switchMap(data => {
-            return from(API.createProjects(data.payload))
+        switchMap(({payload}) => {
+            debugger
+            return from(API.createProjects(payload))
         }),
         switchMap(res => { return of(actions.createProjectSuccess(res)) }),
         catchError(error => of(actions.createProjectFailure(error)))
@@ -104,6 +105,20 @@ const districtsEpic = action$ => {
 }
 
 
+const locationsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_LOCATIONS_START),
+        switchMap(() =>  {
+            return from(API.getLocations()).pipe(
+            switchMap(res => { return of(actions.getLocationsSuccess(res.data)) }),
+            catchError(error => of(actions.getLocationsFailure(error)))
+        )}
+        ),
+    )                                                                                                                                                                                                       
+}
+
+
+
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
     getProjectEpic,
@@ -112,7 +127,8 @@ export const projectsRootEpic = combineEpics(
     subProjectsEpic,
     deleteSubProjectEpic,
     regionsEpic,
-    districtsEpic
+    districtsEpic,
+    locationsEpic
 );
 
 

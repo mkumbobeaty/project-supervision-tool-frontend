@@ -1,21 +1,6 @@
 import * as types from "./types";
 import { combineReducers } from "redux";
-// import { default as ProjectsReducer } from "../../duck";
 
-/**
- * State shape
- * {
- * fetchingAgencies: boolean
- * fetchingItems: boolean
- * selectedProjects: Object
- * fetchingLocations: boolean
- * items: Object[], // items
- * agencies: Object[], // agencies
- * locations: Object[], // locations
- * creatingProjects: boolean,
- * Projects: Object
- * }
- */
 const defaultProjects = {
   data: [],
   total: 1,
@@ -65,6 +50,20 @@ const districts = (state = { data: [], error: null, loading: false }, action) =>
   }
 }
 
+const locations = (state = [], action) => {
+  switch (action.type) {
+    case types.GET_LOCATIONS_START:
+      return state
+    case types.GET_LOCATIONS_SUCCESS:
+      return action.payload 
+    case types.GET_LOCATIONS_FAILURE:
+      return  action.payload
+    default:
+      return state;
+
+  }
+}
+
 // fetching projects reducers
 const fetchProjects = (state = false, action) => {
   switch (action.type) {
@@ -103,7 +102,7 @@ const main_projects = (state = defaultProjects, action) => {
     case types.CREATE_PROJECT_START:
       return { ...state, posting: true };
     case types.CREATE_PROJECT_SUCCESS:
-      return { ...state, posting: false, showForm: false, loading: true };
+      return { ...state, posting: false, showForm: false, loading: false };
     case types.CREATE_PROJECT_FAILURE:
       return { error: action.payload.error };
     case types.UPDATE_PROJECT_START:
@@ -236,4 +235,5 @@ export const projects = combineReducers({
   creatingSubProjects,
   deleteSubProject,
   project,
+  locations
 });
