@@ -64,19 +64,19 @@ const locations = (state = [], action) => {
   }
 }
 
-// fetching projects reducers
-const fetchProjects = (state = false, action) => {
+const sectors = (state = [], action) => {
   switch (action.type) {
-    case types.GET_PROJECTS_START:
-      return true;
-    case types.GET_PROJECTS_SUCCESS:
-      return false;
-    case types.GET_PROJECTS_FAILURE:
-      return false;
+    case types.GET_SECTORS_START:
+      return state
+    case types.GET_SECTORS_SUCCESS:
+      return action.payload 
+    case types.GET_SECTORS_FAILURE:
+      return  action.payload
     default:
       return state;
+
   }
-};
+}
 
 const main_projects = (state = defaultProjects, action) => {
   switch (action.type) {
@@ -195,7 +195,6 @@ const sub_projects = (state = defaultSubProjects, action) => {
     case types.CREATE_SUB_PROJECT_SUCCESS:
       return Object.assign({}, state, { posting: false, showForm: false, loading: true });
     case types.CREATE_SUB_PROJECT_FAILURE:
-      // return action.payload;
       return Object.assign({}, state, { error: action.payload.error });
     case types.UPDATE_SUB_PROJECT_SUCCESS:
       return action.payload;
@@ -228,7 +227,7 @@ export const projects = combineReducers({
   selectedProjects,
   regions,
   districts,
-  fetchProjects,
+  sectors,
   main_projects,
   deleteProjects,
   sub_projects,
