@@ -29,6 +29,7 @@ function ProjectDetails({
                             showProjectsOverview,
                             clearProject,
                             showProjectDetails,
+                            showSubProjectDetails,
                         }) {
 
     const items = project?.sub_projects.map(({name, id}) => ({title:name, value: '', id}))
@@ -38,6 +39,11 @@ function ProjectDetails({
         showProjectsOverview(true);
         showProjectDetails(false);
         clearProject();
+    }
+
+    const  handleOnclickSubProject = () => {
+        showSubProjectDetails(true);
+        showProjectDetails(false);
     }
 
     return project ? (
@@ -87,7 +93,12 @@ function ProjectDetails({
                 </article>
             </section>
             <section>
-                <PredefinedFilter sectionName="Sub Projects" data={items} filterTitle='Sub projects'/>
+                <PredefinedFilter
+                    sectionName="Sub Projects"
+                    data={items}
+                    filterTitle='Sub projects'
+                    handleOnclickFilterItem={handleOnclickSubProject}
+                />
             </section>
             <section className="link-actions">
                 <Button><a>VIEW FULL PROJECT</a></Button>
@@ -106,6 +117,7 @@ const mapDispatchToProps = (dispatch) => ({
     showProjectsOverview: bindActionCreators(mapActions.showProjectsOverview, dispatch),
     clearProject: bindActionCreators(projectActions.clearProject, dispatch),
     showProjectDetails: bindActionCreators(mapActions.showProjectDetails, dispatch),
+    showSubProjectDetails: bindActionCreators(mapActions.showSubProjectDetails, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);

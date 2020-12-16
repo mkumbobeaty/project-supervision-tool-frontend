@@ -151,6 +151,7 @@ const sideNavMenuInitialState = {
     showProjectDetails: false,
     showNationalOverview: true,
     showRegionalOverview: false,
+    showSubProjectDetails: false,
 }
 
  /**
@@ -170,6 +171,8 @@ const sideNavMenuInitialState = {
             return { ...state, showProjectsOverview: action.payload };
         case types.SHOW_PROJECT_DETAILS:
             return { ...state, showProjectDetails: action.payload };
+        case types.SHOW_SUB_PROJECT_DETAILS:
+            return { ...state, showSubProjectDetails: action.payload };
         default:
             return state;
     }

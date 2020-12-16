@@ -42,6 +42,14 @@ export const showProjectDetailsSelector = (state) => state?.map?.sideNavMenu?.sh
 
 /**
  * @function
+ * @name showSubProjectDetailsSelector
+ * @param {Object} state redux state
+ * @return {Boolean} showProjectDetails status
+ */
+export const showSubProjectDetailsSelector = (state) => state?.map?.sideNavMenu?.showSubProjectDetails;
+
+/**
+ * @function
  * @name getMapLoadingSelector
  * @param {Object} state redux state
  */
