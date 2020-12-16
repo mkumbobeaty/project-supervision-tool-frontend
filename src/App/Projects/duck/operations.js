@@ -41,9 +41,7 @@ import {
   getLocationsStart,
   getLocationsSuccess,
   getLocationsFailure,
-  getSectorsStart,
-  getSectorsSuccess,
-  getSectorsFailure
+
 } from './actions';
 
 export const opensProjectForm = openProjectForm;
@@ -90,7 +88,4 @@ export {
   getLocationsSuccess,
   getLocationsStart,
   getLocationsFailure,
-  getSectorsStart,
-  getSectorsSuccess,
-  getSectorsFailure,
 };

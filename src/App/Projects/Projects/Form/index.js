@@ -7,7 +7,7 @@ import {
   Input,
 } from "antd";
 import { connect } from "react-redux";
-import { projectOperation } from "../../duck";
+import { projectSectorsOperator } from "../../ProjectsSectors/duck";
 
 /* state actions */
 
@@ -261,7 +261,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getSectors: projectOperation.getSectorsStart
+  getSectors: projectSectorsOperator.getSectorsStart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);

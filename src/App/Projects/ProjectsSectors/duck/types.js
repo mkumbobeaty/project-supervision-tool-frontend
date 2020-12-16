@@ -1,0 +1,4 @@
+// Retrieve Items
+export const GET_SECTORS_START = 'GET_SECTORS_START';
+export const GET_SECTORS_SUCCESS = 'GET_SECTORS_SUCCESS';
+export const GET_SECTORS_FAILURE = 'GET_SECTORS_FAILURE';

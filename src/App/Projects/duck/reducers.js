@@ -64,19 +64,6 @@ const locations = (state = [], action) => {
   }
 }
 
-const sectors = (state = [], action) => {
-  switch (action.type) {
-    case types.GET_SECTORS_START:
-      return state
-    case types.GET_SECTORS_SUCCESS:
-      return action.payload 
-    case types.GET_SECTORS_FAILURE:
-      return  action.payload
-    default:
-      return state;
-
-  }
-}
 
 const main_projects = (state = defaultProjects, action) => {
   switch (action.type) {
@@ -227,7 +214,6 @@ export const projects = combineReducers({
   selectedProjects,
   regions,
   districts,
-  sectors,
   main_projects,
   deleteProjects,
   sub_projects,
