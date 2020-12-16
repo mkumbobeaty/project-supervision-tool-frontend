@@ -23,9 +23,10 @@ export function getProjectsStart() {
   }
   
 //  creating project
-  export function createProjectStart() {
+  export function createProjectStart(project) {
     return {
       type: types.CREATE_PROJECT_START,
+      payload:project
     };
   }
   
@@ -118,13 +119,13 @@ export function getProjectsStart() {
 
   export function openProjectForm() {
     return {
-      type: types.OPEN_PROJECTS_FORM,
+      type: types.OPEN_FORM,
     };
   }
   
   export function closeProjectForm() {
     return {
-      type: types.CLOSE_PROJECTS_FORM,
+      type: types.CLOSE_FORM,
     };
   }
 
@@ -261,31 +262,56 @@ export const selectSubProject = (selected_sub_project) => ({
   payload: selected_sub_project,
 });
 
-export function openSubProjectForm() {
-  return {
-    type: types.OPEN_SUB_PROJECTS_FORM,
-  };
-}
-
-export function closeSubProjectForm() {
-  return {
-    type: types.CLOSE_SUB_PROJECTS_FORM,
-  };
-}
-
 export const selectProject = (selected_project) => ({
   type: types.SELECT_PROJECT,
   payload: selected_project,
 });
 
-export function openProjectsForm() {
+export function openForm() {
   return {
-    type: types.OPEN_PROJECTS_FORM,
+    type: types.OPEN_FORM,
   };
 }
 
-export function closeProjectsForm() {
+export function closeForm() {
   return {
-    type: types.CLOSE_PROJECTS_FORM 
+    type: types.CLOSE_FORM 
   };
 }
+
+
+/**
+ * @function
+ * @name getLocationsStart
+ * @param {String} payload the location
+ */  
+ export function getLocationsStart() {
+  return {
+    type: types.GET_LOCATIONS_START,
+  };
+}
+
+/**
+ * @function
+ * @name getLocationsSuccess
+ * @param {*} location 
+ */
+export function getLocationsSuccess(locations) {
+  return {
+    type: types.GET_LOCATIONS_SUCCESS,
+    payload: locations,
+  };
+}
+
+/**
+ * @function
+ * @name getLocationsFailure
+ * @param {*} error 
+ */
+export function getLocationsFailure(error) {
+  return {
+    type: types.GET_PROJECTS_FAILURE,
+    payload: error,
+  };
+}
+

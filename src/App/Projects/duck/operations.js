@@ -27,22 +27,20 @@ import {
   deleteSubProjectSuccess,
   deleteSubProjectFailure,
   selectSubProject,
-  openSubProjectForm,
-  closeSubProjectForm,
-  closeProjectForm,
-  openProjectForm,
+  closeForm,
+  openForm,
   selectProject,
   getRegionsStart,
   getRegionsSuccess,
   getRegionsFailure,
   getDistrictsStart,
   getDistrictsSuccess,
-  getDistrictsFailure
-} from './actions';
+  getDistrictsFailure,
+  getLocationsStart,
+  getLocationsSuccess,
+  getLocationsFailure,
 
-export const opensProjectForm = openProjectForm;
-export const closesProjectForm = closeProjectForm;
-export const selectsProject = selectProject;
+} from './actions';
 
 export {
   getProjectsStart,
@@ -73,12 +71,16 @@ export {
   deleteSubProjectSuccess,
   deleteSubProjectFailure,
   selectSubProject,
-  openSubProjectForm,
-  closeSubProjectForm,
+  closeForm,
+  openForm,
+  selectProject,
   getRegionsStart,
   getRegionsSuccess,
   getRegionsFailure,
   getDistrictsStart,
   getDistrictsSuccess,
-  getDistrictsFailure
+  getDistrictsFailure,
+  getLocationsSuccess,
+  getLocationsStart,
+  getLocationsFailure,
 };
