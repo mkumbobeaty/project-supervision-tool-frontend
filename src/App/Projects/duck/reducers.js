@@ -82,9 +82,9 @@ const main_projects = (state = defaultProjects, action) => {
     case types.GET_PROJECTS_FAILURE:
       return { ...state, error: action.message, loading: false };
 
-    case types.OPEN_PROJECTS_FORM:
+    case types.OPEN_FORM:
       return { ...state, showForm: true };
-    case types.CLOSE_PROJECTS_FORM:
+    case types.CLOSE_FORM:
       return { ...state, showForm: false };
     case types.CREATE_PROJECT_START:
       return { ...state, posting: true };

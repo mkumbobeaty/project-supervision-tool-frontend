@@ -22,7 +22,6 @@ const createProjectPic = action$ => {
     return action$.pipe(
         ofType(types.CREATE_PROJECT_START),
         switchMap(({payload}) => {
-            debugger
             return from(API.createProjects(payload))
         }),
         switchMap(res => { return of(actions.createProjectSuccess(res)) }),

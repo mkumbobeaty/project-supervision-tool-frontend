@@ -2,11 +2,17 @@
 import {
     getSectorsStart,
     getSectorsSuccess,
-    getSectorsFailure
+    getSectorsFailure,
+    createProjectSectorsStart,
+    createProjectSectorsSuccess,
+    createProjectSectorsFailure
   } from './actions';
   
   export {
     getSectorsStart,
     getSectorsSuccess,
-    getSectorsFailure
+    getSectorsFailure,
+    createProjectSectorsStart,
+    createProjectSectorsSuccess,
+    createProjectSectorsFailure
   };

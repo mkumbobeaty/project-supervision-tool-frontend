@@ -27,10 +27,8 @@ import {
   deleteSubProjectSuccess,
   deleteSubProjectFailure,
   selectSubProject,
-  openSubProjectForm,
-  closeSubProjectForm,
-  closeProjectForm,
-  openProjectForm,
+  closeForm,
+  openForm,
   selectProject,
   getRegionsStart,
   getRegionsSuccess,
@@ -43,10 +41,6 @@ import {
   getLocationsFailure,
 
 } from './actions';
-
-export const opensProjectForm = openProjectForm;
-export const closesProjectForm = closeProjectForm;
-export const selectsProject = selectProject;
 
 export {
   getProjectsStart,
@@ -77,8 +71,9 @@ export {
   deleteSubProjectSuccess,
   deleteSubProjectFailure,
   selectSubProject,
-  openSubProjectForm,
-  closeSubProjectForm,
+  closeForm,
+  openForm,
+  selectProject,
   getRegionsStart,
   getRegionsSuccess,
   getRegionsFailure,

@@ -35,3 +35,39 @@ export function getSectorsFailure(error) {
     payload: error,
   };
 }
+
+/**
+ * @function
+ * @name createProjectSectorsStart
+ * @param {*} project_sector 
+ */
+export function createProjectSectorsStart(project_sector) {
+  return {
+    type: types.CREATE_PROJECT_SECTOR_START,
+    payload:project_sector
+  };
+}
+
+/**
+ * @function
+ * @name createProjectSectorsSuccess
+ * @param {*} project_sector 
+ */
+export function createProjectSectorsSuccess(project_sector) {
+  return {
+    type: types.CREATE_PROJECT_SECTOR_SUCCESS,
+    payload: project_sector,
+  };
+}
+
+/**
+ * @function
+ * @name createProjectSectorsFailure
+ * @param {*} error 
+ */
+export function createProjectSectorsFailure(error) {
+  return {
+    type: types.CREATE_PROJECT_SECTOR_FAILURE,
+    payload: error,
+  };
+}
