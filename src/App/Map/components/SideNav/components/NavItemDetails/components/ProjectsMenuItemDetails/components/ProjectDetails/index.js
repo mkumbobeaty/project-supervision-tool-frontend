@@ -5,7 +5,6 @@ import {Button} from "antd";
 import {projectActions, projectSelectors} from '../../../../../../../../../Projects/duck'
 import {LeftOutlined} from "@ant-design/icons";
 import {isoDateToHumanReadableDate, moneyFormat} from "../../../../../../../../../../Util";
-import SummarySection from "../../../SummarySection";
 import './styles.css';
 import {mapActions, mapSelectors} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
