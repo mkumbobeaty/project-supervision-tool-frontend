@@ -1,4 +1,4 @@
-import {withLeaflet, GeoJSON, Tooltip, Popup, Marker} from "react-leaflet";
+import {withLeaflet, Popup, Marker} from "react-leaflet";
 import * as turf from '@turf/turf'
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
@@ -11,9 +11,6 @@ class ProjectPoints extends Component {
         data: PropTypes.object.isRequired
     }
 
-    componentDidMount() {
-        console.log(' ProjectPoints mounted');
-    }
 
     handleSpiderfyClick = marker => {
         console.log(marker);

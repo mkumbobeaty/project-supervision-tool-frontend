@@ -1,8 +1,12 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import ProjectsTopSection from "../ProjectsTopSection";
 import NationalProjectsOverview from "../NationalProjectsOverview";
 import RegionalProjectsOverview from "../RegionalProjectsOverview";
+import {mapActions, mapSelectors} from "../../../../../../../../duck";
+import {bindActionCreators} from "redux";
+import {projectActions} from "../../../../../../../../../Projects/duck";
 
 
 /**
@@ -50,7 +54,27 @@ function ProjectsOverview(
     );
 }
 
-export default ProjectsOverview;
+
+const mapStateToProps = state => ({
+    projectsStatistics: mapSelectors.getProjectsStatistics(state),
+    regionProjectStatistics: mapSelectors.getRegionProjectsStatistics(state),
+    projectsCountByRegion: mapSelectors.getProjectsOverview(state),
+    showNationalOverview: mapSelectors.showNationalOverviewSelector(state),
+    showRegionalOverview: mapSelectors.showRegionalOverviewSelector(state),
+    regionProjects: mapSelectors.getRegionProjectsSelector(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    getProjectsOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
+    getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
+    setShowRegionalOverview: bindActionCreators(mapActions.showRegionalProjectsOverview, dispatch),
+    setShowNationalOverview: bindActionCreators(mapActions.showNationalProjectsOverview, dispatch),
+    clearRegionalProjects: bindActionCreators(mapActions.clearRegionProjects, dispatch),
+    getProject: bindActionCreators(projectActions.getProjectStart, dispatch),
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectsOverview);
 
 ProjectsOverview.propTypes = {
     projectsStatistics: PropTypes.object.isRequired,
