@@ -14,18 +14,14 @@ function SideNavItem({
                          itemId,
                          activeItem,
                          setActiveItem,
-                         getOverview,
-                         clearOverview,
                      }) {
     const handleClick = () => {
 
         // if same item is clicked twice
         // set active item to null
         if (itemId === activeItem) {
-            clearOverview();
             return setActiveItem('');
         }
-        getOverview();
         return setActiveItem(itemId);
     }
     const isActive = itemId === activeItem

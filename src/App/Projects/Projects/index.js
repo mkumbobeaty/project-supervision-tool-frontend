@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { projectOperation } from '../duck';
+import {projectOperation, projectSelectors} from '../duck';
 import { Col, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -360,14 +360,14 @@ Projects.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.projects.main_projects?.data,
+    projects: projectSelectors.getProjectsSelector(state),
     focalPeoples: state.focalPeoples.fetchfocalPeoples.data?.data,
     locations: state.projects?.locations,
     districts: state.projects?.districts?.data,
-    loading: state.projects.main_projects.loading,
-    page: state.projects.main_projects.page,
-    total: state.projects.main_projects.total,
-    showForm: state.projects.main_projects.showForm,
+    loading: projectSelectors.getProjectsLoadingSelector(state),
+    page: projectSelectors.getProjectsPageSelector(state),
+    total: projectSelectors.getProjectsTotalSelector(state),
+    showForm: projectSelectors.getProjectsShowFormSelector(state),
     selected: state.projects?.selectedProjects,
   };
 };

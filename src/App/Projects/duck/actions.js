@@ -94,6 +94,13 @@ export function getProjectsStart() {
         payload: id,
     };
   }
+
+  /*  Single Project Action creators */
+  export function clearProject() {
+    return {
+        type: types.CLEAR_PROJECT
+    };
+  }
   
   export function getProjectSuccess(data) {
     return {

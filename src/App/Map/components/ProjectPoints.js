@@ -1,4 +1,4 @@
-import {withLeaflet, GeoJSON, Tooltip, Popup, Marker} from "react-leaflet";
+import {withLeaflet, Popup, Marker} from "react-leaflet";
 import * as turf from '@turf/turf'
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
@@ -10,6 +10,7 @@ class ProjectPoints extends Component {
     static propTypes = {
         data: PropTypes.object.isRequired
     }
+
 
     handleSpiderfyClick = marker => {
         console.log(marker);
@@ -25,6 +26,7 @@ class ProjectPoints extends Component {
 
     generateProjectMarkers = (regionProjects) => {
         const {regionDetails} = this.props;
+        if (!regionDetails) return [];
         const regionId = regionDetails.id;
         return regionProjects.map(regionProject => {
             const {locations} = regionProject;
