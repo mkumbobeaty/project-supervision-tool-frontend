@@ -362,7 +362,6 @@ const mapStateToProps = (state) => {
   return {
     projects: state.projects.main_projects?.data,
     focalPeoples: state.focalPeoples.fetchfocalPeoples.data?.data,
-    regions: state.projects?.regions?.data,
     locations: state.projects?.locations,
     districts: state.projects?.districts?.data,
     loading: state.projects.main_projects.loading,
@@ -376,12 +375,11 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   fetchProjects: projectOperation.getProjectsStart,
   deleteProject: projectOperation.deleteProjectStart,
-  openProjectForm: projectOperation.opensProjectForm,
-  closeProjectForm: projectOperation.closesProjectForm,
-  selectProject: projectOperation.selectsProject,
+  openProjectForm: projectOperation.openForm,
+  closeProjectForm: projectOperation.closeForm,
+  selectProject: projectOperation.selectProject,
   focalPeople: focalPeopleOperation.getFocalPeopleStart,
   createProject: projectOperation.createProjectStart,
-  getRegions: projectOperation.getRegionsStart,
   getDistricts:projectOperation.getDistrictsStart,
   getLocations:projectOperation.getLocationsStart,
 };

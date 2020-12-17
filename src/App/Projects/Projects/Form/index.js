@@ -106,9 +106,7 @@ class ProjectForm extends Component {
       focalPeoples,
       regions,
       districts,
-      locations,
-      loadingRegion,
-      loadingDistrict,
+      locations
     } = this.props;
     return (
       <Form
