@@ -1,8 +1,8 @@
 import React from "react";
 import BackLink from "../BackLink";
 import './styles.css';
-import OverviewTable from "../OverviewTable";
-import {moneyFormat} from "../../../../../../../../../../Util";
+import CustomGridList from "../CustomGridList";
+import PredefinedFilter from "../PredefinedFilter";
 
 /**
  * @function
@@ -11,11 +11,23 @@ import {moneyFormat} from "../../../../../../../../../../Util";
  */
 function SubProjectDetails() {
     const handleGoBack = () =>  { console.log('SubProjectDetails')}
-    const data = [
-        {title: 'Contracts', value: 4},
-        {title: 'Human resources', value: 10},
-        {title: '', value: 10},
+    const customGridListData = [
+        {title: 'START DATE', value: 'January 30 2020'},
+        {title: 'closing date', value: 'December 10 2020'},
+        {title: 'phase', value: 'phase 1' },
+        {title: 'stage', value: 'Implementation' },
     ];
+
+    const subProjectElementsData = [
+        {title: 'Kinondoni road', value: 'Completed', id: 'Kinondoni road' },
+        {title: 'Tandale bus stop', value: 'On progress', id: 'bus ' },
+        {title: 'Kiwalani market', value: 'Completed' , id: 'market' },
+        {title: 'Nyana road', value: 'On progress', id: 'nyana' },
+    ];
+
+
+    const handleOnclickSubProjectElement = (id) => console.log(id);
+
 
     return (
         <div className='SubProjectDetails'>
@@ -32,9 +44,17 @@ function SubProjectDetails() {
                 <div><b>LGA:</b> Temeke municipal</div>
             </section>
             <hr/>
-            <section className='sub-project-highlights'>
-
-            </section>
+            <section>Sub project description</section>
+            <CustomGridList data={customGridListData} />
+            <PredefinedFilter
+                data={subProjectElementsData}
+                filterTitle='Sub Project Elements'
+                config={{
+                    filterLeftTitle: 'Status',
+                    filterRightTitle: 'Name'
+                }}
+                handleOnclickFilterItem={handleOnclickSubProjectElement}
+            />
         </div>
     );
 }

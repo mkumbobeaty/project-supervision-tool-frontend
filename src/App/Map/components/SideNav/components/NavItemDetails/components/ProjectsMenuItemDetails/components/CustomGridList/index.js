@@ -13,7 +13,7 @@ function CustomGridList({data}) {
         <article>
             { arr.map(({title, value}) => (
                 <div>
-                    <span title={title}>{title}</span><br/>
+                    <span title={title} style={{ textTransform: 'uppercase'}}>{title}</span><br/>
                     <b>{value}</b>
                 </div>))}
         </article>

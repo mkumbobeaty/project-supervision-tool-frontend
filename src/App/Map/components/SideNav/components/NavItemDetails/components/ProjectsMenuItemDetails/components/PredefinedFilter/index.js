@@ -20,8 +20,8 @@ function PredefinedFilter({data, config, handleOnclickFilterItem, filterTitle })
     const renderFilterItems = items => items.map(({title, value, id}) => (
         <li>
             <article className='filter-item' onClick={() => handleOnclickFilterItem(id)}>
-                <div className='filter-item-title'>{title}</div>
-                <div className='filter-item-value'>{value}</div>
+                <div className='filter-item-title' title={title}>{title}</div>
+                <div className='filter-item-value' title={value}>{value}</div>
             </article>
         </li>
     ));
@@ -45,7 +45,7 @@ export default PredefinedFilter;
 
 PredefinedFilter.propTypes = {
     data: PropTypes.array.isRequired,
-    config: PropTypes.object,
+    config: PropTypes.shape({filterRightTitle: PropTypes.string, filterLeftTitle: PropTypes.string }),
     filterTitle: PropTypes.string.isRequired,
     handleOnclickFilterItem: PropTypes.func,
 }
