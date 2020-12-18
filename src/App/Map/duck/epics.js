@@ -4,6 +4,7 @@ import {catchError, switchMap} from "rxjs/operators";
 import {from, of} from "rxjs";
 import API from "../../../API";
 import * as actions from "./actions";
+import {projectActions} from "../../Projects/duck";
 
 /**
  * @function
@@ -154,6 +155,19 @@ const handleMapLoaderEpic = actions$ => actions$.pipe(
     switchMap(() => of(actions.showMapLoader(true)))
 );
 
+
+// SIDE NAV MENU EPICS
+const backFromSubProjectToProjectDetailsEpics = actions$ => actions$.pipe(
+    ofType(types.BACK_SUB_PROJECT_TO_PROJECT_DETAILS),
+    switchMap(({payload}) => from([
+        projectActions.getProjectStart(payload),
+        actions.showSubProjectDetails(false),
+        actions.showProjectDetails(true),
+    ]))
+);
+
+
+
 export const mapRootEpic = combineEpics(
     getProjectsOverviewEpic,
     getProjectsByRegionEpic,
@@ -163,4 +177,5 @@ export const mapRootEpic = combineEpics(
     getProjectsStatistics,
     getProjectStatistics,
     getRegionProjectStatisticsEpic,
+    backFromSubProjectToProjectDetailsEpics,
 );

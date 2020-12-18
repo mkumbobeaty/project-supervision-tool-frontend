@@ -1,17 +1,21 @@
 import React from "react";
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import BackLink from "../BackLink";
 import './styles.css';
 import CustomGridList from "../CustomGridList";
 import PredefinedFilter from "../PredefinedFilter";
 import LongActionButton from "../LongActionButton";
+import {mapActions, mapSelectors} from "../../../../../../../../duck";
+import {bindActionCreators} from "redux";
 
 /**
  * @function
  * @name SubProjectDetails
  * @description renders sub project details
  */
-function SubProjectDetails() {
-    const handleGoBack = () =>  { console.log('SubProjectDetails')}
+function SubProjectDetails({ goBackFromSubProjectToProjectDetails, subProject}) {
+    const handleGoBack = () =>  goBackFromSubProjectToProjectDetails(subProject.project_id);
     const customGridListData = [
         {title: 'START DATE', value: 'January 30 2020'},
         {title: 'closing date', value: 'December 10 2020'},
@@ -20,10 +24,10 @@ function SubProjectDetails() {
     ];
 
     const subProjectElementsData = [
-        {title: 'Kinondoni road', value: 'Completed', id: 'Kinondoni road' },
-        {title: 'Tandale bus stop', value: 'On progress', id: 'bus ' },
-        {title: 'Kiwalani market', value: 'Completed' , id: 'market' },
-        {title: 'Nyana road', value: 'On progress', id: 'nyana' },
+        {title: 'Kinondoni road', value: '30%', id: 'Kinondoni road' },
+        {title: 'Tandale bus stop', value: '70%', id: 'bus ' },
+        {title: 'Kiwalani market', value: '50%' , id: 'market' },
+        {title: 'Nyana road', value: '100%', id: 'nyana' },
     ];
 
 
@@ -57,7 +61,7 @@ function SubProjectDetails() {
                 data={subProjectElementsData}
                 filterTitle='Sub Project Elements'
                 config={{
-                    filterLeftTitle: 'Status',
+                    filterLeftTitle: 'Progress',
                     filterRightTitle: 'Name'
                 }}
                 handleOnclickFilterItem={handleOnclickSubProjectElement}
@@ -66,4 +70,17 @@ function SubProjectDetails() {
     );
 }
 
-export default SubProjectDetails;
+const mapStateToProps = (state) => ({
+    subProject: {project_id: 'kozey.kiera'}
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    goBackFromSubProjectToProjectDetails: bindActionCreators(mapActions.backFromSubProjectToProjectDetails, dispatch),
+});
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(SubProjectDetails);
+
+SubProjectDetails.propTypes = {
+    goBackFromSubProjectToProjectDetails: PropTypes.func.isRequired
+}

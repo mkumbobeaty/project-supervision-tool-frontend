@@ -147,11 +147,11 @@ const regionDetails = (state = initialRegionDetails, action) => {
 // sideNavMenu
 const sideNavMenuInitialState = {
     activeSideNavMenuItem: 'projects',
-    showProjectsOverview: false,
+    showProjectsOverview: true,
     showProjectDetails: false,
     showNationalOverview: true,
     showRegionalOverview: false,
-    showSubProjectDetails: true,
+    showSubProjectDetails: false,
 }
 
  /**

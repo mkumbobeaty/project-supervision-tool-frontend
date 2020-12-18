@@ -11,6 +11,14 @@ import {makeActionCreator} from '../../../Util';
  */
 export const showNationalProjectsOverview = makeActionCreator(types.SHOW_NATIONAL_PROJECTS_OVERVIEW, 'payload');
 
+/**
+ * @function
+ * @name backFromSubProjectToProjectDetails
+ * @param {String} payload thiis is the project id
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const backFromSubProjectToProjectDetails = makeActionCreator(types.BACK_SUB_PROJECT_TO_PROJECT_DETAILS, 'payload');
+
 
 /**
  * @function

@@ -77,17 +77,16 @@ function ProjectDetails({
             <hr/>
             <section>{project.description}</section>
             <CustomGridList data={customGridLisData}/>
-            <section>
-                <PredefinedFilter
+            <LongActionButton
+                title="view  full project details"
+                handleOnclick={showFullProjectDetails}
+            />
+            <PredefinedFilter
                     sectionName="Sub Projects"
                     data={items}
                     filterTitle='Sub projects'
                     handleOnclickFilterItem={handleOnclickSubProject}
                 />
-            </section>
-            <section className="link-actions">
-                <LongActionButton title="view  full project details" handleOnclick={showFullProjectDetails}/>
-            </section>
         </div>
     ) : '';
 }
