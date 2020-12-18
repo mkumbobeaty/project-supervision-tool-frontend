@@ -4,12 +4,9 @@ import {connect} from 'react-redux';
 import {mapSelectors} from '../../../../../../duck';
 import ProjectsOverview from "./components/ProjectOverview";
 import ProjectDetails from "./components/ProjectDetails";
+import SubProjectDetails from "./components/SubProjectDetails";
 
 
-function SubProjectDetails() {
-
-    return (<div>This is sub project details</div>);
-}
 
 
 /**

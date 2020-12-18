@@ -201,3 +201,17 @@ export const moneyFormat = (labelValue) => {
                 : Math.abs(Number(labelValue));
 
 }
+
+
+/**
+ * @function
+ * @name chunkIntoSmallerArrays
+ * @description chunk bigger array into smaller arrays
+ * @param {Array} arr array to be chunked
+ * @param {Number} size size of array chunks
+ * @returns {Array} array of chunked arrays
+ */
+export const chunkIntoSmallerArrays = (arr, size) =>
+    Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+        arr.slice(i * size, i * size + size)
+    );

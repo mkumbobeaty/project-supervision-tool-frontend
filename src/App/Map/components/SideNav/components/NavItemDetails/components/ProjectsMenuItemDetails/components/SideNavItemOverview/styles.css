@@ -10,15 +10,3 @@
 .SideNavItemOverview .project-over-view-table {
     padding: 10px 0 10px 0;
 }
-
-.ProjectOverviewTable {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    background: #e8eaf3;
-}
-
-.ProjectOverviewTable .value {
-    font-weight: bold;
-    color: #2f333b;
-}

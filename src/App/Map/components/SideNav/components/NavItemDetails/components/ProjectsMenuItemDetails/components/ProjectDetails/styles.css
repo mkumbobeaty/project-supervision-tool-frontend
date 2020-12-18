@@ -1,5 +1,4 @@
 
-
 .ProjectInfo {
     padding: 5px 10px 10px 10px;
 }
@@ -8,24 +7,18 @@
     display: flex;
 }
 
-.ProjectInfo .top-section .back-button {
+.ProjectInfo .top-section .BackLink {
     width: 25%;
     text-align: right;
 }
 
-.ProjectInfo .top-section .project-title {
-    width: 75%;
-}
+
 
 .ProjectInfo .top-section .project-title div, .ProjectInfo .sector {
     font-size: 16px;
     line-height: 24px;
     font-weight: 700;
     text-transform: none;
-}
-
-.ProjectInfo hr {
-    border-top: 1px solid #dee3e8
 }
 
 .ProjectInfo .project-highlights {

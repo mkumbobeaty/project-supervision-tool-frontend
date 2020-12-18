@@ -1,42 +1,13 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {LeftOutlined} from "@ant-design/icons";
 import PredefinedFilter from "../PredefinedFilter";
 import './styles.css';
-
-/**
- * @function
- * @name ProjectOverviewTable
- * @description renders projects overview table
- */
-function ProjectsOverviewTable({data}) {
-
-    const renderData = (items) => items.map(({title, value}) => (
-        <article>
-            <div>{title}</div>
-            <div className='value'>{value}</div>
-        </article>
-    ));
-    return (
-        <div className='ProjectOverviewTable'>
-            {renderData(data)}
-        </div>
-    );
-}
+import BackLink from "../BackLink";
+import OverviewTable from "../OverviewTable";
 
 
 
-function BackButton({goBack}) {
 
-    return (
-        <div className="back-button" onClick={goBack}>
-            <a>
-                <LeftOutlined style={{fontSize: 10}}/>
-                <span>Back</span>
-            </a>
-        </div>
-    );
-}
 
 /**
  * @function
@@ -58,11 +29,11 @@ function SideNavItemOverview({
 
             <section className='title-and-back-button'>
                 <div>{ title }</div>
-                {goBack ? <BackButton goBack={goBack} /> : ''}
+                {goBack ? <BackLink goBack={goBack} /> : ''}
             </section>
 
             <section className='project-over-view-table'>
-                <ProjectsOverviewTable data={overViewData}/>
+                <OverviewTable data={overViewData}/>
             </section>
 
             <section className='project-regions-filters'>
