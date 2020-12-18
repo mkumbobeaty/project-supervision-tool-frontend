@@ -3,6 +3,7 @@ import BackLink from "../BackLink";
 import './styles.css';
 import CustomGridList from "../CustomGridList";
 import PredefinedFilter from "../PredefinedFilter";
+import LongActionButton from "../LongActionButton";
 
 /**
  * @function
@@ -27,6 +28,7 @@ function SubProjectDetails() {
 
 
     const handleOnclickSubProjectElement = (id) => console.log(id);
+    const viewFullSubProjectDetails = () => console.log('View full sub project details clicked');
 
 
     return (
@@ -46,6 +48,11 @@ function SubProjectDetails() {
             <hr/>
             <section>Sub project description</section>
             <CustomGridList data={customGridListData} />
+            <LongActionButton
+                handleOnclick={viewFullSubProjectDetails}
+                title='view full sub-project details'
+            />
+
             <PredefinedFilter
                 data={subProjectElementsData}
                 filterTitle='Sub Project Elements'

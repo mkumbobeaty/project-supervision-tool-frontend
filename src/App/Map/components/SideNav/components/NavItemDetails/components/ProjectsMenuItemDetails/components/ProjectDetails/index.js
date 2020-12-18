@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Button} from "antd";
+import { SelectOutlined } from '@ant-design/icons';
+
 import {projectActions, projectSelectors} from '../../../../../../../../../Projects/duck'
 import {isoDateToHumanReadableDate, moneyFormat} from "../../../../../../../../../../Util";
 import {mapActions, mapSelectors} from "../../../../../../../../duck";
@@ -10,6 +12,7 @@ import PredefinedFilter from "../PredefinedFilter";
 import BackLink from "../BackLink";
 import './styles.css';
 import CustomGridList from "../CustomGridList";
+import LongActionButton from "../LongActionButton";
 
 
 function ProjectDetails({
@@ -57,6 +60,8 @@ function ProjectDetails({
         {title: "PROJECT LOCATIONS", value: project?.locations.length},
     ];
 
+    const  showFullProjectDetails = () => console.log('show full project details is clicked');
+
     return project ? (
         <div className="ProjectInfo">
             <section className="top-section">
@@ -81,7 +86,7 @@ function ProjectDetails({
                 />
             </section>
             <section className="link-actions">
-                <Button><a>VIEW FULL PROJECT</a></Button>
+                <LongActionButton title="view  full project details" handleOnclick={showFullProjectDetails}/>
             </section>
         </div>
     ) : '';
