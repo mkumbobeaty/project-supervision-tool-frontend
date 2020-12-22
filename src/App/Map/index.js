@@ -102,9 +102,13 @@ class MapDashboard extends Component {
                             getProjectsByRegion={getProjectsByRegion}
                             projectsOverview={projectsOverview}
                         />
-                        <RegionDetailGeoJson data={regionDetails}/>
-                        <ProjectPoints regionDetails={regionDetails} regionProjects={regionProjects}/>
-                        <ProjectLocations project={project} />
+                        {regionDetails ? <RegionDetailGeoJson data={regionDetails}/> : ''}
+                        {regionDetails && (regionProjects.length > 0) ?
+                            <ProjectPoints
+                                regionDetails={regionDetails}
+                                regionProjects={regionProjects}
+                            /> : ''}
+                        <ProjectLocations project={project}/>
                     </BaseMap>
                 </Spin>
             </div>

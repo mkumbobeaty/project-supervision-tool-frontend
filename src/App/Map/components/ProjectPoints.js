@@ -8,9 +8,9 @@ import {Link} from "react-router-dom";
 class ProjectPoints extends Component {
 
     static propTypes = {
-        data: PropTypes.object.isRequired
+        regionProjects: PropTypes.array.isRequired,
+        regionDetails: PropTypes.object.isRequired,
     }
-
 
     handleSpiderfyClick = marker => {
         console.log(marker);
@@ -24,62 +24,55 @@ class ProjectPoints extends Component {
         console.log(markers);
     };
 
-    generateProjectMarkers = (regionProjects) => {
-        const {regionDetails} = this.props;
-        if (!regionDetails) return [];
-        const regionId = regionDetails.id;
-        return regionProjects.map(regionProject => {
-            const {locations} = regionProject;
-            return locations.map(location => {
-
-                const pointOnDistrict = turf.pointOnFeature({
-                    "type": "Feature",
-                    "geometry": location?.district.geom,
-                });
+    generateRegionProjectsGeojsonPoints = () => {
+        const {regionProjects, regionDetails } = this.props;
 
 
-                return {
-                    ...pointOnDistrict, "properties": {
-                        "name": regionProject.name,
-                        "description": regionProject.description,
-                        "districtId": location?.district.id,
-                        "key": `${regionProject.id}-${location?.district.id}`,
-                        "regionId": location?.district.region_id,
-                        "districtName": location?.district.name,
-                        "projectId": regionProject.id,
-                    }
-                };
-            });
-        }).flat().filter(p => p.properties.regionId === regionId);
+        const regionLocations = regionProjects.map(({ locations, id, name}) => {
+
+             return locations.map(({region, point}) => ({
+                type: "Feature",
+                properties: {
+                    regionId: region.id,
+                    regionName: region.name,
+                    key: `${id}${region.id}`,
+                    name
+                },
+                geometry: point
+            }));
+        }).flat();
+
+        return regionLocations.filter(({properties}) => properties.regionId === regionDetails.id);
+
     }
 
 
-
     render() {
-        const {regionProjects} = this.props;
-        const data = regionProjects.length > 0 ? this.generateProjectMarkers(regionProjects) : '';
-        return data.length > 0 ? (
+
+        const data = this.generateRegionProjectsGeojsonPoints();
+        return (
             <Spiderfy
                 onClick={this.handleSpiderfyClick}
                 onSpiderfy={this.handleSpiderfy}
                 onUnspiderfy={this.handleUnspiderfy}
             >
                 { data.map( ({ geometry, properties }) => {
+                    console.log(geometry.coordinates);
                     return (
                         <Marker
-                            position={geometry.coordinates.reverse()}
-                            title={properties.districtName}
+                            position={[geometry.coordinates[1], geometry.coordinates[0]]}
+                            title={properties.regionName}
                             key={properties.key}
                         >
                             <Popup>
-                                <div><b>District name:</b> { properties.districtName}</div>
+                                <div><b>Region name:</b> { properties.regionName}</div>
                                 <div><b>Project name:</b> { properties.name}</div>
                                 <Link to="/app/map">View project</Link>
                             </Popup>
                         </Marker>
                     );
                 })}
-            </Spiderfy>) : '';
+            </Spiderfy>);
     }
 }
 

@@ -28,11 +28,12 @@ class RegionsGeoJson extends Component{
     onEachFeature = (feature, layer) =>  layer.on({ click: () => this.handleOnClickGeojson(feature)});
 
     renderProjectsOverview = (data) => data.map(({geometry,id, region_name, projects_count}) => {
+        const parsedGeometry = JSON.parse(geometry);
         const geoJsonObject= {
             "type": "Feature",
             "geometry": {
-                "type": geometry.type,
-                "coordinates": geometry.coordinates
+                "type": parsedGeometry.type,
+                "coordinates": parsedGeometry.coordinates
             },
             "properties": {
                 "name": region_name,

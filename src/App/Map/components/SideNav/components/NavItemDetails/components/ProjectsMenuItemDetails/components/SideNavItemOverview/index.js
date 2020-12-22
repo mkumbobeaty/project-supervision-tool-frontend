@@ -37,12 +37,12 @@ function SideNavItemOverview({
             </section>
 
             <section className='project-regions-filters'>
-                <PredefinedFilter
+                { predefinedFilterData.length > 0 ?  <PredefinedFilter
                     data={predefinedFilterData}
                     config={predefinedFilterConfig}
                     handleOnclickFilterItem={handleOnclickFilterItem}
                     filterTitle={predefinedFilterConfig.filterTitle}
-                />
+                /> : ''}
             </section>
         </div>
     );

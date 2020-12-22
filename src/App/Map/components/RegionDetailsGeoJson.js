@@ -23,9 +23,10 @@ class RegionDetailsGeoJson extends Component{
 
     render() {
         const { data } = this.props;
+        const parsedGeom = JSON.parse(data?.geom);
         const geoJsonObject= {
             "type": "Feature",
-            "geometry": data?.geom,
+            "geometry": parsedGeom,
         }
 
         return data?.geom ? <GeoJSON
