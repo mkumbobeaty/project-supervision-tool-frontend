@@ -13,17 +13,10 @@ class ProjectLocations extends Component{
         }
     }
 
-    renderRegions = (project) => project?.locations.map(({ region, id }) => {
-        const pointOnRegion = turf.pointOnFeature({
-            "type": "Feature",
-            "geometry": region.geom,
-        });
-        console.log('looking at region', region);
-        console.log('looking at poit on region', pointOnRegion);
-        const { geometry: { coordinates } } = pointOnRegion;
+    renderRegions = (project) => project?.locations.map(({ region, id, point }) => {
 
         return (
-            <Marker key={id} position={coordinates.reverse()}>
+            <Marker key={id} position={[point.coordinates[1], point.coordinates[0]]}>
                 <Popup>
                     <div><b>Project :</b> { project.name}</div>
                     <div><b>Region :</b> { region.name}</div>
