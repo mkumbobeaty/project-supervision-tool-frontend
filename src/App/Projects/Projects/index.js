@@ -12,7 +12,7 @@ import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import { Link } from "react-router-dom";
 import ProjectForm from "./Form";
-import { focalPeopleOperation } from "../../FocalPeople/duck";
+import { focalPeopleOperation, focalPeopleSelectors } from "../../FocalPeople/duck";
 import "./styles.css";
 
 
@@ -361,9 +361,9 @@ Projects.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     projects: projectSelectors.getProjectsSelector(state),
-    focalPeoples: state.focalPeoples.fetchfocalPeoples.data?.data,
-    locations: state.projects?.locations,
-    districts: state.projects?.districts?.data,
+    focalPeoples: focalPeopleSelectors.getFocalPeople(state),
+    locations: projectSelectors.getLocations(state),
+    districts: projectSelectors.getDistricts(state),
     loading: projectSelectors.getProjectsLoadingSelector(state),
     page: projectSelectors.getProjectsPageSelector(state),
     total: projectSelectors.getProjectsTotalSelector(state),
