@@ -1,7 +1,7 @@
 import React from "react";
 import { Steps, Button, message } from 'antd';
-import ProjectForm from '../Form';
-import ProjectSectorForm from '../../../ProjectsSectors/Form'
+import ProjectForm from './projectForm';
+import ProjectSectorForm from './projectSectorForm'
 const { Step } = Steps;
 
 const steps = [

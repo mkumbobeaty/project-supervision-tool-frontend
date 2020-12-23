@@ -6,7 +6,7 @@ import {
   Input,
 } from "antd";
 import { connect } from "react-redux";
-import { projectSectorsOperator,projectSectorsSelectors } from "../../ProjectsSectors/duck";
+import { projectSectorsOperator,projectSectorsSelectors } from "../../../ProjectsSectors/duck";
 
 /* state actions */
 

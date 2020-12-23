@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 // import ProjectForm from "./Form";
 import { focalPeopleOperation, focalPeopleSelectors } from "../../FocalPeople/duck";
 import "./styles.css";
-import CommonProjectForm from "./components/commonForm";
+import CommonProjectForm from "./components/Forms";
 
 
 /* constants */
