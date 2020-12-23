@@ -7,7 +7,8 @@ import {
   Input,
 } from "antd";
 import { connect } from "react-redux";
-import { projectSectorsOperator } from "../../ProjectsSectors/duck";
+import {projectOperation, projectSelectors} from '../../../duck';
+import {  focalPeopleSelectors } from "../../../../FocalPeople/duck";
 
 /* state actions */
 
@@ -69,8 +70,26 @@ const renderDistricts = (districts,loadingDistrict) => {
  * @public
  *
  */
+
 class ProjectForm extends Component {
-  state = { showDistrictsSelect: false }
+  state = { showDistrictsSelect: false,
+    isEditForm: false,
+  }
+
+  /**
+     * @function
+     * @name handleAfterCloseForm
+     * @description Perform post close form cleanups
+     *
+     * @version 0.1.0
+     * @since 0.1.0
+     */
+  handleAfterCloseForm = () => {
+    const { selectProject } = this.props;
+    selectProject(null);
+    this.setState({ isEditForm: false });
+  };
+
   // form finish(submit) handler
   onFinish = (values) => {
     const payload = { ...values };
@@ -85,17 +104,7 @@ class ProjectForm extends Component {
   };
 
   componentDidMount() {
-    const { selected, getDistricts,getSectors} = this.props;
-    getSectors()
-    // if (selected && selected.locations.map(location => location.level === 'district')) {
-    //   this.setState({ showDistrictsSelect: true })
-    //   const region_id = selected.locations.map(location => {
-    //     return (
-    //       location.region.id
-    //     )
-    //   })
-    //   getDistricts(region_id)
-    // }
+      
   }
 
   render() {
@@ -104,7 +113,6 @@ class ProjectForm extends Component {
       selected,
       onCancel,
       focalPeoples,
-      locations
     } = this.props;
     return (
       <Form
@@ -186,29 +194,10 @@ class ProjectForm extends Component {
             ))}
           </Select>
         </Form.Item>
-
       
-        <Form.Item
-          label="Locations"
-          name="locations"
-          title="Projects Location is required  e.g Dar Es Salaam"
-          rules={[
-            {
-              required: true,
-              message: "Projects Location  is required",
-            },
-          ]}
-        >
-          <Select mode="multiple">
-            {locations.map((location) => (
-              <Select.Option value={location.id}>{location.region.name}</Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        {/* end:region */}
-
+      
         {/* start:form actions */}
-        <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+        {/* <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
           <Button onClick={onCancel}>Cancel</Button>
           <Button
             style={{ marginLeft: 8 }}
@@ -218,7 +207,7 @@ class ProjectForm extends Component {
           >
             Save
             </Button>
-        </Form.Item>
+        </Form.Item> */}
         {/* end:form actions */}
       </Form>
     );
@@ -251,13 +240,16 @@ ProjectForm.propTypes = {
 
 const mapStateToProps = (state) => {
   return {
-    loadingDistrict: state.projects?.districts?.loading,
-    loadingRegion: state.projects?.regions?.loading,
+    focalPeoples: focalPeopleSelectors.getFocalPeople(state),
+    loading: projectSelectors.getProjectsLoadingSelector(state),
+    selected: state.projects?.selectedProjects,
   };
 };
 
 const mapDispatchToProps = {
-  getSectors: projectSectorsOperator.getSectorsStart
+  closeForm: projectOperation.closeForm,
+  selectProject: projectOperation.selectProject,
+  createProject: projectOperation.createProjectStart,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);

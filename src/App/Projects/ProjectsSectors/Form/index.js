@@ -6,8 +6,7 @@ import {
   Input,
 } from "antd";
 import { connect } from "react-redux";
-import { projectSectorsOperator } from "../../ProjectsSectors/duck";
-import { projectOperation } from "../../duck";
+import { projectSectorsOperator,projectSectorsSelectors } from "../../ProjectsSectors/duck";
 
 /* state actions */
 
@@ -32,6 +31,13 @@ const wrapperCol = {
 
 
 class ProjectSectorForm extends Component {
+
+  state = {
+    showShare: false,
+    isEditForm: false,
+    cached: null,
+    visible: false,
+  };
 
   // form finish(submit) handler
   onFinish = (values) => {
@@ -105,35 +111,24 @@ class ProjectSectorForm extends Component {
           <Input />
         </Form.Item>
         {/* end:project id */}
-
-        {/* start:form actions */}
-        <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
-          <Button onClick={onCancel}>Cancel</Button>
-          <Button
-            style={{ marginLeft: 8 }}
-            type="primary"
-            htmlType="submit"
-            loading={posting}
-          >
-            Save
-            </Button>
-        </Form.Item>
-        {/* end:form actions */}
       </Form>
     );
   }
 
 }
 
+
 const mapStateToProps = (state) => {
   return {
-    sectors: state.projects?.sectors?.data,
+    sectors: projectSectorsSelectors.getSectors(state),
   };
 };
 
 const mapDispatchToProps = {
   getSectors: projectSectorsOperator.getSectorsStart,
-  creaProjectSector: projectSectorsOperator.createProjectSectorsStart
+  creaProjectSector: projectSectorsOperator.createProjectSectorsStart,
+  getSectors: projectSectorsOperator.getSectorsStart
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectSectorForm);
