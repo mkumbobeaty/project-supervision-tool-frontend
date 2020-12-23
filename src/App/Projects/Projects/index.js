@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import {projectOperation, projectSelectors} from '../duck';
-import { Col, Modal } from "antd";
+import { Col, Modal, Steps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import { isoDateToHumanReadableDate } from '../../../Util';
@@ -11,9 +11,10 @@ import ProjectsList from "../../components/List";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import { Link } from "react-router-dom";
-import ProjectForm from "./Form";
-import { focalPeopleOperation } from "../../FocalPeople/duck";
+// import ProjectForm from "./Form";
+import { focalPeopleOperation, focalPeopleSelectors } from "../../FocalPeople/duck";
 import "./styles.css";
+import CommonProjectForm from "./components/commonForm";
 
 
 /* constants */
@@ -73,7 +74,6 @@ class Projects extends Component {
     isEditForm: false,
     cached: null,
     visible: false,
-
   };
 
   componentDidMount() {
@@ -83,7 +83,6 @@ class Projects extends Component {
     focalPeople();
     getLocations();
   }
-
   /**
    * @function
    * @name handleEdit
@@ -194,6 +193,7 @@ class Projects extends Component {
     selectProject(null);
     this.setState({ isEditForm: false });
   };
+  
   render() {
     const {
       projects,
@@ -212,8 +212,7 @@ class Projects extends Component {
       locations
     } = this.props;
 
-    const { isEditForm } = this.state;
-
+    const {  isEditForm } = this.state;
     return (
       <div>
         {/* Topbar */}
@@ -316,8 +315,9 @@ class Projects extends Component {
 
         <Modal
           title={
-            isEditForm ? "Edit Human Resources" : "Add New Human Resources"
-          } centered
+            isEditForm ? "Edit Projects" : "Add New Projects"
+          } 
+          centered
           footer={null}
           visible={showForm}
           onCancel={this.closeProjectForm}
@@ -325,7 +325,7 @@ class Projects extends Component {
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
         >
-          <ProjectForm
+          <CommonProjectForm
             posting={posting}
             selected={selected}
             regions={regions}
@@ -361,9 +361,9 @@ Projects.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     projects: projectSelectors.getProjectsSelector(state),
-    focalPeoples: state.focalPeoples.fetchfocalPeoples.data?.data,
-    locations: state.projects?.locations,
-    districts: state.projects?.districts?.data,
+    focalPeoples: focalPeopleSelectors.getFocalPeople(state),
+    locations: projectSelectors.getLocations(state),
+    districts: projectSelectors.getDistricts(state),
     loading: projectSelectors.getProjectsLoadingSelector(state),
     page: projectSelectors.getProjectsPageSelector(state),
     total: projectSelectors.getProjectsTotalSelector(state),
@@ -381,6 +381,7 @@ const mapDispatchToProps = {
   focalPeople: focalPeopleOperation.getFocalPeopleStart,
   createProject: projectOperation.createProjectStart,
   getDistricts:projectOperation.getDistrictsStart,
+  getRegions: projectOperation.getRegionsStart,
   getLocations:projectOperation.getLocationsStart,
 };
 

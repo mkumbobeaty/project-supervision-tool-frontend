@@ -42,3 +42,18 @@ export const getProjectsTotalSelector = (state) => state?.resources?.Projects?.t
  * @param {Object} state redux state
  */
 export const getProjectsShowFormSelector = (state) => state?.resources?.Projects?.showForm;
+
+/**
+ * @function
+ * @name getLocations
+ * @param {Object} state redux state
+ */
+export const getLocations = (state) => state?.resources?.locations;
+
+/**
+ * @function
+ * @name getDistricts
+ * @param {Object} state redux state
+ */
+
+ export const getDistricts = (state) => state?.resources?.districts?.data
