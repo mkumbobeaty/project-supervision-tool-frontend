@@ -87,15 +87,15 @@ class ProjectForm extends Component {
   componentDidMount() {
     const { selected, getDistricts,getSectors} = this.props;
     getSectors()
-    if (selected && selected.locations.map(location => location.level === 'district')) {
-      this.setState({ showDistrictsSelect: true })
-      const region_id = selected.locations.map(location => {
-        return (
-          location.region.id
-        )
-      })
-      getDistricts(region_id)
-    }
+    // if (selected && selected.locations.map(location => location.level === 'district')) {
+    //   this.setState({ showDistrictsSelect: true })
+    //   const region_id = selected.locations.map(location => {
+    //     return (
+    //       location.region.id
+    //     )
+    //   })
+    //   getDistricts(region_id)
+    // }
   }
 
   render() {
@@ -104,9 +104,9 @@ class ProjectForm extends Component {
       selected,
       onCancel,
       focalPeoples,
-      regions,
-      districts,
-      locations
+      // regions,
+      // districts,
+      // locations
     } = this.props;
     return (
       <Form
@@ -190,7 +190,7 @@ class ProjectForm extends Component {
         </Form.Item>
 
       
-        <Form.Item
+        {/* <Form.Item
           label="Locations"
           name="locations"
           title="Projects Location is required  e.g Dar Es Salaam"
@@ -206,7 +206,7 @@ class ProjectForm extends Component {
               <Select.Option value={location.id}>{location.region.name}</Select.Option>
             ))}
           </Select>
-        </Form.Item>
+        </Form.Item> */}
         {/* end:region */}
 
         {/* start:form actions */}

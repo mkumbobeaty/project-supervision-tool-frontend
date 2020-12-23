@@ -381,6 +381,7 @@ const mapDispatchToProps = {
   focalPeople: focalPeopleOperation.getFocalPeopleStart,
   createProject: projectOperation.createProjectStart,
   getDistricts:projectOperation.getDistrictsStart,
+  getRegions: projectOperation.getRegionsStart,
   getLocations:projectOperation.getLocationsStart,
 };
 
