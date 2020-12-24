@@ -6,7 +6,7 @@ import {
   Input,
 } from "antd";
 import { connect } from "react-redux";
-import { projectSectorsOperator,projectSectorsSelectors } from "../../../ProjectsSectors/duck";
+import { projectSectorsOperator, projectSectorsSelectors } from "../../../ProjectsSectors/duck";
 
 /* state actions */
 
@@ -47,11 +47,18 @@ class ProjectSectorForm extends Component {
       this.props.updateprojects(payload, this.props.selected.id);
     } else {
       debugger
-      this.props.creaProjectSector(payload);
+      this.props.handleConfirmButton(values);
     }
-    this.props.handleAfterCloseForm();
+    // this.props.handleAfterCloseForm();
   };
 
+  storeValues = () => {
+    const { getFieldsValue } = this.props.form;
+    const values = getFieldsValue();
+    debugger
+    this.props.submittedValues(values);
+    this.props.handleBackButton();
+  }
   componentDidMount() {
     const { getSectors } = this.props;
     getSectors()
@@ -64,6 +71,8 @@ class ProjectSectorForm extends Component {
       onCancel,
       sectors,
     } = this.props;
+
+
     return (
       <Form
         labelCol={labelCol}
@@ -77,6 +86,21 @@ class ProjectSectorForm extends Component {
         autoComplete="off"
         className="ProjectSectorForm"
       >
+         {/* start:type */}
+         <Form.Item
+          label="Project Id"
+          name="project_id"
+          title="Project id e.g test"
+          rules={[
+            {
+              required: true,
+              message: "Project identity is required",
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        {/* end:project id */}
         {/* start:sector */}
         <Form.Item
           label="Sector"
@@ -110,6 +134,14 @@ class ProjectSectorForm extends Component {
         >
           <Input />
         </Form.Item>
+        <Form.Item>
+          <Button type="primary" htmlType="submit">
+            Confirm
+                </Button>
+          <Button type="default" onClick={this.storeValues} >
+            Back
+                </Button>
+        </Form.Item>
         {/* end:project id */}
       </Form>
     );
@@ -125,8 +157,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getSectors: projectSectorsOperator.getSectorsStart,
-  creaProjectSector: projectSectorsOperator.createProjectSectorsStart,
   getSectors: projectSectorsOperator.getSectorsStart
 
 }

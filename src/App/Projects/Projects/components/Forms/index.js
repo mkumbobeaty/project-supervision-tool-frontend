@@ -1,63 +1,85 @@
-import React from "react";
+
+import React, { Component } from "react";
 import { Steps, Button, message } from 'antd';
+import { connect } from "react-redux";
 import ProjectForm from './projectForm';
 import ProjectSectorForm from './projectSectorForm'
-const { Step } = Steps;
+import { projectSectorsOperator, projectSectorsSelectors } from "../../../ProjectsSectors/duck";
+import { projectOperation, projectSelectors } from '../../../duck';
+import { focalPeopleSelectors } from "../../../../FocalPeople/duck";
 
-const steps = [
-    {
-        title: 'First',
-        content: <ProjectForm />
-    },
-    {
-        title: 'Second',
-        content: <ProjectSectorForm />
-    },
-    {
-        title: 'Last',
-        content: 'Last-content',
-    },
-];
+class CommonProjectForm extends Component {
+    state = {
+        current: 0
+    }
 
-const CommonProjectForm = () => {
-    const [current, setCurrent] = React.useState(0);
-
-    const next = () => {
-        setCurrent(current + 1);
+    next = () => {
+        this.setState({current:this.state.current + 1})
     };
 
-    const prev = () => {
-        setCurrent(current - 1);
+    prev = () => {
+        this.setState({current:this.state.current - 1})
+
     };
 
-    return (
-        <>
-            <Steps current={current}>
-                {steps.map(item => (
-                   <h4>Please fill the data</h4>
-                ))}
-            </Steps>
-            <div className="steps-content">{steps[current].content}</div>
-            <div className="steps-action">
-            {current > 0 && (
-                    <Button style={{ margin: '0 8px' }} onClick={() => prev()}>
-                        Previous
-                    </Button>
-                )}
-                {current < steps.length - 1 && (
-                    <Button type="primary" onClick={() => next()}>
-                        Next
-                    </Button>
-                )}
-                {current === steps.length - 1 && (
-                    <Button type="primary" onClick={() => message.success('Processing complete!')}>
-                        Done
-                    </Button>
-                )}
-               
-            </div>
-        </>
-    );
+    handleConfirmButton = (values) => {
+        const { createProjectSector } = this.props;
+        createProjectSector(values)
+    }
+
+    getFinalStepValue = (values) => {
+        const { createProjectSector } = this.props;
+        createProjectSector(values)
+    }
+
+    getProjectFormValue = (values) => {
+        const { createProject } = this.props
+        createProject(values)
+    }
+
+
+  steps = [
+        {
+            title: 'First',
+            content: <ProjectForm handleNextButton={this.next} submittedValues={this.getProjectFormValue} />
+
+        },
+        {
+            title: 'Second',
+            content: <ProjectSectorForm handleConfirmButton={this.handleConfirmButton} handleBackButton={this.prev} submittedValues={this.getFinalStepValue} />
+
+        },
+
+    ];
+    render() {
+        const {current} = this.state
+        return (
+            <>
+                <Steps current={this.current}>
+                    {this.steps.map(item => (
+                        <h4>Please fill the data</h4>
+                    ))}
+                </Steps>
+                <div className="steps-content">{this.steps[current].content}</div>
+
+            </>
+        );
+    }
 };
 
-export default CommonProjectForm
+const mapStateToProps = (state) => {
+    return {
+        focalPeoples: focalPeopleSelectors.getFocalPeople(state),
+        loading: projectSelectors.getProjectsLoadingSelector(state),
+        sectors: projectSectorsSelectors.getSectors(state),
+    };
+};
+
+const mapDispatchToProps = {
+    selectProject: projectOperation.selectProject,
+    createProject: projectOperation.createProjectStart,
+    getSectors: projectSectorsOperator.getSectorsStart,
+    createProjectSector: projectSectorsOperator.createProjectSectorsStart,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommonProjectForm);

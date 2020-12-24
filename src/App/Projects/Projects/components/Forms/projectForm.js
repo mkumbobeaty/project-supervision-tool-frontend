@@ -98,9 +98,10 @@ class ProjectForm extends Component {
       this.props.updateHumanResource(payload, this.props.selected.id);
     } else {
       debugger
-      this.props.createProject(payload);
+      this.props.submittedValues(values);
+      this.props.handleNextButton();
     }
-    this.props.handleAfterCloseForm();
+    // this.props.handleAfterCloseForm();
   };
 
   componentDidMount() {
@@ -109,9 +110,7 @@ class ProjectForm extends Component {
 
   render() {
     const {
-      posting,
       selected,
-      onCancel,
       focalPeoples,
     } = this.props;
     return (
@@ -197,18 +196,12 @@ class ProjectForm extends Component {
       
       
         {/* start:form actions */}
-        {/* <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
-          <Button onClick={onCancel}>Cancel</Button>
-          <Button
-            style={{ marginLeft: 8 }}
-            type="primary"
-            htmlType="submit"
-            loading={posting}
-          >
-            Save
-            </Button>
-        </Form.Item> */}
-        {/* end:form actions */}
+        <Form.Item>
+                <Button type="primary" htmlType="submit">
+                    Next
+                </Button>
+            </Form.Item>
+      
       </Form>
     );
   }
@@ -242,14 +235,7 @@ const mapStateToProps = (state) => {
   return {
     focalPeoples: focalPeopleSelectors.getFocalPeople(state),
     loading: projectSelectors.getProjectsLoadingSelector(state),
-    selected: state.projects?.selectedProjects,
   };
 };
 
-const mapDispatchToProps = {
-  closeForm: projectOperation.closeForm,
-  selectProject: projectOperation.selectProject,
-  createProject: projectOperation.createProjectStart,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
+export default connect(mapStateToProps)(ProjectForm);
