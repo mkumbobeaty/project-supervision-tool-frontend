@@ -41,15 +41,18 @@ class ProjectSectorForm extends Component {
 
   // form finish(submit) handler
   onFinish = (values) => {
-    const payload = { ...values };
+    const project_id = localStorage.getItem("project_id")
+    const payload = { ...values, project_id };
     debugger
     if (this.props.isEditForm) {
       this.props.updateprojects(payload, this.props.selected.id);
     } else {
       debugger
-      this.props.handleConfirmButton(values);
+      this.props.handleConfirmButton(payload);
+      localStorage.removeItem("project_id");
+
     }
-    // this.props.handleAfterCloseForm();
+    this.props.handleAfterCloseForm();
   };
 
   storeValues = () => {
@@ -59,6 +62,7 @@ class ProjectSectorForm extends Component {
     this.props.submittedValues(values);
     this.props.handleBackButton();
   }
+
   componentDidMount() {
     const { getSectors } = this.props;
     getSectors()
@@ -66,9 +70,7 @@ class ProjectSectorForm extends Component {
 
   render() {
     const {
-      posting,
       selected,
-      onCancel,
       sectors,
     } = this.props;
 
@@ -86,21 +88,7 @@ class ProjectSectorForm extends Component {
         autoComplete="off"
         className="ProjectSectorForm"
       >
-         {/* start:type */}
-         <Form.Item
-          label="Project Id"
-          name="project_id"
-          title="Project id e.g test"
-          rules={[
-            {
-              required: true,
-              message: "Project identity is required",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        {/* end:project id */}
+      
         {/* start:sector */}
         <Form.Item
           label="Sector"

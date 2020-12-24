@@ -97,11 +97,9 @@ class ProjectForm extends Component {
     if (this.props.isEditForm) {
       this.props.updateHumanResource(payload, this.props.selected.id);
     } else {
-      debugger
       this.props.submittedValues(values);
       this.props.handleNextButton();
     }
-    // this.props.handleAfterCloseForm();
   };
 
   componentDidMount() {

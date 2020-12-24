@@ -35,6 +35,7 @@ class CommonProjectForm extends Component {
     getProjectFormValue = (values) => {
         const { createProject } = this.props
         createProject(values)
+        localStorage.setItem("project_id", values.id);
     }
 
 
