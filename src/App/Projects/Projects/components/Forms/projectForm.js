@@ -90,7 +90,6 @@ class ProjectForm extends Component {
   // form finish(submit) handler
   onFinish = (values) => {
     const payload = { ...values };
-    debugger
     if (this.props.isEditForm) {
       this.props.updateHumanResource(payload, this.props.selected.id);
     } else {

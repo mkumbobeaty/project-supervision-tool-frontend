@@ -24,18 +24,17 @@ class CommonProjectForm extends Component {
 
     getProjectFormValue = (values) => {
         const { createProject } = this.props
-        // createProject(values)
+        createProject(values)
     }
 
     getProjectLocationFormValue = (values) => {
-        const { createProject } = this.props
-        // createProject(values)
+        const { createProjectLocation } = this.props
+        createProjectLocation(values)
     }
 
     handleConfirmButton = (values) => {
         const { createProjectSector, handleAfterCloseForm } = this.props;
         createProjectSector(values);
-        debugger
         handleAfterCloseForm();
 
     }
@@ -43,7 +42,7 @@ class CommonProjectForm extends Component {
 
     render() {
         const { current } = this.state
-        const { regions, getDistricts, focalPeoples, posting, districts, getSectors,sectors } = this.props
+        const { regions, getDistricts, focalPeoples, posting, districts, getSectors, sectors, project } = this.props
 
         const steps = [
             {
@@ -64,6 +63,7 @@ class CommonProjectForm extends Component {
                     regions={regions}
                     getDistricts={getDistricts}
                     posting={posting}
+                    project={project}
                     districts={districts}
                 />
             },
@@ -73,6 +73,7 @@ class CommonProjectForm extends Component {
                     handleConfirmButton={this.handleConfirmButton}
                     getSectors={getSectors}
                     sectors={sectors}
+                    project={project}
                     handleBackButton={this.prev} />
 
             },
@@ -102,6 +103,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     selectProject: projectOperation.selectProject,
     createProject: projectOperation.createProjectStart,
+    createProjectLocation: projectOperation.createProjectLocationStart,
     getSectors: projectSectorsOperator.getSectorsStart,
     createProjectSector: projectSectorsOperator.createProjectSectorsStart,
 

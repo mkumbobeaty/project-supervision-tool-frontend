@@ -77,14 +77,19 @@ const renderDistricts = (districts) => {
  */
 class ProjectLocationForm extends Component{
   state = {showDistrictsSelect: false}
+
   // form finish(submit) handler
    onFinish = (values) => {
-    const payload = { ...values };
+    const { project} = this.props
+    const { id } = project;
+    const payload = { ...values, project_id: id };
     if (this.props.isEditForm) {
       this.props.updateprojectLocation(payload, this.props.selected.id);
     } else {
-      this.props.createprojectLocation(payload);
-    }
+      debugger
+      this.props.submittedValues(payload);
+      this.props.handleNextButton(); 
+       }
   };
 
   componentDidMount() {
@@ -107,6 +112,7 @@ class ProjectLocationForm extends Component{
       selected,
       regions,
       districts,
+      handleBackButton
     } = this.props;
     return (
         <Form
@@ -174,6 +180,9 @@ class ProjectLocationForm extends Component{
 
           {/* start:form actions */}
           <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+          <Button type="default" onClick={handleBackButton} >
+            Back
+           </Button>
             <Button
                 type="primary"
                 htmlType="submit"

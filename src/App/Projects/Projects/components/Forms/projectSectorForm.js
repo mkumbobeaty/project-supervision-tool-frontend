@@ -42,7 +42,6 @@ class ProjectSectorForm extends Component {
     const { project, handleConfirmButton, updateprojects } = this.props
     const { id } = project;
     const payload = { ...values, project_id: id };
-    debugger
     if (this.props.isEditForm) {
       updateprojects(payload, this.props.selected.id);
     } else {

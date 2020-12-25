@@ -22,7 +22,6 @@ const createProjectSectorPic = action$ => {
     return action$.pipe(
         ofType(types.CREATE_PROJECT_SECTOR_START),
         switchMap(({payload}) => {
-            debugger
             return from(API.createProjectSectors(payload))
         }),
         switchMap(res => { return of(actions.createProjectSectorsSuccess(res)) }),

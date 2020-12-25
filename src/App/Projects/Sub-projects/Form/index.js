@@ -58,11 +58,9 @@ class ProjectSectorForm extends Component {
   // form finish(submit) handler
   onFinish = (values) => {
     const payload = { ...values };
-    debugger
     if (this.props.isEditForm) {
       this.props.updateprojects(payload, this.props.selected.id);
     } else {
-      debugger
       this.props.createProject(payload);
     }
     this.props.handleAfterCloseForm();
