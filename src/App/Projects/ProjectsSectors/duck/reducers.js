@@ -4,7 +4,7 @@ import * as types from "./types";
 const initialData = {
   loading: false,
   error: null,
-  showForm: false,
+  showForm: true,
   posting: false,
 };
 

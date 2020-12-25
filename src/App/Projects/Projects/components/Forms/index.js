@@ -25,6 +25,7 @@ class CommonProjectForm extends Component {
     handleConfirmButton = (values) => {
         const { createProjectSector, handleAfterCloseForm } = this.props;
         createProjectSector(values);
+        debugger
         handleAfterCloseForm();
 
     }

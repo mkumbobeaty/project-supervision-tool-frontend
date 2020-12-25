@@ -114,11 +114,12 @@ class ProjectSectorForm extends Component {
           <Input />
         </Form.Item>
         <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
-          <Button type="default" onClick={this.handleBackButton} >
+          <Button type="default" onClick={handleBackButton} >
             Back
            </Button>
-            <Button type="primary" htmlType="submit">
-              Confirm
+          <Button type="primary" htmlType="submit" style={{ marginLeft: 8 }}
+          >
+            Confirm
             </Button>
         </Form.Item>
         {/* end:project id */}

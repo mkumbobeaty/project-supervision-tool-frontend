@@ -191,7 +191,7 @@ class Projects extends Component {
   handleAfterCloseForm = () => {
     const { selectProject } = this.props;
     selectProject(null);
-    this.setState({ isEditForm: false });
+    this.setState({ isEditForm: false, visible:false });
   };
   
   render() {
