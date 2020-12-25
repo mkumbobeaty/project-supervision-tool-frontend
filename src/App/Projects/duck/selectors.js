@@ -17,6 +17,13 @@ export const getProjectsSelector = (state) => state?.resources?.Projects?.data;
 
 /**
  * @function
+ * @name getCreatedProjectSelector
+ * @param {Object} state redux state
+ */
+export const getCreatedProjectSelector = (state) => state?.resources?.Projects?.project?.data;
+
+/**
+ * @function
  * @name getProjectsLoadingSelector
  * @param {Object} state redux state
  */

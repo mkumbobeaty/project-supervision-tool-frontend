@@ -102,14 +102,13 @@ class ProjectForm extends Component {
     }
   };
 
-  componentDidMount() {
-      
-  }
+  componentDidMount() { }
 
   render() {
     const {
       selected,
       focalPeoples,
+      posting
     } = this.props;
     return (
       <Form
@@ -172,7 +171,6 @@ class ProjectForm extends Component {
         </Form.Item>
         {/* end:Description */}
 
-
         <Form.Item
           label="Leaders"
           name="leaders"
@@ -191,7 +189,6 @@ class ProjectForm extends Component {
             ))}
           </Select>
         </Form.Item>
-      
       
         {/* start:form actions */}
         <Form.Item>

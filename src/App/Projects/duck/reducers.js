@@ -7,8 +7,8 @@ const defaultProjects = {
   loading: false,
   error: null,
   showForm: false,
-  posting: false,
   page: 1,
+  project: {}
 };
 
 const defaultSubProjects = {
@@ -126,7 +126,7 @@ const Projects = (state = defaultProjects, action) => {
     case types.CREATE_PROJECT_START:
       return { ...state, posting: true };
     case types.CREATE_PROJECT_SUCCESS:
-      return { ...state, posting: false,  loading: false };
+      return { ...state, project:action.payload, posting: false,  loading: false };
     case types.CREATE_PROJECT_FAILURE:
       return { error: action.payload.error };
     case types.UPDATE_PROJECT_START:

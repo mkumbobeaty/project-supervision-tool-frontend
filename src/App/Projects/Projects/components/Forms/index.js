@@ -23,19 +23,15 @@ class CommonProjectForm extends Component {
     };
 
     handleConfirmButton = (values) => {
-        const { createProjectSector } = this.props;
-        createProjectSector(values)
-    }
+        const { createProjectSector, handleAfterCloseForm } = this.props;
+        createProjectSector(values);
+        handleAfterCloseForm();
 
-    getFinalStepValue = (values) => {
-        const { createProjectSector } = this.props;
-        createProjectSector(values)
     }
 
     getProjectFormValue = (values) => {
         const { createProject } = this.props
         createProject(values)
-        localStorage.setItem("project_id", values.id);
     }
 
 
@@ -47,7 +43,7 @@ class CommonProjectForm extends Component {
         },
         {
             title: 'Second',
-            content: <ProjectSectorForm handleConfirmButton={this.handleConfirmButton} handleBackButton={this.prev} submittedValues={this.getFinalStepValue} />
+            content: <ProjectSectorForm handleConfirmButton={this.handleConfirmButton} handleBackButton={this.prev} />
 
         },
 

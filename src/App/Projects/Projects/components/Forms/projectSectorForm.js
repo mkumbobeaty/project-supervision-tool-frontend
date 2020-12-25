@@ -7,6 +7,7 @@ import {
 } from "antd";
 import { connect } from "react-redux";
 import { projectSectorsOperator, projectSectorsSelectors } from "../../../ProjectsSectors/duck";
+import { projectSelectors } from "../../../duck";
 
 /* state actions */
 
@@ -41,27 +42,16 @@ class ProjectSectorForm extends Component {
 
   // form finish(submit) handler
   onFinish = (values) => {
-    const project_id = localStorage.getItem("project_id")
-    const payload = { ...values, project_id };
+    const { project, handleConfirmButton, updateprojects } = this.props
+    const { id } = project;
+    const payload = { ...values, project_id: id };
     debugger
     if (this.props.isEditForm) {
-      this.props.updateprojects(payload, this.props.selected.id);
+      updateprojects(payload, this.props.selected.id);
     } else {
-      debugger
-      this.props.handleConfirmButton(payload);
-      localStorage.removeItem("project_id");
-
+      handleConfirmButton(payload);
     }
-    this.props.handleAfterCloseForm();
   };
-
-  storeValues = () => {
-    const { getFieldsValue } = this.props.form;
-    const values = getFieldsValue();
-    debugger
-    this.props.submittedValues(values);
-    this.props.handleBackButton();
-  }
 
   componentDidMount() {
     const { getSectors } = this.props;
@@ -72,6 +62,7 @@ class ProjectSectorForm extends Component {
     const {
       selected,
       sectors,
+      handleBackButton
     } = this.props;
 
 
@@ -88,7 +79,7 @@ class ProjectSectorForm extends Component {
         autoComplete="off"
         className="ProjectSectorForm"
       >
-      
+
         {/* start:sector */}
         <Form.Item
           label="Sector"
@@ -122,13 +113,13 @@ class ProjectSectorForm extends Component {
         >
           <Input />
         </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit">
-            Confirm
-                </Button>
-          <Button type="default" onClick={this.storeValues} >
+        <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+          <Button type="default" onClick={this.handleBackButton} >
             Back
-                </Button>
+           </Button>
+            <Button type="primary" htmlType="submit">
+              Confirm
+            </Button>
         </Form.Item>
         {/* end:project id */}
       </Form>
@@ -141,6 +132,7 @@ class ProjectSectorForm extends Component {
 const mapStateToProps = (state) => {
   return {
     sectors: projectSectorsSelectors.getSectors(state),
+    project: projectSelectors.getCreatedProjectSelector(state)
   };
 };
 
