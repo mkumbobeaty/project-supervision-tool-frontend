@@ -103,12 +103,16 @@ const locations = (state = [], action) => {
       return action.payload 
     case types.GET_LOCATIONS_FAILURE:
       return  action.payload
-    default:
-      return state;
-
-  }
+      case types.CREATE_PROJECT_LOCATION_START:
+        return { ...state };
+      case types.CREATE_PROJECT_LOCATION_SUCCESS:
+        return action.payload;
+      case types.CREATE_PROJECT_LOCATION_FAILURE:
+        return  action.payload ;
+      default:
+        return state;
+     }
 }
-
 
 const Projects = (state = defaultProjects, action) => {
   switch (action.type) {

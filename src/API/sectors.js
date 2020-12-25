@@ -11,7 +11,7 @@ const getSectors = () =>
 
 /**
  * @function
- * @name getSectors
+ * @name createProjectSectors
  * @description get project sectors
  * */
 const createProjectSectors =(project_sector) => 

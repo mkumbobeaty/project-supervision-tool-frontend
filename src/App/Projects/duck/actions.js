@@ -315,3 +315,38 @@ export function getLocationsFailure(error) {
   };
 }
 
+/**
+ * @function
+ * @name createProjectLocationStart
+ * @param {*} project_location 
+ */
+export function createProjectLocationStart(project_location) {
+  return {
+    type: types.CREATE_PROJECT_LOCATION_START,
+    payload:project_location
+  };
+}
+
+/**
+ * @function
+ * @name createProjectLocationSuccess
+ * @param {*} project_location 
+ */
+export function createProjectLocationSuccess(project_location) {
+  return {
+    type: types.CREATE_PROJECT_LOCATION_SUCCESS,
+    payload: project_location,
+  };
+}
+
+/**
+ * @function
+ * @name createProjectLocationFailure
+ * @param {*} error 
+ */
+export function createProjectLocationFailure(error) {
+  return {
+    type: types.CREATE_PROJECT_LOCATION_FAILURE,
+    payload: error,
+  };
+}

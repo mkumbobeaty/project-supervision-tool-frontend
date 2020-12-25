@@ -98,6 +98,19 @@ const locationsEpic = action$ => {
     )                                                                                                                                                                                                       
 }
 
+
+const createProjectLocationPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_PROJECT_LOCATION_START),
+        switchMap(({payload}) => {
+            debugger
+            return from(API.createProjectLocation(payload))
+        }),
+        switchMap(res => { return of(actions.createProjectLocationSuccess(res)) }),
+        catchError(error => of(actions.createProjectLocationFailure(error)))
+    )
+}
+
 const subProjectsEpic = action$ =>
     action$.pipe(
         ofType(types.GET_SUB_PROJECTS_START),
@@ -133,6 +146,7 @@ export const projectsRootEpic = combineEpics(
     regionsEpic,
     districtsEpic,
     locationsEpic,
+    createProjectLocationPic,
 );
 
 

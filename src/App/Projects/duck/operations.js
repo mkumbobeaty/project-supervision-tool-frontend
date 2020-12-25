@@ -39,6 +39,9 @@ import {
   getLocationsStart,
   getLocationsSuccess,
   getLocationsFailure,
+  createProjectLocationStart,
+  createProjectLocationSuccess,
+  createProjectLocationFailure
 
 } from './actions';
 
@@ -83,4 +86,7 @@ export {
   getLocationsSuccess,
   getLocationsStart,
   getLocationsFailure,
+  createProjectLocationStart,
+  createProjectLocationSuccess,
+  createProjectLocationFailure
 };
