@@ -6,7 +6,7 @@ import ProjectForm from './projectForm';
 import ProjectSectorForm from './projectSectorForm'
 import { projectSectorsOperator, projectSectorsSelectors } from "../../../ProjectsSectors/duck";
 import { projectOperation, projectSelectors } from '../../../duck';
-import { focalPeopleSelectors } from "../../../../FocalPeople/duck";
+import ProjectLocationForm from "./projectLocationForm";
 
 class CommonProjectForm extends Component {
     state = {
@@ -14,13 +14,23 @@ class CommonProjectForm extends Component {
     }
 
     next = () => {
-        this.setState({current:this.state.current + 1})
+        this.setState({ current: this.state.current + 1 })
     };
 
     prev = () => {
-        this.setState({current:this.state.current - 1})
+        this.setState({ current: this.state.current - 1 })
 
     };
+
+    getProjectFormValue = (values) => {
+        const { createProject } = this.props
+        // createProject(values)
+    }
+
+    getProjectLocationFormValue = (values) => {
+        const { createProject } = this.props
+        // createProject(values)
+    }
 
     handleConfirmButton = (values) => {
         const { createProjectSector, handleAfterCloseForm } = this.props;
@@ -30,35 +40,52 @@ class CommonProjectForm extends Component {
 
     }
 
-    getProjectFormValue = (values) => {
-        const { createProject } = this.props
-        createProject(values)
-    }
 
-
-  steps = [
-        {
-            title: 'First',
-            content: <ProjectForm handleNextButton={this.next} submittedValues={this.getProjectFormValue} />
-
-        },
-        {
-            title: 'Second',
-            content: <ProjectSectorForm handleConfirmButton={this.handleConfirmButton} handleBackButton={this.prev} />
-
-        },
-
-    ];
     render() {
-        const {current} = this.state
+        const { current } = this.state
+        const { regions, getDistricts, focalPeoples, posting, districts, getSectors,sectors } = this.props
+
+        const steps = [
+            {
+                title: 'First',
+                content: <ProjectForm
+                    handleNextButton={this.next}
+                    submittedValues={this.getProjectFormValue}
+                    focalPeoples={focalPeoples}
+                />
+
+            },
+            {
+                title: 'Second',
+                content: <ProjectLocationForm
+                    handleNextButton={this.next}
+                    submittedValues={this.getProjectLocationFormValue}
+                    handleBackButton={this.prev}
+                    regions={regions}
+                    getDistricts={getDistricts}
+                    posting={posting}
+                    districts={districts}
+                />
+            },
+            {
+                title: 'Third',
+                content: <ProjectSectorForm
+                    handleConfirmButton={this.handleConfirmButton}
+                    getSectors={getSectors}
+                    sectors={sectors}
+                    handleBackButton={this.prev} />
+
+            },
+
+        ];
         return (
             <>
                 <Steps current={this.current}>
-                    {this.steps.map(item => (
+                    {steps.map(item => (
                         <h4>Please fill the data</h4>
                     ))}
                 </Steps>
-                <div className="steps-content">{this.steps[current].content}</div>
+                <div className="steps-content">{steps[current].content}</div>
 
             </>
         );
@@ -67,9 +94,8 @@ class CommonProjectForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        focalPeoples: focalPeopleSelectors.getFocalPeople(state),
-        loading: projectSelectors.getProjectsLoadingSelector(state),
         sectors: projectSectorsSelectors.getSectors(state),
+        project: projectSelectors.getCreatedProjectSelector(state)
     };
 };
 
@@ -78,6 +104,7 @@ const mapDispatchToProps = {
     createProject: projectOperation.createProjectStart,
     getSectors: projectSectorsOperator.getSectorsStart,
     createProjectSector: projectSectorsOperator.createProjectSectorsStart,
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommonProjectForm);

@@ -77,11 +77,10 @@ class Projects extends Component {
   };
 
   componentDidMount() {
-    const { fetchProjects, focalPeople, getRegions,getLocations } = this.props;
+    const { fetchProjects, focalPeople, getRegions } = this.props;
     fetchProjects();
     getRegions();
     focalPeople();
-    getLocations();
   }
   /**
    * @function
@@ -191,7 +190,7 @@ class Projects extends Component {
   handleAfterCloseForm = () => {
     const { selectProject } = this.props;
     selectProject(null);
-    this.setState({ isEditForm: false, visible:false });
+    this.setState({ isEditForm: false });
   };
   
   render() {
@@ -329,7 +328,6 @@ class Projects extends Component {
             posting={posting}
             selected={selected}
             regions={regions}
-            locations={locations}
             districts={districts}
             getDistricts={getDistricts}
             isEditForm={isEditForm}
@@ -362,8 +360,8 @@ const mapStateToProps = (state) => {
   return {
     projects: projectSelectors.getProjectsSelector(state),
     focalPeoples: focalPeopleSelectors.getFocalPeople(state),
-    locations: projectSelectors.getLocations(state),
     districts: projectSelectors.getDistricts(state),
+    regions:projectSelectors.getRegions(state),
     loading: projectSelectors.getProjectsLoadingSelector(state),
     page: projectSelectors.getProjectsPageSelector(state),
     total: projectSelectors.getProjectsTotalSelector(state),
@@ -382,7 +380,6 @@ const mapDispatchToProps = {
   createProject: projectOperation.createProjectStart,
   getDistricts:projectOperation.getDistrictsStart,
   getRegions: projectOperation.getRegionsStart,
-  getLocations:projectOperation.getLocationsStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

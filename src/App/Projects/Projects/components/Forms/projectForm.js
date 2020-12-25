@@ -6,9 +6,6 @@ import {
   Select,
   Input,
 } from "antd";
-import { connect } from "react-redux";
-import {projectOperation, projectSelectors} from '../../../duck';
-import {  focalPeopleSelectors } from "../../../../FocalPeople/duck";
 
 /* state actions */
 
@@ -226,11 +223,5 @@ ProjectForm.propTypes = {
   onCancel: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    focalPeoples: focalPeopleSelectors.getFocalPeople(state),
-    loading: projectSelectors.getProjectsLoadingSelector(state),
-  };
-};
 
-export default connect(mapStateToProps)(ProjectForm);
+export default ProjectForm

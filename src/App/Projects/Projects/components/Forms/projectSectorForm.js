@@ -5,9 +5,6 @@ import {
   Select,
   Input,
 } from "antd";
-import { connect } from "react-redux";
-import { projectSectorsOperator, projectSectorsSelectors } from "../../../ProjectsSectors/duck";
-import { projectSelectors } from "../../../duck";
 
 /* state actions */
 
@@ -130,16 +127,4 @@ class ProjectSectorForm extends Component {
 }
 
 
-const mapStateToProps = (state) => {
-  return {
-    sectors: projectSectorsSelectors.getSectors(state),
-    project: projectSelectors.getCreatedProjectSelector(state)
-  };
-};
-
-const mapDispatchToProps = {
-  getSectors: projectSectorsOperator.getSectorsStart
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectSectorForm);
+export default ProjectSectorForm;

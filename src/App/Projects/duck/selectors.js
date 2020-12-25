@@ -59,8 +59,15 @@ export const getLocations = (state) => state?.resources?.locations;
 
 /**
  * @function
+ * @name getRegions
+ * @param {Object} state redux state
+ */
+export const getRegions = (state) => state?.resources?.regions;
+
+/**
+ * @function
  * @name getDistricts
  * @param {Object} state redux state
  */
 
- export const getDistricts = (state) => state?.resources?.districts?.data
+ export const getDistricts = (state) => state?.resources?.districts
