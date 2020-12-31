@@ -34,5 +34,5 @@ const mapDispatchToProps = (dispatch) => ({
     reloadPage: bindActionCreators(appActions.reloadPage, dispatch)
 });
 
-export default connect(() => {}, mapDispatchToProps)(App);
+export default connect(null, mapDispatchToProps)(App);
 

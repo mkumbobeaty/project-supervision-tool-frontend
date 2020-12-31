@@ -28,7 +28,7 @@ function SideNavItem({
 
     return (
         <div className='SideNavItem' style={isActive ? styles : {}} onClick={handleClick}>
-            <img src={isActive ? activeThumbnail : inactiveThumbnail} width={50}/>
+            <img src={isActive ? activeThumbnail : inactiveThumbnail} width={50} alt='logo'/>
             <div className="side-nav-item-title">{title}</div>
         </div>
     );

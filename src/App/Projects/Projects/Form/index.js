@@ -30,27 +30,27 @@ const wrapperCol = {
 };
 
 
-const renderDistricts = (districts,loadingDistrict) => {
-  return (
-    <Form.Item
-      label="District"
-      name="district_id"
-      title="humanResources District is required  e.g Ilala"
-      rules={[
-        {
-          required: true,
-          message: "humanResource district  is required",
-        },
-      ]}
-    >
-      <Select loading={loadingDistrict}>
-        {districts.map((district) => (
-          <Select.Option value={district.id}>{district.name}</Select.Option>
-        ))}
-      </Select>
-    </Form.Item>
-  );
-}
+// const renderDistricts = (districts,loadingDistrict) => {
+//   return (
+//     <Form.Item
+//       label="District"
+//       name="district_id"
+//       title="humanResources District is required  e.g Ilala"
+//       rules={[
+//         {
+//           required: true,
+//           message: "humanResource district  is required",
+//         },
+//       ]}
+//     >
+//       <Select loading={loadingDistrict}>
+//         {districts.map((district) => (
+//           <Select.Option value={district.id}>{district.name}</Select.Option>
+//         ))}
+//       </Select>
+//     </Form.Item>
+//   );
+// }
 
 /**
  * @function ProjectForm
@@ -104,8 +104,6 @@ class ProjectForm extends Component {
       selected,
       onCancel,
       focalPeoples,
-      regions,
-      districts,
       locations
     } = this.props;
     return (

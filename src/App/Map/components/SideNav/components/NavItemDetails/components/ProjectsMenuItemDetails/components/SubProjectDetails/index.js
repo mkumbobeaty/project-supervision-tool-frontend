@@ -6,7 +6,7 @@ import './styles.css';
 import CustomGridList from "../CustomGridList";
 import PredefinedFilter from "../PredefinedFilter";
 import LongActionButton from "../LongActionButton";
-import {mapActions, mapSelectors} from "../../../../../../../../duck";
+import {mapActions} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
 
 /**

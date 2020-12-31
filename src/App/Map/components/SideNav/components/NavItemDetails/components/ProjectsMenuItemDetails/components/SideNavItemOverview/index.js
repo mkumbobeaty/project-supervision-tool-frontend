@@ -52,10 +52,10 @@ function SideNavItemOverview({
 export default SideNavItemOverview;
 
 SideNavItemOverview.propTypes = {
-    overViewData: PropTypes.object.isRequired,
+    overViewData: PropTypes.array.isRequired,
     predefinedFilterConfig: PropTypes.object.isRequired,
     predefinedFilterData: PropTypes.array.isRequired,
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     goBack: PropTypes.func,
     handleOnclickFilterItem: PropTypes.func,
 
@@ -63,5 +63,6 @@ SideNavItemOverview.propTypes = {
 
 SideNavItemOverview.defaultProps = {
     goBack: null,
+    title: '',
     handleOnclickFilterItem: () => {},
 }

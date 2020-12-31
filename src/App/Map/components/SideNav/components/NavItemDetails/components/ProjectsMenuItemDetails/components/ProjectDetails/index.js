@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {Button} from "antd";
-import { SelectOutlined } from '@ant-design/icons';
 
 import {projectActions, projectSelectors} from '../../../../../../../../../Projects/duck'
 import {isoDateToHumanReadableDate, moneyFormat} from "../../../../../../../../../../Util";

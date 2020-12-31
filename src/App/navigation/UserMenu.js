@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Dropdown, Menu } from 'antd';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import './styles.css';
 import {bindActionCreators} from "redux";
 import {authActions} from '../Auth/duck';
@@ -43,8 +43,6 @@ const SignOutWrapper = connect(() => {}, mapDispatchToProps)(SignOut);
  * @since 0.1.0
  */
 const UserMenu = ({ history: { push } }) => {
-  const [setShowChangePassword] = useState(false);
-
 
   const onClickMenu = ({ key }) => {
     if (key === 'changePassword') {

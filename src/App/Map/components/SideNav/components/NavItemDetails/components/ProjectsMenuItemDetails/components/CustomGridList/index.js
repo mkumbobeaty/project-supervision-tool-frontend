@@ -9,10 +9,10 @@ function CustomGridList({data}) {
     const dataChunks = chunkIntoSmallerArrays(data, 2);
 
     // render article
-    const article = arr => (
-        <article>
-            { arr.map(({title, value}) => (
-                <div>
+    const article = (arr, i) => (
+        <article key={i}>
+            { arr.map(({title, value}, index) => (
+                <div key={index}>
                     <span title={title} style={{ textTransform: 'uppercase'}}>{title}</span><br/>
                     <b>{value}</b>
                 </div>))}
@@ -21,7 +21,7 @@ function CustomGridList({data}) {
 
     return (
         <section className="CustomGridList">
-            { dataChunks.map(dataChunk => article(dataChunk))}
+            { dataChunks.map((dataChunk, i) => article(dataChunk, i))}
         </section>
     );
 }
