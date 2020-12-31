@@ -36,7 +36,7 @@ const sectors = (state = [], action) => {
     }
   };
 
-  export const sectorReducer = combineReducers (
+  export const sectorReducer = combineReducers ({
     sectors,
     project_sectors
-  )
+  });
