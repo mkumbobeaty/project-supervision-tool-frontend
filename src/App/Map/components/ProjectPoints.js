@@ -1,5 +1,4 @@
 import {withLeaflet, Popup, Marker} from "react-leaflet";
-import * as turf from '@turf/turf'
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import Spiderfy from "./Spiderfy";
@@ -57,7 +56,6 @@ class ProjectPoints extends Component {
                 onUnspiderfy={this.handleUnspiderfy}
             >
                 { data.map( ({ geometry, properties }) => {
-                    console.log(geometry.coordinates);
                     return (
                         <Marker
                             position={[geometry.coordinates[1], geometry.coordinates[0]]}

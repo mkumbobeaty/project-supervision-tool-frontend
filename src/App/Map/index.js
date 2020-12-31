@@ -24,7 +24,7 @@ class MapDashboard extends Component {
     static propTypes = {
         mapLoading: PropTypes.bool.isRequired,
         getProjectsByRegion: PropTypes.func.isRequired,
-        regionDetails: PropTypes.object.isRequired,
+        regionDetails: PropTypes.object,
         projectsOverview: PropTypes.array.isRequired,
         regionProjects: PropTypes.array.isRequired,
         project: PropTypes.object,

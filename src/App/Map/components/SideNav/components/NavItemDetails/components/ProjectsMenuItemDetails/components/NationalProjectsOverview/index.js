@@ -73,7 +73,11 @@ function NationalProjectsOverview(
 export default NationalProjectsOverview;
 
 NationalProjectsOverview.propTypes = {
-    projectsStatistics: PropTypes.object.isRequired,
-    projectsCountByRegion: PropTypes.object.isRequired,
+    projectsStatistics: PropTypes.object,
+    projectsCountByRegion: PropTypes.array.isRequired,
     getProjectsOverview: PropTypes.func.isRequired
+}
+
+NationalProjectsOverview.defaultProps = {
+    projectsStatistics: null,
 }

@@ -62,6 +62,7 @@ const mapStateToProps = state => ({
     showNationalOverview: mapSelectors.showNationalOverviewSelector(state),
     showRegionalOverview: mapSelectors.showRegionalOverviewSelector(state),
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
+    region: mapSelectors.getRegionDetailsSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -77,10 +78,10 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsOverview);
 
 ProjectsOverview.propTypes = {
-    projectsStatistics: PropTypes.object.isRequired,
+    projectsStatistics: PropTypes.object,
     showRegionalOverview: PropTypes.bool.isRequired,
     showNationalOverview: PropTypes.bool.isRequired,
-    projectsCountByRegion: PropTypes.object.isRequired,
+    projectsCountByRegion: PropTypes.array.isRequired,
     getProjectsOverview: PropTypes.func.isRequired,
     getProjectsByRegion: PropTypes.func.isRequired,
     setShowNationalOverview: PropTypes.func.isRequired,
@@ -88,4 +89,8 @@ ProjectsOverview.propTypes = {
     clearRegionalProjects: PropTypes.func.isRequired,
     getProject: PropTypes.func.isRequired,
     regionProjects: PropTypes.array.isRequired,
+}
+
+ProjectsOverview.defaultProps = {
+    projectsStatistics: null,
 }

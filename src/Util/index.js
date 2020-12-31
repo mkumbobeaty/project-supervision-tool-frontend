@@ -67,14 +67,6 @@ export const createDateFromString = (dateString) => {
  */
 export const getGeoJsonFromLocation = (data) => {
     const {location} = data;
-    const notAllowed = ['location'];
-
-    const filtered = Object.keys(data)
-        .filter(key => !notAllowed.includes(key))
-        .reduce((obj, key) => {
-            obj[key] = data[key];
-            return obj;
-        }, {});
     if (location.level === 'district') {
         const districtGeo = location?.district?.geo_json;
         const property = {level: location.level, id: location?.district.id}

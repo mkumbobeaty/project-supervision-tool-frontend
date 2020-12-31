@@ -37,11 +37,11 @@ const { confirm } = Modal;
  * @version 0.1.0
  * @since 0.1.0
  */
-const displayLocation = (location) => {
-  const regionLevel = `${location?.region?.name}`;
-  const districtLvel = `${location?.region?.name}, ${location?.district?.name}`;
-  return location?.district ? districtLvel : regionLevel;
-};
+// const displayLocation = (location) => {
+//   const regionLevel = `${location?.region?.name}`;
+//   const districtLvel = `${location?.region?.name}, ${location?.district?.name}`;
+//   return location?.district ? districtLvel : regionLevel;
+// };
 
 const headerLayout = [
   { ...projectIdSpan, header: "Project ID" },

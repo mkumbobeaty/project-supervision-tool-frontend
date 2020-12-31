@@ -261,6 +261,5 @@ export const resources = combineReducers({
   Projects,
   project,
   deleteProjects,
-  project,
   locations
 });

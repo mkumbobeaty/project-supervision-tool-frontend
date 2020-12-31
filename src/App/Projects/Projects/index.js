@@ -5,7 +5,6 @@ import {projectOperation, projectSelectors} from '../duck';
 import { Col, Modal, Steps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
-import { isoDateToHumanReadableDate } from '../../../Util';
 import Topbar from "../../components/Topbar";
 import ProjectsList from "../../components/List";
 import ListItem from "../../components/ListItem";
@@ -31,20 +30,7 @@ const approvalSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
 const { confirm } = Modal;
 
 
-/**
- * @function
- * @name displayLocation
- * @description display location of human resource
- * @param {object} location to be display
- *
- * @version 0.1.0
- * @since 0.1.0
- */
-const displayLocation = (location) => {
-  const regionLevel = `${location?.region?.name}`;
-  const districtLvel = `${location?.region?.name}, ${location?.district?.name}`;
-  return location?.district ? districtLvel : regionLevel;
-};
+
 
 const headerLayout = [
   { ...projectIdSpan, header: "Project ID" },

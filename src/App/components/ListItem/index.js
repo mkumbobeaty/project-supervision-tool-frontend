@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { Avatar, Checkbox, Col, Row } from 'antd';
 import randomColor from 'randomcolor';
 import './styles.css';
-import { useHistory } from 'react-router-dom';
-
 /* constants */
 const sideSpan = { xxl: 1, xl: 1, lg: 1, md: 2, sm: 2, xs: 3 };
 const isHoveredSpan = { xxl: 1, xl: 1, lg: 1, md: 1, sm: 2, xs: 3 };
@@ -73,7 +71,6 @@ const ListItem = ({
    * @version 0.1.0
    * @since 0.1.0
    */
-  const history = useHistory()
   const handleClickItem = () => {}
   const handleToggleSelect = (event) => {
     if (event.target.checked) {
