@@ -18,6 +18,7 @@ function ProjectDetails({
                             regionId,
                             getProjectsByRegion,
                             showProjectsOverview,
+                            getSubProject,
                             clearProject,
                             showProjectDetails,
                             showSubProjectDetails,
@@ -32,9 +33,11 @@ function ProjectDetails({
         clearProject();
     }
 
-    const handleOnclickSubProject = () => {
+    const handleOnclickSubProject = (id) => {
+        console.log('sub project id', id);
         showSubProjectDetails(true);
         showProjectDetails(false);
+        getSubProject(id);
     }
 
     const getTotalCommitmentAmount = ({details}) => {
@@ -96,6 +99,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
+    getSubProject: bindActionCreators(projectActions.getSubProjectStart, dispatch),
     showProjectsOverview: bindActionCreators(mapActions.showProjectsOverview, dispatch),
     clearProject: bindActionCreators(projectActions.clearProject, dispatch),
     showProjectDetails: bindActionCreators(mapActions.showProjectDetails, dispatch),
@@ -108,6 +112,7 @@ ProjectDetails.propTypes = {
     project: PropTypes.object.isRequired,
     regionId: PropTypes.string.isRequired,
     getProjectsByRegion: PropTypes.func.isRequired,
+    getSubProject: PropTypes.func.isRequired,
     showProjectsOverview: PropTypes.func.isRequired,
     clearProject: PropTypes.func.isRequired,
     showProjectDetails: PropTypes.func.isRequired,
