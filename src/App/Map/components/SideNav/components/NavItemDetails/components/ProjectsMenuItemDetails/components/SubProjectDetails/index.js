@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import BackLink from "../BackLink";
 import './styles.css';
 import CustomGridList from "../CustomGridList";
@@ -8,28 +8,52 @@ import PredefinedFilter from "../PredefinedFilter";
 import LongActionButton from "../LongActionButton";
 import {mapActions} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
+import {projectSelectors} from "../../../../../../../../../Projects/duck";
+import {isoDateToHumanReadableDate} from "../../../../../../../../../../Util";
+
+
+/**
+ * @function
+ * @name mapToSideMenuObject
+ * @description helper function that maps complex subProject object to a simple object
+ *  for displaying
+ *  @param subProject
+ *  @return {Object}
+ */
+const mapToSideMenuObject = ({ details, name, description , sub_project_items}) => {
+    const contractor = details?.contractor?.name;
+    const consultant = details?.supervising_agency?.name;
+    const lga = details?.actor?.name;
+    debugger;
+    const customGridListData = [
+        {title: 'START DATE', value: isoDateToHumanReadableDate(details?.start_date)},
+        {title: 'closing date', value: isoDateToHumanReadableDate(details?.end_date)},
+        {title: 'phase', value: details?.phase?.name },
+        {title: 'stage', value: 'Implementation'},
+    ];
+    const subProjectElementsData = sub_project_items.map(({name, id, progress }) => ({ title: name, value: `${progress.actual}%`, id }));
+
+    return {
+        contractor,
+        consultant,
+        lga,
+        description,
+        customGridListData,
+        subProjectElementsData,
+        name,
+    };
+
+}
 
 /**
  * @function
  * @name SubProjectDetails
  * @description renders sub project details
  */
-function SubProjectDetails({ goBackFromSubProjectToProjectDetails, subProject}) {
-    const handleGoBack = () =>  goBackFromSubProjectToProjectDetails(subProject.project_id);
-    const customGridListData = [
-        {title: 'START DATE', value: 'January 30 2020'},
-        {title: 'closing date', value: 'December 10 2020'},
-        {title: 'phase', value: 'phase 1' },
-        {title: 'stage', value: 'Implementation' },
-    ];
+function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject}) {
+    const handleGoBack = () => goBackFromSubProjectToProjectDetails(subProject?.project_id);
 
-    const subProjectElementsData = [
-        {title: 'Kinondoni road', value: '30%', id: 'Kinondoni road' },
-        {title: 'Tandale bus stop', value: '70%', id: 'bus ' },
-        {title: 'Kiwalani market', value: '50%' , id: 'market' },
-        {title: 'Nyana road', value: '100%', id: 'nyana' },
-    ];
-
+    const sideMenuObj = subProject ? mapToSideMenuObject(subProject) : null;
 
     const handleOnclickSubProjectElement = (id) => console.log(id);
     const viewFullSubProjectDetails = () => console.log('View full sub project details clicked');
@@ -39,39 +63,39 @@ function SubProjectDetails({ goBackFromSubProjectToProjectDetails, subProject}) 
         <div className='SubProjectDetails'>
             <section className="top-section">
                 <div className='title'>
-                    <div title='Sample Subproject'>Sample Subproject</div>
+                    <div title='Sample Subproject'>{sideMenuObj?.name}</div>
                 </div>
                 <BackLink goBack={handleGoBack}/>
             </section>
             <hr/>
             <section>
-                <div><b>contractor:</b> Simon Group authority</div>
-                <div><b>consultant:</b> Tambua technologies</div>
-                <div><b>LGA:</b> Temeke municipal</div>
+                <div><b>contractor:</b> {sideMenuObj?.contractor}</div>
+                <div><b>consultant:</b> {sideMenuObj?.consultant}</div>
+                <div><b>LGA:</b> {sideMenuObj?.lga}</div>
             </section>
             <hr/>
-            <section>Sub project description</section>
-            <CustomGridList data={customGridListData} />
+            <section>{sideMenuObj?.description}</section>
+            {sideMenuObj?.customGridListData ? <CustomGridList data={sideMenuObj?.customGridListData}/> : ''}
             <LongActionButton
                 handleOnclick={viewFullSubProjectDetails}
                 title='view full sub-project details'
             />
 
-            <PredefinedFilter
-                data={subProjectElementsData}
+            {sideMenuObj?.subProjectElementsData ? <PredefinedFilter
+                data={sideMenuObj?.subProjectElementsData}
                 filterTitle='Sub Project Elements'
                 config={{
                     filterLeftTitle: 'Progress',
                     filterRightTitle: 'Name'
                 }}
                 handleOnclickFilterItem={handleOnclickSubProjectElement}
-            />
+            /> : ''}
         </div>
     );
 }
 
 const mapStateToProps = (state) => ({
-    subProject: {project_id: 'kozey.kiera'}
+    subProject: projectSelectors.getSubProjectSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -82,5 +106,10 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjectDetails);
 
 SubProjectDetails.propTypes = {
-    goBackFromSubProjectToProjectDetails: PropTypes.func.isRequired
+    goBackFromSubProjectToProjectDetails: PropTypes.func.isRequired,
+    subProject: PropTypes.object
+}
+
+SubProjectDetails.defaultPropTypes = {
+    subProject: null,
 }
