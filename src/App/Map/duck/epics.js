@@ -163,6 +163,7 @@ const backFromSubProjectToProjectDetailsEpics = actions$ => actions$.pipe(
         projectActions.getProjectStart(payload),
         actions.showSubProjectDetails(false),
         actions.showProjectDetails(true),
+        projectActions.clearSubProject()
     ]))
 );
 
