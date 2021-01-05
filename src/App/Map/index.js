@@ -13,6 +13,7 @@ import RegionsGeoJson from "./components/RegionsGeoJson";
 import RegionDetailGeoJson from "./components/RegionDetailsGeoJson";
 import ProjectPoints from "./components/ProjectPoints";
 import ProjectLocations from "./components/ProjectLocations";
+import SubProjectLocations from "./components/SubProjectLocations";
 
 class MapDashboard extends Component {
     state = {
@@ -28,11 +29,13 @@ class MapDashboard extends Component {
         projectsOverview: PropTypes.array.isRequired,
         regionProjects: PropTypes.array.isRequired,
         project: PropTypes.object,
+        subProject: PropTypes.object,
     };
 
     static defaultProps = {
         projectsOverview: [],
         project: null,
+        subProject: null,
         regionProjects: [],
         regionDetails: null,
         getProjectsByRegion: () => {
@@ -92,6 +95,7 @@ class MapDashboard extends Component {
             regionProjects,
             project,
             mapLoading,
+            subProject,
         } = this.props;
         return (
             <div className="MapDashboard">
@@ -109,6 +113,7 @@ class MapDashboard extends Component {
                                 regionProjects={regionProjects}
                             /> : ''}
                         <ProjectLocations project={project}/>
+                        <SubProjectLocations subProject={subProject}/>
                     </BaseMap>
                 </Spin>
             </div>
@@ -122,6 +127,7 @@ const mapStateToProps = (state) => ({
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     regionDetails: mapSelectors.getRegionDetailsSelector(state),
     projectsOverview: mapSelectors.getProjectsOverview(state),
+    subProject: projectSelectors.getSubProjectSelector(state),
     project: projectSelectors.getProjectSelector(state),
 });
 

@@ -12,12 +12,7 @@ import axios from "./config";
  * @version 0.1.0
  * @since 0.1.0
  */
-const getSubProject = (id) => {
-    console.log('inside get sub project API', id)
-    return axios.get(`/sub_projects/${id}`).then((response) => response.data);
-}
-
-
+const getSubProject = (id) => axios.get(`/sub_projects/${id}`).then((response) => response.data);
 
 
 export default {
