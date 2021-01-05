@@ -42,9 +42,23 @@ const agencies = (state = [], action) => {
   }
 };
 
+const currencies = (state = [], action) => {
+  switch (action.type) {
+    case types.GET_CURRENCIES_START:
+      return state;
+    case types.GET_CURRENCIES_SUCCESS:
+      return action.payload;
+    case types.GET_CURRENCIES_FAILURE:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 
 export const projectDetails = combineReducers({
   borrowers,
   funding_orgs,
-  agencies
+  agencies,
+  currencies,
 });

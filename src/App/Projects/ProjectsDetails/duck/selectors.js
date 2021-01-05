@@ -21,3 +21,11 @@ export const getFundingOrgs = (state) => state.projectDetails?.funding_orgs
  */
 
 export const getAgencies = (state) => state.projectDetails?.agencies
+
+/**
+ * @function
+ * @name getAgencies
+ * @param {Object} state redux state
+ */
+
+export const getCurrencies = (state) => state.projectDetails?.currencies

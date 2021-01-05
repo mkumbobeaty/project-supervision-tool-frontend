@@ -92,3 +92,24 @@ export function getAgenciesFailure(message) {
     message,
   };
 }
+
+// action creator for fetching currencies
+export function getCurrenciesStart() {
+  return {
+    type: types.GET_CURRENCIES_START,
+  };
+}
+
+export function getCurrenciesSuccess(currencies) {
+  return {
+    type: types.GET_CURRENCIES_SUCCESS,
+    payload:currencies,
+  };
+}
+
+export function getCurrenciesFailure(message) {
+  return {
+    type: types.GET_CURRENCIES_FAILURE,
+    message,
+  };
+}

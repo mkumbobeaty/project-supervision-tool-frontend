@@ -63,13 +63,14 @@ class Projects extends Component {
   };
 
   componentDidMount() {
-    const { fetchProjects, focalPeople, getRegions,getLocations,getBorrowers ,getAgencies} = this.props;
+    const { fetchProjects, focalPeople, getRegions,getLocations,getBorrowers ,getAgencies,getCurrencies} = this.props;
     fetchProjects();
     getRegions();
     focalPeople();
     getLocations();
     getBorrowers();
-    getAgencies()
+    getAgencies();
+    getCurrencies();
   }
   /**
    * @function
@@ -372,6 +373,7 @@ const mapDispatchToProps = {
   getBorrowers:projectDetailsOperator.getBorrowersStart,
   getFundingOrgs:projectDetailsOperator.getFundingOrgStart,
   getAgencies:projectDetailsOperator.getAgenciesStart,
+  getCurrencies:projectDetailsOperator.getCurrenciesStart,
 
 };
 

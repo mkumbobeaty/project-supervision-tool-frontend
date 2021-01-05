@@ -21,7 +21,6 @@ const createProjects = (project) =>
  *
  */
 const getProjects = () => {
-    console.log('inside get projects');
     return axios.get(`/projects`).then((response) => response.data);
 }
 
@@ -86,6 +85,13 @@ const getProjectsStatistics = (id ='') => {
     return axios.get(`/projects/statistics${id}`, {params: {id}}).then((response) => response.data);
 }
 
+/**
+ * Fetch all projects from API
+ *
+ */
+const getCurrencies = () => {
+    return axios.get(`/currencies`).then((response) => response.data);
+}
 
 
 export default {
@@ -95,4 +101,5 @@ export default {
     deleteProject,
     getProject,
     getProjectsStatistics,
+    getCurrencies,
 }
