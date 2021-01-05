@@ -238,6 +238,30 @@ const sub_projects = (state = defaultSubProjects, action) => {
 };
 
 
+/**
+ * @function
+ * @name subProject
+ * @description reducer that manages sub project instance
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} updated state
+ */
+const subProject = (state = {data: null, error: null, loading: false}, action) => {
+  switch (action.type) {
+    case types.GET_SUB_PROJECT_START:
+      return {...state, loading: true};
+    case types.GET_SUB_PROJECT_SUCCESS:
+      return {...state, data: action.payload, loading: false};
+    case types.GET_SUB_PROJECT_FAILURE:
+      return { ...state, error: action.payload, loading: false};
+    case types.CLEAR_SUB_PROJECT:
+      return {...state, data: null};
+    default:
+      return state;
+  }
+}
+
+
 const deleteSubProject = (state = false, action) => {
   switch (action.type) {
     case types.DELETE_SUB_PROJECT_START:
@@ -260,11 +284,11 @@ export const resources = combineReducers({
   regions,
   districts,
   sub_projects,
+  subProject,
   creatingSubProjects,
   deleteSubProject,
   Projects,
   project,
   deleteProjects,
-  project,
   locations
 });

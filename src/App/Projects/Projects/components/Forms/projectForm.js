@@ -27,33 +27,10 @@ const wrapperCol = {
   xxl: { span: 24 },
 };
 
-
-const renderDistricts = (districts, loadingDistrict) => {
-  return (
-    <Form.Item
-      label="District"
-      name="district_id"
-      title="humanResources District is required  e.g Ilala"
-      rules={[
-        {
-          required: true,
-          message: "humanResource district  is required",
-        },
-      ]}
-    >
-      <Select loading={loadingDistrict}>
-        {districts.map((district) => (
-          <Select.Option value={district.id}>{district.name}</Select.Option>
-        ))}
-      </Select>
-    </Form.Item>
-  );
-}
-
 /**
  * @function ProjectForm
  * @name ProjectForm
- * @description Form for create and edit humanResource of measure
+ * @description Form for create and edit Project of measure
  * @param {object} props Valid form properties
  * @param {boolean} props.isEditForm Flag whether form is on edit mode
  * @param {boolean} props.posting Flag whether form is posting data
@@ -96,7 +73,7 @@ class ProjectForm extends Component {
     const payload = { ...values, locations };
     debugger
     if (this.props.isEditForm) {
-      this.props.updateHumanResource(payload, this.props.selected.id);
+      this.props.updateProject(payload, this.props.selected.id);
     } else {
       this.props.submittedValues(payload);
       this.props.handleNextButton();
@@ -215,11 +192,11 @@ class ProjectForm extends Component {
 }
 
 ProjectForm.defaultProps = {
-  humanResource: {},
+  Project: {},
 };
 
 ProjectForm.propTypes = {
-  humanResource: PropTypes.shape({
+  Project: PropTypes.shape({
     _id: PropTypes.string,
     strings: PropTypes.shape({
       code: PropTypes.string.isRequired,

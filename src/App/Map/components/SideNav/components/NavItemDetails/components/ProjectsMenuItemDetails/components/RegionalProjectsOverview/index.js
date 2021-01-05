@@ -66,11 +66,16 @@ function RegionalProjectsOverview({
 export default RegionalProjectsOverview;
 
 RegionalProjectsOverview.propTypes = {
-    regionProjectStatistics: PropTypes.object.isRequired,
-    region: PropTypes.object.isRequired,
+    regionProjectStatistics: PropTypes.object,
+    region: PropTypes.object,
     setShowNationalOverview: PropTypes.func.isRequired,
     setShowRegionalOverview: PropTypes.func.isRequired,
     clearRegionalProjects: PropTypes.func.isRequired,
     regionProjects: PropTypes.array.isRequired,
     getProject: PropTypes.func.isRequired,
+}
+
+RegionalProjectsOverview.defaultProps = {
+    region: null,
+    regionProjectStatistics: null,
 }

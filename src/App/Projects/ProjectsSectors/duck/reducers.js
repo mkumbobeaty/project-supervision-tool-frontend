@@ -36,7 +36,8 @@ const sectors = (state = [], action) => {
     }
   };
 
+
   export const sectorsData = combineReducers ({
     sectors,
     project_sectors
-  })
+  });

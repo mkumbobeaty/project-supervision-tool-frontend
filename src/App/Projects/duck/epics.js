@@ -20,6 +20,27 @@ export const projectsListEpic = action$ => {
     )
 };
 
+
+/**
+ * @function
+ * @name getSubProjectEpic
+ * @param action$
+ * @return action$
+ */
+export const getSubProjectEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECT_START),
+        switchMap(({payload}) => {
+            return from(API.getSubProject(payload)).pipe(
+                switchMap(res => {
+                    return from([actions.getSubProjectSuccess(res.data)])
+                }),
+                catchError(error => of(actions.getSubProjectFailure(error)))
+            );
+        }),
+    )
+};
+
 const createProjectPic = action$ => {
     return action$.pipe(
         ofType(types.CREATE_PROJECT_START),
@@ -146,6 +167,7 @@ export const projectsRootEpic = combineEpics(
     districtsEpic,
     locationsEpic,
     createProjectLocationPic,
+    getSubProjectEpic,
 );
 
 

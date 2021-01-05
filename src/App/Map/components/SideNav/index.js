@@ -12,12 +12,12 @@ import {bindActionCreators} from "redux";
 class SideNav extends Component {
 
     static propTypes = {
-        setActiveMapSideMenuItem: PropTypes.string,
+        setActiveMapSideMenuItem: PropTypes.func,
         activeItem: PropTypes.string.isRequired,
     }
 
     static defaultProps = {
-        setActiveMapSideMenuItem: '',
+        setActiveMapSideMenuItem: () => {},
         regionProjects: [],
     }
 

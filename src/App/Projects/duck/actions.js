@@ -1,5 +1,6 @@
 /*  Projects Action creators */
 import * as types from "./types";
+import {makeActionCreator} from "../../../Util";
 
 // action creator for fetching project
 export function getProjectsStart() {
@@ -195,6 +196,42 @@ export function getSubProjectsFailure(message) {
     message,
   };
 }
+
+// retrieve a single sub project
+
+/**
+ * @function
+ * @name getSubProjectStart
+ * @param {Number} subProjectId
+ * @return {Object} action
+ * */
+export const getSubProjectStart = makeActionCreator(types.GET_SUB_PROJECT_START, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectSuccess
+ * @param {Object} payload sub project
+ * @return {Object} action
+ * */
+export const getSubProjectSuccess = makeActionCreator(types.GET_SUB_PROJECT_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectFailure
+ * @param {Object} payload sub project failure response
+ * @return {Object} action
+ * */
+export const getSubProjectFailure = makeActionCreator(types.GET_SUB_PROJECT_FAILURE, 'payload');
+
+
+/**
+ * @function
+ * @name clearSubProject
+ * @return {Object} action
+ */
+export const clearSubProject = makeActionCreator(types.CLEAR_SUB_PROJECT);
+
+
 export function createSubProjectStart() {
   return {
     type: types.CREATE_SUB_PROJECT_START,

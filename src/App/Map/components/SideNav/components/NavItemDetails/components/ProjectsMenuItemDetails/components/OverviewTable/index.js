@@ -10,8 +10,8 @@ import './styles.css';
  */
 function OverviewTable({data}) {
 
-    const renderData = (items) => items.map(({title, value}) => (
-        <article>
+    const renderData = (items) => items.map(({title, value}, i) => (
+        <article key={i}>
             <div>{title}</div>
             <div className='value'>{value}</div>
         </article>

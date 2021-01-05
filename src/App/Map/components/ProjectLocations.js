@@ -1,6 +1,5 @@
 
 import React, {Component} from 'react';
-import * as turf from '@turf/turf'
 import {Marker, Popup, withLeaflet} from "react-leaflet";
 import L from "leaflet";
 
