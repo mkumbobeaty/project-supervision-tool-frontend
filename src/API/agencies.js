@@ -17,7 +17,17 @@ const getBorrowers = () =>
 const getFundingOrgs = () =>
     axios.get(`/funding_organisations`).then((response) => response.data);
 
+/**
+ * @function
+ * @name getAgencies
+ * @description get project agencies
+ * */
+const getAgencies = () =>
+    axios.get(`/implementing_agencies`).then((response) => response.data);
+
+
 export default {
     getBorrowers,
     getFundingOrgs,
+    getAgencies
 }

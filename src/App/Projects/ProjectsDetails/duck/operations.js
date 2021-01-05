@@ -5,7 +5,10 @@ import {
     getBorrowersFailure,
     getFundingOrgStart,
     getFundingOrgSuccess,
-    getFundingOrgFailure
+    getFundingOrgFailure,
+    getAgenciesStart,
+    getAgenciesSuccess,
+    getAgenciesFailure
   } from './actions';
   
   export {
@@ -14,5 +17,8 @@ import {
     getBorrowersFailure,
     getFundingOrgStart,
     getFundingOrgSuccess,
-    getFundingOrgFailure
+    getFundingOrgFailure,
+    getAgenciesStart,
+    getAgenciesSuccess,
+    getAgenciesFailure
   };

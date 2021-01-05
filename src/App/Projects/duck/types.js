@@ -28,12 +28,6 @@ export const DELETE_PROJECT_FAILURE = 'DELETE_PROJECT_FAILURE';
 export const OPEN_FORM = "OPEN_FORM";
 export const CLOSE_FORM = "CLOSE_FORM";
 
-
-// Retrieve agencies
-export const GET_AGENCIES_START = 'GET_AGENCIES_START';
-export const GET_AGENCIES_SUCCESS = 'GET_AGENCIES_SUCCESS';
-export const GET_AGENCIES_FAILURE = 'GET_AGENCIES_FAILURE';
-
 // Retrieve regions
 export const GET_REGIONS_START = 'GET_REGIONS_START';
 export const GET_REGIONS_SUCCESS = 'GET_REGIONS_SUCCESS';

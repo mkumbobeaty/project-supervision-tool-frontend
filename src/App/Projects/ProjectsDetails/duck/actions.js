@@ -70,3 +70,25 @@ export function getFundingOrgFailure(error) {
     payload: error,
   };
 }
+
+
+// action creator for fetching agencies
+export function getAgenciesStart() {
+  return {
+    type: types.GET_AGENCIES_START,
+  };
+}
+
+export function getAgenciesSuccess(agencies) {
+  return {
+    type: types.GET_AGENCIES_SUCCESS,
+    payload:agencies,
+  };
+}
+
+export function getAgenciesFailure(message) {
+  return {
+    type: types.GET_AGENCIES_FAILURE,
+    message,
+  };
+}

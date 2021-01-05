@@ -22,29 +22,6 @@ const defaultSubProjects = {
 };
 
 
-const fetchingAgencies = (state = false, action) => {
-  switch (action.type) {
-    case types.GET_AGENCIES_START:
-      return true;
-    case types.GET_AGENCIES_SUCCESS:
-      return false;
-    case types.GET_AGENCIES_FAILURE:
-      return false;
-    default:
-      return state;
-  }
-};
-
-const agencies = (state = [], action) => {
-  switch (action.type) {
-    case types.GET_AGENCIES_SUCCESS:
-      return action.payload;
-    case types.GET_AGENCIES_FAILURE:
-      return action.payload;
-    default:
-      return state;
-  }
-};
 
 
 const fetchingRegions = (state = false, action) => {
@@ -277,8 +254,6 @@ const deleteSubProject = (state = false, action) => {
 
 export const resources = combineReducers({
   selectedProjects,
-  fetchingAgencies,
-  agencies,
   fetchingRegions,
   fetchingDistricts,
   regions,
