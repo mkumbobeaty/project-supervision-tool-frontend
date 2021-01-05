@@ -35,3 +35,38 @@ export function getBorrowersFailure(error) {
     payload: error,
   };
 }
+
+/**
+ * @function
+ * @name getFundingOrgStart
+ * @param {String} payload
+ */  
+export function getFundingOrgStart() {
+  return {
+    type: types.GET_FUNDING_ORG_START,
+  };
+}
+
+/**
+ * @function
+ * @name getFundingOrgSuccess
+ * @param {*} fund 
+ */
+export function getFundingOrgSuccess(fund) {
+  return {
+    type: types.GET_FUNDING_ORG_SUCCESS,
+    payload: fund,
+  };
+}
+
+/**
+ * @function
+ * @name getFundingOrgFailure
+ * @param {*} error 
+ */
+export function getFundingOrgFailure(error) {
+  return {
+    type: types.GET_FUNDING_ORG_FAILURE,
+    payload: error,
+  };
+}

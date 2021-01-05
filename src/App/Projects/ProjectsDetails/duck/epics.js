@@ -18,7 +18,22 @@ const getBorrowersEpic = action$ => {
     )                                                                                                                                                                                                       
 }
 
+const getFundingOrgsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_FUNDING_ORG_START),
+        switchMap(() =>  {
+            return from(API.getFundingOrgs()).pipe(
+            switchMap(res => { 
+                return of(actions.getFundingOrgSuccess(res.data)) }),
+            catchError(error => of(actions.getFundingOrgFailure(error)))
+        )}
+        ),
+    )                                                                                                                                                                                                       
+}
+
+
 
 export const  projectDetailsEpic= combineEpics(
-    getBorrowersEpic
+    getBorrowersEpic,
+    getFundingOrgsEpic
 )

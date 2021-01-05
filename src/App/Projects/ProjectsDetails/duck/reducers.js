@@ -15,7 +15,21 @@ const borrowers = (state = [], action) => {
     }
   }
 
+  const funding_orgs = (state = [], action) => {
+    switch (action.type) {
+      case types.GET_FUNDING_ORG_START:
+        return state
+      case types.GET_FUNDING_ORG_SUCCESS:
+        return action.payload 
+      case types.GET_FUNDING_ORG_FAILURE:
+        return  action.payload
+      default:
+        return state;
+  
+    }
+  }
 
   export const projectDetails = combineReducers ({
     borrowers,
+    funding_orgs
   });

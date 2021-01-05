@@ -9,6 +9,15 @@ import axios from "./config";
 const getBorrowers = () =>
     axios.get(`/borrowers`).then((response) => response.data);
 
+/**
+ * @function
+ * @name getFundingOrgs
+ * @description get project funding organization
+ * */
+const getFundingOrgs = () =>
+    axios.get(`/funding_organisations`).then((response) => response.data);
+
 export default {
     getBorrowers,
+    getFundingOrgs,
 }
