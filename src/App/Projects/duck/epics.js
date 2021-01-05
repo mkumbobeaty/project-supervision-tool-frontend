@@ -103,7 +103,6 @@ const createProjectLocationPic = action$ => {
     return action$.pipe(
         ofType(types.CREATE_PROJECT_LOCATION_START),
         switchMap(({payload}) => {
-            debugger
             return from(API.createProjectLocation(payload))
         }),
         switchMap(res => { return of(actions.createProjectLocationSuccess(res)) }),

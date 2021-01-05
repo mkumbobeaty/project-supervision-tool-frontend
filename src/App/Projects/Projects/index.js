@@ -11,10 +11,9 @@ import ProjectsList from "../../components/List";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import { Link } from "react-router-dom";
-// import ProjectForm from "./Form";
+import CommonProjectForm from "./components/Forms";
 import { focalPeopleOperation, focalPeopleSelectors } from "../../FocalPeople/duck";
 import "./styles.css";
-import CommonProjectForm from "./components/Forms";
 
 
 /* constants */
@@ -77,10 +76,11 @@ class Projects extends Component {
   };
 
   componentDidMount() {
-    const { fetchProjects, focalPeople, getRegions } = this.props;
+    const { fetchProjects, focalPeople, getRegions,getLocations } = this.props;
     fetchProjects();
     getRegions();
     focalPeople();
+    getLocations()
   }
   /**
    * @function
@@ -208,7 +208,6 @@ class Projects extends Component {
       districts,
       getDistricts,
       createProject,
-      locations
     } = this.props;
 
     const {  isEditForm } = this.state;
@@ -380,6 +379,7 @@ const mapDispatchToProps = {
   createProject: projectOperation.createProjectStart,
   getDistricts:projectOperation.getDistrictsStart,
   getRegions: projectOperation.getRegionsStart,
+  getLocations:projectOperation.getLocationsStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

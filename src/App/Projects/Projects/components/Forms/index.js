@@ -42,30 +42,31 @@ class CommonProjectForm extends Component {
 
     render() {
         const { current } = this.state
-        const { regions, getDistricts, focalPeoples, posting, districts, getSectors, sectors, project } = this.props
+        const { regions, getDistricts, focalPeoples, posting, districts, getSectors, sectors, project,project_location } = this.props
 
         const steps = [
+           
             {
                 title: 'First',
+                content: <ProjectLocationForm
+                    handleNextButton={this.next}
+                    submittedValues={this.getProjectLocationFormValue}
+                    regions={regions}
+                    getDistricts={getDistricts}
+                    posting={posting}
+                    districts={districts}
+                />
+            },
+            {
+                title: 'Second',
                 content: <ProjectForm
                     handleNextButton={this.next}
                     submittedValues={this.getProjectFormValue}
                     focalPeoples={focalPeoples}
+                    project_location={project_location}
+                    handleBackButton={this.prev}
                 />
 
-            },
-            {
-                title: 'Second',
-                content: <ProjectLocationForm
-                    handleNextButton={this.next}
-                    submittedValues={this.getProjectLocationFormValue}
-                    handleBackButton={this.prev}
-                    regions={regions}
-                    getDistricts={getDistricts}
-                    posting={posting}
-                    project={project}
-                    districts={districts}
-                />
             },
             {
                 title: 'Third',
@@ -96,7 +97,8 @@ class CommonProjectForm extends Component {
 const mapStateToProps = (state) => {
     return {
         sectors: projectSectorsSelectors.getSectors(state),
-        project: projectSelectors.getCreatedProjectSelector(state)
+        project: projectSelectors.getCreatedProjectSelector(state),
+        project_location:projectSelectors.getProjectLocation(state)
     };
 };
 

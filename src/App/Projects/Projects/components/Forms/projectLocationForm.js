@@ -80,13 +80,10 @@ class ProjectLocationForm extends Component{
 
   // form finish(submit) handler
    onFinish = (values) => {
-    const { project} = this.props
-    const { id } = project;
-    const payload = { ...values, project_id: id };
+    const payload = { ...values };
     if (this.props.isEditForm) {
       this.props.updateprojectLocation(payload, this.props.selected.id);
     } else {
-      debugger
       this.props.submittedValues(payload);
       this.props.handleNextButton(); 
        }
@@ -112,7 +109,6 @@ class ProjectLocationForm extends Component{
       selected,
       regions,
       districts,
-      handleBackButton
     } = this.props;
     return (
         <Form
@@ -180,9 +176,6 @@ class ProjectLocationForm extends Component{
 
           {/* start:form actions */}
           <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
-          <Button type="default" onClick={handleBackButton} >
-            Back
-           </Button>
             <Button
                 type="primary"
                 htmlType="submit"

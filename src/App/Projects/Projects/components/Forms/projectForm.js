@@ -28,7 +28,7 @@ const wrapperCol = {
 };
 
 
-const renderDistricts = (districts,loadingDistrict) => {
+const renderDistricts = (districts, loadingDistrict) => {
   return (
     <Form.Item
       label="District"
@@ -69,7 +69,8 @@ const renderDistricts = (districts,loadingDistrict) => {
  */
 
 class ProjectForm extends Component {
-  state = { showDistrictsSelect: false,
+  state = {
+    showDistrictsSelect: false,
     isEditForm: false,
   }
 
@@ -89,11 +90,15 @@ class ProjectForm extends Component {
 
   // form finish(submit) handler
   onFinish = (values) => {
-    const payload = { ...values };
+    const { project_location } = this.props;
+    const { id: location_id } = project_location;
+    const locations = [location_id]
+    const payload = { ...values, locations };
+    debugger
     if (this.props.isEditForm) {
       this.props.updateHumanResource(payload, this.props.selected.id);
     } else {
-      this.props.submittedValues(values);
+      this.props.submittedValues(payload);
       this.props.handleNextButton();
     }
   };
@@ -104,7 +109,9 @@ class ProjectForm extends Component {
     const {
       selected,
       focalPeoples,
-      posting
+      posting,
+      handleBackButton
+
     } = this.props;
     return (
       <Form
@@ -185,14 +192,22 @@ class ProjectForm extends Component {
             ))}
           </Select>
         </Form.Item>
-      
-        {/* start:form actions */}
-        <Form.Item>
-                <Button type="primary" htmlType="submit">
-                    Next
-                </Button>
-            </Form.Item>
-      
+
+         {/* start:form actions */}
+         <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+          <Button type="default" onClick={handleBackButton} >
+            Back
+           </Button>
+            <Button
+                type="primary"
+                htmlType="submit"
+                loading={posting}
+            >
+              Next
+            </Button>
+          </Form.Item>
+          {/* end:form actions */}
+
       </Form>
     );
   }

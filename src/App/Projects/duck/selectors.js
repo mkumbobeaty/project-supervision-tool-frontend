@@ -59,6 +59,12 @@ export const getLocations = (state) => state?.resources?.locations;
 
 /**
  * @function
+ * @name getProjectLocation
+ * @param {Object} state redux state
+ */
+export const getProjectLocation = (state) => state?.resources?.locations?.project_location?.data;
+/**
+ * @function
  * @name getRegions
  * @param {Object} state redux state
  */

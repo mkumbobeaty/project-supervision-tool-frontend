@@ -95,18 +95,18 @@ const districts = (state = [], action) => {
   }
 };
 
-const locations = (state = [], action) => {
+const locations = (state = { data:[], project_location:{}, error:null}, action) => {
   switch (action.type) {
     case types.GET_LOCATIONS_START:
-      return state
+      return {...state}
     case types.GET_LOCATIONS_SUCCESS:
-      return action.payload 
+      return {data: action.payload }
     case types.GET_LOCATIONS_FAILURE:
-      return  action.payload
+      return {error: action.payload }
       case types.CREATE_PROJECT_LOCATION_START:
         return { ...state };
       case types.CREATE_PROJECT_LOCATION_SUCCESS:
-        return action.payload;
+        return { ...state, project_location:action.payload }
       case types.CREATE_PROJECT_LOCATION_FAILURE:
         return  action.payload ;
       default:
