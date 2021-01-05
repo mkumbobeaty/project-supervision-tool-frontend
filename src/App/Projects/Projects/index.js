@@ -12,6 +12,7 @@ import ListItemActions from "../../components/ListItemActions";
 import { Link } from "react-router-dom";
 import CommonProjectForm from "./components/Forms";
 import { focalPeopleOperation, focalPeopleSelectors } from "../../FocalPeople/duck";
+import { projectDetailsOperator } from "../ProjectsDetails/duck";
 import "./styles.css";
 
 
@@ -62,11 +63,12 @@ class Projects extends Component {
   };
 
   componentDidMount() {
-    const { fetchProjects, focalPeople, getRegions,getLocations } = this.props;
+    const { fetchProjects, focalPeople, getRegions,getLocations,getBorrowers } = this.props;
     fetchProjects();
     getRegions();
     focalPeople();
-    getLocations()
+    getLocations();
+    getBorrowers();
   }
   /**
    * @function
@@ -366,6 +368,7 @@ const mapDispatchToProps = {
   getDistricts:projectOperation.getDistrictsStart,
   getRegions: projectOperation.getRegionsStart,
   getLocations:projectOperation.getLocationsStart,
+  getBorrowers:projectDetailsOperator.getBorrowersStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
