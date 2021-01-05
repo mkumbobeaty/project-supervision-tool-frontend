@@ -24,7 +24,6 @@ const mapToSideMenuObject = ({ details, name, description , sub_project_items}) 
     const contractor = details?.contractor?.name;
     const consultant = details?.supervising_agency?.name;
     const lga = details?.actor?.name;
-    debugger;
     const customGridListData = [
         {title: 'START DATE', value: isoDateToHumanReadableDate(details?.start_date)},
         {title: 'closing date', value: isoDateToHumanReadableDate(details?.end_date)},

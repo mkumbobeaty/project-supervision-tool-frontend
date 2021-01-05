@@ -33,7 +33,7 @@ export const getSubProjectEpic = action$ => {
         switchMap(({payload}) => {
             return from(API.getSubProject(payload)).pipe(
                 switchMap(res => {
-                    return from([actions.getSubProjectSuccess(res.data)])
+                    return from([actions.getSubProjectSuccess(res.data), actions.clearProject()])
                 }),
                 catchError(error => of(actions.getSubProjectFailure(error)))
             );
