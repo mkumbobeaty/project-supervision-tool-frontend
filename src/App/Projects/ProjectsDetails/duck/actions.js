@@ -113,3 +113,39 @@ export function getCurrenciesFailure(message) {
     message,
   };
 }
+
+/**
+ * @function
+ * @name createTotalCostStart
+ * @param {*} cost 
+ */
+export function createTotalCostStart(cost) {
+  return {
+    type: types.CREATE_TOTAL_COST_START,
+    payload:cost
+  };
+}
+
+/**
+ * @function
+ * @name createTotalCostSuccess
+ * @param {*} cost 
+ */
+export function createTotalCostSuccess(cost) {
+  return {
+    type: types.CREATE_TOTAL_COST_SUCCESS,
+    payload: cost,
+  };
+}
+
+/**
+ * @function
+ * @name createTotalCostFailure
+ * @param {*} error 
+ */
+export function createTotalCostFailure(error) {
+  return {
+    type: types.CREATE_TOTAL_COST_FAILURE,
+    payload: error,
+  };
+}

@@ -93,6 +93,13 @@ const getCurrencies = () => {
     return axios.get(`/currencies`).then((response) => response.data);
 }
 
+/**
+ * @function
+ * @name postTotalCost
+ * */
+const postTotalCost =(total_cost) => 
+axios.post(`/money`, total_cost).then((response) => response.data);
+
 
 export default {
     createProjects,
@@ -102,4 +109,5 @@ export default {
     getProject,
     getProjectsStatistics,
     getCurrencies,
+    postTotalCost,
 }

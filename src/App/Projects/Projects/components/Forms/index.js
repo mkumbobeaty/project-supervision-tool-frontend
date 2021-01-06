@@ -7,6 +7,7 @@ import ProjectSectorForm from './projectSectorForm'
 import { projectSectorsOperator, projectSectorsSelectors } from "../../../ProjectsSectors/duck";
 import { projectOperation, projectSelectors } from '../../../duck';
 import ProjectLocationForm from "./projectLocationForm";
+import { projectDetailsOperator, projectDetailsSelectors } from "../../../ProjectsDetails/duck";
 
 class CommonProjectForm extends Component {
     state = {
@@ -42,7 +43,19 @@ class CommonProjectForm extends Component {
 
     render() {
         const { current } = this.state
-        const { regions, getDistricts, focalPeoples, posting, districts, getSectors, sectors, project,project_location } = this.props
+        const { 
+            regions, 
+            getDistricts, 
+            focalPeoples,
+            posting, 
+            districts,
+            getSectors,
+            sectors, 
+            project,
+            project_location,
+            currencies,
+            createTotalCost
+         } = this.props
 
         const steps = [
            
@@ -65,6 +78,8 @@ class CommonProjectForm extends Component {
                     focalPeoples={focalPeoples}
                     project_location={project_location}
                     handleBackButton={this.prev}
+                    currencies={currencies}
+                    createTotalCost={createTotalCost}
                 />
 
             },
@@ -98,7 +113,9 @@ const mapStateToProps = (state) => {
     return {
         sectors: projectSectorsSelectors.getSectors(state),
         project: projectSelectors.getCreatedProjectSelector(state),
-        project_location:projectSelectors.getProjectLocation(state)
+        project_location:projectSelectors.getProjectLocation(state),
+        currencies: projectDetailsSelectors.getCurrencies(state)
+
     };
 };
 
@@ -108,7 +125,7 @@ const mapDispatchToProps = {
     createProjectLocation: projectOperation.createProjectLocationStart,
     getSectors: projectSectorsOperator.getSectorsStart,
     createProjectSector: projectSectorsOperator.createProjectSectorsStart,
-
+    createTotalCost: projectDetailsOperator.createTotalCostStart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommonProjectForm);

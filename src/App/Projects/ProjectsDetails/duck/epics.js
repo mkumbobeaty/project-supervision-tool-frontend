@@ -56,10 +56,23 @@ const getCurrenciesEpic = action$ => {
     )                                                                                                                                                                                                       
 }
 
+const createTotalCostPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_TOTAL_COST_START),
+        switchMap(({payload}) => {
+            return from(API.postTotalCost(payload))
+        }),
+        switchMap(res => { return of(actions.createTotalCostSuccess(res)) }),
+        catchError(error => of(actions.createTotalCostFailure(error)))
+    )
+}
+
+
 
 export const  projectDetailsEpic= combineEpics(
     getBorrowersEpic,
     getFundingOrgsEpic,
     getAgenciesEpic,
     getCurrenciesEpic,
+    createTotalCostPic,
 )

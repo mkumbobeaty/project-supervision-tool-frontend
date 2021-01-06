@@ -11,7 +11,10 @@ import {
     getAgenciesFailure,
     getCurrenciesStart,
     getCurrenciesSuccess,
-    getCurrenciesFailure
+    getCurrenciesFailure,
+    createTotalCostStart,
+    createTotalCostSuccess,
+    createTotalCostFailure,
   } from './actions';
   
   export {
@@ -26,5 +29,8 @@ import {
     getAgenciesFailure,
     getCurrenciesStart,
     getCurrenciesSuccess,
-    getCurrenciesFailure
+    getCurrenciesFailure,
+    createTotalCostStart,
+    createTotalCostSuccess,
+    createTotalCostFailure,
   };
