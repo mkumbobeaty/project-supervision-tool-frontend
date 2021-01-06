@@ -28,7 +28,7 @@ export const getAgencies = (state) => state.projectDetails?.agencies
  * @param {Object} state redux state
  */
 
-export const getCurrencies = (state) => state.projectDetails?.currencies
+export const getCurrenciesSelector = (state) => state.projectDetails?.currencies
 
 /**
  * @function

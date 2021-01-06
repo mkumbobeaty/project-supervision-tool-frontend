@@ -15,10 +15,9 @@ class CommonProjectForm extends Component {
         current: 0
     }
     componentDidMount() {
-        const { getBorrowers, getAgencies, getCurrencies,getFundingOrgs } = this.props;
+        const { getBorrowers, getAgencies, getFundingOrgs } = this.props;
         getBorrowers();
         getAgencies();
-        getCurrencies();
         getFundingOrgs()
     }
 
@@ -66,7 +65,6 @@ class CommonProjectForm extends Component {
             getSectors,
             sectors,
             project,
-            project_location,
             currencies,
             createTotalCost,
             partiners,
@@ -88,11 +86,7 @@ class CommonProjectForm extends Component {
                 content: <ProjectForm
                     submittedValues={this.getProjectFormValue}
                     focalPeoples={focalPeoples}
-                    project_location={project_location}
                     handleBackButton={this.prev}
-                    currencies={currencies}
-                    createTotalCost={createTotalCost}
-                    createCommitmentCost={createCommitmentCost}
                 />
 
             },
@@ -144,11 +138,9 @@ const mapStateToProps = (state) => {
         showForm:projectSectorsSelectors.getShowFormSelector(state),
         posting:projectSectorsSelectors.getLoadingSelector(state),
         project: projectSelectors.getCreatedProjectSelector(state),
-        project_location: projectSelectors.getProjectLocationSelector(state),
         agencies:projectDetailsSelectors.getAgencies(state),
         borrowers: projectDetailsSelectors.getBorrowers(state),
         partiners:projectDetailsSelectors.getFundingOrgs(state),
-        currencies: projectDetailsSelectors.getCurrencies(state),
         amount_cost:projectDetailsSelectors.getCreatedAmountCost(state),
         commitment_cost:projectDetailsSelectors.getCreatedCommitmentCost(state),
     };
@@ -160,13 +152,10 @@ const mapDispatchToProps = {
     createProjectLocation: projectOperation.createProjectLocationStart,
     getSectors: projectSectorsOperator.getSectorsStart,
     createProjectSector: projectSectorsOperator.createProjectSectorsStart,
-    createTotalCost: projectDetailsOperator.createTotalCostStart,
-    createCommitmentCost:projectDetailsOperator.createCommitmentCostStart,
     createProjectDetail: projectDetailsOperator.createProjectDetailsStart,
     getBorrowers: projectDetailsOperator.getBorrowersStart,
     getFundingOrgs: projectDetailsOperator.getFundingOrgStart,
     getAgencies: projectDetailsOperator.getAgenciesStart,
-    getCurrencies: projectDetailsOperator.getCurrenciesStart,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommonProjectForm);

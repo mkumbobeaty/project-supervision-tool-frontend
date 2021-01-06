@@ -9,6 +9,9 @@ import {
   Col,
   InputNumber
 } from "antd";
+import { connect } from "react-redux";
+import { projectSelectors } from "../../../duck";
+import { projectDetailsOperator, projectDetailsSelectors } from "../ProjectsDetails/duck";
 
 /* state actions */
 
@@ -54,51 +57,41 @@ class ProjectForm extends Component {
     isEditForm: false,
   }
 
-  /**
-     * @function
-     * @name handleAfterCloseForm
-     * @description Perform post close form cleanups
-     *
-     * @version 0.1.0
-     * @since 0.1.0
-     */
-  handleAfterCloseForm = () => {
-    const { selectProject } = this.props;
-    selectProject(null);
-    this.setState({ isEditForm: false });
-  };
 
-  // form finish(submit) handler
-  onFinish = (values) => {
+  componentDidMount() { 
+    const {getCurrencies} = this.props;
+    getCurrencies()
+  }
+
+   // form finish(submit) handler
+   onFinish = (values) => {
     const { createTotalCost, submittedValues, project_location, createCommitmentCost } = this.props
     const { id: location_id } = project_location;
     const locations = [location_id]
+
     const { id, name, leaders, description, currency_id, amount, commitment } = values
     const payload = { id, name, leaders, description, locations };
+
     const costPayload = { amount, currency_id };
     const commitmentPayload = { currency_id, amount: commitment };
 
     if (this.props.isEditForm) {
       this.props.updateProject(payload, this.props.selected.id);
     } else {
-      debugger
       createTotalCost(costPayload);
       createCommitmentCost(commitmentPayload)
       submittedValues(payload);
     }
   };
 
-  componentDidMount() { }
-
   render() {
     const {
       selected,
       focalPeoples,
-      posting,
       handleBackButton,
       currencies
-
     } = this.props;
+    
     return (
       <Form
         labelCol={labelCol}
@@ -246,7 +239,6 @@ class ProjectForm extends Component {
           <Button
             type="primary"
             htmlType="submit"
-            loading={posting}
             style={{ marginLeft: 8 }}
           >
             Next
@@ -284,4 +276,18 @@ ProjectForm.propTypes = {
 };
 
 
-export default ProjectForm
+const mapStateToProps = (state) => {
+  return {
+    project_location: projectSelectors.getProjectLocationSelector(state),
+    currencies: projectDetailsSelectors.getCurrenciesSelector(state),
+  };
+};
+
+const mapDispatchToProps = {
+  getCurrencies: projectDetailsOperator.getCurrenciesStart,
+  createTotalCost: projectDetailsOperator.createTotalCostStart,
+  createCommitmentCost:projectDetailsOperator.createCommitmentCostStart,
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
