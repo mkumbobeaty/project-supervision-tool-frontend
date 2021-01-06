@@ -5,6 +5,8 @@ import {
   Select,
 
 } from "antd";
+import { connect } from "react-redux";
+import { projectOperation, projectSelectors } from "../../../duck";
 
 /* state actions */
 
@@ -77,17 +79,11 @@ const renderDistricts = (districts) => {
 class ProjectLocationForm extends Component {
   state = { showDistrictsSelect: false }
 
-  // form finish(submit) handler
-  onFinish = (values) => {
-    const payload = { ...values };
-    if (this.props.isEditForm) {
-      this.props.updateprojectLocation(payload, this.props.selected.id);
-    } else {
-      this.props.submittedValues(payload);
-    }
-  };
+
 
   componentDidMount() {
+    const {getRegions} = this.props;
+    getRegions()
     const { selected, getDistricts } = this.props;
     if (selected && selected.locations.map(location => location.level === 'district')) {
       this.setState({ showDistrictsSelect: true })
@@ -99,6 +95,16 @@ class ProjectLocationForm extends Component {
       getDistricts(region_id)
     }
   }
+
+  // form finish(submit) handler
+  onFinish = (values) => {
+    const payload = { ...values };
+    if (this.props.isEditForm) {
+      this.props.updateprojectLocation(payload, this.props.selected.id);
+    } else {
+      this.props.submittedValues(payload);
+    }
+  };
   render() {
 
     const {
@@ -189,4 +195,18 @@ class ProjectLocationForm extends Component {
 
 }
 
-export default ProjectLocationForm;
+const mapStateToProps = (state) => {
+  return {
+    districts: projectSelectors.getDistrictsSelector(state),
+    regions: projectSelectors.getRegionsSelector(state),
+    posting:projectSelectors.isLoadingSelector(state),
+
+  };
+};
+
+const mapDispatchToProps = {
+  getRegions: projectOperation.getRegionsStart,
+  getDistricts: projectOperation.getDistrictsStart,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectLocationForm);

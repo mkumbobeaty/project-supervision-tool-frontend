@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import { Steps, Button, message } from 'antd';
+import { Steps } from 'antd';
 import { connect } from "react-redux";
 import ProjectForm from './projectForm';
 import ProjectSectorForm from './projectSectorForm'
@@ -60,13 +60,9 @@ class CommonProjectForm extends Component {
     render() {
         const { current } = this.state
         const {
-            regions,
-            getDistricts,
             focalPeoples,
-            isLoading,
             posting,
             showForm,
-            districts,
             getSectors,
             sectors,
             project,
@@ -85,13 +81,7 @@ class CommonProjectForm extends Component {
 
             {
                 title: 'First',
-                content: <ProjectLocationForm
-                    submittedValues={this.getProjectLocationFormValue}
-                    regions={regions}
-                    getDistricts={getDistricts}
-                    posting={isLoading}
-                    districts={districts}
-                />
+                content: <ProjectLocationForm  submittedValues={this.getProjectLocationFormValue}  />
             },
             {
                 title: 'Second',
@@ -154,8 +144,7 @@ const mapStateToProps = (state) => {
         showForm:projectSectorsSelectors.getShowFormSelector(state),
         posting:projectSectorsSelectors.getLoadingSelector(state),
         project: projectSelectors.getCreatedProjectSelector(state),
-        project_location: projectSelectors.getProjectLocation(state),
-        isLoading:projectSelectors.isLoadingSelector(state),
+        project_location: projectSelectors.getProjectLocationSelector(state),
         agencies:projectDetailsSelectors.getAgencies(state),
         borrowers: projectDetailsSelectors.getBorrowers(state),
         partiners:projectDetailsSelectors.getFundingOrgs(state),

@@ -55,28 +55,28 @@ export const getProjectsShowFormSelector = (state) => state?.resources?.Projects
  * @name getLocations
  * @param {Object} state redux state
  */
-export const getLocations = (state) => state?.resources?.locations;
+export const getLocationsSelector = (state) => state?.resources?.locations;
 
 /**
  * @function
  * @name getProjectLocation
  * @param {Object} state redux state
  */
-export const getProjectLocation = (state) => state?.resources?.locations?.project_location?.data;
+export const getProjectLocationSelector = (state) => state?.resources?.locations?.project_location?.data;
 /**
  * @function
- * @name getRegions
+ * @name getRegionsSelector
  * @param {Object} state redux state
  */
-export const getRegions = (state) => state?.resources?.regions;
+export const getRegionsSelector = (state) => state?.resources?.regions;
 
 /**
  * @function
- * @name getDistricts
+ * @name getDistrictsSelector
  * @param {Object} state redux state
  */
 
- export const getDistricts = (state) => state?.resources?.districts
+ export const getDistrictsSelector = (state) => state?.resources?.districts
 
  /**
  * @function

@@ -12,8 +12,8 @@ import ListItemActions from "../../components/ListItemActions";
 import { Link } from "react-router-dom";
 import CommonProjectForm from "./components/Forms";
 import { focalPeopleOperation, focalPeopleSelectors } from "../../FocalPeople/duck";
-import "./styles.css";
 import { projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
+import "./styles.css";
 
 
 /* constants */
@@ -63,11 +63,9 @@ class Projects extends Component {
   };
 
   componentDidMount() {
-    const { fetchProjects, focalPeople, getRegions, getLocations } = this.props;
+    const { fetchProjects, focalPeople } = this.props;
     fetchProjects();
-    getRegions();
     focalPeople();
-    getLocations();
   }
   /**
    * @function
@@ -190,9 +188,6 @@ class Projects extends Component {
       showForm,
       selected,
       focalPeoples,
-      regions,
-      districts,
-      getDistricts,
       createProject,
       fetchProjects
     } = this.props;
@@ -311,9 +306,6 @@ class Projects extends Component {
         >
           <CommonProjectForm
             selected={selected}
-            regions={regions}
-            districts={districts}
-            getDistricts={getDistricts}
             isEditForm={isEditForm}
             createProject={createProject}
             focalPeoples={focalPeoples}
@@ -345,8 +337,6 @@ const mapStateToProps = (state) => {
   return {
     projects: projectSelectors.getProjectsSelector(state),
     focalPeoples: focalPeopleSelectors.getFocalPeople(state),
-    districts: projectSelectors.getDistricts(state),
-    regions: projectSelectors.getRegions(state),
     loading: projectSelectors.getProjectsLoadingSelector(state),
     page: projectSelectors.getProjectsPageSelector(state),
     total: projectSelectors.getProjectsTotalSelector(state),
@@ -361,9 +351,7 @@ const mapDispatchToProps = {
   selectProject: projectOperation.selectProject,
   focalPeople: focalPeopleOperation.getFocalPeopleStart,
   createProject: projectOperation.createProjectStart,
-  getDistricts: projectOperation.getDistrictsStart,
-  getRegions: projectOperation.getRegionsStart,
-  getLocations: projectOperation.getLocationsStart,
+  // getLocations: projectOperation.getLocationsStart,
   openProjectForm: projectSectorsOperator.openForm,
   closeProjectForm: projectSectorsOperator.closeForm,
 };
