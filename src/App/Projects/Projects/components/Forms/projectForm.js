@@ -5,6 +5,9 @@ import {
   Form,
   Select,
   Input,
+  Row,
+  Col,
+  InputNumber
 } from "antd";
 
 /* state actions */
@@ -67,19 +70,22 @@ class ProjectForm extends Component {
 
   // form finish(submit) handler
   onFinish = (values) => {
-    const { createTotalCost, submittedValues, project_location, handleNextButton} = this.props
+    const { createTotalCost, submittedValues, project_location, createCommitmentCost } = this.props
     const { id: location_id } = project_location;
     const locations = [location_id]
-    const { id, name, leaders,description,currency_id, amount } = values
-    const payload = { id, name, leaders,description, locations };
-    const costPayload = { amount, currency_id}
+    const { id, name, leaders, description, currency_id, amount, commitment } = values
+    const payload = { id, name, leaders, description, locations };
+    const costPayload = { amount, currency_id };
+    const commitmentPayload = { currency_id, amount: commitment };
+
     if (this.props.isEditForm) {
       this.props.updateProject(payload, this.props.selected.id);
     } else {
       debugger
-      submittedValues(payload);
       createTotalCost(costPayload);
-      handleNextButton();
+      createCommitmentCost(commitmentPayload)
+      submittedValues(payload);
+
     }
   };
 
@@ -156,40 +162,61 @@ class ProjectForm extends Component {
         {/* end:Description */}
 
         {/* start:Project cost */}
-        <Form.Item
-          label="Project total cost"
-          name="amount"
-          title="Project Total cost e.g 37282"
-          rules={[
-            {
-              required: true,
-              message: "Project Total cost is required",
-            },
-          ]}
-        >
-        <Input/>
-        </Form.Item>
-        {/* end:ptoject cost */}
+        <Row justify="space-between">
+          <Col span={8}>
+            <Form.Item
+              label="Project total cost"
+              name="amount"
+              title="Project Total cost e.g 37282"
+              rules={[
+                {
+                  required: true,
+                  message: "Project Total cost is required",
+                },
+              ]}
+            >
+              <InputNumber />
+            </Form.Item>
+          </Col>
+          {/* end:ptoject cost */}
 
-        {/* start:currency */}
-        <Form.Item
-          label="Currency"
-          name="currency_id"
-          title="Currency cost e.g Dollar"
-          rules={[
-            {
-              required: true,
-              message: "Currency is required",
-            },
-          ]}
-        >
-             <Select >
-            {currencies.map((currence) => (
-              <Select.Option value={currence.id}>{currence.iso}</Select.Option>
-            ))}
-            </Select>
-        </Form.Item>
-        {/* end:currency */}
+          {/* start:currency */}
+          <Col span={8}>
+            <Form.Item
+              label="Project Commitment cost"
+              name="commitment"
+              title="Project Commitment cost e.g 37282"
+              rules={[
+                {
+                  required: true,
+                  message: "Project Commitment cost is required",
+                },
+              ]}
+            >
+              <InputNumber />
+            </Form.Item>
+          </Col>
+          <Col span={8}>
+            <Form.Item
+              label="Currency"
+              name="currency_id"
+              title="Currency cost e.g Dollar"
+              rules={[
+                {
+                  required: true,
+                  message: "Currency is required",
+                },
+              ]}
+            >
+              <Select >
+                {currencies.map((currence) => (
+                  <Select.Option value={currence.id}>{currence.iso}</Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
+            {/* end:currency */}
+          </Col>
+        </Row>
 
         {/* start:leader */}
         <Form.Item
@@ -221,6 +248,7 @@ class ProjectForm extends Component {
             type="primary"
             htmlType="submit"
             loading={posting}
+            style={{ marginLeft: 8 }}
           >
             Next
             </Button>

@@ -55,13 +55,26 @@ const currencies = (state = [], action) => {
   }
 };
 
-const project_amounts = (state =  { data:[], amount_cost:{}, error:null}, action) => {
+const project_total_cost = (state =  { data:[], amount_cost:{}, error:null}, action) => {
   switch (action.type) {
     case types.CREATE_TOTAL_COST_START:
       return { ...state, posting: true };
     case types.CREATE_TOTAL_COST_SUCCESS:
       return { ...state, amount_cost:action.payload }
     case types.CREATE_TOTAL_COST_FAILURE:
+      return { error: action.payload.error };
+    default:
+      return state;
+  }
+};
+
+const project_commitment_cost = (state =  { data:[], commitment_cost:{}, error:null}, action) => {
+  switch (action.type) {
+    case types.CREATE_COMMITMENT_COST_START:
+      return { ...state, posting: true };
+    case types.CREATE_COMMITMENT_COST_SUCCESS:
+      return { ...state, commitment_cost:action.payload }
+    case types.CREATE_COMMITMENT_COST_FAILURE:
       return { error: action.payload.error };
     default:
       return state;
@@ -86,6 +99,7 @@ export const projectDetails = combineReducers({
   funding_orgs,
   agencies,
   currencies,
-  project_amounts,
+  project_total_cost,
+  project_commitment_cost,
   project_details
 });

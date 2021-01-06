@@ -35,16 +35,20 @@ class CommonProjectForm extends Component {
     getProjectFormValue = (values) => {
         const { createProject } = this.props
         createProject(values)
+        this.next()
     }
 
     getProjectLocationFormValue = (values) => {
         const { createProjectLocation } = this.props
         createProjectLocation(values)
+        this.next()
+
     }
 
     getProjectDetailFormValue = (values) => {
         const {createProjectDetail} = this.props;
         createProjectDetail(values)
+        this.next()
     }
 
     handleConfirmButton = (values) => {
@@ -73,6 +77,8 @@ class CommonProjectForm extends Component {
             agencies,
             borrowers,
             amount_cost,
+            commitment_cost,
+            createCommitmentCost
         } = this.props
 
         const steps = [
@@ -80,7 +86,6 @@ class CommonProjectForm extends Component {
             {
                 title: 'First',
                 content: <ProjectLocationForm
-                    handleNextButton={this.next}
                     submittedValues={this.getProjectLocationFormValue}
                     regions={regions}
                     getDistricts={getDistricts}
@@ -91,29 +96,27 @@ class CommonProjectForm extends Component {
             {
                 title: 'Second',
                 content: <ProjectForm
-                    handleNextButton={this.next}
                     submittedValues={this.getProjectFormValue}
                     focalPeoples={focalPeoples}
                     project_location={project_location}
                     handleBackButton={this.prev}
                     currencies={currencies}
                     createTotalCost={createTotalCost}
+                    createCommitmentCost={createCommitmentCost}
                 />
 
             },
             {
                 title: 'Third',
                 content: <ProjectDetailsForm
-                    handleNextButton={this.next}
                     submittedValues={this.getProjectDetailFormValue}
                     agencies={agencies}
                     partiners= {partiners}
                     borrowers={borrowers}
                     project={project}
                     handleBackButton={this.prev}
-                    currencies={currencies}
                     amount_cost={amount_cost}
-                    createTotalCost={createTotalCost}
+                    commitment_cost={commitment_cost}
                 />
 
             },
@@ -152,7 +155,8 @@ const mapStateToProps = (state) => {
         agencies:projectDetailsSelectors.getAgencies(state),
         borrowers: projectDetailsSelectors.getBorrowers(state),
         partiners:projectDetailsSelectors.getFundingOrgs(state),
-        amount_cost:projectDetailsSelectors.getCreatedAmountCost(state)
+        amount_cost:projectDetailsSelectors.getCreatedAmountCost(state),
+        commitment_cost:projectDetailsSelectors.getCreatedCommitmentCost(state)
     };
 };
 
@@ -163,6 +167,7 @@ const mapDispatchToProps = {
     getSectors: projectSectorsOperator.getSectorsStart,
     createProjectSector: projectSectorsOperator.createProjectSectorsStart,
     createTotalCost: projectDetailsOperator.createTotalCostStart,
+    createCommitmentCost:projectDetailsOperator.createCommitmentCostStart,
     createProjectDetail: projectDetailsOperator.createProjectDetailsStart,
     getBorrowers: projectDetailsOperator.getBorrowersStart,
     getFundingOrgs: projectDetailsOperator.getFundingOrgStart,

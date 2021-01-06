@@ -56,10 +56,10 @@ class ProjectDetailsForm extends Component {
 
   // form finish(submit) handler
   onFinish = (values) => {
-    const { createTotalCost, project, submittedValues, handleNextButton, amount_cost } = this.props
+    const {  project, submittedValues, commitment_cost, amount_cost } = this.props
     const { id } = project;
     const  total_project_cost_id = amount_cost.id;
-    const commitment_amount_id = amount_cost.id
+    const commitment_amount_id = commitment_cost.id
 
     const approval_date = generateDateString(values.approval_date);
     const approval_fy = generateYearString(values.approval_fy);
@@ -80,7 +80,6 @@ class ProjectDetailsForm extends Component {
     } else {
       debugger
       submittedValues(payload);
-      handleNextButton();
     }
   };
 
@@ -88,9 +87,7 @@ class ProjectDetailsForm extends Component {
   render() {
     const {
       selected,
-      posting,
       handleBackButton,
-      currencies,
       partiners,
       agencies,
       borrowers
@@ -182,42 +179,6 @@ class ProjectDetailsForm extends Component {
           </Select>
         </Form.Item>
         {/* end:funding organisation */}
-
-        {/* start:Project cost */}
-        {/* <Form.Item
-          label="commitment amount"
-          name="amount"
-          title="commitment amount e.g 37282"
-          rules={[
-            {
-              required: true,
-              message: "commitment amount is required",
-            },
-          ]}
-        >
-          <InputNumber />
-        </Form.Item> */}
-        {/* end:project cost */}
-
-        {/* start:currency */}
-        {/* <Form.Item
-          label="Currency"
-          name="currency_id"
-          title="Currency cost e.g Dollar"
-          rules={[
-            {
-              required: true,
-              message: "Currency is required",
-            },
-          ]}
-        >
-          <Select >
-            {currencies.map((currence) => (
-              <Select.Option value={currence.id}>{currence.iso}</Select.Option>
-            ))}
-          </Select>
-        </Form.Item> */}
-        {/* end:currency */}
 
         <Row justify="space-between">
           <Col span={8}>

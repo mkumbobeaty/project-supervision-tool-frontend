@@ -67,6 +67,17 @@ const createTotalCostPic = action$ => {
     )
 }
 
+const createCommitmentCostPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_COMMITMENT_COST_START),
+        switchMap(({payload}) => {
+            return from(API.postTotalCost(payload))
+        }),
+        switchMap(res => { return of(actions.createCommitmentCostSuccess(res)) }),
+        catchError(error => of(actions.createCommitmentCostFailure(error)))
+    )
+}
+
 const createProjectDetailsPic = action$ => {
     return action$.pipe(
         ofType(types.CREATE_PROJECT_DETAILS_START),
@@ -85,5 +96,6 @@ export const  projectDetailsEpic= combineEpics(
     getAgenciesEpic,
     getCurrenciesEpic,
     createTotalCostPic,
+    createCommitmentCostPic,
     createProjectDetailsPic,
 )
