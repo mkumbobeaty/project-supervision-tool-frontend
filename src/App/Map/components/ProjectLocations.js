@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import {GeoJSON, Marker, Popup, withLeaflet} from "react-leaflet";
 import L from "leaflet";
+import Spiderfy from "./Spiderfy";
 
 
 /**
@@ -68,7 +69,9 @@ const { project } = this.props;
     return project ? (
         <>
             {this.renderRegions(project)}
-            { this.renderSubProjects(project.sub_projects)}
+            <Spiderfy>
+                { this.renderSubProjects(project.sub_projects)}
+            </Spiderfy>
         </>
     ) : '';
 }
