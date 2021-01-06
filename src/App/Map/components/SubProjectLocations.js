@@ -33,10 +33,10 @@ class SubProjectLocations extends Component {
 
     renderSubProjectElements = (subProjectElements) => {
         const data = mapSubProjectElementsToLocationPoints(subProjectElements);
-        debugger;
         return data.map(({coordinates, id, name }) => (
-                <Marker position={[coordinates[1], coordinates[0]]}>
+                <Marker position={[coordinates[1], coordinates[0]]} key={id}>
                     <Popup>
+                        <h3>Sub Project Element</h3>
                         <div> { name }</div>
                     </Popup>
                 </Marker>
