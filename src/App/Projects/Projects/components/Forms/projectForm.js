@@ -85,7 +85,6 @@ class ProjectForm extends Component {
       createTotalCost(costPayload);
       createCommitmentCost(commitmentPayload)
       submittedValues(payload);
-
     }
   };
 
@@ -163,7 +162,7 @@ class ProjectForm extends Component {
 
         {/* start:Project cost */}
         <Row justify="space-between">
-          <Col span={8}>
+          <Col span={10}>
             <Form.Item
               label="Project total cost"
               name="amount"
@@ -181,9 +180,9 @@ class ProjectForm extends Component {
           {/* end:ptoject cost */}
 
           {/* start:currency */}
-          <Col span={8}>
+          <Col span={10}>
             <Form.Item
-              label="Project Commitment cost"
+              label="Commitment cost"
               name="commitment"
               title="Project Commitment cost e.g 37282"
               rules={[
@@ -196,7 +195,7 @@ class ProjectForm extends Component {
               <InputNumber />
             </Form.Item>
           </Col>
-          <Col span={8}>
+          <Col span={4}>
             <Form.Item
               label="Currency"
               name="currency_id"

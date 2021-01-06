@@ -4,12 +4,11 @@ import { Steps, Button, message } from 'antd';
 import { connect } from "react-redux";
 import ProjectForm from './projectForm';
 import ProjectSectorForm from './projectSectorForm'
-import { projectSectorsOperator, projectSectorsSelectors } from "../../../ProjectsSectors/duck";
+import { projectSectorsOperator, projectSectorsSelectors } from "../ProjectsSectors/duck";
 import { projectOperation, projectSelectors } from '../../../duck';
 import ProjectLocationForm from "./projectLocationForm";
-import { projectDetailsOperator, projectDetailsSelectors } from "../../../ProjectsDetails/duck";
+import { projectDetailsOperator, projectDetailsSelectors } from "../ProjectsDetails/duck";
 import ProjectDetailsForm from "./projectDetailsForm";
-import agencies from "../../../../../API/agencies";
 
 class CommonProjectForm extends Component {
     state = {
@@ -52,12 +51,11 @@ class CommonProjectForm extends Component {
     }
 
     handleConfirmButton = (values) => {
-        const { createProjectSector, handleAfterCloseForm } = this.props;
+        const { createProjectSector, handleAfterCloseForm,handleAfterSubmit} = this.props;
         createProjectSector(values);
         handleAfterCloseForm();
-
+        handleAfterSubmit()
     }
-
 
     render() {
         const { current } = this.state

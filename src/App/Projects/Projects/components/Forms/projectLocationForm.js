@@ -1,9 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import {
   Button,
   Form,
   Select,
-  
+
 } from "antd";
 
 /* state actions */
@@ -29,23 +29,23 @@ const wrapperCol = {
 
 const renderDistricts = (districts) => {
   return (
-      <Form.Item
-          label="District"
-          name="district_id"
-          title="projectLocations District is required  e.g Ilala"
-          rules={[
-            {
-              required: true,
-              message: "projectLocation district  is required",
-            },
-          ]}
-      >
-        <Select>
-          { districts.map((district) => (
-              <Select.Option value={district.id}>{district.name}</Select.Option>
-          ))}
-        </Select>
-      </Form.Item>
+    <Form.Item
+      label="District"
+      name="district_id"
+      title="projectLocations District is required  e.g Ilala"
+      rules={[
+        {
+          required: true,
+          message: "projectLocation district  is required",
+        },
+      ]}
+    >
+      <Select>
+        {districts.map((district) => (
+          <Select.Option value={district.id}>{district.name}</Select.Option>
+        ))}
+      </Select>
+    </Form.Item>
   );
 }
 
@@ -75,18 +75,17 @@ const renderDistricts = (districts) => {
  * />
  *
  */
-class ProjectLocationForm extends Component{
-  state = {showDistrictsSelect: false}
+class ProjectLocationForm extends Component {
+  state = { showDistrictsSelect: false }
 
   // form finish(submit) handler
-   onFinish = (values) => {
+  onFinish = (values) => {
     const payload = { ...values };
     if (this.props.isEditForm) {
       this.props.updateprojectLocation(payload, this.props.selected.id);
     } else {
       this.props.submittedValues(payload);
-      this.props.handleNextButton(); 
-       }
+    }
   };
 
   componentDidMount() {
@@ -101,7 +100,7 @@ class ProjectLocationForm extends Component{
       getDistricts(region_id)
     }
   }
-    render() {
+  render() {
 
     const {
       posting,
@@ -111,21 +110,21 @@ class ProjectLocationForm extends Component{
       districts,
     } = this.props;
     return (
-        <Form
-            labelCol={labelCol}
-            wrapperCol={wrapperCol}
-            onFinish={this.onFinish}
-            initialValues={{
-              level: selected?.location?.level,
-              region_id: selected?.location?.region?.id,
-              district_id: selected?.location?.district?.id,
-            }}
-            autoComplete="off"
-            className="ProjectLocationForm"
-        >
-
-                {/* start:level */}
-                <Form.Item
+      <Form
+        labelCol={labelCol}
+        wrapperCol={wrapperCol}
+        onFinish={this.onFinish}
+        initialValues={{
+          level: selected?.location?.level,
+          region_id: selected?.location?.region?.id,
+          district_id: selected?.location?.district?.id,
+        }}
+        autoComplete="off"
+        className="ProjectLocationForm"
+      >
+        <h4>Please provide location of the project</h4>
+        {/* start:level */}
+        <Form.Item
           label="Level"
           name="level"
           title="Projects Level is required  e.g District"
@@ -174,18 +173,18 @@ class ProjectLocationForm extends Component{
         {/* end:district */}
 
 
-          {/* start:form actions */}
-          <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
-            <Button
-                type="primary"
-                htmlType="submit"
-                loading={posting}
-            >
-              Next
+        {/* start:form actions */}
+        <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={posting}
+          >
+            Next
             </Button>
-          </Form.Item>
-          {/* end:form actions */}
-        </Form>
+        </Form.Item>
+        {/* end:form actions */}
+      </Form>
     );
   }
 

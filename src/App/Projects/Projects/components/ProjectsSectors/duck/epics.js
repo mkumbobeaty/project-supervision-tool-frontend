@@ -1,6 +1,6 @@
 import * as actions from './actions';
 import * as types from './types';
-import API from '../../../../API';
+import API from '../../../../../../API';
 import { ofType, combineEpics } from 'redux-observable';
 import { of, from } from 'rxjs';
 import { switchMap, catchError, } from "rxjs/operators";
