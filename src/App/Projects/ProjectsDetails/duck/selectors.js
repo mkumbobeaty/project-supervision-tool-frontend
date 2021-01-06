@@ -29,3 +29,5 @@ export const getAgencies = (state) => state.projectDetails?.agencies
  */
 
 export const getCurrencies = (state) => state.projectDetails?.currencies
+
+export const getCreatedAmountCost = (state) => state?.projectDetails?.project_amounts?.amount_cost?.data;

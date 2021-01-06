@@ -100,6 +100,12 @@ const getCurrencies = () => {
 const postTotalCost =(total_cost) => 
 axios.post(`/money`, total_cost).then((response) => response.data);
 
+/**
+ * @function
+ * @name createProjectDetails
+ * */
+const createProjectDetails =(details) => 
+axios.post(`/project_details`, details).then((response) => response.data);
 
 export default {
     createProjects,
@@ -110,4 +116,5 @@ export default {
     getProjectsStatistics,
     getCurrencies,
     postTotalCost,
+    createProjectDetails
 }

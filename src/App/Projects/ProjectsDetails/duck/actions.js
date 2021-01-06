@@ -149,3 +149,39 @@ export function createTotalCostFailure(error) {
     payload: error,
   };
 }
+
+/**
+ * @function
+ * @name createProjectDetailsStart
+ * @param {*} details 
+ */
+export function createProjectDetailsStart(details) {
+  return {
+    type: types.CREATE_PROJECT_DETAILS_START,
+    payload:details
+  };
+}
+
+/**
+ * @function
+ * @name createProjectDetailsSuccess
+ * @param {*} project_details 
+ */
+export function createProjectDetailsSuccess(project_details) {
+  return {
+    type: types.CREATE_PROJECT_DETAILS_SUCCESS,
+    payload: project_details,
+  };
+}
+
+/**
+ * @function
+ * @name createProjectDetailsFailure
+ * @param {*} error 
+ */
+export function createProjectDetailsFailure(error) {
+  return {
+    type: types.CREATE_PROJECT_DETAILS_FAILURE,
+    payload: error,
+  };
+}

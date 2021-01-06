@@ -15,6 +15,9 @@ import {
     createTotalCostStart,
     createTotalCostSuccess,
     createTotalCostFailure,
+    createProjectDetailsStart,
+    createProjectDetailsSuccess,
+    createProjectDetailsFailure,
   } from './actions';
   
   export {
@@ -33,4 +36,7 @@ import {
     createTotalCostStart,
     createTotalCostSuccess,
     createTotalCostFailure,
+    createProjectDetailsStart,
+    createProjectDetailsSuccess,
+    createProjectDetailsFailure,
   };

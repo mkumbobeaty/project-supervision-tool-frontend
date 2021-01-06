@@ -67,6 +67,16 @@ const createTotalCostPic = action$ => {
     )
 }
 
+const createProjectDetailsPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_PROJECT_DETAILS_START),
+        switchMap(({payload}) => {
+            return from(API.createProjectDetails(payload))
+        }),
+        switchMap(res => { return of(actions.createProjectDetailsSuccess(res)) }),
+        catchError(error => of(actions.createProjectDetailsFailure(error)))
+    )
+}
 
 
 export const  projectDetailsEpic= combineEpics(
@@ -75,4 +85,5 @@ export const  projectDetailsEpic= combineEpics(
     getAgenciesEpic,
     getCurrenciesEpic,
     createTotalCostPic,
+    createProjectDetailsPic,
 )
