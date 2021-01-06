@@ -232,6 +232,41 @@ export const getSubProjectFailure = makeActionCreator(types.GET_SUB_PROJECT_FAIL
 export const clearSubProject = makeActionCreator(types.CLEAR_SUB_PROJECT);
 
 
+// retrieve a single sub project element
+
+/**
+ * @function
+ * @name getSubProjectElementStart
+ * @param {Number} subProjectElementId
+ * @return {Object} action
+ * */
+export const getSubProjectElementStart = makeActionCreator(types.GET_SUB_PROJECT_ELEMENT_START, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectElementSuccess
+ * @param {Object} payload sub project element
+ * @return {Object} action
+ * */
+export const getSubProjectElementSuccess = makeActionCreator(types.GET_SUB_PROJECT_ELEMENT_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectElementFailure
+ * @param {Object} payload sub project element failure response
+ * @return {Object} action
+ * */
+export const getSubProjectElementFailure = makeActionCreator(types.GET_SUB_PROJECT_ELEMENT_FAILURE, 'payload');
+
+
+/**
+ * @function
+ * @name clearSubProjectElement
+ * @return {Object} action
+ */
+export const clearSubProjectElement = makeActionCreator(types.CLEAR_SUB_PROJECT_ELEMENT);
+
+
 export function createSubProjectStart() {
   return {
     type: types.CREATE_SUB_PROJECT_START,
