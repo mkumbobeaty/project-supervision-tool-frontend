@@ -33,7 +33,10 @@ export const getSubProjectEpic = action$ => {
         switchMap(({payload}) => {
             return from(API.getSubProject(payload)).pipe(
                 switchMap(res => {
-                    return from([actions.getSubProjectSuccess(res.data), actions.clearProject()])
+                    return from([
+                        actions.getSubProjectSuccess(res.data),
+                        actions.clearProject(),
+                    ])
                 }),
                 catchError(error => of(actions.getSubProjectFailure(error)))
             );
@@ -54,7 +57,12 @@ export const getSubProjectElementEpic = action$ => {
         switchMap(({payload}) => {
             return from(API.getSubProjectElement(payload)).pipe(
                 switchMap(res => {
-                    return from([actions.getSubProjectElementSuccess(res.data), actions.clearSubProject()])
+                    return from([
+                        actions.getSubProjectElementSuccess(res.data),
+                        actions.clearSubProject(),
+                        mapActions.showSubProjectElementDetails(true),
+                        mapActions.showSubProjectDetails(false)
+                    ])
                 }),
                 catchError(error => of(actions.getSubProjectElementFailure(error)))
             );

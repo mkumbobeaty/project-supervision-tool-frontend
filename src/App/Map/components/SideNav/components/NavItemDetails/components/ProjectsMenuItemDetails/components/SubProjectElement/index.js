@@ -9,36 +9,25 @@ import LongActionButton from "../LongActionButton";
 import {mapActions} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
 import {projectSelectors} from "../../../../../../../../../Projects/duck";
-import {isoDateToHumanReadableDate} from "../../../../../../../../../../Util";
 
 
 /**
  * @function
  * @name mapToSideMenuObject
- * @description helper function that maps complex subProject object to a simple object
+ * @description helper function that maps complex subProjectElement object to a simple object
  *  for displaying
- *  @param subProject
+ *  @param subProjectElement
  *  @return {Object}
  */
-const mapToSideMenuObject = ({ details, name, description , sub_project_items}) => {
-    const contractor = details?.contractor?.name;
-    const consultant = details?.supervising_agency?.name;
-    const lga = details?.actor?.name;
+const mapToSideMenuObject = ({ name, description , progress}) => {
     const customGridListData = [
-        {title: 'START DATE', value: isoDateToHumanReadableDate(details?.start_date)},
-        {title: 'closing date', value: isoDateToHumanReadableDate(details?.end_date)},
-        {title: 'phase', value: details?.phase?.name },
-        {title: 'stage', value: 'Implementation'},
+        {title: 'ACTUAL PROGRESS', value: `${progress.actual}%`},
+        {title: 'PLANNED PROGRESS', value: `${progress.planned }%`},
     ];
-    const subProjectElementsData = sub_project_items.map(({name, id, progress }) => ({ title: name, value: `${progress.actual}%`, id }));
 
     return {
-        contractor,
-        consultant,
-        lga,
         description,
         customGridListData,
-        subProjectElementsData,
         name,
     };
 
@@ -52,51 +41,37 @@ const mapToSideMenuObject = ({ details, name, description , sub_project_items}) 
 function SubProjectElementDetails({goBackFromSubProjectElementToProjectDetails, subProjectElement}) {
     const handleGoBack = () => goBackFromSubProjectElementToProjectDetails(subProjectElement?.sub_project_id);
 
-    // const sideMenuObj = subProject ? mapToSideMenuObject(subProject) : null;
+    const sideMenuObj = subProjectElement ? mapToSideMenuObject(subProjectElement) : null;
 
-    // const handleOnclickSubProjectElement = (id) => console.log(id);
-    // const viewFullSubProjectElementDetails = () => console.log('View full sub project details clicked');
+    const handleOnclickSubProjectElement = (id) => console.log(id);
+    const viewFullSubProjectElementDetails = () => console.log('View full sub project details clicked');
 
 
-    // return (
-    //     <div className='SubProjectElementDetails'>
-    //         <section className="top-section">
-    //             <div className='title'>
-    //                 <div title='Sample Subproject'>{sideMenuObj?.name}</div>
-    //             </div>
-    //             <BackLink goBack={handleGoBack}/>
-    //         </section>
-    //         <hr/>
-    //         <section>
-    //             <div><b>contractor:</b> {sideMenuObj?.contractor}</div>
-    //             <div><b>consultant:</b> {sideMenuObj?.consultant}</div>
-    //             <div><b>LGA:</b> {sideMenuObj?.lga}</div>
-    //         </section>
-    //         <hr/>
-    //         <section>{sideMenuObj?.description}</section>
-    //         {sideMenuObj?.customGridListData ? <CustomGridList data={sideMenuObj?.customGridListData}/> : ''}
-    //         <LongActionButton
-    //             handleOnclick={viewFullSubProjectElementDetails}
-    //             title='view full sub-project details'
-    //         />
-    //
-    //         {sideMenuObj?.subProjectElementsData ? <PredefinedFilter
-    //             data={sideMenuObj?.subProjectElementsData}
-    //             filterTitle='Sub Project Elements'
-    //             config={{
-    //                 filterLeftTitle: 'Progress',
-    //                 filterRightTitle: 'Name'
-    //             }}
-    //             handleOnclickFilterItem={handleOnclickSubProjectElement}
-    //         /> : ''}
-    //     </div>
-    // );
+    return (
+        <div className='SubProjectElementDetails'>
+            <section className="top-section">
+                <div className='title'>
+                    <div title='Sample Subproject'>{sideMenuObj?.name}</div>
+                </div>
+                <BackLink goBack={handleGoBack}/>
+            </section>
+            <hr/>
+            {/*<section>*/}
+            {/*    <div><b>Progress:</b></div>*/}
+            {/*</section>*/}
+            <section>{sideMenuObj?.description}</section>
+            {sideMenuObj?.customGridListData ? <CustomGridList data={sideMenuObj?.customGridListData}/> : ''}
+            <LongActionButton
+                handleOnclick={viewFullSubProjectElementDetails}
+                title='view full sub-project element details'
+            />
+        </div>
+    );
 
-    return (<div>inside sub project element details</div>)
 }
 
 const mapStateToProps = (state) => ({
-    subProject: projectSelectors.getSubProjectSelector(state),
+    subProjectElement: projectSelectors.getSubProjectElementSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -108,9 +83,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(SubProjectElementDet
 
 SubProjectElementDetails.propTypes = {
     goBackFromSubProjectToProjectDetails: PropTypes.func.isRequired,
-    subProject: PropTypes.object
+    subProjectElement: PropTypes.object
 }
 
 SubProjectElementDetails.defaultPropTypes = {
-    subProject: null,
+    subProjectElement: null,
 }

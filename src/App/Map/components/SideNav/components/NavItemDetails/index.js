@@ -29,7 +29,7 @@ function DataSetsMenuItemDetails() {
 function NavItemDetails({activeItem}) {
     return (
         <div
-            style={activeItem === '' ? {display: 'none'} : {width: '16vw'}}
+            style={activeItem === '' ? {display: 'none'} : {width: '20vw'}}
             className='NavItemDetails'
         >
             {activeItem === 'projects' ? <ProjectsMenuItemDetails/> : ''}

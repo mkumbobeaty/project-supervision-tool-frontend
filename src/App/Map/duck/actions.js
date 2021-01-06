@@ -13,6 +13,13 @@ export const showNationalProjectsOverview = makeActionCreator(types.SHOW_NATIONA
 
 /**
  * @function
+ * @name showSubProjectElementDetails
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const showSubProjectElementDetails = makeActionCreator(types.SHOW_SUB_PROJECT_ELEMENT_DETAILS, 'payload');
+
+/**
+ * @function
  * @name backFromSubProjectToProjectDetails
  * @param {String} payload thiis is the project id
  * @param {Boolean} payload value to ether show or hide
