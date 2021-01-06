@@ -77,3 +77,11 @@ export const getRegions = (state) => state?.resources?.regions;
  */
 
  export const getDistricts = (state) => state?.resources?.districts
+
+ /**
+ * @function
+ * @name isLoadingSelector
+ * @param {Object} state redux state
+ * @return {boolean} isLoading
+ * */
+export const isLoadingSelector = (state) => state.resources.locations.isLoading;

@@ -52,6 +52,8 @@ const fetchingDistricts = (state = false, action) => {
 
 const regions = (state = [], action) => {
   switch (action.type) {
+    case types.GET_REGIONS_START:
+      return state;
     case types.GET_REGIONS_SUCCESS:
       return action.payload;
     case types.GET_REGIONS_FAILURE:
@@ -72,7 +74,7 @@ const districts = (state = [], action) => {
   }
 };
 
-const locations = (state = { data:[], project_location:{}, error:null}, action) => {
+const locations = (state = { data:[], project_location:{},isLoading:false, error:null}, action) => {
   switch (action.type) {
     case types.GET_LOCATIONS_START:
       return {...state}
@@ -81,11 +83,11 @@ const locations = (state = { data:[], project_location:{}, error:null}, action) 
     case types.GET_LOCATIONS_FAILURE:
       return {error: action.payload }
       case types.CREATE_PROJECT_LOCATION_START:
-        return { ...state };
+        return {...state, isLoading: true};
       case types.CREATE_PROJECT_LOCATION_SUCCESS:
-        return { ...state, project_location:action.payload }
+        return { ...state, project_location:action.payload, isLoading:false }
       case types.CREATE_PROJECT_LOCATION_FAILURE:
-        return  action.payload ;
+        return  {...state, error: action.payload, isLoading:false}
       default:
         return state;
      }
@@ -96,14 +98,9 @@ const Projects = (state = defaultProjects, action) => {
     case types.GET_PROJECTS_START:
       return { ...state, loading: true };
     case types.GET_PROJECTS_SUCCESS:
-      return {...state, data: action.payload, loading: false, total: action.payload.length }
+      return {...state, data: action.payload, loading: false, total: action.payload }
     case types.GET_PROJECTS_FAILURE:
       return { ...state, error: action.message, loading: false };
-
-    case types.OPEN_FORM:
-      return { ...state, showForm: true };
-    case types.CLOSE_FORM:
-      return { ...state, showForm: false };
     case types.CREATE_PROJECT_START:
       return { ...state, posting: true };
     case types.CREATE_PROJECT_SUCCESS:

@@ -51,10 +51,10 @@ class CommonProjectForm extends Component {
     }
 
     handleConfirmButton = (values) => {
-        const { createProjectSector, handleAfterCloseForm,handleAfterSubmit} = this.props;
+        const { createProjectSector, handleAfterCloseForm,getProjects} = this.props;
         createProjectSector(values);
         handleAfterCloseForm();
-        handleAfterSubmit()
+        getProjects()
     }
 
     render() {
@@ -63,7 +63,9 @@ class CommonProjectForm extends Component {
             regions,
             getDistricts,
             focalPeoples,
+            isLoading,
             posting,
+            showForm,
             districts,
             getSectors,
             sectors,
@@ -87,7 +89,7 @@ class CommonProjectForm extends Component {
                     submittedValues={this.getProjectLocationFormValue}
                     regions={regions}
                     getDistricts={getDistricts}
-                    posting={posting}
+                    posting={isLoading}
                     districts={districts}
                 />
             },
@@ -125,6 +127,8 @@ class CommonProjectForm extends Component {
                     getSectors={getSectors}
                     sectors={sectors}
                     project={project}
+                    showForm={showForm}
+                    posting={posting}
                     handleBackButton={this.prev} />
 
             },
@@ -147,14 +151,17 @@ class CommonProjectForm extends Component {
 const mapStateToProps = (state) => {
     return {
         sectors: projectSectorsSelectors.getSectors(state),
+        showForm:projectSectorsSelectors.getShowFormSelector(state),
+        posting:projectSectorsSelectors.getLoadingSelector(state),
         project: projectSelectors.getCreatedProjectSelector(state),
         project_location: projectSelectors.getProjectLocation(state),
-        currencies: projectDetailsSelectors.getCurrencies(state),
+        isLoading:projectSelectors.isLoadingSelector(state),
         agencies:projectDetailsSelectors.getAgencies(state),
         borrowers: projectDetailsSelectors.getBorrowers(state),
         partiners:projectDetailsSelectors.getFundingOrgs(state),
+        currencies: projectDetailsSelectors.getCurrencies(state),
         amount_cost:projectDetailsSelectors.getCreatedAmountCost(state),
-        commitment_cost:projectDetailsSelectors.getCreatedCommitmentCost(state)
+        commitment_cost:projectDetailsSelectors.getCreatedCommitmentCost(state),
     };
 };
 

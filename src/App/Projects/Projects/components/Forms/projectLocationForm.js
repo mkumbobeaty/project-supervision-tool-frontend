@@ -56,7 +56,6 @@ const renderDistricts = (districts) => {
  * @param {object} props Valid form properties
  * @param {object} props.projectLocation Valid projectLocation object
  * @param {boolean} props.isEditForm Flag whether form is on edit mode
- * @param {boolean} props.posting Flag whether form is posting data
  * @param {Function} props.onCancel Form cancel callback
  * @returns {object} ProjectLocationForm component
  * @author lally elias <lallyelias87@gmail.com>

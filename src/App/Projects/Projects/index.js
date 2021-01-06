@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import CommonProjectForm from "./components/Forms";
 import { focalPeopleOperation, focalPeopleSelectors } from "../../FocalPeople/duck";
 import "./styles.css";
+import { projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
 
 
 /* constants */
@@ -188,12 +189,12 @@ class Projects extends Component {
       searchQuery,
       showForm,
       selected,
-      posting,
       focalPeoples,
       regions,
       districts,
       getDistricts,
       createProject,
+      fetchProjects
     } = this.props;
 
     const { isEditForm } = this.state;
@@ -223,9 +224,9 @@ class Projects extends Component {
         <ProjectsList
           itemName="Projects"
           items={projects}
-          page={page}
+          // page={page}
           loading={loading}
-          itemCount={total}
+          // itemCount={total}
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefreshInitiative}
           onPaginate={(nextPage) => {
@@ -309,7 +310,6 @@ class Projects extends Component {
           afterClose={this.handleAfterCloseForm}
         >
           <CommonProjectForm
-            posting={posting}
             selected={selected}
             regions={regions}
             districts={districts}
@@ -318,6 +318,7 @@ class Projects extends Component {
             createProject={createProject}
             focalPeoples={focalPeoples}
             Projects={projects}
+            getProjects={fetchProjects}
             handleAfterCloseForm={this.handleAfterCloseForm}
             handleAfterSubmit={this.closeProjectForm} />
         </Drawer>
@@ -349,7 +350,7 @@ const mapStateToProps = (state) => {
     loading: projectSelectors.getProjectsLoadingSelector(state),
     page: projectSelectors.getProjectsPageSelector(state),
     total: projectSelectors.getProjectsTotalSelector(state),
-    showForm: projectSelectors.getProjectsShowFormSelector(state),
+    showForm: projectSectorsSelectors.getShowFormSelector(state),
     selected: state.projects?.selectedProjects,
   };
 };
@@ -357,15 +358,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   fetchProjects: projectOperation.getProjectsStart,
   deleteProject: projectOperation.deleteProjectStart,
-  openProjectForm: projectOperation.openForm,
-  closeProjectForm: projectOperation.closeForm,
   selectProject: projectOperation.selectProject,
   focalPeople: focalPeopleOperation.getFocalPeopleStart,
   createProject: projectOperation.createProjectStart,
   getDistricts: projectOperation.getDistrictsStart,
   getRegions: projectOperation.getRegionsStart,
   getLocations: projectOperation.getLocationsStart,
-
+  openProjectForm: projectSectorsOperator.openForm,
+  closeProjectForm: projectSectorsOperator.closeForm,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

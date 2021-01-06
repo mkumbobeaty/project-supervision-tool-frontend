@@ -118,18 +118,6 @@ export function getProjectsStart() {
   }
 
 
-  export function openProjectForm() {
-    return {
-      type: types.OPEN_FORM,
-    };
-  }
-  
-  export function closeProjectForm() {
-    return {
-      type: types.CLOSE_FORM,
-    };
-  }
-
 
   /*  Agencies Action creators */
   
@@ -303,19 +291,6 @@ export const selectProject = (selected_project) => ({
   type: types.SELECT_PROJECT,
   payload: selected_project,
 });
-
-export function openForm() {
-  return {
-    type: types.OPEN_FORM,
-  };
-}
-
-export function closeForm() {
-  return {
-    type: types.CLOSE_FORM 
-  };
-}
-
 
 /**
  * @function

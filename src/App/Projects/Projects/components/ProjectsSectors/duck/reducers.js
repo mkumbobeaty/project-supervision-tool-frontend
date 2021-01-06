@@ -2,9 +2,8 @@ import { combineReducers } from "redux";
 import * as types from "./types";
 
 const initialData = {
-  loading: false,
   error: null,
-  showForm: true,
+  showForm: false,
   posting: false,
 };
 
@@ -25,12 +24,16 @@ const sectors = (state = [], action) => {
 
   const project_sectors = (state = initialData, action) => {
     switch (action.type) {
+      case types.OPEN_FORM:
+        return { ...state, showForm: true };
+      case types.CLOSE_FORM:
+        return { ...state, showForm: false };
       case types.CREATE_PROJECT_SECTOR_START:
-        return { ...state, posting: true };
+        return { ...state, posting: true, showForm:true };
       case types.CREATE_PROJECT_SECTOR_SUCCESS:
-        return { ...state, posting: false, showForm: false, loading: false };
+        return { ...state, posting: false, showForm: false };
       case types.CREATE_PROJECT_SECTOR_FAILURE:
-        return { error: action.payload.error };
+        return { error: action.payload.error,posting: false, showForm: false };
       default:
         return state;
     }

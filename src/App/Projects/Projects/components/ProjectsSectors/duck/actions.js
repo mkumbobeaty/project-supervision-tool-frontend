@@ -1,6 +1,19 @@
 
 import * as types from './types'
 
+
+export function openForm() {
+  return {
+    type: types.OPEN_FORM,
+  };
+}
+
+export function closeForm() {
+  return {
+    type: types.CLOSE_FORM,
+  };
+}
+
 /**
  * @function
  * @name getSectorsStart

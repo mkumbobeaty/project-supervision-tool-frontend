@@ -1,18 +1,22 @@
 
 import {
-    getSectorsStart,
-    getSectorsSuccess,
-    getSectorsFailure,
-    createProjectSectorsStart,
-    createProjectSectorsSuccess,
-    createProjectSectorsFailure
-  } from './actions';
-  
-  export {
-    getSectorsStart,
-    getSectorsSuccess,
-    getSectorsFailure,
-    createProjectSectorsStart,
-    createProjectSectorsSuccess,
-    createProjectSectorsFailure
-  };
+  closeForm,
+  openForm,
+  getSectorsStart,
+  getSectorsSuccess,
+  getSectorsFailure,
+  createProjectSectorsStart,
+  createProjectSectorsSuccess,
+  createProjectSectorsFailure
+} from './actions';
+
+export {
+  closeForm,
+  openForm,
+  getSectorsStart,
+  getSectorsSuccess,
+  getSectorsFailure,
+  createProjectSectorsStart,
+  createProjectSectorsSuccess,
+  createProjectSectorsFailure
+};
