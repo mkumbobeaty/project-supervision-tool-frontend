@@ -14,12 +14,6 @@ class CommonProjectForm extends Component {
     state = {
         current: 0
     }
-    componentDidMount() {
-        const { getBorrowers, getAgencies, getFundingOrgs } = this.props;
-        getBorrowers();
-        getAgencies();
-        getFundingOrgs()
-    }
 
     next = () => {
         this.setState({ current: this.state.current + 1 })
@@ -58,22 +52,7 @@ class CommonProjectForm extends Component {
 
     render() {
         const { current } = this.state
-        const {
-            focalPeoples,
-            posting,
-            showForm,
-            getSectors,
-            sectors,
-            project,
-            currencies,
-            createTotalCost,
-            partiners,
-            agencies,
-            borrowers,
-            amount_cost,
-            commitment_cost,
-            createCommitmentCost
-        } = this.props
+        const { focalPeoples,project } = this.props
 
         const steps = [
 
@@ -94,13 +73,8 @@ class CommonProjectForm extends Component {
                 title: 'Third',
                 content: <ProjectDetailsForm
                     submittedValues={this.getProjectDetailFormValue}
-                    agencies={agencies}
-                    partiners= {partiners}
-                    borrowers={borrowers}
                     project={project}
                     handleBackButton={this.prev}
-                    amount_cost={amount_cost}
-                    commitment_cost={commitment_cost}
                 />
 
             },
@@ -108,11 +82,7 @@ class CommonProjectForm extends Component {
                 title: 'fouth',
                 content: <ProjectSectorForm
                     handleConfirmButton={this.handleConfirmButton}
-                    getSectors={getSectors}
-                    sectors={sectors}
                     project={project}
-                    showForm={showForm}
-                    posting={posting}
                     handleBackButton={this.prev} />
 
             },
@@ -120,7 +90,7 @@ class CommonProjectForm extends Component {
         ];
         return (
             <>
-                <Steps current={this.current}>
+                <Steps current={this.current} key={steps.map(title => title)}>
                     {steps.map(item => (
                         <h4>Please fill the data</h4>
                     ))}
@@ -134,28 +104,15 @@ class CommonProjectForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        sectors: projectSectorsSelectors.getSectors(state),
-        showForm:projectSectorsSelectors.getShowFormSelector(state),
-        posting:projectSectorsSelectors.getLoadingSelector(state),
         project: projectSelectors.getCreatedProjectSelector(state),
-        agencies:projectDetailsSelectors.getAgencies(state),
-        borrowers: projectDetailsSelectors.getBorrowers(state),
-        partiners:projectDetailsSelectors.getFundingOrgs(state),
-        amount_cost:projectDetailsSelectors.getCreatedAmountCost(state),
-        commitment_cost:projectDetailsSelectors.getCreatedCommitmentCost(state),
     };
 };
 
 const mapDispatchToProps = {
-    selectProject: projectOperation.selectProject,
     createProject: projectOperation.createProjectStart,
     createProjectLocation: projectOperation.createProjectLocationStart,
-    getSectors: projectSectorsOperator.getSectorsStart,
     createProjectSector: projectSectorsOperator.createProjectSectorsStart,
     createProjectDetail: projectDetailsOperator.createProjectDetailsStart,
-    getBorrowers: projectDetailsOperator.getBorrowersStart,
-    getFundingOrgs: projectDetailsOperator.getFundingOrgStart,
-    getAgencies: projectDetailsOperator.getAgenciesStart,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommonProjectForm);

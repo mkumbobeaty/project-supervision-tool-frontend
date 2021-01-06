@@ -12,6 +12,8 @@ import {
 
 } from "antd";
 import { generateDateString, generateYearString} from "../../../../../Util";
+import { connect } from "react-redux";
+import { projectDetailsOperator, projectDetailsSelectors } from "../ProjectsDetails/duck";
 
 /* state actions */
 
@@ -40,20 +42,14 @@ class ProjectDetailsForm extends Component {
     isEditForm: false,
   }
 
-  /**
-     * @function
-     * @name handleAfterCloseForm
-     * @description Perform post close form cleanups
-     *
-     * @version 0.1.0
-     * @since 0.1.0
-     */
-  handleAfterCloseForm = () => {
-    const { selectProject } = this.props;
-    selectProject(null);
-    this.setState({ isEditForm: false });
-  };
+ componentDidMount () {
+  const { getBorrowers, getAgencies, getFundingOrgs } = this.props;
+  getBorrowers();
+  getAgencies();
+  getFundingOrgs()
+ }
 
+ 
   // form finish(submit) handler
   onFinish = (values) => {
     const {  project, submittedValues, commitment_cost, amount_cost } = this.props
@@ -253,6 +249,27 @@ class ProjectDetailsForm extends Component {
 
 }
 
+
+const mapStateToProps = (state) => {
+  return {   
+    agencies:projectDetailsSelectors.getAgenciesSelector(state),
+    borrowers: projectDetailsSelectors.getBorrowersSelector(state),
+    partiners:projectDetailsSelectors.getFundingOrgsSelector(state),
+    amount_cost:projectDetailsSelectors.getCreatedAmountCostSelector(state),
+    commitment_cost:projectDetailsSelectors.getCreatedCommitmentCostSelector(state),
+  };
+};
+
+const mapDispatchToProps = {
+  getBorrowers: projectDetailsOperator.getBorrowersStart,
+  getFundingOrgs: projectDetailsOperator.getFundingOrgStart,
+  getAgencies: projectDetailsOperator.getAgenciesStart,
+
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetailsForm);
+
+
 ProjectDetailsForm.defaultProps = {
   Project: {},
 };
@@ -276,5 +293,3 @@ ProjectDetailsForm.propTypes = {
   onCancel: PropTypes.func.isRequired,
 };
 
-
-export default ProjectDetailsForm

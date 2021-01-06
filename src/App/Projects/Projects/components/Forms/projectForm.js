@@ -91,7 +91,7 @@ class ProjectForm extends Component {
       handleBackButton,
       currencies
     } = this.props;
-    
+
     return (
       <Form
         labelCol={labelCol}
@@ -252,6 +252,23 @@ class ProjectForm extends Component {
 
 }
 
+
+const mapStateToProps = (state) => {
+  return {
+    project_location: projectSelectors.getProjectLocationSelector(state),
+    currencies: projectDetailsSelectors.getCurrenciesSelector(state),
+  };
+};
+
+const mapDispatchToProps = {
+  getCurrencies: projectDetailsOperator.getCurrenciesStart,
+  createTotalCost: projectDetailsOperator.createTotalCostStart,
+  createCommitmentCost:projectDetailsOperator.createCommitmentCostStart,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
+
+
 ProjectForm.defaultProps = {
   Project: {},
 };
@@ -275,19 +292,3 @@ ProjectForm.propTypes = {
   onCancel: PropTypes.func.isRequired,
 };
 
-
-const mapStateToProps = (state) => {
-  return {
-    project_location: projectSelectors.getProjectLocationSelector(state),
-    currencies: projectDetailsSelectors.getCurrenciesSelector(state),
-  };
-};
-
-const mapDispatchToProps = {
-  getCurrencies: projectDetailsOperator.getCurrenciesStart,
-  createTotalCost: projectDetailsOperator.createTotalCostStart,
-  createCommitmentCost:projectDetailsOperator.createCommitmentCostStart,
-
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);

@@ -5,6 +5,8 @@ import {
   Select,
   Input,
 } from "antd";
+import { projectSectorsOperator, projectSectorsSelectors } from "../ProjectsSectors/duck";
+import { connect } from "react-redux";
 
 /* state actions */
 
@@ -37,6 +39,11 @@ class ProjectSectorForm extends Component {
     visible: false,
   };
 
+  componentDidMount() {
+    const { getSectors } = this.props;
+    getSectors()
+  }
+
   // form finish(submit) handler
   onFinish = (values) => {
     const { project, handleConfirmButton, updateprojects } = this.props
@@ -48,11 +55,6 @@ class ProjectSectorForm extends Component {
       handleConfirmButton(payload);
     }
   };
-
-  componentDidMount() {
-    const { getSectors } = this.props;
-    getSectors()
-  }
 
   render() {
     const {
@@ -125,5 +127,17 @@ class ProjectSectorForm extends Component {
 
 }
 
+const mapStateToProps = (state) => {
+  return {
+    sectors: projectSectorsSelectors.getSectorsSelector(state),
+    showForm: projectSectorsSelectors.getShowFormSelector(state),
+    posting: projectSectorsSelectors.getLoadingSelector(state),
+  };
+};
 
-export default ProjectSectorForm;
+const mapDispatchToProps = {  
+  getSectors: projectSectorsOperator.getSectorsStart,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectSectorForm);
+

@@ -4,7 +4,7 @@
  * @param {Object} state redux state
  */
 
-export const getBorrowers = (state) => state.projectDetails?.borrowers
+export const getBorrowersSelector = (state) => state.projectDetails?.borrowers
 
 /**
  * @function
@@ -12,7 +12,7 @@ export const getBorrowers = (state) => state.projectDetails?.borrowers
  * @param {Object} state redux state
  */
 
-export const getFundingOrgs = (state) => state.projectDetails?.funding_orgs
+export const getFundingOrgsSelector = (state) => state.projectDetails?.funding_orgs
 
 /**
  * @function
@@ -20,7 +20,7 @@ export const getFundingOrgs = (state) => state.projectDetails?.funding_orgs
  * @param {Object} state redux state
  */
 
-export const getAgencies = (state) => state.projectDetails?.agencies
+export const getAgenciesSelector = (state) => state.projectDetails?.agencies
 
 /**
  * @function
@@ -35,11 +35,11 @@ export const getCurrenciesSelector = (state) => state.projectDetails?.currencies
  * @name getCreatedAmountCost
  * @param {Object} state redux state
  */
-export const getCreatedAmountCost = (state) => state?.projectDetails?.project_total_cost?.amount_cost?.data;
+export const getCreatedAmountCostSelector = (state) => state?.projectDetails?.project_total_cost?.amount_cost?.data;
 
 /**
  * @function
  * @name getCreatedCommitmentCost
  * @param {Object} state redux state
  */
-export const getCreatedCommitmentCost = (state) => state?.projectDetails?.project_commitment_cost?.commitment_cost?.data;
+export const getCreatedCommitmentCostSelector = (state) => state?.projectDetails?.project_commitment_cost?.commitment_cost?.data;
