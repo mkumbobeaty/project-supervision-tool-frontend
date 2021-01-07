@@ -77,6 +77,7 @@ class ProjectSectorForm extends Component {
         autoComplete="off"
         className="ProjectSectorForm"
       >
+        <h4>Please provide project sector</h4>
 
         {/* start:sector */}
         <Form.Item
@@ -135,7 +136,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = {  
+const mapDispatchToProps = {
   getSectors: projectSectorsOperator.getSectorsStart,
 }
 

@@ -58,13 +58,13 @@ class ProjectForm extends Component {
   }
 
 
-  componentDidMount() { 
-    const {getCurrencies} = this.props;
+  componentDidMount() {
+    const { getCurrencies } = this.props;
     getCurrencies()
   }
 
-   // form finish(submit) handler
-   onFinish = (values) => {
+  // form finish(submit) handler
+  onFinish = (values) => {
     const { createTotalCost, submittedValues, project_location, createCommitmentCost } = this.props
     const { id: location_id } = project_location;
     const locations = [location_id]
@@ -106,6 +106,8 @@ class ProjectForm extends Component {
         autoComplete="off"
         className="ProjectForm"
       >
+        <h4>Please Fill the form correctly</h4>
+
         {/* start:type */}
         <Form.Item
           label="Project Id"
@@ -263,7 +265,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   getCurrencies: projectDetailsOperator.getCurrenciesStart,
   createTotalCost: projectDetailsOperator.createTotalCostStart,
-  createCommitmentCost:projectDetailsOperator.createCommitmentCostStart,
+  createCommitmentCost: projectDetailsOperator.createCommitmentCostStart,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);

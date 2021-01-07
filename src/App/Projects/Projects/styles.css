@@ -37,8 +37,9 @@
 .ProjectForm .ant-input-number {
   width: 120px !important;
 }
-.ProjectLocationForm h4{
+
+.ProjectLocationForm h4, .ProjectForm h4, .ProjectSectorForm h4, .ProjectDetailsForm h4 {
   text-align: center;
   text-transform: uppercase;
-  padding-top: 3%;
+  padding-top: 5%;
 }

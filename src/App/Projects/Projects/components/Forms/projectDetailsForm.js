@@ -7,11 +7,10 @@ import {
   Col,
   Select,
   DatePicker,
-  InputNumber,
   Input,
 
 } from "antd";
-import { generateDateString, generateYearString} from "../../../../../Util";
+import { generateDateString, generateYearString } from "../../../../../Util";
 import { connect } from "react-redux";
 import { projectDetailsOperator, projectDetailsSelectors } from "../ProjectsDetails/duck";
 
@@ -42,35 +41,35 @@ class ProjectDetailsForm extends Component {
     isEditForm: false,
   }
 
- componentDidMount () {
-  const { getBorrowers, getAgencies, getFundingOrgs } = this.props;
-  getBorrowers();
-  getAgencies();
-  getFundingOrgs()
- }
+  componentDidMount() {
+    const { getBorrowers, getAgencies, getFundingOrgs } = this.props;
+    getBorrowers();
+    getAgencies();
+    getFundingOrgs()
+  }
 
- 
+
   // form finish(submit) handler
   onFinish = (values) => {
-    const {  project, submittedValues, commitment_cost, amount_cost } = this.props
+    const { project, submittedValues, commitment_cost, amount_cost } = this.props
     const { id } = project;
-    const  total_project_cost_id = amount_cost.id;
+    const total_project_cost_id = amount_cost.id;
     const commitment_amount_id = commitment_cost.id
 
     const approval_date = generateDateString(values.approval_date);
     const approval_fy = generateYearString(values.approval_fy);
     const closing_date = generateDateString(values.closing_date);
 
-    const payload = { 
-        ...values,
-        project_id: id,
-        total_project_cost_id, 
-        approval_date,
-        approval_fy,
-        commitment_amount_id,
-        closing_date
-      };    
-      
+    const payload = {
+      ...values,
+      project_id: id,
+      total_project_cost_id,
+      approval_date,
+      approval_fy,
+      commitment_amount_id,
+      closing_date
+    };
+
     if (this.props.isEditForm) {
       this.props.updateProject(payload, this.props.selected.id);
     } else {
@@ -102,6 +101,8 @@ class ProjectDetailsForm extends Component {
         autoComplete="off"
         className="ProjectDetailsForm"
       >
+      <h4>Please provide project details</h4>
+
         {/* start:type */}
         <Form.Item
           label="Project Region"
@@ -189,7 +190,7 @@ class ProjectDetailsForm extends Component {
                 },
               ]}
             >
-              <DatePicker picker="year"/>
+              <DatePicker picker="year" />
             </Form.Item>
           </Col>
           {/* end:project approval fiscal year */}
@@ -251,12 +252,12 @@ class ProjectDetailsForm extends Component {
 
 
 const mapStateToProps = (state) => {
-  return {   
-    agencies:projectDetailsSelectors.getAgenciesSelector(state),
+  return {
+    agencies: projectDetailsSelectors.getAgenciesSelector(state),
     borrowers: projectDetailsSelectors.getBorrowersSelector(state),
-    partiners:projectDetailsSelectors.getFundingOrgsSelector(state),
-    amount_cost:projectDetailsSelectors.getCreatedAmountCostSelector(state),
-    commitment_cost:projectDetailsSelectors.getCreatedCommitmentCostSelector(state),
+    partiners: projectDetailsSelectors.getFundingOrgsSelector(state),
+    amount_cost: projectDetailsSelectors.getCreatedAmountCostSelector(state),
+    commitment_cost: projectDetailsSelectors.getCreatedCommitmentCostSelector(state),
   };
 };
 

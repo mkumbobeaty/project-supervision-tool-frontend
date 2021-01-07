@@ -4,7 +4,7 @@
  * @param {Object} state redux state
  */
 
-export const getSectorslector = (state) => state.sectorsData?.sectors
+export const getSectorsSelector = (state) => state.sectorsData?.sectors
 
 /**
  * @function
