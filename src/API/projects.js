@@ -21,7 +21,6 @@ const createProjects = (project) =>
  *
  */
 const getProjects = () => {
-    console.log('inside get projects');
     return axios.get(`/projects`).then((response) => response.data);
 }
 
@@ -37,7 +36,7 @@ const getProjects = () => {
  */
 const updateProject = (project, id) => {
     return axios
-        .patch(`/human_resources/${id}`, project)
+        .patch(`/projects/${id}`, project)
         .then((response) => response.data);
 };
 
@@ -52,7 +51,7 @@ const updateProject = (project, id) => {
  */
 const deleteProject = (project) => {
     return axios
-        .delete(`human_resources/${project}`)
+        .delete(`projects/${project}`)
         .then((response) => response.data);
 };
 
@@ -86,7 +85,27 @@ const getProjectsStatistics = (id ='') => {
     return axios.get(`/projects/statistics${id}`, {params: {id}}).then((response) => response.data);
 }
 
+/**
+ * Fetch all projects from API
+ *
+ */
+const getCurrencies = () => {
+    return axios.get(`/currencies`).then((response) => response.data);
+}
 
+/**
+ * @function
+ * @name postTotalCost
+ * */
+const postTotalCost =(total_cost) => 
+axios.post(`/money`, total_cost).then((response) => response.data);
+
+/**
+ * @function
+ * @name createProjectDetails
+ * */
+const createProjectDetails =(details) => 
+axios.post(`/project_details`, details).then((response) => response.data);
 
 export default {
     createProjects,
@@ -95,4 +114,7 @@ export default {
     deleteProject,
     getProject,
     getProjectsStatistics,
+    getCurrencies,
+    postTotalCost,
+    createProjectDetails
 }

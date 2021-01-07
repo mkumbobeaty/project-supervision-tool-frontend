@@ -8,7 +8,7 @@ import PredefinedFilter from "../PredefinedFilter";
 import LongActionButton from "../LongActionButton";
 import {mapActions} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
-import {projectActions, projectSelectors} from "../../../../../../../../../Projects/duck";
+import {projectActions, projectSelectors} from "../../../../../../../../../ProjectsList/duck";
 import {isoDateToHumanReadableDate} from "../../../../../../../../../../Util";
 
 

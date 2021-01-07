@@ -62,6 +62,15 @@ const getRegions = () =>
 const getDistricts = (regionId) =>
     axios.get(`/locations/districts/${regionId}`).then((response) => response.data);
 
+/**
+ * @function
+ * @name createProjectLocation
+ * @description get project sectors
+ * */
+const createProjectLocation =(project_location) => 
+axios.post(`/locations`, project_location).then((response) => response.data);
+
+
 export default {
     getProjectOverview,
     getProjectsByRegion,
@@ -70,4 +79,5 @@ export default {
     getDistricts,
     getLocations,
     getRegionProjectStatistics,
+    createProjectLocation,
 }

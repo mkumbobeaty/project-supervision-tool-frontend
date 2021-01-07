@@ -1,0 +1,45 @@
+.FormModal {
+  width: 50% !important;
+}
+
+@media screen and (max-width: 1024px) {
+  .FormModal {
+    width: 70% !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .FormModal {
+    width: 80% !important;
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .FormModal {
+    width: 90% !important;
+  }
+}
+
+/* .ProjectForm .ant-input-number {
+  width: 100% !important;
+} */
+
+.humanResourceEllipse {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.humanResourceEllipse>a {
+  color: #333333;
+}
+
+.ProjectForm .ant-input-number {
+  width: 120px !important;
+}
+
+.ProjectLocationForm h4, .ProjectForm h4, .ProjectSectorForm h4, .ProjectDetailsForm h4 {
+  text-align: center;
+  text-transform: uppercase;
+  padding-top: 5%;
+}

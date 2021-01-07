@@ -38,6 +38,24 @@ export const generateDateString = (dateObject) => {
 }
 
 /**
+ * converts moment date  object to date string
+ *
+ * @function
+ * @name generateYearString
+ *
+ * @param {Object} dateObject
+ *
+ * @returns {string} date string
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+export const generateYearString = (dateObject) => {
+    return moment(dateObject)
+        .utc()
+        .format('YYYY');
+}
+
+/**
  * create moment date  object from ISO string
  *
  * @function

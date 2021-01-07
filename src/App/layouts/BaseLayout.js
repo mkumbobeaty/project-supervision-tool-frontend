@@ -8,8 +8,8 @@ import Home from "../navigation/Home";
 import Dashboards from "../Dashboards";
 import ResourceNavMenu from "../navigation/Projects";
 import MapDashboard from "../Map";
-import Projects from "../Projects/Projects";
-import SubProjects from "../Projects/Sub-projects";
+import Projects from "../ProjectsList/Projects";
+import SubProjects from "../ProjectsList/Sub-projects";
 import "./styles.css";
 
 /* constants */

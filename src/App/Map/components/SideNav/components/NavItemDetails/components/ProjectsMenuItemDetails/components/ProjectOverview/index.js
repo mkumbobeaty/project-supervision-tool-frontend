@@ -6,7 +6,7 @@ import NationalProjectsOverview from "../NationalProjectsOverview";
 import RegionalProjectsOverview from "../RegionalProjectsOverview";
 import {mapActions, mapSelectors} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
-import {projectActions} from "../../../../../../../../../Projects/duck";
+import {projectActions} from "../../../../../../../../../ProjectsList/duck";
 
 
 /**

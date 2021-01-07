@@ -1,5 +1,5 @@
 import * as types from "./types";
-import { projectTypes } from "../../Projects/duck"
+import { projectTypes } from "../../ProjectsList/duck"
 import {combineReducers} from "redux";
 
 const initialConfigState = {
