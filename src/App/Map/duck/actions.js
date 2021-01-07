@@ -21,10 +21,16 @@ export const showSubProjectElementDetails = makeActionCreator(types.SHOW_SUB_PRO
 /**
  * @function
  * @name backFromSubProjectToProjectDetails
- * @param {String} payload thiis is the project id
- * @param {Boolean} payload value to ether show or hide
+ * @param {String} payload this is the project id
  */
 export const backFromSubProjectToProjectDetails = makeActionCreator(types.BACK_SUB_PROJECT_TO_PROJECT_DETAILS, 'payload');
+
+/**
+ * @function
+ * @name backFromSubProjectElementToSubProjectDetails
+ * @param {String} payload this is the sub project id
+ */
+export const backFromSubProjectElementToSubProjectDetails = makeActionCreator(types.BACK_SUB_PROJECT_ELEMENT_TO_SUB_PROJECT_DETAILS, 'payload');
 
 
 /**

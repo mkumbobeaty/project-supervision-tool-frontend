@@ -167,6 +167,16 @@ const backFromSubProjectToProjectDetailsEpics = actions$ => actions$.pipe(
     ]))
 );
 
+const backFromSubProjectElementToSubProjectDetailsEpics = actions$ => actions$.pipe(
+    ofType(types.BACK_SUB_PROJECT_ELEMENT_TO_SUB_PROJECT_DETAILS),
+    switchMap(({payload}) => from([
+        projectActions.getSubProjectStart(payload),
+        actions.showSubProjectDetails(true),
+        actions.showSubProjectElementDetails(false),
+        projectActions.clearSubProjectElement()
+    ]))
+);
+
 
 
 export const mapRootEpic = combineEpics(
@@ -179,4 +189,5 @@ export const mapRootEpic = combineEpics(
     getProjectStatistics,
     getRegionProjectStatisticsEpic,
     backFromSubProjectToProjectDetailsEpics,
+    backFromSubProjectElementToSubProjectDetailsEpics,
 );

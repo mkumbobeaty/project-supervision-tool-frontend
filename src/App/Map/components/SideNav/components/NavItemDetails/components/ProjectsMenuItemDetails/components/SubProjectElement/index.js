@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import BackLink from "../BackLink";
 import './styles.css';
 import CustomGridList from "../CustomGridList";
-import PredefinedFilter from "../PredefinedFilter";
 import LongActionButton from "../LongActionButton";
 import {mapActions} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
@@ -38,12 +37,11 @@ const mapToSideMenuObject = ({ name, description , progress}) => {
  * @name SubProjectElementDetails
  * @description renders sub project details
  */
-function SubProjectElementDetails({goBackFromSubProjectElementToProjectDetails, subProjectElement}) {
-    const handleGoBack = () => goBackFromSubProjectElementToProjectDetails(subProjectElement?.sub_project_id);
+function SubProjectElementDetails({goBackFromSubProjectElementToSubProjectDetails, subProjectElement}) {
+    const handleGoBack = () => goBackFromSubProjectElementToSubProjectDetails(subProjectElement?.sub_project_id);
 
     const sideMenuObj = subProjectElement ? mapToSideMenuObject(subProjectElement) : null;
 
-    const handleOnclickSubProjectElement = (id) => console.log(id);
     const viewFullSubProjectElementDetails = () => console.log('View full sub project details clicked');
 
 
@@ -56,9 +54,6 @@ function SubProjectElementDetails({goBackFromSubProjectElementToProjectDetails, 
                 <BackLink goBack={handleGoBack}/>
             </section>
             <hr/>
-            {/*<section>*/}
-            {/*    <div><b>Progress:</b></div>*/}
-            {/*</section>*/}
             <section>{sideMenuObj?.description}</section>
             {sideMenuObj?.customGridListData ? <CustomGridList data={sideMenuObj?.customGridListData}/> : ''}
             <LongActionButton
@@ -75,14 +70,14 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    goBackFromSubProjectToProjectDetails: bindActionCreators(mapActions.backFromSubProjectToProjectDetails, dispatch),
+    goBackFromSubProjectElementToSubProjectDetails: bindActionCreators(mapActions.backFromSubProjectElementToSubProjectDetails, dispatch),
 });
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjectElementDetails);
 
 SubProjectElementDetails.propTypes = {
-    goBackFromSubProjectToProjectDetails: PropTypes.func.isRequired,
+    goBackFromSubProjectElementToSubProjectDetails: PropTypes.func.isRequired,
     subProjectElement: PropTypes.object
 }
 
