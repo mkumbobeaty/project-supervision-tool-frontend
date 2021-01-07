@@ -10,6 +10,14 @@ export const getProjectSelector = (state) => state?.resources?.project?.data;
 
 /**
  * @function
+ * @name getSubProjectSelector
+ * @param {Object} state redux state
+ * @return {Object} sub project
+ */
+export const getSubProjectSelector = (state) => state?.resources?.subProject?.data;
+
+/**
+ * @function
  * @name getProjectsSelector
  * @param {Object} state redux state
  */

@@ -34,7 +34,6 @@ function ProjectDetails({
     }
 
     const handleOnclickSubProject = (id) => {
-        console.log('sub project id', id);
         showSubProjectDetails(true);
         showProjectDetails(false);
         getSubProject(id);
@@ -53,8 +52,8 @@ function ProjectDetails({
     }
 
     const customGridLisData = [
-        {title: "TOTAL PROJECT COST", value: getTotalProjectCost(project)},
-        {title: "TOTAL COMMITMENT AMOUNT", value: getTotalCommitmentAmount(project)},
+        {title: "TOTAL PROJECT COST", value: project ? getTotalProjectCost(project) : ''},
+        {title: "TOTAL COMMITMENT AMOUNT", value: project ? getTotalCommitmentAmount(project) : ''},
         {title: "APPROVAL DATE", value: isoDateToHumanReadableDate(project?.details?.approval_date)},
         {title: "CLOSING DATE", value: isoDateToHumanReadableDate(project?.details?.closing_date)},
         {title: "PROJECT STATUS", value: 'Active'},
@@ -109,11 +108,15 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);
 
 ProjectDetails.propTypes = {
-    project: PropTypes.object.isRequired,
+    project: PropTypes.object,
     regionId: PropTypes.string.isRequired,
     getProjectsByRegion: PropTypes.func.isRequired,
     getSubProject: PropTypes.func.isRequired,
     showProjectsOverview: PropTypes.func.isRequired,
     clearProject: PropTypes.func.isRequired,
     showProjectDetails: PropTypes.func.isRequired,
+}
+
+ProjectDetails.defaultPropTypes = {
+    project: null
 }
