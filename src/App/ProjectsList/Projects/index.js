@@ -13,8 +13,8 @@ import { Link } from "react-router-dom";
 import CommonProjectForm from "./components/Forms";
 import { focalPeopleOperation, focalPeopleSelectors } from "../../FocalPeople/duck";
 import { projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
-import "./styles.css";
 import { isoDateToHumanReadableDate } from "../../../Util";
+import "./styles.css";
 
 
 /* constants */

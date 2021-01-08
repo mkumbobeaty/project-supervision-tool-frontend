@@ -160,18 +160,21 @@ const createProjectLocationPic = action$ => {
     )
 }
 
-const subProjectsEpic = action$ =>
-    action$.pipe(
-        ofType(types.GET_SUB_PROJECTS_START),
-        switchMap(() => {
-            return from(API.getSubProjects())
-        }),
-        switchMap(result => {
-            return of(actions.getSubProjectsSuccess(result.data))
-        }),
-        catchError(error => of(actions.getSubProjectsFailure(error))
+const subProjectsEpic = action$ => {
+        return action$.pipe(
+            ofType(types.GET_SUB_PROJECTS_START),
+            switchMap(() => {
+                return from(API.getSubProjects()).pipe(
+                    switchMap(res => {
+                        debugger
+                        return from([actions.getSubProjectsSuccess(res.data), mapActions.clearRegionDetails()])
+                    }),
+                    catchError(error => of(actions.getSubProjectsFailure(error)))
+                );
+            }),
         )
-    );
+    };
+    
 
 const deleteSubProjectEpic = action$ =>
     action$.pipe(
