@@ -7,7 +7,6 @@ import {
 } from "antd";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../duck";
-import { delay } from "rxjs/operators";
 
 /* state actions */
 
@@ -78,9 +77,7 @@ const renderDistricts = (districts) => {
  *
  */
 class ProjectLocationForm extends Component {
-  state = { showDistrictsSelect: false }
-
-
+  state = { showDistrictsSelect: false, isButtonDisabled: false  }
 
   componentDidMount() {
     const { getRegions } = this.props;
@@ -105,6 +102,9 @@ class ProjectLocationForm extends Component {
       this.props.updateprojectLocation(payload, this.props.selected.id);
     } else {
       submittedValues(payload);
+      this.setState({
+        isButtonDisabled: true
+      });
     }
   };
 
@@ -193,7 +193,7 @@ class ProjectLocationForm extends Component {
             htmlType="submit"
             loading={posting}
             style={{ marginLeft: 8 }}
-
+            disabled={this.state.isButtonDisabled}
           >
             Add location
             </Button>

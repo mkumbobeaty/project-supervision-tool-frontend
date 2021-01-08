@@ -42,7 +42,6 @@ class CommonProjectForm extends Component {
     getProjectLocationFormValue = (values) => {
         const { createProjectLocation } = this.props
         createProjectLocation(values)
-        this.next()
     }
 
     handleSubmitProject = () => {
@@ -51,8 +50,8 @@ class CommonProjectForm extends Component {
         const locations = [location_id]
         const project = JSON.parse(localStorage.getItem('project_data'))
         const projectPayload = { ...project, locations };
-        this.next();
         createProject(projectPayload)
+        this.setState({ current: this.state.current + 1 })
     }
 
     getProjectDetailFormValue = (values) => {

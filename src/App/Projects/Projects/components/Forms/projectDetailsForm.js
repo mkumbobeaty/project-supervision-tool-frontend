@@ -73,7 +73,6 @@ class ProjectDetailsForm extends Component {
     if (this.props.isEditForm) {
       this.props.updateProject(payload, this.props.selected.id);
     } else {
-      debugger
       submittedValues(payload);
     }
   };
