@@ -5,6 +5,7 @@ import locationsAPI from './locations';
 import sectorAPI from  './sectors';
 import subProjectsAPI from  './sub_projects';
 import agenciesAPI from './agencies';
+import subProjectElementsAPI from  './sub_project_elements';
 
 export default {
     ...projectsAPI,
@@ -13,4 +14,5 @@ export default {
     ...sectorAPI,
     ...subProjectsAPI,
     ...agenciesAPI,
+    ...subProjectElementsAPI,
 }

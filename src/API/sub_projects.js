@@ -6,7 +6,7 @@ import axios from "./config";
  * @function
  * @name getSubProject
  *
- * @param {Object} id - Id of an Human resource
+ * @param {Object} id - Id of a sub project
  * @returns {Promise}
  *
  * @version 0.1.0

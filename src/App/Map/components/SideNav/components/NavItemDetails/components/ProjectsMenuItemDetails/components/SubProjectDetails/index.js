@@ -8,7 +8,7 @@ import PredefinedFilter from "../PredefinedFilter";
 import LongActionButton from "../LongActionButton";
 import {mapActions} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
-import {projectSelectors} from "../../../../../../../../../Projects/duck";
+import {projectActions, projectSelectors} from "../../../../../../../../../Projects/duck";
 import {isoDateToHumanReadableDate} from "../../../../../../../../../../Util";
 
 
@@ -49,12 +49,12 @@ const mapToSideMenuObject = ({ details, name, description , sub_project_items}) 
  * @name SubProjectDetails
  * @description renders sub project details
  */
-function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject}) {
+function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject, getSubProjectElement}) {
     const handleGoBack = () => goBackFromSubProjectToProjectDetails(subProject?.project_id);
 
     const sideMenuObj = subProject ? mapToSideMenuObject(subProject) : null;
 
-    const handleOnclickSubProjectElement = (id) => console.log(id);
+    const handleOnclickSubProjectElement = (id) => getSubProjectElement(id);
     const viewFullSubProjectDetails = () => console.log('View full sub project details clicked');
 
 
@@ -99,6 +99,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     goBackFromSubProjectToProjectDetails: bindActionCreators(mapActions.backFromSubProjectToProjectDetails, dispatch),
+    getSubProjectElement: bindActionCreators(projectActions.getSubProjectElementStart, dispatch),
 });
 
 
@@ -106,6 +107,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SubProjectDetails);
 
 SubProjectDetails.propTypes = {
     goBackFromSubProjectToProjectDetails: PropTypes.func.isRequired,
+    getSubProjectElement: PropTypes.func.isRequired,
     subProject: PropTypes.object
 }
 

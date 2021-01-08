@@ -13,11 +13,24 @@ export const showNationalProjectsOverview = makeActionCreator(types.SHOW_NATIONA
 
 /**
  * @function
- * @name backFromSubProjectToProjectDetails
- * @param {String} payload thiis is the project id
+ * @name showSubProjectElementDetails
  * @param {Boolean} payload value to ether show or hide
  */
+export const showSubProjectElementDetails = makeActionCreator(types.SHOW_SUB_PROJECT_ELEMENT_DETAILS, 'payload');
+
+/**
+ * @function
+ * @name backFromSubProjectToProjectDetails
+ * @param {String} payload this is the project id
+ */
 export const backFromSubProjectToProjectDetails = makeActionCreator(types.BACK_SUB_PROJECT_TO_PROJECT_DETAILS, 'payload');
+
+/**
+ * @function
+ * @name backFromSubProjectElementToSubProjectDetails
+ * @param {String} payload this is the sub project id
+ */
+export const backFromSubProjectElementToSubProjectDetails = makeActionCreator(types.BACK_SUB_PROJECT_ELEMENT_TO_SUB_PROJECT_DETAILS, 'payload');
 
 
 /**
