@@ -259,7 +259,7 @@ class Projects extends Component {
                   {" "}
                   <Link
                     to={{
-                      pathname: `/app/resources/initiatives/${item.id}`,
+                      pathname: `/app/projects/${item.id}`,
                     }}
                   >
                     {item.id ? item.id : "All"}
