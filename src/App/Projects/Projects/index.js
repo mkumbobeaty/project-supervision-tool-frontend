@@ -14,15 +14,14 @@ import CommonProjectForm from "./components/Forms";
 import { focalPeopleOperation, focalPeopleSelectors } from "../../FocalPeople/duck";
 import { projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
 import "./styles.css";
+import { isoDateToHumanReadableDate } from "../../../Util";
 
 
 /* constants */
 const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
-const projectNameSpan = { xxl: 3, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
-const organisationSpan = { xxl: 3, xl: 3, lg: 2, md: 3, sm: 4, xs: 5 };
-const borrowerSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
-const agencySpan = { xxl: 2, xl: 2, lg: 4, md: 3, sm: 4, xs: 5 };
-const sectorSpan = { xxl: 2, xl: 2, lg: 3, md: 3, sm: 4, xs: 0 };
+const projectNameSpan = { xxl: 5, xl: 6, lg: 6, md: 8, sm: 10, xs: 11 };
+const organisationSpan = { xxl: 4, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
+const borrowerSpan = { xxl: 3, xl: 3, lg: 4, md: 4, sm: 4, xs: 5 };
 const countrySpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
 const statusSpan = { xxl: 2, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
 const approvalSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
@@ -37,8 +36,6 @@ const headerLayout = [
   { ...projectNameSpan, header: "Project Name" },
   { ...organisationSpan, header: "Funding Organisation" },
   { ...borrowerSpan, header: "Borrower" },
-  { ...agencySpan, header: "Implementing Agency" },
-  { ...sectorSpan, header: "Sectors" },
   { ...countrySpan, header: "Country" },
   { ...statusSpan, header: "Project status" },
   { ...approvalSpan, header: "Approval FY" },
@@ -275,16 +272,12 @@ class Projects extends Component {
                 >
                   {item.name}
                 </Col>
-                <Col {...organisationSpan}>{'null'}</Col>
-                <Col {...borrowerSpan}>{'null'}</Col>
-                <Col {...agencySpan}>{'null'}</Col>
-                <Col {...sectorSpan} className="humanResourceEllipse">
-                  {'null'}
-                </Col>
-                <Col {...countrySpan}>{'null'}</Col>
-                <Col {...statusSpan}>{'null'}</Col>
+                <Col {...organisationSpan}>{item.details ? item.details?.funding_organisation?.name : 'Null'}</Col>
+                <Col {...borrowerSpan}>{item.details ? item.details.borrower.name : 'Null'}</Col>
+                <Col {...countrySpan}>{item.details?.country ? item.details.country.name : 'Not Specified'}</Col>
+                <Col {...statusSpan}>{item.details ? item.details.status.toString() : 'Unknown'}</Col>
                 <Col {...approvalSpan}>
-                  {'null'}
+                  {isoDateToHumanReadableDate(item.details?.approval_fy)}
                 </Col>
 
                 {/* eslint-enable react/jsx-props-no-spreading */}
@@ -351,7 +344,6 @@ const mapDispatchToProps = {
   selectProject: projectOperation.selectProject,
   focalPeople: focalPeopleOperation.getFocalPeopleStart,
   createProject: projectOperation.createProjectStart,
-  // getLocations: projectOperation.getLocationsStart,
   openProjectForm: projectSectorsOperator.openForm,
   closeProjectForm: projectSectorsOperator.closeForm,
 };
