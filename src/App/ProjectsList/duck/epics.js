@@ -166,7 +166,6 @@ const subProjectsEpic = action$ => {
             switchMap(() => {
                 return from(API.getSubProjects()).pipe(
                     switchMap(res => {
-                        debugger
                         return from([actions.getSubProjectsSuccess(res.data), mapActions.clearRegionDetails()])
                     }),
                     catchError(error => of(actions.getSubProjectsFailure(error)))

@@ -16,11 +16,28 @@
 .project-sider {
     background-color: rgb(246, 246, 246) !important;
     height: 90vh;
-    padding: 20px 0 0 25px;
+    padding: 20px 0 0 40px;
+}
+.sidebar-header{
+    display: flex;
+}
+
+#sider-title {
+    color: #0f6788;
+    font-weight: 500;
+    font-size: 17px;
+    margin-bottom: 15px;
+    width: 65%;
+}
+.sidebar-header a {
+ color: #0f6788;
+ text-decoration: underline;
+
 }
 
 .project-sider h4 {
     color: #0f6788;
+    margin-bottom: 0!important;
 }
 
 .project_contents {
@@ -33,8 +50,27 @@
     padding: 24px 0;
     height: 300px !important;
 }
-.chartDetails > canvas{
-    height: 260 !important;
-    /* width: 470px !important; */
 
+.chartDetails>canvas {
+    height: 260 !important;
+}
+
+.details {
+    padding: 20px;
+    border: 1px solid #e0ddddfa;
+    margin: 0 !important;
+}
+
+.detail-header {
+    padding: 10px 16px;
+    background-color: #545454
+}
+
+.detail-header h2 {
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.project-subproject>.Toolbar {
+    display: none;
 }
