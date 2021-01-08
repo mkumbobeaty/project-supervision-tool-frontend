@@ -19,8 +19,8 @@ class CommonProjectForm extends Component {
     }
 
     onChange = current => {
-        console.log('onChange:', current);
         this.setState({ current });
+        console.log(current)
     };
 
     next = () => {
@@ -30,13 +30,12 @@ class CommonProjectForm extends Component {
 
     prev = () => {
         this.setState({ current: this.state.current - 1 });
-        this.onChange(this.state.current-1)
+        this.onChange(this.state.current - 1)
 
     };
 
     getProjectFormValue = (values) => {
-        const { createProject } = this.props
-        createProject(values)
+        localStorage.setItem("project_data", JSON.stringify(values));
         this.next()
     }
 
@@ -44,7 +43,16 @@ class CommonProjectForm extends Component {
         const { createProjectLocation } = this.props
         createProjectLocation(values)
         this.next()
+    }
 
+    handleSubmitProject = () => {
+        const { project_location, createProject } = this.props
+        const { id: location_id } = project_location;
+        const locations = [location_id]
+        const project = JSON.parse(localStorage.getItem('project_data'))
+        const projectPayload = { ...project, locations };
+        this.next();
+        createProject(projectPayload)
     }
 
     getProjectDetailFormValue = (values) => {
@@ -62,20 +70,20 @@ class CommonProjectForm extends Component {
 
     render() {
         const { current } = this.state
-        const { focalPeoples, project } = this.props
+        const { focalPeoples, project, } = this.props
 
         const steps = [
 
             {
                 title: 'Step 1',
-                content: <ProjectLocationForm submittedValues={this.getProjectLocationFormValue} />
-            },
-            {
-                title: 'Step 2',
                 content: <ProjectForm
                     submittedValues={this.getProjectFormValue}
                     focalPeoples={focalPeoples}
-                    handleBackButton={this.prev}
+                />
+            },
+            {
+                title: 'Step 2',
+                content: <ProjectLocationForm submittedValues={this.getProjectLocationFormValue}  handleBackButton={this.prev} handleSubmitProject={this.handleSubmitProject}
                 />
 
             },
@@ -100,7 +108,7 @@ class CommonProjectForm extends Component {
         ];
         return (
             <>
-                <Steps current={current} key={steps.map(title => title)} >
+                <Steps current={current} key={steps.map(title => title)} onChange={this.onChange}>
                     {steps.map(item => (
                         <Step title={item.title} />
                     ))}
@@ -115,6 +123,8 @@ class CommonProjectForm extends Component {
 const mapStateToProps = (state) => {
     return {
         project: projectSelectors.getCreatedProjectSelector(state),
+        project_location: projectSelectors.getProjectLocationSelector(state),
+
     };
 };
 

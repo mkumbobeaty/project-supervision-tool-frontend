@@ -7,6 +7,7 @@ import {
 } from "antd";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../duck";
+import { delay } from "rxjs/operators";
 
 /* state actions */
 
@@ -82,7 +83,7 @@ class ProjectLocationForm extends Component {
 
 
   componentDidMount() {
-    const {getRegions} = this.props;
+    const { getRegions } = this.props;
     getRegions()
     const { selected, getDistricts } = this.props;
     if (selected && selected.locations.map(location => location.level === 'district')) {
@@ -98,13 +99,15 @@ class ProjectLocationForm extends Component {
 
   // form finish(submit) handler
   onFinish = (values) => {
+    const {  submittedValues } = this.props;
     const payload = { ...values };
     if (this.props.isEditForm) {
       this.props.updateprojectLocation(payload, this.props.selected.id);
     } else {
-      this.props.submittedValues(payload);
+      submittedValues(payload);
     }
   };
+
   render() {
 
     const {
@@ -113,6 +116,8 @@ class ProjectLocationForm extends Component {
       selected,
       regions,
       districts,
+      handleBackButton,
+      handleSubmitProject
     } = this.props;
     return (
       <Form
@@ -180,10 +185,22 @@ class ProjectLocationForm extends Component {
 
         {/* start:form actions */}
         <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+        <Button type="default" onClick={handleBackButton} >
+            Back
+           </Button>
           <Button
             type="primary"
             htmlType="submit"
             loading={posting}
+            style={{ marginLeft: 8 }}
+
+          >
+            Add location
+            </Button>
+            <Button
+            type="primary"
+            style={{ marginLeft: 8 }}
+            onClick={handleSubmitProject}
           >
             Next
             </Button>
@@ -199,7 +216,7 @@ const mapStateToProps = (state) => {
   return {
     districts: projectSelectors.getDistrictsSelector(state),
     regions: projectSelectors.getRegionsSelector(state),
-    posting:projectSelectors.isLoadingSelector(state),
+    posting: projectSelectors.isLoadingSelector(state),
 
   };
 };

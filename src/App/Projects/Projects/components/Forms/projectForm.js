@@ -66,11 +66,11 @@ class ProjectForm extends Component {
   // form finish(submit) handler
   onFinish = (values) => {
     const { createTotalCost, submittedValues, project_location, createCommitmentCost } = this.props
-    const { id: location_id } = project_location;
-    const locations = [location_id]
+    // const { id: location_id } = project_location;
+    // const locations = [location_id]
 
     const { id, name, leaders, description, currency_id, amount, commitment } = values
-    const payload = { id, name, leaders, description, locations };
+    const payload = { id, name, leaders, description };
 
     const costPayload = { amount, currency_id };
     const commitmentPayload = { currency_id, amount: commitment };
@@ -88,7 +88,6 @@ class ProjectForm extends Component {
     const {
       selected,
       focalPeoples,
-      handleBackButton,
       currencies
     } = this.props;
 
@@ -235,9 +234,6 @@ class ProjectForm extends Component {
 
         {/* start:form actions */}
         <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
-          <Button type="default" onClick={handleBackButton} >
-            Back
-           </Button>
           <Button
             type="primary"
             htmlType="submit"
@@ -257,7 +253,6 @@ class ProjectForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    project_location: projectSelectors.getProjectLocationSelector(state),
     currencies: projectDetailsSelectors.getCurrenciesSelector(state),
   };
 };
