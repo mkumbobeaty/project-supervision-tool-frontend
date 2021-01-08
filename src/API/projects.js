@@ -36,7 +36,7 @@ const getProjects = () => {
  */
 const updateProject = (project, id) => {
     return axios
-        .patch(`/human_resources/${id}`, project)
+        .patch(`/projects/${id}`, project)
         .then((response) => response.data);
 };
 
@@ -51,7 +51,7 @@ const updateProject = (project, id) => {
  */
 const deleteProject = (project) => {
     return axios
-        .delete(`human_resources/${project}`)
+        .delete(`projects/${project}`)
         .then((response) => response.data);
 };
 

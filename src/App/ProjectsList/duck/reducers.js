@@ -113,8 +113,10 @@ const Projects = (state = defaultProjects, action) => {
       return { ...state, showForm: false, posting: false };
     case types.UPDATE_PROJECT_FAILURE:
       return action.payload;
+    case types.DELETE_PROJECT_START:
+      return {...state};
     case types.DELETE_PROJECT_SUCCESS:
-      return action.payload;
+      return {...state, project:action.payload};
     case types.DELETE_PROJECT_FAILURE:
       return action.payload;
     default:
@@ -149,18 +151,6 @@ const selectedProjects = (state = null, action) => {
   }
 };
 
-const deleteProjects = (state = false, action) => {
-  switch (action.type) {
-    case types.DELETE_PROJECT_START:
-      return true;
-    case types.DELETE_PROJECT_SUCCESS:
-      return false;
-    case types.DELETE_PROJECT_FAILURE:
-      return false;
-    default:
-      return state;
-  }
-};
 
 // sub-projects reducers
 const creatingSubProjects = (state = false, action) => {
@@ -288,6 +278,5 @@ export const resources = combineReducers({
   deleteSubProject,
   Projects,
   project,
-  deleteProjects,
   locations
 });

@@ -84,8 +84,8 @@ const createProjectPic = action$ => {
 const deleteProjectEpic = action$ => {
     return action$.pipe(
         ofType(types.DELETE_PROJECT_START),
-        switchMap(data => {
-            return from(API.deleteProject(data.payload)).pipe(
+        switchMap(({payload}) => {
+            return from(API.deleteProject(payload)).pipe(
                 switchMap(res => { return of(actions.deleteProjectSuccess(res)) }),
             )
         }),

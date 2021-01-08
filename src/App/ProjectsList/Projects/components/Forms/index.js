@@ -51,6 +51,7 @@ class CommonProjectForm extends Component {
         const project = JSON.parse(localStorage.getItem('project_data'))
         const projectPayload = { ...project, locations };
         createProject(projectPayload)
+        localStorage.removeItem('project_data');
         this.setState({ current: this.state.current + 1 })
     }
 
