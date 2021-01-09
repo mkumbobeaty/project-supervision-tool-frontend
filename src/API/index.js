@@ -5,6 +5,7 @@ import locationsAPI from './locations';
 import sectorAPI from  './sectors';
 import subProjectsAPI from  './sub_projects';
 import subProjectElementsAPI from  './sub_project_elements';
+import wfsRequests from  './wfs_requests';
 
 export default {
     ...projectsAPI,
@@ -13,4 +14,5 @@ export default {
     ...sectorAPI,
     ...subProjectsAPI,
     ...subProjectElementsAPI,
+    ...wfsRequests,
 }

@@ -27,7 +27,9 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-observable": "^1.2.0",
     "redux-thunk": "^2.3.0",
-    "rxjs": "^6.6.3"
+    "rxjs": "^6.6.3",
+    "wms-capabilities": "^0.4.1",
+    "xml-js": "^1.6.11"
   },
   "scripts": {
     "start": "react-scripts start",

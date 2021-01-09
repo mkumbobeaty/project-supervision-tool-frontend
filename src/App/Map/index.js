@@ -15,6 +15,7 @@ import ProjectPoints from "./components/ProjectPoints";
 import ProjectLocations from "./components/ProjectLocations";
 import SubProjectLocations from "./components/SubProjectLocations";
 import SubProjectElementLocations from "./components/SubProjectElementLocations";
+import SubProjectElementWfsLayer from "./components/SubProjectElementWfsLayer";
 
 class MapDashboard extends Component {
     state = {
@@ -29,14 +30,17 @@ class MapDashboard extends Component {
         regionDetails: PropTypes.object,
         projectsOverview: PropTypes.array.isRequired,
         regionProjects: PropTypes.array.isRequired,
+        getWfsLayerData: PropTypes.func.isRequired,
         project: PropTypes.object,
         subProject: PropTypes.object,
+        subProjectElement: PropTypes.object,
     };
 
     static defaultProps = {
         projectsOverview: [],
         project: null,
         subProject: null,
+        subProjectElement: null,
         regionProjects: [],
         regionDetails: null,
         getProjectsByRegion: () => {
@@ -98,6 +102,8 @@ class MapDashboard extends Component {
             mapLoading,
             subProject,
             subProjectElement,
+            getWfsLayerData,
+            wfsLayerData,
         } = this.props;
         return (
             <div className="MapDashboard">
@@ -116,7 +122,8 @@ class MapDashboard extends Component {
                             /> : ''}
                         <ProjectLocations project={project}/>
                         <SubProjectLocations subProject={subProject}/>
-                        <SubProjectElementLocations subProjectElement={subProjectElement}/>
+                        { wfsLayerData ? <SubProjectElementWfsLayer wfsLayerData={wfsLayerData}/> :
+                            <SubProjectElementLocations subProjectElement={subProjectElement} getWfsLayerData={getWfsLayerData}/> }
                     </BaseMap>
                 </Spin>
             </div>
@@ -133,10 +140,12 @@ const mapStateToProps = (state) => ({
     subProject: projectSelectors.getSubProjectSelector(state),
     subProjectElement: projectSelectors.getSubProjectElementSelector(state),
     project: projectSelectors.getProjectSelector(state),
+    wfsLayerData: mapSelectors.getWfsLayerDataSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
+    getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
 });
 
 

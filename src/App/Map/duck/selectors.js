@@ -8,6 +8,14 @@
  */
 export const showProjectsOverviewSelector = (state) => state?.map?.sideNavMenu?.showProjectsOverview;
 
+/**
+ * @function
+ * @name getWfsLayerDataSelector
+ * @param {Object} state redux state
+ * @return {Boolean} wfsLayerData
+ */
+export const getWfsLayerDataSelector = (state) => state?.map?.wfsLayer.data;
+
 
 /**
  * @function

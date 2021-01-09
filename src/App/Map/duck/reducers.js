@@ -22,6 +22,12 @@ const config = (state = initialConfigState, action) => {
 
 const mapLoading = (state = false, action) => {
     switch (action.type) {
+        case types.GET_WFS_LAYER_DATA_START:
+            return true;
+        case types.GET_WFS_LAYER_DATA_SUCCESS:
+            return false;
+        case types.GET_WFS_LAYER_DATA_FAILURE:
+            return false;
         case types.GET_PROJECTS_OVERVIEW_START:
             return true;
         case types.SHOW_MAP_LOADER:
@@ -41,6 +47,18 @@ const mapLoading = (state = false, action) => {
         case projectTypes.GET_PROJECT_SUCCESS:
             return false;
         case projectTypes.GET_PROJECT_FAILURE:
+            return false;
+        case projectTypes.GET_SUB_PROJECT_START:
+            return true;
+        case projectTypes.GET_SUB_PROJECT_SUCCESS:
+            return false;
+        case projectTypes.GET_SUB_PROJECT_FAILURE:
+            return false;
+        case projectTypes.GET_SUB_PROJECT_ELEMENT_START:
+            return true;
+        case projectTypes.GET_SUB_PROJECT_ELEMENT_SUCCESS:
+            return false;
+        case projectTypes.GET_SUB_PROJECT_ELEMENT_FAILURE:
             return false;
         default:
             return state;
@@ -80,6 +98,24 @@ const regionDetails = (state = initialRegionDetails, action) => {
         case types.CLEAR_REGION_DETAILS:
             return {...state, data: null};
         case types.GET_REGION_FAILURE:
+            return {...state, error: action.payload};
+        default:
+            return state;
+    }
+};
+
+/**
+ * @function
+ * @name wfsLayer
+ * @description reducer for managing wfsLayer data
+ */
+const wfsLayer = (state = { data: null, error: null }, action) => {
+    switch (action.type) {
+        case types.GET_WFS_LAYER_DATA_SUCCESS:
+            return {...state, data: action.payload, selectedRegionId: action.payload.id};
+        case types.CLEAR_WFS_LAYER_DATA:
+            return {...state, data: null};
+        case types.GET_WFS_LAYER_DATA_FAILURE:
             return {...state, error: action.payload};
         default:
             return state;
@@ -185,6 +221,7 @@ export const map = combineReducers({
     config,
     projectOverview,
     sideNavMenu,
+    wfsLayer,
     regionDetails,
     mapLoading,
     regionProjects,

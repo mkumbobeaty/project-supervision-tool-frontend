@@ -256,6 +256,39 @@ export const getProjectsOverviewFailure = makeActionCreator(types.GET_PROJECTS_O
 export const showMapLoader = makeActionCreator(types.SHOW_MAP_LOADER, 'payload');
 
 
+
+
+// get wfs layer data details
+/**
+ * @function
+ * @name getWfsLayerDataStart
+ *  @param {String} payload layer name
+ */
+export const getWfsLayerDataStart = makeActionCreator(types.GET_WFS_LAYER_DATA_START, 'payload');
+
+/**
+ * @function
+ * @name getWfsLayerDataSuccess
+ * @param {Array} payload fetched layer features
+ */
+export const getWfsLayerDataSuccess = makeActionCreator(types.GET_WFS_LAYER_DATA_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getWfsLayerDataFailure
+ * @param {Array} payload error object
+ */
+export const getWfsLayerDataFailure = makeActionCreator(types.GET_WFS_LAYER_DATA_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name clearWfsLayerData
+ */
+export const clearWfsLayerData = makeActionCreator(types.CLEAR_WFS_LAYER_DATA);
+
+
+
+
 export function setInitiativesGeoJson(initiativesGeoJson) {
     return {
         type: types.SET_INITIATIVES_GEO_JSON,

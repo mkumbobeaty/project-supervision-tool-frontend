@@ -139,6 +139,25 @@ const getRegionDetailEpic = action$ =>
 
 /**
  * @function
+ * @name getWfsLayerDataEpic
+ * @param action$ stream of actions
+ */
+const getWfsLayerDataEpic = action$ =>
+{
+    return action$.pipe(
+        ofType(types.GET_WFS_LAYER_DATA_START),
+        switchMap(({ payload }) => {
+            return from(API.getWfsLayerData(payload)).pipe(
+                switchMap(res =>  from([actions.getWfsLayerDataSuccess(res)])),
+                catchError(error => of(actions.getWfsLayerDataFailure(error)))
+            );
+        }),
+    );
+}
+
+
+/**
+ * @function
  * @name triggerGetRegionDetailEpic
  * @param actions$ stream of actions
  */
@@ -173,6 +192,7 @@ const backFromSubProjectElementToSubProjectDetailsEpics = actions$ => actions$.p
         projectActions.getSubProjectStart(payload),
         actions.showSubProjectDetails(true),
         actions.showSubProjectElementDetails(false),
+        actions.clearWfsLayerData(),
         projectActions.clearSubProjectElement()
     ]))
 );
@@ -190,4 +210,5 @@ export const mapRootEpic = combineEpics(
     getRegionProjectStatisticsEpic,
     backFromSubProjectToProjectDetailsEpics,
     backFromSubProjectElementToSubProjectDetailsEpics,
+    getWfsLayerDataEpic,
 );
