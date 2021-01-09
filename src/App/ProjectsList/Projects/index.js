@@ -13,8 +13,8 @@ import { Link } from "react-router-dom";
 import CommonProjectForm from "./components/Forms";
 import { focalPeopleOperation, focalPeopleSelectors } from "../../FocalPeople/duck";
 import { projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
-import "./styles.css";
 import { isoDateToHumanReadableDate } from "../../../Util";
+import "./styles.css";
 
 
 /* constants */
@@ -259,7 +259,7 @@ class Projects extends Component {
                   {" "}
                   <Link
                     to={{
-                      pathname: `/app/resources/initiatives/${item.id}`,
+                      pathname: `/app/projects/${item.id}`,
                     }}
                   >
                     {item.id ? item.id : "All"}
@@ -272,10 +272,10 @@ class Projects extends Component {
                 >
                   {item.name}
                 </Col>
-                <Col {...organisationSpan}>{item.details ? item.details?.funding_organisation?.name : 'Null'}</Col>
-                <Col {...borrowerSpan}>{item.details ? item.details.borrower.name : 'Null'}</Col>
-                <Col {...countrySpan}>{item.details?.country ? item.details.country.name : 'Not Specified'}</Col>
-                <Col {...statusSpan}>{item.details ? item.details.status.toString() : 'Unknown'}</Col>
+                <Col {...organisationSpan}>{item.details ? item.details?.funding_organisation?.name : 'N/A'}</Col>
+                <Col {...borrowerSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
+                <Col {...countrySpan}>{item.details?.country ? item.details.country.name : 'N/A'}</Col>
+                <Col {...statusSpan}>{item.details ? item.details.status.toString() : 'N/A'}</Col>
                 <Col {...approvalSpan}>
                   {isoDateToHumanReadableDate(item.details?.approval_fy)}
                 </Col>

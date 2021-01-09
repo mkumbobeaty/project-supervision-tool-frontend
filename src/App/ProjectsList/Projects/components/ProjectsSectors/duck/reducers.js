@@ -31,7 +31,7 @@ const sectors = (state = [], action) => {
       case types.CREATE_PROJECT_SECTOR_START:
         return { ...state, posting: true, showForm:true };
       case types.CREATE_PROJECT_SECTOR_SUCCESS:
-        return { ...state, posting: false, showForm: false };
+        return { ...state, posting: false, showForm: true  };
       case types.CREATE_PROJECT_SECTOR_FAILURE:
         return { error: action.payload.error,posting: false, showForm: false };
       default:

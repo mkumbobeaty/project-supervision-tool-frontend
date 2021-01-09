@@ -61,10 +61,14 @@ class CommonProjectForm extends Component {
         this.next()
     }
 
-    handleConfirmButton = (values) => {
-        const { createProjectSector, handleAfterCloseForm, getProjects } = this.props;
+    handleCreateSector = (values) => {
+        const { createProjectSector } = this.props;
         createProjectSector(values);
-        handleAfterCloseForm();
+    }
+
+    handleConfirmButton = () => {
+        const {  handleAfterSubmit, getProjects } = this.props;
+        handleAfterSubmit();
         getProjects()
     }
 
@@ -100,6 +104,7 @@ class CommonProjectForm extends Component {
                 title: 'Final',
                 content: <ProjectSectorForm
                     handleConfirmButton={this.handleConfirmButton}
+                    handleCreateSector = {this.handleCreateSector}
                     project={project}
                     handleBackButton={this.prev} />
 

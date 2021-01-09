@@ -125,7 +125,7 @@ const Projects = (state = defaultProjects, action) => {
 };
 
 // TODO note: reducer added by EDGAR
-const project = (state = {data: null, error: null, loading: false}, action) => {
+const project = (state = {data: [], error: null, loading: false}, action) => {
   switch (action.type) {
     case types.GET_PROJECT_START:
       return { ...state, loading: true}
@@ -171,32 +171,10 @@ const sub_projects = (state = defaultSubProjects, action) => {
     case types.GET_SUB_PROJECTS_START:
       return { ...state, loading: true }
     case types.GET_SUB_PROJECTS_SUCCESS:
-      return Object.assign(
-        {},
-        {
-          data: action.payload,
-          loading: false,
-        }
-      );
+      return {...state, data: action.payload, loading: false, total: action.payload }
     case types.GET_SUB_PROJECTS_FAILURE:
       return Object.assign({}, { ...state, error: action.message, loading: false });
-    case types.OPEN_SUB_PROJECTS_FORM:
-      return Object.assign({}, state, { showForm: true });
-    case types.CLOSE_SUB_PROJECTS_FORM:
-      return Object.assign({}, state, { showForm: false });
-    case types.CREATE_SUB_PROJECT_SUCCESS:
-      return Object.assign({}, state, { posting: false, showForm: false, loading: true });
-    case types.CREATE_SUB_PROJECT_FAILURE:
-      return Object.assign({}, state, { error: action.payload.error });
-    case types.UPDATE_SUB_PROJECT_SUCCESS:
-      return action.payload;
-    case types.UPDATE_SUB_PROJECT_FAILURE:
-      return action.payload;
-    case types.DELETE_SUB_PROJECT_SUCCESS:
-      return action.payload;
-    case types.DELETE_SUB_PROJECT_FAILURE:
-      return action.payload;
-    default:
+     default:
       return state;
   }
 };

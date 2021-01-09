@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { projectOperation } from '../duck';
+import { projectOperation, projectSelectors } from '../duck';
 import { Col,Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -130,10 +130,7 @@ class SubProjects extends Component {
 
   render() {
     const {
-      projects,
-      loading,
-      page,
-      total,
+      subProjects,
       searchQuery,
 
     } = this.props;
@@ -162,10 +159,7 @@ class SubProjects extends Component {
         {/* list starts */}
         <ProjectsList
           itemName="Sub-project"
-          items={projects}
-          page={page}
-          loading={loading}
-          itemCount={total}
+          items={subProjects}
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefreshInitiative}
           
@@ -261,12 +255,7 @@ SubProjects.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.projects.sub_projects.data
-      ? state.projects.sub_projects.data
-      : [],
-    loading: state.projects.sub_projects.loading,
-    page:state.projects.sub_projects.page,
-    total: state.projects.sub_projects.total,
+    subProjects:projectSelectors.getSubProjectsSelector(state)
   };
 };
 

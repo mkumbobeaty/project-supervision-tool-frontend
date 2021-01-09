@@ -46,13 +46,13 @@ class ProjectSectorForm extends Component {
 
   // form finish(submit) handler
   onFinish = (values) => {
-    const { project, handleConfirmButton, updateprojects } = this.props
+    const { project, handleCreateSector, updateprojects } = this.props
     const { id } = project;
     const payload = { ...values, project_id: id };
     if (this.props.isEditForm) {
       updateprojects(payload, this.props.selected.id);
     } else {
-      handleConfirmButton(payload);
+      handleCreateSector(payload);
     }
   };
 
@@ -60,7 +60,8 @@ class ProjectSectorForm extends Component {
     const {
       selected,
       sectors,
-      handleBackButton
+      handleBackButton,
+      handleConfirmButton
     } = this.props;
 
 
@@ -116,8 +117,14 @@ class ProjectSectorForm extends Component {
           <Button type="default" onClick={handleBackButton} >
             Back
            </Button>
-          <Button type="primary" htmlType="submit" style={{ marginLeft: 8 }}
+           <Button
+            type="primary"
+            htmlType="submit"
+            style={{ marginLeft: 8 }}
           >
+            Add Sector
+         </Button>
+          <Button type="primary" htmlType="submit" style={{ marginLeft: 8 }} onClick={handleConfirmButton}>   
             Confirm
             </Button>
         </Form.Item>
