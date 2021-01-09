@@ -48,7 +48,11 @@
 .chartDetails {
     border: 1px solid #e0ddddfa;
     padding: 15px 0;
-    height: 300px !important;
+    /* width: 25vw !important;  */
+
+}
+.canvasjs-chart-credit{
+    display: none;
 }
 
 .chartDetails>canvas {

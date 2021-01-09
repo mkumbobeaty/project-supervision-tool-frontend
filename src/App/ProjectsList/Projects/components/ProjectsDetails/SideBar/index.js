@@ -33,6 +33,7 @@ const SidebarSection = ({ project }) => {
             <span >
                 <h4>Project locations</h4>
                 {project?.locations ? project?.locations.map(location => {
+                    console.log("give" + location.level)
                     if (location.level === 'district') {
                         return (
                             <p>-{location.region.name},{location.district.name}</p>
