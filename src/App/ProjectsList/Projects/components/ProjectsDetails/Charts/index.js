@@ -33,21 +33,38 @@ export default class SectorChat extends React.Component {
         }
       ]
     }
+
+    const option = {
+      tooltips: {
+        callbacks: {
+          label: function(tooltipItem, data) {
+            var dataset = data.datasets[tooltipItem.datasetIndex];
+            var meta = dataset._meta[Object.keys(dataset._meta)[0]];
+            var currentValue = dataset.data[tooltipItem.index];
+            var percentage = parseFloat((currentValue));
+            return  ' (' + percentage + '%)';
+          },
+          title: function(tooltipItem, data) {
+            return data.labels[tooltipItem[0].index];
+          }
+        }
+      },
+      title: {
+        display: true,
+        text: 'Sectors',
+        fontSize: 20
+      },
+      legend: {
+        display: true,
+        position: 'right'
+      }
+    }
+    
     return (
       <div className="chartDetails">
         <Doughnut
           data={state}
-          options={{
-            title: {
-              display: true,
-              text: 'Sectors',
-              fontSize: 20
-            },
-            legend: {
-              display: true,
-              position: 'right'
-            }
-          }}
+          options={option}
         />
       </div>
     );
