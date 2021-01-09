@@ -6,8 +6,7 @@ export default class SectorChat extends Component {
   render() {
 
     const { project } = this.props;
-    const { sectors } = project;
-    const dataX = sectors ? sectors.map(sector => {
+    const dataX = project?.sectors ? project.sectors.map(sector => {
       return (
         { 'name': sector.name, 'y': sector.details.percent, 'legendText':sector.name,}
       )

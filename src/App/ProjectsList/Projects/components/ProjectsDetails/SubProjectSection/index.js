@@ -45,14 +45,13 @@ class ProjectSubProjects extends Component {
 
     render() {
         const { project } = this.props;
-        const { sub_projects } = project;
         return (
             <div className="project-subproject">
                 <h3>List of Sub-projects under {project? project.name : 'N/A'}</h3>
                 {/* list starts */}
                 <ItemsList
                     itemName="Sub-project"
-                    items={sub_projects}
+                    items={project?.sub_projects}
                     headerLayout={headerLayout}
                     renderListItem={({
                         item,
