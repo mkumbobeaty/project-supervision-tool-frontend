@@ -24,8 +24,8 @@
 
 #sider-title {
     color: #0f6788;
-    font-weight: 500;
-    font-size: 17px;
+    font-weight: 600;
+    font-size: 16px;
     margin-bottom: 15px;
     width: 65%;
 }
@@ -35,7 +35,7 @@
 
 }
 
-.project-sider h4 {
+.project-sider h4, .details h4 {
     color: #0f6788;
     margin-bottom: 0!important;
 }

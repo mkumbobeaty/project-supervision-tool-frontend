@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { Col, Layout, Row, } from 'antd';
 import SectorChat from "./Charts";
 import DetailsSection from "./DetailsSection";
@@ -6,10 +6,20 @@ import ProjectSubProjects from "./SubProjectSection";
 import SidebarSection from "./SideBar";
 import { Link } from "react-router-dom";
 import "./styles.css";
+import { connect } from "react-redux";
+import { projectOperation, projectSelectors } from "../../../duck";
 
 const { Content, Sider } = Layout;
 
-const Project = () => {
+class  Project extends Component {
+
+  componentDidMount(){
+    const { getProject, match: { params },
+  } = this.props;
+    getProject(params.id)
+  }
+
+  render() {
   return (
     <Layout className="project-layout">
       <Content style={{ padding: '0 50px' }}>
@@ -43,6 +53,17 @@ const Project = () => {
     </Layout>
   )
 }
+}
+const mapStateToProps = (state) => {
+  return {
+    project:projectSelectors.getProjectSelector(state)
+  };
+};
+
+const mapDispatchToProps = {
+  getProject:projectOperation.getProjectStart,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Project);
 
 
-export default Project;
