@@ -47,12 +47,14 @@
 
 .chartDetails {
     border: 1px solid #e0ddddfa;
-    padding: 24px 0;
+    padding: 15px 0;
     height: 300px !important;
 }
 
 .chartDetails>canvas {
-    height: 260 !important;
+    /* height: 260px !important;
+    width: 450px !important; */
+    padding: 0 25px;
 }
 
 .details {
@@ -69,6 +71,7 @@
 .detail-header h2 {
     color: #ffffff;
     font-weight: 700;
+    font-size: 18px;
 }
 
 .project-subproject>.Toolbar {

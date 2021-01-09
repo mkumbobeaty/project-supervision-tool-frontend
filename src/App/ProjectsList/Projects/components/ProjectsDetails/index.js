@@ -27,7 +27,7 @@ class  Project extends Component {
     <Layout className="project-layout">
     <Spin spinning={loading} tip="Loading..." >
         <Content style={{ padding: '0 50px' }}>
-        <h3>Title comes here</h3>
+        <h3>{project?.name}</h3>
         <Layout className="project-inner_layout" >
           <Sider className="project-sider" width={350}>
             <div className="sidebar-header">

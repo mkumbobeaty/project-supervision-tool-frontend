@@ -48,7 +48,7 @@ class ProjectSubProjects extends Component {
         const { sub_projects } = project;
         return (
             <div className="project-subproject">
-                <h3>List of Sub-projects under DMDP</h3>
+                <h3>List of Sub-projects under {project? project.name : 'N/A'}</h3>
                 {/* list starts */}
                 <ItemsList
                     itemName="Sub-project"

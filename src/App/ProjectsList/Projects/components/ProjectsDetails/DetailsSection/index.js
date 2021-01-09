@@ -31,7 +31,7 @@ const DetailsSection = ({ project }) => {
                 <Col className="gutter-row" span={8}>
 
                     <h4>Environment Category</h4>
-                    <p>{project?.details ? project?.details.environmental_category.name : 'N/A'}</p>
+                    <p>{project?.details ? project?.details?.environmental_category?.name : 'N/A'}</p>
                 </Col>
                 <Col span={24}><h4>Description</h4>
                     <p>{project ? project?.description : 'N/A'}</p>

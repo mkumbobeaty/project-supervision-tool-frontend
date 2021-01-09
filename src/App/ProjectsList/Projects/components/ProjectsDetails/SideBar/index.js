@@ -15,7 +15,7 @@ const SidebarSection = ({ project }) => {
 
             <span >
                 <h4>Project Team Leader</h4>
-                <p>{project ? project?.id : 'N/A'}</p>                                                                                                                                                                                                                                                                                                       {/* <p>{project.id}</p> */}
+                <p>{ project?.details ? project?.details.funding_organisation.focalPerson.first_name + " " + project?.details.funding_organisation.focalPerson.last_name : 'N/A'}</p>                                                                                                                                                                                                                                                                                                       {/* <p>{project.id}</p> */}
             </span>
 
             <span >
@@ -47,7 +47,7 @@ const SidebarSection = ({ project }) => {
             </span>
             <span >
                 <h4>Country/Project region</h4>
-                <p>{project?.details ? project?.details.country.name : 'N/A'},{project?.details?.project_region}</p>
+                <p>{project?.details ? project?.details?.country?.name : 'N/A'},{project?.details?.project_region}</p>
             </span>
         </div>
 
