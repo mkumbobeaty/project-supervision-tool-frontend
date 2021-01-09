@@ -272,10 +272,10 @@ class Projects extends Component {
                 >
                   {item.name}
                 </Col>
-                <Col {...organisationSpan}>{item.details ? item.details?.funding_organisation?.name : 'Null'}</Col>
-                <Col {...borrowerSpan}>{item.details ? item.details.borrower.name : 'Null'}</Col>
-                <Col {...countrySpan}>{item.details?.country ? item.details.country.name : 'Not Specified'}</Col>
-                <Col {...statusSpan}>{item.details ? item.details.status.toString() : 'Unknown'}</Col>
+                <Col {...organisationSpan}>{item.details ? item.details?.funding_organisation?.name : 'N/A'}</Col>
+                <Col {...borrowerSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
+                <Col {...countrySpan}>{item.details?.country ? item.details.country.name : 'N/A'}</Col>
+                <Col {...statusSpan}>{item.details ? item.details.status.toString() : 'N/A'}</Col>
                 <Col {...approvalSpan}>
                   {isoDateToHumanReadableDate(item.details?.approval_fy)}
                 </Col>

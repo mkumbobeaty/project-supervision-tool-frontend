@@ -1,5 +1,10 @@
 
-
+/**
+ * @function
+ * @name getProjectsSelector
+ * @param {Object} state redux state
+ */
+export const getProjectsSelector = (state) => state?.resources?.Projects?.data;
 
 /**
  * @function
@@ -7,6 +12,13 @@
  * @param {Object} state redux state
  */
 export const getProjectSelector = (state) => state?.resources?.project?.data;
+
+/**
+ * @function
+ * @name getProjectLoadingSelector
+ * @param {Object} state redux state
+ */
+export const getProjectLoadingSelector = (state) => state?.resources?.project?.loading;
 
 /**
  * @function
@@ -32,13 +44,6 @@ export const getSubProjectSelector = (state) => state?.resources?.subProject?.da
  * @return {Object} sub project element
  */
 export const getSubProjectElementSelector = (state) => state?.resources?.subProjectElement?.data;
-
-/**
- * @function
- * @name getProjectsSelector
- * @param {Object} state redux state
- */
-export const getProjectsSelector = (state) => state?.resources?.Projects?.data;
 
 /**
  * @function

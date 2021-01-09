@@ -41,20 +41,18 @@ const headerLayout = [
  */
 class ProjectSubProjects extends Component {
    
-    componentDidMount() {
-        const { fetchSubProjects } = this.props;
-        fetchSubProjects()
-    }
+
 
     render() {
-        const { subProjects} = this.props;
+        const { project } = this.props;
+        const { sub_projects } = project;
         return (
             <div className="project-subproject">
                 <h3>List of Sub-projects under DMDP</h3>
                 {/* list starts */}
                 <ItemsList
                     itemName="Sub-project"
-                    items={subProjects}
+                    items={sub_projects}
                     headerLayout={headerLayout}
                     renderListItem={({
                         item,
@@ -106,18 +104,7 @@ class ProjectSubProjects extends Component {
 }
 
 
-const mapStateToProps = (state) => {
-    return {
-        subProjects: projectSelectors.getSubProjectsSelector(state)
-    };
-};
-
-const mapDispatchToProps = {
-    fetchSubProjects: projectOperation.getSubProjectsStart,
-    deleteSubproject: projectOperation.deleteSubProjectStart,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectSubProjects);
+export default ProjectSubProjects;
 
 
 

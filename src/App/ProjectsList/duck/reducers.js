@@ -125,7 +125,7 @@ const Projects = (state = defaultProjects, action) => {
 };
 
 // TODO note: reducer added by EDGAR
-const project = (state = {data: null, error: null, loading: false}, action) => {
+const project = (state = {data: [], error: null, loading: false}, action) => {
   switch (action.type) {
     case types.GET_PROJECT_START:
       return { ...state, loading: true}
