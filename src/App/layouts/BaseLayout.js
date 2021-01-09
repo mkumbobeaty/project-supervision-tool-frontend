@@ -8,8 +8,9 @@ import Home from "../navigation/Home";
 import Dashboards from "../Dashboards";
 import ResourceNavMenu from "../navigation/Projects";
 import MapDashboard from "../Map";
-import Projects from "../Projects/Projects";
-import SubProjects from "../Projects/Sub-projects";
+import Projects from "../ProjectsList/Projects";
+import SubProjects from "../ProjectsList/Sub-projects";
+import Project from "../ProjectsList/Projects/components/ProjectsDetails";
 import "./styles.css";
 
 /* constants */
@@ -30,7 +31,7 @@ const breadcrumbNameMap = {
     title: "List of all Sub-projects",
   },
 
-  "/app//roject/:type": {
+  "/app/projects/:type": {
     name: "Project",
     title: "Detail of single project",
   },
@@ -117,6 +118,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             path={`${baseUrl}/projects`}
             component={Projects}
           />{" "}
+           <Route
+            exact
+            path={`${baseUrl}/projects/:id`}
+            render={({match}) => <Project match={match}/>}
+          />
           <Route
             exact
             path={`${baseUrl}/sub-projects`}

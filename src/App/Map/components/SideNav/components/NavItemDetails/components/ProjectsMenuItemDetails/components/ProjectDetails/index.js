@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {projectActions, projectSelectors} from '../../../../../../../../../Projects/duck'
+import {projectActions, projectSelectors} from '../../../../../../../../../ProjectsList/duck'
 import {isoDateToHumanReadableDate, moneyFormat} from "../../../../../../../../../../Util";
 import {mapActions, mapSelectors} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";

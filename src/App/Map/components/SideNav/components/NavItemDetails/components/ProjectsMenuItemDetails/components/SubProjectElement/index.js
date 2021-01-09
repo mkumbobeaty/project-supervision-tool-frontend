@@ -7,7 +7,7 @@ import CustomGridList from "../CustomGridList";
 import LongActionButton from "../LongActionButton";
 import {mapActions} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
-import {projectSelectors} from "../../../../../../../../../Projects/duck";
+import {projectSelectors} from "../../../../../../../../../ProjectsList/duck";
 
 
 /**
