@@ -86,7 +86,7 @@ const deleteProjectEpic = action$ => {
         ofType(types.DELETE_PROJECT_START),
         switchMap(({payload}) => {
             return from(API.deleteProject(payload)).pipe(
-                switchMap(res => { return of(actions.deleteProjectSuccess(res)) }),
+                switchMap(res => { return of(actions.deleteProjectSuccess(res), actions.getProjectsStart()) }),
             )
         }),
         catchError(error => of(actions.deleteProjectFailure(error)))
