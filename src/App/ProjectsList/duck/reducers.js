@@ -19,6 +19,7 @@ const defaultSubProjects = {
   showForm: false,
   posting: false,
   page: 1,
+  sub_project:{}
 };
 
 const regions = (state = [], action) => {
@@ -123,7 +124,15 @@ const selectedProjects = (state = null, action) => {
 };
 
 
-// sub-projects reducers
+/**
+ * @function
+ * @name creatingSubProjects
+ * @description reducer that manages sub project instance
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} updated state
+ * 
+ */
 const creatingSubProjects = (state = false, action) => {
   switch (action.type) {
     case types.CREATE_SUB_PROJECT_START:
@@ -137,6 +146,14 @@ const creatingSubProjects = (state = false, action) => {
   }
 };
 
+/**
+ * @function
+ * @name sub_projects
+ * @description reducer that manages sub projects
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} updated state
+ */
 const sub_projects = (state = defaultSubProjects, action) => {
   switch (action.type) {
     case types.GET_SUB_PROJECTS_START:
@@ -144,7 +161,13 @@ const sub_projects = (state = defaultSubProjects, action) => {
     case types.GET_SUB_PROJECTS_SUCCESS:
       return {...state, data: action.payload, loading: false, }
     case types.GET_SUB_PROJECTS_FAILURE:
-      return Object.assign({}, { ...state, error: action.message, loading: false });
+      return { ...state, error: action.message, loading: false };
+    case types.DELETE_SUB_PROJECT_START:
+      return {...state };
+    case types.DELETE_SUB_PROJECT_SUCCESS:
+      return {...state, sub_project: action.payload};
+    case types.DELETE_SUB_PROJECT_FAILURE:
+      return {...state, error: action.payload};;
      default:
       return state;
   }
@@ -201,29 +224,15 @@ const subProjectElement = (state = {data: null, error: null, loading: false}, ac
 }
 
 
-const deleteSubProject = (state = false, action) => {
-  switch (action.type) {
-    case types.DELETE_SUB_PROJECT_START:
-      return true;
-    case types.DELETE_SUB_PROJECT_SUCCESS:
-      return false;
-    case types.DELETE_SUB_PROJECT_FAILURE:
-      return false;
-    default:
-      return state;
-  }
-}
-
 export const resources = combineReducers({
   selectedProjects,
+  Projects,
+  project,
+  locations,
   regions,
   districts,
   sub_projects,
   subProjectElement,
   subProject,
   creatingSubProjects,
-  deleteSubProject,
-  Projects,
-  project,
-  locations
 });
