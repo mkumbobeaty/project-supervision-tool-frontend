@@ -21,35 +21,6 @@ const defaultSubProjects = {
   page: 1,
 };
 
-
-
-
-const fetchingRegions = (state = false, action) => {
-  switch (action.type) {
-    case types.GET_REGIONS_START:
-      return true;
-    case types.GET_REGIONS_SUCCESS:
-      return false;
-    case types.GET_REGIONS_FAILURE:
-      return false;
-    default:
-      return state;
-  }
-};
-
-const fetchingDistricts = (state = false, action) => {
-  switch (action.type) {
-    case types.GET_DISTRICTS_START:
-      return true;
-    case types.GET_DISTRICTS_SUCCESS:
-      return false;
-    case types.GET_DISTRICTS_FAILURE:
-      return false;
-    default:
-      return state;
-  }
-};
-
 const regions = (state = [], action) => {
   switch (action.type) {
     case types.GET_REGIONS_START:
@@ -98,7 +69,7 @@ const Projects = (state = defaultProjects, action) => {
     case types.GET_PROJECTS_START:
       return { ...state, loading: true };
     case types.GET_PROJECTS_SUCCESS:
-      return {...state, data: action.payload, loading: false, total: action.payload }
+      return {...state, data: action.payload, loading: false, }
     case types.GET_PROJECTS_FAILURE:
       return { ...state, error: action.message, loading: false };
     case types.CREATE_PROJECT_START:
@@ -171,7 +142,7 @@ const sub_projects = (state = defaultSubProjects, action) => {
     case types.GET_SUB_PROJECTS_START:
       return { ...state, loading: true }
     case types.GET_SUB_PROJECTS_SUCCESS:
-      return {...state, data: action.payload, loading: false, total: action.payload }
+      return {...state, data: action.payload, loading: false, }
     case types.GET_SUB_PROJECTS_FAILURE:
       return Object.assign({}, { ...state, error: action.message, loading: false });
      default:
@@ -245,8 +216,6 @@ const deleteSubProject = (state = false, action) => {
 
 export const resources = combineReducers({
   selectedProjects,
-  fetchingRegions,
-  fetchingDistricts,
   regions,
   districts,
   sub_projects,

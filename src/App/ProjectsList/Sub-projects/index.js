@@ -7,7 +7,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import { isoDateToHumanReadableDate } from '../../../Util';
 import Topbar from "../../components/Topbar";
-import ProjectsList from "../../components/List";
+import SubProjectsList from "../../components/List";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
 import { Link } from "react-router-dom";
@@ -78,6 +78,7 @@ class SubProjects extends Component {
     const {
       subProjects,
       searchQuery,
+      loading,
 
     } = this.props;
     return (
@@ -103,11 +104,10 @@ class SubProjects extends Component {
         {/* end Topbar */}
 
         {/* list starts */}
-        <ProjectsList
+        <SubProjectsList
           itemName="Sub-project"
           items={subProjects}
-          onFilter={this.openFiltersModal}
-          onRefresh={this.handleRefreshInitiative}    
+          loading={loading} 
           headerLayout={headerLayout}
           renderListItem={({
             item,
@@ -195,7 +195,8 @@ SubProjects.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    subProjects:projectSelectors.getSubProjectsSelector(state)
+    subProjects:projectSelectors.getSubProjectsSelector(state),
+    loading:projectSelectors.getSubProjectsLoadingSelector(state)
   };
 };
 
