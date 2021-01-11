@@ -77,22 +77,8 @@ class CommonProjectForm extends Component {
         const { focalPeoples, project, } = this.props
 
         const steps = [
-
-            {
-                title: 'Step 1',
-                content: <ProjectForm
-                    submittedValues={this.getProjectFormValue}
-                    focalPeoples={focalPeoples}
-                />
-            },
             {
                 title: 'Step 2',
-                content: <ProjectLocationForm submittedValues={this.getProjectLocationFormValue}  handleBackButton={this.prev} handleSubmitProject={this.handleSubmitProject}
-                />
-
-            },
-            {
-                title: 'Step 3',
                 content: <ProjectDetailsForm
                     submittedValues={this.getProjectDetailFormValue}
                     project={project}
@@ -100,6 +86,16 @@ class CommonProjectForm extends Component {
                 />
 
             },
+
+            {
+                title: 'Step 1',
+                content: <ProjectForm
+                    submittedValues={this.getProjectFormValue}
+                    focalPeoples={focalPeoples}
+                    next={this.next}
+                />
+            },
+
             {
                 title: 'Final',
                 content: <ProjectSectorForm

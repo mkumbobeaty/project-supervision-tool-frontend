@@ -113,12 +113,37 @@ export const getProjectEpic = action$ => {
 }
 
 
+/**
+ * @function
+ * @name regionsEpic
+ * @description gets all regions
+ * @param action$
+ * @return actions
+ */
 const regionsEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_REGIONS_START),
         switchMap(() => from(API.getRegions()).pipe(
             switchMap(res => { return of(actions.getRegionsSuccess(res.data)) }),
             catchError(error => of(actions.getRegionsFailure(error)))
+        )),
+    )
+}
+
+
+/**
+ * @function
+ * @name getEnvironmentalCategoriesEpic
+ * @description gets all environmental categories
+ * @param action$
+ * @return actions
+ */
+const getEnvironmentalCategoriesEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_ENVIRONMENTAL_CATEGORIES_START),
+        switchMap(() => from(API.getEnvironmentalCategories()).pipe(
+            switchMap(res => { return of(actions.getEnvironmentalCategoriesSuccess(res.data)) }),
+            catchError(error => of(actions.getEnvironmentalCategoriesFailure(error)))
         )),
     )
 }
@@ -200,6 +225,7 @@ export const projectsRootEpic = combineEpics(
     createProjectLocationPic,
     getSubProjectEpic,
     getSubProjectElementEpic,
+    getEnvironmentalCategoriesEpic,
 );
 
 

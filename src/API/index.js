@@ -5,7 +5,9 @@ import locationsAPI from './locations';
 import sectorAPI from  './sectors';
 import subProjectsAPI from  './sub_projects';
 import agenciesAPI from './agencies';
+import moneyAPI from './money';
 import subProjectElementsAPI from  './sub_project_elements';
+import environmentalCategoriesAPI from  './environmental_categories';
 import wfsRequests from  './wfs_requests';
 
 export default {
@@ -13,8 +15,10 @@ export default {
     ...focalPeopleAPI,
     ...locationsAPI,
     ...sectorAPI,
+    ...moneyAPI,
     ...subProjectsAPI,
     ...agenciesAPI,
     ...subProjectElementsAPI,
+    ...environmentalCategoriesAPI,
     ...wfsRequests,
 }

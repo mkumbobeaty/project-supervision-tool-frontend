@@ -50,6 +50,11 @@ const fetchingDistricts = (state = false, action) => {
   }
 };
 
+/**
+ * @function
+ * @name regions
+ * @description reducer that manages regions state
+ */
 const regions = (state = [], action) => {
   switch (action.type) {
     case types.GET_REGIONS_START:
@@ -58,6 +63,25 @@ const regions = (state = [], action) => {
       return action.payload;
     case types.GET_REGIONS_FAILURE:
       return action.payload;
+    default:
+      return state;
+  }
+};
+
+
+/**
+ * @function
+ * @name environmentalCategories
+ * @description reducer that manages environmental categories state
+ */
+const environmentalCategories = (state = {data: [], error: null, loading: false }, action) => {
+  switch (action.type) {
+    case types.GET_ENVIRONMENTAL_CATEGORIES_START:
+      return {...state, loading: true};
+    case types.GET_ENVIRONMENTAL_CATEGORIES_SUCCESS:
+      return {...state, data: action.payload, loading: false};
+    case types.GET_ENVIRONMENTAL_CATEGORIES_FAILURE:
+      return {...state, data: action.payload, loading: false};
     default:
       return state;
   }
@@ -253,6 +277,7 @@ export const resources = combineReducers({
   subProjectElement,
   subProject,
   creatingSubProjects,
+  environmentalCategories,
   deleteSubProject,
   Projects,
   project,

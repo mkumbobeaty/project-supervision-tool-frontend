@@ -35,7 +35,7 @@ const getRegionsNameFromRegions = (regionsId, regions) => {
  * @name ProjectForm
  * @description renders form for creating project
  */
-function ProjectForm ({ getRegions, regions, createProject })  {
+function ProjectForm ({ getRegions, regions, createProject, next })  {
   const [visible, setVisible] = useState(false);
   const [locations, setLocations] = useState([]);
 
@@ -53,7 +53,7 @@ function ProjectForm ({ getRegions, regions, createProject })  {
 
   const onFinish = (values) => {
       createProject({...values, locations });
-    console.log('Finish:', {...values, locations });
+      next();
   };
 
   const selected = null;
@@ -223,6 +223,7 @@ ProjectForm.propTypes = {
     regions: PropTypes.array,
     getRegions: PropTypes.func.isRequired,
     createProject: PropTypes.func.isRequired,
+    next: PropTypes.func.isRequired,
 }
 
 ProjectForm.defaultProps = {
