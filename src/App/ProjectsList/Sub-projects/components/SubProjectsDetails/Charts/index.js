@@ -5,17 +5,29 @@ export default class SectorChat extends Component {
 
   render() {
 
-    // const { project } = this.props;
-    // const { sectors } = project;
-    // const dataX = sectors ? sectors.map(sector => {
-    //   return (
-    //     { 'name': "moja", 'y': 5, 'legendText':"moja",}
-    //   )
-    // }) : [];
+    const { sub_project } = this.props;
+    const dataX = sub_project?.sub_project_items ? sub_project?.sub_project_items.map(({ quantity, item }) => {
+      return (
+        { 'name': item.name, 'y': quantity, 'legendText': item.capacity, }
+      )
+    }) : [];
+
+    const explodePie = (e) => {
+      if (typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+        e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+      } else {
+        e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+      }
+      e.chart.render();
+    }
+
     const options = {
       animationEnabled: true,
+      exportFileName: "Doughnut Chart",
+      exportEnabled: true,
+      animationEnabled: true,
       title: {
-        text: "Sectors",
+        text: "Sub Project Item",
         fontSize: 20,
 
       },
@@ -23,16 +35,17 @@ export default class SectorChat extends Component {
         horizontalAlign: "right",
         verticalAlign: "center",
         fontSize: 12,
+        cursor: "pointer",
+        itemclick: explodePie
       },
-      width:440,
+      width: 440,
       data: [{
         type: "doughnut",
+        innerRadius: 90,
         showInLegend: true,
-        radius:"85%",
-        stemThickness: 2,
-        yValueFormatString: "#,###'%'",
-        dataPoints: [ {name : "moja", y: 5, legendText:"moja"}],
-        
+        toolTipContent: "<b>{name}</b>: {y} (#percent%)",
+        indexLabel: "{name} - #percent%",
+        dataPoints: dataX,
       }]
     }
     return (

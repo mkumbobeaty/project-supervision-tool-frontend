@@ -9,11 +9,23 @@ export default class SectorChat extends Component {
     const { sectors } = project;
     const dataX = sectors ? sectors.map(sector => {
       return (
-        { 'name': sector.name, 'y': sector.details.percent, 'legendText':sector.name,}
+        { 'name': sector.name, 'y': sector.details.percent, 'legendText': sector.name, }
       )
     }) : [];
-console.log(dataX)
+
+    const explodePie = (e) => {
+      if (typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+        e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+      } else {
+        e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+      }
+      e.chart.render();
+    }
+
     const options = {
+      animationEnabled: true,
+      exportFileName: "Doughnut Chart",
+      exportEnabled: true,
       animationEnabled: true,
       title: {
         text: "Sectors",
@@ -24,16 +36,17 @@ console.log(dataX)
         horizontalAlign: "right",
         verticalAlign: "center",
         fontSize: 12,
+        cursor: "pointer",
+        itemclick: explodePie
       },
-      width:440,
+      width: 440,
       data: [{
         type: "doughnut",
+        innerRadius: 90,
         showInLegend: true,
-        radius:"85%",
-        stemThickness: 2,
         yValueFormatString: "#,###'%'",
         dataPoints: dataX,
-        
+
       }]
     }
     return (
