@@ -104,42 +104,24 @@ class ProjectDetailsForm extends Component {
   // form finish(submit) handler
   onFinish = (values) => {
     const { commitment_amount_id, total_project_cost_id } = this.state;
+    const { createProjectDetails, project, next } = this.props;
     const approval_date = generateDateString(values.approval_date);
     const approval_fy = generateYearString(values.approval_fy);
     const closing_date = generateDateString(values.closing_date);
-    console.log('inside onFinish', {
+    const project_id = project.id;
+    const payload = {
       ...values,
       approval_date,
       approval_fy,
+      project_id,
+      next,
       closing_date,
       commitment_amount_id,
       total_project_cost_id
-    });
-    // const { project, submittedValues, commitment_cost, amount_cost } = this.props
-    // const { id } = project;
-    // const total_project_cost_id = amount_cost.id;
-    // const commitment_amount_id = commitment_cost.id
-    //
-    // const approval_date = generateDateString(values.approval_date);
-    // const approval_fy = generateYearString(values.approval_fy);
-    // const closing_date = generateDateString(values.closing_date);
-    //
-    // const payload = {
-    //   ...values,
-    //   project_id: id,
-    //   project_region: 'Africa East',
-    //   total_project_cost_id,
-    //   approval_date,
-    //   approval_fy,
-    //   commitment_amount_id,
-    //   closing_date
-    // };
-    //
-    // if (this.props.isEditForm) {
-    //   this.props.updateProject(payload, this.props.selected.id);
-    // } else {
-    //   submittedValues(payload);
-    // }
+    };
+
+    createProjectDetails(payload);
+    next();
   };
 
 
@@ -436,6 +418,7 @@ class ProjectDetailsForm extends Component {
 const mapStateToProps = (state) => {
   return {
     agencies: projectDetailsSelectors.getAgenciesSelector(state),
+    project: projectSelectors.getProjectSelector(state),
     currency: projectDetailsSelectors.getCurrenciesSelector(state),
     borrowers: projectDetailsSelectors.getBorrowersSelector(state),
     environmentalCategories: projectSelectors.getEnvironmentalCategoriesSelector(state),
@@ -449,6 +432,7 @@ const mapDispatchToProps = {
   getBorrowers: projectDetailsOperator.getBorrowersStart,
   getFundingOrgs: projectDetailsOperator.getFundingOrgStart,
   getAgencies: projectDetailsOperator.getAgenciesStart,
+  createProjectDetails: projectDetailsOperator.createProjectDetailsStart,
   getCurrency: projectDetailsOperator.getCurrenciesStart,
   getEnvironmentalCategories: projectActions.getEnvironmentalCategoriesStart,
 
@@ -458,13 +442,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetailsForm);
 
 
 ProjectDetailsForm.defaultProps = {
-  Project: null,
+  project: null,
 };
 
 ProjectDetailsForm.propTypes = {
-  Project: PropTypes.object,
+  project: PropTypes.object,
+  next: PropTypes.func.isRequired,
   currency: PropTypes.array.isRequired,
   getEnvironmentalCategories: PropTypes.func,
+  createProjectDetails: PropTypes.func.isRequired,
   environmentalCategories: PropTypes.array.isRequired,
   isEditForm: PropTypes.bool.isRequired,
   posting: PropTypes.bool.isRequired,

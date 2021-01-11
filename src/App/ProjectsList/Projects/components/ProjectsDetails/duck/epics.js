@@ -82,10 +82,12 @@ const createProjectDetailsPic = action$ => {
     return action$.pipe(
         ofType(types.CREATE_PROJECT_DETAILS_START),
         switchMap(({payload}) => {
-            return from(API.createProjectDetails(payload))
+            return from(API.createProjectDetails(payload)).pipe(
+                switchMap(({ data}) => {return of(actions.createProjectDetailsSuccess(data))}),
+                catchError(error => of(actions.createProjectDetailsFailure(error)))
+            )
         }),
-        switchMap(res => { return of(actions.createProjectDetailsSuccess(res)) }),
-        catchError(error => of(actions.createProjectDetailsFailure(error)))
+
     )
 }
 
