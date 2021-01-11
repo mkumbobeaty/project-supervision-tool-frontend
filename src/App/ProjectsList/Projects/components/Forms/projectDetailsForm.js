@@ -260,7 +260,7 @@ class ProjectDetailsForm extends Component {
                         </Typography.Text>
                     ): (
                           <Typography.Text className="ant-form-text" type="secondary">
-                            Please add commitment amount by clicking Add button below
+                            Click Add to fill commitment amount
                           </Typography.Text>
                     )}
                     <Button
