@@ -7,7 +7,7 @@ import {
 } from "antd";
 import { connect } from "react-redux";
 import { projectSectorsOperator } from "../../ProjectsSectors/duck";
-import { projectOperation } from "../../duck";
+import { projectOperation } from "../../../duck";
 
 /* state actions */
 

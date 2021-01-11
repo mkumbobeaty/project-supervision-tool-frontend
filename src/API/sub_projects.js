@@ -40,6 +40,7 @@ const deleteSubProject = (sub_project_is) => {
         .then((response) => response.data);
 };
 
+
 export default {
     getSubProjects,
     getSubProject,

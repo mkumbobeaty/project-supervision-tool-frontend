@@ -1,0 +1,17 @@
+
+
+.project-subproject {
+    margin-left: 30px;
+}
+.project-subproject .Toolbar {
+    display: none;
+}
+.project-subproject h3{
+    color: #1b98d1;
+    border-bottom: 1px solid #e0ddddfa;
+    padding: 20px;
+
+}
+.project-subproject .List{
+    padding: 0 !important;
+}

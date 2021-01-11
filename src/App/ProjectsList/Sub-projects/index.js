@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from '../duck';
-import { Col,Modal } from "antd";
+import { Col, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import { isoDateToHumanReadableDate } from '../../../Util';
@@ -10,7 +10,7 @@ import Topbar from "../../components/Topbar";
 import SubProjectsList from "../../components/List";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import "./styles.css";
 
 /* constants */
@@ -51,6 +51,23 @@ class SubProjects extends Component {
     const { fetchSubProjects } = this.props;
     fetchSubProjects()
   }
+
+  /**
+   * @function
+   * @name handleMapPreview
+   * @description Handle map preview
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleMapPreview = (item_id) => {
+    const { getProject, match: { params }
+    } = this.props;
+    getProject(item_id);
+    console.log(item_id)
+    let path = '/app/map';
+    this.props.history.push(path);
+  };
 
   /**
    * @function
@@ -108,7 +125,7 @@ class SubProjects extends Component {
         <SubProjectsList
           itemName="Sub-project"
           items={subProjects}
-          loading={loading} 
+          loading={loading}
           headerLayout={headerLayout}
           renderListItem={({
             item,
@@ -125,6 +142,11 @@ class SubProjects extends Component {
                 onDeselectItem={onDeselectItem}
                 renderActions={() => (
                   <ListItemActions
+                    onMapPreview={{
+                      name: 'Preview Initiative on Map',
+                      title: 'Preview Initiative on Map',
+                      onClick: () => this.handleMapPreview(item.id),
+                    }}
                     edit={{
                       name: "Edit Sub-project",
                       title: "Update Sub-project details",
@@ -145,7 +167,14 @@ class SubProjects extends Component {
                   className="humanResourceEllipse"
                   title={item.description}
                 >
+                  {" "}
+                  <Link
+                    to={{
+                      pathname: `/app/sub-projects/${item.id}`,
+                    }}
+                  >
                   {item.name}
+                  </Link>
                 </Col>
                 <Col {...projectIdSpan} className="humanResourceEllipse">
                   {" "}
@@ -154,22 +183,23 @@ class SubProjects extends Component {
                       pathname: `/app/projects/${item.project_id}`,
                     }}
                   >
+                    
                     {item.project_id ? item.project_id : "N/A"}
                   </Link>
                 </Col>
-                <Col {...locationSpan}>
-                {item.sub_project_locations.length <= 0 ? "" : item.sub_project_locations.map(({ quantity }, index) => {
-                    return (index ? ", " : "") + quantity;
+                <Col {...locationSpan}  className="humanResourceEllipse">
+                  {item.sub_project_locations.length <= 0 ? "" : item.sub_project_locations.map(({ district }, index) => {
+                    return (index ? ", " : "") + district.name;
                   })}
-                  </Col>
-                  <Col {...agencySpan}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
+                </Col>
+                <Col {...agencySpan}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
                 <Col {...contractorSpan}>{item.details ? item.details.contractor.name : "N/A"}</Col>
                 <Col {...actorSpan}>{item.details ? item.details.actor.name : "N/A"}</Col>
-                <Col {...phaseSpan}>{item.details ? item.details.phase.name: "N/A"}</Col>
+                <Col {...phaseSpan}>{item.details ? item.details.phase.name : "N/A"}</Col>
                 <Col {...startDateSpan}>
                   {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'N/A')}
                 </Col>
-                
+
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             )}
@@ -196,14 +226,15 @@ SubProjects.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    subProjects:projectSelectors.getSubProjectsSelector(state),
-    loading:projectSelectors.getSubProjectsLoadingSelector(state)
+    subProjects: projectSelectors.getSubProjectsSelector(state),
+    loading: projectSelectors.getSubProjectsLoadingSelector(state)
   };
 };
 
 const mapDispatchToProps = {
   fetchSubProjects: projectOperation.getSubProjectsStart,
   deleteSubproject: projectOperation.deleteSubProjectStart,
+  getProject: projectOperation.getProjectStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjects);

@@ -6,11 +6,11 @@ import UserMenu from "../navigation/UserMenu";
 import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
 import Dashboards from "../Dashboards";
-import ResourceNavMenu from "../navigation/Projects";
 import MapDashboard from "../Map";
 import Projects from "../ProjectsList/Projects";
 import SubProjects from "../ProjectsList/Sub-projects";
 import Project from "../ProjectsList/Projects/components/ProjectsDetails";
+import SubProject from "../ProjectsList/Sub-projects/components/SubProjectsDetails/"
 import "./styles.css";
 
 /* constants */
@@ -34,6 +34,10 @@ const breadcrumbNameMap = {
   "/app/projects/:type": {
     name: "Project",
     title: "Detail of single project",
+  },
+  "/app/sub-projects/:type": {
+    name: "Sub Project",
+    title: "Detail of single sub project",
   },
   "/app/adminpanel": {
     name: "Admin Panel",
@@ -127,6 +131,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/sub-projects`}
             render={(props) => <SubProjects {...props}/>}
+          />
+           <Route
+            exact
+            path={`${baseUrl}/sub-projects/:id`}
+            render={({match}) => <SubProject match={match}/>}
           />          
           <Route path={`${baseUrl}/map`} component={MapDashboard} />
           {/* Admin panel */}
