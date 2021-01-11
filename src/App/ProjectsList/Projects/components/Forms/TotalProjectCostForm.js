@@ -2,24 +2,24 @@ import PropTypes from 'prop-types';
 import React from "react";
 import MoneyForm from "../../../../components/MoneyForm";
 
-const CommitmentAmountForm = ({ visible, onCancel, currency,  setCommitmentAmountId }) => {
+const TotalProjectCostForm = ({ visible, onCancel, currency,  setTotalProjectCostId }) => {
 
     return (
         <MoneyForm
+            formName='totalProjectCostForm'
+            formTitle='Add total Project Cost'
             currency={currency}
-            formName="commitmentAmountForm"
-            formTitle="Add Commitment Amount"
             onCancel={onCancel}
-            handleSetMoneyId={setCommitmentAmountId}
+            handleSetMoneyId={setTotalProjectCostId}
             visible={visible}
         />)
 };
 
-export default CommitmentAmountForm;
+export default TotalProjectCostForm;
 
-CommitmentAmountForm.propTypes = {
+TotalProjectCostForm.propTypes = {
     visible: PropTypes.bool.isRequired,
     onCancel: PropTypes.func.isRequired,
-    setCommitmentAmountId: PropTypes.func.isRequired,
+    setTotalProjectCostId: PropTypes.func.isRequired,
     currency: PropTypes.array.isRequired,
 }

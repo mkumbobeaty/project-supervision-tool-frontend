@@ -16,6 +16,7 @@ import { projectDetailsOperator, projectDetailsSelectors } from "../ProjectsDeta
 import {projectActions, projectSelectors} from "../../../duck";
 import RegionLocationForm from "../../../../components/RegionLocationForm";
 import CommitmentAmountForm from "./CommitmentAmountForm";
+import TotalProjectCostForm from "./TotalProjectCostForm";
 
 /* state actions */
 
@@ -52,8 +53,10 @@ class ProjectDetailsForm extends Component {
   state = {
     showDistrictsSelect: false,
     isEditForm: false,
-    visible: false,
-    commitment_amount_id: null
+    visibleTotalProjectCost: false,
+    visibleCommitmentAmount: false,
+    commitment_amount_id: null,
+    total_project_cost_id: null,
   }
 
   componentDidMount() {
@@ -72,22 +75,35 @@ class ProjectDetailsForm extends Component {
   }
 
 
-  showUserModal = () => {
-    this.setState({ visible: true});
+  showTotalProjectCostModal = () => {
+    this.setState({ visibleTotalProjectCost: true});
   };
 
-  hideUserModal = () => {
-    this.setState({ visible: false });
+  hideTotalProjectCostModal = () => {
+    this.setState({ visibleTotalProjectCost: false });
+  };
+
+
+  showCommitmentAmountModal = () => {
+    this.setState({ visibleCommitmentAmount: true});
+  };
+
+  hideCommitmentAmountModal = () => {
+    this.setState({ visibleCommitmentAmount: false });
   };
 
   setCommitmentAmountId = (id) => {
     this.setState({ commitment_amount_id: id });
   };
 
+  setTotalProjectCostId = (id) => {
+    this.setState({ total_project_cost_id: id });
+  };
+
 
   // form finish(submit) handler
   onFinish = (values) => {
-    const { commitment_amount_id } = this.state;
+    const { commitment_amount_id, total_project_cost_id } = this.state;
     const approval_date = generateDateString(values.approval_date);
     const approval_fy = generateYearString(values.approval_fy);
     const closing_date = generateDateString(values.closing_date);
@@ -97,6 +113,7 @@ class ProjectDetailsForm extends Component {
       approval_fy,
       closing_date,
       commitment_amount_id,
+      total_project_cost_id
     });
     // const { project, submittedValues, commitment_cost, amount_cost } = this.props
     // const { id } = project;
@@ -137,18 +154,29 @@ class ProjectDetailsForm extends Component {
       environmentalCategories,
     } = this.props;
 
-    const { visible } = this.state;
+    const { visibleCommitmentAmount, visibleTotalProjectCost } = this.state;
 
     const projectStatus = ['active', 'closed', 'dropped', 'pipeline'];
     return (
       <Form.Provider
           onFormFinish={(name, { values, forms }) => {
+
+            // handling commitment amount form
             if (name === 'commitmentAmountForm') {
               const { projectDetailsForm } = forms;
               projectDetailsForm.setFieldsValue({
                 commitmentAmountValue: values
               });
-              this.setState({visible: false});
+              this.setState({visibleCommitmentAmount: false});
+            }
+
+            // handling total project cost form
+            if (name === 'totalProjectCostForm') {
+              const { projectDetailsForm } = forms;
+              projectDetailsForm.setFieldsValue({
+                totalProjectCostValue: values
+              });
+              this.setState({visibleTotalProjectCost: false});
             }
           }}
       >
@@ -244,40 +272,78 @@ class ProjectDetailsForm extends Component {
           </Form.Item>
           {/* end:environmental category */}
 
-
-          {/* start: locations list */}
-          <Form.Item
-              label="Commitment Amount"
-              shouldUpdate={(prevValues, curValues) => prevValues.commitmentAmountValues !== curValues.commitmentAmountValues }
-          >
-            {({ getFieldValue }) => {
-              const commitmentAmountValue = getFieldValue('commitmentAmountValue') || null;
-              return (
-                  <div>
-                    {commitmentAmountValue ? (
-                        <Typography.Text className="ant-form-text" type="success" strong={true}>
-                          {`${commitmentAmountValue.amount} ${getCurrencyIsoFromCurrencies(commitmentAmountValue.currency_id, currency)}`}
-                        </Typography.Text>
-                    ): (
-                          <Typography.Text className="ant-form-text" type="secondary">
-                            Click Add to fill commitment amount
-                          </Typography.Text>
-                    )}
-                    <Button
-                        size="small"
-                        htmlType="button"
-                        style={{
-                          fontSize: '0.9em'
-                        }}
-                        onClick={this.showUserModal}
-                    >
-                      Add
-                    </Button>
-                  </div>
-              );
-            }}
-          </Form.Item>
-          {/* end: locations list */}
+          <Row justify="space-between">
+            <Col span={11}>
+              {/* start: commitment amount */}
+              <Form.Item
+                  label="Total Project Cost"
+                  shouldUpdate={(prevValues, curValues) => prevValues.totalProjectCostValue !== curValues.totalProjectCostValue }
+              >
+                {({ getFieldValue }) => {
+                  const totalProjectCostValue = getFieldValue('totalProjectCostValue') || null;
+                  return (
+                      <div>
+                        {totalProjectCostValue ? (
+                            <Typography.Text className="ant-form-text" type="success" strong={true}>
+                              {`${totalProjectCostValue.amount} ${getCurrencyIsoFromCurrencies(totalProjectCostValue.currency_id, currency)}`}
+                            </Typography.Text>
+                        ): (
+                            <Typography.Text className="ant-form-text" type="secondary">
+                              Click Add to fill total project cost
+                            </Typography.Text>
+                        )}
+                        <Button
+                            size="small"
+                            htmlType="button"
+                            style={{
+                              fontSize: '0.9em'
+                            }}
+                            onClick={this.showTotalProjectCostModal}
+                        >
+                          Add
+                        </Button>
+                      </div>
+                  );
+                }}
+              </Form.Item>
+              {/* end: commitment amount */}
+            </Col>
+            <Col span={11}>
+              {/* start: commitment amount */}
+              <Form.Item
+                  label="Commitment Amount"
+                  shouldUpdate={(prevValues, curValues) => prevValues.commitmentAmountValue !== curValues.commitmentAmountValue }
+              >
+                {({ getFieldValue }) => {
+                  const commitmentAmountValue = getFieldValue('commitmentAmountValue') || null;
+                  return (
+                      <div>
+                        {commitmentAmountValue ? (
+                            <Typography.Text className="ant-form-text" type="success" strong={true}>
+                              {`${commitmentAmountValue.amount} ${getCurrencyIsoFromCurrencies(commitmentAmountValue.currency_id, currency)}`}
+                            </Typography.Text>
+                        ): (
+                            <Typography.Text className="ant-form-text" type="secondary">
+                              Click Add to fill commitment amount
+                            </Typography.Text>
+                        )}
+                        <Button
+                            size="small"
+                            htmlType="button"
+                            style={{
+                              fontSize: '0.9em'
+                            }}
+                            onClick={this.showCommitmentAmountModal}
+                        >
+                          Add
+                        </Button>
+                      </div>
+                  );
+                }}
+              </Form.Item>
+              {/* end: commitment amount */}
+            </Col>
+          </Row>
 
 
           <Row justify="space-between">
@@ -349,9 +415,15 @@ class ProjectDetailsForm extends Component {
 
         </Form>
         <CommitmentAmountForm
-            visible={visible}
-            onCancel={this.hideUserModal}
+            visible={visibleCommitmentAmount}
+            onCancel={this.hideCommitmentAmountModal}
             setCommitmentAmountId={this.setCommitmentAmountId}
+            currency={currency}
+        />
+        <TotalProjectCostForm
+            visible={visibleTotalProjectCost}
+            onCancel={this.hideTotalProjectCostModal}
+            setTotalProjectCostId={this.setTotalProjectCostId}
             currency={currency}
         />
       </Form.Provider>

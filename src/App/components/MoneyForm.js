@@ -18,7 +18,7 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
     }, [visible]);
 };
 
-const MoneyForm = ({ visible, onCancel, currency,  handleSetMoneyId }) => {
+const MoneyForm = ({ visible, onCancel, currency,  handleSetMoneyId, formName, formTitle }) => {
     const [form] = Form.useForm();
     useResetFormOnCloseModal({
         form,
@@ -37,8 +37,8 @@ const MoneyForm = ({ visible, onCancel, currency,  handleSetMoneyId }) => {
     };
 
     return (
-        <Modal width={700} title="Add Commitment Amount" visible={visible} onOk={onOk} onCancel={onCancel}>
-            <Form form={form} layout="inline" name="commitmentAmountForm">
+        <Modal width={700} title={formTitle} visible={visible} onOk={onOk} onCancel={onCancel}>
+            <Form form={form} layout="inline" name={formName}>
                 <Form.Item name="amount" label="Amount" rules={[{ required: true }]}>
                     <InputNumber style={{ width: 180 }} />
                 </Form.Item>
@@ -67,6 +67,8 @@ export default MoneyForm;
 
 MoneyForm.propTypes = {
     visible: PropTypes.bool.isRequired,
+    formName: PropTypes.string.isRequired,
+    formTitle: PropTypes.string.isRequired,
     onCancel: PropTypes.func.isRequired,
     handleSetMoneyId: PropTypes.func.isRequired,
     currency: PropTypes.array.isRequired,
