@@ -58,7 +58,7 @@ export const GET_SUB_PROJECTS_FAILURE = "GET_SUB_PROJECTS_FAILURE";
 
 // Types for Sub project form
 export const OPEN_SUB_PROJECT_FORM = 'OPEN_SUB_PROJECT_FORM';
-export const CLOSE_SUB_PROJECT_FORM = 'OPEN_SUB_PROJECT_FORM';
+export const CLOSE_SUB_PROJECT_FORM = 'CLOSE_SUB_PROJECT_FORM';
 
 // Retrieve single Project
 export const GET_SUB_PROJECT_START = "GET_SUB_PROJECT_START";

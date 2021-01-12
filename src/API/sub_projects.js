@@ -28,7 +28,22 @@ const getSubProjects = () => axios.get(`/sub_projects/`).then((response) => resp
 const getSubProject = (id) => axios.get(`/sub_projects/${id}`).then((response) => response.data);
 
 
+/**
+ * @function
+ * @name deleteSubProject
+ *@param {Number} id
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const deleteSubProject = (id) => {
+    return axios
+        .delete(`sub_projects/${id}`)
+        .then((response) => response.data);
+};
+
+
 export default {
     getSubProjects,
     getSubProject,
+    deleteSubProject
 }

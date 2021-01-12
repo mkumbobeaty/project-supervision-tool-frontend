@@ -71,6 +71,13 @@ export const getProjectsLoadingSelector = (state) => state?.resources?.Projects?
 
 /**
  * @function
+ * @name getSubProjectsLoadingSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectsLoadingSelector = (state) => state?.resources?.sub_projects?.loading;
+
+/**
+ * @function
  * @name getProjectsPageSelector
  * @param {Object} state redux state
  */
