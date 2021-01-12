@@ -37,6 +37,16 @@ export const getSubProjectsSelector = (state) => state?.resources?.sub_projects?
  */
 export const getSubProjectSelector = (state) => state?.resources?.subProject?.data;
 
+
+/**
+ * @function
+ * @name getSubProjectShowFormSelector
+ * @param {Object} state redux state
+ * @return {Object} sub project
+ */
+export const getSubProjectShowFormSelector = (state) => state?.resources?.subProject?.showForm;
+
+
 /**
  * @function
  * @name getSubProjectSelector
