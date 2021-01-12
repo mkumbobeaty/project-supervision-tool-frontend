@@ -205,7 +205,7 @@ function ProjectForm ({ getRegions, regions, createProject, next })  {
         </Form.Provider>
       </>
   );
-};
+}
 
 const mapStateToProps = state => ({
     regions: projectSelectors.getRegionsSelector(state),

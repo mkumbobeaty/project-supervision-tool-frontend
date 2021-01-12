@@ -88,21 +88,10 @@ class CommonProjectForm extends Component {
             {
                 title: 'Step 2',
                 content: <ProjectDetailsForm
-                    submittedValues={this.getProjectDetailFormValue}
+                    handleConfirmButton={this.handleConfirmButton}
                     project={project}
                     handleBackButton={this.prev}
-                    next={this.next}
                 />
-
-            },
-
-            {
-                title: 'Final',
-                content: <ProjectSectorForm
-                    handleConfirmButton={this.handleConfirmButton}
-                    handleCreateSector = {this.handleCreateSector}
-                    project={project}
-                    handleBackButton={this.prev} />
 
             },
 
@@ -115,7 +104,7 @@ class CommonProjectForm extends Component {
                     ))}
                 </Steps>
                 <div className="steps-content">{steps[current].content}</div>
-
+                
             </>
         );
     }

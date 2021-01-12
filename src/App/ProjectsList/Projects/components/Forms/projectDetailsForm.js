@@ -7,16 +7,17 @@ import {
   Col,
   Select,
   DatePicker,
-  Input, Typography,
+  Typography,
 
 } from "antd";
 import { generateDateString, generateYearString } from "../../../../../Util";
 import { connect } from "react-redux";
 import { projectDetailsOperator, projectDetailsSelectors } from "../ProjectsDetails/duck";
 import {projectActions, projectSelectors} from "../../../duck";
-import RegionLocationForm from "../../../../components/RegionLocationForm";
 import CommitmentAmountForm from "./CommitmentAmountForm";
 import TotalProjectCostForm from "./TotalProjectCostForm";
+import {projectSectorsActions, projectSectorsSelectors} from "../ProjectsSectors/duck";
+import ProjectSectorsForm from "./ProjectSectors";
 
 /* state actions */
 
@@ -49,12 +50,24 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
 };
 
 
+/**
+ * @function
+ * @name getSectorNameFromSectors
+ * @description get sector name from sectors
+ */
+const getSectorNameFromSectors = (sectorId, sectors) => {
+  const sector = sectors.find(({ id }) => id === sectorId );
+  return sector.name;
+}
+
+
 class ProjectDetailsForm extends Component {
   state = {
     showDistrictsSelect: false,
     isEditForm: false,
     visibleTotalProjectCost: false,
     visibleCommitmentAmount: false,
+    visibleProjectSectors: false,
     commitment_amount_id: null,
     total_project_cost_id: null,
   }
@@ -64,11 +77,13 @@ class ProjectDetailsForm extends Component {
       getBorrowers,
       getAgencies,
       getCurrency,
+      getSectors,
       getFundingOrgs,
       getEnvironmentalCategories
     } = this.props;
     getBorrowers();
     getAgencies();
+    getSectors();
     getFundingOrgs();
     getCurrency();
     getEnvironmentalCategories();
@@ -92,6 +107,15 @@ class ProjectDetailsForm extends Component {
     this.setState({ visibleCommitmentAmount: false });
   };
 
+
+  showProjectSectorsModal = () => {
+    this.setState({ visibleProjectSectors: true});
+  };
+
+  hideProjectSectorsModal = () => {
+    this.setState({ visibleProjectSectors: false });
+  };
+
   setCommitmentAmountId = (id) => {
     this.setState({ commitment_amount_id: id });
   };
@@ -104,7 +128,7 @@ class ProjectDetailsForm extends Component {
   // form finish(submit) handler
   onFinish = (values) => {
     const { commitment_amount_id, total_project_cost_id } = this.state;
-    const { createProjectDetails, project, next } = this.props;
+    const { createProjectDetails, project, handleConfirmButton } = this.props;
     const approval_date = generateDateString(values.approval_date);
     const approval_fy = generateYearString(values.approval_fy);
     const closing_date = generateDateString(values.closing_date);
@@ -114,14 +138,13 @@ class ProjectDetailsForm extends Component {
       approval_date,
       approval_fy,
       project_id,
-      next,
       closing_date,
       commitment_amount_id,
       total_project_cost_id
     };
 
     createProjectDetails(payload);
-    next();
+    handleConfirmButton();
   };
 
 
@@ -133,10 +156,12 @@ class ProjectDetailsForm extends Component {
       agencies,
       currency,
       borrowers,
+      sectors,
+      project,
       environmentalCategories,
     } = this.props;
 
-    const { visibleCommitmentAmount, visibleTotalProjectCost } = this.state;
+    const { visibleCommitmentAmount, visibleTotalProjectCost, visibleProjectSectors } = this.state;
 
     const projectStatus = ['active', 'closed', 'dropped', 'pipeline'];
     return (
@@ -159,6 +184,16 @@ class ProjectDetailsForm extends Component {
                 totalProjectCostValue: values
               });
               this.setState({visibleTotalProjectCost: false});
+            }
+
+            // handling project sectors
+            if (name === 'projectSectorsForm') {
+              const { projectDetailsForm } = forms;
+              const sectors = projectDetailsForm.getFieldValue('sectors') || [];
+              projectDetailsForm.setFieldsValue({
+                sectors: [...sectors, values],
+              });
+              this.setState({visibleProjectSectors: false});
             }
           }}
       >
@@ -328,6 +363,51 @@ class ProjectDetailsForm extends Component {
           </Row>
 
 
+          {/* start: project sectors list */}
+          <Form.Item
+              label="Project Sectors"
+              shouldUpdate={(prevValues, curValues) => prevValues.sectors !== curValues.sectors}
+          >
+            {({ getFieldValue }) => {
+              const sectorsData = getFieldValue('sectors') || [];
+              return (
+                  <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'flex-start'
+                  }}>
+                    {sectorsData.length ? (
+                        <ul>
+                          {sectorsData.map((sector, index) => (
+                              <li key={index} className="user">
+                                {`${getSectorNameFromSectors(sector.sector_id, sectors) } - (${sector.percent}%)`}
+                              </li>
+                          ))}
+                        </ul>
+                    ): (
+                        <div>
+                          <Typography.Text className="ant-form-text" type="secondary">
+                            No sector(s) yet, please add sector(s)
+                          </Typography.Text>
+                        </div>
+                    )}
+                    <Button
+                        size="small"
+                        htmlType="button"
+                        style={{
+                          fontSize: '0.9em'
+                        }}
+                        onClick={this.showProjectSectorsModal}
+                    >
+                      Add
+                    </Button>
+                  </div>
+              );
+            }}
+          </Form.Item>
+          {/* end: project sectors list */}
+
+
           <Row justify="space-between">
             <Col span={8}>
               <Form.Item
@@ -408,6 +488,14 @@ class ProjectDetailsForm extends Component {
             setTotalProjectCostId={this.setTotalProjectCostId}
             currency={currency}
         />
+
+        <ProjectSectorsForm
+            visible={visibleProjectSectors}
+            onCancel={this.hideProjectSectorsModal}
+            sectors={sectors}
+            project={project}
+        />
+
       </Form.Provider>
     );
   }
@@ -419,6 +507,7 @@ const mapStateToProps = (state) => {
   return {
     agencies: projectDetailsSelectors.getAgenciesSelector(state),
     project: projectSelectors.getProjectSelector(state),
+    sectors: projectSectorsSelectors.getSectorsSelector(state),
     currency: projectDetailsSelectors.getCurrenciesSelector(state),
     borrowers: projectDetailsSelectors.getBorrowersSelector(state),
     environmentalCategories: projectSelectors.getEnvironmentalCategoriesSelector(state),
@@ -430,6 +519,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   getBorrowers: projectDetailsOperator.getBorrowersStart,
+  getSectors: projectSectorsActions.getSectorsStart,
   getFundingOrgs: projectDetailsOperator.getFundingOrgStart,
   getAgencies: projectDetailsOperator.getAgenciesStart,
   createProjectDetails: projectDetailsOperator.createProjectDetailsStart,
@@ -443,11 +533,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetailsForm);
 
 ProjectDetailsForm.defaultProps = {
   project: null,
+  sectors: [],
 };
 
 ProjectDetailsForm.propTypes = {
   project: PropTypes.object,
+  sectors: PropTypes.array.isRequired,
   next: PropTypes.func.isRequired,
+  getSectors: PropTypes.func.isRequired,
+  handleConfirmButton: PropTypes.func.isRequired,
   currency: PropTypes.array.isRequired,
   getEnvironmentalCategories: PropTypes.func,
   createProjectDetails: PropTypes.func.isRequired,
