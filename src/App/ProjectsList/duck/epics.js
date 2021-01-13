@@ -70,6 +70,13 @@ export const getSubProjectElementEpic = action$ => {
     )
 };
 
+
+/**
+ * @function
+ * @name createProjectPic
+ * @param action$
+ * @return action$
+ */
 const createProjectPic = action$ => {
     return action$.pipe(
         ofType(types.CREATE_PROJECT_START),
@@ -78,6 +85,24 @@ const createProjectPic = action$ => {
         }),
         switchMap(res => { return of(actions.createProjectSuccess(res)) }),
         catchError(error => of(actions.createProjectFailure(error)))
+    )
+}
+
+
+/**
+ * @function
+ * @name createSubProjectEpic
+ * @param action$
+ * @return action$
+ */
+const createSubProjectEpic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_SUB_PROJECT_START),
+        switchMap(({payload}) => {
+            return from(API.createSubProject(payload))
+        }),
+        switchMap(res => { return of(actions.createSubProjectSuccess(res)) }),
+        catchError(error => of(actions.createSubProjectFailure(error)))
     )
 }
 
@@ -224,6 +249,7 @@ export const projectsRootEpic = combineEpics(
     locationsEpic,
     createProjectLocationPic,
     getSubProjectEpic,
+    createSubProjectEpic,
     getSubProjectElementEpic,
     getEnvironmentalCategoriesEpic,
 );
