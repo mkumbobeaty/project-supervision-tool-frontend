@@ -224,6 +224,31 @@ export const clearSubProject = makeActionCreator(types.CLEAR_SUB_PROJECT);
 
 /**
  * @function
+ * @name getEnvironmentalCategoriesStart
+ * @return {Object} action
+ * */
+export const getEnvironmentalCategoriesStart = makeActionCreator(types.GET_ENVIRONMENTAL_CATEGORIES_START);
+
+/**
+ * @function
+ * @name getEnvironmentalCategoriesSuccess
+ * @param {Object} payload environmental categories
+ * @return {Object} action
+ * */
+export const getEnvironmentalCategoriesSuccess = makeActionCreator(types.GET_ENVIRONMENTAL_CATEGORIES_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getEnvironmentalCategoriesFailure
+ * @param {Object} payload error  response
+ * @return {Object} action
+ * */
+export const getEnvironmentalCategoriesFailure = makeActionCreator(types.GET_ENVIRONMENTAL_CATEGORIES_FAILURE, 'payload');
+
+// retrieve a single sub project element
+
+/**
+ * @function
  * @name getSubProjectElementStart
  * @param {Number} subProjectElementId
  * @return {Object} action

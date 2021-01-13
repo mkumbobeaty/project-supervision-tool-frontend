@@ -67,12 +67,25 @@ export const getLocationsSelector = (state) => state?.resources?.locations;
  * @param {Object} state redux state
  */
 export const getProjectLocationSelector = (state) => state?.resources?.locations?.project_location?.data;
+
+
 /**
  * @function
  * @name getRegionsSelector
  * @param {Object} state redux state
+ * @return {Array} regions
  */
 export const getRegionsSelector = (state) => state?.resources?.regions;
+
+
+/**
+ * @function
+ * @name getEnvironmentalCategoriesSelector
+ * @param {Object} state redux state
+ * @return {Array} environmentalCategories
+ */
+export const getEnvironmentalCategoriesSelector = (state) => state?.resources?.environmentalCategories.data;
+
 
 /**
  * @function

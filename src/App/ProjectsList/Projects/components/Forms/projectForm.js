@@ -1,291 +1,231 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import {
-  Button,
-  Form,
-  Select,
-  Input,
-  Row,
-  Col,
-  InputNumber
-} from "antd";
-import { connect } from "react-redux";
-import { projectSelectors } from "../../../duck";
-import { projectDetailsOperator, projectDetailsSelectors } from "../ProjectsDetails/duck";
 
-/* state actions */
+import React, {useEffect, useState} from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Form, Input, Button, Typography } from 'antd';
+import RegionLocationForm from "../../../../components/RegionLocationForm";
+import {projectActions, projectSelectors} from "../../../duck";
+import {bindActionCreators} from "redux";
 
 /* ui */
 const labelCol = {
-  xs: { span: 24 },
-  sm: { span: 24 },
-  md: { span: 24 },
-  lg: { span: 24 },
-  xl: { span: 24 },
-  xxl: { span: 24 },
+    xs: { span: 24 },
+    sm: { span: 24 },
+    md: { span: 24 },
+    lg: { span: 24 },
+    xl: { span: 24 },
+    xxl: { span: 24 },
 };
 const wrapperCol = {
-  xs: { span: 24 },
-  sm: { span: 24 },
-  md: { span: 24 },
-  lg: { span: 24 },
-  xl: { span: 24 },
-  xxl: { span: 24 },
+    xs: { span: 24 },
+    sm: { span: 24 },
+    md: { span: 24 },
+    lg: { span: 24 },
+    xl: { span: 24 },
+    xxl: { span: 24 },
 };
+// get regions name  for displaying  on form
+const getRegionsNameFromRegions = (regionsId, regions) => {
+    const region = regions.find(({ id }) => id === regionsId );
+    return region.name;
+}
 
 /**
- * @function ProjectForm
+ * @function
  * @name ProjectForm
- * @description Form for create and edit Project of measure
- * @param {object} props Valid form properties
- * @param {boolean} props.isEditForm Flag whether form is on edit mode
- * @param {boolean} props.posting Flag whether form is posting data
- * @param {Function} props.onCancel Form cancel callback
- * @returns {object} ProjectForm component
- * @author lally elias <lallyelias87@gmail.com>
- * @license MIT
- * @since 0.1.0
- * @version 0.1.0
- * @static
- * @public
- *
+ * @description renders form for creating project
  */
+function ProjectForm ({ getRegions, regions, createProject, next })  {
+  const [visible, setVisible] = useState(false);
+  const [locations, setLocations] = useState([]);
 
-class ProjectForm extends Component {
-  state = {
-    showDistrictsSelect: false,
-    isEditForm: false,
-  }
+  useEffect(() => {
+      getRegions();
+  }, []);
 
-
-  componentDidMount() {
-    const { getCurrencies } = this.props;
-    getCurrencies()
-  }
-
-  // form finish(submit) handler
-  onFinish = (values) => {
-    const { createTotalCost, submittedValues, project_location, createCommitmentCost } = this.props
-    // const { id: location_id } = project_location;
-    // const locations = [location_id]
-
-    const { id, name, leaders, description, currency_id, amount, commitment } = values
-    const payload = { id, name, leaders, description };
-
-    const costPayload = { amount, currency_id };
-    const commitmentPayload = { currency_id, amount: commitment };
-
-    if (this.props.isEditForm) {
-      this.props.updateProject(payload, this.props.selected.id);
-    } else {
-      createTotalCost(costPayload);
-      createCommitmentCost(commitmentPayload)
-      submittedValues(payload);
-    }
+  const showUserModal = () => {
+    setVisible(true);
   };
 
-  render() {
-    const {
-      selected,
-      focalPeoples,
-      currencies
-    } = this.props;
-
-    return (
-      <Form
-        labelCol={labelCol}
-        wrapperCol={wrapperCol}
-        onFinish={this.onFinish}
-        projectsValues={{
-          projects_id: selected?.projects_id,
-          name: selected?.name,
-          leaders: selected?.leaders,
-          description: selected?.description,
-        }}
-        autoComplete="off"
-        className="ProjectForm"
-      >
-        <h4>Please Fill the form correctly</h4>
-
-        {/* start:type */}
-        <Form.Item
-          label="Project Id"
-          name="id"
-          title="Project id e.g 1236567"
-          rules={[
-            {
-              required: true,
-              message: "Project identity is required",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        {/* end:project id */}
-
-        <Form.Item
-          label="Project Name"
-          name="name"
-          title="Project name e.g DMDP"
-          rules={[
-            {
-              required: true,
-              message: "Project name is required",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        {/* end:project id */}
-
-        {/* start:Description */}
-        <Form.Item
-          label="Description"
-          name="description"
-          title="Project Description e.g water recyle project"
-          rules={[
-            {
-              required: true,
-              message: "Project description is required",
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        {/* end:Description */}
-
-        {/* start:Project cost */}
-        <Row justify="space-between">
-          <Col span={10}>
-            <Form.Item
-              label="Project total cost"
-              name="amount"
-              title="Project Total cost e.g 37282"
-              rules={[
-                {
-                  required: true,
-                  message: "Project Total cost is required",
-                },
-              ]}
-            >
-              <InputNumber />
-            </Form.Item>
-          </Col>
-          {/* end:ptoject cost */}
-
-          {/* start:currency */}
-          <Col span={10}>
-            <Form.Item
-              label="Commitment cost"
-              name="commitment"
-              title="Project Commitment cost e.g 37282"
-              rules={[
-                {
-                  required: true,
-                  message: "Project Commitment cost is required",
-                },
-              ]}
-            >
-              <InputNumber />
-            </Form.Item>
-          </Col>
-          <Col span={4}>
-            <Form.Item
-              label="Currency"
-              name="currency_id"
-              title="Currency cost e.g Dollar"
-              rules={[
-                {
-                  required: true,
-                  message: "Currency is required",
-                },
-              ]}
-            >
-              <Select >
-                {currencies.map((currence) => (
-                  <Select.Option value={currence.id}>{currence.iso}</Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
-            {/* end:currency */}
-          </Col>
-        </Row>
-
-        {/* start:leader */}
-        <Form.Item
-          label="Leaders"
-          name="leaders"
-          title="leaders/focal people e.g People"
-          rules={[
-            {
-              required: true,
-              message: "leaders/focal people required",
-            },
-          ]}
-        >
-          <Select mode="multiple"
-          >
-            {focalPeoples.map((focalPerson) => (
-              <Select.Option value={focalPerson.id}>{focalPerson.first_name}</Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        {/* end:leaders */}
-
-        {/* start:form actions */}
-        <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
-          <Button
-            type="primary"
-            htmlType="submit"
-            style={{ marginLeft: 8 }}
-          >
-            Next
-            </Button>
-        </Form.Item>
-        {/* end:form actions */}
-
-      </Form>
-    );
-  }
-
-}
-
-
-const mapStateToProps = (state) => {
-  return {
-    currencies: projectDetailsSelectors.getCurrenciesSelector(state),
+  const hideUserModal = () => {
+    setVisible(false);
   };
-};
 
-const mapDispatchToProps = {
-  getCurrencies: projectDetailsOperator.getCurrenciesStart,
-  createTotalCost: projectDetailsOperator.createTotalCostStart,
-  createCommitmentCost: projectDetailsOperator.createCommitmentCostStart,
+  const onFinish = (values) => {
+      createProject({...values, locations });
+      next();
+  };
+
+  const selected = null;
+
+  return (
+      <>
+        <Form.Provider
+            onFormFinish={(name, { values, forms }) => {
+              if (name === 'userForm') {
+                const { basicForm } = forms;
+                const users = basicForm.getFieldValue('users') || [];
+                basicForm.setFieldsValue({
+                  users: [...users, values],
+                });
+                setVisible(false);
+              }
+            }}
+        >
+
+            <Form
+                labelCol={labelCol}
+                wrapperCol={wrapperCol}
+                name="basicForm"
+                onFinish={onFinish}
+                projectsValues={{
+                    projects_id: selected?.projects_id,
+                    name: selected?.name,
+                    leaders: selected?.leaders,
+                    description: selected?.description,
+                }}
+                autoComplete="off"
+                className="ProjectForm"
+            >
+                <h4>Please Fill the form correctly</h4>
+
+                {/* start:type */}
+                <Form.Item
+                    label="Project Id"
+                    name="id"
+                    title="Project id e.g 1236567"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Project identity is required",
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+                {/* end:project id */}
+
+                {/* start:project name */}
+                <Form.Item
+                    label="Project Name"
+                    name="name"
+                    title="Project name e.g DMDP"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Project name is required",
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+                {/* end:project name */}
+
+                {/* start:Description */}
+                <Form.Item
+                    label="Description"
+                    name="description"
+                    title="Project Description e.g water recyle project"
+                    rules={[
+                        {
+                            required: true,
+                            message: "Project description is required",
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+                {/* end:Description */}
+
+
+                {/* start: locations list */}
+                <Form.Item
+                    label="Project Locations"
+                    shouldUpdate={(prevValues, curValues) => prevValues.users !== curValues.users}
+                >
+                    {({ getFieldValue }) => {
+                        const users = getFieldValue('users') || [];
+                        return (
+                            <div style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-start'
+                            }}>
+                                {users.length ? (
+                                    <ul>
+                                        {users.map((user, index) => (
+                                            <li key={index} className="user">
+                                                {getRegionsNameFromRegions(user.region, regions)}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ): (
+                                    <div>
+                                        <Typography.Text className="ant-form-text" type="secondary">
+                                            No location(s) yet, please add location(s)
+                                        </Typography.Text>
+                                    </div>
+                                )}
+                                <Button
+                                    size="small"
+                                    htmlType="button"
+                                    style={{
+                                        fontSize: '0.9em'
+                                    }}
+                                    onClick={showUserModal}
+                                >
+                                    Add Location
+                                </Button>
+                            </div>
+                        );
+                    }}
+                </Form.Item>
+                {/* end: locations list */}
+
+
+                {/* start:form actions */}
+                <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        style={{ marginLeft: 8 }}
+                    >
+                        Next
+                    </Button>
+                </Form.Item>
+                {/* end:form actions */}
+            </Form>
+          <RegionLocationForm
+              visible={visible}
+              onCancel={hideUserModal}
+              locations={locations}
+              regions={regions}
+              setLocations={setLocations}
+          />
+        </Form.Provider>
+      </>
+  );
 }
+
+const mapStateToProps = state => ({
+    regions: projectSelectors.getRegionsSelector(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    getRegions: bindActionCreators(projectActions.getRegionsStart, dispatch),
+    createLocation: bindActionCreators(projectActions.createProjectLocationStart, dispatch),
+    createProject: bindActionCreators(projectActions.createProjectStart, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
 
+ProjectForm.propTypes = {
+    regions: PropTypes.array,
+    getRegions: PropTypes.func.isRequired,
+    createProject: PropTypes.func.isRequired,
+    next: PropTypes.func.isRequired,
+}
 
 ProjectForm.defaultProps = {
-  Project: {},
-};
-
-ProjectForm.propTypes = {
-  Project: PropTypes.shape({
-    _id: PropTypes.string,
-    strings: PropTypes.shape({
-      code: PropTypes.string.isRequired,
-      name: PropTypes.shape({
-        en: PropTypes.string.isRequired,
-      }),
-      description: PropTypes.shape({
-        en: PropTypes.string.isRequired,
-      }),
-    }),
-  }),
-  isEditForm: PropTypes.bool.isRequired,
-  posting: PropTypes.bool.isRequired,
-  items: PropTypes.array,
-  onCancel: PropTypes.func.isRequired,
-};
-
+    regions: []
+}
