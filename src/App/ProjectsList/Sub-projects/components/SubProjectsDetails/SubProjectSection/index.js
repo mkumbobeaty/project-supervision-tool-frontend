@@ -1,33 +1,29 @@
 
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from '../../../../duck';
-import { Col, Modal } from "antd";
-import PropTypes from "prop-types";
-import { isoDateToHumanReadableDate } from '../../../../../../Util';
-import ItemsList from "../../../../../components/List";
-import ListItem from "../../../../../components/ListItem";
-import { Link } from "react-router-dom";
+import { Col,List } from "antd";
+import ListHeaderData from '../../ListHeader';
+import { isoDateToHumanReadableDate } from "../../../../../../Util";
+
 import "./styles.css";
 
 
 /* constants */
-const subProjectNameSpan = { xxl: 4, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
-const contractorSpan = { xxl: 4, xl: 5, lg: 4, md: 6, sm: 6, xs: 5 };
-const phaseSpan = { xxl: 2, xl: 2, lg: 3, md: 4, sm: 4, xs: 3 };
-const agencySpan = { xxl: 4, xl: 4, lg: 6, md: 4, sm: 4, xs: 5 };
-const locationSpan = { xxl: 5, xl: 4, lg: 0, md: 0, sm: 0, xs: 0 };
-const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
+const awardValueNameSpan = { xxl: 4, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
+const finalPriceSpan = { xxl: 4, xl: 4, lg: 6, md: 4, sm: 4, xs: 5 };
+const grantedValueSpan = { xxl: 4, xl: 5, lg: 4, md: 6, sm: 6, xs: 5 };
+const contractPeriondSpan = { xxl: 2, xl: 2, lg: 3, md: 4, sm: 4, xs: 3 };
+const completionDateSpan = { xxl: 5, xl: 4, lg: 0, md: 0, sm: 0, xs: 0 };
+const reversideDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
 
 
 
 const headerLayout = [
-    { ...subProjectNameSpan, header: "Sub-Project Name" },
-    { ...contractorSpan, header: "Contractor" },
-    { ...agencySpan, header: "Supervision Agency" },
-    { ...phaseSpan, header: "Phase" },
-    { ...locationSpan, header: "Location" },
-    { ...startDateSpan, header: "Start Date" },
+    { ...awardValueNameSpan, header: "Award Value" },
+    { ...finalPriceSpan, header: "Estimated final contract price" },
+    { ...grantedValueSpan, header: "Financial penalties granted" },
+    { ...contractPeriondSpan, header: "Contract period" },
+    { ...completionDateSpan, header: "Completion Date" },
+    { ...reversideDateSpan, header: "Reverside Date" },
 ];
 
 
@@ -40,61 +36,41 @@ const headerLayout = [
  * @since 0.1.0
  */
 class ProjectSubProjects extends Component {
-   
 
 
     render() {
-        const { project } = this.props;
-        const { sub_projects } = project;
+        const { sub_project } = this.props;
         return (
-            <div className="project-subproject">
-                <h3>List of Sub-projects under {project? project.name : 'N/A'}</h3>
-                {/* list starts */}
-                <ItemsList
-                    itemName="Sub-project"
-                    items={sub_projects}
-                    headerLayout={headerLayout}
-                    renderListItem={({
-                        item,
-                    }) => (
-                            <ListItem
+            <div className="sub-project-contract">
+                {/* list Reversides */}
+                <ListHeaderData headerLayout={headerLayout}/>
+                <List
+                    itemName="Sub_project_contract"
+                    dataSource={sub_project?.sub_project_contract}
+                    renderItem={item => (
+                            <List.Item
                                 key={item.id} // eslint-disable-line
-                                name={item.name}
                                 item={item}
                                 renderActions={() => null}
                                 className="itemList"
+                                
                             >
                                 {/* eslint-disable react/jsx-props-no-spreading */}
     
                                 <Col
-                                    {...subProjectNameSpan}
+                                    {...awardValueNameSpan}
                                     className="humanResourceEllipse"
-                                    title={item.description}
                                 >
-                                    <Link
-                                        to={{
-                                            pathname: `/app/resources/initiatives/${item.project_id}`,
-                                        }}
-                                    >
-                                        {item.name}
-
-                                    </Link>
+                                    {item?.contract_cost ? item?.contract_cost.contract_award_value.amount:"N/A"} {item?.contract_cost.contract_award_value.currency.iso}
                                 </Col>
-                                <Col {...contractorSpan}>{item.details ? item.details.contractor.name : "N/A"}</Col>
-                                <Col {...agencySpan}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
-                                <Col {...phaseSpan}>{item.details ? item.details.phase.name : "N/A"}</Col>
-                                <Col {...locationSpan}>
-                                    {item.sub_project_locations.length <= 0 ? "N/A" : item.sub_project_locations.map(({ quantity }, index) => {
-                                        return (index ? ", " : "") + quantity;
-                                    })}
-                                </Col>
-            
-                                <Col {...startDateSpan}>
-                                    {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'Not set')}
-                                </Col>
-
+                                <Col {...finalPriceSpan}>{item ? item?.contract_cost.estimated_final_contract_price.amount : "N/A"} {item?.contract_cost.estimated_final_contract_price.currency.iso}</Col>
+                                <Col {...grantedValueSpan}>{item ? item?.contract_cost.financial_penalties_granted_value.amount : "N/A"} {item?.contract_cost.financial_penalties_granted_value.currency.iso}</Col>
+                                <Col {...contractPeriondSpan}>{item?.contract_time ? item.contract_time.original_contract_period : "N/A"}</Col>
+                                <Col {...completionDateSpan}>{isoDateToHumanReadableDate(item?.contract_time ? item.contract_time.intended_completion_date : "N/A")}</Col>
+                                <Col {...reversideDateSpan}>{isoDateToHumanReadableDate(item?.contract_time ? item.contract_time.revised_completion_date : "N/A")}</Col>
+        
                                 {/* eslint-enable react/jsx-props-no-spreading */}
-                            </ListItem>
+                            </List.Item>
                         )}
                 />
                 {/* end list */}

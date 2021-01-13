@@ -116,6 +116,13 @@ export const getSubProjectSelector = (state) => state?.resources?.subProject?.da
 
 /**
  * @function
+ * @name getSubProjectLoadingSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectLoadingSelector = (state) => state?.resources?.subProject?.loading;
+
+/**
+ * @function
  * @name getSubProjectSelector
  * @param {Object} state redux state
  * @return {Object} sub project element

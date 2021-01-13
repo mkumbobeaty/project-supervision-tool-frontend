@@ -1,45 +1,75 @@
-import React from "react";
-import { Col, Row, } from 'antd';
-import { isoDateToHumanReadableDate } from "../../../../../../Util";
+// 
+import React, { Component } from "react";
+import { Col,List } from "antd";
+import ListHeaderData from '../../ListHeader';
 
-const DetailsSection = ({ sub_project }) => {
-    return (
-        <div>
-            <header className="detail-header"><h2>Other sub_project Details</h2></header>
-            <Row gutter={[16, 24]} className="details">
-                <Col className="gutter-row" span={8}>
-                    {/* <h4>Approval FY </h4>
-                    <p>{isoDateToHumanReadableDate(sub_project?.details?.approval_fy)}</p>
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <h4>Approval Date</h4>
-                    <p>{isoDateToHumanReadableDate(sub_project?.details?.approval_date)}</p>
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <h4>Closing Date</h4>
-                    <p>{isoDateToHumanReadableDate(sub_project?.details?.closing_date)}</p>
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <h4>Implementing Agency</h4>
-                    <p>{sub_project?.details ? sub_project?.details.implementing_agency.name : 'N/A'}</p>
-                </Col>
-                <Col className="gutter-row" span={8}>
+/* constants */
+const subProjectQuantitySpan = { xxl: 6, xl: 6, lg: 6, md: 8, sm: 10, xs: 11 };
+const quantityMobilizedSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 5 };
+const mobilizationSpan = { xxl: 6, xl: 6, lg: 6, md: 5, sm: 4, xs: 3 };
+const remarksSpan = { xxl: 6, xl: 6, lg: 6, md: 5, sm: 4, xs: 5 };
 
-                    <h4>Funding Organisation</h4>
-                    <p>{sub_project?.details ? sub_project?.details.funding_organisation.name : 'N/A'}</p>
-                </Col>
-                <Col className="gutter-row" span={8}>
 
-                    <h4>Environment Category</h4>
-                    <p>{sub_project?.details ? sub_project?.details?.environmental_category?.name : 'N/A'}</p>
-                </Col>
-                <Col span={24}><h4>Description</h4>
-                    <p>{sub_project ? sub_project?.description : 'N/A'}</p> */}
-                </Col>
-            </Row>
-        </div>
 
-    )
+const headerLayout = [
+    { ...subProjectQuantitySpan, header: "Quantity per contract" },
+    { ...quantityMobilizedSpan, header: "Quantity mobilized" },
+    { ...remarksSpan, header: "Remarks" },
+    { ...mobilizationSpan, header: "Mobilization date" },
+];
+
+/**
+ * @class
+ * @name Sub  Projects equipments
+ * @description Render actions list which have search box, actions and Sub Projects list
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+class SubProjectEquipment extends Component {
+   
+    render() {
+        const { sub_project } = this.props;
+        return (
+            <div className="sub-project-equipment">
+                {/* list starts */}
+                <ListHeaderData headerLayout={headerLayout}/>
+                <List
+                    itemName="Sub_project_equipment"
+                    dataSource={sub_project?.sub_project_equipments}
+                    renderItem={item => (
+                            <List.Item
+                                key={item.id} // eslint-disable-line
+                                item={item}
+                                renderActions={() => null}
+                                className="itemList"
+                                
+                            >
+                                {/* eslint-disable react/jsx-props-no-spreading */}
+    
+                                <Col
+                                    {...subProjectQuantitySpan}
+                                    className="humanResourceEllipse"
+                                >
+                                    {item? item?.quantity_per_contract :"N/A"}
+                                </Col>
+                                <Col {...quantityMobilizedSpan}>{item ? item?.quantity_mobilized : "N/A"}</Col>
+                                <Col {...remarksSpan}>{item ? item.remarks : "N/A"}</Col>
+                                <Col {...mobilizationSpan}>{item ? item.mobilization_date : "N/A"}</Col>
+        
+                                {/* eslint-enable react/jsx-props-no-spreading */}
+                            </List.Item>
+                        )}
+                />
+                {/* end list */}
+            </div>
+        );
+    }
 }
 
-export default DetailsSection;
+
+export default SubProjectEquipment;
+
+
+
+

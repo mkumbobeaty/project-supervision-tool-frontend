@@ -49,7 +49,7 @@ class  SubProject extends Component {
                 < DetailsSection sub_project={sub_project}/>
               </Col>
             </Row>
-            {/* <ProjectSubProjects sub_project={sub_project}/> */}
+            <ProjectSubProjects sub_project={sub_project}/>
           </Content>
         </Layout>
       </Content>
@@ -61,7 +61,7 @@ class  SubProject extends Component {
 const mapStateToProps = (state) => {
   return {
     sub_project:projectSelectors.getSubProjectSelector(state),
-    loading:projectSelectors.getProjectLoadingSelector(state)
+    loading:projectSelectors.getSubProjectLoadingSelector(state)
   };
 };
 

@@ -15,3 +15,9 @@
 .project-subproject .List{
     padding: 0 !important;
 }
+.sub-project-contract{
+    margin-left: 30px;
+    border: 1px solid #e0ddddfa;
+    padding: 28px;
+    margin-top: 50px;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import { Col, Row, } from 'antd';
 
 const SidebarSection = ({ sub_project }) => {
 
@@ -26,10 +27,6 @@ const SidebarSection = ({ sub_project }) => {
                 <h4>Actor(LGA)</h4>
                 <p>{sub_project?.details ? sub_project?.details.actor.name : "N/A"}</p>
             </span>
-            {/* <span >
-                <h4>Total sub_project Cost</h4>
-                <p>{sub_project?.details ? sub_project?.details.total_project_cost.amount : 'N/A'}</p>
-            </span> */}
             <span >
                 <h4>Sub project locations</h4>
                 {sub_project?.sub_project_locations ? sub_project?.sub_project_locations.map(location => {
@@ -47,8 +44,41 @@ const SidebarSection = ({ sub_project }) => {
             </span>
             <span >
                 <h4>Human Resource</h4>
-                <p>{sub_project?.details ? sub_project?.details?.human_resource?.quantity : 'N/A'}</p>
+                {
+                    sub_project?.human_resources ? 
+                    sub_project?.human_resources.map(({name}) => <p>{name}</p>) : 'N/A'
+                }              </span>
+            <span >
+                <h4>Sub project milestones</h4>
+                {
+                    sub_project?.sub_project_milestones ? 
+                    sub_project?.sub_project_milestones.map(({name}) => <p> - {name}</p>) : 'N/A'
+                }           
             </span>
+            <div>
+            <span style={{textAlign:"left"}}>Sub Project Progess</span>
+            <Row gutter={[16, 24]} >
+                <Col className="gutter-row" span={4}>
+                    <h4>Planned </h4>
+                    <p>{sub_project?.sub_project_progress? sub_project?.sub_project_progress?.planned: 'N/A'}</p>
+                </Col>
+                <Col className="gutter-row" span={4}>
+                    <h4>Actual</h4>
+                    <p>{sub_project?.sub_project_progress? sub_project?.sub_project_progress?.actual: "N/A" }</p>
+                </Col>
+                <Col className="gutter-row" span={4}>
+                    <h4>Ahead</h4>
+                    <p>{sub_project?.sub_project_progress? sub_project?.sub_project_progress?.ahead : 'N/A'}</p>
+                </Col>
+                <Col className="gutter-row" span={4}>
+                    <h4>Behind</h4>
+                    <p>{sub_project?.sub_project_progress ? sub_project?.sub_project_progress.behind : 'N/A'}</p>
+                </Col>
+                <Col span={24}><h4>Description</h4>
+                    <p>{sub_project ? sub_project?.description : 'N/A'}</p>
+                </Col>
+            </Row>
+        </div>
         </div>
 
     )

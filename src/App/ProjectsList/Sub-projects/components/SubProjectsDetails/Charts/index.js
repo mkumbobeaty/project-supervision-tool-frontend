@@ -46,6 +46,7 @@ export default class SectorChat extends Component {
         toolTipContent: "<b>{name}</b>: {y} (#percent%)",
         indexLabel: "{name} - #percent%",
         dataPoints: dataX,
+
       }]
     }
     return (

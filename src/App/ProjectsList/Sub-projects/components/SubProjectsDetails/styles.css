@@ -16,7 +16,7 @@
 .project-sider {
     background-color: rgb(246, 246, 246) !important;
     height: 90vh;
-    padding: 20px 0 0 40px;
+    padding: 20px 10px 0 40px;
 }
 .sidebar-header{
     display: flex;
@@ -56,8 +56,6 @@
 }
 
 .chartDetails>canvas {
-    /* height: 260px !important;
-    width: 450px !important; */
     padding: 0 25px;
 }
 
@@ -80,4 +78,10 @@
 
 .project-subproject>.Toolbar {
     display: none;
+}
+
+.sub-project-equipment {
+    margin-left: 30px;
+    border: 1px solid #e0ddddfa;
+    padding: 28px;
 }
