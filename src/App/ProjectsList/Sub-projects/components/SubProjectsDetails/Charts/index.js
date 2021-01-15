@@ -38,12 +38,12 @@ export default class SectorChat extends Component {
         cursor: "pointer",
         itemclick: explodePie
       },
-      width: 440,
       data: [{
         type: "doughnut",
         innerRadius: 90,
         showInLegend: true,
-        toolTipContent: "<b>{name}</b>: {y} (#percent%)",
+        radius:"82%",
+        toolTipContent: "<b>{name}</b>:{y} (#percent%)",
         indexLabel: "{name} - #percent%",
         dataPoints: dataX,
 

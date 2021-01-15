@@ -46,12 +46,13 @@ const SidebarSection = ({ sub_project }) => {
                 <h4>Human Resource</h4>
                 {
                     sub_project?.human_resources ? 
-                    sub_project?.human_resources.map(({name}) => <p>{name}</p>) : 'N/A'
-                }              </span>
+                    sub_project?.human_resources.map(({name}) => <p> - {name}</p>) : 'N/A'
+                }  
+            </span>
             <span >
                 <h4>Sub project milestones</h4>
                 {
-                    sub_project?.sub_project_milestones ? 
+                    sub_project?.sub_project_milestones? 
                     sub_project?.sub_project_milestones.map(({name}) => <p> - {name}</p>) : 'N/A'
                 }           
             </span>

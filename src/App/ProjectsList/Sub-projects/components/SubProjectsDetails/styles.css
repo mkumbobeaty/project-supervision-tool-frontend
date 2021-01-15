@@ -1,19 +1,19 @@
-.project-layout, .project-inner_layout {
+.sub-project-layout, .sub-project-inner-layout {
     background-color: #ffffff !important;
 }
 
-.project-inner_layout {
+.sub-project-inner-layout {
     border-top: 1px solid #e0ddddfa;
     /* padding: 20px 0; */
     margin: 16px 0;
 }
 
-.project-layout h3 {
+.sub-project-layout h3 {
     padding-top: 20px;
     padding-left: 25px;
 }
 
-.project-sider {
+.sider {
     background-color: rgb(246, 246, 246) !important;
     height: 90vh;
     padding: 20px 10px 0 40px;
@@ -35,12 +35,12 @@
 
 }
 
-.project-sider h4, .details h4 {
+.sider h4, .details h4 {
     color: #0f6788;
     margin-bottom: 0!important;
 }
 
-.project_contents {
+.sub-project-contents {
     margin-top: 24px;
     padding: 0 24px;
 }
