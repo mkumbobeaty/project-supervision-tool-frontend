@@ -3,37 +3,38 @@ import { CanvasJSChart } from 'canvasjs-react-charts'
 
 const progress = [
   {
-    "id": "2",
-    "planned": "6",
-    "actual": "9",
-    "ahead": "6",
-    "behind": "4",
-    "created_at": "2021-01-04T19:02:06.000000Z"
+    "id": 1,
+    "planned": 6,
+    "actual": 9,
+    "ahead": 6,
+    "behind": 4,
+    "created_at": "2021,01,05"
+  },
+  
+  {
+    "id": 2,
+    "planned": 8,
+    "actual": 5,
+    "ahead": 4,
+    "behind": 2,
+    "created_at": "2021,01,10"
   },
   {
-    "id": "2",
-    "planned": "7",
-    "actual": "3",
-    "ahead": "5",
-    "behind": "1",
-    "created_at": "2021-01-20T19:02:06.000000Z"
+    "id": 3,
+    "planned": 10,
+    "actual": 12,
+    "ahead": 9,
+    "behind": 8,
+    "created_at": "2021, 01,15"
   },
   {
-    "id": "3",
-    "planned": "9",
-    "actual": "3",
-    "ahead": "4",
-    "behind": "2",
-    "created_at": "2021-01-10T19:02:06.000000Z"
+    "id": 4,
+    "planned": 7,
+    "actual": 3,
+    "ahead": 5,
+    "behind": 1,
+    "created_at": "2021,01,20"
   },
-  {
-    "id": "4",
-    "planned": "10",
-    "actual": "12",
-    "ahead": "9",
-    "behind": "8",
-    "created_at": "2021-01-15T19:02:06.000000Z"
-  }
 ]
 
 const  toogleDataSeries = (e) => {
@@ -49,9 +50,24 @@ export default class ProgressChat extends Component {
   render() {
 
     // const { sub_project } = this.props;
-    const dataX = progress ? progress.map((data) => {
+    const plannedData = progress ? progress.map(({created_at,planned}) => {
       return (
-        { 'name': data.planned, 'y': data.created_at }
+        { "x": new Date(created_at), y: planned  }
+      )
+    }) : [];
+    const actualData = progress ? progress.map(({created_at,actual}) => {
+      return (
+        { "x": new Date(created_at), y: actual  }
+      )
+    }) : [];
+    const aheadData = progress ? progress.map(({created_at,ahead}) => {
+      return (
+        { "x": new Date(created_at), y: ahead  }
+      )
+    }) : [];
+    const behindData = progress ? progress.map(({created_at,behind}) => {
+      return (
+        { "x": new Date(created_at), y: behind   }
       )
     }) : [];
 
@@ -60,7 +76,11 @@ export default class ProgressChat extends Component {
       animationEnabled: true,
       theme: "light2",
       title: {
-        text: "Site Traffic"
+        text: "Sub Project Progress",
+        fontSize:20,
+        padding: {
+          bottom: 12,
+        }
       },
       axisX: {
         valueFormatString: "DD MMM",
@@ -70,7 +90,9 @@ export default class ProgressChat extends Component {
         }
       },
       axisY: {
-        title: "Number of Visits",
+        title: "Overall Progress Status(%)",
+        titleFontSize	:15,
+        margin: 20,
         includeZero: true,
         crosshair: {
           enabled: true
@@ -89,49 +111,33 @@ export default class ProgressChat extends Component {
       data: [{
         type: "line",
         showInLegend: true,
-        name: "Total Visit",
+        name: "Plan",
         markerType: "square",
         xValueFormatString: "DD MMM, YYYY",
-        color: "#F08080",
-        dataPoints: [
-          { x: new Date(2017, 0, 3), y: 650 },
-          { x: new Date(2017, 0, 4), y: 700 },
-          { x: new Date(2017, 0, 5), y: 710 },
-          { x: new Date(2017, 0, 6), y: 658 },
-          { x: new Date(2017, 0, 7), y: 734 },
-          { x: new Date(2017, 0, 8), y: 963 },
-          { x: new Date(2017, 0, 9), y: 847 },
-          { x: new Date(2017, 0, 10), y: 853 },
-          { x: new Date(2017, 0, 11), y: 869 },
-          { x: new Date(2017, 0, 12), y: 943 },
-          { x: new Date(2017, 0, 13), y: 970 },
-          { x: new Date(2017, 0, 14), y: 869 },
-          { x: new Date(2017, 0, 15), y: 890 },
-          { x: new Date(2017, 0, 16), y: 930 }
-        ]
+        dataPoints: plannedData
       },
       {
         type: "line",
         showInLegend: true,
-        name: "Unique Visit",
+        name: "Actual",
         lineDashType: "dash",
-        dataPoints: [
-          { x: new Date(2017, 0, 3), y: 510 },
-          { x: new Date(2017, 0, 4), y: 560 },
-          { x: new Date(2017, 0, 5), y: 540 },
-          { x: new Date(2017, 0, 6), y: 558 },
-          { x: new Date(2017, 0, 7), y: 544 },
-          { x: new Date(2017, 0, 8), y: 693 },
-          { x: new Date(2017, 0, 9), y: 657 },
-          { x: new Date(2017, 0, 10), y: 663 },
-          { x: new Date(2017, 0, 11), y: 639 },
-          { x: new Date(2017, 0, 12), y: 673 },
-          { x: new Date(2017, 0, 13), y: 660 },
-          { x: new Date(2017, 0, 14), y: 562 },
-          { x: new Date(2017, 0, 15), y: 643 },
-          { x: new Date(2017, 0, 16), y: 570 }
-        ]
-      }]
+        dataPoints: actualData
+      },
+      {
+        type: "line",
+        showInLegend: true,
+        name: "Ahead",
+        lineDashType: "dot",
+        dataPoints: aheadData
+      },
+      {
+        type: "line",
+        showInLegend: true,
+        name: "Behind",
+        lineDashType: "longDashDotDot",
+        dataPoints: behindData
+      }
+    ]
     };
   
     return (

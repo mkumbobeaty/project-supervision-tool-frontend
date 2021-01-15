@@ -21,15 +21,20 @@ export default class SectorChat extends Component {
       e.chart.render();
     }
 
+    console.log(dataX)
+
     const options = {
       animationEnabled: true,
       exportFileName: "Doughnut Chart",
       exportEnabled: true,
       animationEnabled: true,
       title: {
-        text: "Sub Project Item",
+        text: "Sub Project Items",
         fontSize: 20,
-
+        fontWeight: 800,
+        padding: {
+          bottom: 12,
+        }
       },
       legend: {
         horizontalAlign: "right",
@@ -42,7 +47,7 @@ export default class SectorChat extends Component {
         type: "doughnut",
         innerRadius: 90,
         showInLegend: true,
-        radius:"82%",
+        radius: "82%",
         toolTipContent: "<b>{name}</b>:{y} (#percent%)",
         indexLabel: "{name} - #percent%",
         dataPoints: dataX,

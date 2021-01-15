@@ -48,6 +48,7 @@
 .chartDetails {
     border: 1px solid #e0ddddfa;
     padding: 15px 0;
+    padding-right: 15px;
     /* width: 25vw !important;  */
 
 }

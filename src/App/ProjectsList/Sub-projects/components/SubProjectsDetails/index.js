@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import { Col, Layout, Row, Spin } from 'antd';
 import SectorChat from "./Charts";
-import DetailsSection from "./DetailsSection";
 import ProjectSubProjects from "./SubProjectSection";
 import SidebarSection from "./SideBar";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../duck";
 import ProgressChat from "./ProgressChat";
+import SubProjectEquipment from "./SubProjectEquipment";
 import "./styles.css";
 
 const { Content, Sider } = Layout;
@@ -46,7 +46,7 @@ class SubProject extends Component {
                     <ProgressChat />
                   </Col>
                   <Col span={12}>
-                    < DetailsSection sub_project={sub_project} offset={1} />
+                    < SubProjectEquipment sub_project={sub_project} offset={1} />
                   </Col>
                   <Col span={9} style={{ marginTop: 26 }}>
                     <SectorChat sub_project={sub_project} />

@@ -57,28 +57,11 @@ const SidebarSection = ({ sub_project }) => {
                 }           
             </span>
             <div>
-            <span style={{textAlign:"left"}}>Sub Project Progess</span>
-            <Row gutter={[16, 24]} >
-                <Col className="gutter-row" span={4}>
-                    <h4>Planned </h4>
-                    <p>{sub_project?.sub_project_progress? sub_project?.sub_project_progress?.planned: 'N/A'}</p>
-                </Col>
-                <Col className="gutter-row" span={4}>
-                    <h4>Actual</h4>
-                    <p>{sub_project?.sub_project_progress? sub_project?.sub_project_progress?.actual: "N/A" }</p>
-                </Col>
-                <Col className="gutter-row" span={4}>
-                    <h4>Ahead</h4>
-                    <p>{sub_project?.sub_project_progress? sub_project?.sub_project_progress?.ahead : 'N/A'}</p>
-                </Col>
-                <Col className="gutter-row" span={4}>
-                    <h4>Behind</h4>
-                    <p>{sub_project?.sub_project_progress ? sub_project?.sub_project_progress.behind : 'N/A'}</p>
-                </Col>
-                <Col span={24}><h4>Description</h4>
-                    <p>{sub_project ? sub_project?.description : 'N/A'}</p>
-                </Col>
-            </Row>
+            <span style={{textAlign:"left"}}><h4>Description</h4> 
+            <p>{sub_project ? sub_project?.description : 'N/A'}</p>
+
+            </span>
+
         </div>
         </div>
 
