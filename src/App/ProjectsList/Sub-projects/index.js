@@ -1,17 +1,18 @@
-
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from '../duck';
-import { Col, Modal } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import React, {Component} from "react";
+import {connect} from "react-redux";
+import {projectActions, projectOperation, projectSelectors} from '../duck';
+import {Col, Drawer, Modal} from "antd";
+import {PlusOutlined} from "@ant-design/icons";
 import PropTypes from "prop-types";
-import { isoDateToHumanReadableDate } from '../../../Util';
 import Topbar from "../../components/Topbar";
 import SubProjectsList from "../../components/List";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
-import { Link, } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {isoDateToHumanReadableDate} from "../../../Util";
+import SubProjectForm from "./Form";
 import "./styles.css";
+
 
 /* constants */
 const subProjectNameSpan = { xxl: 3, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
@@ -46,6 +47,13 @@ const headerLayout = [
  * @since 0.1.0
  */
 class SubProjects extends Component {
+  
+  state = {
+    showShare: false,
+    isEditForm: false,
+    cached: null,
+    visible: false,
+};
 
   componentDidMount() {
     const { fetchSubProjects } = this.props;
@@ -92,13 +100,43 @@ class SubProjects extends Component {
     });
   };
 
+    /**
+     * @function
+     * @name openSubProjectForm
+     * @description Open Human Resources form
+     *
+     * @version 0.1.0
+     * @since 0.1.0
+     */
+    openSubProjectForm = () => {
+      const {openSubProjectForm} = this.props;
+      openSubProjectForm();
+  };
+
+  /**
+   * @function
+   * @name closeSubProjectForm
+   * @description close Human Resources form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  closeSubProjectForm = () => {
+      console.log('closeSubProjectForm');
+      this.setState({isEditForm: false, visible: false});
+      const {closeSubProjectForm} = this.props;
+      closeSubProjectForm();
+  };
+
   render() {
     const {
       subProjects,
       searchQuery,
       loading,
-
+      showForm
     } = this.props;
+  
+          const { isEditForm } = this.state;
     return (
       <div>
         {/* Topbar */}
@@ -205,6 +243,20 @@ class SubProjects extends Component {
             )}
         />
         {/* end list */}
+         <Drawer
+          title={
+            isEditForm ? "Edit Sub Projects" : "Add New Sub Projects"}
+          width={550}
+          onClose={this.closeSubProjectForm}
+          footer={null}
+          visible={showForm}
+          bodyStyle={{ paddingBottom: 80 }}
+          destroyOnClose
+          maskClosable={false}
+          afterClose={this.handleAfterCloseForm}
+        >
+          <SubProjectForm />
+        </Drawer>
       </div>
     );
   }
@@ -227,7 +279,9 @@ SubProjects.defaultProps = {
 const mapStateToProps = (state) => {
   return {
     subProjects: projectSelectors.getSubProjectsSelector(state),
-    loading: projectSelectors.getSubProjectsLoadingSelector(state)
+    loading: projectSelectors.getSubProjectsLoadingSelector(state),
+    showForm: projectSelectors.getSubProjectShowFormSelector(state),
+
   };
 };
 
@@ -235,10 +289,10 @@ const mapDispatchToProps = {
   fetchSubProjects: projectOperation.getSubProjectsStart,
   deleteSubproject: projectOperation.deleteSubProjectStart,
   getProject: projectOperation.getProjectStart,
+  openSubProjectForm: projectActions.openSubProjectForm,
+  closeSubProjectForm: projectActions.closeSubProjectForm,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjects);
-
-
 
 

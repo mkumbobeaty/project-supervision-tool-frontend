@@ -19,19 +19,26 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
     }, [visible]);
 };
 
-const RegionLocationForm = ({ visible, onCancel, locations,  setLocations, regions }) => {
+const LocationForm = ({ visible, onCancel, locations,  setLocations, regions }) => {
     const [form] = Form.useForm();
     useResetFormOnCloseModal({
         form,
         visible,
     });
     const [point, setPoint] = useState(null);
+    const [districts, setDistricts] = useState([]);
+    const [region_id, setRegionId] = useState(null);
 
-    const handleSelectedSuggestion = ({latlng}) => setPoint({ type: 'Point', coordinates: [latlng.lng, latlng.lat]  })
+    useEffect(() => {
+        API.getDistricts(region_id)
+            .then(({data}) => setDistricts(data));
+    }, [region_id]);
+
+    const handleSelectedSuggestion = ({latlng}) => setPoint({ type: 'Point', coordinates: [latlng.lng, latlng.lat] })
 
     const onOk = () => {
-        const region = form.getFieldValue('region') || null;
-        API.createProjectLocation({ region_id: region, level: 'region', point})
+        const district = form.getFieldValue('district') || null;
+        API.createProjectLocation({ district_id: district, level: 'district', point})
             .then( ({ data }) => {
                 setLocations([ ...locations, data.id]);
                 form.submit();
@@ -41,7 +48,7 @@ const RegionLocationForm = ({ visible, onCancel, locations,  setLocations, regio
 
     return (
         <Modal title="Add Project Location" visible={visible} onOk={onOk} onCancel={onCancel}>
-            <Form form={form} layout="vertical" name="userForm">
+            <Form form={form} layout="vertical" name="locationForm">
                 <Form.Item
                     label="Region"
                     name="region"
@@ -52,8 +59,25 @@ const RegionLocationForm = ({ visible, onCancel, locations,  setLocations, regio
                         },
                     ]}
                 >
-                    <Select>
+                    <Select onChange={(id) => setRegionId(id)}>
                         { regions.map(({ id, name}) => (
+                            <Select.Option value={id}>{ name }</Select.Option>
+                        ))}
+                    </Select>
+                </Form.Item>
+
+                <Form.Item
+                    label="District"
+                    name="district"
+                    rules={[
+                        {
+                            required: true,
+                            message: "District is required",
+                        },
+                    ]}
+                >
+                    <Select>
+                        { districts.map(({ id, name}) => (
                             <Select.Option value={id}>{ name }</Select.Option>
                         ))}
                     </Select>
@@ -78,9 +102,9 @@ const RegionLocationForm = ({ visible, onCancel, locations,  setLocations, regio
     );
 };
 
-export default RegionLocationForm;
+export default LocationForm;
 
-RegionLocationForm.propTypes = {
+LocationForm.propTypes = {
     visible: PropTypes.bool.isRequired,
     onCancel: PropTypes.func.isRequired,
     setLocations: PropTypes.func.isRequired,

@@ -41,8 +41,21 @@ const deleteSubProject = (sub_project_is) => {
 };
 
 
+/**
+ * @function
+ * @name createSubProject
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const createSubProject = (subProject) =>
+    axios
+        .post(`/sub_projects`, subProject)
+        .then((response) => response.data);
+
+
 export default {
     getSubProjects,
     getSubProject,
-    deleteSubProject
+    deleteSubProject,
+    createSubProject
 }

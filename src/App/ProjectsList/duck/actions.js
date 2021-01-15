@@ -214,6 +214,21 @@ export const getSubProjectFailure = makeActionCreator(types.GET_SUB_PROJECT_FAIL
 
 /**
  * @function
+ * @name openSubProjectForm
+ * @return {Object} action
+ * */
+export const openSubProjectForm = makeActionCreator(types.OPEN_SUB_PROJECT_FORM);
+
+/**
+ * @function
+ * @name closeSubProjectForm
+ * @return {Object} action
+ * */
+export const closeSubProjectForm = makeActionCreator(types.CLOSE_SUB_PROJECT_FORM);
+
+
+/**
+ * @function
  * @name clearSubProject
  * @return {Object} action
  */
@@ -280,9 +295,10 @@ export const getSubProjectElementFailure = makeActionCreator(types.GET_SUB_PROJE
 export const clearSubProjectElement = makeActionCreator(types.CLEAR_SUB_PROJECT_ELEMENT);
 
 
-export function createSubProjectStart() {
+export function createSubProjectStart(payload) {
   return {
     type: types.CREATE_SUB_PROJECT_START,
+    payload
   };
 }
 

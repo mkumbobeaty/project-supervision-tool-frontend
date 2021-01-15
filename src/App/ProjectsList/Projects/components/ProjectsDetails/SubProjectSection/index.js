@@ -1,9 +1,6 @@
 
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from '../../../../duck';
-import { Col, Modal } from "antd";
-import PropTypes from "prop-types";
+import { Col } from "antd";
 import { isoDateToHumanReadableDate } from '../../../../../../Util';
 import ItemsList from "../../../../../components/List";
 import ListItem from "../../../../../components/ListItem";
