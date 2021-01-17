@@ -7,7 +7,7 @@ import ListHeaderData from '../../ListHeader';
 const subProjectQuantitySpan = { xxl: 6, xl: 6, lg: 6, md: 8, sm: 10, xs: 11 };
 const quantityMobilizedSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 5 };
 const mobilizationSpan = { xxl: 6, xl: 6, lg: 6, md: 5, sm: 4, xs: 3 };
-const remarksSpan = { xxl: 6, xl: 6, lg: 6, md: 5, sm: 4, xs: 5 };
+const remarksSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 5, xs: 5 };
 
 
 

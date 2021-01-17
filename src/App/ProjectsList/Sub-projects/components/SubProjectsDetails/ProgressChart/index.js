@@ -45,7 +45,7 @@ const  toogleDataSeries = (e) => {
   }
 }
 
-export default class ProgressChat extends Component {
+export default class ProgressChart extends Component {
 
   render() {
 

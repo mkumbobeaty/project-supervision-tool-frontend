@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Col, Layout, Row, Spin } from 'antd';
-import SectorChat from "./Charts";
-import ProjectSubProjects from "./SubProjectSection";
+import ItemsChat from "./Charts";
+import ProjectSubProjects from "./SubProjectContract";
 import SidebarSection from "./SideBar";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../duck";
-import ProgressChat from "./ProgressChat";
+import ProgressChart from "./ProgressChart";
 import SubProjectEquipment from "./SubProjectEquipment";
 import "./styles.css";
 
@@ -43,13 +43,13 @@ class SubProject extends Component {
               <Content className="sub-project-contents">
                 <Row>
                   <Col span={11} >
-                    <ProgressChat />
+                    <ProgressChart />
                   </Col>
                   <Col span={12}>
                     < SubProjectEquipment sub_project={sub_project} offset={1} />
                   </Col>
                   <Col span={9} style={{ marginTop: 26 }}>
-                    <SectorChat sub_project={sub_project} />
+                    <ItemsChat sub_project={sub_project} />
                   </Col>
                   <Col span={14} style={{ marginTop: 26 }}>
                   <ProjectSubProjects sub_project={sub_project} />

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { CanvasJSChart } from 'canvasjs-react-charts'
 
-export default class SectorChat extends Component {
+export default class ItemsChat extends Component {
 
   render() {
 
@@ -20,8 +20,6 @@ export default class SectorChat extends Component {
       }
       e.chart.render();
     }
-
-    console.log(dataX)
 
     const options = {
       animationEnabled: true,
@@ -55,9 +53,13 @@ export default class SectorChat extends Component {
       }]
     }
     return (
+      sub_project?.sub_project_items ?
       <div className="chartDetails">
-        <CanvasJSChart options={options} />
-      </div>
+        <CanvasJSChart options={options} /> 
+      </div> 
+      :
+      <h2></h2>
+      
     )
   }
 }

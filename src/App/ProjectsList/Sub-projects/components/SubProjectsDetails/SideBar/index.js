@@ -45,24 +45,21 @@ const SidebarSection = ({ sub_project }) => {
             <span >
                 <h4>Human Resource</h4>
                 {
-                    sub_project?.human_resources ? 
-                    sub_project?.human_resources.map(({name}) => <p> - {name}</p>) : 'N/A'
-                }  
+                    sub_project?.human_resources?.name ?
+                        sub_project?.human_resources.map(({ name }) => <p> - {name}</p>) : 'N/A'
+                }
             </span>
             <span >
                 <h4>Sub project milestones</h4>
                 {
-                    sub_project?.sub_project_milestones? 
-                    sub_project?.sub_project_milestones.map(({name}) => <p> - {name}</p>) : 'N/A'
-                }           
+                    sub_project?.sub_project_milestones?.name ? sub_project?.sub_project_milestones.map(({ name }) => <p> - {name}</p>) : 'N/A'
+                }
             </span>
-            <div>
-            <span style={{textAlign:"left"}}><h4>Description</h4> 
-            <p>{sub_project ? sub_project?.description : 'N/A'}</p>
+            <span style={{ paddingTop: 24 }}><h4>Description</h4>
+                <p>{sub_project ? sub_project?.description : 'N/A'}</p>
 
             </span>
 
-        </div>
         </div>
 
     )

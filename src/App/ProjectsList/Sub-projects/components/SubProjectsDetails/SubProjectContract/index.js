@@ -8,22 +8,20 @@ import "./styles.css";
 
 
 /* constants */
-const awardValueNameSpan = { xxl: 4, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
-const finalPriceSpan = { xxl: 4, xl: 4, lg: 6, md: 4, sm: 4, xs: 5 };
-const grantedValueSpan = { xxl: 4, xl: 5, lg: 4, md: 6, sm: 6, xs: 5 };
-const contractPeriondSpan = { xxl: 2, xl: 2, lg: 3, md: 4, sm: 4, xs: 3 };
-const completionDateSpan = { xxl: 5, xl: 4, lg: 0, md: 0, sm: 0, xs: 0 };
-const reversideDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
+const awardValueNameSpan = { xxl: 5, xl: 5, lg: 6, md: 8, sm: 10, xs: 11 };
+const finalPriceSpan = { xxl: 5, xl: 5, lg: 6, md: 5, sm: 4, xs: 5 };
+const grantedValueSpan = { xxl: 5, xl: 5, lg: 6, md: 6, sm: 6, xs: 5 };
+const contractPeriondSpan = { xxl: 4, xl: 4, lg: 6, md: 5, sm: 4, xs: 3 };
+const completionDateSpan = { xxl: 5, xl: 5, lg: 0, md: 0, sm: 0, xs: 0 };
 
 
 
 const headerLayout = [
-    { ...awardValueNameSpan, header: "Award Value" },
-    { ...finalPriceSpan, header: "Estimated final contract price" },
-    { ...grantedValueSpan, header: "Financial penalties granted" },
+    { ...awardValueNameSpan, header: "Award Value", title:"contract_award_value" },
+    { ...finalPriceSpan, header: "Contract price", title:"Estimated final contract price" },
+    { ...grantedValueSpan, header: "Penalties granted", title:"Financial penalties granted" },
     { ...contractPeriondSpan, header: "Contract period" },
     { ...completionDateSpan, header: "Completion Date" },
-    { ...reversideDateSpan, header: "Reverside Date" },
 ];
 
 
@@ -46,7 +44,7 @@ class ProjectSubProjects extends Component {
                 <ListHeaderData headerLayout={headerLayout}/>
                 <List
                     itemName="Sub_project_contract"
-                    dataSource={sub_project?.sub_project_contract}
+                    dataSource={sub_project?.sub_project_contracts }
                     renderItem={item => (
                             <List.Item
                                 key={item.id} // eslint-disable-line
@@ -67,7 +65,6 @@ class ProjectSubProjects extends Component {
                                 <Col {...grantedValueSpan}>{item ? item?.contract_cost.financial_penalties_granted_value.amount : "N/A"} {item?.contract_cost.financial_penalties_granted_value.currency.iso}</Col>
                                 <Col {...contractPeriondSpan}>{item?.contract_time ? item.contract_time.original_contract_period : "N/A"}</Col>
                                 <Col {...completionDateSpan}>{isoDateToHumanReadableDate(item?.contract_time ? item.contract_time.intended_completion_date : "N/A")}</Col>
-                                <Col {...reversideDateSpan}>{isoDateToHumanReadableDate(item?.contract_time ? item.contract_time.revised_completion_date : "N/A")}</Col>
         
                                 {/* eslint-enable react/jsx-props-no-spreading */}
                             </List.Item>
