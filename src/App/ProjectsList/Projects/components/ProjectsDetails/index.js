@@ -7,7 +7,6 @@ import SidebarSection from "./SideBar";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../duck";
-import { LoadingOutlined } from '@ant-design/icons';
 
 import "./styles.css";
 

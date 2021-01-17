@@ -111,7 +111,7 @@ const deleteProjectEpic = action$ => {
         ofType(types.DELETE_PROJECT_START),
         switchMap(({payload}) => {
             return from(API.deleteProject(payload)).pipe(
-                switchMap(res => { return of(actions.deleteProjectSuccess(res)) }),
+                switchMap(res => { return of(actions.deleteProjectSuccess(res), actions.getProjectsStart()) }),
             )
         }),
         catchError(error => of(actions.deleteProjectFailure(error)))
@@ -225,17 +225,18 @@ const subProjectsEpic = action$ => {
     };
     
 
-const deleteSubProjectEpic = action$ =>
-    action$.pipe(
+const deleteSubProjectEpic = action$ => {
+    return action$.pipe(
         ofType(types.DELETE_SUB_PROJECT_START),
-        switchMap(data => {
-            return from(API.deleteSubProject(data.payload)).pipe(
-                switchMap(res => { return of(actions.deleteSubProjectSuccess(res)) }),
-                catchError(error => of(actions.deleteSubProjectFailure(error)))
+        switchMap(({payload}) => {
+            return from(API.deleteSubProject(payload)).pipe(
+                switchMap(res => { return of(actions.deleteSubProjectSuccess(res), actions.getSubProjectsStart()) }),
             )
         }),
-        switchMap(() => of(actions.getSubProjectsStart()))
+        catchError(error => of(actions.deleteSubProjectFailure(error)))
     );
+}
+
 
 export const projectsRootEpic = combineEpics(
     projectsListEpic,

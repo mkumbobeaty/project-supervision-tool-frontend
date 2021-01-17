@@ -19,42 +19,6 @@ export const getProjectSelector = (state) => state?.resources?.project?.data;
  * @param {Object} state redux state
  */
 export const getProjectLoadingSelector = (state) => state?.resources?.project?.loading;
-
-/**
- * @function
- * @name getSubProjectSeslector
- * @param {Object} state redux state
- * @return {Object} sub project
- */
-export const getSubProjectsSelector = (state) => state?.resources?.sub_projects?.data;
-
-
-/**
- * @function
- * @name getSubProjectSelector
- * @param {Object} state redux state
- * @return {Object} sub project
- */
-export const getSubProjectSelector = (state) => state?.resources?.subProject?.data;
-
-
-/**
- * @function
- * @name getSubProjectShowFormSelector
- * @param {Object} state redux state
- * @return {Object} sub project
- */
-export const getSubProjectShowFormSelector = (state) => state?.resources?.subProject?.showForm;
-
-
-/**
- * @function
- * @name getSubProjectSelector
- * @param {Object} state redux state
- * @return {Object} sub project element
- */
-export const getSubProjectElementSelector = (state) => state?.resources?.subProjectElement?.data;
-
 /**
  * @function
  * @name getCreatedProjectSelector
@@ -68,13 +32,6 @@ export const getCreatedProjectSelector = (state) => state?.resources?.Projects?.
  * @param {Object} state redux state
  */
 export const getProjectsLoadingSelector = (state) => state?.resources?.Projects?.loading;
-
-/**
- * @function
- * @name getSubProjectsLoadingSelector
- * @param {Object} state redux state
- */
-export const getSubProjectsLoadingSelector = (state) => state?.resources?.sub_projects?.loading;
 
 /**
  * @function
@@ -145,3 +102,50 @@ export const getEnvironmentalCategoriesSelector = (state) => state?.resources?.e
  * @return {boolean} isLoading
  * */
 export const isLoadingSelector = (state) => state.resources.locations.isLoading;
+
+
+/**
+ * @function
+ * @name getSubProjectsSelector
+ * @param {Object} state redux state
+ * @return {Object} sub project
+ */
+export const getSubProjectsSelector = (state) => state?.resources?.sub_projects?.data;
+
+/**
+ * @function
+ * @name getSubProjectsLoadingSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectsLoadingSelector = (state) => state?.resources?.sub_projects?.loading;
+
+/**
+ * @function
+ * @name getSubProjectSelector
+ * @param {Object} state redux state
+ * @return {Object} sub project
+ */
+export const getSubProjectSelector = (state) => state?.resources?.subProject?.data;
+
+/**
+ * @function
+ * @name getSubProjectLoadingSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectLoadingSelector = (state) => state?.resources?.subProject?.loading;
+
+/**
+ * @function
+ * @name getSubProjectShowFormSelector
+ * @param {Object} state redux state
+ * @return {Object} sub project
+ */
+export const getSubProjectShowFormSelector = (state) => state?.resources?.subProject?.showForm;
+
+/**
+ * @function
+ * @name getSubProjectSelector
+ * @param {Object} state redux state
+ * @return {Object} sub project element
+ */
+export const getSubProjectElementSelector = (state) => state?.resources?.subProjectElement?.data;

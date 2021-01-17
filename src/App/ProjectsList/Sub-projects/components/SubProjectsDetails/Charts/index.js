@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { CanvasJSChart } from 'canvasjs-react-charts'
 
-export default class SectorChat extends Component {
+export default class ItemsChat extends Component {
 
   render() {
 
-    const { project } = this.props;
-    const dataX = project?.sectors ? project?.sectors.map(sector => {
+    const { sub_project } = this.props;
+    const dataX = sub_project?.sub_project_items ? sub_project?.sub_project_items.map(({ quantity, item }) => {
       return (
-        { 'name': sector.name, 'y': sector.details.percent, 'legendText': sector.name, }
+        { 'name': item.name, 'y': quantity, 'legendText': item.capacity, }
       )
     }) : [];
 
@@ -27,9 +27,12 @@ export default class SectorChat extends Component {
       exportEnabled: true,
       animationEnabled: true,
       title: {
-        text: "Sectors",
+        text: "Sub Project Items",
         fontSize: 20,
-
+        fontWeight: 800,
+        padding: {
+          bottom: 12,
+        }
       },
       legend: {
         horizontalAlign: "right",
@@ -38,20 +41,25 @@ export default class SectorChat extends Component {
         cursor: "pointer",
         itemclick: explodePie
       },
-      width: 440,
       data: [{
         type: "doughnut",
         innerRadius: 90,
         showInLegend: true,
-        yValueFormatString: "#,###'%'",
+        radius: "82%",
+        toolTipContent: "<b>{name}</b>:{y} (#percent%)",
+        indexLabel: "{name} - #percent%",
         dataPoints: dataX,
 
       }]
     }
     return (
+      sub_project?.sub_project_items ?
       <div className="chartDetails">
-        <CanvasJSChart options={options} />
-      </div>
+        <CanvasJSChart options={options} /> 
+      </div> 
+      :
+      <h2></h2>
+      
     )
   }
 }

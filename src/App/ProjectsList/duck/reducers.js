@@ -12,40 +12,14 @@ const defaultProjects = {
 };
 
 const defaultSubProjects = {
-    data: [],
-    total: 1,
-    loading: false,
-    error: null,
-    showForm: false,
-    posting: false,
-    page: 1,
-};
-
-
-const fetchingRegions = (state = false, action) => {
-    switch (action.type) {
-        case types.GET_REGIONS_START:
-            return true;
-        case types.GET_REGIONS_SUCCESS:
-            return false;
-        case types.GET_REGIONS_FAILURE:
-            return false;
-        default:
-            return state;
-    }
-};
-
-const fetchingDistricts = (state = false, action) => {
-    switch (action.type) {
-        case types.GET_DISTRICTS_START:
-            return true;
-        case types.GET_DISTRICTS_SUCCESS:
-            return false;
-        case types.GET_DISTRICTS_FAILURE:
-            return false;
-        default:
-            return state;
-    }
+  data: [],
+  total: 1,
+  loading: false,
+  error: null,
+  showForm: false,
+  posting: false,
+  page: 1,
+  sub_project:{}
 };
 
 /**
@@ -116,34 +90,34 @@ const locations = (state = {data: [], project_location: {}, isLoading: false, er
 }
 
 const Projects = (state = defaultProjects, action) => {
-    switch (action.type) {
-        case types.GET_PROJECTS_START:
-            return {...state, loading: true};
-        case types.GET_PROJECTS_SUCCESS:
-            return {...state, data: action.payload, loading: false, total: action.payload}
-        case types.GET_PROJECTS_FAILURE:
-            return {...state, error: action.message, loading: false};
-        case types.CREATE_PROJECT_START:
-            return {...state, posting: true};
-        case types.CREATE_PROJECT_SUCCESS:
-            return {...state, project: action.payload, posting: false, loading: false};
-        case types.CREATE_PROJECT_FAILURE:
-            return {error: action.payload.error};
-        case types.UPDATE_PROJECT_START:
-            return {...state, posting: true};
-        case types.UPDATE_PROJECT_SUCCESS:
-            return {...state, showForm: false, posting: false};
-        case types.UPDATE_PROJECT_FAILURE:
-            return action.payload;
-        case types.DELETE_PROJECT_START:
-            return {...state};
-        case types.DELETE_PROJECT_SUCCESS:
-            return {...state, project: action.payload};
-        case types.DELETE_PROJECT_FAILURE:
-            return action.payload;
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case types.GET_PROJECTS_START:
+      return { ...state, loading: true };
+    case types.GET_PROJECTS_SUCCESS:
+      return {...state, data: action.payload, loading: false, }
+    case types.GET_PROJECTS_FAILURE:
+      return { ...state, error: action.message, loading: false };
+    case types.CREATE_PROJECT_START:
+      return { ...state, posting: true };
+    case types.CREATE_PROJECT_SUCCESS:
+      return { ...state, project:action.payload, posting: false,  loading: false };
+    case types.CREATE_PROJECT_FAILURE:
+      return { error: action.payload.error };
+    case types.UPDATE_PROJECT_START:
+      return { ...state, posting: true };
+    case types.UPDATE_PROJECT_SUCCESS:
+      return { ...state, showForm: false, posting: false };
+    case types.UPDATE_PROJECT_FAILURE:
+      return action.payload;
+    case types.DELETE_PROJECT_START:
+      return {...state};
+    case types.DELETE_PROJECT_SUCCESS:
+      return {...state, project:action.payload};
+    case types.DELETE_PROJECT_FAILURE:
+      return action.payload;
+    default:
+      return state;
+  }
 };
 
 // TODO note: reducer added by EDGAR
@@ -180,7 +154,15 @@ const selectedProjects = (state = null, action) => {
 };
 
 
-// sub-projects reducers
+/**
+ * @function
+ * @name creatingSubProjects
+ * @description reducer that manages sub project instance
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} updated state
+ * 
+ */
 const creatingSubProjects = (state = false, action) => {
     switch (action.type) {
         case types.CREATE_SUB_PROJECT_START:
@@ -194,17 +176,31 @@ const creatingSubProjects = (state = false, action) => {
     }
 };
 
+/**
+ * @function
+ * @name sub_projects
+ * @description reducer that manages sub projects
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} updated state
+ */
 const sub_projects = (state = defaultSubProjects, action) => {
-    switch (action.type) {
-        case types.GET_SUB_PROJECTS_START:
-            return {...state, loading: true}
-        case types.GET_SUB_PROJECTS_SUCCESS:
-            return {...state, data: action.payload, loading: false, total: action.payload}
-        case types.GET_SUB_PROJECTS_FAILURE:
-            return Object.assign({}, {...state, error: action.message, loading: false});
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case types.GET_SUB_PROJECTS_START:
+      return { ...state, loading: true }
+    case types.GET_SUB_PROJECTS_SUCCESS:
+      return {...state, data: action.payload, loading: false, }
+    case types.GET_SUB_PROJECTS_FAILURE:
+      return { ...state, error: action.message, loading: false };
+    case types.DELETE_SUB_PROJECT_START:
+      return {...state };
+    case types.DELETE_SUB_PROJECT_SUCCESS:
+      return {...state, sub_project: action.payload};
+    case types.DELETE_SUB_PROJECT_FAILURE:
+      return {...state, error: action.payload};;
+     default:
+      return state;
+  }
 };
 
 
@@ -267,32 +263,16 @@ const subProjectElement = (state = {data: null, error: null, loading: false}, ac
 }
 
 
-const deleteSubProject = (state = false, action) => {
-    switch (action.type) {
-        case types.DELETE_SUB_PROJECT_START:
-            return true;
-        case types.DELETE_SUB_PROJECT_SUCCESS:
-            return false;
-        case types.DELETE_SUB_PROJECT_FAILURE:
-            return false;
-        default:
-            return state;
-    }
-}
-
 export const resources = combineReducers({
-    selectedProjects,
-    fetchingRegions,
-    fetchingDistricts,
-    regions,
-    districts,
-    sub_projects,
-    subProjectElement,
-    subProject,
-    creatingSubProjects,
-    environmentalCategories,
-    deleteSubProject,
-    Projects,
-    project,
-    locations
-});
+  selectedProjects,
+  Projects,
+  project,
+  locations,
+  regions,
+  districts,
+  sub_projects,
+  subProjectElement,
+  subProject,
+  creatingSubProjects,
+  environmentalCategories,
+})
