@@ -62,7 +62,7 @@ class SubProjectForm extends Component {
       },
       {
         title: 'Step 2',
-        content: <MoreSubProjectDetails />
+        content: <MoreSubProjectDetails next={this.next} prev={this.prev} />
 
       },
 

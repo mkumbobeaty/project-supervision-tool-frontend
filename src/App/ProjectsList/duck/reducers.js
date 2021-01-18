@@ -229,6 +229,8 @@ const subProject = (state =subProjectState, action) => {
             return {...state, showForm: false};
         case types.GET_SUB_PROJECT_SUCCESS:
             return {...state, data: action.payload, loading: false};
+        case types.CREATE_SUB_PROJECT_SUCCESS:
+            return {...state, data: action.payload, loading: false};
         case types.GET_SUB_PROJECT_FAILURE:
             return {...state, error: action.payload, loading: false};
         case types.CLEAR_SUB_PROJECT:
