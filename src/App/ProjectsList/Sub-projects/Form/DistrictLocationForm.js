@@ -6,7 +6,7 @@ import LocationForm from "../../../components/LocationForm";
 
 
 
-const DistrictLocationForm = ({ visible, onCancel, locations,  setLocations, regions }) => {
+const DistrictLocationForm = ({ visible, onCancel, locations,  setLocations, regions, layers}) => {
 
 
     return (
@@ -16,6 +16,7 @@ const DistrictLocationForm = ({ visible, onCancel, locations,  setLocations, reg
         onCancel={onCancel}
         visible={visible}
         regions={regions}
+        layers={layers}
         />)
 };
 
@@ -27,4 +28,5 @@ DistrictLocationForm.propTypes = {
     setLocations: PropTypes.func.isRequired,
     locations: PropTypes.array.isRequired,
     regions: PropTypes.array.isRequired,
+    layers: PropTypes.array.isRequired,
 }

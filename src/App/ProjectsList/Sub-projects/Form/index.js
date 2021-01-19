@@ -6,13 +6,15 @@ import { connect } from "react-redux";
 import BasicSubProjectDetailsForm from "./BasicSubProjectDetailsForm";
 import MoreSubProjectDetails from "./MoreSubProjectDetailsForm";
 import {projectActions, projectSelectors} from "../../duck";
+import API from "../../../../API";
 
 
 const { Step } = Steps;
 
 class SubProjectForm extends Component {
   state = {
-    current: 0
+    current: 0,
+    layers: []
   }
 
   static propTypes = {
@@ -22,6 +24,8 @@ class SubProjectForm extends Component {
 
   componentDidMount() {
     this.props.getProjects();
+    API.getGeoserverLayers()
+        .then(({layers}) => this.setState({ layers: layers.layer}));
   }
 
   onChange = current => {
@@ -52,13 +56,13 @@ class SubProjectForm extends Component {
   }
 
   render() {
-    const { current } = this.state
+    const { current, layers } = this.state
     const { projects } = this.props
 
     const steps = [
       {
         title: 'Step 1',
-        content: <BasicSubProjectDetailsForm projects={projects} next={this.next}/>
+        content: <BasicSubProjectDetailsForm layers={layers} projects={projects} next={this.next}/>
       },
       {
         title: 'Step 2',

@@ -19,7 +19,7 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
     }, [visible]);
 };
 
-const LocationForm = ({ visible, onCancel, locations,  setLocations, regions }) => {
+const LocationForm = ({ visible, onCancel, locations,  setLocations, regions, layers }) => {
     const [form] = Form.useForm();
     useResetFormOnCloseModal({
         form,
@@ -29,6 +29,7 @@ const LocationForm = ({ visible, onCancel, locations,  setLocations, regions }) 
     const [districts, setDistricts] = useState([]);
     const [region_id, setRegionId] = useState(null);
 
+    // get districts when region is selected
     useEffect(() => {
         API.getDistricts(region_id)
             .then(({data}) => setDistricts(data));
@@ -38,7 +39,14 @@ const LocationForm = ({ visible, onCancel, locations,  setLocations, regions }) 
 
     const onOk = () => {
         const district = form.getFieldValue('district') || null;
-        API.createProjectLocation({ district_id: district, level: 'district', point})
+        const layer_name = form.getFieldValue('layer_name') || null;
+        API.createProjectLocation({
+            district_id: district,
+            level: 'district',
+            layer_source: 'geonode',
+            layer_name,
+            point
+        })
             .then( ({ data }) => {
                 setLocations([ ...locations, data.id]);
                 form.submit();
@@ -79,6 +87,17 @@ const LocationForm = ({ visible, onCancel, locations,  setLocations, regions }) 
                     <Select>
                         { districts.map(({ id, name}) => (
                             <Select.Option value={id}>{ name }</Select.Option>
+                        ))}
+                    </Select>
+                </Form.Item>
+
+                <Form.Item
+                    label="Sub project Layer(Optional)"
+                    name="layer_name"
+                >
+                    <Select>
+                        { layers.map(({ name}) => (
+                            <Select.Option value={name}>{ name }</Select.Option>
                         ))}
                     </Select>
                 </Form.Item>
