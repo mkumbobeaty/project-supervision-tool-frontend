@@ -25,7 +25,6 @@ export default class SectorChat extends Component {
       animationEnabled: true,
       exportFileName: "Doughnut Chart",
       exportEnabled: true,
-      animationEnabled: true,
       title: {
         text: "Sectors",
         fontSize: 20,

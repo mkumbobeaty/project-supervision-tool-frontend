@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from '../duck';
-import { Col, Drawer, Modal, Steps } from "antd";
+import { Col, Drawer, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import Topbar from "../../components/Topbar";
@@ -177,8 +177,6 @@ class Projects extends Component {
     const {
       projects,
       loading,
-      page,
-      total,
       searchQuery,
       showForm,
       selected,

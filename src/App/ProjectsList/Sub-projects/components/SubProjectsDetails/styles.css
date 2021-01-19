@@ -18,7 +18,8 @@
     height: 90vh;
     padding: 20px 10px 0 40px;
 }
-.sidebar-header{
+
+.sidebar-header {
     display: flex;
 }
 
@@ -29,10 +30,10 @@
     margin-bottom: 15px;
     width: 65%;
 }
-.sidebar-header a {
- color: #0f6788;
- text-decoration: underline;
 
+.sidebar-header a {
+    color: #0f6788;
+    text-decoration: underline;
 }
 
 .sider h4, .details h4 {
@@ -45,19 +46,22 @@
     padding: 0 24px;
 }
 
-.chartDetails {
+.chartDetails, .chartProgress {
     border: 1px solid #e0ddddfa;
-    padding: 15px 0;
-    padding-right: 15px;
+    padding: 15px 15px 15px 0;
     /* width: 25vw !important;  */
-
 }
-.canvasjs-chart-credit{
+
+.canvasjs-chart-credit {
     display: none;
 }
 
-.chartDetails>canvas {
+.chartDetails>canvas, .chartProgress>canvas {
     padding: 0 25px;
+}
+
+.chartDetails {
+    padding-left: 15px;
 }
 
 .details {

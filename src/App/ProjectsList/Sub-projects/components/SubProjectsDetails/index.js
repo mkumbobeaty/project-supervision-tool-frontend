@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../duck";
 import ProgressChart from "./ProgressChart";
 import SubProjectEquipment from "./SubProjectEquipment";
+import {ImageGallary} from "./SubProjectGallary"
 import "./styles.css";
 
 const { Content, Sider } = Layout;
@@ -51,10 +52,11 @@ class SubProject extends Component {
                   <Col span={9} style={{ marginTop: 26 }}>
                     <ItemsChat sub_project={sub_project} />
                   </Col>
-                  <Col span={14} style={{ marginTop: 26 }}>
+                  <Col span={14} style={{ marginTop: 26 }} offset={1}>
                   <ProjectSubProjects sub_project={sub_project} />
                   </Col>
                 </Row>
+                {/* <ImageGallary /> */}
               </Content>
             </Layout>
           </Content>

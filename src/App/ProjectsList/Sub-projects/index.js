@@ -69,8 +69,7 @@ class SubProjects extends Component {
    * @since 0.1.0
    */
   handleMapPreview = (item_id) => {
-    const { getProject, match: { params }
-    } = this.props;
+    const { getProject } = this.props;
     getProject(item_id);
     console.log(item_id)
     let path = '/app/map';

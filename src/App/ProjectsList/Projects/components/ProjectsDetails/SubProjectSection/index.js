@@ -5,6 +5,8 @@ import { isoDateToHumanReadableDate } from '../../../../../../Util';
 import ItemsList from "../../../../../components/List";
 import ListItem from "../../../../../components/ListItem";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { projectOperation } from "../../../../duck";
 import "./styles.css";
 
 
@@ -30,7 +32,7 @@ const headerLayout = [
 
 /**
  * @class
- * @name Sub  Projects
+ * @name SubProjects
  * @description Render actions list which have search box, actions and Sub Projects list
  *
  * @version 0.1.0
@@ -38,8 +40,6 @@ const headerLayout = [
  */
 class ProjectSubProjects extends Component {
    
-
-
     render() {
         const { project } = this.props;
         return (
@@ -69,7 +69,7 @@ class ProjectSubProjects extends Component {
                                 >
                                     <Link
                                         to={{
-                                            pathname: `/app/resources/initiatives/${item.project_id}`,
+                                            pathname: `/app/sub-projects/${item.id}`,
                                         }}
                                     >
                                         {item.name}
@@ -99,8 +99,12 @@ class ProjectSubProjects extends Component {
     }
 }
 
+  const mapDispatchToProps = {
+    getSubProject: projectOperation.getSubProjectStart,
+  };
 
-export default ProjectSubProjects;
+export default connect(null, mapDispatchToProps)(ProjectSubProjects);
+
 
 
 
