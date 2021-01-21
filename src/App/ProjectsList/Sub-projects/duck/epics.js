@@ -38,6 +38,7 @@ const getSubProjectEquipments = action$ => {
         switchMap(() =>  {
             return from(API.getSubProjectEquipments()).pipe(
             switchMap(res => { 
+                console.log(res.data)
                 return of(actions.getSubProjectEquipmentsSuccess(res.data)) }),
             catchError(error => of(actions.getSubProjectEquipmentsFailure(error)))
         )}
@@ -49,4 +50,5 @@ const getSubProjectEquipments = action$ => {
 
 export const  subProjectsEpic= combineEpics(
     getSubProjectItems,
+    getSubProjectEquipments
 )

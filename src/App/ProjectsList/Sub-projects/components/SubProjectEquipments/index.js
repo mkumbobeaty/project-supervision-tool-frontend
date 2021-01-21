@@ -4,46 +4,49 @@ import { Col, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import Topbar from "../../../../components/Topbar";
-import SubProjectItemsList from "../../../../components/List";
+import SubProjectEquipmentsList from "../../../../components/List";
 import ListItem from "../../../../components/ListItem";
 import ListItemActions from "../../../../components/ListItemActions";
 import { subProjectsOperator, subProjectsSelectors } from "../../duck";
 
 
 /* constants */
-const subProjectItemNameSpan = { xxl: 6, xl: 6, lg: 5, md: 5, sm: 10, xs: 11 };
-const descriptionSpan = { xxl: 6, xl: 6, lg: 6, md: 7, sm: 0, xs: 0 };
-const quantitySpan = { xxl: 4, xl: 4, lg: 4, md: 5, sm: 5, xs: 10 };
-const capacitySpan = { xxl: 5, xl: 5, lg: 5, md: 4, sm: 6, xs: 0 };
+const remarksSPan = { xxl: 4, xl: 4, lg: 5, md: 5, sm: 10, xs: 11 };
+const mobilizedSpan = { xxl: 4, xl: 4, lg: 4, md: 7, sm: 0, xs: 0 };
+const quantityContractSpan = { xxl: 4, xl: 4, lg: 4, md: 5, sm: 5, xs: 10 };
+const capacitySpan = { xxl: 5, xl: 5, lg: 4, md: 4, sm: 4, xs: 0 };
+const mobilizedDateSpan = { xxl: 4, xl: 4, lg: 4, md: 0, sm: 0, xs: 0 };
 
 const { confirm } = Modal;
 
 const headerLayout = [
-  { ...subProjectItemNameSpan, header: "Name" },
-  { ...descriptionSpan, header: "Description" },
+  { ...quantityContractSpan, header: "Quantity Per Contract" },
+  { ...mobilizedSpan, header: "Quantity Mobilized" },
   { ...capacitySpan, header: "Capacity" },
-  { ...quantitySpan, header: "Quantity" },
+  { ...remarksSPan, header: "Remarks" },
+  { ...mobilizedDateSpan, header: "Mobilization Date" },
+
 ];
 
 
 /**
  * @class
- * @name SubProjectItems
- * @description Render actions list which have search box, actions and Sub subProjectItems list
+ * @name SubProjectEquipments
+ * @description Render actions list which have search box, actions and Sub subProjectEquipments list
  *
  * @version 0.1.0
  * @since 0.1.0
  */
-class SubProjectItems extends Component {
+class SubProjectEquipments extends Component {
 
   componentDidMount() {
-    const { getSubProjectItems } = this.props;
-    getSubProjectItems()
+    const { getSubProjectEquipments } = this.props;
+    getSubProjectEquipments()
   }
 
   render() {
     const {
-      subProjectItems,
+      subProjectEquipments,
       loading,
     } = this.props;
 
@@ -53,7 +56,7 @@ class SubProjectItems extends Component {
         <Topbar
           search={{
             size: "large",
-            placeholder: "Search for Sub project items here ...",
+            placeholder: "Search for Sub project Equipments here ...",
             onChange: this.searchInitiative,
           }}
           actions={[
@@ -69,9 +72,9 @@ class SubProjectItems extends Component {
         {/* end Topbar */}
 
         {/* list starts */}
-        <SubProjectItemsList
-          itemName="Sub-project-item"
-          items={subProjectItems}
+        <SubProjectEquipmentsList
+          itemName="Sub-project-equipment"
+          items={subProjectEquipments}
           loading={loading}
           headerLayout={headerLayout}
           renderListItem={({
@@ -97,24 +100,19 @@ class SubProjectItems extends Component {
                     archive={{
                       name: "Archive Sub Project Item",
                       title:
-                        "Remove Sub project item from list of active sub project items",
+                        "Remove Sub project item from list of active sub project Equipments",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
                   />
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col
-                  {...subProjectItemNameSpan}
-                  className="humanResourceEllipse"
-                >
-                  {item.name}
-                </Col>
-                <Col {...descriptionSpan}>{item ? item.description : "N/A"}</Col>
-                <Col {...quantitySpan}>{item ? item.quantity : "N/A"}</Col>
+
+                <Col {...quantityContractSpan}>{item ? item.quantity_per_contract : "N/A"}</Col>
+                <Col {...mobilizedSpan}>{item ? item.quantity_mobilized : "N/A"}</Col>
                 <Col {...capacitySpan}>{item.item ? item.item.capacity : "N/A"}</Col>
-
-
+                <Col {...remarksSPan} >{item ? item.remarks : "N/A"}</Col>
+                <Col {...mobilizedDateSpan}>{item ? item.mobilization_date : "N/A"}</Col>
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             )}
@@ -125,27 +123,28 @@ class SubProjectItems extends Component {
   }
 }
 
-SubProjectItems.propTypes = {
+SubProjectEquipments.propTypes = {
   loading: PropTypes.bool.isRequired,
-  subProjectItems: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+  subProjectEquipments: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
     .isRequired,
 };
 
-SubProjectItems.defaultProps = {
-  subProjectItems: null,
+SubProjectEquipments.defaultProps = {
+  subProjectEquipments: null,
 };
 
 const mapStateToProps = (state) => {
   return {
-    subProjectItems: subProjectsSelectors.getSubProjectItemsSelector(state),
-    loading: subProjectsSelectors.getSubProjectItemLoadingSelector(state)
+    subProjectEquipments: subProjectsSelectors.getSubProjectEquipmentsSelector(state),
+    loading: subProjectsSelectors.getSubProjectEquipmentsLoadingSelector(state)
+
   };
 };
 
 const mapDispatchToProps = {
-  getSubProjectItems: subProjectsOperator.getSubProjectItemsStart
+  getSubProjectEquipments: subProjectsOperator.getSubProjectEquipmentsStart
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubProjectItems);
+export default connect(mapStateToProps, mapDispatchToProps)(SubProjectEquipments);
 
 
