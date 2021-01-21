@@ -27,8 +27,7 @@ const mapToSideMenuObject = ({ details, name, description , sub_project_items}) 
     const customGridListData = [
         {title: 'START DATE', value: isoDateToHumanReadableDate(details?.start_date)},
         {title: 'closing date', value: isoDateToHumanReadableDate(details?.end_date)},
-        {title: 'phase', value: details?.phase?.name },
-        {title: 'stage', value: 'Implementation'},
+        {title: 'phase', value: details?.phase?.name }
     ];
     const subProjectElementsData = sub_project_items.map(({name, id, progress }) => ({ title: name, value: `${progress.actual}%`, id }));
 
@@ -79,16 +78,6 @@ function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject, ge
                 handleOnclick={viewFullSubProjectDetails}
                 title='view full sub-project details'
             />
-
-            {sideMenuObj?.subProjectElementsData ? <PredefinedFilter
-                data={sideMenuObj?.subProjectElementsData}
-                filterTitle='Sub Project Elements'
-                config={{
-                    filterLeftTitle: 'Progress',
-                    filterRightTitle: 'Name'
-                }}
-                handleOnclickFilterItem={handleOnclickSubProjectElement}
-            /> : ''}
         </div>
     );
 }

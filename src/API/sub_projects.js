@@ -53,9 +53,22 @@ const createSubProject = (subProject) =>
         .then((response) => response.data);
 
 
+/**
+ * @function
+ * @name createSubProjectDetails
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const createSubProjectDetails = (subProjectDetails) =>
+    axios
+        .post(`/sub_project_details`, subProjectDetails)
+        .then((response) => response.data);
+
+
 export default {
     getSubProjects,
     getSubProject,
     deleteSubProject,
-    createSubProject
+    createSubProject,
+    createSubProjectDetails,
 }

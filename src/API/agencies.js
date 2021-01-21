@@ -19,15 +19,51 @@ const getFundingOrgs = () =>
 
 /**
  * @function
+ * @name getSupervisingAgencies
+ * @description get supervising agencies
+ * */
+const getSupervisingAgencies = () =>
+    axios.get(`/supervising_agencies`).then((response) => response.data);
+
+/**
+ * @function
  * @name getAgencies
  * @description get project agencies
  * */
 const getAgencies = () =>
     axios.get(`/implementing_agencies`).then((response) => response.data);
 
+/**
+ * @function
+ * @name getContractors
+ * @description get contractors
+ * */
+const getContractors = () =>
+    axios.get(`/contractors`).then((response) => response.data);
+
+/**
+ * @function
+ * @name getActors
+ * @description get actors
+ * */
+const getActors = () =>
+    axios.get(`/actors`).then((response) => response.data);
+
+/**
+ * @function
+ * @name getPhases
+ * @description get phases
+ * */
+const getPhases = () =>
+    axios.get(`/phases`).then((response) => response.data);
+
 
 export default {
     getBorrowers,
     getFundingOrgs,
-    getAgencies
+    getActors,
+    getPhases,
+    getAgencies,
+    getContractors,
+    getSupervisingAgencies,
 }

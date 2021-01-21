@@ -23,15 +23,16 @@ class SubProjectElementWfsLayer extends Component {
 
     componentDidMount() {
         const { map } = this.props.leaflet;
+        const subProjectLayerName = localStorage.getItem('subProjectLayerName');
         Axios.get(`https://geonode.project-supervision-tool.ga/geoserver/wms?service=wms&version=1.1.1&request=GetCapabilities`)
             .then(res => {
                 const capabilities = new WMSCapabilities().parse(res.data);
-                const myLayer = capabilities.Capability.Layer.Layer.find(l => l.Name === 'geonode:dar_es_salaam_school_points' );
+                const myLayer = capabilities.Capability.Layer.Layer.find(l => l.Name === subProjectLayerName );
                 const {LatLonBoundingBox} = myLayer;
                 console.log(myLayer);
 
                 const subProjectElementLayer = L.tileLayer.wms("https://geonode.project-supervision-tool.ga/geoserver/ows", {
-                    layers: 'geonode:dar_es_salaam_school_points',
+                    layers: subProjectLayerName,
                     format: 'image/png',
                     transparent: true,
                 });

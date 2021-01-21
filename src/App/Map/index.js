@@ -121,9 +121,8 @@ class MapDashboard extends Component {
                                 regionProjects={regionProjects}
                             /> : ''}
                         <ProjectLocations project={project}/>
-                        <SubProjectLocations subProject={subProject}/>
-                        { wfsLayerData ? <SubProjectElementWfsLayer wfsLayerData={wfsLayerData}/> :
-                            <SubProjectElementLocations subProjectElement={subProjectElement} getWfsLayerData={getWfsLayerData}/> }
+                        { wfsLayerData ? <SubProjectElementWfsLayer subProject={subProject} wfsLayerData={wfsLayerData}/> :
+                            <SubProjectLocations getWfsLayerData={getWfsLayerData} subProject={subProject}/> }
                     </BaseMap>
                 </Spin>
             </div>

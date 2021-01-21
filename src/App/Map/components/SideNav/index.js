@@ -24,15 +24,6 @@ class SideNav extends Component {
     }
 
     componentDidMount() {
-        // const axiosGeoserver = Axios.create({
-        //     headers: {
-        //         Accept: "application/json",
-        //     },
-        // });
-        // axiosGeoserver.get(`https://geonode.project-supervision-tool.ga/geoserver/rest/layers`)
-        //     .then(({ data }) => {
-        //         console.log(data);
-        //     })
 
         // Axios.get(`https://geonode.project-supervision-tool.ga/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=geonode:dar_es_salaam_school_points&outputFormat=application/json`)
         //     .then(res => console.log(res.data));

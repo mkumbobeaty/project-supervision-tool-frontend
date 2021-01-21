@@ -43,7 +43,7 @@ function NationalProjectsOverview(
 
 
     // prepare data for projects overview table
-    const commitmentAmount = projectsStatistics ? getCommitmentAmount(projectsStatistics) : '';
+    const commitmentAmount = projectsStatistics?.commitment_amount ? getCommitmentAmount(projectsStatistics) : '';
     const overViewData = projectsStatistics ? [
         {title: 'Projects', value: projectsStatistics.projects},
         {title: 'Commitment Amount', value: commitmentAmount},

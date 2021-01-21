@@ -35,7 +35,7 @@ const getRegionsNameFromRegions = (regionsId, regions) => {
  * @name BasicSubProjectDetailsForm
  * @description renders form for creating sub project
  */
-function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, next, projects })  {
+function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, next, projects, layers })  {
     const [visible, setVisible] = useState(false);
     const [locations, setLocations] = useState([]);
 
@@ -197,6 +197,7 @@ function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, ne
                     onCancel={hideUserModal}
                     locations={locations}
                     regions={regions}
+                    layers={layers}
                     setLocations={setLocations}
                 />
             </Form.Provider>
@@ -217,6 +218,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(BasicSubProjectDetai
 
 BasicSubProjectDetailsForm.propTypes = {
     regions: PropTypes.array,
+    layers: PropTypes.array,
     projects: PropTypes.array,
     getRegions: PropTypes.func.isRequired,
     createSubProject: PropTypes.func.isRequired,

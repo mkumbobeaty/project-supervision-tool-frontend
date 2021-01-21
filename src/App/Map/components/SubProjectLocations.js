@@ -2,17 +2,16 @@ import React, {Component} from 'react';
 import {GeoJSON, Marker, Popup, withLeaflet} from "react-leaflet";
 import L from "leaflet";
 import Spiderfy from "./Spiderfy";
+import {Button} from "antd";
 
 /**
  * @function
  * @name mapSubProjectElementsToLocationPoints
  * @description generate points from su project elements
  */
-const mapSubProjectElementsToLocationPoints = subProjectElements => {
-    const pointsSubArray = subProjectElements.map(
-        ({locations, name}) => locations.map(
-            ({point, id}) => ({coordinates: point.coordinates, id, name})));
-    return pointsSubArray.flat();
+const mapSubProjectElementsToLocationPoints = ({name, sub_project_locations}) => {
+        return sub_project_locations.map(
+            ({point, id, layer_name }) => ({coordinates: point.coordinates, id, name, layer_name }))
 }
 
 /**
@@ -30,14 +29,27 @@ class SubProjectLocations extends Component {
         }
     }
 
+    handleShowLayer = layer_name => {
+        this.props.getWfsLayerData(layer_name);
+        localStorage.setItem('subProjectLayerName', layer_name);
+    }
+
 
     renderSubProjectElements = (subProjectElements) => {
         const data = mapSubProjectElementsToLocationPoints(subProjectElements);
-        return data.map(({coordinates, id, name }) => (
+        return data.map(({coordinates, id, name, layer_name }) => (
                 <Marker position={[coordinates[1], coordinates[0]]} key={id}>
                     <Popup>
-                        <h3>Sub Project Element</h3>
+                        <h3>Sub Project</h3>
                         <div> { name }</div>
+                        {
+                            layer_name ? <Button
+                                type="primary"
+                                onClick={() => this.handleShowLayer(layer_name)}
+                            >
+                                Show Sub project Layer
+                            </Button> : ''
+                        }
                     </Popup>
                 </Marker>
         ));
@@ -57,12 +69,13 @@ class SubProjectLocations extends Component {
 
     render() {
         const {subProject} = this.props;
+        console.log('sub projects', subProject);
 
         return subProject ? (
             <>
                 {this.renderDistricts(subProject)}
                 <Spiderfy>
-                    {this.renderSubProjectElements(subProject.sub_project_items)}
+                    {this.renderSubProjectElements(subProject)}
                 </Spiderfy>
                 </>
         ) : '';
