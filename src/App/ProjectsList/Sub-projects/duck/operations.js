@@ -2,6 +2,9 @@ import {
     getSubProjectItemsStart,
     getSubProjectItemsSuccess,
     getSubProjectItemsFailure,
+    getSubProjectEquipmentsStart,
+    getSubProjectEquipmentsSuccess,
+    getSubProjectEquipmentsFailure
 }
 
 from './actions';
@@ -9,5 +12,8 @@ from './actions';
 export {
     getSubProjectItemsStart,
     getSubProjectItemsSuccess,
-    getSubProjectItemsFailure
+    getSubProjectItemsFailure,
+    getSubProjectEquipmentsStart,
+    getSubProjectEquipmentsSuccess,
+    getSubProjectEquipmentsFailure
 }

@@ -25,6 +25,27 @@ const getSubProjectItems = action$ => {
     )                                                                                                                                                                                                       
 }
 
+/**
+ * @function
+ * @name getSubProjectItems
+ * @description gets all sub projects items 
+ * @param action$
+ * @return actions
+ */
+const getSubProjectEquipments = action$ => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECT_EQUIPMENTS_START),
+        switchMap(() =>  {
+            return from(API.getSubProjectEquipments()).pipe(
+            switchMap(res => { 
+                return of(actions.getSubProjectEquipmentsSuccess(res.data)) }),
+            catchError(error => of(actions.getSubProjectEquipmentsFailure(error)))
+        )}
+        ),
+    )                                                                                                                                                                                                       
+}
+
+
 
 export const  subProjectsEpic= combineEpics(
     getSubProjectItems,
