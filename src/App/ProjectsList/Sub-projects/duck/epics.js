@@ -7,12 +7,12 @@ import { switchMap, catchError, } from "rxjs/operators";
 
 /**
  * @function
- * @name getSubProjectItems
+ * @name getSubProjectItemsEpic
  * @description gets all sub projects items 
  * @param action$
  * @return actions
  */
-const getSubProjectItems = action$ => {
+const getSubProjectItemsEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_SUB_PROJECT_ITEMS_START),
         switchMap(() =>  {
@@ -27,12 +27,12 @@ const getSubProjectItems = action$ => {
 
 /**
  * @function
- * @name getSubProjectItems
+ * @name getSubProjectEquipmentsEpic
  * @description gets all sub projects items 
  * @param action$
  * @return actions
  */
-const getSubProjectEquipments = action$ => {
+const getSubProjectEquipmentsEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_SUB_PROJECT_EQUIPMENTS_START),
         switchMap(() =>  {
@@ -49,6 +49,6 @@ const getSubProjectEquipments = action$ => {
 
 
 export const  subProjectsEpic= combineEpics(
-    getSubProjectItems,
-    getSubProjectEquipments
+    getSubProjectItemsEpic,
+    getSubProjectEquipmentsEpic
 )

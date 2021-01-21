@@ -237,6 +237,25 @@ const deleteSubProjectEpic = action$ => {
     );
 }
 
+/**
+ * @function
+ * @name getItemsEpic
+ * @description gets all sub projects items 
+ * @param action$
+ * @return actions
+ */
+const getItemsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_ITEMS_START),
+        switchMap(() =>  {
+            return from(API.getItems()).pipe(
+            switchMap(res => { 
+                return of(actions.getItemsSuccess(res.data)) }),
+            catchError(error => of(actions.getItemsFailure(error)))
+        )}
+        ),
+    )                                                                                                                                                                                                       
+}
 
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
@@ -253,6 +272,7 @@ export const projectsRootEpic = combineEpics(
     createSubProjectEpic,
     getSubProjectElementEpic,
     getEnvironmentalCategoriesEpic,
+    getItemsEpic
 );
 
 

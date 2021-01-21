@@ -43,6 +43,7 @@ const sub_project_equipments = (state = {data: [], error: null, loading: false},
       return state;
   }
 };
+
 export const subProjectResources = combineReducers({
     sub_project_items,
     sub_project_equipments
