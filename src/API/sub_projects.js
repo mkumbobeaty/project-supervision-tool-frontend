@@ -65,7 +65,7 @@ const createSubProjectDetails = (subProjectDetails) =>
         .then((response) => response.data);
 
 
-const getSubProjectItem = () => axios.get('/sub_project_items').then(response => response.data);
+const getSubProjectItems = () => axios.get('/sub_project_items').then(response => response.data);
 
 export default {
     getSubProjects,
@@ -73,5 +73,5 @@ export default {
     deleteSubProject,
     createSubProject,
     createSubProjectDetails,
-    getSubProjectItem
+    getSubProjectItems
 }

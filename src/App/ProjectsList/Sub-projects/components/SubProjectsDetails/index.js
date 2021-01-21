@@ -9,6 +9,7 @@ import { projectOperation, projectSelectors } from "../../../duck";
 import ProgressChart from "./ProgressChart";
 import SubProjectEquipment from "./SubProjectEquipment";
 import "./styles.css";
+import SubProjectItems from "../SubProjectItems";
 
 const { Content, Sider } = Layout;
 
