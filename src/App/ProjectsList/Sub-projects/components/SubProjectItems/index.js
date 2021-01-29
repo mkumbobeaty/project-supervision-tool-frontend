@@ -48,27 +48,19 @@ class SubProjectItems extends Component {
     getSubProjectItems()
   }
 
-  showModal = () => {
-    const { getItems } = this.props;
+
+  /**
+ * @function
+ * @name openForm
+ * @description Open sub projects item form
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+  openForm = () => {
+    const { openForm, getItems } = this.props;
     getItems();
-    this.setState({ showForm: true })
-
-  };
-  onClose = () => {
-    this.setState({ showForm: false })
-  };
-
-      /**
-     * @function
-     * @name openForm
-     * @description Open sub projects item form
-     *
-     * @version 0.1.0
-     * @since 0.1.0
-     */
-    openForm = () => {
-      const {openForm} = this.props;
-      openForm();
+    openForm();
   };
 
   /**
@@ -80,9 +72,9 @@ class SubProjectItems extends Component {
    * @since 0.1.0
    */
   closeForm = () => {
-      this.setState({isEditForm: false, visible: false});
-      const {closeForm} = this.props;
-      closeForm();
+    this.setState({ isEditForm: false, visible: false });
+    const { closeForm } = this.props;
+    closeForm();
   };
 
 
@@ -207,8 +199,8 @@ const mapStateToProps = (state) => {
   return {
     subProjectItems: subProjectsSelectors.getSubProjectItemsSelector(state),
     loading: subProjectsSelectors.getSubProjectItemLoadingSelector(state),
+    showForm: subProjectsSelectors.getShowFormSelector(state),
     items: projectSelectors.getItemsSelector(state),
-    showForm:subProjectsSelectors.getShowFormSelector(state)
   };
 };
 

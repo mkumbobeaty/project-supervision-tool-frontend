@@ -37,6 +37,7 @@ const createSubProjectItemEpic = action$ => {
     return action$.pipe(
         ofType(types.CREATE_SUB_PROJECT_ITEM_START),
         switchMap(({payload}) => {
+            debugger
             return from(API.createSubProjectItem(payload))
         }),
         switchMap(res => {return of(actions.createSubProjectItemSuccess(res))}),

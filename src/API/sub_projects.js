@@ -74,8 +74,7 @@ const getSubProjectItems = () => axios.get('/sub_project_items').then(response =
  * @param {Object} id
  * @returns {Promise}
  */
-const createSubProjectItem = (values) => { axios.post('/ub_project_items', values). then((res) => res.data)}
-
+const createSubProjectItem = (values) => { axios.post('/sub_project_items', values).then((response) => response.data)};
 
 /**
  * 

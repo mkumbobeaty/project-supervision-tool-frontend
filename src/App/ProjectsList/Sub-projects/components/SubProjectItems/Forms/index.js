@@ -16,9 +16,10 @@ const tailLayout = {
     },
 };
 
-const SubProjectItemForm = ({ items }) => {
+const SubProjectItemForm = ({ items,createSubProjectItem }) => {
     const onFinish = (values) => {
-        console.log('Success:', values);
+        const payload = {...values, sub_project_id:2, progress_id:1}
+        createSubProjectItem(payload)
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -61,7 +62,7 @@ const SubProjectItemForm = ({ items }) => {
             </Form.Item>
             <Form.Item
                 label="Capacity "
-                name="item"
+                name="item_id"
                 rules={[
                     {
                         required: true,
