@@ -299,6 +299,7 @@ const mapStateToProps = (state) => {
   };
 };
 
+
 const mapDispatchToProps = {
   fetchSubProjects: projectOperation.getSubProjectsStart,
   deleteSubproject: projectOperation.deleteSubProjectStart,

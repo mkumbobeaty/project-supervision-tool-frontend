@@ -16,9 +16,9 @@ const tailLayout = {
     },
 };
 
-const SubProjectItemForm = ({ items,createSubProjectItem }) => {
+const SubProjectItemForm = ({ items,createSubProjectItem, subProjects }) => {
     const onFinish = (values) => {
-        const payload = {...values, sub_project_id:2, progress_id:1}
+        const payload = {...values, progress_id:1}
         createSubProjectItem(payload)
     };
 
@@ -59,6 +59,22 @@ const SubProjectItemForm = ({ items,createSubProjectItem }) => {
                 ]}
             >
                 <Input />
+            </Form.Item>
+            <Form.Item
+                label="Sub Project "
+                name="sub_project_id"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input sub project!',
+                    },
+                ]}
+            >
+                <Select >
+                    {subProjects.map((subproject) => (
+                        <Select.Option value={subproject.id}>{subproject.name}</Select.Option>
+                    ))}
+                </Select>
             </Form.Item>
             <Form.Item
                 label="Capacity "

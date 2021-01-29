@@ -44,8 +44,8 @@ class SubProjectItems extends Component {
   }
 
   componentDidMount() {
-    const { getSubProjectItems } = this.props;
-    getSubProjectItems()
+    const { getSubProjectItems,  } = this.props;
+    getSubProjectItems();
   }
 
 
@@ -58,8 +58,9 @@ class SubProjectItems extends Component {
  * @since 0.1.0
  */
   openForm = () => {
-    const { openForm, getItems } = this.props;
+    const { openForm, getItems, fetchSubProjects } = this.props;
     getItems();
+    fetchSubProjects()
     openForm();
   };
 
@@ -85,6 +86,7 @@ class SubProjectItems extends Component {
       items,
       createSubProjectItem,
       showForm,
+      subProjects,
     } = this.props;
 
     const { isEditForm } = this.state;
@@ -175,7 +177,7 @@ class SubProjectItems extends Component {
 
         // afterClose={this.handleAfterCloseForm}
         >
-          <SubProjectItemForm items={items} createSubProjectItem={createSubProjectItem} />
+          <SubProjectItemForm items={items} createSubProjectItem={createSubProjectItem} subProjects={subProjects} />
         </Modal>
       </div>
     );
@@ -188,11 +190,14 @@ SubProjectItems.propTypes = {
     .isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
     .isRequired,
+  subProjects:PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+    .isRequired,
 };
 
 SubProjectItems.defaultProps = {
   subProjectItems: null,
-  items: null
+  items: null,
+  subProjects:null
 };
 
 const mapStateToProps = (state) => {
@@ -201,6 +206,8 @@ const mapStateToProps = (state) => {
     loading: subProjectsSelectors.getSubProjectItemLoadingSelector(state),
     showForm: subProjectsSelectors.getShowFormSelector(state),
     items: projectSelectors.getItemsSelector(state),
+    subProjects: projectSelectors.getSubProjectsSelector(state),
+
   };
 };
 
@@ -210,6 +217,8 @@ const mapDispatchToProps = {
   openForm: subProjectsActions.openForm,
   closeForm: subProjectsActions.closeForm,
   createSubProjectItem: subProjectsOperator.createSubProjectItemStart,
+  fetchSubProjects: projectOperation.getSubProjectsStart,
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjectItems);
