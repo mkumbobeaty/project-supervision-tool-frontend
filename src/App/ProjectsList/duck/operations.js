@@ -45,7 +45,10 @@ import {
   createProjectLocationFailure,
   getItemsStart,
   getItemsSuccess,
-  getItemsFailure
+  getItemsFailure,
+  getProgressStart,
+  getProgressSuccess,
+  getProgressFailure
 
 } from './actions';
 
@@ -97,4 +100,7 @@ export {
   getItemsStart,
   getItemsSuccess,
   getItemsFailure,
+  getProgressStart,
+  getProgressSuccess,
+  getProgressFailure
 };

@@ -277,6 +277,19 @@ const items = (state = { data: [], error: null, loading: false }, action) => {
     }
 };
 
+const progress = (state = { data: [], error: null, loading: false }, action) => {
+    switch (action.type) {
+        case types.GET_PROGRESS_START:
+            return { ...state, loading: true }
+        case types.GET_PROGRESS_SUCCESS:
+            return { ...state, data: action.payload, loading: false, }
+        case types.GET_PROJECTS_FAILURE:
+            return { ...state, error: action.message, loading: false };
+        default:
+            return state;
+    }
+};
+
 
 export const resources = combineReducers({
     selectedProjects,
@@ -291,4 +304,5 @@ export const resources = combineReducers({
     creatingSubProjects,
     environmentalCategories,
     items,
+    progress
 })

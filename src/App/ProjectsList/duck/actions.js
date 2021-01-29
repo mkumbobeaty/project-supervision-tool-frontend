@@ -461,3 +461,27 @@ export const getItemsSuccess = makeActionCreator(types.GET_ITEMS_SUCCESS, 'paylo
  * @return {Object} action
  * */
 export const getItemsFailure = makeActionCreator(types.GET_ITEMS_FAILURE, 'payload');
+
+
+/**
+ * @function
+ * @name getProgressStart
+ * @return {Object} action
+ * */
+export const getProgressStart = makeActionCreator(types.GET_PROGRESS_START);
+
+/**
+ * @function
+ * @name getProgressSuccess
+ * @param {Object} payload Progress
+ * @return {Object} action
+ * */
+export const getProgressSuccess = makeActionCreator(types.GET_PROGRESS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getProgressFailure
+ * @param {Object} payload  Progress failure response
+ * @return {Object} action
+ * */
+export const getProgressFailure = makeActionCreator(types.GET_PROJECTS_FAILURE, 'payload');

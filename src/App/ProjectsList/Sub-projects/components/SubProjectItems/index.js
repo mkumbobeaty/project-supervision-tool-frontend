@@ -10,6 +10,7 @@ import ListItemActions from "../../../../components/ListItemActions";
 import { subProjectsActions, subProjectsOperator, subProjectsSelectors } from "../../duck";
 import SubProjectItemForm from "./Forms";
 import { projectOperation, projectSelectors } from "../../../duck";
+import progress from "../../../../../API/progress";
 
 
 /* constants */
@@ -58,9 +59,10 @@ class SubProjectItems extends Component {
  * @since 0.1.0
  */
   openForm = () => {
-    const { openForm, getItems, fetchSubProjects } = this.props;
+    const { openForm, getItems, fetchSubProjects, getProgress } = this.props;
     getItems();
-    fetchSubProjects()
+    fetchSubProjects();
+    getProgress()
     openForm();
   };
 
@@ -87,6 +89,7 @@ class SubProjectItems extends Component {
       createSubProjectItem,
       showForm,
       subProjects,
+      progress
     } = this.props;
 
     const { isEditForm } = this.state;
@@ -177,7 +180,12 @@ class SubProjectItems extends Component {
 
         // afterClose={this.handleAfterCloseForm}
         >
-          <SubProjectItemForm items={items} createSubProjectItem={createSubProjectItem} subProjects={subProjects} />
+          <SubProjectItemForm 
+            items={items} 
+            createSubProjectItem={createSubProjectItem} 
+            subProjects={subProjects} 
+            progress={progress}
+            />
         </Modal>
       </div>
     );
@@ -207,7 +215,7 @@ const mapStateToProps = (state) => {
     showForm: subProjectsSelectors.getShowFormSelector(state),
     items: projectSelectors.getItemsSelector(state),
     subProjects: projectSelectors.getSubProjectsSelector(state),
-
+    progress: projectSelectors.getProgressSelector(state)
   };
 };
 
@@ -218,6 +226,7 @@ const mapDispatchToProps = {
   closeForm: subProjectsActions.closeForm,
   createSubProjectItem: subProjectsOperator.createSubProjectItemStart,
   fetchSubProjects: projectOperation.getSubProjectsStart,
+  getProgress: projectOperation.getProgressStart
 
 };
 
