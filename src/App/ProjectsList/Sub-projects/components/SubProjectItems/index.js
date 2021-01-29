@@ -8,6 +8,7 @@ import SubProjectItemsList from "../../../../components/List";
 import ListItem from "../../../../components/ListItem";
 import ListItemActions from "../../../../components/ListItemActions";
 import { subProjectsOperator, subProjectsSelectors } from "../../duck";
+import SubProjectItemForm from "./Forms";
 
 
 /* constants */
@@ -35,11 +36,23 @@ const headerLayout = [
  * @since 0.1.0
  */
 class SubProjectItems extends Component {
+  state = {
+    showForm : false,
+    isEditForm: false,
+
+  }
 
   componentDidMount() {
     const { getSubProjectItems } = this.props;
     getSubProjectItems()
   }
+
+   showModal = () => {
+     this.setState({showForm: true})
+  };
+   onClose = () => {
+    this.setState({showForm: false})
+  };
 
   render() {
     const {
@@ -47,6 +60,7 @@ class SubProjectItems extends Component {
       loading,
     } = this.props;
 
+    const {isEditForm, showForm} = this.state;
     return (
       <div>
         {/* Topbar */}
@@ -62,7 +76,7 @@ class SubProjectItems extends Component {
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New Sub-project",
-              onClick: this.openSubProjectForm,
+              onClick: this.showModal,
             },
           ]}
         />
@@ -120,6 +134,20 @@ class SubProjectItems extends Component {
             )}
         />
         {/* end list */}
+        <Modal
+          title={
+            isEditForm ? "Edit Subproject Item" : "Add New Subproject Item"
+          } width={550}
+          onClose={this.onClose}
+          footer={null}
+          visible={showForm}
+          bodyStyle={{ paddingBottom: 80 }}
+          destroyOnClose
+          maskClosable={false}
+          afterClose={this.handleAfterCloseForm}
+        >
+          <SubProjectItemForm/>
+        </Modal>
       </div>
     );
   }
