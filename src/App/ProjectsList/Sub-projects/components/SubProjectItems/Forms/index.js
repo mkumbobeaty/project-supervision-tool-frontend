@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Form, Input, Button, InputNumber, } from 'antd';
+import { Form, Input, Button, InputNumber, Select, } from 'antd';
 const layout = {
     labelCol: {
         span: 8,
@@ -16,7 +16,7 @@ const tailLayout = {
     },
 };
 
-const SubProjectItemForm = () => {
+const SubProjectItemForm = ({ items }) => {
     const onFinish = (values) => {
         console.log('Success:', values);
     };
@@ -58,6 +58,22 @@ const SubProjectItemForm = () => {
                 ]}
             >
                 <Input />
+            </Form.Item>
+            <Form.Item
+                label="Capacity "
+                name="item"
+                rules={[
+                    {
+                        required: true,
+                        message: 'Please input item capacity!',
+                    },
+                ]}
+            >
+                <Select >
+                    {items.map((item) => (
+                        <Select.Option value={item.id}>{item.capacity}</Select.Option>
+                    ))}
+                </Select>
             </Form.Item>
             <Form.Item
                 label="Quantity"

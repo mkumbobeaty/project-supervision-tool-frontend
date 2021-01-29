@@ -9,6 +9,7 @@ import ListItem from "../../../../components/ListItem";
 import ListItemActions from "../../../../components/ListItemActions";
 import { subProjectsOperator, subProjectsSelectors } from "../../duck";
 import SubProjectItemForm from "./Forms";
+import { projectOperation, projectSelectors } from "../../../duck";
 
 
 /* constants */
@@ -37,7 +38,7 @@ const headerLayout = [
  */
 class SubProjectItems extends Component {
   state = {
-    showForm : false,
+    showForm: false,
     isEditForm: false,
 
   }
@@ -47,20 +48,24 @@ class SubProjectItems extends Component {
     getSubProjectItems()
   }
 
-   showModal = () => {
-     this.setState({showForm: true})
+  showModal = () => {
+    const { getItems } = this.props;
+    getItems();
+    this.setState({ showForm: true })
+
   };
-   onClose = () => {
-    this.setState({showForm: false})
+  onClose = () => {
+    this.setState({ showForm: false })
   };
 
   render() {
     const {
       subProjectItems,
       loading,
+      items
     } = this.props;
 
-    const {isEditForm, showForm} = this.state;
+    const { isEditForm, showForm } = this.state;
     return (
       <div>
         {/* Topbar */}
@@ -137,16 +142,18 @@ class SubProjectItems extends Component {
         <Modal
           title={
             isEditForm ? "Edit Subproject Item" : "Add New Subproject Item"
-          } width={550}
-          onClose={this.onClose}
-          footer={null}
+          }
+          width={550}
           visible={showForm}
-          bodyStyle={{ paddingBottom: 80 }}
+          className="modal-window-50"
+          footer={null}
+          onCancel={this.onClose}
           destroyOnClose
           maskClosable={false}
-          afterClose={this.handleAfterCloseForm}
+
+        // afterClose={this.handleAfterCloseForm}
         >
-          <SubProjectItemForm/>
+          <SubProjectItemForm items={items} />
         </Modal>
       </div>
     );
@@ -157,21 +164,26 @@ SubProjectItems.propTypes = {
   loading: PropTypes.bool.isRequired,
   subProjectItems: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
     .isRequired,
+  items: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+    .isRequired,
 };
 
 SubProjectItems.defaultProps = {
   subProjectItems: null,
+  items: null
 };
 
 const mapStateToProps = (state) => {
   return {
     subProjectItems: subProjectsSelectors.getSubProjectItemsSelector(state),
-    loading: subProjectsSelectors.getSubProjectItemLoadingSelector(state)
+    loading: subProjectsSelectors.getSubProjectItemLoadingSelector(state),
+    items: projectSelectors.getItemsSelector(state),
   };
 };
 
 const mapDispatchToProps = {
-  getSubProjectItems: subProjectsOperator.getSubProjectItemsStart
+  getSubProjectItems: subProjectsOperator.getSubProjectItemsStart,
+  getItems: projectOperation.getItemsStart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjectItems);
