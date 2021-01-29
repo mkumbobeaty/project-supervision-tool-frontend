@@ -13,6 +13,12 @@ export const getSubProjectItemsSelector = (state) => state.subProjectResources?.
  */
 export const getSubProjectItemLoadingSelector = (state) => state?.subProjectResources?.sub_project_items?.loading;
 
+/**
+ * @function
+ * @name getShowFormSelector
+ * @param {Object} state redux state
+ */
+export const getShowFormSelector = (state) => state?.subProjectResources?.sub_project_items?.showForm;
 
 /**
  * @function
@@ -28,3 +34,4 @@ export const getSubProjectEquipmentsSelector = (state) => state.subProjectResour
  * @param {Object} state redux state
  */
 export const getSubProjectEquipmentsLoadingSelector = (state) => state?.subProjectResources?.sub_project_equipments?.loading;
+

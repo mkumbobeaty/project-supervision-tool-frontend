@@ -84,3 +84,16 @@ export const getSubProjectEquipmentsSuccess = makeActionCreator(types.GET_SUB_PR
  * */
 export const getSubProjectEquipmentsFailure = makeActionCreator(types.GET_SUB_PROJECT_EQUIPMENTS_FAILURE, 'payload');
 
+/**
+ * @function
+ * @name openForm
+ * @return {Object} action
+ * */
+export const openForm = makeActionCreator(types.OPEN_FORM);
+
+/**
+ * @function
+ * @name closeForm
+ * @return {Object} action
+ * */
+export const closeForm = makeActionCreator(types.CLOSE_FORM);

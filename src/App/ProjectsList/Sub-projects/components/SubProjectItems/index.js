@@ -7,7 +7,7 @@ import Topbar from "../../../../components/Topbar";
 import SubProjectItemsList from "../../../../components/List";
 import ListItem from "../../../../components/ListItem";
 import ListItemActions from "../../../../components/ListItemActions";
-import { subProjectsOperator, subProjectsSelectors } from "../../duck";
+import { subProjectsActions, subProjectsOperator, subProjectsSelectors } from "../../duck";
 import SubProjectItemForm from "./Forms";
 import { projectOperation, projectSelectors } from "../../../duck";
 
@@ -58,14 +58,44 @@ class SubProjectItems extends Component {
     this.setState({ showForm: false })
   };
 
+      /**
+     * @function
+     * @name openForm
+     * @description Open sub projects item form
+     *
+     * @version 0.1.0
+     * @since 0.1.0
+     */
+    openForm = () => {
+      const {openForm} = this.props;
+      openForm();
+  };
+
+  /**
+   * @function
+   * @name closeForm
+   * @description close sub projects item form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  closeForm = () => {
+      this.setState({isEditForm: false, visible: false});
+      const {closeForm} = this.props;
+      closeForm();
+  };
+
+
   render() {
     const {
       subProjectItems,
       loading,
-      items
+      items,
+      createSubProjectItem,
+      showForm,
     } = this.props;
 
-    const { isEditForm, showForm } = this.state;
+    const { isEditForm } = this.state;
     return (
       <div>
         {/* Topbar */}
@@ -81,7 +111,7 @@ class SubProjectItems extends Component {
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New Sub-project",
-              onClick: this.showModal,
+              onClick: this.openForm,
             },
           ]}
         />
@@ -147,13 +177,13 @@ class SubProjectItems extends Component {
           visible={showForm}
           className="modal-window-50"
           footer={null}
-          onCancel={this.onClose}
+          onCancel={this.closeForm}
           destroyOnClose
           maskClosable={false}
 
         // afterClose={this.handleAfterCloseForm}
         >
-          <SubProjectItemForm items={items} />
+          <SubProjectItemForm items={items} createSubProjectItem={createSubProjectItem} />
         </Modal>
       </div>
     );
@@ -178,12 +208,16 @@ const mapStateToProps = (state) => {
     subProjectItems: subProjectsSelectors.getSubProjectItemsSelector(state),
     loading: subProjectsSelectors.getSubProjectItemLoadingSelector(state),
     items: projectSelectors.getItemsSelector(state),
+    showForm:subProjectsSelectors.getShowFormSelector(state)
   };
 };
 
 const mapDispatchToProps = {
   getSubProjectItems: subProjectsOperator.getSubProjectItemsStart,
-  getItems: projectOperation.getItemsStart
+  getItems: projectOperation.getItemsStart,
+  openForm: subProjectsActions.openForm,
+  closeForm: subProjectsActions.closeForm,
+  createSubProjectItem: subProjectsOperator.createSubProjectItemStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjectItems);
