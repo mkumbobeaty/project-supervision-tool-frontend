@@ -25,6 +25,41 @@ export const getSubProjectItemsSuccess = makeActionCreator(types.GET_SUB_PROJECT
  * */
 export const getSubProjectItemsFailure = makeActionCreator(types.GET_SUB_PROJECT_ITEMS_FAILURE, 'payload');
 
+/**
+ * @function
+ * @name createSubProjectItemStart
+ * @param {*} item 
+ */
+export function createSubProjectItemStart(item) {
+    return {
+      type: types.CREATE_SUB_PROJECT_ITEM_START,
+      payload:item
+    };
+  }
+  
+  /**
+   * @function
+   * @name createSubProjectItemSuccess
+   * @param {*} item 
+   */
+  export function createSubProjectItemSuccess(item) {
+    return {
+      type: types.CREATE_SUB_PROJECT_ITEM_SUCCESS,
+      payload: item,
+    };
+  }
+  
+  /**
+   * @function
+   * @name createSubProjectItemFailure
+   * @param {*} error 
+   */
+  export function createSubProjectItemFailure(error) {
+    return {
+      type: types.CREATE_SUB_PROJECT_ITEM_FAILURE,
+      payload: error,
+    };
+  }
 
 /**
  * @function
@@ -48,3 +83,4 @@ export const getSubProjectEquipmentsSuccess = makeActionCreator(types.GET_SUB_PR
  * @return {Object} action
  * */
 export const getSubProjectEquipmentsFailure = makeActionCreator(types.GET_SUB_PROJECT_EQUIPMENTS_FAILURE, 'payload');
+

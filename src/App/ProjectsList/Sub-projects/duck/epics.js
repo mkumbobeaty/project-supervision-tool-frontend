@@ -2,8 +2,9 @@ import * as actions from './actions';
 import * as types from './types';
 import API from '../../../../API';
 import { ofType, combineEpics } from 'redux-observable';
-import { of, from } from 'rxjs';
+import { of, from, pipe } from 'rxjs';
 import { switchMap, catchError, } from "rxjs/operators";
+import { act } from 'react-dom/test-utils';
 
 /**
  * @function
@@ -27,6 +28,24 @@ const getSubProjectItemsEpic = action$ => {
 
 /**
  * @function
+ * @name createSubProjectItemEpic
+ * @description create sub project item 
+ * @param action$
+ * @return actions
+ */
+const createSubProjectItemEpic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_SUB_PROJECT_ITEM_START),
+        switchMap(({payload}) => {
+            return from(API.createSubProjectItem(payload))
+        }),
+        switchMap(res => {return of(actions.createSubProjectItemSuccess(res))}),
+        catchError(error => {return of(actions.getSubProjectEquipmentsFailure(error))})
+    )
+}
+
+/**
+ * @function
  * @name getSubProjectEquipmentsEpic
  * @description gets all sub projects items 
  * @param action$
@@ -38,7 +57,6 @@ const getSubProjectEquipmentsEpic = action$ => {
         switchMap(() =>  {
             return from(API.getSubProjectEquipments()).pipe(
             switchMap(res => { 
-                console.log(res.data)
                 return of(actions.getSubProjectEquipmentsSuccess(res.data)) }),
             catchError(error => of(actions.getSubProjectEquipmentsFailure(error)))
         )}
@@ -48,7 +66,10 @@ const getSubProjectEquipmentsEpic = action$ => {
 
 
 
-export const  subProjectsEpic= combineEpics(
+
+
+export const subProjectsEpic= combineEpics(
     getSubProjectItemsEpic,
+    createSubProjectItemEpic,
     getSubProjectEquipmentsEpic
 )

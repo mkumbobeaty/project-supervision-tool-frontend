@@ -1,5 +1,6 @@
 import * as types from "./types";
 import {combineReducers} from "redux";
+import { act } from "react-dom/test-utils";
 
 /**
  * @function
@@ -17,6 +18,12 @@ const sub_project_items = (state = {data: [], error: null, loading: false}, acti
       return {...state, data: action.payload, loading: false, }
     case types.GET_SUB_PROJECT_ITEMS_FAILURE:
       return { ...state, error: action.message, loading: false };
+    case types.CREATE_SUB_PROJECT_ITEM_START:
+      return { ...state, loading:false};
+    case types.CREATE_SUB_PROJECT_ITEM_SUCCESS:
+      return { ...state, data:action.payload, loading:true};
+    case types.CREATE_SUB_PROJECT_ITEM_FAILURE:
+      return {...state, error:action.payload, loading:true}
      default:
       return state;
   }

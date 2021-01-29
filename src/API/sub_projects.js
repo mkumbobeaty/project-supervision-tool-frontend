@@ -68,7 +68,18 @@ const createSubProjectDetails = (subProjectDetails) =>
 const getSubProjectItems = () => axios.get('/sub_project_items').then(response => response.data);
 
 /**
- * Get a sub project from the API
+ * creating  sub project item
+ * @function
+ * @name createSubProjectItem
+ * @param {Object} id
+ * @returns {Promise}
+ */
+const createSubProjectItem = (values) => { axios.post('/ub_project_items', values). then((res) => res.data)}
+
+
+/**
+ * 
+ * Get a sub project item from the API
  * @function
  * @name getSubProjectEquipments
  * @param {Object} id - Id of a sub project equipment
@@ -87,5 +98,6 @@ export default {
     createSubProject,
     createSubProjectDetails,
     getSubProjectItems,
-    getSubProjectEquipments
+    getSubProjectEquipments,
+    createSubProjectItem
 }
