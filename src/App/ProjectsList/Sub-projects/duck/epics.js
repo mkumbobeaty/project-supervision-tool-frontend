@@ -4,7 +4,6 @@ import API from '../../../../API';
 import { ofType, combineEpics } from 'redux-observable';
 import { of, from, pipe } from 'rxjs';
 import { switchMap, catchError, } from "rxjs/operators";
-import { act } from 'react-dom/test-utils';
 
 /**
  * @function
@@ -42,11 +41,11 @@ const createSubProjectItemEpic = action$ => {
             return from(API.createSubProjectItem(payload))
         }),
         switchMap(res => {
-            return (
-                of(actions.createSubProjectItemSuccess(res)),
-                of(actions.getSubProjectItemsStart))
+                    debugger
+                    return ( of(actions.createSubProjectItemSuccess(res)), of(actions.getSubProjectItemsStart))
         }),
         catchError(error => { return of(actions.createSubProjectItemFailure(error)) })
+
     )
 }
 

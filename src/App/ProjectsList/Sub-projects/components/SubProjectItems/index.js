@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Col, Modal } from "antd";
+import { Col, Drawer, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import Topbar from "../../../../components/Topbar";
@@ -10,14 +10,13 @@ import ListItemActions from "../../../../components/ListItemActions";
 import { subProjectsActions, subProjectsOperator, subProjectsSelectors } from "../../duck";
 import SubProjectItemForm from "./Forms";
 import { projectOperation, projectSelectors } from "../../../duck";
-import progress from "../../../../../API/progress";
 
 
 /* constants */
 const subProjectItemNameSpan = { xxl: 6, xl: 6, lg: 5, md: 5, sm: 10, xs: 11 };
 const descriptionSpan = { xxl: 6, xl: 6, lg: 6, md: 7, sm: 0, xs: 0 };
-const quantitySpan = { xxl: 4, xl: 4, lg: 4, md: 5, sm: 5, xs: 10 };
-const capacitySpan = { xxl: 5, xl: 5, lg: 5, md: 4, sm: 6, xs: 0 };
+const quantitySpan = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 5, xs: 10 };
+const capacitySpan = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 6, xs: 0 };
 
 const { confirm } = Modal;
 
@@ -166,28 +165,28 @@ class SubProjectItems extends Component {
             )}
         />
         {/* end list */}
-        <Modal
-          title={
+          <Drawer
+           title={
             isEditForm ? "Edit Subproject Item" : "Add New Subproject Item"
           }
           width={550}
-          visible={showForm}
-          className="modal-window-50"
+          onClose={this.closeForm}
           footer={null}
-          onCancel={this.closeForm}
+          visible={showForm}
+          bodyStyle={{ paddingBottom: 80 }}
           destroyOnClose
           maskClosable={false}
-
-        // afterClose={this.handleAfterCloseForm}
+          // afterClose={this.handleAfterCloseForm}
         >
-          <SubProjectItemForm 
+           <SubProjectItemForm 
             items={items} 
             createSubProjectItem={createSubProjectItem} 
             subProjects={subProjects} 
             progress={progress}
-            />
-        </Modal>
-      </div>
+            loading={loading}
+            /> 
+        </Drawer>
+       </div>
     );
   }
 }

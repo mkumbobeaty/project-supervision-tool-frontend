@@ -12,7 +12,7 @@ import { subProjectsOperator, subProjectsSelectors } from "../../duck";
 
 /* constants */
 const remarksSPan = { xxl: 4, xl: 4, lg: 5, md: 5, sm: 10, xs: 11 };
-const mobilizedSpan = { xxl: 4, xl: 4, lg: 4, md: 7, sm: 0, xs: 0 };
+const mobilizedSpan = { xxl: 5, xl: 5, lg: 5, md: 7, sm: 0, xs: 0 };
 const quantityContractSpan = { xxl: 4, xl: 4, lg: 4, md: 5, sm: 5, xs: 10 };
 const capacitySpan = { xxl: 5, xl: 5, lg: 4, md: 4, sm: 4, xs: 0 };
 const mobilizedDateSpan = { xxl: 4, xl: 4, lg: 4, md: 0, sm: 0, xs: 0 };

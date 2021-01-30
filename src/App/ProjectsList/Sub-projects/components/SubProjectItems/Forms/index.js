@@ -1,25 +1,26 @@
 import React from 'react';
 
 import { Form, Input, Button, InputNumber, Select, } from 'antd';
-const layout = {
-    labelCol: {
-        span: 8,
-    },
-    wrapperCol: {
-        span: 16,
-    },
+const labelCol = {
+    xs: { span: 24 },
+    sm: { span: 24 },
+    md: { span: 24 },
+    lg: { span: 24 },
+    xl: { span: 24 },
+    xxl: { span: 24 },
 };
-const tailLayout = {
-    wrapperCol: {
-        offset: 8,
-        span: 16,
-    },
+const wrapperCol = {
+    xs: { span: 24 },
+    sm: { span: 24 },
+    md: { span: 24 },
+    lg: { span: 24 },
+    xl: { span: 24 },
+    xxl: { span: 24 },
 };
 
-const SubProjectItemForm = ({ items,createSubProjectItem, subProjects, progress }) => {
+const SubProjectItemForm = ({ items, createSubProjectItem, subProjects, progress, loading }) => {
     const onFinish = (values) => {
-        const payload = { ...values }
-        createSubProjectItem(payload)
+        createSubProjectItem(values)
     };
 
     const onFinishFailed = (errorInfo) => {
@@ -28,13 +29,16 @@ const SubProjectItemForm = ({ items,createSubProjectItem, subProjects, progress 
 
     return (
         <Form
-            {...layout}
+            labelCol={labelCol}
+            wrapperCol={wrapperCol}
             name="subProjectItem"
             initialValues={{
                 remember: true,
             }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
+            className="ProjectForm"
+
         >
             <Form.Item
                 label="Item Name"
@@ -120,8 +124,14 @@ const SubProjectItemForm = ({ items,createSubProjectItem, subProjects, progress 
             >
                 <InputNumber />
             </Form.Item>
-            <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">
+            <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }} >
+                <Button
+                    type="primary"
+                    htmlType="submit"
+                    loading={loading}
+                    style={{
+                        fontSize: '0.9em'
+                    }}>
                     Submit
         </Button>
             </Form.Item>
