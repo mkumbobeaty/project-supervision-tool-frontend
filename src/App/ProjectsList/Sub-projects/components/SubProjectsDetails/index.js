@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../duck";
 import ProgressChart from "./ProgressChart";
 import SubProjectEquipment from "./SubProjectEquipment";
+
 import "./styles.css";
 
 const { Content, Sider } = Layout;

@@ -12,6 +12,8 @@ import SubProjects from "../ProjectsList/Sub-projects";
 import Project from "../ProjectsList/Projects/components/ProjectsDetails";
 import SubProject from "../ProjectsList/Sub-projects/components/SubProjectsDetails/"
 import "./styles.css";
+import SubProjectItems from "../ProjectsList/Sub-projects/components/SubProjectItems";
+import SubProjectEquipments from "../ProjectsList/Sub-projects/components/SubProjectEquipments";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -39,6 +41,22 @@ const breadcrumbNameMap = {
     name: "Sub Project",
     title: "Detail of single sub project",
   },
+  "/app/sub-project-items": {
+    name: "Sub Project items",
+    title: "List of all sub project items",
+  },
+  "/app/sub-project-equipments": {
+    name: "Sub Project Equipments",
+    title: "List of all sub project equipments",
+  },
+  "/app/human-resources": {
+    name: "Human Resources",
+    title: "List of all human resources",
+  },
+  "/app/sub-projects-contracts": {
+    name: "Sub Project Contracts",
+    title: "List of all Sub Project Contracts",
+  },
   "/app/adminpanel": {
     name: "Admin Panel",
     title: "Admin Panel module",
@@ -48,6 +66,7 @@ const breadcrumbNameMap = {
     name: "Dashboards",
     title: "Dashboards",
   },
+  
 };
 
 /**
@@ -136,7 +155,18 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/sub-projects/:id`}
             render={({match}) => <SubProject match={match}/>}
-          />          
+          />   
+          <Route
+            exact
+            path={`${baseUrl}/sub-project-items`}
+            render={(props) => <SubProjectItems {...props}/>}
+          />
+          <Route
+            exact
+            path={`${baseUrl}/sub-project-equipments`}
+            render={(props) => <SubProjectEquipments {...props}/>}
+          />
+        
           <Route path={`${baseUrl}/map`} component={MapDashboard} />
           {/* Admin panel */}
           <Route path={`${baseUrl}/adminpanel`} component={() => {
