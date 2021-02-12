@@ -2,6 +2,13 @@
     width: 50% !important;
   }
   
+.sub-project-list{
+  color: #333333;
+}
+
+.sub-project-list:hover{
+  color: #333333;
+}
   @media screen and (max-width: 1024px) {
     .FormModal {
       width: 70% !important;

@@ -1,26 +1,25 @@
-import React, {Component} from "react";
-import {connect} from "react-redux";
-import {projectActions, projectOperation, projectSelectors} from '../duck';
-import {Col, Drawer, Modal} from "antd";
-import {PlusOutlined} from "@ant-design/icons";
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { projectActions, projectOperation, projectSelectors } from '../duck';
+import { Col, Drawer, Modal } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import Topbar from "../../components/Topbar";
 import SubProjectsList from "../../components/List";
 import ListItem from "../../components/ListItem";
 import ListItemActions from "../../components/ListItemActions";
-import {Link} from "react-router-dom";
-import {isoDateToHumanReadableDate} from "../../../Util";
+import { Link } from "react-router-dom";
+import { isoDateToHumanReadableDate } from "../../../Util";
 import SubProjectForm from "./Form";
 import "./styles.css";
 
 
 /* constants */
 const subProjectNameSpan = { xxl: 3, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
-const contractorSpan = { xxl: 3, xl: 3, lg: 2, md: 3, sm: 4, xs: 5 };
-const phaseSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
-const agencySpan = { xxl: 2, xl: 2, lg: 4, md: 3, sm: 4, xs: 5 };
-const actorSpan = { xxl: 2, xl: 2, lg: 3, md: 3, sm: 4, xs: 0 };
-const locationSpan = { xxl: 5, xl: 4, lg: 0, md: 0, sm: 0, xs: 0 };
+const contractorSpan = { xxl: 5, xl: 3, lg: 5, md: 3, sm: 4, xs: 5 };
+const phaseSpan = { xxl: 2, xl: 2, lg: 3, md: 2, sm: 4, xs: 0 };
+const agencySpan = { xxl: 4, xl: 4, lg: 4, md: 3, sm: 4, xs: 5 };
+const locationSpan = { xxl: 3, xl: 4, lg: 0, md: 0, sm: 0, xs: 0 };
 const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
 const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
 
@@ -32,7 +31,6 @@ const headerLayout = [
   { ...locationSpan, header: "Location" },
   { ...agencySpan, header: "Supervision Agency" },
   { ...contractorSpan, header: "Contractor" },
-  { ...actorSpan, header: "Actor(LGA)" },
   { ...phaseSpan, header: "Phase" },
   { ...startDateSpan, header: "Start Date" },
 ];
@@ -47,13 +45,13 @@ const headerLayout = [
  * @since 0.1.0
  */
 class SubProjects extends Component {
-  
+
   state = {
     showShare: false,
     isEditForm: false,
     cached: null,
     visible: false,
-};
+  };
 
   componentDidMount() {
     const { fetchSubProjects } = this.props;
@@ -100,17 +98,17 @@ class SubProjects extends Component {
     });
   };
 
-     /**
-     * @function
-     * @name openSubProjectForm
-     * @description Open Human Resources form
-     *
-     * @version 0.1.0
-     * @since 0.1.0
-     */
-    openSubProjectForm = () => {
-      const {openSubProjectForm} = this.props;
-      openSubProjectForm();
+  /**
+  * @function
+  * @name openSubProjectForm
+  * @description Open Human Resources form
+  *
+  * @version 0.1.0
+  * @since 0.1.0
+  */
+  openSubProjectForm = () => {
+    const { openSubProjectForm } = this.props;
+    openSubProjectForm();
   };
 
   /**
@@ -122,10 +120,10 @@ class SubProjects extends Component {
    * @since 0.1.0
    */
   closeSubProjectForm = () => {
-      console.log('closeSubProjectForm');
-      this.setState({isEditForm: false, visible: false});
-      const {closeSubProjectForm} = this.props;
-      closeSubProjectForm();
+    console.log('closeSubProjectForm');
+    this.setState({ isEditForm: false, visible: false });
+    const { closeSubProjectForm } = this.props;
+    closeSubProjectForm();
   };
 
   /**
@@ -137,9 +135,9 @@ class SubProjects extends Component {
    * @since 0.1.0
    */
   handleAfterCloseForm = () => {
-      const {selectProject} = this.props;
-      selectProject(null);
-      this.setState({isEditForm: false});
+    const { selectProject } = this.props;
+    selectProject(null);
+    this.setState({ isEditForm: false });
   };
 
   render() {
@@ -149,8 +147,8 @@ class SubProjects extends Component {
       loading,
       showForm
     } = this.props;
-  
-          const { isEditForm } = this.state;
+
+    const { isEditForm } = this.state;
     return (
       <div>
         {/* Topbar */}
@@ -185,79 +183,69 @@ class SubProjects extends Component {
             onSelectItem,
             onDeselectItem,
           }) => (
-              <ListItem
-                key={item.id} // eslint-disable-line
-                name={item.name}
-                item={item}
-                isSelected={isSelected}
-                onSelectItem={onSelectItem}
-                onDeselectItem={onDeselectItem}
-                renderActions={() => (
-                  <ListItemActions
-                    onMapPreview={{
-                      name: 'Preview Initiative on Map',
-                      title: 'Preview Initiative on Map',
-                      onClick: () => this.handleMapPreview(item.id),
-                    }}
-                    edit={{
-                      name: "Edit Sub-project",
-                      title: "Update Sub-project details",
-                      onClick: () => this.handleEdit(item),
-                    }}
-                    archive={{
-                      name: "Archive Sub-project",
-                      title:
-                        "Remove Sub project from list of active Sub Projects",
-                      onClick: () => this.showArchiveConfirm(item),
-                    }}
-                  />
-                )}
+              <Link
+                to={{
+                  pathname: `/app/sub-projects/${item.id}`,
+                }}
+                className="sub-project-list"
               >
-                {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col
-                  {...subProjectNameSpan}
-                  className="humanResourceEllipse"
-                  title={item.description}
+                <ListItem
+                  key={item.id} // eslint-disable-line
+                  name={item.name}
+                  item={item}
+                  isSelected={isSelected}
+                  onSelectItem={onSelectItem}
+                  onDeselectItem={onDeselectItem}
+                  renderActions={() => (
+                    <ListItemActions
+                      edit={{
+                        name: "Edit Sub-project",
+                        title: "Update Sub-project details",
+                        onClick: () => this.handleEdit(item),
+                      }}
+                      archive={{
+                        name: "Archive Sub-project",
+                        title:
+                          "Remove Sub project from list of active Sub Projects",
+                        onClick: () => this.showArchiveConfirm(item),
+                      }}
+                    />
+                  )}
                 >
-                  {" "}
-                  <Link
-                    to={{
-                      pathname: `/app/sub-projects/${item.id}`,
-                    }}
+                  {/* eslint-disable react/jsx-props-no-spreading */}
+                  <Col
+                    {...subProjectNameSpan}
+                    className="contentEllipse"
+                    title={item.description}
                   >
-                  {item.name}
-                  </Link>
-                </Col>
-                <Col {...projectIdSpan} className="humanResourceEllipse">
-                  {" "}
-                  <Link
-                    to={{
-                      pathname: `/app/projects/${item.project_id}`,
-                    }}
-                  >
-                    
-                    {item.project_id ? item.project_id : "N/A"}
-                  </Link>
-                </Col>
-                <Col {...locationSpan}  className="humanResourceEllipse">
-                  {item.sub_project_locations.length <= 0 ? "" : item.sub_project_locations.map(({ district }, index) => {
-                    return (index ? ", " : "") + district.name;
-                  })}
-                </Col>
-                <Col {...agencySpan}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
-                <Col {...contractorSpan}>{item.details ? item.details.contractor.name : "N/A"}</Col>
-                <Col {...actorSpan}>{item.details ? item.details.actor.name : "N/A"}</Col>
-                <Col {...phaseSpan}>{item.details ? item.details.phase.name : "N/A"}</Col>
-                <Col {...startDateSpan}>
-                  {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'N/A')}
-                </Col>
+                    {" "}
 
-                {/* eslint-enable react/jsx-props-no-spreading */}
-              </ListItem>
+                    {item.name}
+                  </Col>
+                  <Col {...projectIdSpan} className="contentEllipse">
+
+                    {item.project_id ? item.project_id : "N/A"}
+                  </Col>
+                  <Col {...locationSpan} className="contentEllipse">
+                    {item.sub_project_locations.length <= 0 ? "" : item.sub_project_locations.map(({ district }, index) => {
+                      return (index ? ", " : "") + district.name;
+                    })}
+                  </Col>
+                  <Col {...agencySpan} className="contentEllipse" title={item?.details?.supervising_agency.name}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
+                  <Col {...contractorSpan} className="contentEllipse">{item.details ? item.details.contractor.name : "N/A"}</Col>
+                  {/* <Col {...actorSpan}>{item.details ? item.details.actor.name : "N/A"}</Col> */}
+                  <Col {...phaseSpan}>{item.details ? item.details.phase.name : "N/A"}</Col>
+                  <Col {...startDateSpan}>
+                    {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'N/A')}
+                  </Col>
+
+                  {/* eslint-enable react/jsx-props-no-spreading */}
+                </ListItem>
+              </Link>
             )}
         />
         {/* end list */}
-         <Drawer
+        <Drawer
           title={
             isEditForm ? "Edit Sub Projects" : "Add New Sub Projects"}
           width={550}

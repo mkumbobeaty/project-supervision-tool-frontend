@@ -229,56 +229,58 @@ class Projects extends Component {
             onSelectItem,
             onDeselectItem,
           }) => (
-              <ListItem
-                key={item.id} // eslint-disable-line
-                name={item.name}
-                item={item}
-                isSelected={isSelected}
-                onSelectItem={onSelectItem}
-                onDeselectItem={onDeselectItem}
-                renderActions={() => (
-                  <ListItemActions
-                    edit={{
-                      name: "Edit project",
-                      title: "Update project details",
-                      onClick: () => this.handleEdit(item),
-                    }}
-                    archive={{
-                      name: "Archive project",
-                      title:
-                        "Remove project from list of active Projects",
-                      onClick: () => this.showArchiveConfirm(item),
-                    }}
-                  />
-                )}
+              <Link
+                to={{
+                  pathname: `/app/projects/${item.id}`,
+                }}
+                className="Projects"
               >
-                {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...projectIdSpan} className="humanResourceEllipse">
-                  {" "}
-                  <Link
-                    to={{
-                      pathname: `/app/projects/${item.id}`,
-                    }}
-                  >
-                    {item.id ? item.id : "All"}
-                  </Link>
-                </Col>
-                <Col
-                  {...projectNameSpan}
-                  className="humanResourceEllipse"
-                  title={item.description}
+                <ListItem
+                  key={item.id} // eslint-disable-line
+                  name={item.name}
+                  item={item}
+                  isSelected={isSelected}
+                  onSelectItem={onSelectItem}
+                  onDeselectItem={onDeselectItem}
+                  renderActions={() => (
+                    <ListItemActions
+                      edit={{
+                        name: "Edit project",
+                        title: "Update project details",
+                        onClick: () => this.handleEdit(item),
+                      }}
+                      archive={{
+                        name: "Archive project",
+                        title:
+                          "Remove project from list of active Projects",
+                        onClick: () => this.showArchiveConfirm(item),
+                      }}
+                    />
+                  )}
                 >
-                  {item.name}
-                </Col>
-                <Col {...organisationSpan}>{item.details ? item.details?.funding_organisation?.name : 'N/A'}</Col>
-                <Col {...borrowerSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
-                <Col {...statusSpan}>{item.details ? item.details.status.toString() : 'N/A'}</Col>
-                <Col {...approvalSpan}>
-                  {isoDateToHumanReadableDate(item.details?.approval_fy)}
-                </Col>
+                  {/* eslint-disable react/jsx-props-no-spreading */}
+                  <Col {...projectIdSpan} className="contentEllipse">
+                    {" "}
 
-                {/* eslint-enable react/jsx-props-no-spreading */}
-              </ListItem>
+                    {item.id ? item.id : "All"}
+                  </Col>
+                  <Col
+                    {...projectNameSpan}
+                    className="contentEllipse"
+                    title={item.description}
+                  >
+                    {item.name}
+                  </Col>
+                  <Col {...organisationSpan}>{item.details ? item.details?.funding_organisation?.name : 'N/A'}</Col>
+                  <Col {...borrowerSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
+                  <Col {...statusSpan}>{item.details ? item.details.status.toString() : 'N/A'}</Col>
+                  <Col {...approvalSpan}>
+                    {isoDateToHumanReadableDate(item.details?.approval_fy)}
+                  </Col>
+
+                  {/* eslint-enable react/jsx-props-no-spreading */}
+                </ListItem>
+              </Link>
             )}
         />
         {/* end list */}

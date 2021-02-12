@@ -91,17 +91,22 @@ const ListItem = ({
       );
     }
 
-    return isHovered ? (
-      <Checkbox
-        className="Checkbox"
-        onChange={handleToggleSelect}
-        checked={isSelected}
-      />
-    ) : (
+    return (
       <Avatar style={{ backgroundColor: avatarBackground }}>
         {(name || item.hr_type.name).toUpperCase().charAt(0)}
       </Avatar>
     );
+    // isHovered ? (
+    //   <Checkbox
+    //     className="Checkbox"
+    //     onChange={handleToggleSelect}
+    //     checked={isSelected}
+    //   />
+    // ) : (
+    //   <Avatar style={{ backgroundColor: avatarBackground }}>
+    //     {(name || item.hr_type.name).toUpperCase().charAt(0)}
+    //   </Avatar>
+    // );
   };
 
   return (

@@ -151,7 +151,7 @@ class SubProjectItems extends Component {
                 {/* eslint-disable react/jsx-props-no-spreading */}
                 <Col
                   {...subProjectItemNameSpan}
-                  className="humanResourceEllipse"
+                  className="contentEllipse"
                 >
                   {item.name}
                 </Col>

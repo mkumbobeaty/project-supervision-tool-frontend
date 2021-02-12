@@ -57,7 +57,7 @@ class ProjectSubProjects extends Component {
     
                                 <Col
                                     {...awardValueNameSpan}
-                                    className="humanResourceEllipse"
+                                    className="contentEllipse"
                                 >
                                     {item?.contract_cost ? item?.contract_cost.contract_award_value.amount:"N/A"} {item?.contract_cost.contract_award_value.currency.iso}
                                 </Col>
