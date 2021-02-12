@@ -14,6 +14,7 @@ import SubProject from "../ProjectsList/Sub-projects/components/SubProjectsDetai
 import "./styles.css";
 import SubProjectItems from "../ProjectsList/Sub-projects/components/SubProjectItems";
 import SubProjectEquipments from "../ProjectsList/Sub-projects/components/SubProjectEquipments";
+import Settings from "../Settings";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -169,15 +170,17 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
         
           <Route path={`${baseUrl}/map`} component={MapDashboard} />
           {/* Admin panel */}
-          <Route path={`${baseUrl}/adminpanel`} component={() => {
-            window.location.href = 'https://pamoja-backend.herokuapp.com/';
-            return null;
-          }} />
+  
           {/* Dashboard routes */}
           <Route
             exact
             path={`${baseUrl}/dashboards`}
             component={Dashboards}
+          />
+          <Route
+            exact
+            path={`${baseUrl}/settings`}
+            component={Settings}
           />
           <Route component={PageNotFound} />
         </Switch>

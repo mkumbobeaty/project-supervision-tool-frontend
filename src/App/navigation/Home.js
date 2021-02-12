@@ -34,49 +34,49 @@ const routes = [
     icon: mapsIcon,
     description: modules.map,
   },
-  {
-    name: 'Sub Project Items',
-    path: '/sub-project-items',
-    icon: itemsIcons,
-    description: modules.map,
-  },
-  {
-    name: 'Sub Project Equipments',
-    path: '/sub-project-equipments',
-    icon: equipmentsIcons,
-    description: modules.map,
-  },
-  {
-    name: 'Sub Project Contracts',
-    path: '/sub-projects-contracts',
-    icon: contractsIcons,
-    description: modules.map,
-  },
-  {
-    name: 'Human Resources',
-    path: '/human-resources',
-    icon: humanResourcesIcons,
-    description: modules.map,
-  },
+  // {
+  //   name: 'Sub Project Items',
+  //   path: '/sub-project-items',
+  //   icon: itemsIcons,
+  //   description: modules.map,
+  // },
+  // {
+  //   name: 'Sub Project Equipments',
+  //   path: '/sub-project-equipments',
+  //   icon: equipmentsIcons,
+  //   description: modules.map,
+  // },
+  // {
+  //   name: 'Sub Project Contracts',
+  //   path: '/sub-projects-contracts',
+  //   icon: contractsIcons,
+  //   description: modules.map,
+  // },
+  // {
+  //   name: 'Human Resources',
+  //   path: '/human-resources',
+  //   icon: humanResourcesIcons,
+  //   description: modules.map,
+  // },
 
-  // {
-  //   name: 'Dashboards',
-  //   path: '/dashboards',
-  //   icon: dashboardIcon,
-  //   description: modules.dashboards,
-  // },
-  // {
-  //   name: 'Admin Panel',
-  //   path: '/adminpanel',
-  //   icon: settingsIcons,
-  //   description: modules.dashboards,
-  // },
-  // {
-  //   name: 'Advance Search',
-  //   path: '/dvancesearch',
-  //   icon: settingsIcons,
-  //   description: modules.dashboards,
-  // },
+  {
+    name: 'Dashboards',
+    path: '/dashboards',
+    icon: dashboardIcon,
+    description: modules.dashboards,
+  },
+  {
+    name: 'Users',
+    path: '/users',
+    icon: humanResourcesIcons,
+    description: modules.dashboards,
+  },
+  {
+    name: 'Settings',
+    path: '/settings',
+    icon: settingsIcons,
+    description: modules.dashboards,
+  },
 
 ];
 
