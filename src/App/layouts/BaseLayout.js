@@ -68,7 +68,7 @@ const breadcrumbNameMap = {
     name: "Dashboards",
     title: "Dashboards",
   },
-  
+
 };
 
 /**
@@ -143,32 +143,32 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             path={`${baseUrl}/projects`}
             component={Projects}
           />{" "}
-           <PrivateRoute
+          <PrivateRoute
             exact
             path={`${baseUrl}/projects/:id`}
-            render={({match}) => <Project match={match}/>}
+            render={({ match }) => <Project match={match} />}
           />
           <PrivateRoute exact path={`${baseUrl}/sub_projects`} component={SubProjects} />
-        
-           {/* <PrivateRoute
+
+          <PrivateRoute
             exact
             path={`${baseUrl}/sub-projects/:id`}
-            render={({match}) => <SubProject match={match}/>}
-          />    */}
-          {/* <PrivateRoute
+            render={({ match }) => <SubProject match={match} />}
+          />
+          <PrivateRoute
             exact
             path={`${baseUrl}/sub-project-items`}
-            render={(props) => <SubProjectItems {...props}/>}
+            render={(props) => <SubProjectItems {...props} />}
           />
           <PrivateRoute
             exact
             path={`${baseUrl}/sub-project-equipments`}
-            render={(props) => <SubProjectEquipments {...props}/>}
-          /> */}
-        
+            render={(props) => <SubProjectEquipments {...props} />}
+          />
+
           <PrivateRoute path={`${baseUrl}/map`} component={MapDashboard} />
           {/* Admin panel */}
-  
+
           {/* Dashboard PrivateRoutes */}
           <PrivateRoute
             exact
