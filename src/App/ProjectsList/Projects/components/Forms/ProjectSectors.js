@@ -1,6 +1,6 @@
-import {Form, InputNumber, Modal, Select} from "antd";
+import { Form, InputNumber, Modal, Select } from "antd";
 import PropTypes from 'prop-types';
-import React, {useEffect, useRef} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import API from '../../../../../API';
 
 
@@ -25,19 +25,25 @@ const ProjectSectorsForm = ({ visible, onCancel, sectors, project }) => {
         visible,
     });
 
+    //state for loading after click
+    const [loading, setLoading] = useState(false)
     const onOk = () => {
         const sector_id = form.getFieldValue('sector_id') || null;
         const percent = form.getFieldValue('percent') || null;
+        setLoading(true)
         const project_id = project.id;
         API.createProjectSectors({ sector_id, percent, project_id })
-            .then( () => {
+            .then(() => {
                 form.submit();
             });
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
 
     };
 
     return (
-        <Modal title="Add Project Sector" visible={visible} onOk={onOk} onCancel={onCancel}>
+        <Modal title="Add Project Sector" visible={visible} onOk={onOk} onCancel={onCancel} confirmLoading={loading}>
             <Form form={form} layout="vertical" name="projectSectorsForm">
                 {/* start:sectors*/}
                 <Form.Item
@@ -51,15 +57,15 @@ const ProjectSectorsForm = ({ visible, onCancel, sectors, project }) => {
                     ]}
                 >
                     <Select>
-                        { sectors.map(({ id, name}) => (
-                            <Select.Option value={id}>{ name }</Select.Option>
+                        {sectors.map(({ id, name }) => (
+                            <Select.Option value={id}>{name}</Select.Option>
                         ))}
                     </Select>
                 </Form.Item>
-            {/*    end:sectors*/}
+                {/*    end:sectors*/}
 
 
-            {/* start:percent */}
+                {/* start:percent */}
                 <Form.Item
                     label="Percent"
                     name="percent"
@@ -70,9 +76,9 @@ const ProjectSectorsForm = ({ visible, onCancel, sectors, project }) => {
                         },
                     ]}
                 >
-                    <InputNumber/>
+                    <InputNumber />
                 </Form.Item>
-            {/*    end:percent */}
+                {/*    end:percent */}
             </Form>
         </Modal>
     );
