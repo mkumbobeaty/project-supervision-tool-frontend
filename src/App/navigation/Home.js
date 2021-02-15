@@ -24,7 +24,7 @@ const routes = [
   },
   {
     name: 'Sub Projects',
-    path: '/sub-projects',
+    path: '/sub_projects',
     icon: initiativesIcon,
     description: modules.initiatives,
   },

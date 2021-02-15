@@ -17,14 +17,19 @@ import PropTypes from 'prop-types';
  */
 const PrivateRoute = (properties) => {
   const { component: Component, ...rest } = properties;
-  const [isAuthenticated] = useState(false);
+  const isLogin = () => {
+    if (localStorage.getItem('accessToken')) {
+        return true;
+    }
+    return false;
+} 
 
   return (
     <Route
       // eslint-disable-next-line react/jsx-props-no-spreading
       {...rest}
       render={(props) =>
-        isAuthenticated ? (
+        isLogin() ? (
           // eslint-disable-next-line react/jsx-props-no-spreading
           <Component {...props} />
         ) : (

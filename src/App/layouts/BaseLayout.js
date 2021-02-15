@@ -8,13 +8,14 @@ import Home from "../navigation/Home";
 import Dashboards from "../Dashboards";
 import MapDashboard from "../Map";
 import Projects from "../ProjectsList/Projects";
-import SubProjects from "../ProjectsList/Sub-projects";
+import SubProjects from "../ProjectsList/Sub-projects/";
 import Project from "../ProjectsList/Projects/components/ProjectsDetails";
 import SubProject from "../ProjectsList/Sub-projects/components/SubProjectsDetails/"
-import "./styles.css";
 import SubProjectItems from "../ProjectsList/Sub-projects/components/SubProjectItems";
 import SubProjectEquipments from "../ProjectsList/Sub-projects/components/SubProjectEquipments";
 import Settings from "../Settings";
+import PrivateRoute from '../Auth/PrivateRoute';
+import "./styles.css";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -135,54 +136,51 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
       </Header>
       <Content className="BaseLayoutContent">
         <Switch>
-          <Route exact path={`${baseUrl}/`} component={Home} />
-          {/* Projects routes */}
-          <Route
+          <PrivateRoute exact path={`${baseUrl}/`} component={Home} />
+          {/* Projects PrivateRoutes */}
+          <PrivateRoute
             exact
             path={`${baseUrl}/projects`}
             component={Projects}
           />{" "}
-           <Route
+           <PrivateRoute
             exact
             path={`${baseUrl}/projects/:id`}
             render={({match}) => <Project match={match}/>}
           />
-          <Route
-            exact
-            path={`${baseUrl}/sub-projects`}
-            render={(props) => <SubProjects {...props}/>}
-          />
-           <Route
+          <PrivateRoute exact path={`${baseUrl}/sub_projects`} component={SubProjects} />
+        
+           {/* <PrivateRoute
             exact
             path={`${baseUrl}/sub-projects/:id`}
             render={({match}) => <SubProject match={match}/>}
-          />   
-          <Route
+          />    */}
+          {/* <PrivateRoute
             exact
             path={`${baseUrl}/sub-project-items`}
             render={(props) => <SubProjectItems {...props}/>}
           />
-          <Route
+          <PrivateRoute
             exact
             path={`${baseUrl}/sub-project-equipments`}
             render={(props) => <SubProjectEquipments {...props}/>}
-          />
+          /> */}
         
-          <Route path={`${baseUrl}/map`} component={MapDashboard} />
+          <PrivateRoute path={`${baseUrl}/map`} component={MapDashboard} />
           {/* Admin panel */}
   
-          {/* Dashboard routes */}
-          <Route
+          {/* Dashboard PrivateRoutes */}
+          <PrivateRoute
             exact
             path={`${baseUrl}/dashboards`}
             component={Dashboards}
           />
-          <Route
+          <PrivateRoute
             exact
             path={`${baseUrl}/settings`}
             component={Settings}
           />
-          <Route component={PageNotFound} />
+          <PrivateRoute component={PageNotFound} />
         </Switch>
       </Content>
     </Layout>
