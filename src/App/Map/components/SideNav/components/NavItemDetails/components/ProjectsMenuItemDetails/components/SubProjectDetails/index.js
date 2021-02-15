@@ -10,6 +10,7 @@ import {mapActions} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
 import {projectActions, projectSelectors} from "../../../../../../../../../ProjectsList/duck";
 import {isoDateToHumanReadableDate} from "../../../../../../../../../../Util";
+import { useHistory } from 'react-router-dom';
 
 
 /**
@@ -52,9 +53,10 @@ function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject, ge
     const handleGoBack = () => goBackFromSubProjectToProjectDetails(subProject?.project_id);
 
     const sideMenuObj = subProject ? mapToSideMenuObject(subProject) : null;
-
+    const history = useHistory();
+    
     const handleOnclickSubProjectElement = (id) => getSubProjectElement(id);
-    const viewFullSubProjectDetails = () => console.log('View full sub project details clicked');
+    const viewFullSubProjectDetails = () => history.push(`/app/sub-projects/${subProject.id}`);
 
 
     return (

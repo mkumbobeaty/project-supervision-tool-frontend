@@ -8,9 +8,10 @@ import {mapActions, mapSelectors} from "../../../../../../../../duck";
 import {bindActionCreators} from "redux";
 import PredefinedFilter from "../PredefinedFilter";
 import BackLink from "../BackLink";
-import './styles.css';
 import CustomGridList from "../CustomGridList";
 import LongActionButton from "../LongActionButton";
+import { useHistory } from 'react-router-dom';
+import './styles.css';
 
 
 function ProjectDetails({
@@ -60,8 +61,9 @@ function ProjectDetails({
         {title: "PROJECT LOCATIONS", value: project?.locations.length},
     ];
 
-    const  showFullProjectDetails = () => console.log('show full project details is clicked');
-
+    const history = useHistory();
+    const  showFullProjectDetails = () => history.push(`/app/projects/${project.id}`);
+    
     return project ? (
         <div className="ProjectInfo">
             <section className="top-section">
