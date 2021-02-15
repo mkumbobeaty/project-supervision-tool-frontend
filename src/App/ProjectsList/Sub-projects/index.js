@@ -173,6 +173,7 @@ class SubProjects extends Component {
 
         {/* list starts */}
         <SubProjectsList
+          itemName="Sub-projects"
           items={subProjects}
           loading={loading}
           headerLayout={headerLayout}
