@@ -45,10 +45,17 @@ const RegionLocationForm = ({ visible, onCancel, locations, setLocations, region
         setTimeout(() => {
             setLoading(false);
         }, 2000);
+
     };
 
     return (
-        <Modal title="Add Project Location" visible={visible} onOk={onOk} onCancel={onCancel} confirmLoading={loading}>
+        <Modal
+            title="Add Project Location"
+            visible={visible} onOk={onOk}
+            onCancel={onCancel}
+            confirmLoading={loading}
+            destroyOnClose={true}
+        >
             <Form form={form} layout="vertical" name="userForm">
                 <Form.Item
                     label="Region"

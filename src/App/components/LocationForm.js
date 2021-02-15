@@ -61,7 +61,7 @@ const LocationForm = ({ visible, onCancel, locations, setLocations, regions, lay
     };
 
     return (
-        <Modal title="Add Project Location" visible={visible} onOk={onOk} onCancel={onCancel} confirmLoading={loading}>
+        <Modal title="Add Project Location" visible={visible} onOk={onOk} onCancel={onCancel} confirmLoading={loading} destroyOnClose={true}>
             <Form form={form} layout="vertical" name="locationForm">
                 <Form.Item
                     label="Region"
