@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import PredefinedFilter from "../PredefinedFilter";
-import './styles.css';
 import BackLink from "../BackLink";
 import OverviewTable from "../OverviewTable";
 import { Spin } from 'antd';
+import './styles.css';
 
 /**
  * @function
@@ -21,7 +21,6 @@ function SideNavItemOverview({
     loadingStatistics,
     showRegionalOverviewLoader
 }) {
-    console.log(overViewData)
 
     return (
         <div className='SideNavItemOverview'>
