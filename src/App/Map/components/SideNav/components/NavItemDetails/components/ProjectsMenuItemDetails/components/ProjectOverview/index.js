@@ -29,7 +29,8 @@ function ProjectsOverview(
         setShowRegionalOverview,
         clearRegionalProjects,
         region,
-        loadingStatistics
+        loadingStatistics,
+        showRegionalOverviewLoader
     }
 ) {
     return (
@@ -44,6 +45,7 @@ function ProjectsOverview(
             /> : ''}
             {showRegionalOverview ? <RegionalProjectsOverview
                 regionProjectStatistics={regionProjectStatistics}
+                showRegionalOverviewLoader={showRegionalOverviewLoader}
                 regionProjects={regionProjects}
                 getProject={getProject}
                 region={region}
@@ -64,6 +66,7 @@ const mapStateToProps = state => ({
     projectsCountByRegion: mapSelectors.getProjectsOverview(state),
     showNationalOverview: mapSelectors.showNationalOverviewSelector(state),
     showRegionalOverview: mapSelectors.showRegionalOverviewSelector(state),
+    showRegionalOverviewLoader: mapSelectors.regionProjectsStatisticsLoader(state),
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     region: mapSelectors.getRegionDetailsSelector(state),
 });

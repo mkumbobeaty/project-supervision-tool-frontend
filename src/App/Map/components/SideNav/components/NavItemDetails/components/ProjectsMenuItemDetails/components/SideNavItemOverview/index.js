@@ -18,9 +18,10 @@ function SideNavItemOverview({
     title,
     goBack,
     handleOnclickFilterItem,
-    loadingStatistics
+    loadingStatistics,
+    showRegionalOverviewLoader
 }) {
-console.log(overViewData)
+    console.log(overViewData)
 
     return (
         <div className='SideNavItemOverview'>
@@ -30,9 +31,11 @@ console.log(overViewData)
                 {goBack ? <BackLink goBack={goBack} /> : ''}
             </section>
 
-            <section className='project-over-view-table'>
-                { loadingStatistics === true ? <Spin spinning={loadingStatistics} style={{paddingLeft:125}} /> : <OverviewTable data={overViewData} /> }
-            </section>
+            { showRegionalOverviewLoader ? <section className='project-over-view-table'>
+                {showRegionalOverviewLoader === true ? <Spin spinning={showRegionalOverviewLoader} style={{ paddingLeft: 125 }} /> : <OverviewTable data={overViewData} />}
+            </section> : <section className='project-over-view-table'>
+                    {loadingStatistics === true ? <Spin spinning={loadingStatistics} style={{ paddingLeft: 125 }} /> : <OverviewTable data={overViewData} />}
+                </section>}
 
             <section className='project-regions-filters'>
                 {predefinedFilterData.length > 0 ? <PredefinedFilter

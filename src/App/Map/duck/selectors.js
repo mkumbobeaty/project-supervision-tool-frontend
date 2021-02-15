@@ -99,6 +99,13 @@ export const getProjectsStatisticsLoading = (state) => state?.map?.projectsStati
  */
 export const getRegionProjectsStatistics = (state) => state?.map?.regionProjectsStatistics?.data;
 
+/**
+ * @function
+ * @name regionProjectsStatisticsLoader
+ * @param {Object} state redux state
+ */
+export const regionProjectsStatisticsLoader = (state) => state?.map?.regionProjectsStatistics?.loading;
+
 
 /**
  * @function
