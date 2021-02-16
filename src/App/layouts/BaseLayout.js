@@ -146,14 +146,14 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           <PrivateRoute
             exact
             path={`${baseUrl}/projects/:id`}
-            render={({ match }) => <Project match={match} />}
+            render={({ match }, props) => <Project match={match} {...props} />}
           />
           <PrivateRoute exact path={`${baseUrl}/sub_projects`} component={SubProjects} />
 
           <PrivateRoute
             exact
             path={`${baseUrl}/sub-projects/:id`}
-            render={({ match }) => <SubProject match={match} />}
+            render={({ match }, props ) => <SubProject match={match} {...props}/>}
           />
           <PrivateRoute
             exact

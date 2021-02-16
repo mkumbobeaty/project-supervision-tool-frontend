@@ -31,7 +31,7 @@ const PrivateRoute = (properties) => {
       render={(props) =>
         isLogin() ? (
           // eslint-disable-next-line react/jsx-props-no-spreading
-          <Component {...props} />
+          Component ? <Component {...props} /> : rest.render(props)
         ) : (
             <Redirect
               to={{ pathname: '/signin', state: { from: props.location } }} // eslint-disable-line
