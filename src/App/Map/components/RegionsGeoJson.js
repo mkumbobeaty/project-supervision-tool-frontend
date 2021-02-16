@@ -4,7 +4,8 @@ import L from 'leaflet';
 import {GeoJSON, Tooltip, withLeaflet } from "react-leaflet";
 import {generateColor, generateNumberRange} from "../../../Util";
 import Legend from "./Legend";
-
+import Layout, { Content, Header } from 'antd/lib/layout/layout';
+import  '../styles.css'
 class RegionsGeoJson extends Component{
 
     getColor = (numberRange, projects_count) => {
@@ -56,8 +57,16 @@ class RegionsGeoJson extends Component{
                 style={generateStyle}
                 onEachFeature={this.onEachFeature}>
                 <Tooltip sticky key={id}>
-                    <div><b>Region:</b> {region_name}</div>
-                    <div><b>total projects:</b> {projects_count}</div>
+                    <Layout>
+                        <Header className="project-title">
+                            <h4><b>Region:</b> {region_name}</h4>
+                        </Header>
+                        <Content>
+                        <div><b>Region:</b> {region_name}</div>
+                        <div><b>total projects:</b> {projects_count}</div>
+                        </Content>
+                    </Layout>
+                    
                 </Tooltip>
             </GeoJSON>
         );

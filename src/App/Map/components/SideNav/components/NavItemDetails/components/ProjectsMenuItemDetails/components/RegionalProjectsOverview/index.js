@@ -23,9 +23,14 @@ function RegionalProjectsOverview({
 
     // generate project commitment amount string
     const getCommitmentAmount = ({ commitment_amount }) => {
+        if(commitment_amount !== null ){
         const { iso, total } = commitment_amount;
         const money = moneyFormat(total);
         return `${iso} ${money}`;
+        }
+        else {
+            return 0;
+        }
     }
 
     // data tobe displayed  on the overview filter

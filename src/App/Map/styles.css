@@ -1,2 +1,11 @@
-
-
+.project-title {
+    background-color: #525a68;
+   }
+.project-title h4{
+    padding: 0px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 17px;
+    color: #fff;
+}
