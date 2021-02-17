@@ -1,6 +1,6 @@
-import {Form, Modal, Select} from "antd";
+import { Form, Modal, Select } from "antd";
 import PropTypes from 'prop-types';
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AlgoliaPlaces from 'algolia-places-react';
 import API from '../../API';
 
@@ -19,7 +19,7 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
     }, [visible]);
 };
 
-const LocationForm = ({ visible, onCancel, locations,  setLocations, regions, layers }) => {
+const LocationForm = ({ visible, onCancel, locations, setLocations, regions, layers }) => {
     const [form] = Form.useForm();
     useResetFormOnCloseModal({
         form,
@@ -32,14 +32,18 @@ const LocationForm = ({ visible, onCancel, locations,  setLocations, regions, la
     // get districts when region is selected
     useEffect(() => {
         API.getDistricts(region_id)
-            .then(({data}) => setDistricts(data));
+            .then(({ data }) => setDistricts(data));
     }, [region_id]);
 
-    const handleSelectedSuggestion = ({latlng}) => setPoint({ type: 'Point', coordinates: [latlng.lng, latlng.lat] })
+    //state for loading after click
+    const [loading, setLoading] = useState(false)
+
+    const handleSelectedSuggestion = ({ latlng }) => setPoint({ type: 'Point', coordinates: [latlng.lng, latlng.lat] })
 
     const onOk = () => {
         const district = form.getFieldValue('district') || null;
         const layer_name = form.getFieldValue('layer_name') || null;
+        setLoading(true)
         API.createProjectLocation({
             district_id: district,
             level: 'district',
@@ -47,15 +51,17 @@ const LocationForm = ({ visible, onCancel, locations,  setLocations, regions, la
             layer_name,
             point
         })
-            .then( ({ data }) => {
-                setLocations([ ...locations, data.id]);
+            .then(({ data }) => {
+                setLocations([...locations, data.id]);
                 form.submit();
             });
-
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
     };
 
     return (
-        <Modal title="Add Project Location" visible={visible} onOk={onOk} onCancel={onCancel}>
+        <Modal title="Add Project Location" visible={visible} onOk={onOk} onCancel={onCancel} confirmLoading={loading} destroyOnClose={true}>
             <Form form={form} layout="vertical" name="locationForm">
                 <Form.Item
                     label="Region"
@@ -68,8 +74,8 @@ const LocationForm = ({ visible, onCancel, locations,  setLocations, regions, la
                     ]}
                 >
                     <Select onChange={(id) => setRegionId(id)}>
-                        { regions.map(({ id, name}) => (
-                            <Select.Option value={id}>{ name }</Select.Option>
+                        {regions.map(({ id, name }) => (
+                            <Select.Option value={id}>{name}</Select.Option>
                         ))}
                     </Select>
                 </Form.Item>
@@ -85,8 +91,8 @@ const LocationForm = ({ visible, onCancel, locations,  setLocations, regions, la
                     ]}
                 >
                     <Select>
-                        { districts.map(({ id, name}) => (
-                            <Select.Option value={id}>{ name }</Select.Option>
+                        {districts.map(({ id, name }) => (
+                            <Select.Option value={id}>{name}</Select.Option>
                         ))}
                     </Select>
                 </Form.Item>
@@ -96,8 +102,8 @@ const LocationForm = ({ visible, onCancel, locations,  setLocations, regions, la
                     name="layer_name"
                 >
                     <Select>
-                        { layers.map(({ name}) => (
-                            <Select.Option value={name}>{ name }</Select.Option>
+                        {layers.map(({ name }) => (
+                            <Select.Option value={name}>{name}</Select.Option>
                         ))}
                     </Select>
                 </Form.Item>

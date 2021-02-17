@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
-import Axios from "axios";
-import convert from "xml-js";
 import './styles.css';
 import SideNavItem from "./components/SideNavItem";
 import humanResourceImg from '../../../../assets/icons/human-resources-zero-opacity.svg'

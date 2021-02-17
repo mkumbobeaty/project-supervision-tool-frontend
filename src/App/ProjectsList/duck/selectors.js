@@ -149,3 +149,19 @@ export const getSubProjectShowFormSelector = (state) => state?.resources?.subPro
  * @return {Object} sub project element
  */
 export const getSubProjectElementSelector = (state) => state?.resources?.subProjectElement?.data;
+
+/**
+ * @function
+ * @name getItemsSelector
+ * @param {Object} state redux state
+ * @return {Object} item
+ */
+export const getItemsSelector = (state) => state?.resources?.items?.data;
+
+/**
+ * @function
+ * @name getProgressSelector
+ * @param {Object} state redux state
+ * @return {Object} progress
+ */
+export const getProgressSelector = (state) => state?.resources?.progress?.data;

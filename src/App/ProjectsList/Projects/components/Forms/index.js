@@ -3,10 +3,8 @@ import React, { Component } from "react";
 import { Steps } from 'antd';
 import { connect } from "react-redux";
 import ProjectForm from './projectForm';
-import ProjectSectorForm from './projectSectorForm'
 import { projectSectorsOperator, } from "../ProjectsSectors/duck";
 import { projectOperation, projectSelectors } from '../../../duck';
-import ProjectLocationForm from "./projectLocationForm";
 import { projectDetailsOperator, } from "../ProjectsDetails/duck";
 import ProjectDetailsForm from "./projectDetailsForm";
 

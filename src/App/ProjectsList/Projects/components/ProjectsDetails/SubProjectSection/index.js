@@ -64,7 +64,7 @@ class ProjectSubProjects extends Component {
     
                                 <Col
                                     {...subProjectNameSpan}
-                                    className="humanResourceEllipse"
+                                    className="contentEllipse"
                                     title={item.description}
                                 >
                                     <Link

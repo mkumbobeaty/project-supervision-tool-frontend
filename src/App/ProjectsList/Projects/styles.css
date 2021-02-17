@@ -24,16 +24,19 @@
   width: 100% !important;
 } */
 
-.humanResourceEllipse {
+.contentEllipse  {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.humanResourceEllipse>a {
+.contentEllipse > a , .Projects{
   color: #333333;
 }
 
+.Projects:hover{
+  color: #333333;
+}
 .ProjectForm .ant-input-number {
   width: 120px !important;
 }

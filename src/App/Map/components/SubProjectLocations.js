@@ -24,9 +24,14 @@ class SubProjectLocations extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (((prevProps.subProject !== this.props.subProject) && this.props.subProject)) {
-            const {map} = this.props.leaflet;
-            map.setView(L.latLng(-6.161184, 35.745426), 6);
+            // const {map} = this.props.leaflet;
+            // map.setView(L.latLng(-6.161184, 35.745426), 6);
         }
+    }
+
+    onEachFeature = (feature, layer) => {
+        const { map } = this.props.leaflet;
+        map.fitBounds(layer.getBounds());
     }
 
     handleShowLayer = layer_name => {
@@ -38,7 +43,7 @@ class SubProjectLocations extends Component {
     renderSubProjectElements = (subProjectElements) => {
         const data = mapSubProjectElementsToLocationPoints(subProjectElements);
         return data.map(({coordinates, id, name, layer_name }) => (
-                <Marker position={[coordinates[1], coordinates[0]]} key={id}>
+                <Marker position={[coordinates[1], coordinates[0]]} key={id} onEachFeature={this.onEachFeature}>
                     <Popup>
                         <h3>Sub Project</h3>
                         <div> { name }</div>
@@ -58,7 +63,7 @@ class SubProjectLocations extends Component {
     renderDistricts = (subProject) => subProject?.sub_project_locations.map(({district, id}) => {
 
         return (
-            <GeoJSON key={id} data={district.geom}>
+            <GeoJSON key={id} data={district.geom} onEachFeature={this.onEachFeature}>
                 <Popup>
                     <div><b>SubProject :</b> {subProject.name}</div>
                     <div><b>District :</b> {district.name}</div>
@@ -69,8 +74,6 @@ class SubProjectLocations extends Component {
 
     render() {
         const {subProject} = this.props;
-        console.log('sub projects', subProject);
-
         return subProject ? (
             <>
                 {this.renderDistricts(subProject)}

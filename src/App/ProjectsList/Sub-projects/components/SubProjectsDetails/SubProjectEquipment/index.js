@@ -49,7 +49,7 @@ class SubProjectEquipment extends Component {
     
                                 <Col
                                     {...subProjectQuantitySpan}
-                                    className="humanResourceEllipse"
+                                    className="contentEllipse"
                                 >
                                     {item? item?.quantity_per_contract :"N/A"}
                                 </Col>

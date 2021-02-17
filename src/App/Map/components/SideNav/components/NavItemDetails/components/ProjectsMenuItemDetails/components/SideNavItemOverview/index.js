@@ -1,13 +1,10 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import PredefinedFilter from "../PredefinedFilter";
-import './styles.css';
 import BackLink from "../BackLink";
 import OverviewTable from "../OverviewTable";
-
-
-
-
+import { Spin } from 'antd';
+import './styles.css';
 
 /**
  * @function
@@ -15,29 +12,32 @@ import OverviewTable from "../OverviewTable";
  * @description renders project overview at national level
  */
 function SideNavItemOverview({
-                                 overViewData,
-                                 predefinedFilterData,
-                                 predefinedFilterConfig,
-                                 title,
-                                 goBack,
-                                 handleOnclickFilterItem,
+    overViewData,
+    predefinedFilterData,
+    predefinedFilterConfig,
+    title,
+    goBack,
+    handleOnclickFilterItem,
+    loadingStatistics,
+    showRegionalOverviewLoader
 }) {
-
 
     return (
         <div className='SideNavItemOverview'>
 
             <section className='title-and-back-button'>
-                <div>{ title }</div>
+                <div>{title}</div>
                 {goBack ? <BackLink goBack={goBack} /> : ''}
             </section>
 
-            <section className='project-over-view-table'>
-                <OverviewTable data={overViewData}/>
-            </section>
+            { showRegionalOverviewLoader ? <section className='project-over-view-table'>
+                {showRegionalOverviewLoader === true ? <Spin spinning={showRegionalOverviewLoader} style={{ paddingLeft: 125 }} /> : <OverviewTable data={overViewData} />}
+            </section> : <section className='project-over-view-table'>
+                    {loadingStatistics === true ? <Spin spinning={loadingStatistics} style={{ paddingLeft: 125 }} /> : <OverviewTable data={overViewData} />}
+                </section>}
 
             <section className='project-regions-filters'>
-                { predefinedFilterData.length > 0 ?  <PredefinedFilter
+                {predefinedFilterData.length > 0 ? <PredefinedFilter
                     data={predefinedFilterData}
                     config={predefinedFilterConfig}
                     handleOnclickFilterItem={handleOnclickFilterItem}
@@ -58,11 +58,11 @@ SideNavItemOverview.propTypes = {
     title: PropTypes.string,
     goBack: PropTypes.func,
     handleOnclickFilterItem: PropTypes.func,
-
+    loadingStatistics: PropTypes.bool,
 }
 
 SideNavItemOverview.defaultProps = {
     goBack: null,
     title: '',
-    handleOnclickFilterItem: () => {},
+    handleOnclickFilterItem: () => { },
 }

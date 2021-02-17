@@ -8,6 +8,8 @@ import agenciesAPI from './agencies';
 import moneyAPI from './money';
 import subProjectElementsAPI from  './sub_project_elements';
 import environmentalCategoriesAPI from  './environmental_categories';
+import itemsAPI from './items';
+import progressAPI from './progress'
 import wfsRequests from  './wfs_requests';
 
 export default {
@@ -21,4 +23,6 @@ export default {
     ...subProjectElementsAPI,
     ...environmentalCategoriesAPI,
     ...wfsRequests,
+    ...itemsAPI,
+    ...progressAPI
 }

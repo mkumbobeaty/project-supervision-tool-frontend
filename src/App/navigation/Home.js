@@ -6,6 +6,11 @@ import settingsIcons from '../../assets/icons/admin-settings.svg';
 import NavigationMenu from '../components/NavigationMenu';
 import initiativesIcon from '../../assets/icons/initiatives.svg';
 import mapsIcon from "../../assets/icons/maps.svg";
+import humanResourcesIcons from '../../assets/icons/human-resources.svg';
+import itemsIcons from '../../assets/icons/needs.svg';
+import equipmentsIcons from '../../assets/icons/production-capacity.svg';
+import contractsIcons from '../../assets/icons/financial-resources.svg';
+
 import modules from '../../modules.json';
 
 /* constants */
@@ -18,8 +23,8 @@ const routes = [
     description: modules.humanResource,
   },
   {
-    name: 'Sub-Projects',
-    path: '/sub-projects',
+    name: 'Sub Projects',
+    path: '/sub_projects',
     icon: initiativesIcon,
     description: modules.initiatives,
   },
@@ -29,6 +34,30 @@ const routes = [
     icon: mapsIcon,
     description: modules.map,
   },
+  // {
+  //   name: 'Sub Project Items',
+  //   path: '/sub-project-items',
+  //   icon: itemsIcons,
+  //   description: modules.map,
+  // },
+  // {
+  //   name: 'Sub Project Equipments',
+  //   path: '/sub-project-equipments',
+  //   icon: equipmentsIcons,
+  //   description: modules.map,
+  // },
+  // {
+  //   name: 'Sub Project Contracts',
+  //   path: '/sub-projects-contracts',
+  //   icon: contractsIcons,
+  //   description: modules.map,
+  // },
+  // {
+  //   name: 'Human Resources',
+  //   path: '/human-resources',
+  //   icon: humanResourcesIcons,
+  //   description: modules.map,
+  // },
 
   {
     name: 'Dashboards',
@@ -37,14 +66,14 @@ const routes = [
     description: modules.dashboards,
   },
   {
-    name: 'Admin Panel',
-    path: '/adminpanel',
-    icon: settingsIcons,
+    name: 'Users',
+    path: '/users',
+    icon: humanResourcesIcons,
     description: modules.dashboards,
   },
   {
-    name: 'Advance Search',
-    path: '/dvancesearch',
+    name: 'Settings',
+    path: '/settings',
     icon: settingsIcons,
     description: modules.dashboards,
   },
