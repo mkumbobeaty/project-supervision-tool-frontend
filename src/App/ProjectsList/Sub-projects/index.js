@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { isoDateToHumanReadableDate } from "../../../Util";
 import SubProjectForm from "./Form";
 import "./styles.css";
-import { subProjectsActions } from "./duck";
+import { subProjectsActions, subProjectsSelectors } from "./duck";
 
 
 /* constants */
@@ -152,22 +152,26 @@ class SubProjects extends Component {
   * @since 0.1.0
   */
   handleEdit = (subProject) => {
-    const { selectSubProject, openSubProjectForm } = this.props;
+    const { selectSubProject, openSubProjectForm,selected } = this.props;
     selectSubProject(subProject);
     debugger
     this.setState({ isEditForm: true });
     openSubProjectForm();
   };
 
+  
   render() {
     const {
       subProjects,
       searchQuery,
       loading,
-      showForm
+      showForm,
+      selected,
     } = this.props;
 
     const { isEditForm } = this.state;
+    console.log(selected)
+
     return (
       <div>
         {/* Topbar */}
@@ -277,7 +281,7 @@ class SubProjects extends Component {
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
         >
-          <SubProjectForm />
+          <SubProjectForm selected={selected} isEditForm={isEditForm} onCancel={this.closeSubProjectForm} />
         </Drawer>
       </div>
     );
@@ -304,7 +308,7 @@ const mapStateToProps = (state) => {
     subProjects: projectSelectors.getSubProjectsSelector(state),
     loading: projectSelectors.getSubProjectsLoadingSelector(state),
     showForm: projectSelectors.getSubProjectShowFormSelector(state),
-
+    selected: subProjectsSelectors.selectedSubProject(state)
   };
 };
 

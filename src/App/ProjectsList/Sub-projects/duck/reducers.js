@@ -21,6 +21,15 @@ const subProject = (state = { data: null,error: null,loading: false,showForm: fa
           return state;
   }
 }
+
+const selectedSubProject = (state = null, action) => {
+  switch (action.type) {
+    case types.SELECTED_SUB_PROJECT:
+      return action.payload
+    default:
+      return state
+  }
+}
 /**
  * @function
  * @name sub_project_items
@@ -77,5 +86,6 @@ const sub_project_equipments = (state = { data: [], error: null, loading: false 
 export const subProjectResources = combineReducers({
   sub_project_items,
   sub_project_equipments,
-  subProject
+  subProject,
+  selectedSubProject
 })

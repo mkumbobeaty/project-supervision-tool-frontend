@@ -35,3 +35,9 @@ export const getSubProjectEquipmentsSelector = (state) => state.subProjectResour
  */
 export const getSubProjectEquipmentsLoadingSelector = (state) => state?.subProjectResources?.sub_project_equipments?.loading;
 
+/**
+ * @function
+ * @name selectedSubProject
+ * @param {Object} state redux state
+ */
+ export const selectedSubProject = (state) => state?.subProjectResources?.selectedSubProject

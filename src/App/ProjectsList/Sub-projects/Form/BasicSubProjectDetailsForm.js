@@ -36,7 +36,7 @@ const getRegionsNameFromRegions = (regionsId, regions) => {
  * @name BasicSubProjectDetailsForm
  * @description renders form for creating sub project
  */
-function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, next, projects, layers })  {
+function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, next, projects, layers,selected })  {
     const [visible, setVisible] = useState(false);
     const [locations, setLocations] = useState([]);
 
@@ -53,13 +53,10 @@ function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, ne
     };
 
     const onFinish = (values) => {
-        console.log('onFinish called');
-        console.log('create sub project values',{...values, locations });
         createSubProject({...values, locations });
         next();
     };
 
-    const selected = null;
 
     return (
         <>
@@ -83,6 +80,13 @@ function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, ne
                     onFinish={onFinish}
                     autoComplete="off"
                     className="ProjectForm"
+                    initialValues={{
+                        name: selected?.name,
+                        project_id:selected?.project_id,
+                        description:selected.description,
+                        
+                      }}
+                      
                 >
                     <h4>Please Fill the form correctly</h4>
 

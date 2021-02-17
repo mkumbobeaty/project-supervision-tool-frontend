@@ -57,16 +57,16 @@ class SubProjectForm extends Component {
 
   render() {
     const { current, layers } = this.state
-    const { projects } = this.props
+    const { projects, selected } = this.props
 
     const steps = [
       {
         title: 'Step 1',
-        content: <BasicSubProjectDetailsForm layers={layers} projects={projects} next={this.next}/>
+        content: <BasicSubProjectDetailsForm layers={layers} projects={projects} next={this.next} selected={selected}/>
       },
       {
         title: 'Step 2',
-        content: <MoreSubProjectDetails next={this.next} prev={this.prev} />
+        content: <MoreSubProjectDetails next={this.next} prev={this.prev} selected={selected} />
 
       },
 
