@@ -89,6 +89,22 @@ const createSubProjectItem = (values) => { axios.post('/sub_project_items', valu
  */
 const getSubProjectEquipments = () => axios.get(`/sub_project_equipments`).then((response) => response.data);
 
+/**
+ * 
+ * Edit a sub project item from the API
+ * @function
+ * @name editSubProject
+ * @param {Object} id - Id of a sub project
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const updateSubProject = (subProject, id) => {
+    return axios
+        .patch(`/sub_projects/${id}`, subProject)
+        .then((response) => response.data);
+};
 
 export default {
     getSubProjects,
@@ -98,5 +114,6 @@ export default {
     createSubProjectDetails,
     getSubProjectItems,
     getSubProjectEquipments,
-    createSubProjectItem
+    createSubProjectItem,
+    updateSubProject
 }

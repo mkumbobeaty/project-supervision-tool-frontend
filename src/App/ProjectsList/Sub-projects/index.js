@@ -185,7 +185,7 @@ class SubProjects extends Component {
           }) => (
               <Link
                 to={{
-                  pathname: `/app/sub-projects/${item.id}`,
+                  pathname: `/app/sub_projects/${item.id}`,
                 }}
                 className="sub-project-list"
               >

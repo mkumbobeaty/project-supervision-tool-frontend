@@ -61,6 +61,7 @@ export function createSubProjectItemStart(item) {
     };
   }
 
+
 /**
  * @function
  * @name getSubProjectEquipmentsStart
@@ -97,3 +98,40 @@ export const openForm = makeActionCreator(types.OPEN_FORM);
  * @return {Object} action
  * */
 export const closeForm = makeActionCreator(types.CLOSE_FORM);
+
+
+/**
+ * @function
+ * @name updateSubProjectStart
+ * @param {*} item 
+ */
+export function updateSubProjectStart(item) {
+    return {
+      type: types.UPDATE_SUB_PROJECT_START,
+      payload:item
+    };
+  }
+  
+  /**
+   * @function
+   * @name updateSubProjectSuccess
+   * @param {*} item 
+   */
+  export function updateSubProjectSuccess(item) {
+    return {
+      type: types.UPDATE_SUB_PROJECT_SUCCESS,
+      payload: item,
+    };
+  }
+  
+  /**
+   * @function
+   * @name updateSubProjectFailure
+   * @param {*} error 
+   */
+  export function updateSubProjectFailure(error) {
+    return {
+      type: types.UPDATE_SUB_PROJECT_FAILURE,
+      payload: error,
+    };
+  }

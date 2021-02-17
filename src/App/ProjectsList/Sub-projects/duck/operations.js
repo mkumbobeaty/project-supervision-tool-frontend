@@ -7,7 +7,10 @@ import {
     getSubProjectEquipmentsFailure,
     createSubProjectItemStart,
     createSubProjectItemSuccess,
-    createSubProjectItemFailure
+    createSubProjectItemFailure,
+    updateSubProjectStart,
+    updateSubProjectSuccess,
+    updateSubProjectFailure,
 }
 
 from './actions';
@@ -21,5 +24,8 @@ export {
     getSubProjectEquipmentsFailure,
     createSubProjectItemStart,
     createSubProjectItemSuccess,
-    createSubProjectItemFailure
+    createSubProjectItemFailure,
+    updateSubProjectStart,
+    updateSubProjectSuccess,
+    updateSubProjectFailure,
 }
