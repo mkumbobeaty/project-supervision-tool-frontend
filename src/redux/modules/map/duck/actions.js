@@ -1,5 +1,5 @@
 import * as types from "./types";
-import {makeActionCreator} from '../../../Util';
+import {makeActionCreator} from '../../../../Util';
 
 
 // SIDE NAV MENU ACTION CREATORS

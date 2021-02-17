@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 import {projectActions, projectSelectors} from '../../../../../../../../../ProjectsList/duck'
 import {isoDateToHumanReadableDate, moneyFormat} from "../../../../../../../../../../Util";
-import {mapActions, mapSelectors} from "../../../../../../../../duck";
+import {mapActions, mapSelectors} from "../../../../../../../../../../redux/modules/map/duck";
 import {bindActionCreators} from "redux";
 import PredefinedFilter from "../PredefinedFilter";
 import BackLink from "../BackLink";

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { default as mapReducer } from './Map/duck';
+import { default as mapReducer } from '../redux/modules/map/duck';
 import { default as projectReducer } from './ProjectsList/duck';
 import { default as authReducer } from './Auth/duck';
 import { default as focalPeopleReducer} from './FocalPeople/duck'

@@ -1,7 +1,7 @@
 import { combineEpics } from "redux-observable";
-import { mapRootEpic } from "./Map/duck/epics";
+import { mapRootEpic } from "../redux/modules/map/duck/epics";
 import { projectsRootEpic } from "./ProjectsList/duck/epics";
-import { restoreAccessTokenEpic } from './duck/epics';
+import { restoreAccessTokenEpic } from '../redux/modules/app/duck/epics';
 import { loginEpic } from "./Auth/duck/epics";
 import { focalPeopleEpic } from "./FocalPeople/duck/epics";
 import { sectorsEpic } from './ProjectsList/Projects/components/ProjectsSectors/duck/epics';

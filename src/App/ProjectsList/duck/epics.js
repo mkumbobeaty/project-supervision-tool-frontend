@@ -1,5 +1,5 @@
 import * as actions from './actions';
-import { mapActions } from '../../Map/duck';
+import { mapActions } from '../../../redux/modules/map/duck';
 import * as types from './types';
 import API from '../../../API';
 import {ofType, combineEpics} from 'redux-observable';
