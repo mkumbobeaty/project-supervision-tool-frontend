@@ -31,35 +31,35 @@ export const getSubProjectItemsFailure = makeActionCreator(types.GET_SUB_PROJECT
  * @param {*} item 
  */
 export function createSubProjectItemStart(item) {
-    return {
-      type: types.CREATE_SUB_PROJECT_ITEM_START,
-      payload:item
-    };
-  }
-  
-  /**
-   * @function
-   * @name createSubProjectItemSuccess
-   * @param {*} item 
-   */
-  export function createSubProjectItemSuccess(item) {
-    return {
-      type: types.CREATE_SUB_PROJECT_ITEM_SUCCESS,
-      payload: item,
-    };
-  }
-  
-  /**
-   * @function
-   * @name createSubProjectItemFailure
-   * @param {*} error 
-   */
-  export function createSubProjectItemFailure(error) {
-    return {
-      type: types.CREATE_SUB_PROJECT_ITEM_FAILURE,
-      payload: error,
-    };
-  }
+  return {
+    type: types.CREATE_SUB_PROJECT_ITEM_START,
+    payload: item
+  };
+}
+
+/**
+ * @function
+ * @name createSubProjectItemSuccess
+ * @param {*} item 
+ */
+export function createSubProjectItemSuccess(item) {
+  return {
+    type: types.CREATE_SUB_PROJECT_ITEM_SUCCESS,
+    payload: item,
+  };
+}
+
+/**
+ * @function
+ * @name createSubProjectItemFailure
+ * @param {*} error 
+ */
+export function createSubProjectItemFailure(error) {
+  return {
+    type: types.CREATE_SUB_PROJECT_ITEM_FAILURE,
+    payload: error,
+  };
+}
 
 
 /**
@@ -105,40 +105,40 @@ export const closeForm = makeActionCreator(types.CLOSE_FORM);
  * @name selectedSubProject
  * @returns {Object} action
  */
- export const selectedSubProject = makeActionCreator(types.SELECTED_SUB_PROJECT, 'payload');
- 
+export const selectedSubProject = makeActionCreator(types.SELECTED_SUB_PROJECT, 'payload');
+
 /**
  * @function
  * @name updateSubProjectStart
  * @param {*} item 
  */
 export function updateSubProjectStart(item) {
-    return {
-      type: types.UPDATE_SUB_PROJECT_START,
-      payload:item
-    };
-  }
-  
-  /**
-   * @function
-   * @name updateSubProjectSuccess
-   * @param {*} item 
-   */
-  export function updateSubProjectSuccess(item) {
-    return {
-      type: types.UPDATE_SUB_PROJECT_SUCCESS,
-      payload: item,
-    };
-  }
-  
-  /**
-   * @function
-   * @name updateSubProjectFailure
-   * @param {*} error 
-   */
-  export function updateSubProjectFailure(error) {
-    return {
-      type: types.UPDATE_SUB_PROJECT_FAILURE,
-      payload: error,
-    };
-  }
+  return {
+    type: types.UPDATE_SUB_PROJECT_START,
+    payload: item
+  };
+}
+
+/**
+ * @function
+ * @name updateSubProjectSuccess
+ * @param {*} item 
+ */
+export function updateSubProjectSuccess(item) {
+  return {
+    type: types.UPDATE_SUB_PROJECT_SUCCESS,
+    payload: item,
+  };
+}
+
+/**
+ * @function
+ * @name updateSubProjectFailure
+ * @param {*} error 
+ */
+export function updateSubProjectFailure(error) {
+  return {
+    type: types.UPDATE_SUB_PROJECT_FAILURE,
+    payload: error,
+  };
+}

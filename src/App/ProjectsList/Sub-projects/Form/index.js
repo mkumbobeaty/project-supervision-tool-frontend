@@ -5,8 +5,9 @@ import { Steps } from 'antd';
 import { connect } from "react-redux";
 import BasicSubProjectDetailsForm from "./BasicSubProjectDetailsForm";
 import MoreSubProjectDetails from "./MoreSubProjectDetailsForm";
-import {projectActions, projectSelectors} from "../../duck";
+import { projectActions, projectSelectors } from "../../duck";
 import API from "../../../../API";
+import { subProjectsSelectors } from "../duck";
 
 
 const { Step } = Steps;
@@ -25,7 +26,7 @@ class SubProjectForm extends Component {
   componentDidMount() {
     this.props.getProjects();
     API.getGeoserverLayers()
-        .then(({layers}) => this.setState({ layers: layers.layer}));
+      .then(({ layers }) => this.setState({ layers: layers.layer }));
   }
 
   onChange = current => {
@@ -50,7 +51,7 @@ class SubProjectForm extends Component {
   }
 
   handleConfirmButton = () => {
-    const {  handleAfterSubmit, getProjects } = this.props;
+    const { handleAfterSubmit, getProjects } = this.props;
     handleAfterSubmit();
     getProjects()
   }
@@ -62,7 +63,7 @@ class SubProjectForm extends Component {
     const steps = [
       {
         title: 'Step 1',
-        content: <BasicSubProjectDetailsForm layers={layers} projects={projects} next={this.next} selected={selected}/>
+        content: <BasicSubProjectDetailsForm layers={layers} projects={projects} next={this.next} selected={selected} />
       },
       {
         title: 'Step 2',
@@ -72,14 +73,14 @@ class SubProjectForm extends Component {
 
     ];
     return (
-        <>
-          <Steps current={current} key={steps.map(title => title)} onChange={this.onChange}>
-            {steps.map(item => (
-                <Step title={item.title} />
-            ))}
-          </Steps>
-          <div className="steps-content">{steps[current].content}</div>
-        </>
+      <>
+        <Steps current={current} key={steps.map(title => title)} onChange={this.onChange}>
+          {steps.map(item => (
+            <Step title={item.title} />
+          ))}
+        </Steps>
+        <div className="steps-content">{steps[current].content}</div>
+      </>
     );
   }
 }
@@ -87,6 +88,7 @@ class SubProjectForm extends Component {
 const mapStateToProps = (state) => {
   return {
     projects: projectSelectors.getProjectsSelector(state),
+    selected: subProjectsSelectors.selectedSubProject(state)
   };
 };
 

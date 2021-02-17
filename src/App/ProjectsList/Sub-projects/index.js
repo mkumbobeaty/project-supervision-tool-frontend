@@ -152,26 +152,22 @@ class SubProjects extends Component {
   * @since 0.1.0
   */
   handleEdit = (subProject) => {
-    const { selectSubProject, openSubProjectForm,selected } = this.props;
+    const { selectSubProject, openSubProjectForm, selected } = this.props;
     selectSubProject(subProject);
-    debugger
     this.setState({ isEditForm: true });
     openSubProjectForm();
   };
 
-  
+
   render() {
     const {
       subProjects,
       searchQuery,
       loading,
       showForm,
-      selected,
     } = this.props;
 
     const { isEditForm } = this.state;
-    console.log(selected)
-
     return (
       <div>
         {/* Topbar */}
@@ -281,7 +277,7 @@ class SubProjects extends Component {
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
         >
-          <SubProjectForm selected={selected} isEditForm={isEditForm} onCancel={this.closeSubProjectForm} />
+          <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} />
         </Drawer>
       </div>
     );
@@ -308,7 +304,6 @@ const mapStateToProps = (state) => {
     subProjects: projectSelectors.getSubProjectsSelector(state),
     loading: projectSelectors.getSubProjectsLoadingSelector(state),
     showForm: projectSelectors.getSubProjectShowFormSelector(state),
-    selected: subProjectsSelectors.selectedSubProject(state)
   };
 };
 
