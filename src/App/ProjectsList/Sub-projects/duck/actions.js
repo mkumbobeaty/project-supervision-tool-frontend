@@ -102,6 +102,13 @@ export const closeForm = makeActionCreator(types.CLOSE_FORM);
 
 /**
  * @function
+ * @name selectedSubProject
+ * @returns {Object} action
+ */
+ export const selectedSubProject = makeActionCreator(types.SELECTED_SUB_PROJECT, 'payload');
+ 
+/**
+ * @function
  * @name updateSubProjectStart
  * @param {*} item 
  */

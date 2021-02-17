@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { isoDateToHumanReadableDate } from "../../../Util";
 import SubProjectForm from "./Form";
 import "./styles.css";
+import { subProjectsActions } from "./duck";
 
 
 /* constants */
@@ -140,6 +141,24 @@ class SubProjects extends Component {
     this.setState({ isEditForm: false });
   };
 
+  /**
+  * @function
+  * @name handleEdit
+  * @description Handle on Edit action for list item
+  *
+  * @param {object} subProject Action Catalogue to be edited
+  *
+  * @version 0.1.0
+  * @since 0.1.0
+  */
+  handleEdit = (subProject) => {
+    const { selectSubProject, openSubProjectForm } = this.props;
+    selectSubProject(subProject);
+    debugger
+    this.setState({ isEditForm: true });
+    openSubProjectForm();
+  };
+
   render() {
     const {
       subProjects,
@@ -183,65 +202,66 @@ class SubProjects extends Component {
             onSelectItem,
             onDeselectItem,
           }) => (
-              <Link
-                to={{
-                  pathname: `/app/sub_projects/${item.id}`,
-                }}
-                className="sub-project-list"
+              <ListItem
+                key={item.id} // eslint-disable-line
+                name={item.name}
+                item={item}
+                isSelected={isSelected}
+                onSelectItem={onSelectItem}
+                onDeselectItem={onDeselectItem}
+                renderActions={() => (
+                  <ListItemActions
+                    edit={{
+                      name: "Edit Sub-project",
+                      title: "Update Sub-project details",
+                      onClick: () => this.handleEdit(item),
+                    }}
+                    archive={{
+                      name: "Archive Sub-project",
+                      title:
+                        "Remove Sub project from list of active Sub Projects",
+                      onClick: () => this.showArchiveConfirm(item),
+                    }}
+                  />
+                )}
               >
-                <ListItem
-                  key={item.id} // eslint-disable-line
-                  name={item.name}
-                  item={item}
-                  isSelected={isSelected}
-                  onSelectItem={onSelectItem}
-                  onDeselectItem={onDeselectItem}
-                  renderActions={() => (
-                    <ListItemActions
-                      edit={{
-                        name: "Edit Sub-project",
-                        title: "Update Sub-project details",
-                        onClick: () => this.handleEdit(item),
-                      }}
-                      archive={{
-                        name: "Archive Sub-project",
-                        title:
-                          "Remove Sub project from list of active Sub Projects",
-                        onClick: () => this.showArchiveConfirm(item),
-                      }}
-                    />
-                  )}
+                {/* eslint-disable react/jsx-props-no-spreading */}
+
+                <Col
+                  {...subProjectNameSpan}
+                  className="contentEllipse"
+                  title={item.description}
                 >
-                  {/* eslint-disable react/jsx-props-no-spreading */}
-                  <Col
-                    {...subProjectNameSpan}
-                    className="contentEllipse"
-                    title={item.description}
+                  {" "}
+                  <Link
+                    to={{
+                      pathname: `/app/sub_projects/${item.id}`,
+                    }}
+                    className="sub-project-list"
                   >
-                    {" "}
-
                     {item.name}
-                  </Col>
-                  <Col {...projectIdSpan} className="contentEllipse">
+                  </Link>
 
-                    {item.project_id ? item.project_id : "N/A"}
-                  </Col>
-                  <Col {...locationSpan} className="contentEllipse">
-                    {item.sub_project_locations.length <= 0 ? "" : item.sub_project_locations.map(({ district }, index) => {
-                      return (index ? ", " : "") + district.name;
-                    })}
-                  </Col>
-                  <Col {...agencySpan} className="contentEllipse" title={item?.details?.supervising_agency.name}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
-                  <Col {...contractorSpan} className="contentEllipse">{item.details ? item.details.contractor.name : "N/A"}</Col>
-                  {/* <Col {...actorSpan}>{item.details ? item.details.actor.name : "N/A"}</Col> */}
-                  <Col {...phaseSpan}>{item.details ? item.details.phase.name : "N/A"}</Col>
-                  <Col {...startDateSpan}>
-                    {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'N/A')}
-                  </Col>
+                </Col>
+                <Col {...projectIdSpan} className="contentEllipse">
 
-                  {/* eslint-enable react/jsx-props-no-spreading */}
-                </ListItem>
-              </Link>
+                  {item.project_id ? item.project_id : "N/A"}
+                </Col>
+                <Col {...locationSpan} className="contentEllipse">
+                  {item.sub_project_locations.length <= 0 ? "" : item.sub_project_locations.map(({ district }, index) => {
+                    return (index ? ", " : "") + district.name;
+                  })}
+                </Col>
+                <Col {...agencySpan} className="contentEllipse" title={item?.details?.supervising_agency.name}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
+                <Col {...contractorSpan} className="contentEllipse">{item.details ? item.details.contractor.name : "N/A"}</Col>
+                {/* <Col {...actorSpan}>{item.details ? item.details.actor.name : "N/A"}</Col> */}
+                <Col {...phaseSpan}>{item.details ? item.details.phase.name : "N/A"}</Col>
+                <Col {...startDateSpan}>
+                  {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'N/A')}
+                </Col>
+
+                {/* eslint-enable react/jsx-props-no-spreading */}
+              </ListItem>
             )}
         />
         {/* end list */}
@@ -276,6 +296,7 @@ SubProjects.propTypes = {
 SubProjects.defaultProps = {
   projects: null,
   searchQuery: undefined,
+  loading: null,
 };
 
 const mapStateToProps = (state) => {
@@ -293,6 +314,7 @@ const mapDispatchToProps = {
   getProject: projectOperation.getProjectStart,
   openSubProjectForm: projectActions.openSubProjectForm,
   closeSubProjectForm: projectActions.closeSubProjectForm,
+  selectSubProject: subProjectsActions.selectedSubProject,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjects);
