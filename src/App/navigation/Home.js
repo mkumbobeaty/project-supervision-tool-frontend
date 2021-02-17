@@ -59,10 +59,16 @@ const routes = [
   //   description: modules.map,
   // },
 
+  // {
+  //   name: 'Dashboards',
+  //   path: '/dashboards',
+  //   icon: dashboardIcon,
+  //   description: modules.dashboards,
+  // },
   {
-    name: 'Dashboards',
-    path: '/dashboards',
-    icon: dashboardIcon,
+    name: 'Geo Node',
+    path: '/geo-node',
+    icon: settingsIcons,
     description: modules.dashboards,
   },
   {
@@ -71,9 +77,21 @@ const routes = [
     icon: humanResourcesIcons,
     description: modules.dashboards,
   },
+  // {
+  //   name: 'Settings',
+  //   path: '/settings',
+  //   icon: settingsIcons,
+  //   description: modules.dashboards,
+  // },
   {
-    name: 'Settings',
-    path: '/settings',
+    name: 'Agencies',
+    path: '/Agencies',
+    icon: settingsIcons,
+    description: modules.dashboards,
+  },
+  {
+    name: 'Admin Panel',
+    path: '/admin-panel',
     icon: settingsIcons,
     description: modules.dashboards,
   },
