@@ -7,7 +7,7 @@ import BasicSubProjectDetailsForm from "./BasicSubProjectDetailsForm";
 import MoreSubProjectDetails from "./MoreSubProjectDetailsForm";
 import { projectActions, projectSelectors } from "../../duck";
 import API from "../../../../API";
-import { subProjectsSelectors } from "../duck";
+import { subProjectsActions, subProjectsSelectors } from "../duck";
 
 
 const { Step } = Steps;
@@ -58,16 +58,22 @@ class SubProjectForm extends Component {
 
   render() {
     const { current, layers } = this.state
-    const { projects, selected } = this.props
+    const { projects, selected, isEditForm, updateSubProject } = this.props
 
     const steps = [
       {
         title: 'Step 1',
-        content: <BasicSubProjectDetailsForm layers={layers} projects={projects} next={this.next} selected={selected} />
+        content: <BasicSubProjectDetailsForm
+          layers={layers} projects={projects}
+          next={this.next} selected={selected}
+          isEditForm={isEditForm}
+          updateSubProject={updateSubProject}
+        />
       },
       {
         title: 'Step 2',
-        content: <MoreSubProjectDetails next={this.next} prev={this.prev} selected={selected} />
+        content: <MoreSubProjectDetails next={this.next} prev={this.prev} selected={selected} isEditForm={isEditForm} updateSubProject={updateSubProject}
+        />
 
       },
 
@@ -93,7 +99,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getProjects: projectActions.getProjectsStart
+  getProjects: projectActions.getProjectsStart,
+  updateSubProject: subProjectsActions.updateSubProjectStart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjectForm);

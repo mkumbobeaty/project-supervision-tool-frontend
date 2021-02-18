@@ -18,7 +18,8 @@ const updateSubProjectEpic = action$ => {
     return action$.pipe(
         ofType(types.UPDATE_SUB_PROJECT_START),
         switchMap(({ payload }) => {
-            return from(API.updateSubProject(payload))
+            debugger
+            return from(API.updateSubProject(payload, payload.sub_project_id))
         }),
         switchMap(res => {
                     debugger

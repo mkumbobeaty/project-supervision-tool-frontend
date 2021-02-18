@@ -110,24 +110,25 @@ export const selectedSubProject = makeActionCreator(types.SELECTED_SUB_PROJECT, 
 /**
  * @function
  * @name updateSubProjectStart
- * @param {*} item 
+ * @param {*} subproject 
  */
-export function updateSubProjectStart(item) {
+export function updateSubProjectStart(subproject) {
+  debugger
   return {
     type: types.UPDATE_SUB_PROJECT_START,
-    payload: item
+    payload: subproject
   };
 }
 
 /**
  * @function
  * @name updateSubProjectSuccess
- * @param {*} item 
+ * @param {*} subproject 
  */
-export function updateSubProjectSuccess(item) {
+export function updateSubProjectSuccess(subproject) {
   return {
     type: types.UPDATE_SUB_PROJECT_SUCCESS,
-    payload: item,
+    payload: subproject,
   };
 }
 

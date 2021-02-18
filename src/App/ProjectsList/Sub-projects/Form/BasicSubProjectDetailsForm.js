@@ -36,9 +36,19 @@ const getRegionsNameFromRegions = (regionsId, regions) => {
  * @name BasicSubProjectDetailsForm
  * @description renders form for creating sub project
  */
-function BasicSubProjectDetailsForm({ getRegions, regions, createSubProject, next, projects, layers, selected }) {
+function BasicSubProjectDetailsForm({
+    getRegions,
+    regions,
+    createSubProject,
+    next,
+    projects,
+    layers,
+    selected,
+    updateSubProject,
+    isEditForm }) {
     const [visible, setVisible] = useState(false);
     const [locations, setLocations] = useState([]);
+    const [updatedSubProject, setUpdates] = useState({})
 
     useEffect(() => {
         getRegions();
@@ -51,10 +61,18 @@ function BasicSubProjectDetailsForm({ getRegions, regions, createSubProject, nex
     const hideUserModal = () => {
         setVisible(false);
     };
-
     const onFinish = (values) => {
-        createSubProject({ ...values, locations });
-        next();
+        if (isEditForm) {
+            debugger
+            localStorage.setItem("updated", JSON.stringify(values));
+            next();
+        }
+        else {
+            createSubProject({ ...values, locations });
+            next();
+
+        }
+        // this.props.handleAfterCloseForm();
     };
 
 

@@ -90,13 +90,24 @@ class MoreSubProjectDetails extends Component {
     onFinish = (values) => {
         const start_date = generateDateString(values?.start_date);
         const end_date = generateDateString(values?.end_date);
-        const { subProject, getSubProjects, closeForm } = this.props;
-        const payload = { ...values, start_date, end_date, sub_project_id: subProject?.data.id };
-        API.createSubProjectDetails(payload)
-            .then(() => {
-                getSubProjects();
-                closeForm();
-            });
+        const { subProject, getSubProjects, closeForm, isEditForm, updateSubProject, selected } = this.props;
+        const updates = JSON.parse(localStorage.getItem("updated"));
+        debugger
+        const { name, project_id, description } = updates
+        const payload = { ...values, start_date, end_date, sub_project_id: subProject?.data.id, };
+        const updatedData = {...values, start_date, end_date, name, project_id, description, sub_project_id:selected.id}
+        if (isEditForm) {
+            debugger
+            updateSubProject( updatedData, selected.id);
+        }
+        else {
+            debugger
+            API.createSubProjectDetails(payload)
+                .then(() => {
+                    getSubProjects();
+                    closeForm();
+                });
+        }
 
     };
 
@@ -115,10 +126,10 @@ class MoreSubProjectDetails extends Component {
                     className="MoreSubProjectDetails"
                     name="MoreSubProjectDetails"
                     initialValues={{
-                        supervising_agency_id: selected?.details?.supervising_agency.name,
-                        actor_id: selected?.details?.actor.name,
-                        phase_id: selected?.details?.phase.name,
-                        contractor_id: selected?.details?.contractor.name,
+                        supervising_agency_id: selected?.details?.supervising_agency.id,
+                        actor_id: selected?.details?.actor.id,
+                        phase_id: selected?.details?.phase.id,
+                        contractor_id: selected?.details?.contractor.id,
                         start_date: createDateFromString(selected?.details?.start_date),
                         end_date: createDateFromString(selected?.details?.end_date),
                     }}
