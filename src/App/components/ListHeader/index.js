@@ -27,7 +27,7 @@ const ListHeader = ({
 }) => (
   <Row className="ListHeader">
     <Col xxl={1} xl={1} lg={1} md={2} sm={2} xs={3}>
-      {/* <Checkbox
+      <Checkbox
         className="checkbox"
         checked={isBulkSelected}
         onChange={(event) => {
@@ -37,7 +37,7 @@ const ListHeader = ({
             onDeselectAll();
           }
         }}
-      /> */}
+      />
     </Col>
 
     {headerLayout.map((item) => (
