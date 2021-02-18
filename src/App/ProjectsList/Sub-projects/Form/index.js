@@ -5,7 +5,7 @@ import { Steps } from 'antd';
 import { connect } from "react-redux";
 import BasicSubProjectDetailsForm from "./BasicSubProjectDetailsForm";
 import MoreSubProjectDetails from "./MoreSubProjectDetailsForm";
-import {projectActions, projectSelectors} from "../../duck";
+import {projectActions, projectSelectors} from "../../../../redux/modules/projects/duck";
 import API from "../../../../API";
 
 

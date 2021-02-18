@@ -7,7 +7,7 @@ import PredefinedFilter from "../PredefinedFilter";
 import LongActionButton from "../LongActionButton";
 import {mapActions} from "../../../../../../../../../../redux/modules/map/duck";
 import {bindActionCreators} from "redux";
-import {projectActions, projectSelectors} from "../../../../../../../../../ProjectsList/duck";
+import {projectActions, projectSelectors} from "../../../../../../../../../../redux/modules/projects/duck";
 import {isoDateToHumanReadableDate} from "../../../../../../../../../../Util";
 import { useHistory } from 'react-router-dom';
 import { Spin } from 'antd';

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {Form, Input, Button, Typography, Select} from 'antd';
 import RegionLocationForm from "../../../components/RegionLocationForm";
-import {projectActions, projectSelectors} from '../../duck';
+import {projectActions, projectSelectors} from '../../../../redux/modules/projects/duck';
 import {bindActionCreators} from "redux";
 import DistrictLocationForm from "./DistrictLocationForm";
 

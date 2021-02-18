@@ -1,7 +1,7 @@
 import * as actions from './actions';
-import { mapActions } from '../../../redux/modules/map/duck';
+import { mapActions } from '../../map/duck';
 import * as types from './types';
-import API from '../../../API';
+import API from '../../../../API';
 import {ofType, combineEpics} from 'redux-observable';
 import {of, from} from 'rxjs';
 import {switchMap, catchError,} from "rxjs/operators";

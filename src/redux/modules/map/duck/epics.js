@@ -4,7 +4,7 @@ import {catchError, switchMap} from "rxjs/operators";
 import {from, of} from "rxjs";
 import API from "../../../../API";
 import * as actions from "./actions";
-import {projectActions} from "../../../../App/ProjectsList/duck";
+import {projectActions} from "../../projects/duck";
 
 /**
  * @function

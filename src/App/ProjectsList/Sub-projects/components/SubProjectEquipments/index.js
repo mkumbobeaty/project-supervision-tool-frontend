@@ -7,7 +7,7 @@ import Topbar from "../../../../components/Topbar";
 import SubProjectEquipmentsList from "../../../../components/List";
 import ListItem from "../../../../components/ListItem";
 import ListItemActions from "../../../../components/ListItemActions";
-import { subProjectsOperator, subProjectsSelectors } from "../../duck";
+import { subProjectsOperator, subProjectsSelectors } from "../../../../../redux/modules/subProjects/duck";
 
 
 /* constants */

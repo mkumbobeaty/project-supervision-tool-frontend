@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import './styles.css';
 import {bindActionCreators} from "redux";
-import {authActions} from '../Auth/duck';
+import {authActions} from '../../redux/modules/auth/duck';
 /**
  * @class
  * @name SignOut
