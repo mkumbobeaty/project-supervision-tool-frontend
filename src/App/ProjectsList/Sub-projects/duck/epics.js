@@ -2,9 +2,8 @@ import * as actions from './actions';
 import * as types from './types';
 import API from '../../../../API';
 import { ofType, combineEpics } from 'redux-observable';
-import { of, from, pipe } from 'rxjs';
+import { of, from,  } from 'rxjs';
 import { switchMap, catchError, } from "rxjs/operators";
-import { act } from '@testing-library/react';
 
 
 /**
@@ -18,12 +17,10 @@ const updateSubProjectEpic = action$ => {
     return action$.pipe(
         ofType(types.UPDATE_SUB_PROJECT_START),
         switchMap(({ payload }) => {
-            debugger
             return from(API.updateSubProject(payload, payload.sub_project_id))
         }),
         switchMap(res => {
-                    debugger
-                    return ( of(actions.updateSubProjectSuccess(res)))
+            return (of(actions.updateSubProjectSuccess(res)))
         }),
         catchError(error => { return of(actions.updateSubProjectFailure(error)) })
 
@@ -66,8 +63,7 @@ const createSubProjectItemEpic = action$ => {
             return from(API.createSubProjectItem(payload))
         }),
         switchMap(res => {
-                    debugger
-                    return ( of(actions.createSubProjectItemSuccess(res)), of(actions.getSubProjectItemsStart))
+            return (of(actions.createSubProjectItemSuccess(res)), of(actions.getSubProjectItemsStart))
         }),
         catchError(error => { return of(actions.createSubProjectItemFailure(error)) })
 

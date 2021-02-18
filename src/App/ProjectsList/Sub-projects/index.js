@@ -93,7 +93,6 @@ class SubProjects extends Component {
       okType: "danger",
       cancelText: "No",
       onOk() {
-        debugger
         deleteSubproject(item.id);
       },
     });

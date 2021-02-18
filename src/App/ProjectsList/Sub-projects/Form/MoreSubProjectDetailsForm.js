@@ -102,7 +102,6 @@ class MoreSubProjectDetails extends Component {
             closeSubProjectForm()
         }
         else {
-            debugger
             API.createSubProjectDetails(payload)
                 .then(() => {
                     getSubProjects();
@@ -127,10 +126,10 @@ class MoreSubProjectDetails extends Component {
                     className="MoreSubProjectDetails"
                     name="MoreSubProjectDetails"
                     initialValues={{
-                        supervising_agency_id: selected?.details?.supervising_agency.id,
-                        actor_id: selected?.details?.actor.id,
-                        phase_id: selected?.details?.phase.id,
-                        contractor_id: selected?.details?.contractor.id,
+                        supervising_agency_id: selected?.details?.supervising_agency.name,
+                        actor_id: selected?.details?.actor.name,
+                        phase_id: selected?.details?.phase.name,
+                        contractor_id: selected?.details?.contractor.name,
                         start_date: createDateFromString(selected?.details?.start_date),
                         end_date: createDateFromString(selected?.details?.end_date),
                     }}

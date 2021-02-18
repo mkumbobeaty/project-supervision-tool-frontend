@@ -44,11 +44,9 @@ function BasicSubProjectDetailsForm({
     projects,
     layers,
     selected,
-    updateSubProject,
     isEditForm }) {
     const [visible, setVisible] = useState(false);
     const [locations, setLocations] = useState([]);
-    const [updatedSubProject, setUpdates] = useState({})
 
     useEffect(() => {
         getRegions();
@@ -63,16 +61,13 @@ function BasicSubProjectDetailsForm({
     };
     const onFinish = (values) => {
         if (isEditForm) {
-            debugger
             localStorage.setItem("updated", JSON.stringify(values));
             next();
         }
         else {
             createSubProject({ ...values, locations });
             next();
-
         }
-        // this.props.handleAfterCloseForm();
     };
 
 
