@@ -7,7 +7,7 @@ import SideNavItem from "./components/SideNavItem";
 import humanResourceImg from '../../../../assets/icons/human-resources-zero-opacity.svg'
 import whiteHhumanResourceImg from '../../../../assets/icons/white-human-resources.svg'
 import NavItemDetails from "./components/NavItemDetails";
-import {mapActions, mapSelectors} from "../../../../redux/modules/map/duck";
+import {mapActions, mapSelectors} from "../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
 
 class SideNav extends Component {

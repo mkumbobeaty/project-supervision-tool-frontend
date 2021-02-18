@@ -13,7 +13,7 @@ import {
 import { generateDateString, generateYearString } from "../../../../../Util";
 import { connect } from "react-redux";
 import { projectDetailsOperator, projectDetailsSelectors } from "../ProjectsDetails/duck";
-import {projectActions, projectSelectors} from "../../../../../redux/modules/projects/duck";
+import {projectActions, projectSelectors} from "../../../../../redux/modules/projects";
 import CommitmentAmountForm from "./CommitmentAmountForm";
 import TotalProjectCostForm from "./TotalProjectCostForm";
 import {projectSectorsActions, projectSectorsSelectors} from "../ProjectsSectors/duck";

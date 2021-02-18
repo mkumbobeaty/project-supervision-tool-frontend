@@ -6,7 +6,7 @@ import ProjectSubProjects from "./SubProjectSection";
 import SidebarSection from "./SideBar";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects/duck";
+import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects";
 
 import "./styles.css";
 

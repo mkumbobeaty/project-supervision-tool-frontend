@@ -7,9 +7,9 @@ import Topbar from "../../../../components/Topbar";
 import SubProjectItemsList from "../../../../components/List";
 import ListItem from "../../../../components/ListItem";
 import ListItemActions from "../../../../components/ListItemActions";
-import { subProjectsActions, subProjectsOperator, subProjectsSelectors } from "../../../../../redux/modules/subProjects/duck";
+import { subProjectsActions, subProjectsOperator, subProjectsSelectors } from "../../../../../redux/modules/subProjects";
 import SubProjectItemForm from "./Forms";
-import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects/duck";
+import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects";
 
 
 /* constants */

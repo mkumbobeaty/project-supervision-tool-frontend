@@ -1,5 +1,5 @@
 import * as actions from './actions';
-import {getGeoJsonFromLocation} from "../../../../Util";
+import {getGeoJsonFromLocation} from "../../../Util";
 
 
 export const setInitiativesGeoJson = (initiatives = []) => (dispatch) => {
