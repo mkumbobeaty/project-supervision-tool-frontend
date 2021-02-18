@@ -1,5 +1,5 @@
 import * as types from "./types";
-import {appTypes} from '../../duck';
+import {appTypes} from '../../app/duck';
 import {combineReducers} from "redux";
 
 const initialState = {

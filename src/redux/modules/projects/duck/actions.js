@@ -1,6 +1,6 @@
 /*  Projects Action creators */
 import * as types from "./types";
-import {makeActionCreator} from "../../../Util";
+import {makeActionCreator} from "../../../../Util";
 
 // action creator for fetching project
 export function getProjectsStart() {

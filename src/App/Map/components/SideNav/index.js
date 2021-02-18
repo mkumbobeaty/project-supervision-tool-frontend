@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Axios from "axios";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import './styles.css';
@@ -6,7 +7,7 @@ import SideNavItem from "./components/SideNavItem";
 import humanResourceImg from '../../../../assets/icons/human-resources-zero-opacity.svg'
 import whiteHhumanResourceImg from '../../../../assets/icons/white-human-resources.svg'
 import NavItemDetails from "./components/NavItemDetails";
-import {mapActions, mapSelectors} from "../../duck";
+import {mapActions, mapSelectors} from "../../../../redux/modules/map/duck";
 import {bindActionCreators} from "redux";
 
 class SideNav extends Component {
@@ -25,6 +26,9 @@ class SideNav extends Component {
 
         // Axios.get(`https://geonode.project-supervision-tool.ga/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=geonode:dar_es_salaam_school_points&outputFormat=application/json`)
         //     .then(res => console.log(res.data));
+
+        Axios.get(`https://geonode.project-supervision-tool.ga/api/layers/24`)
+            .then(res => console.log(res.data));
     }
 
     render() {

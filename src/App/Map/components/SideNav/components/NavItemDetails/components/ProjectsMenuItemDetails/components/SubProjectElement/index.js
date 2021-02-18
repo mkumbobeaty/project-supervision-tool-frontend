@@ -5,9 +5,9 @@ import BackLink from "../BackLink";
 import './styles.css';
 import CustomGridList from "../CustomGridList";
 import LongActionButton from "../LongActionButton";
-import {mapActions} from "../../../../../../../../duck";
+import {mapActions} from "../../../../../../../../../../redux/modules/map/duck";
 import {bindActionCreators} from "redux";
-import {projectSelectors} from "../../../../../../../../../ProjectsList/duck";
+import {projectSelectors} from "../../../../../../../../../../redux/modules/projects/duck";
 
 
 /**

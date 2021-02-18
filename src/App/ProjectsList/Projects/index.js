@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from '../duck';
+import { projectOperation, projectSelectors } from '../../../redux/modules/projects/duck';
 import { Col, Drawer, Modal, Steps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";

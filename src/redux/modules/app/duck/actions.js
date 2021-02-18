@@ -1,6 +1,6 @@
 
 import * as types from './types'
-import { makeActionCreator } from '../../Util';
+import { makeActionCreator } from '../../../../Util';
 
 /**
  * @function

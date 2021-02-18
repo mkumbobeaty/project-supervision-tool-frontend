@@ -1,7 +1,7 @@
 import {ofType} from 'redux-observable';
 import {catchError, switchMap} from 'rxjs/operators';
 import * as Rx from 'rxjs';
-import API from '../../../API';
+import API from '../../../../API';
 import * as actions from './actions';
 import * as types from './types'
 
