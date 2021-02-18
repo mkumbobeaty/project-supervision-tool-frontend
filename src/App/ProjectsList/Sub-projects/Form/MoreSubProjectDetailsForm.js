@@ -92,13 +92,14 @@ class MoreSubProjectDetails extends Component {
         const end_date = generateDateString(values?.end_date);
         const { subProject, getSubProjects, closeForm, isEditForm, updateSubProject, selected } = this.props;
         const updates = JSON.parse(localStorage.getItem("updated"));
-        debugger
         const { name, project_id, description } = updates
         const payload = { ...values, start_date, end_date, sub_project_id: subProject?.data.id, };
-        const updatedData = {...values, start_date, end_date, name, project_id, description, sub_project_id:selected.id}
+        const updatedData = {...values, start_date, end_date, name, project_id, description, sub_project_id:selected.id};
+        
         if (isEditForm) {
-            debugger
             updateSubProject( updatedData, selected.id);
+            getSubProjects();
+            closeForm()
         }
         else {
             debugger
