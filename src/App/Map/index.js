@@ -6,8 +6,8 @@ import L from 'leaflet';
 import "./styles.css";
 import BaseMap from "./BaseMap";
 import {bindActionCreators} from "redux";
-import {mapActions, mapSelectors} from "../../redux/modules/map/duck";
-import {projectSelectors} from '../../redux/modules/projects/duck'
+import {mapActions, mapSelectors} from "../../redux/modules/map";
+import {projectSelectors} from '../../redux/modules/projects'
 import SideNav from "./components/SideNav";
 import RegionsGeoJson from "./components/RegionsGeoJson";
 import RegionDetailGeoJson from "./components/RegionDetailsGeoJson";

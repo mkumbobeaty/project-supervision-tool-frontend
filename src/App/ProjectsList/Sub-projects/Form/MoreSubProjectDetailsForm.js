@@ -14,7 +14,7 @@ import {
 import { connect } from "react-redux";
 import API from '../../../../API';
 import {generateDateString} from "../../../../Util";
-import {projectActions, projectSelectors} from "../../../../redux/modules/projects/duck";
+import {projectActions, projectSelectors} from "../../../../redux/modules/projects";
 
 /* state actions */
 

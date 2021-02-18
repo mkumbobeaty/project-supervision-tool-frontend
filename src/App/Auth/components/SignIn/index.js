@@ -5,7 +5,7 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import "./styles.css";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
-import {authActions, authSelectors} from "../../../../redux/modules/auth/duck";
+import {authActions, authSelectors} from "../../../../redux/modules/auth";
 
 
 /**
