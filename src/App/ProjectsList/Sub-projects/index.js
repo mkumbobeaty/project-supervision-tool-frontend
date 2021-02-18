@@ -121,25 +121,25 @@ class SubProjects extends Component {
    * @since 0.1.0
    */
   closeSubProjectForm = () => {
-    console.log('closeSubProjectForm');
     this.setState({ isEditForm: false, visible: false });
-    const { closeSubProjectForm } = this.props;
+    const { closeSubProjectForm,selectSubProject } = this.props;
+    selectSubProject(null)
     closeSubProjectForm();
   };
 
-  /**
-   * @function
-   * @name handleAfterCloseForm
-   * @description Perform post close form cleanups
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  handleAfterCloseForm = () => {
-    const { selectProject } = this.props;
-    selectProject(null);
-    this.setState({ isEditForm: false });
-  };
+  // /**
+  //  * @function
+  //  * @name handleAfterCloseForm
+  //  * @description Perform post close form cleanups
+  //  *
+  //  * @version 0.1.0
+  //  * @since 0.1.0
+  //  */
+  // handleAfterCloseForm = () => {
+  //   const { selectProject } = this.props;
+  //   selectProject(null);
+  //   this.setState({ isEditForm: false });
+  // };
 
   /**
   * @function
@@ -277,7 +277,7 @@ class SubProjects extends Component {
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
         >
-          <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} />
+          <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} closeSubProjectForm={this.closeSubProjectForm} />
         </Drawer>
       </div>
     );

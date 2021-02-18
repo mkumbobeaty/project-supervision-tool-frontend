@@ -90,23 +90,23 @@ class MoreSubProjectDetails extends Component {
     onFinish = (values) => {
         const start_date = generateDateString(values?.start_date);
         const end_date = generateDateString(values?.end_date);
-        const { subProject, getSubProjects, closeForm, isEditForm, updateSubProject, selected } = this.props;
-        const updates = JSON.parse(localStorage.getItem("updated"));
-        const { name, project_id, description } = updates
+        const { subProject, getSubProjects, closeSubProjectForm, isEditForm, updateSubProject, selected } = this.props;
         const payload = { ...values, start_date, end_date, sub_project_id: subProject?.data.id, };
-        const updatedData = {...values, start_date, end_date, name, project_id, description, sub_project_id:selected.id};
-        
+
         if (isEditForm) {
-            updateSubProject( updatedData, selected.id);
+            const updates = JSON.parse(localStorage.getItem("updated"));
+            const { name, project_id, description } = updates
+            const updatedData = { ...values, start_date, end_date, name, project_id, description, sub_project_id: selected.id };
+            updateSubProject(updatedData, selected.id);
             getSubProjects();
-            closeForm()
+            closeSubProjectForm()
         }
         else {
             debugger
             API.createSubProjectDetails(payload)
                 .then(() => {
                     getSubProjects();
-                    closeForm();
+                    closeSubProjectForm();
                 });
         }
 

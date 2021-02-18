@@ -58,7 +58,7 @@ class SubProjectForm extends Component {
 
   render() {
     const { current, layers } = this.state
-    const { projects, selected, isEditForm, updateSubProject } = this.props
+    const { projects, selected, isEditForm, updateSubProject,closeSubProjectForm } = this.props
 
     const steps = [
       {
@@ -72,7 +72,11 @@ class SubProjectForm extends Component {
       },
       {
         title: 'Step 2',
-        content: <MoreSubProjectDetails next={this.next} prev={this.prev} selected={selected} isEditForm={isEditForm} updateSubProject={updateSubProject}
+        content: <MoreSubProjectDetails 
+        next={this.next} prev={this.prev} 
+        selected={selected} isEditForm={isEditForm} 
+        updateSubProject={updateSubProject}
+        closeSubProjectForm={closeSubProjectForm}
         />
 
       },
