@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
 import { Col, } from "antd";
 import { isoDateToHumanReadableDate } from "../../Util";
+import { usersOperator, usersSelectors } from '../../redux/modules/users';
+import { connect } from 'react-redux';
 
 /* constants */
 const userIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
@@ -128,4 +130,14 @@ const Users = () => {
     )
 }
 
-export default Users;
+const mapStateToProps = (state) => {
+  return {
+    users:usersSelectors.getUsersSelector(state)
+  }
+}
+
+const mapDispatchToProps = {
+  getUsers:usersOperator.default.getUsersStart,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users);

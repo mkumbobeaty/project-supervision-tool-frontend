@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { isoDateToHumanReadableDate } from "../../../Util";
 import SubProjectForm from "./Form";
 import "./styles.css";
+import { usersOperator } from "../../../redux/modules/users";
 
 
 /* constants */
@@ -54,8 +55,9 @@ class SubProjects extends Component {
   };
 
   componentDidMount() {
-    const { fetchSubProjects } = this.props;
-    fetchSubProjects()
+    const { fetchSubProjects,getUsers } = this.props;
+    fetchSubProjects();
+    getUsers();
   }
 
   /**
@@ -293,6 +295,7 @@ const mapDispatchToProps = {
   getProject: projectOperation.getProjectStart,
   openSubProjectForm: projectActions.openSubProjectForm,
   closeSubProjectForm: projectActions.closeSubProjectForm,
+  getUsers:usersOperator.default.getUsersStart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjects);
