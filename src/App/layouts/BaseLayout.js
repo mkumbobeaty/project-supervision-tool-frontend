@@ -15,6 +15,7 @@ import SubProjectItems from "../ProjectsList/Sub-projects/components/SubProjectI
 import SubProjectEquipments from "../ProjectsList/Sub-projects/components/SubProjectEquipments";
 // import Settings from "../Settings";
 import GeoNode from "../GeoNode";
+import Users from "../Users";
 import Agencies from "../Agencies";
 import AdminPanel from "../AdminPanel";
 import PrivateRoute from '../Auth/PrivateRoute';
@@ -182,6 +183,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/geo-node`}
             component={GeoNode}
+          />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/users`}
+            component={Users}
           />
           {/* <PrivateRoute
             exact
