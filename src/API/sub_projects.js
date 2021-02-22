@@ -13,7 +13,7 @@ import axios from "./config";
  * @since 0.1.0
  */
 const getSubProjects = (params = {}) => {
-     return axios.get(`/sub_projects/`, {params:{page:2}}).then((response) => response.data);}
+     return axios.get(`/sub_projects/`, {params}).then((response) => response.data);}
      
 
 /**
