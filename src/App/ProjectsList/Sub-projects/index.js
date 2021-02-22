@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { projectActions, projectOperation, projectSelectors } from '../duck';
+import { projectActions, projectOperation, projectSelectors } from '../../../redux/modules/projects';
 import { Col, Drawer, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -12,7 +12,8 @@ import { Link } from "react-router-dom";
 import { isoDateToHumanReadableDate } from "../../../Util";
 import SubProjectForm from "./Form";
 import "./styles.css";
-import { subProjectsActions, subProjectsSelectors } from "./duck";
+import { subProjectsActions, subProjectsSelectors } from "../../../redux/modules/subProjects";
+// import { subProjectsActions, subProjectsSelectors } from "./duck";
 
 
 /* constants */

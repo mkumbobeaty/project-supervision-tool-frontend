@@ -5,7 +5,7 @@ import { Link, Switch, Route } from "react-router-dom";
 import UserMenu from "../navigation/UserMenu";
 import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
-import Dashboards from "../Dashboards";
+// import Dashboards from "../Dashboards";
 import MapDashboard from "../Map";
 import Projects from "../ProjectsList/Projects";
 import SubProjects from "../ProjectsList/Sub-projects/";
@@ -13,7 +13,11 @@ import Project from "../ProjectsList/Projects/components/ProjectsDetails";
 import SubProject from "../ProjectsList/Sub-projects/components/SubProjectsDetails/"
 import SubProjectItems from "../ProjectsList/Sub-projects/components/SubProjectItems";
 import SubProjectEquipments from "../ProjectsList/Sub-projects/components/SubProjectEquipments";
-import Settings from "../Settings";
+// import Settings from "../Settings";
+import GeoNode from "../GeoNode";
+import Users from "../Users";
+import Agencies from "../Agencies";
+import AdminPanel from "../AdminPanel";
 import PrivateRoute from '../Auth/PrivateRoute';
 import "./styles.css";
 
@@ -170,15 +174,35 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           {/* Admin panel */}
 
           {/* Dashboard PrivateRoutes */}
-          <PrivateRoute
+          {/* <PrivateRoute
             exact
             path={`${baseUrl}/dashboards`}
             component={Dashboards}
+          /> */}
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/geo-node`}
+            component={GeoNode}
           />
           <PrivateRoute
             exact
+            path={`${baseUrl}/users`}
+            component={Users}
+          />
+          {/* <PrivateRoute
+            exact
             path={`${baseUrl}/settings`}
             component={Settings}
+          /> */}
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/agencies`}
+            component={Agencies}
+          />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/admin-panel`}
+            component={AdminPanel}
           />
           <PrivateRoute component={PageNotFound} />
         </Switch>

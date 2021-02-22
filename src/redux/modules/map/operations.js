@@ -11,4 +11,3 @@ export const setHumanResourceGeoJson = (humanResources = []) => (dispatch) => {
     const data = humanResources.map(humanResource => getGeoJsonFromLocation(humanResource));
     return dispatch(actions.setHumanResourceGeoJson(data))
 };
-

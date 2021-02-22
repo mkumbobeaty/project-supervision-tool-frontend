@@ -1,6 +1,8 @@
 import * as types from "./types";
-import { projectTypes } from "../../ProjectsList/duck"
+import { mapProjectTypes } from "./projects"
 import {combineReducers} from "redux";
+import { projects } from './projects/reducers'
+import { subProjects } from './subProjects/reducers'
 
 const initialConfigState = {
     showFeatureDetails: false,
@@ -42,23 +44,23 @@ const mapLoading = (state = false, action) => {
             return false;
         case types.GET_REGION_FAILURE:
             return false;
-        case projectTypes.GET_PROJECT_START:
+        case mapProjectTypes.GET_PROJECT_START:
             return true;
-        case projectTypes.GET_PROJECT_SUCCESS:
+        case mapProjectTypes.GET_PROJECT_SUCCESS:
             return false;
-        case projectTypes.GET_PROJECT_FAILURE:
+        case mapProjectTypes.GET_PROJECT_FAILURE:
             return false;
-        case projectTypes.GET_SUB_PROJECT_START:
+        case mapProjectTypes.GET_SUB_PROJECT_START:
             return true;
-        case projectTypes.GET_SUB_PROJECT_SUCCESS:
+        case mapProjectTypes.GET_SUB_PROJECT_SUCCESS:
             return false;
-        case projectTypes.GET_SUB_PROJECT_FAILURE:
+        case mapProjectTypes.GET_SUB_PROJECT_FAILURE:
             return false;
-        case projectTypes.GET_SUB_PROJECT_ELEMENT_START:
+        case mapProjectTypes.GET_SUB_PROJECT_ELEMENT_START:
             return true;
-        case projectTypes.GET_SUB_PROJECT_ELEMENT_SUCCESS:
+        case mapProjectTypes.GET_SUB_PROJECT_ELEMENT_SUCCESS:
             return false;
-        case projectTypes.GET_SUB_PROJECT_ELEMENT_FAILURE:
+        case mapProjectTypes.GET_SUB_PROJECT_ELEMENT_FAILURE:
             return false;
         default:
             return state;
@@ -218,6 +220,8 @@ const sideNavMenuInitialState = {
 };
 
 export const map = combineReducers({
+    projects,
+    subProjects,
     config,
     projectOverview,
     sideNavMenu,

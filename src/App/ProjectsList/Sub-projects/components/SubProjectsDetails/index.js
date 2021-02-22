@@ -5,7 +5,7 @@ import ProjectSubProjects from "./SubProjectContract";
 import SidebarSection from "./SideBar";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from "../../../duck";
+import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects";
 import ProgressChart from "./ProgressChart";
 import SubProjectEquipment from "./SubProjectEquipment";
 

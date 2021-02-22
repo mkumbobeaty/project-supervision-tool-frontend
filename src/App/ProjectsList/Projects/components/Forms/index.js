@@ -4,7 +4,7 @@ import { Steps } from 'antd';
 import { connect } from "react-redux";
 import ProjectForm from './projectForm';
 import { projectSectorsOperator, } from "../ProjectsSectors/duck";
-import { projectOperation, projectSelectors } from '../../../duck';
+import { projectOperation, projectSelectors } from '../../../../../redux/modules/projects';
 import { projectDetailsOperator, } from "../ProjectsDetails/duck";
 import ProjectDetailsForm from "./projectDetailsForm";
 

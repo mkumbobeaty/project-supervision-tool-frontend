@@ -5,9 +5,9 @@ import { Steps } from 'antd';
 import { connect } from "react-redux";
 import BasicSubProjectDetailsForm from "./BasicSubProjectDetailsForm";
 import MoreSubProjectDetails from "./MoreSubProjectDetailsForm";
-import { projectActions, projectSelectors } from "../../duck";
+import {projectActions, projectSelectors} from "../../../../redux/modules/projects";
 import API from "../../../../API";
-import { subProjectsActions, subProjectsSelectors } from "../duck";
+import { subProjectsActions, subProjectsSelectors } from "../../../../redux/modules/subProjects/";
 
 
 const { Step } = Steps;

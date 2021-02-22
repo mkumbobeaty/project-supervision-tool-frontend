@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import ProjectsTopSection from "../ProjectsTopSection";
 import NationalProjectsOverview from "../NationalProjectsOverview";
 import RegionalProjectsOverview from "../RegionalProjectsOverview";
-import {mapActions, mapSelectors} from "../../../../../../../../duck";
+import {mapActions, mapSelectors} from "../../../../../../../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
-import {projectActions} from "../../../../../../../../../ProjectsList/duck";
+import {projectActions} from "../../../../../../../../../../redux/modules/projects";
+import {mapProjectActions} from "../../../../../../../../../../redux/modules/map/projects";
 
 
 /**
@@ -77,7 +78,7 @@ const mapDispatchToProps = (dispatch) => ({
     setShowRegionalOverview: bindActionCreators(mapActions.showRegionalProjectsOverview, dispatch),
     setShowNationalOverview: bindActionCreators(mapActions.showNationalProjectsOverview, dispatch),
     clearRegionalProjects: bindActionCreators(mapActions.clearRegionProjects, dispatch),
-    getProject: bindActionCreators(projectActions.getProjectStart, dispatch),
+    getProject: bindActionCreators(mapProjectActions.getProjectStart, dispatch),
 });
 
 

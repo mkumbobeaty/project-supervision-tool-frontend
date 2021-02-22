@@ -6,16 +6,17 @@ import L from 'leaflet';
 import "./styles.css";
 import BaseMap from "./BaseMap";
 import {bindActionCreators} from "redux";
-import {mapActions, mapSelectors} from "./duck";
-import {projectSelectors} from '../ProjectsList/duck'
+import {mapActions, mapSelectors} from "../../redux/modules/map";
+import {projectSelectors} from '../../redux/modules/projects'
 import SideNav from "./components/SideNav";
 import RegionsGeoJson from "./components/RegionsGeoJson";
 import RegionDetailGeoJson from "./components/RegionDetailsGeoJson";
 import ProjectPoints from "./components/ProjectPoints";
 import ProjectLocations from "./components/ProjectLocations";
 import SubProjectLocations from "./components/SubProjectLocations";
-import SubProjectElementLocations from "./components/SubProjectElementLocations";
 import SubProjectElementWfsLayer from "./components/SubProjectElementWfsLayer";
+import {mapProjectSelectors} from "../../redux/modules/map/projects";
+import {mapSubProjectSelectors} from "../../redux/modules/map/subProjects";
 
 class MapDashboard extends Component {
     state = {
@@ -101,7 +102,6 @@ class MapDashboard extends Component {
             project,
             mapLoading,
             subProject,
-            subProjectElement,
             getWfsLayerData,
             wfsLayerData,
         } = this.props;
@@ -136,9 +136,9 @@ const mapStateToProps = (state) => ({
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     regionDetails: mapSelectors.getRegionDetailsSelector(state),
     projectsOverview: mapSelectors.getProjectsOverview(state),
-    subProject: projectSelectors.getSubProjectSelector(state),
+    subProject: mapSubProjectSelectors.getSubProjectSelector(state),
     subProjectElement: projectSelectors.getSubProjectElementSelector(state),
-    project: projectSelectors.getProjectSelector(state),
+    project: mapProjectSelectors.getProjectSelector(state),
     wfsLayerData: mapSelectors.getWfsLayerDataSelector(state),
 });
 

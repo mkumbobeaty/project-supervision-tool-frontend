@@ -4,20 +4,20 @@ import {catchError, switchMap} from "rxjs/operators";
 import {from, of} from "rxjs";
 import API from "../../../API";
 import * as actions from "./actions";
-import {projectActions} from "../../ProjectsList/duck";
+import {mapProjectActions, mapProjectEpics} from './projects/'
+import {mapSubProjectActions, mapSubProjectEpics} from "./subProjects";
 
 /**
  * @function
  * @name getProjectsOverviewEpic
  * @param action$ stream of actions
  */
-const getProjectsOverviewEpic = action$ =>
-{
+const getProjectsOverviewEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_PROJECTS_OVERVIEW_START),
         switchMap(() => {
             return from(API.getProjectOverview()).pipe(
-                switchMap(res =>  from([
+                switchMap(res => from([
                     actions.getProjectsOverviewSuccess(res.data),
                     actions.showMapLoader(false),
                     actions.getProjectsStatisticsStart()
@@ -35,13 +35,12 @@ const getProjectsOverviewEpic = action$ =>
  * @name getProjectsByRegionEpic
  * @param action$ stream of actions
  */
-const getProjectsByRegionEpic = action$ =>
-{
+const getProjectsByRegionEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_PROJECTS_BY_REGION_START),
-        switchMap(({ payload }) => {
+        switchMap(({payload}) => {
             return from(API.getProjectsByRegion(payload)).pipe(
-                switchMap(res =>  from([
+                switchMap(res => from([
                     actions.getRegionProjectStatisticsStart(payload),
                     actions.getProjectsByRegionSuccess(res.data),
                     actions.clearProjectsStatistics(),
@@ -60,13 +59,12 @@ const getProjectsByRegionEpic = action$ =>
  * @name getRegionProjectStatisticsEpic
  * @param action$ stream of actions
  */
-const getRegionProjectStatisticsEpic = action$ =>
-{
+const getRegionProjectStatisticsEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_REGION_PROJECT_STATISTICS_START),
-        switchMap(({ payload }) => {
+        switchMap(({payload}) => {
             return from(API.getRegionProjectStatistics(payload)).pipe(
-                switchMap(res =>  from([
+                switchMap(res => from([
                     actions.getRegionProjectStatisticsSuccess(res.data),
                 ])),
                 catchError(error => of(actions.getRegionProjectStatisticsFailure(error)))
@@ -76,21 +74,18 @@ const getRegionProjectStatisticsEpic = action$ =>
 }
 
 
-
-
 /**
  *
  * @function
  * @name getProjectsStatistics
  * @param action$ stream of actions
  */
-const getProjectsStatistics = action$ =>
-{
+const getProjectsStatistics = action$ => {
     return action$.pipe(
         ofType(types.GET_PROJECTS_STATISTICS_START),
         switchMap(() => {
             return from(API.getProjectsStatistics()).pipe(
-                switchMap(res =>  of(actions.getProjectsStatisticsSuccess(res.data))),
+                switchMap(res => of(actions.getProjectsStatisticsSuccess(res.data))),
                 catchError(error => of(actions.getProjectsStatisticsFailure(error)))
             );
         }),
@@ -104,13 +99,12 @@ const getProjectsStatistics = action$ =>
  * @name getProjectStatistics
  * @param action$ stream of actions
  */
-const getProjectStatistics = action$ =>
-{
+const getProjectStatistics = action$ => {
     return action$.pipe(
         ofType(types.GET_PROJECT_STATISTICS_START),
-        switchMap(({ payload }) => {
+        switchMap(({payload}) => {
             return from(API.getProjectsStatistics(payload)).pipe(
-                switchMap(res =>  of(actions.getProjectStatisticsSuccess(res.data))),
+                switchMap(res => of(actions.getProjectStatisticsSuccess(res.data))),
                 catchError(error => of(actions.getProjectStatisticsFailure(error)))
             );
         }),
@@ -123,13 +117,12 @@ const getProjectStatistics = action$ =>
  * @name getRegionDetailEpic
  * @param action$ stream of actions
  */
-const getRegionDetailEpic = action$ =>
-{
+const getRegionDetailEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_REGION_START),
-        switchMap(({ payload }) => {
+        switchMap(({payload}) => {
             return from(API.getRegionDetails(payload)).pipe(
-                switchMap(res =>  from([actions.getRegionSuccess(res.data), actions.clearProjectsOverview()])),
+                switchMap(res => from([actions.getRegionSuccess(res.data), actions.clearProjectsOverview()])),
                 catchError(error => of(actions.getRegionFailure(error)))
             );
         }),
@@ -142,13 +135,12 @@ const getRegionDetailEpic = action$ =>
  * @name getWfsLayerDataEpic
  * @param action$ stream of actions
  */
-const getWfsLayerDataEpic = action$ =>
-{
+const getWfsLayerDataEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_WFS_LAYER_DATA_START),
-        switchMap(({ payload }) => {
+        switchMap(({payload}) => {
             return from(API.getWfsLayerData(payload)).pipe(
-                switchMap(res =>  from([actions.getWfsLayerDataSuccess(res)])),
+                switchMap(res => from([actions.getWfsLayerDataSuccess(res)])),
                 catchError(error => of(actions.getWfsLayerDataFailure(error)))
             );
         }),
@@ -163,10 +155,8 @@ const getWfsLayerDataEpic = action$ =>
  */
 const triggerGetRegionDetailEpic = actions$ => actions$.pipe(
     ofType(types.GET_PROJECTS_BY_REGION_START),
-    switchMap(({ payload }) => of(actions.getRegionStart(payload)))
+    switchMap(({payload}) => of(actions.getRegionStart(payload)))
 );
-
-
 
 
 const handleMapLoaderEpic = actions$ => actions$.pipe(
@@ -179,28 +169,28 @@ const handleMapLoaderEpic = actions$ => actions$.pipe(
 const backFromSubProjectToProjectDetailsEpics = actions$ => actions$.pipe(
     ofType(types.BACK_SUB_PROJECT_TO_PROJECT_DETAILS),
     switchMap(({payload}) => from([
-        projectActions.getProjectStart(payload),
+        mapProjectActions.getProjectStart(payload),
         actions.showSubProjectDetails(false),
         actions.showProjectDetails(true),
         actions.clearWfsLayerData(),
-        projectActions.clearSubProject()
+        mapSubProjectActions.clearSubProject()
     ]))
 );
 
 const backFromSubProjectElementToSubProjectDetailsEpics = actions$ => actions$.pipe(
     ofType(types.BACK_SUB_PROJECT_ELEMENT_TO_SUB_PROJECT_DETAILS),
     switchMap(({payload}) => from([
-        projectActions.getSubProjectStart(payload),
+        mapSubProjectActions.getSubProjectStart(payload),
         actions.showSubProjectDetails(true),
         actions.showSubProjectElementDetails(false),
         actions.clearWfsLayerData(),
-        projectActions.clearSubProjectElement()
     ]))
 );
 
 
-
 export const mapRootEpic = combineEpics(
+    mapProjectEpics,
+    mapSubProjectEpics,
     getProjectsOverviewEpic,
     getProjectsByRegionEpic,
     triggerGetRegionDetailEpic,

@@ -5,13 +5,14 @@ import BackLink from "../BackLink";
 import CustomGridList from "../CustomGridList";
 import PredefinedFilter from "../PredefinedFilter";
 import LongActionButton from "../LongActionButton";
-import {mapActions} from "../../../../../../../../duck";
+import {mapActions} from "../../../../../../../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
-import {projectActions, projectSelectors} from "../../../../../../../../../ProjectsList/duck";
+import {projectActions, projectSelectors} from "../../../../../../../../../../redux/modules/projects";
 import {isoDateToHumanReadableDate} from "../../../../../../../../../../Util";
 import { useHistory } from 'react-router-dom';
 import { Spin } from 'antd';
 import './styles.css';
+import {mapSubProjectSelectors} from "../../../../../../../../../../redux/modules/map/subProjects";
 
 
 /**
@@ -91,7 +92,7 @@ function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject, ge
 }
 
 const mapStateToProps = (state) => ({
-    subProject: projectSelectors.getSubProjectSelector(state),
+    subProject: mapSubProjectSelectors.getSubProjectSelector(state),
     subProjectLoader: projectSelectors.getSubProjectLoadingSelector(state)
 });
 

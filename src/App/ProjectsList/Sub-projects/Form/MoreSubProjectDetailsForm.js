@@ -13,10 +13,9 @@ import {
 } from "antd";
 import { connect } from "react-redux";
 import API from '../../../../API';
-import { createDateFromString, generateDateString } from "../../../../Util";
-import { projectActions, projectSelectors } from "../../duck";
-import { act } from "@testing-library/react";
-import { subProjectsActions } from "../duck";
+import {generateDateString,createDateFromString} from "../../../../Util";
+import {projectActions, projectSelectors} from "../../../../redux/modules/projects";
+import { subProjectsActions } from "../../../../redux/modules/subProjects";
 
 /* state actions */
 
