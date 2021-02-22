@@ -1,16 +1,32 @@
 import * as types from "./types";
 import { combineReducers } from "redux";
 
+const defaultSubProjects = {
+  data: [],
+  total: 1,
+  loading: false,
+  error: null,
+  showForm: false,
+  posting: false,
+  page: 1,
+  sub_project: {},
+};
 /**
 * @function
-* @name subProject
+* @name subProjects
 * @description reducer that manages sub project instance
 * @param {Object} state
 * @param {Object} action
 * @return {Object} updated state
 */
-const subProject = (state = { data: null,error: null,loading: false,showForm: false, posting: false}, action) => {
+const subProjects = (state = {defaultSubProjects}, action) => {
   switch (action.type) {
+    case types.GET_SUB_PROJECTS_START:
+            return { ...state, loading: true }
+        case types.GET_SUB_PROJECTS_SUCCESS:
+            return { ...state, data: action.payload, loading: false, }
+        case types.GET_SUB_PROJECTS_FAILURE:
+            return { ...state, error: action.message, loading: false };
       case types.UPDATE_SUB_PROJECT_START:
           return { ...state, loading: true, showForm:true };
       case types.UPDATE_SUB_PROJECT_SUCCESS:
@@ -86,6 +102,6 @@ const sub_project_equipments = (state = { data: [], error: null, loading: false 
 export const subProjectResources = combineReducers({
   sub_project_items,
   sub_project_equipments,
-  subProject,
+  subProjects,
   selectedSubProject
 })

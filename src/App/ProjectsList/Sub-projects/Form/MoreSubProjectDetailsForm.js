@@ -16,6 +16,7 @@ import API from '../../../../API';
 import { createDateFromString, generateDateString } from "../../../../Util";
 import { projectActions, projectSelectors } from "../../duck";
 import { act } from "@testing-library/react";
+import { subProjectsActions } from "../duck";
 
 /* state actions */
 
@@ -97,8 +98,8 @@ class MoreSubProjectDetails extends Component {
             const updates = JSON.parse(localStorage.getItem("updated"));
             const { name, project_id, description } = updates
             const updatedData = { ...values, start_date, end_date, name, project_id, description, sub_project_id: selected.id };
+            debugger
             updateSubProject(updatedData, selected.id);
-            getSubProjects();
             closeSubProjectForm()
         }
         else {
@@ -265,7 +266,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     closeForm: projectActions.closeSubProjectForm,
-    getSubProjects: projectActions.getSubProjectsStart
+    getSubProjects: subProjectsActions.getSubProjectsStart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoreSubProjectDetails);

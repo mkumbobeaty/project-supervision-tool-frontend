@@ -224,7 +224,7 @@ const mapDispatchToProps = {
   openForm: subProjectsActions.openForm,
   closeForm: subProjectsActions.closeForm,
   createSubProjectItem: subProjectsOperator.createSubProjectItemStart,
-  fetchSubProjects: projectOperation.getSubProjectsStart,
+  fetchSubProjects: subProjectsActions.getSubProjectsStart,
   getProgress: projectOperation.getProgressStart
 
 };

@@ -1,9 +1,24 @@
 import * as actions from './actions';
 import * as types from './types';
+import { mapActions } from '../../../Map/duck';
 import API from '../../../../API';
 import { ofType, combineEpics } from 'redux-observable';
 import { of, from,  } from 'rxjs';
 import { switchMap, catchError, } from "rxjs/operators";
+
+const getsubProjectsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECTS_START),
+        switchMap(() => {
+            return from(API.getSubProjects()).pipe(
+                switchMap(res => {
+                    return from([actions.getSubProjectsSuccess(res.data), mapActions.clearRegionDetails()])
+                }),
+                catchError(error => of(actions.getSubProjectsFailure(error)))
+            );
+        }),
+    )
+};
 
 
 /**
@@ -20,7 +35,7 @@ const updateSubProjectEpic = action$ => {
             return from(API.updateSubProject(payload, payload.sub_project_id))
         }),
         switchMap(res => {
-            return (of(actions.updateSubProjectSuccess(res)))
+            return (of(actions.updateSubProjectSuccess(res)), of(actions.getSubProjectsStart()))
         }),
         catchError(error => { return of(actions.updateSubProjectFailure(error)) })
 
@@ -97,6 +112,7 @@ const getSubProjectEquipmentsEpic = action$ => {
 
 
 export const subProjectsEpic = combineEpics(
+    getsubProjectsEpic,
     getSubProjectItemsEpic,
     createSubProjectItemEpic,
     getSubProjectEquipmentsEpic,

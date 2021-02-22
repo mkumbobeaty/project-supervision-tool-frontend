@@ -11,9 +11,12 @@ import {
     updateSubProjectStart,
     updateSubProjectSuccess,
     updateSubProjectFailure,
+    getSubProjectsStart,
+    getSubProjectsSuccess,
+    getSubProjectsFailure,
 }
 
-from './actions';
+    from './actions';
 
 export {
     getSubProjectItemsStart,
@@ -28,4 +31,7 @@ export {
     updateSubProjectStart,
     updateSubProjectSuccess,
     updateSubProjectFailure,
+    getSubProjectsStart,
+    getSubProjectsSuccess,
+    getSubProjectsFailure,
 }

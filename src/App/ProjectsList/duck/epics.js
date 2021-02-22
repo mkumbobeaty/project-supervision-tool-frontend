@@ -210,27 +210,12 @@ const createProjectLocationPic = action$ => {
     )
 }
 
-const subProjectsEpic = action$ => {
-        return action$.pipe(
-            ofType(types.GET_SUB_PROJECTS_START),
-            switchMap(() => {
-                return from(API.getSubProjects()).pipe(
-                    switchMap(res => {
-                        return from([actions.getSubProjectsSuccess(res.data), mapActions.clearRegionDetails()])
-                    }),
-                    catchError(error => of(actions.getSubProjectsFailure(error)))
-                );
-            }),
-        )
-    };
-    
-
 const deleteSubProjectEpic = action$ => {
     return action$.pipe(
         ofType(types.DELETE_SUB_PROJECT_START),
         switchMap(({payload}) => {
             return from(API.deleteSubProject(payload)).pipe(
-                switchMap(res => { return of(actions.deleteSubProjectSuccess(res), actions.getSubProjectsStart()) }),
+                switchMap(res => { return of(actions.deleteSubProjectSuccess(res)) }),
             )
         }),
         catchError(error => of(actions.deleteSubProjectFailure(error)))
@@ -283,7 +268,6 @@ export const projectsRootEpic = combineEpics(
     getProjectEpic,
     deleteProjectEpic,
     createProjectPic,
-    subProjectsEpic,
     deleteSubProjectEpic,
     regionsEpic,
     districtsEpic,

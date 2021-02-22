@@ -300,14 +300,14 @@ SubProjects.defaultProps = {
 
 const mapStateToProps = (state) => {
   return {
-    subProjects: projectSelectors.getSubProjectsSelector(state),
-    loading: projectSelectors.getSubProjectsLoadingSelector(state),
+    subProjects: subProjectsSelectors.getSubProjectsSelector(state),
+    loading: subProjectsSelectors.getSubProjectsLoadingSelector(state),
     showForm: projectSelectors.getSubProjectShowFormSelector(state),
   };
 };
 
 const mapDispatchToProps = {
-  fetchSubProjects: projectOperation.getSubProjectsStart,
+  fetchSubProjects: subProjectsActions.getSubProjectsStart,
   deleteSubproject: projectOperation.deleteSubProjectStart,
   getProject: projectOperation.getProjectStart,
   openSubProjectForm: projectActions.openSubProjectForm,

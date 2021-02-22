@@ -164,26 +164,7 @@ export function getProjectsStart() {
     };
   }
    
-//  SubProjects
-export function getSubProjectsStart() {
-  return {
-    type: types.GET_SUB_PROJECTS_START,
-  };
-}
 
-export function getSubProjectsSuccess(sub_projects) {
-  return {
-    type: types.GET_SUB_PROJECTS_SUCCESS,
-    payload:sub_projects,
-  };
-}
-
-export function getSubProjectsFailure(message) {
-  return {
-    type: types.GET_SUB_PROJECTS_FAILURE,
-    message,
-  };
-}
 
 // retrieve a single sub project
 

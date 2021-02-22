@@ -1,3 +1,27 @@
+
+/**
+ * @function
+ * @name getSubProjectsSelector
+ * @param {Object} state redux state
+ * @return {Object} sub project
+ */
+export const getSubProjectsSelector = (state) => state?.subProjectResources?.subProjects?.data;
+
+/**
+ * @function
+ * @name getSubProjectsLoadingSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectsLoadingSelector = (state) => state?.subProjectResources?.subProjects?.loading;
+
+// /**
+//  * @function
+//  * @name getSubProjectShowFormSelector
+//  * @param {Object} state redux state
+//  * @return {Object} sub project
+//  */
+// export const getSubProjectShowFormSelector = (state) => state?.subProjectResources?.subProjects?.showForm;
+
 /**
  * @function
  * @name getSubProjectItemsSelector

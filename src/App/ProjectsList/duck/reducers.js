@@ -186,12 +186,6 @@ const creatingSubProjects = (state = false, action) => {
  */
 const sub_projects = (state = defaultSubProjects, action) => {
     switch (action.type) {
-        case types.GET_SUB_PROJECTS_START:
-            return { ...state, loading: true }
-        case types.GET_SUB_PROJECTS_SUCCESS:
-            return { ...state, data: action.payload, loading: false, }
-        case types.GET_SUB_PROJECTS_FAILURE:
-            return { ...state, error: action.message, loading: false };
         case types.DELETE_SUB_PROJECT_START:
             return { ...state };
         case types.DELETE_SUB_PROJECT_SUCCESS:
