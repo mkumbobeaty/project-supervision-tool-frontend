@@ -11,7 +11,7 @@ const getsubProjectsEpic = action$ => {
         ofType(types.GET_SUB_PROJECTS_START),
         switchMap(({payload}) => {
             debugger
-            return from(API.getSubProjects(payload?.current_page)).pipe(
+            return from(API.getSubProjects(payload)).pipe(
                 switchMap(res => {
                     return from([actions.getSubProjectsSuccess(res.data), mapActions.clearRegionDetails()])
                 }),

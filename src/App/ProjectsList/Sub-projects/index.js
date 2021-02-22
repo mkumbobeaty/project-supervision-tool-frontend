@@ -319,12 +319,12 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchSubProjects(current_page) {
-    dispatch(subProjectsActions.getSubProjectsStart({ current_page }));
+  fetchSubProjects(page) {
+    dispatch(subProjectsActions.getSubProjectsStart({ page }));
   }, 
   deleteSubproject: bindActionCreators(projectOperation.deleteSubProjectStart),
-  paginateSubProject(current_page) {
-    dispatch(subProjectsActions.getSubProjectsStart({ current_page }));
+  paginateSubProject(page) {
+    dispatch(subProjectsActions.getSubProjectsStart({ page }));
   },
   getProject: bindActionCreators(projectOperation.getProjectStart, dispatch),
   openSubProjectForm: bindActionCreators(projectActions.openSubProjectForm, dispatch),
