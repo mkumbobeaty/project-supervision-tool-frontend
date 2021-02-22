@@ -1,5 +1,4 @@
 import * as actions from './actions';
-import { mapActions } from '../map';
 import * as types from './types';
 import API from '../../../API';
 import {ofType, combineEpics} from 'redux-observable';
@@ -12,7 +11,7 @@ export const projectsListEpic = action$ => {
         switchMap(() => {
             return from(API.getProjects()).pipe(
                 switchMap(res => {
-                    return from([actions.getProjectsSuccess(res.data), mapActions.clearRegionDetails()])
+                    return of(actions.getProjectsSuccess(res.data))
                 }),
                 catchError(error => of(actions.getProjectsFailure(error)))
             );
@@ -33,10 +32,7 @@ export const getSubProjectEpic = action$ => {
         switchMap(({payload}) => {
             return from(API.getSubProject(payload)).pipe(
                 switchMap(res => {
-                    return from([
-                        actions.getSubProjectSuccess(res.data),
-                        actions.clearProject(),
-                    ])
+                    return of(actions.getSubProjectSuccess(res.data))
                 }),
                 catchError(error => of(actions.getSubProjectFailure(error)))
             );
@@ -59,9 +55,7 @@ export const getSubProjectElementEpic = action$ => {
                 switchMap(res => {
                     return from([
                         actions.getSubProjectElementSuccess(res.data),
-                        actions.clearSubProject(),
-                        mapActions.showSubProjectElementDetails(true),
-                        mapActions.showSubProjectDetails(false)
+                        actions.clearSubProject()
                     ])
                 }),
                 catchError(error => of(actions.getSubProjectElementFailure(error)))
@@ -124,14 +118,9 @@ export const getProjectEpic = action$ => {
         switchMap(({payload}) => {
             return from(API.getProject(payload)).pipe(
                 switchMap(res => {
-                    return from([
-                        actions.getProjectSuccess(res.data),
-                        mapActions.clearRegionDetails(),
-                        mapActions.showProjectsOverview(false),
-                        mapActions.showProjectDetails(true),
-                    ])
+                    return of( actions.getProjectSuccess(res.data))
                 }),
-                catchError(error => from([actions.getProjectFailure(error), mapActions.clearRegionDetails()]))
+                catchError(error => of(actions.getProjectFailure(error)))
             );
         }),
     );
@@ -216,7 +205,7 @@ const subProjectsEpic = action$ => {
             switchMap(() => {
                 return from(API.getSubProjects()).pipe(
                     switchMap(res => {
-                        return from([actions.getSubProjectsSuccess(res.data), mapActions.clearRegionDetails()])
+                        return of(actions.getSubProjectsSuccess(res.data))
                     }),
                     catchError(error => of(actions.getSubProjectsFailure(error)))
                 );
