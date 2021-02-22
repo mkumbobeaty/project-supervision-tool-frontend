@@ -5,7 +5,7 @@
  * @param {Object} state redux state
  * @return {Object} sub project
  */
-export const getSubProjectsSelector = (state) => state?.subProjectResources?.subProjects?.data;
+export const getSubProjectsSelector = (state) => state?.subProjectResources?.subProjects?.data?.data;
 
 /**
  * @function
