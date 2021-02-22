@@ -13,8 +13,9 @@ import axios from "./config";
  * @since 0.1.0
  */
 const getSubProjects = (params = {}) => {
-     return axios.get(`/sub_projects/`, {params}).then((response) => response.data);}
-     
+    return axios.get(`/sub_projects/`, { params: { page: params, per_page: 10 } }).then((response) => response.data);
+}
+
 
 /**
  * Get a sub project from the API
@@ -76,7 +77,7 @@ const getSubProjectItems = () => axios.get('/sub_project_items').then(response =
  * @param {Object} id
  * @returns {Promise}
  */
-const createSubProjectItem = (values) => { axios.post('/sub_project_items', values).then((response) => response.data)};
+const createSubProjectItem = (values) => { axios.post('/sub_project_items', values).then((response) => response.data) };
 
 /**
  * 
