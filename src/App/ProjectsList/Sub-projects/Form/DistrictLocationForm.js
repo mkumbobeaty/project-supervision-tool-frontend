@@ -6,17 +6,18 @@ import LocationForm from "../../../components/LocationForm";
 
 
 
-const DistrictLocationForm = ({ visible, onCancel, locations,  setLocations, regions, layers}) => {
+const DistrictLocationForm = ({ visible, onCancel, locations, setLocations, regions, layers, selected }) => {
 
 
     return (
         <LocationForm
-        locations={locations}
-        setLocations={setLocations}
-        onCancel={onCancel}
-        visible={visible}
-        regions={regions}
-        layers={layers}
+            locations={locations}
+            setLocations={setLocations}
+            onCancel={onCancel}
+            visible={visible}
+            regions={regions}
+            layers={layers}
+            selected={selected}
         />)
 };
 

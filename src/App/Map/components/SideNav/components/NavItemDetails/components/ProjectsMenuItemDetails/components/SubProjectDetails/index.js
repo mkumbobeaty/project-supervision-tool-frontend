@@ -58,7 +58,7 @@ function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject, ge
     const history = useHistory();
     
     const handleOnclickSubProjectElement = (id) => getSubProjectElement(id);
-    const viewFullSubProjectDetails = () => history.push(`/app/sub-projects/${subProject.id}`);
+    const viewFullSubProjectDetails = () => history.push(`/app/sub_projects/${subProject.id}`);
 
 
     return (

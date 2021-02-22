@@ -1,8 +1,8 @@
 
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {Form, Input, Button, Typography, Select} from 'antd';
+import { Form, Input, Button, Typography, Select } from 'antd';
 import RegionLocationForm from "../../../components/RegionLocationForm";
 import {projectActions, projectSelectors} from '../../../../redux/modules/projects';
 import {bindActionCreators} from "redux";
@@ -27,7 +27,7 @@ const wrapperCol = {
 };
 // get regions name  for displaying  on form
 const getRegionsNameFromRegions = (regionsId, regions) => {
-    const region = regions.find(({ id }) => id === regionsId );
+    const region = regions.find(({ id }) => id === regionsId);
     return region.name;
 }
 
@@ -36,7 +36,15 @@ const getRegionsNameFromRegions = (regionsId, regions) => {
  * @name BasicSubProjectDetailsForm
  * @description renders form for creating sub project
  */
-function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, next, projects, layers })  {
+function BasicSubProjectDetailsForm({
+    getRegions,
+    regions,
+    createSubProject,
+    next,
+    projects,
+    layers,
+    selected,
+    isEditForm }) {
     const [visible, setVisible] = useState(false);
     const [locations, setLocations] = useState([]);
 
@@ -51,15 +59,17 @@ function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, ne
     const hideUserModal = () => {
         setVisible(false);
     };
-
     const onFinish = (values) => {
-        console.log('onFinish called');
-        console.log('create sub project values',{...values, locations });
-        createSubProject({...values, locations });
-        next();
+        if (isEditForm) {
+            localStorage.setItem("updated", JSON.stringify(values));
+            next();
+        }
+        else {
+            createSubProject({ ...values, locations });
+            next();
+        }
     };
 
-    const selected = null;
 
     return (
         <>
@@ -83,6 +93,12 @@ function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, ne
                     onFinish={onFinish}
                     autoComplete="off"
                     className="ProjectForm"
+                    initialValues={{
+                        name: selected?.name,
+                        project_id: selected?.project_id,
+                        description: selected?.description,
+                    }}
+
                 >
                     <h4>Please Fill the form correctly</h4>
 
@@ -129,8 +145,8 @@ function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, ne
                         ]}
                     >
                         <Select>
-                            { projects.map(({ id, name}) => (
-                                <Select.Option value={id}>{ name }</Select.Option>
+                            {projects.map(({ id, name }) => (
+                                <Select.Option value={id}>{name}</Select.Option>
                             ))}
                         </Select>
                     </Form.Item>
@@ -157,13 +173,13 @@ function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, ne
                                                 </li>
                                             ))}
                                         </ul>
-                                    ): (
-                                        <div>
-                                            <Typography.Text className="ant-form-text" type="secondary">
-                                                No location(s) yet, please add location(s)
+                                    ) : (
+                                            <div>
+                                                <Typography.Text className="ant-form-text" type="secondary">
+                                                    No location(s) yet, please add location(s)
                                             </Typography.Text>
-                                        </div>
-                                    )}
+                                            </div>
+                                        )}
                                     <Button
                                         size="small"
                                         htmlType="button"
@@ -200,6 +216,7 @@ function BasicSubProjectDetailsForm ({ getRegions, regions, createSubProject, ne
                     regions={regions}
                     layers={layers}
                     setLocations={setLocations}
+                    selected={selected}
                 />
             </Form.Provider>
         </>

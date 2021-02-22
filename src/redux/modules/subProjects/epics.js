@@ -1,9 +1,47 @@
 import * as actions from './actions';
 import * as types from './types';
+import { mapActions } from '../../../redux/modules/map';
 import API from '../../../API';
 import { ofType, combineEpics } from 'redux-observable';
-import { of, from, pipe } from 'rxjs';
+import { of, from,  } from 'rxjs';
 import { switchMap, catchError, } from "rxjs/operators";
+
+const getsubProjectsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECTS_START),
+        switchMap(({payload}) => {
+            debugger
+            return from(API.getSubProjects(payload)).pipe(
+                switchMap(res => {
+                    return from([actions.getSubProjectsSuccess(res.data), mapActions.clearRegionDetails()])
+                }),
+                catchError(error => of(actions.getSubProjectsFailure(error)))
+            );
+        }),
+    )
+};
+
+
+/**
+ * @function
+ * @name updateSubProjectEpic
+ * @description gets all sub projects items 
+ * @param action$
+ * @return actions
+ */
+const updateSubProjectEpic = action$ => {
+    return action$.pipe(
+        ofType(types.UPDATE_SUB_PROJECT_START),
+        switchMap(({ payload }) => {
+            return from(API.updateSubProject(payload, payload.sub_project_id))
+        }),
+        switchMap(res => {
+            return (of(actions.updateSubProjectSuccess(res)), of(actions.getSubProjectsStart()))
+        }),
+        catchError(error => { return of(actions.updateSubProjectFailure(error)) })
+
+    )
+}
 
 /**
  * @function
@@ -41,8 +79,7 @@ const createSubProjectItemEpic = action$ => {
             return from(API.createSubProjectItem(payload))
         }),
         switchMap(res => {
-                    debugger
-                    return ( of(actions.createSubProjectItemSuccess(res)), of(actions.getSubProjectItemsStart))
+            return (of(actions.createSubProjectItemSuccess(res)), of(actions.getSubProjectItemsStart))
         }),
         catchError(error => { return of(actions.createSubProjectItemFailure(error)) })
 
@@ -76,7 +113,9 @@ const getSubProjectEquipmentsEpic = action$ => {
 
 
 export const subProjectsEpic = combineEpics(
+    getsubProjectsEpic,
     getSubProjectItemsEpic,
     createSubProjectItemEpic,
-    getSubProjectEquipmentsEpic
+    getSubProjectEquipmentsEpic,
+    updateSubProjectEpic
 )

@@ -13,8 +13,9 @@ import {
 } from "antd";
 import { connect } from "react-redux";
 import API from '../../../../API';
-import {generateDateString} from "../../../../Util";
+import {generateDateString,createDateFromString} from "../../../../Util";
 import {projectActions, projectSelectors} from "../../../../redux/modules/projects";
+import { subProjectsActions } from "../../../../redux/modules/subProjects";
 
 /* state actions */
 
@@ -42,7 +43,7 @@ const wrapperCol = {
  * @description gets currrency  iso from array of currencies
  */
 const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
-    const currency = currencies.find(({id }) => id === currency_id);
+    const currency = currencies.find(({ id }) => id === currency_id);
     return currency.iso;
 };
 
@@ -53,7 +54,7 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
  * @description get sector name from sectors
  */
 const getSectorNameFromSectors = (sectorId, sectors) => {
-    const sector = sectors.find(({ id }) => id === sectorId );
+    const sector = sectors.find(({ id }) => id === sectorId);
     return sector.name;
 }
 
@@ -75,13 +76,13 @@ class MoreSubProjectDetails extends Component {
 
     componentDidMount() {
         API.getSupervisingAgencies()
-            .then(({ data }) => this.setState({supervising_agencies: data}));
+            .then(({ data }) => this.setState({ supervising_agencies: data }));
         API.getActors()
-            .then(({ data }) => this.setState({actors: data.data}));
+            .then(({ data }) => this.setState({ actors: data.data }));
         API.getPhases()
-            .then(({ data }) => this.setState({phases: data}));
+            .then(({ data }) => this.setState({ phases: data }));
         API.getContractors()
-            .then(({ data }) => this.setState({contractors: data}));
+            .then(({ data }) => this.setState({ contractors: data }));
     }
 
 
@@ -89,22 +90,34 @@ class MoreSubProjectDetails extends Component {
     onFinish = (values) => {
         const start_date = generateDateString(values?.start_date);
         const end_date = generateDateString(values?.end_date);
-        const { subProject, getSubProjects, closeForm} = this.props;
-        const payload = { ...values, start_date, end_date, sub_project_id: subProject?.data.id };
-        API.createSubProjectDetails(payload)
-            .then( () => {
-                getSubProjects();
-                closeForm();
-            });
+        const { subProject, getSubProjects, closeSubProjectForm, isEditForm, updateSubProject, selected } = this.props;
+        const payload = { ...values, start_date, end_date, sub_project_id: subProject?.data.id, };
+
+        if (isEditForm) {
+            const updates = JSON.parse(localStorage.getItem("updated"));
+            const { name, project_id, description } = updates
+            const updatedData = { ...values, start_date, end_date, name, project_id, description, sub_project_id: selected.id };
+            debugger
+            updateSubProject(updatedData, selected.id);
+            closeSubProjectForm()
+        }
+        else {
+            API.createSubProjectDetails(payload)
+                .then(() => {
+                    getSubProjects();
+                    closeSubProjectForm();
+                });
+        }
 
     };
 
 
     render() {
-        const { supervising_agencies, actors, phases, contractors } = this.state;
+        const { supervising_agencies, actors, phases, contractors, } = this.state;
+        const { selected } = this.props;
         return (
             <Form.Provider
-                onFormFinish={(name, { values, forms }) => {}}>
+                onFormFinish={(name, { values, forms }) => { }}>
                 <Form
                     labelCol={labelCol}
                     wrapperCol={wrapperCol}
@@ -112,6 +125,14 @@ class MoreSubProjectDetails extends Component {
                     autoComplete="off"
                     className="MoreSubProjectDetails"
                     name="MoreSubProjectDetails"
+                    initialValues={{
+                        supervising_agency_id: selected?.details?.supervising_agency.name,
+                        actor_id: selected?.details?.actor.name,
+                        phase_id: selected?.details?.phase.name,
+                        contractor_id: selected?.details?.contractor.name,
+                        start_date: createDateFromString(selected?.details?.start_date),
+                        end_date: createDateFromString(selected?.details?.end_date),
+                    }}
                 >
                     <h4>Please provide sub project details</h4>
 
@@ -128,7 +149,7 @@ class MoreSubProjectDetails extends Component {
                     >
                         <Select>
                             {supervising_agencies.map((supervising_agency) => (
-                                <Select.Option value={supervising_agency.id} style={{ textTransform: 'Capitalize'}}>{supervising_agency.name}</Select.Option>
+                                <Select.Option value={supervising_agency.id} style={{ textTransform: 'Capitalize' }}>{supervising_agency.name}</Select.Option>
                             ))}
                         </Select>
                     </Form.Item>
@@ -187,7 +208,7 @@ class MoreSubProjectDetails extends Component {
                                     },
                                 ]}
                             >
-                                <DatePicker/>
+                                <DatePicker />
                             </Form.Item>
                         </Col>
                         {/* end: start date */}
@@ -212,7 +233,7 @@ class MoreSubProjectDetails extends Component {
 
                     {/* start:form actions */}
                     <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
-                        <Button type="default" onClick={() => {}} >
+                        <Button type="default" onClick={() => { }} >
                             Back
                         </Button>
                         <Button
@@ -244,7 +265,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     closeForm: projectActions.closeSubProjectForm,
-    getSubProjects: projectActions.getSubProjectsStart
+    getSubProjects: subProjectsActions.getSubProjectsStart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoreSubProjectDetails);
