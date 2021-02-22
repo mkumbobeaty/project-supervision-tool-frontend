@@ -9,8 +9,9 @@ import { switchMap, catchError, } from "rxjs/operators";
 const getsubProjectsEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_SUB_PROJECTS_START),
-        switchMap(() => {
-            return from(API.getSubProjects()).pipe(
+        switchMap(({payload}) => {
+            debugger
+            return from(API.getSubProjects(payload?.current_page)).pipe(
                 switchMap(res => {
                     return from([actions.getSubProjectsSuccess(res.data), mapActions.clearRegionDetails()])
                 }),

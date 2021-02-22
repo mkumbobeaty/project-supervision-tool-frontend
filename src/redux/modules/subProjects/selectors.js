@@ -5,7 +5,7 @@
  * @param {Object} state redux state
  * @return {Object} sub project
  */
-export const getSubProjectsSelector = (state) => state?.subProjectResources?.subProjects?.data?.data;
+export const getSubProjectsSelector = (state) => state?.subProjectResources?.subProjects?.data;
 
 /**
  * @function
@@ -13,6 +13,22 @@ export const getSubProjectsSelector = (state) => state?.subProjectResources?.sub
  * @param {Object} state redux state
  */
 export const getSubProjectsLoadingSelector = (state) => state?.subProjectResources?.subProjects?.loading;
+
+/**
+ * @function
+ * @name getSubProjectsTotalSelector
+ * @param {Object} state redux state
+ * @return {Object} sub project
+ */
+export const getSubProjectsTotalSelector = (state) => state?.subProjectResources?.subProjects?.total;
+
+/**
+ * @function
+ * @name getSubProjectsPageSelector
+ * @param {Object} state redux state
+ * @return {Object} sub project
+ */
+export const getSubProjectsPageSelector = (state) => state?.subProjectResources?.subProjects?.page;
 
 // /**
 //  * @function
@@ -64,4 +80,4 @@ export const getSubProjectEquipmentsLoadingSelector = (state) => state?.subProje
  * @name selectedSubProject
  * @param {Object} state redux state
  */
- export const selectedSubProject = (state) => state?.subProjectResources?.selectedSubProject
+export const selectedSubProject = (state) => state?.subProjectResources?.selectedSubProject

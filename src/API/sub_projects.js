@@ -12,7 +12,9 @@ import axios from "./config";
  * @version 0.1.0
  * @since 0.1.0
  */
-const getSubProjects = () => axios.get(`/sub_projects/`).then((response) => response.data);
+const getSubProjects = (params = {}) => {
+     return axios.get(`/sub_projects/`, {params}).then((response) => response.data);}
+     
 
 /**
  * Get a sub project from the API

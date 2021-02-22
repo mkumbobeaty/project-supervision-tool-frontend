@@ -13,6 +13,7 @@ import { isoDateToHumanReadableDate } from "../../../Util";
 import SubProjectForm from "./Form";
 import "./styles.css";
 import { subProjectsActions, subProjectsSelectors } from "../../../redux/modules/subProjects";
+import { bindActionCreators } from "redux";
 // import { subProjectsActions, subProjectsSelectors } from "./duck";
 
 
@@ -122,7 +123,7 @@ class SubProjects extends Component {
    */
   closeSubProjectForm = () => {
     this.setState({ isEditForm: false, visible: false });
-    const { closeSubProjectForm,selectSubProject } = this.props;
+    const { closeSubProjectForm, selectSubProject } = this.props;
     selectSubProject(null)
     closeSubProjectForm();
   };
@@ -165,6 +166,9 @@ class SubProjects extends Component {
       searchQuery,
       loading,
       showForm,
+      page,
+      total,
+      paginateSubProject
     } = this.props;
 
     const { isEditForm } = this.state;
@@ -194,7 +198,12 @@ class SubProjects extends Component {
         <SubProjectsList
           itemName="Sub-projects"
           items={subProjects}
+          page={page}
+          itemCount={total}
           loading={loading}
+          onPaginate={(nextPage) => {
+            paginateSubProject(nextPage);
+          }}
           headerLayout={headerLayout}
           renderListItem={({
             item,
@@ -304,17 +313,24 @@ const mapStateToProps = (state) => {
     subProjects: subProjectsSelectors.getSubProjectsSelector(state),
     loading: subProjectsSelectors.getSubProjectsLoadingSelector(state),
     showForm: projectSelectors.getSubProjectShowFormSelector(state),
+    page: subProjectsSelectors.getSubProjectsPageSelector(state),
+    total: subProjectsSelectors.getSubProjectsTotalSelector(state)
   };
 };
 
-const mapDispatchToProps = {
-  fetchSubProjects: subProjectsActions.getSubProjectsStart,
-  deleteSubproject: projectOperation.deleteSubProjectStart,
-  getProject: projectOperation.getProjectStart,
-  openSubProjectForm: projectActions.openSubProjectForm,
-  closeSubProjectForm: projectActions.closeSubProjectForm,
-  selectSubProject: subProjectsActions.selectedSubProject,
-};
+const mapDispatchToProps = (dispatch) => ({
+  fetchSubProjects(current_page) {
+    dispatch(subProjectsActions.getSubProjectsStart({ current_page }));
+  }, 
+  deleteSubproject: bindActionCreators(projectOperation.deleteSubProjectStart),
+  paginateSubProject(current_page) {
+    dispatch(subProjectsActions.getSubProjectsStart({ current_page }));
+  },
+  getProject: bindActionCreators(projectOperation.getProjectStart, dispatch),
+  openSubProjectForm: bindActionCreators(projectActions.openSubProjectForm, dispatch),
+  closeSubProjectForm: bindActionCreators(projectActions.closeSubProjectForm, dispatch),
+  selectSubProject: bindActionCreators(subProjectsActions.selectedSubProject, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjects);
 
