@@ -12,13 +12,9 @@ import { Link } from "react-router-dom";
 import { isoDateToHumanReadableDate } from "../../../Util";
 import SubProjectForm from "./Form";
 import "./styles.css";
-<<<<<<< HEAD
-import { usersOperator } from "../../../redux/modules/users";
-=======
 import { subProjectsActions, subProjectsSelectors } from "../../../redux/modules/subProjects";
 import { bindActionCreators } from "redux";
 // import { subProjectsActions, subProjectsSelectors } from "./duck";
->>>>>>> 226f4751cbc17de50b63e71a9d9cd4a95e410903
 
 
 /* constants */
