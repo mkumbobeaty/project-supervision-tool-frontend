@@ -2,6 +2,28 @@
 import { makeActionCreator } from '../../../Util';
 import * as types from './types'
 
+//  SubProjects
+export function getSubProjectsStart(page) {
+  return {
+    type: types.GET_SUB_PROJECTS_START,
+    payload:page
+  };
+}
+
+export function getSubProjectsSuccess(sub_projects) {
+  return {
+    type: types.GET_SUB_PROJECTS_SUCCESS,
+    payload:sub_projects,
+  };
+}
+
+export function getSubProjectsFailure(message) {
+  return {
+    type: types.GET_SUB_PROJECTS_FAILURE,
+    message,
+  };
+}
+
 /**
  * @function
  * @name getSubProjectItemsStart
@@ -31,35 +53,36 @@ export const getSubProjectItemsFailure = makeActionCreator(types.GET_SUB_PROJECT
  * @param {*} item 
  */
 export function createSubProjectItemStart(item) {
-    return {
-      type: types.CREATE_SUB_PROJECT_ITEM_START,
-      payload:item
-    };
-  }
-  
-  /**
-   * @function
-   * @name createSubProjectItemSuccess
-   * @param {*} item 
-   */
-  export function createSubProjectItemSuccess(item) {
-    return {
-      type: types.CREATE_SUB_PROJECT_ITEM_SUCCESS,
-      payload: item,
-    };
-  }
-  
-  /**
-   * @function
-   * @name createSubProjectItemFailure
-   * @param {*} error 
-   */
-  export function createSubProjectItemFailure(error) {
-    return {
-      type: types.CREATE_SUB_PROJECT_ITEM_FAILURE,
-      payload: error,
-    };
-  }
+  return {
+    type: types.CREATE_SUB_PROJECT_ITEM_START,
+    payload: item
+  };
+}
+
+/**
+ * @function
+ * @name createSubProjectItemSuccess
+ * @param {*} item 
+ */
+export function createSubProjectItemSuccess(item) {
+  return {
+    type: types.CREATE_SUB_PROJECT_ITEM_SUCCESS,
+    payload: item,
+  };
+}
+
+/**
+ * @function
+ * @name createSubProjectItemFailure
+ * @param {*} error 
+ */
+export function createSubProjectItemFailure(error) {
+  return {
+    type: types.CREATE_SUB_PROJECT_ITEM_FAILURE,
+    payload: error,
+  };
+}
+
 
 /**
  * @function
@@ -97,3 +120,47 @@ export const openForm = makeActionCreator(types.OPEN_FORM);
  * @return {Object} action
  * */
 export const closeForm = makeActionCreator(types.CLOSE_FORM);
+
+
+/**
+ * @function
+ * @name selectedSubProject
+ * @returns {Object} action
+ */
+export const selectedSubProject = makeActionCreator(types.SELECTED_SUB_PROJECT, 'payload');
+
+/**
+ * @function
+ * @name updateSubProjectStart
+ * @param {*} subproject 
+ */
+export function updateSubProjectStart(subproject) {
+  return {
+    type: types.UPDATE_SUB_PROJECT_START,
+    payload: subproject
+  };
+}
+
+/**
+ * @function
+ * @name updateSubProjectSuccess
+ * @param {*} subproject 
+ */
+export function updateSubProjectSuccess(subproject) {
+  return {
+    type: types.UPDATE_SUB_PROJECT_SUCCESS,
+    payload: subproject,
+  };
+}
+
+/**
+ * @function
+ * @name updateSubProjectFailure
+ * @param {*} error 
+ */
+export function updateSubProjectFailure(error) {
+  return {
+    type: types.UPDATE_SUB_PROJECT_FAILURE,
+    payload: error,
+  };
+}

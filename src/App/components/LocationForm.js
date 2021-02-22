@@ -19,7 +19,7 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
     }, [visible]);
 };
 
-const LocationForm = ({ visible, onCancel, locations, setLocations, regions, layers }) => {
+const LocationForm = ({ visible, onCancel, locations, setLocations, regions, layers,selected }) => {
     const [form] = Form.useForm();
     useResetFormOnCloseModal({
         form,
@@ -62,7 +62,12 @@ const LocationForm = ({ visible, onCancel, locations, setLocations, regions, lay
 
     return (
         <Modal title="Add Project Location" visible={visible} onOk={onOk} onCancel={onCancel} confirmLoading={loading} destroyOnClose={true}>
-            <Form form={form} layout="vertical" name="locationForm">
+            <Form form={form} layout="vertical" name="locationForm" 
+            initialValues={{
+                regions: selected?.region?.name,
+                district:selected?.district,
+              }}
+            >
                 <Form.Item
                     label="Region"
                     name="region"
