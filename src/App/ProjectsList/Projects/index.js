@@ -284,7 +284,7 @@ class Projects extends Component {
             )}
         />
         {/* end list */}
-        <Drawer
+        {/* <Drawer
           title={
             isEditForm ? "Edit Projects" : "Add New Projects"
           } width={550}
@@ -305,25 +305,25 @@ class Projects extends Component {
             getProjects={fetchProjects}
             handleAfterCloseForm={this.handleAfterCloseForm}
             handleAfterSubmit={this.closeProjectForm} />
-        </Drawer>
+        </Drawer> */}
       </div>
     );
   }
 }
 
-Projects.propTypes = {
-  loading: PropTypes.bool.isRequired,
-  projects: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
-    .isRequired,
-  page: PropTypes.number.isRequired,
-  searchQuery: PropTypes.string,
-  total: PropTypes.number.isRequired,
-};
+// Projects.propTypes = {
+//   loading: PropTypes.bool.isRequired,
+//   projects: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+//     .isRequired,
+//   page: PropTypes.number.isRequired,
+//   searchQuery: PropTypes.string,
+//   total: PropTypes.number.isRequired,
+// };
 
-Projects.defaultProps = {
-  projects: null,
-  searchQuery: undefined,
-};
+// Projects.defaultProps = {
+//   projects: null,
+//   searchQuery: undefined,
+// };
 
 const mapStateToProps = (state) => {
   return {
@@ -333,7 +333,7 @@ const mapStateToProps = (state) => {
     page: projectSelectors.getProjectsPageSelector(state),
     total: projectSelectors.getProjectsTotalSelector(state),
     showForm: projectSectorsSelectors.getShowFormSelector(state),
-    selected: state.projects?.selectedProjects,
+    // selected: state.projects?.selectedProjects,
   };
 };
 

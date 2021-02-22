@@ -6,7 +6,7 @@ import axios from "./config";
  * @description get project sectors
  * */
 const getUsers = () =>
-    axios.get(`/items`).then((response) => response.data);
+    axios.get(`/users`).then((response) => response.data);
 
 
     export default {

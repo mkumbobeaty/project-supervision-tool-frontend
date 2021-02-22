@@ -1,5 +1,6 @@
 import * as types from './types';
 
+import {combineReducers} from "redux";
 
 const initialUsers = {
     data: [],
@@ -9,7 +10,7 @@ const initialUsers = {
     error: null,
 }
 
-export const users = (state = initialUsers, action) => {
+const usersData = (state = initialUsers, action) => {
     switch (action.type) {
         case types.GET_USERS_START:
             return { ...state, loading: true }
@@ -21,3 +22,7 @@ export const users = (state = initialUsers, action) => {
             return state
     }
 }
+
+export const users = combineReducers({
+    usersData ,
+});
