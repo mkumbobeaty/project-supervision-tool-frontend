@@ -22,12 +22,13 @@ import './styles.css';
 
 const ListHeaderData = ({
   headerLayout,
- 
+ headerTitle
 }) => (
   <Row className="ListHeader">
-        {headerLayout.map((item) => (
+    {/* <div><h4 className="title" >{headerTitle}</h4></div> */}
+    {headerLayout.map((item) => (
       // eslint-disable-next-line react/jsx-props-no-spreading
-      <Col key={item.header} {...item}>
+      <Col key={item.header} {...item} title={item.title}>
         <h4 className="title">{item.header}</h4>
       </Col>
     ))}
@@ -41,6 +42,7 @@ ListHeaderData.propTypes = {
       header: PropTypes.string.isRequired,
     })
   ).isRequired,
+  headerTitle:PropTypes.string
 };
 
 ListHeaderData.defaultProps = {

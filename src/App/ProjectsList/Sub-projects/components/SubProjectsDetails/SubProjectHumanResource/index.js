@@ -30,16 +30,16 @@ const headerLayout = [
  * @since 0.1.0
  */
 
-class SubProjectEquipment extends Component {
+class SubProjectHumanResource extends Component {
     render() {
         const { sub_project } = this.props;
         return (
-            <div className="sub-project-equipment">
+            <div className="sub_project_human_resource">
                 {/* list starts */}
-                <h4 className='headerTitle'>Sub Project Equipment</h4>
+                <h4 className='headerTitle'>Human Resource</h4>
                 <ListHeaderData headerLayout={headerLayout} />
                 <List
-                    itemName="Sub_project_equipment"
+                    itemName="Sub_project_human_resource"
                     dataSource={sub_project?.sub_project_equipments}
                     renderItem={item => (
                         <List.Item
@@ -73,7 +73,7 @@ class SubProjectEquipment extends Component {
 }
 
 
-export default SubProjectEquipment;
+export default SubProjectHumanResource;
 
 
 

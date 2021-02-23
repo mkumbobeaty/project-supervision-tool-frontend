@@ -10,6 +10,8 @@ import ProgressChart from "./ProgressChart";
 import SubProjectEquipment from "./SubProjectEquipment";
 
 import "./styles.css";
+import SubProjectsMilestone from "./SubProjectContract";
+import SubProjectHumanResource from "./SubProjectHumanResource";
 
 const { Content, Sider } = Layout;
 
@@ -46,14 +48,14 @@ class SubProject extends Component {
                   <Col span={11} >
                     <ProgressChart />
                   </Col>
-                  <Col span={12}>
-                    < SubProjectEquipment sub_project={sub_project} offset={1} />
+                  <Col span={12} >
+                  <SubProjectsMilestone sub_project={sub_project} offset={1} />
                   </Col>
-                  <Col span={9} style={{ marginTop: 26 }}>
-                    <ItemsChat sub_project={sub_project} />
+                  <Col span={11} style={{ marginTop: 26 }}>
+                    <SubProjectHumanResource sub_project={sub_project} />
                   </Col>
-                  <Col span={14} style={{ marginTop: 26 }}>
-                  <ProjectSubProjects sub_project={sub_project} />
+                  <Col span={12}  style={{ marginTop: 26 }}>
+                    < SubProjectEquipment sub_project={sub_project}  offset={1}/>
                   </Col>
                 </Row>
               </Content>
