@@ -13,7 +13,6 @@ import axios from "./config";
  * @since 0.1.0
  */
 const getSubProjects = (params = {}) => {
-    debugger
     return axios.get(`/sub_projects/`, { params: { page: params.page, per_page: 10, searchField:'name', searchQuery:params.searchQuery } }).then((response) => response.data);
 }
 

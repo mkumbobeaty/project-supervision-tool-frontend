@@ -183,7 +183,7 @@ class SubProjects extends Component {
   searchSubProject = (searchData)  => {
     const { searchSubProject } = this.props;
     debugger
-    searchSubProject('water');
+    searchSubProject(searchData);
   };
 
   render() {
@@ -205,8 +205,9 @@ class SubProjects extends Component {
           search={{
             size: "large",
             placeholder: "Search for Sub-project here ...",
-            onChange: this.searchSubProject,
-            value: 'water',
+            onSearch:this.searchSubProject,
+            // onChange:this.searchSubProject,
+            value: searchQuery
           }}
           actions={[
             {
