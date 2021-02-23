@@ -5,20 +5,15 @@ import ListHeaderData from '../../ListHeader';
 import "./styles.css";
 
 /* constants */
-const subProjectQuantitySpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 6, xs: 6 };
-const quantityMobilizedSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 4, xs: 5 };
-const capacitySpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 4, xs: 5 };
-const mobilizationSpan = { xxl: 6, xl: 6, lg: 6, md: 5, sm: 4, xs: 3 };
-const remarksSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 5, xs: 5 };
+const positionSpan = { xxl: 16, xl: 16, lg: 16, md: 16, sm: 16, xs: 16 };
+const quantitySpan = { xxl: 8, xl: 8, lg: 8, md: 8, sm: 8, xs: 8 }
 
 
 
 const headerLayout = [
-    { ...subProjectQuantitySpan, header: "Q/Contract", title: 'Quantity contract' },
-    { ...quantityMobilizedSpan, header: "Q/Mobilized", title: 'Quantity mobilized' },
-    { ...capacitySpan, header: "Capacity", title: 'capacity' },
-    { ...remarksSpan, header: "Remarks", title: 'Remarks' },
-    { ...mobilizationSpan, header: "Mobilization date", title: 'Mobilization date' },
+    { ...positionSpan, header: "Position", title: 'position' },
+    { ...quantitySpan, header: "Quantity", title: 'Number of Human resources' },
+
 ];
 
 /**
@@ -40,7 +35,7 @@ class SubProjectHumanResource extends Component {
                 <ListHeaderData headerLayout={headerLayout} />
                 <List
                     itemName="Sub_project_human_resource"
-                    dataSource={sub_project?.sub_project_equipments}
+                    dataSource={sub_project?.human_resources}
                     renderItem={item => (
                         <List.Item
                             key={item.id} // eslint-disable-line
@@ -50,18 +45,14 @@ class SubProjectHumanResource extends Component {
 
                         >
                             {/* eslint-disable react/jsx-props-no-spreading */}
-
                             <Col
-                                {...subProjectQuantitySpan}
+                                {...positionSpan}
                                 className="contentEllipse"
+                                title={item.position.description}
                             >
-                                {item ? item?.quantity_per_contract : "N/A"}
+                                {item ? item?.position.name : "N/A"}
                             </Col>
-                            <Col {...quantityMobilizedSpan}>{item ? item?.quantity_mobilized : "N/A"}</Col>
-                            <Col {...capacitySpan}>{item ? item?.item?.capacity : "N/A"}</Col>
-                            <Col {...remarksSpan}>{item ? item.remarks : "N/A"}</Col>
-                            <Col {...mobilizationSpan}>{item ? item.mobilization_date : "N/A"}</Col>
-
+                            <Col {...quantitySpan}>{item ? item?.quantity : "N/A"}</Col>
                             {/* eslint-enable react/jsx-props-no-spreading */}
                         </List.Item>
                     )}
