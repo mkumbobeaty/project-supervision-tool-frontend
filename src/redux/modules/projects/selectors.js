@@ -4,7 +4,7 @@
  * @name getProjectsSelector
  * @param {Object} state redux state
  */
-export const getProjectsSelector = (state) => state?.resources?.Projects?.data;
+export const getProjectsSelector = (state) => state?.resources?.Projects?.data?.data || [];
 
 /**
  * @function
@@ -38,14 +38,14 @@ export const getProjectsLoadingSelector = (state) => state?.resources?.Projects?
  * @name getProjectsPageSelector
  * @param {Object} state redux state
  */
-export const getProjectsPageSelector = (state) => state?.resources?.Projects?.page;
+export const getProjectsPageSelector = (state) => state?.resources?.Projects?.data?.current_page;
 
 /**
  * @function
  * @name getProjectsTotalSelector
  * @param {Object} state redux state
  */
-export const getProjectsTotalSelector = (state) => state?.resources?.Projects?.total;
+export const getProjectsTotalSelector = (state) => state?.resources?.Projects?.data?.total;
 
 /**
  * @function
