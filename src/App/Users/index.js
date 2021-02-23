@@ -10,7 +10,8 @@ import { isoDateToHumanReadableDate } from "../../Util";
 import { usersOperation, usersSelectors } from '../../redux/modules/users';
 import * as usersActions from '../../redux/modules/users/actions';
 import { connect } from 'react-redux';
-import {bindActionCreators} from "redux";
+import { bindActionCreators } from "redux";
+import PropTypes from "prop-types";
 
 /* constants */
 const userIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
@@ -23,14 +24,14 @@ const emailSpan = { xxl: 3, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
 
 
 const headerLayout = [
-    // { ...userIdSpan, header: "user ID" },
-    { ...userNameSpan, header: "Name" },
-    { ...userRoleSpan, header: "Role" },
-    { ...userTitleSpan, header: "Tittle" },
-    { ...organisationSpan, header: "Organisation" },
-    { ...phoneSpan, header: "Phone" },
-    { ...emailSpan, header: "Email" },
-  ];
+  // { ...userIdSpan, header: "user ID" },
+  { ...userNameSpan, header: "Name" },
+  { ...userRoleSpan, header: "Role" },
+  { ...userTitleSpan, header: "Tittle" },
+  { ...organisationSpan, header: "Organisation" },
+  { ...phoneSpan, header: "Phone" },
+  { ...emailSpan, header: "Email" },
+];
 
 class Users extends Component {
 
@@ -46,44 +47,44 @@ class Users extends Component {
     } = this.props;
     return (
       <div>
-          {/* Topbar */}
-          <Topbar
-              search={{
-                  size: "large",
-                  placeholder: "Search for users here ...",
-                  // onChange: this.searchInitiative,
-                  // value: searchQuery,
-              }}
-              actions={[
-                  {
-                      label: "New personnel",
-                      icon: <PlusOutlined />,
-                      size: "large",
-                      title: "Add New user",
-                      // onClick: this.openProjectForm,
-                  },
-              ]}
-          />
-          {/* end Topbar */}
-          {/* list starts */}
-      <ProjectsList
-        itemName="Users"
-        items={users}
-        // page={page}
-        loading={loading}
-        // itemCount={total}
-        // onFilter={this.openFiltersModal}
-        // onRefresh={this.handleRefreshInitiative}
-        onPaginate={(nextPage) => {
-          this.paginateInitiative(nextPage);
-        }}
-        headerLayout={headerLayout}
-        renderListItem={({
-          item,
-          isSelected,
-          onSelectItem,
-          onDeselectItem,
-        }) => (
+        {/* Topbar */}
+        <Topbar
+          search={{
+            size: "large",
+            placeholder: "Search for users here ...",
+            // onChange: this.searchInitiative,
+            // value: searchQuery,
+          }}
+          actions={[
+            {
+              label: "New personnel",
+              icon: <PlusOutlined />,
+              size: "large",
+              title: "Add New user",
+              // onClick: this.openProjectForm,
+            },
+          ]}
+        />
+        {/* end Topbar */}
+        {/* list starts */}
+        <ProjectsList
+          itemName="Users"
+          items={users}
+          // page={page}
+          loading={loading}
+          // itemCount={total}
+          // onFilter={this.openFiltersModal}
+          // onRefresh={this.handleRefreshInitiative}
+          onPaginate={(nextPage) => {
+            this.paginateInitiative(nextPage);
+          }}
+          headerLayout={headerLayout}
+          renderListItem={({
+            item,
+            isSelected,
+            onSelectItem,
+            onDeselectItem,
+          }) => (
             <Link
               to={{
                 pathname: `/app/users/${item.id}`,
@@ -92,7 +93,7 @@ class Users extends Component {
             >
               <ListItem
                 key={item.id} // eslint-disable-line
-                name={item.name}
+                name={item.first_name}
                 item={item}
                 isSelected={isSelected}
                 onSelectItem={onSelectItem}
@@ -114,40 +115,60 @@ class Users extends Component {
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...userIdSpan} className="contentEllipse">
-                  {" "}
-
-                  {item.id ? item.id : "All"}
-                </Col>
+                {/* <Col {...userIdSpan} className="contentEllipse">
+                  {item.first_name}
+                  {item.middle_name}
+                  {item.last_name}
+                </Col> */}
                 <Col
                   {...userNameSpan}
                   className="contentEllipse"
                   title={item.description}
                 >
-                  {item.name}
+                  {item.first_name}{" "}
+                  {item.middle_name}{" "}
+                  {item.last_name}
                 </Col>
                 <Col {...userRoleSpan}>{item.details ? item.details?.funding_organisation?.name : 'N/A'}</Col>
                 <Col {...userTitleSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
                 <Col {...organisationSpan}>{item.details ? item.details.status.toString() : 'N/A'}</Col>
                 <Col {...phoneSpan}>
-                  {isoDateToHumanReadableDate(item.details?.approval_fy)}
+                  {item.phone}
                 </Col>
-
+                <Col {...emailSpan}>
+                  {item.email}
+                </Col>
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             </Link>
-          )}
-      />
-      {/* end list */}
+          )
+          }
+        />
+        {/* end list */}
       </div>
-  )
+    )
 
-  }  
+  }
 }
+
+// Users.propTypes = {
+//   loading: PropTypes.bool.isRequired,
+//   users: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+//     .isRequired,
+//   page: PropTypes.number.isRequired,
+//   searchQuery: PropTypes.string,
+//   total: PropTypes.number.isRequired,
+// };
+
+// Users.defaultProps = {
+//   users: null,
+//   searchQuery: undefined,
+//   loading: null,
+// };
 
 const mapStateToProps = (state) => {
   return {
-    users:usersSelectors.getUsersSelector(state),
+    users: usersSelectors.getUsersSelector(state),
     loading: usersSelectors.getUsersLoadingSelector(state),
   }
 }
