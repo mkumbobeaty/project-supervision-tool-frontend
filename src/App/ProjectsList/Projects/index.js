@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from '../../../redux/modules/projects';
+import { projectActions, projectOperation, projectSelectors } from '../../../redux/modules/projects';
 import { Col, Drawer, Modal, Steps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -179,6 +179,7 @@ class Projects extends Component {
       loading,
       page,
       total,
+      paginateSubProject,
       searchQuery,
       showForm,
       selected,
@@ -214,13 +215,13 @@ class Projects extends Component {
         <ProjectsList
           itemName="Projects"
           items={projects}
-          // page={page}
+          page={page}
           loading={loading}
-          // itemCount={total}
+          itemCount={total}
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefreshInitiative}
           onPaginate={(nextPage) => {
-            this.paginateInitiative(nextPage);
+            paginateSubProject(nextPage);
           }}
           headerLayout={headerLayout}
           renderListItem={({
@@ -311,14 +312,14 @@ class Projects extends Component {
   }
 }
 
-// Projects.propTypes = {
-//   loading: PropTypes.bool.isRequired,
-//   projects: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
-//     .isRequired,
-//   page: PropTypes.number.isRequired,
-//   searchQuery: PropTypes.string,
-//   total: PropTypes.number.isRequired,
-// };
+Projects.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  projects: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+    .isRequired,
+  page: PropTypes.number.isRequired,
+  searchQuery: PropTypes.string,
+  total: PropTypes.number.isRequired,
+};
 
 // Projects.defaultProps = {
 //   projects: null,
@@ -345,6 +346,8 @@ const mapDispatchToProps = {
   createProject: projectOperation.createProjectStart,
   openProjectForm: projectSectorsOperator.openForm,
   closeProjectForm: projectSectorsOperator.closeForm,
+  paginateProject: projectActions.getProjectsStart,
+  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
