@@ -172,6 +172,20 @@ class SubProjects extends Component {
     paginateSubProject(page);
   };
 
+   /**   
+   * @function
+   * @name searchSubProject
+   * @description Handle list refresh action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  searchSubProject = (searchData)  => {
+    const { searchSubProject } = this.props;
+    debugger
+    searchSubProject('water');
+  };
+
   render() {
     const {
       subProjects,
@@ -191,8 +205,8 @@ class SubProjects extends Component {
           search={{
             size: "large",
             placeholder: "Search for Sub-project here ...",
-            onChange: this.searchInitiative,
-            value: searchQuery,
+            onChange: this.searchSubProject,
+            value: 'water',
           }}
           actions={[
             {
@@ -336,6 +350,9 @@ const mapDispatchToProps = (dispatch) => ({
   deleteSubproject: bindActionCreators(projectOperation.deleteSubProjectStart, dispatch),
   paginateSubProject(page) {
     dispatch(subProjectsActions.getSubProjectsStart({ page }));
+  },
+  searchSubProject(searchQuery) {
+    dispatch(subProjectsActions.getSubProjectsStart({ searchQuery }));
   },
   getProject: bindActionCreators(projectOperation.getProjectStart, dispatch),
   openSubProjectForm: bindActionCreators(projectActions.openSubProjectForm, dispatch),

@@ -3,10 +3,10 @@ import { makeActionCreator } from '../../../Util';
 import * as types from './types'
 
 //  SubProjects
-export function getSubProjectsStart(page) {
+export function getSubProjectsStart(params) {
   return {
     type: types.GET_SUB_PROJECTS_START,
-    payload:page
+    payload:params
   };
 }
 
