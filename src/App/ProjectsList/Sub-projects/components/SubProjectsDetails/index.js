@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Col, Layout, Row, Spin } from 'antd';
 import ItemsChat from "./Charts";
-import ProjectSubProjects from "./SubProjectContract";
+import ProjectSubProjects from "./SubProjectMilestone";
 import SidebarSection from "./SideBar";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -10,8 +10,9 @@ import ProgressChart from "./ProgressChart";
 import SubProjectEquipment from "./SubProjectEquipment";
 
 import "./styles.css";
-import SubProjectsMilestone from "./SubProjectContract";
+import SubProjectsMilestone from "./SubProjectMilestone";
 import SubProjectHumanResource from "./SubProjectHumanResource";
+import BaseMap from "../../../../Map/BaseMap";
 
 const { Content, Sider } = Layout;
 
@@ -45,8 +46,8 @@ class SubProject extends Component {
               </Sider>
               <Content className="sub-project-contents">
                 <Row>
-                  <Col span={11} >
-                    <ProgressChart />
+                  <Col span={11} className="sub_project_map"  >
+                    <BaseMap />
                   </Col>
                   <Col span={12} >
                   <SubProjectsMilestone sub_project={sub_project} offset={1} />
