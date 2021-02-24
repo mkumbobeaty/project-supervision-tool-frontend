@@ -8,6 +8,20 @@ export const getProjectsSelector = (state) => state?.resources?.Projects?.data?.
 
 /**
  * @function
+ * @name getProjectsPageSelector
+ * @param {Object} state redux state
+ */
+export const getProjectsPageSelector = (state) => state?.resources?.Projects?.page;
+
+/**
+ * @function
+ * @name getProjectsTotalSelector
+ * @param {Object} state redux state
+ */
+export const getProjectsTotalSelector = (state) => state?.resources?.Projects?.total;
+
+/**
+ * @function
  * @name getProjectSelector
  * @param {Object} state redux state
  */
@@ -33,19 +47,19 @@ export const getCreatedProjectSelector = (state) => state?.resources?.Projects?.
  */
 export const getProjectsLoadingSelector = (state) => state?.resources?.Projects?.loading;
 
-/**
- * @function
- * @name getProjectsPageSelector
- * @param {Object} state redux state
- */
-export const getProjectsPageSelector = (state) => state?.resources?.Projects?.data?.current_page;
+// /**
+//  * @function
+//  * @name getProjectsPageSelector
+//  * @param {Object} state redux state
+//  */
+// export const getProjectsPageSelector = (state) => state?.resources?.Projects?.data?.current_page;
 
-/**
- * @function
- * @name getProjectsTotalSelector
- * @param {Object} state redux state
- */
-export const getProjectsTotalSelector = (state) => state?.resources?.Projects?.data?.total;
+// /**
+//  * @function
+//  * @name getProjectsTotalSelector
+//  * @param {Object} state redux state
+//  */
+// export const getProjectsTotalSelector = (state) => state?.resources?.Projects?.data?.total;
 
 /**
  * @function

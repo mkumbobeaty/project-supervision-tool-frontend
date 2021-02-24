@@ -12,9 +12,8 @@ import { Link } from "react-router-dom";
 import { isoDateToHumanReadableDate } from "../../../Util";
 import SubProjectForm from "./Form";
 import "./styles.css";
-import { subProjectsActions, subProjectsSelectors } from "../../../redux/modules/subProjects";
+import { subProjectsActions, subProjectsSelectors } from "../../../redux/modules/subProjects"
 import { bindActionCreators } from "redux";
-// import { subProjectsActions, subProjectsSelectors } from "./duck";
 
 
 /* constants */
@@ -58,7 +57,7 @@ class SubProjects extends Component {
 
   componentDidMount() {
     const { fetchSubProjects } = this.props;
-    fetchSubProjects()
+    fetchSubProjects();
   }
 
   /**

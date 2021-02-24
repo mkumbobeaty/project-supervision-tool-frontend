@@ -3,9 +3,10 @@ import * as types from "./types";
 import {makeActionCreator} from "../../../Util";
 
 // action creator for fetching project
-export function getProjectsStart() {
+export function getProjectsStart(params={}) {
     return {
       type: types.GET_PROJECTS_START,
+      payload: params,
     };
   }
   

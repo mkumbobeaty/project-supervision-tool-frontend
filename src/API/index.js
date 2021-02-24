@@ -11,6 +11,7 @@ import environmentalCategoriesAPI from  './environmental_categories';
 import itemsAPI from './items';
 import progressAPI from './progress'
 import wfsRequests from  './wfs_requests';
+import usersAPI from './users';
 
 export default {
     ...projectsAPI,
@@ -24,5 +25,6 @@ export default {
     ...environmentalCategoriesAPI,
     ...wfsRequests,
     ...itemsAPI,
-    ...progressAPI
+    ...progressAPI,
+    ...usersAPI
 }

@@ -92,11 +92,11 @@ const locations = (state = { data: [], project_location: {}, isLoading: false, e
 const Projects = (state = defaultProjects, action) => {
     switch (action.type) {
         case types.GET_PROJECTS_START:
-            return { ...state, loading: true };
+            return { ...state, loading: true, page: 1, total: 0 };
         case types.GET_PROJECTS_SUCCESS:
-            return { ...state, data: action.payload, loading: false, }
+            return { ...state, data: action.payload, loading: false, page: action.payload.meta.current_page, total: action.payload.meta.total }
         case types.GET_PROJECTS_FAILURE:
-            return { ...state, error: action.message, loading: false };
+            return { ...state, error: action.message, loading: false, page: 1, total: 0 };
         case types.CREATE_PROJECT_START:
             return { ...state, posting: true };
         case types.CREATE_PROJECT_SUCCESS:
