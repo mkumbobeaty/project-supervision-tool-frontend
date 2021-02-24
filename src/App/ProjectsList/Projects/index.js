@@ -179,7 +179,7 @@ class Projects extends Component {
       loading,
       page,
       total,
-      paginateSubProject,
+      paginateProject,
       searchQuery,
       showForm,
       selected,
@@ -221,7 +221,7 @@ class Projects extends Component {
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefreshInitiative}
           onPaginate={(nextPage) => {
-            paginateSubProject(nextPage);
+            paginateProject({page: nextPage});
           }}
           headerLayout={headerLayout}
           renderListItem={({
