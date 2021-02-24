@@ -21,7 +21,7 @@ const createProjects = (project) =>
  *
  */
 const getProjects = () => {
-    return axios.get(`/projects`).then((response) => response.data);
+    return axios.get(`/projects`, {params:{per_page:2}}).then((response) => response.data);
 }
 
 
