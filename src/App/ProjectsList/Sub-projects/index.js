@@ -158,6 +158,32 @@ class SubProjects extends Component {
     openSubProjectForm();
   };
 
+  /**
+   * @function
+   * @name handleRefreshSubProjects
+   * @description Handle list refresh action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleRefreshSubProjects = () => {
+    const { page, paginateSubProject } = this.props;
+    paginateSubProject(page);
+  };
+
+   /**   
+   * @function
+   * @name searchSubProject
+   * @description Handle list refresh action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  searchSubProject = (searchData)  => {
+    const { searchSubProject } = this.props;
+    debugger
+    searchSubProject(searchData);
+  };
 
   render() {
     const {
@@ -178,8 +204,9 @@ class SubProjects extends Component {
           search={{
             size: "large",
             placeholder: "Search for Sub-project here ...",
-            onChange: this.searchInitiative,
-            value: searchQuery,
+            onSearch:this.searchSubProject,
+            // onChange:this.searchSubProject,
+            value: searchQuery
           }}
           actions={[
             {
@@ -203,6 +230,7 @@ class SubProjects extends Component {
           onPaginate={(nextPage) => {
             paginateSubProject(nextPage);
           }}
+          onRefresh={this.handleRefreshSubProjects}
           headerLayout={headerLayout}
           renderListItem={({
             item,
@@ -318,12 +346,13 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchSubProjects(page) {
-    dispatch(subProjectsActions.getSubProjectsStart({ page }));
-  }, 
-  deleteSubproject: bindActionCreators(projectOperation.deleteSubProjectStart),
+  fetchSubProjects:bindActionCreators(subProjectsActions.getSubProjectsStart, dispatch), 
+  deleteSubproject: bindActionCreators(projectOperation.deleteSubProjectStart, dispatch),
   paginateSubProject(page) {
     dispatch(subProjectsActions.getSubProjectsStart({ page }));
+  },
+  searchSubProject(searchQuery) {
+    dispatch(subProjectsActions.getSubProjectsStart({ searchQuery }));
   },
   getProject: bindActionCreators(projectOperation.getProjectStart, dispatch),
   openSubProjectForm: bindActionCreators(projectActions.openSubProjectForm, dispatch),

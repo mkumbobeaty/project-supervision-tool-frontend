@@ -26,7 +26,7 @@ const subProjects = (state = { defaultSubProjects }, action) => {
     case types.GET_SUB_PROJECTS_SUCCESS:
       return {
         ...state, data: action.payload.data, loading: false, total: action.payload.meta.total,
-        page: action.payload.meta.current_page,
+        page: action.payload.meta.current_page, 
       }
     case types.GET_SUB_PROJECTS_FAILURE:
       return { ...state, error: action.message, loading: false, page: 1, total: 0 };
