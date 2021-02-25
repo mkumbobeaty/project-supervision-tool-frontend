@@ -86,15 +86,15 @@ class ImageList extends React.Component {
     }
 
     handleShowGallary = () => {
-        const {handleViewImage,showImage} = this.props
-        console.log("comdidii",  showImage)
-       if(images.length > 0){
-           return (
-               handleViewImage(),
-               console.log("ci",  showImage)
-           )
-       }
-       else return "No photo uploaded"
+        const { handleViewImage, showImage } = this.props
+        console.log("comdidii", showImage)
+        if (images.length > 0) {
+            return (
+                handleViewImage(),
+                console.log("ci", showImage)
+            )
+        }
+        else return "No photo uploaded"
     }
 
     render() {
@@ -104,13 +104,16 @@ class ImageList extends React.Component {
         const fadedright = this.state.fadedright ? "arrow-right faded-right" : "arrow-right";
         return (
             <div className="container">
-                <h4 className='mapHeaderTitle'>Sub Project photo album</h4>
+                <div className='top-nav'>
+                    <h4 className='mapHeaderTitle'>Sub Project photo album</h4>
+                    <h4 className='viewAllPhoto' onClick={this.handleShowGallary}> View All Photo</h4>
+                </div>
                 <Row className="slideshow ">
                     {
                         this.state.images.slice(startindex, finishindex).map((image, imageindex) => {
                             return (
                                 <Col span={12} key={imageindex}>
-                                    <img className="image" src={image.url}  onClick={this.handleShowGallary}/>
+                                    <img className="imageSlider" src={image.url} onClick={this.handleShowGallary} />
                                 </Col>
                             )
                         })
@@ -118,7 +121,7 @@ class ImageList extends React.Component {
                 </Row>
                 <div className='arrows'>
                     <LeftOutlined className={fadedleft} onClick={this.leftClick.bind(this)} />
-                   <RightOutlined className={fadedright} onClick={this.rightClick.bind(this)} />
+                    <RightOutlined className={fadedright} onClick={this.rightClick.bind(this)} />
                 </div>
             </div>
         )

@@ -8,6 +8,15 @@
     margin: 16px 0;
 }
 
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+#closeAlbum {
+    margin-top: 20px;
+}
+
 .sub-project-layout #sub_project_name {
     padding-top: 20px;
     padding-left: 25px;
@@ -15,8 +24,9 @@
 
 .sider {
     background-color: rgb(246, 246, 246) !important;
-    height: 90vh;
+    height: 100vh;
     padding: 20px 10px 0 40px;
+    position: static;
 }
 
 .sidebar-header {
@@ -91,13 +101,24 @@
 .sub_project_map .base-map {
     height: 50vh;
 }
-.headerTitle{
+
+.headerTitle {
     border-bottom: 0.5px solid #e8e8e8;
     padding-bottom: 3px;
     font-size: 16px;
     color: #2fbaec;
 }
-.mapHeaderTitle{
+
+.mapHeaderTitle {
     font-size: 16px;
     color: #2fbaec;
+}
+
+.imageDetail {
+    border: 0.5px solid #e8e8e8;
+    padding: 20px;
+}
+
+.imageDetail h4 {
+    font-weight: 600;
 }

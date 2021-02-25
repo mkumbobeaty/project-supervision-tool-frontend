@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Layout, Row, Spin } from 'antd';
+import { Button, Col, Layout, Row, Spin } from 'antd';
 import SidebarSection from "./SideBar";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -31,6 +31,10 @@ class SubProject extends Component {
     this.setState({ showImage: true })
   }
 
+  handleViewClose = () => {
+    this.setState({ showImage: false })
+  }
+
   render() {
     const { sub_project, loading, mapLoading, getWfsLayerData } = this.props;
     const { showImage } = this.state;
@@ -38,7 +42,10 @@ class SubProject extends Component {
       <Layout className="sub-project-layout">
         <Spin spinning={loading} tip="Loading..." >
           <Content style={{ padding: '0 50px' }}>
-            <h3 id="sub_project_name">{sub_project?.name}</h3>
+            <div className='top-nav'>
+              <h3 id="sub_project_name">{sub_project?.name}</h3>
+              {showImage ? <Button id="closeAlbum" onClick={this.handleViewClose}>Close Album</Button> : null}
+            </div>
             {!showImage ? <Layout className="sub-project-inner-layout" >
               <Sider className="sider" width={350}>
                 <div className="sidebar-header">
@@ -80,10 +87,30 @@ class SubProject extends Component {
               <Layout className="sub-project-inner-layout" >
                 <Content className="sub-project-contents">
                   <Row>
-                    <Col span={14} >
+                    <Col span={17} >
                       <ImagesGallery />
                     </Col>
-                    <Col span={7} offset={1}> hellele</Col>
+                    <Col span={6} offset={1}>
+                      <div className="imageDetail">
+                        <h3>Details</h3>
+                        <span >
+                          <h4>Uploaded on</h4>
+                          <p> 2020, 12, 12</p>
+                        </span>
+                        <span >
+                          <h4>Location</h4>
+                          <p>Yombo</p>
+                        </span>
+                        <span >
+                          <h4>Uploaded By</h4>
+                          <p>John doe</p>
+                        </span>
+                        <span >
+                          <h4>Description</h4>
+                          <p>John doe jdjjsjkkkkkkkdjsdddddddddddd John doe jdjjsjkkkkkkkdjsdddddddddddd John doe jdjjsjkkkkkkkdjsdddddddddddd John doe jdjjsjkkkkkkkdjsdddddddddddd</p>
+                        </span>
+                      </div>
+                    </Col>
                   </Row>
                 </Content>
               </Layout>}

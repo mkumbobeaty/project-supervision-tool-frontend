@@ -18,7 +18,8 @@ body, html {
     background-color: #ffffff;
     ;
 }
-.arrows{
+
+.arrows {
     display: flex;
     justify-content: space-between;
 }
@@ -27,7 +28,8 @@ body, html {
     align-self: center;
     height: 0;
     cursor: pointer;
-    border: 2px solid #e8e8ee;;
+    border: 2px solid #e8e8ee;
+    ;
     padding: 5px 8px 25px 8px;
     font-size: 20px;
     background-color: #f0eef0;
@@ -45,13 +47,20 @@ body, html {
 }
 
 .faded-left {
-    background-color:  #2fbaec;
+    background-color: #2fbaec;
 }
 
 .faded-right {
     background-color: #2fbaec;
 }
 
+.viewAllPhoto {
+    font-size: 16px;
+    color: #2fbaec;
+    text-decoration: underline;
+    cursor: pointer;
+    padding-right: 10px;
+}
 
 @keyframes appear {
     0% {
@@ -62,13 +71,14 @@ body, html {
     }
 }
 
-.image {
+.slideshow .imageSlider {
     width: 96%;
     height: 250px;
     object-fit: cover;
     margin: auto 0.2em;
     border-radius: 2px;
     animation: appear 1.5s ease-in;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1200px) {
@@ -86,14 +96,14 @@ body, html {
         /* border-left: 1.5em solid #3A003A; */
         border-bottom: 1.5em solid transparent;
     }
-    .image {
+    .imageSlider {
         width: 100px;
         height: 70px;
     }
 }
 
 @media screen and (max-width: 630px) {
-    .image {
+    .imageSlider {
         width: 60px;
         height: 50px;
     }
