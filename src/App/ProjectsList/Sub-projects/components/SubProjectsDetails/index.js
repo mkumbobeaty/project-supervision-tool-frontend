@@ -5,14 +5,13 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects";
 import SubProjectEquipment from "./SubProjectEquipment";
-
-import "./styles.css";
 import SubProjectsMilestone from "./SubProjectMilestone";
 import SubProjectHumanResource from "./SubProjectHumanResource";
 import BaseMap from "../../../../Map/BaseMap";
-import MapDashboard from "../../../../Map/"
 import SubProjectLocations from "../../../../Map/components/SubProjectLocations";
 import { mapActions, mapSelectors } from "../../../../../redux/modules/map";
+import ImageGallary from "./ImageGallary";
+import "./styles.css";
 
 const { Content, Sider } = Layout;
 
@@ -62,6 +61,9 @@ class SubProject extends Component {
                   </Col>
                   <Col span={12} style={{ marginTop: 26 }}>
                     < SubProjectEquipment sub_project={sub_project} offset={1} />
+                  </Col>
+                  <Col span={11} style={{ marginTop: 26 }}  className='Sub-project-image'>
+                    <ImageGallary />
                   </Col>
                 </Row>
               </Content>
