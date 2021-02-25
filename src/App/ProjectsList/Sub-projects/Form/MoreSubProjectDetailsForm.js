@@ -97,7 +97,6 @@ class MoreSubProjectDetails extends Component {
             const updates = JSON.parse(localStorage.getItem("updated"));
             const { name, project_id, description } = updates
             const updatedData = { ...values, start_date, end_date, name, project_id, description, sub_project_id: selected.id };
-            debugger
             updateSubProject(updatedData, selected.id);
             closeSubProjectForm()
         }
