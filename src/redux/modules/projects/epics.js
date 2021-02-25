@@ -8,8 +8,8 @@ import {switchMap, catchError,} from "rxjs/operators";
 export const projectsListEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_PROJECTS_START),
-        switchMap(() => {
-            return from(API.getProjects()).pipe(
+        switchMap((action) => {
+            return from(API.getProjects(action.payload.page)).pipe(
                 switchMap(res => {
                     return of(actions.getProjectsSuccess(res.data))
                 }),

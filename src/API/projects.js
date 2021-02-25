@@ -20,8 +20,8 @@ const createProjects = (project) =>
  * Fetch all projects from API
  *
  */
-const getProjects = () => {
-    return axios.get(`/projects`).then((response) => response.data);
+const getProjects = (nextPage) => {
+    return axios.get(`/projects`, {params:{page: nextPage}}).then((response) => response.data);
 }
 
 
