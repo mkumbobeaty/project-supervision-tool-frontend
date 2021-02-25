@@ -5,9 +5,10 @@ import { Button, Dropdown, Menu } from 'antd';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import './styles.css';
 import {bindActionCreators} from "redux";
 import {authActions} from '../../redux/modules/auth';
+import './styles.css';
+
 /**
  * @class
  * @name SignOut

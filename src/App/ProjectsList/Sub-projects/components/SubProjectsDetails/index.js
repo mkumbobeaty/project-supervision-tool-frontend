@@ -10,27 +10,36 @@ import SubProjectHumanResource from "./SubProjectHumanResource";
 import BaseMap from "../../../../Map/BaseMap";
 import SubProjectLocations from "../../../../Map/components/SubProjectLocations";
 import { mapActions, mapSelectors } from "../../../../../redux/modules/map";
-import ImageGallary from "./ImageGallary";
+import ImageList from "./ImageGallary";
 import "./styles.css";
+import ImagesGallery from "./ImageGallary/imageGallary";
 
 const { Content, Sider } = Layout;
 
 class SubProject extends Component {
 
+  state = {
+    showImage: false,
+  }
   componentDidMount() {
     const { getSubProject, match: { params }
     } = this.props;
     getSubProject(params.id)
   }
 
+  handleViewImage = () => {
+    this.setState({ showImage: true })
+  }
+
   render() {
     const { sub_project, loading, mapLoading, getWfsLayerData } = this.props;
+    const { showImage } = this.state;
     return (
       <Layout className="sub-project-layout">
         <Spin spinning={loading} tip="Loading..." >
           <Content style={{ padding: '0 50px' }}>
             <h3 id="sub_project_name">{sub_project?.name}</h3>
-            <Layout className="sub-project-inner-layout" >
+            {!showImage ? <Layout className="sub-project-inner-layout" >
               <Sider className="sider" width={350}>
                 <div className="sidebar-header">
                   <h2 id="sider-title">Key Details</h2>
@@ -46,7 +55,7 @@ class SubProject extends Component {
               <Content className="sub-project-contents">
                 <Row>
                   <Col span={11} className="sub_project_map"  >
-                  <h4 className='mapHeaderTitle'>Sub Project Location</h4>
+                    <h4 className='mapHeaderTitle'>Sub Project Location</h4>
                     <Spin spinning={mapLoading} tip="Loading data...">
                       <BaseMap ref={this.map} zoomControl={false}>
                         <SubProjectLocations getWfsLayerData={getWfsLayerData} subProject={sub_project} />
@@ -62,12 +71,23 @@ class SubProject extends Component {
                   <Col span={12} style={{ marginTop: 26 }}>
                     < SubProjectEquipment sub_project={sub_project} offset={1} />
                   </Col>
-                  <Col span={11} style={{ marginTop: 26 }}  className='Sub-project-image'>
-                    <ImageGallary />
+                  <Col span={11} style={{ marginTop: 26 }} className='Sub-project-image'>
+                    <ImageList handleViewImage={this.handleViewImage} showImage={showImage} />
                   </Col>
                 </Row>
               </Content>
-            </Layout>
+            </Layout> :
+              <Layout className="sub-project-inner-layout" >
+                <Content className="sub-project-contents">
+                  <Row>
+                    <Col span={14} >
+                      <ImagesGallery />
+                    </Col>
+                    <Col span={7} offset={1}> hellele</Col>
+                  </Row>
+                </Content>
+              </Layout>}
+
           </Content>
         </Spin>
       </Layout>

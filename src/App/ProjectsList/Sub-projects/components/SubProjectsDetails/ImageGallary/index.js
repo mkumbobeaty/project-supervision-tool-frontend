@@ -36,7 +36,7 @@ const images = [
     },
 ]
 
-class ImageGallary extends React.Component {
+class ImageList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -85,6 +85,18 @@ class ImageGallary extends React.Component {
         });
     }
 
+    handleShowGallary = () => {
+        const {handleViewImage,showImage} = this.props
+        console.log("comdidii",  showImage)
+       if(images.length > 0){
+           return (
+               handleViewImage(),
+               console.log("ci",  showImage)
+           )
+       }
+       else return "No photo uploaded"
+    }
+
     render() {
         var startindex = this.state.start;
         var finishindex = this.state.finish;
@@ -98,7 +110,7 @@ class ImageGallary extends React.Component {
                         this.state.images.slice(startindex, finishindex).map((image, imageindex) => {
                             return (
                                 <Col span={12} key={imageindex}>
-                                    <img className="image" src={image.url} />
+                                    <img className="image" src={image.url}  onClick={this.handleShowGallary}/>
                                 </Col>
                             )
                         })
@@ -113,4 +125,4 @@ class ImageGallary extends React.Component {
     }
 };
 
-export default ImageGallary
+export default ImageList

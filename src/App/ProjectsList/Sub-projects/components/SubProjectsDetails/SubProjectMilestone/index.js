@@ -32,7 +32,6 @@ const headerLayout = [
 class SubProjectsMilestone extends Component {
     render() {
         const { sub_project } = this.props;
-        console.log(sub_project?.sub_project_milestones)
         return (
             <div className="sub-project-milestone">
                 {/* list Reversides */}
