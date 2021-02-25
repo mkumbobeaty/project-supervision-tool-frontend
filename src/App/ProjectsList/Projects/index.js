@@ -186,6 +186,18 @@ class Projects extends Component {
     this.props.searchProject({searchQuery: searchData})
   };
 
+  /**   
+   * @function
+   * @name handleRefresh
+   * @description Handle refresh action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleRefresh = ()  => {
+    this.props.fetchProjects()
+  };
+
   render() {
     const {
       projects,
@@ -233,7 +245,7 @@ class Projects extends Component {
           loading={loading}
           itemCount={total}
           onFilter={this.openFiltersModal}
-          onRefresh={this.handleRefreshInitiative}
+          onRefresh={this.handleRefresh}
           onPaginate={(nextPage) => {
             paginateProject({page: nextPage});
           }}
