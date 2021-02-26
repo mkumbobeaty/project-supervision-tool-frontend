@@ -11,8 +11,8 @@ import BaseMap from "../../../../Map/BaseMap";
 import SubProjectLocations from "../../../../Map/components/SubProjectLocations";
 import { mapActions, mapSelectors } from "../../../../../redux/modules/map";
 import ImageList from "./ImageGallary";
+import ImagesGallery from "./ImageGallary/imageGallaries";
 import "./styles.css";
-import ImagesGallery from "./ImageGallary/imageGallary";
 
 const { Content, Sider } = Layout;
 
@@ -79,41 +79,11 @@ class SubProject extends Component {
                     < SubProjectEquipment sub_project={sub_project} offset={1} />
                   </Col>
                   <Col span={11} style={{ marginTop: 26 }} className='Sub-project-image'>
-                    <ImageList handleViewImage={this.handleViewImage} showImage={showImage} />
+                   {  <ImageList handleViewImage={this.handleViewImage} showImage={showImage} sub_project={sub_project} />}
                   </Col>
                 </Row>
               </Content>
-            </Layout> :
-              <Layout className="sub-project-inner-layout" >
-                <Content className="sub-project-contents">
-                  <Row>
-                    <Col span={17} >
-                      <ImagesGallery />
-                    </Col>
-                    <Col span={6} offset={1}>
-                      <div className="imageDetail">
-                        <h3>Details</h3>
-                        <span >
-                          <h4>Uploaded on</h4>
-                          <p> 2020, 12, 12</p>
-                        </span>
-                        <span >
-                          <h4>Location</h4>
-                          <p>Yombo</p>
-                        </span>
-                        <span >
-                          <h4>Uploaded By</h4>
-                          <p>John doe</p>
-                        </span>
-                        <span >
-                          <h4>Description</h4>
-                          <p>John doe jdjjsjkkkkkkkdjsdddddddddddd John doe jdjjsjkkkkkkkdjsdddddddddddd John doe jdjjsjkkkkkkkdjsdddddddddddd John doe jdjjsjkkkkkkkdjsdddddddddddd</p>
-                        </span>
-                      </div>
-                    </Col>
-                  </Row>
-                </Content>
-              </Layout>}
+            </Layout> : <ImagesGallery sub_project={sub_project} />}
 
           </Content>
         </Spin>

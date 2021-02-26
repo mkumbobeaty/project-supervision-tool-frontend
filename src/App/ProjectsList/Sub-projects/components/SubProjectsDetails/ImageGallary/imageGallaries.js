@@ -1,0 +1,60 @@
+import React from "react";
+import "react-image-gallery/styles/css/image-gallery.css";
+import ImageGallery from "react-image-gallery";
+import { Row, Col, Layout } from "antd";
+import { isoDateToHumanReadableDate } from "../../../../../../Util";
+
+const { Content } = Layout;
+
+const ImagesGallery = ({ sub_project }) => {
+  const [images, setImages] = React.useState(null);
+  React.useEffect(() => {
+    let shouldCancel = false;
+
+    if (!shouldCancel && sub_project?.photos && sub_project?.photos.length > 0) {
+      setImages(
+        sub_project?.photos.map(({ url }) => ({
+          original: `${url}`,
+          thumbnail: `${url}`
+        }))
+      );
+    }
+    else {
+      return () => (shouldCancel = true);
+    }
+  }, []);
+
+  return (
+    <Layout className="sub-project-inner-layout" >
+      <Content className="sub-project-contents">
+        <Row>
+          <Col span={17} >
+            {images ? <ImageGallery items={images} /> : null}
+          </Col>
+          <Col span={6} offset={1}>
+            <div className="imageDetail">
+              <h3>Details</h3>{
+                sub_project?.photos.map(item => {
+                  return (
+                    <span>
+                      <h4>Uploaded on</h4>
+                      <p> {isoDateToHumanReadableDate(item?.created_at)}</p>
+                      <h4>Location</h4>
+                      <p> {item?.latitude || item?.longitude ? (item?.latitude, item?.longitude) : 'N/A'}</p>
+                      <h4>Uploaded By</h4>
+                      <p>{item?.owner ? item?.owner?.first_name : 'N/A'} , { item?.owner?.last_name }</p>
+                      <h4>Description</h4>
+                      <p>{item ? item?.description : 'N/A'}</p>
+                    </span>
+                  )
+                })
+              }
+            </div>
+          </Col>
+        </Row>
+      </Content>
+    </Layout>
+  )
+};
+export default ImagesGallery
+

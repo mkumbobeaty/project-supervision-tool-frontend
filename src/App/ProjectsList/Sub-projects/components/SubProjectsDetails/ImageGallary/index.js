@@ -3,44 +3,10 @@ import { Row, Col } from 'antd';
 import { LeftOutlined, RightOutlined, } from '@ant-design/icons';
 import "./styles.css";
 
-const images = [
-    {
-        uid: '-1',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-        uid: '-2',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-        uid: '-3',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4yctby2lIykcyY_EI0qFgCSc69APnWsB4gw&usqp=CAU',
-    },
-    {
-        uid: '-4',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://image.shutterstock.com/image-photo/closeup-nature-view-green-leaf-260nw-1722021196.jpg',
-    },
-    {
-        uid: '-5',
-        name: 'image.png',
-        status: 'done',
-        url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXzQg4DiR5sc4eiY5FgQhByzdU9oukf1zlZA&usqp=CAU',
-    },
-]
-
 class ImageList extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            images,
             fadedleft: true,
             fadedright: false,
             start: 0,
@@ -69,7 +35,8 @@ class ImageList extends React.Component {
     rightClick() {
         let start = this.state.start;
         let finish = this.state.finish;
-        if (finish < images.length) {
+        const { sub_project } = this.props;
+        if (finish < sub_project?.photos.length) {
             this.setState({
                 start: start + 2,
                 finish: finish + 2
@@ -86,12 +53,10 @@ class ImageList extends React.Component {
     }
 
     handleShowGallary = () => {
-        const { handleViewImage, showImage } = this.props
-        console.log("comdidii", showImage)
-        if (images.length > 0) {
+        const { handleViewImage, sub_project } = this.props
+        if (sub_project?.photos.length > 0) {
             return (
-                handleViewImage(),
-                console.log("ci", showImage)
+                handleViewImage()
             )
         }
         else return "No photo uploaded"
@@ -102,28 +67,35 @@ class ImageList extends React.Component {
         var finishindex = this.state.finish;
         const fadedleft = this.state.fadedleft ? "arrow-left faded-left" : "arrow-left";
         const fadedright = this.state.fadedright ? "arrow-right faded-right" : "arrow-right";
+        const { sub_project } = this.props
         return (
-            <div className="container">
-                <div className='top-nav'>
-                    <h4 className='mapHeaderTitle'>Sub Project photo album</h4>
-                    <h4 className='viewAllPhoto' onClick={this.handleShowGallary}> View All Photo</h4>
-                </div>
-                <Row className="slideshow ">
-                    {
-                        this.state.images.slice(startindex, finishindex).map((image, imageindex) => {
-                            return (
-                                <Col span={12} key={imageindex}>
-                                    <img className="imageSlider" src={image.url} onClick={this.handleShowGallary} />
-                                </Col>
-                            )
-                        })
-                    }
-                </Row>
-                <div className='arrows'>
-                    <LeftOutlined className={fadedleft} onClick={this.leftClick.bind(this)} />
-                    <RightOutlined className={fadedright} onClick={this.rightClick.bind(this)} />
-                </div>
+            <div>
+                {
+                    sub_project?.photos.length > 0 ? <div className="container">
+                        <div className='top-nav'>
+                            <h4 className='mapHeaderTitle'>Sub Project photo album</h4>
+                            <h4 className='viewAllPhoto' onClick={this.handleShowGallary}> View All Photo</h4>
+                        </div>
+                        <Row className="slideshow ">
+                            {
+                                sub_project?.photos.slice(startindex, finishindex).map((image, imageindex) => {
+                                    debugger
+                                    return (
+                                        <Col span={12} key={imageindex}>
+                                            <img className="imageSlider" src={image.url} onClick={this.handleShowGallary} />
+                                        </Col>
+                                    )
+                                })
+                            }
+                        </Row>
+                        <div className='arrows'>
+                            <LeftOutlined className={fadedleft} onClick={this.leftClick.bind(this)} />
+                            <RightOutlined className={fadedright} onClick={this.rightClick.bind(this)} />
+                        </div>
+                    </div> : <h4 className='mapHeaderTitle'>No Photo Album for this sub project</h4>
+                }
             </div>
+
         )
     }
 };
