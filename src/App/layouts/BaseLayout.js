@@ -73,6 +73,12 @@ const breadcrumbNameMap = {
     title: "Dashboards",
   },
 
+  /* users routes */
+  "/app/users": {
+    name: "users",
+    title: "users Module",
+  },
+
 };
 
 /**

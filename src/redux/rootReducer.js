@@ -6,6 +6,7 @@ import { default as focalPeopleReducer} from '../App/FocalPeople/duck'
 import { default as sectorReducer} from '../App/ProjectsList/Projects/components/ProjectsSectors/duck'
 import { default as projectDetailReducer } from '../App/ProjectsList/Projects/components/ProjectsDetails/duck'
 import { default as subProjectReducer } from './modules/subProjects'
+import { default as usersReducer } from './modules/users'
 
 const rootReducer = combineReducers({
     ...projectReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     ...focalPeopleReducer,
     ...sectorReducer,
     ...projectDetailReducer,
-    ...subProjectReducer
+    ...subProjectReducer,
+    ...usersReducer
 });
 
 export default rootReducer;

@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from '../../../redux/modules/projects';
+import { projectActions, projectOperation, projectSelectors } from '../../../redux/modules/projects';
 import { Col, Drawer, Modal, Steps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -179,6 +179,7 @@ class Projects extends Component {
       loading,
       page,
       total,
+      paginateProject,
       searchQuery,
       showForm,
       selected,
@@ -214,13 +215,13 @@ class Projects extends Component {
         <ProjectsList
           itemName="Projects"
           items={projects}
-          // page={page}
+          page={page}
           loading={loading}
-          // itemCount={total}
+          itemCount={total}
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefreshInitiative}
           onPaginate={(nextPage) => {
-            this.paginateInitiative(nextPage);
+            paginateProject({page: nextPage});
           }}
           headerLayout={headerLayout}
           renderListItem={({
@@ -229,59 +230,59 @@ class Projects extends Component {
             onSelectItem,
             onDeselectItem,
           }) => (
-              <Link
-                to={{
-                  pathname: `/app/projects/${item.id}`,
-                }}
-                className="Projects"
+            <ListItem
+              key={item.id} // eslint-disable-line
+              name={item.name}
+              item={item}
+              isSelected={isSelected}
+              // onSelectItem={onSelectItem}
+              onDeselectItem={onDeselectItem}
+              renderActions={() => (
+                <ListItemActions
+                  edit={{
+                    name: "Edit project",
+                    title: "Update project details",
+                    onClick: () => this.handleEdit(item),
+                  }}
+                  archive={{
+                    name: "Archive project",
+                    title:
+                      "Remove project from list of active Projects",
+                    onClick: () => this.showArchiveConfirm(item),
+                  }}
+                />
+              )}
+            >
+              {/* eslint-disable react/jsx-props-no-spreading */}
+              <Col {...projectIdSpan} className="contentEllipse">
+                {" "}
+
+                {item.id ? item.id : "All"}
+              </Col>
+              <Col
+                {...projectNameSpan}
+                className="contentEllipse"
+                title={item.description}
               >
-                <ListItem
-                  key={item.id} // eslint-disable-line
-                  name={item.name}
-                  item={item}
-                  isSelected={isSelected}
-                  onSelectItem={onSelectItem}
-                  onDeselectItem={onDeselectItem}
-                  renderActions={() => (
-                    <ListItemActions
-                      edit={{
-                        name: "Edit project",
-                        title: "Update project details",
-                        onClick: () => this.handleEdit(item),
-                      }}
-                      archive={{
-                        name: "Archive project",
-                        title:
-                          "Remove project from list of active Projects",
-                        onClick: () => this.showArchiveConfirm(item),
-                      }}
-                    />
-                  )}
+                <Link
+                  to={{
+                    pathname: `/app/projects/${item.id}`,
+                  }}
+                  className="Projects"
                 >
-                  {/* eslint-disable react/jsx-props-no-spreading */}
-                  <Col {...projectIdSpan} className="contentEllipse">
-                    {" "}
+                  {item.name}
+                </Link>
+              </Col>
+              <Col {...organisationSpan}>{item.details ? item.details?.funding_organisation?.name : 'N/A'}</Col>
+              <Col {...borrowerSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
+              <Col {...statusSpan}>{item.details ? item.details.status.toString() : 'N/A'}</Col>
+              <Col {...approvalSpan}>
+                {isoDateToHumanReadableDate(item.details?.approval_fy)}
+              </Col>
 
-                    {item.id ? item.id : "All"}
-                  </Col>
-                  <Col
-                    {...projectNameSpan}
-                    className="contentEllipse"
-                    title={item.description}
-                  >
-                    {item.name}
-                  </Col>
-                  <Col {...organisationSpan}>{item.details ? item.details?.funding_organisation?.name : 'N/A'}</Col>
-                  <Col {...borrowerSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
-                  <Col {...statusSpan}>{item.details ? item.details.status.toString() : 'N/A'}</Col>
-                  <Col {...approvalSpan}>
-                    {isoDateToHumanReadableDate(item.details?.approval_fy)}
-                  </Col>
-
-                  {/* eslint-enable react/jsx-props-no-spreading */}
-                </ListItem>
-              </Link>
-            )}
+              {/* eslint-enable react/jsx-props-no-spreading */}
+            </ListItem>
+          )}
         />
         {/* end list */}
         <Drawer
@@ -345,6 +346,7 @@ const mapDispatchToProps = {
   createProject: projectOperation.createProjectStart,
   openProjectForm: projectSectorsOperator.openForm,
   closeProjectForm: projectSectorsOperator.closeForm,
+  paginateProject: projectActions.getProjectsStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
