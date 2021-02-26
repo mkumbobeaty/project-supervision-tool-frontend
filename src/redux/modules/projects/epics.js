@@ -9,7 +9,7 @@ export const projectsListEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_PROJECTS_START),
         switchMap((action) => {
-            return from(API.getProjects(action.payload.page)).pipe(
+            return from(API.getProjects(action.payload)).pipe(
                 switchMap(res => {
                     return of(actions.getProjectsSuccess(res.data))
                 }),

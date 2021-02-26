@@ -173,6 +173,31 @@ class Projects extends Component {
     this.setState({ isEditForm: false });
   };
 
+  /**   
+   * @function
+   * @name handleSearch
+   * @description Handle list search action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleSearch = (searchData)  => {
+    console.log(searchData)
+    this.props.searchProject({searchQuery: searchData})
+  };
+
+  /**   
+   * @function
+   * @name handleRefresh
+   * @description Handle refresh action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleRefresh = ()  => {
+    this.props.fetchProjects()
+  };
+
   render() {
     const {
       projects,
@@ -196,6 +221,7 @@ class Projects extends Component {
           search={{
             size: "large",
             placeholder: "Search for Projects here ...",
+            onSearch: this.handleSearch,
             onChange: this.searchInitiative,
             value: searchQuery,
           }}
@@ -219,7 +245,7 @@ class Projects extends Component {
           loading={loading}
           itemCount={total}
           onFilter={this.openFiltersModal}
-          onRefresh={this.handleRefreshInitiative}
+          onRefresh={this.handleRefresh}
           onPaginate={(nextPage) => {
             paginateProject({page: nextPage});
           }}
@@ -347,6 +373,7 @@ const mapDispatchToProps = {
   openProjectForm: projectSectorsOperator.openForm,
   closeProjectForm: projectSectorsOperator.closeForm,
   paginateProject: projectActions.getProjectsStart,
+  searchProject: projectActions.getProjectsStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
