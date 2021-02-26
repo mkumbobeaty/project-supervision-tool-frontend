@@ -10,7 +10,7 @@ class ImageList extends React.Component {
             fadedleft: true,
             fadedright: false,
             start: 0,
-            finish: 2
+            finish: 2,
         }
     }
 
@@ -52,11 +52,12 @@ class ImageList extends React.Component {
         });
     }
 
-    handleShowGallary = () => {
+    handleShowGallary = (image) => {
         const { handleViewImage, sub_project } = this.props
         if (sub_project?.photos.length > 0) {
             return (
-                handleViewImage()
+                handleViewImage(image)
+
             )
         }
         else return "No photo uploaded"
@@ -79,10 +80,9 @@ class ImageList extends React.Component {
                         <Row className="slideshow ">
                             {
                                 sub_project?.photos.slice(startindex, finishindex).map((image, imageindex) => {
-                                    debugger
                                     return (
                                         <Col span={12} key={imageindex}>
-                                            <img className="imageSlider" src={image.url} onClick={this.handleShowGallary} />
+                                            <img className="imageSlider" src={image.url} onClick={() => this.handleShowGallary(image)} />
                                         </Col>
                                     )
                                 })

@@ -20,6 +20,8 @@ class SubProject extends Component {
 
   state = {
     showImage: false,
+    selectedImage:{}
+
   }
   componentDidMount() {
     const { getSubProject, match: { params }
@@ -27,17 +29,17 @@ class SubProject extends Component {
     getSubProject(params.id)
   }
 
-  handleViewImage = () => {
-    this.setState({ showImage: true })
+  handleViewImage = (image) => {
+    this.setState({ showImage: true, selectedImage: image})
   }
 
   handleViewClose = () => {
-    this.setState({ showImage: false })
+    this.setState({ showImage: false, selectedImage: {} })
   }
 
   render() {
     const { sub_project, loading, mapLoading, getWfsLayerData } = this.props;
-    const { showImage } = this.state;
+    const { showImage,selectedImage  } = this.state;
     return (
       <Layout className="sub-project-layout">
         <Spin spinning={loading} tip="Loading..." >
@@ -83,7 +85,7 @@ class SubProject extends Component {
                   </Col>
                 </Row>
               </Content>
-            </Layout> : <ImagesGallery sub_project={sub_project} />}
+            </Layout> : <ImagesGallery sub_project={sub_project} selectedImage={selectedImage} />}
 
           </Content>
         </Spin>

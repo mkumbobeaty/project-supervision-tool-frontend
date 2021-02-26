@@ -6,7 +6,7 @@ import { isoDateToHumanReadableDate } from "../../../../../../Util";
 
 const { Content } = Layout;
 
-const ImagesGallery = ({ sub_project }) => {
+const ImagesGallery = ({ sub_project, selectedImage}) => {
   const [images, setImages] = React.useState(null);
   React.useEffect(() => {
     let shouldCancel = false;
@@ -15,7 +15,7 @@ const ImagesGallery = ({ sub_project }) => {
       setImages(
         sub_project?.photos.map(({ url }) => ({
           original: `${url}`,
-          thumbnail: `${url}`
+          thumbnail: `${url}`,
         }))
       );
     }
@@ -33,22 +33,17 @@ const ImagesGallery = ({ sub_project }) => {
           </Col>
           <Col span={6} offset={1}>
             <div className="imageDetail">
-              <h3>Details</h3>{
-                sub_project?.photos.map(item => {
-                  return (
+              <h3>Details</h3>
                     <span>
                       <h4>Uploaded on</h4>
-                      <p> {isoDateToHumanReadableDate(item?.created_at)}</p>
+                      <p> {isoDateToHumanReadableDate(selectedImage?.created_at)}</p>
                       <h4>Location</h4>
-                      <p> {item?.latitude || item?.longitude ? (item?.latitude, item?.longitude) : 'N/A'}</p>
+                      <p> {selectedImage?.latitude || selectedImage?.longitude ? selectedImage?.latitude : 'N/A' }, {selectedImage?.longitude }</p>
                       <h4>Uploaded By</h4>
-                      <p>{item?.owner ? item?.owner?.first_name : 'N/A'} , { item?.owner?.last_name }</p>
+                      <p>{selectedImage?.owner ? selectedImage?.owner?.first_name : 'N/A'} , { selectedImage?.owner?.last_name }</p>
                       <h4>Description</h4>
-                      <p>{item ? item?.description : 'N/A'}</p>
+                      <p>{selectedImage ? selectedImage?.description : 'N/A'}</p>
                     </span>
-                  )
-                })
-              }
             </div>
           </Col>
         </Row>
