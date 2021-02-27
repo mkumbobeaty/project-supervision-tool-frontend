@@ -8,17 +8,28 @@
     margin: 16px 0;
 }
 
-.sub-project-layout h3 {
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+#closeAlbum {
+    margin-top: 20px;
+}
+
+.sub-project-layout #sub_project_name {
     padding-top: 20px;
     padding-left: 25px;
 }
 
 .sider {
     background-color: rgb(246, 246, 246) !important;
-    height: 90vh;
+    height: 100vh;
     padding: 20px 10px 0 40px;
+    position: static;
 }
-.sidebar-header{
+
+.sidebar-header {
     display: flex;
 }
 
@@ -29,10 +40,10 @@
     margin-bottom: 15px;
     width: 65%;
 }
-.sidebar-header a {
- color: #0f6788;
- text-decoration: underline;
 
+.sidebar-header a {
+    color: #0f6788;
+    text-decoration: underline;
 }
 
 .sider h4, .details h4 {
@@ -42,7 +53,7 @@
 
 .sub-project-contents {
     margin-top: 24px;
-    padding: 0 24px;
+    padding: 0 0 0 24px;
 }
 
 .chartDetails {
@@ -50,9 +61,9 @@
     padding: 15px 0;
     padding-right: 15px;
     /* width: 25vw !important;  */
-
 }
-.canvasjs-chart-credit{
+
+.canvasjs-chart-credit {
     display: none;
 }
 
@@ -85,4 +96,29 @@
     margin-left: 30px;
     border: 1px solid #e0ddddfa;
     padding: 28px;
+}
+
+.sub_project_map .base-map {
+    height: 50vh;
+}
+
+.headerTitle {
+    border-bottom: 0.5px solid #e8e8e8;
+    padding-bottom: 3px;
+    font-size: 16px;
+    color: #2fbaec;
+}
+
+.mapHeaderTitle {
+    font-size: 16px;
+    color: #2fbaec;
+}
+
+.imageDetail {
+    border: 0.5px solid #e8e8e8;
+    padding: 20px;
+}
+
+.imageDetail h4 {
+    font-weight: 600;
 }
