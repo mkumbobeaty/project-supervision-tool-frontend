@@ -9,22 +9,22 @@ import "./styles.css";
 
 
 /* constants */
-const subProjectNameSpan = { xxl: 4, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
-const contractorSpan = { xxl: 4, xl: 5, lg: 4, md: 6, sm: 6, xs: 5 };
-const phaseSpan = { xxl: 2, xl: 2, lg: 3, md: 4, sm: 4, xs: 3 };
-const agencySpan = { xxl: 4, xl: 4, lg: 6, md: 4, sm: 4, xs: 5 };
+const nameSpan = { xxl: 4, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
+const itemSpan = { xxl: 4, xl: 4, lg: 6, md: 4, sm: 4, xs: 5 };
 const locationSpan = { xxl: 5, xl: 4, lg: 0, md: 0, sm: 0, xs: 0 };
 const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
-
-
+const endDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
+const valueSpan = { xxl: 2, xl: 2, lg: 3, md: 4, sm: 4, xs: 3 };
+const contractorSpan = { xxl: 4, xl: 5, lg: 4, md: 6, sm: 6, xs: 5 };
 
 const headerLayout = [
-    { ...subProjectNameSpan, header: "Sub-Project Name" },
-    { ...contractorSpan, header: "Contractor" },
-    { ...agencySpan, header: "Supervision Agency" },
-    { ...phaseSpan, header: "Phase" },
+    { ...nameSpan, header: "Name" },
+    { ...itemSpan, header: "Item" },
     { ...locationSpan, header: "Location" },
     { ...startDateSpan, header: "Start Date" },
+    { ...endDateSpan, header: "End Date" },
+    { ...valueSpan, header: "Value" },
+    { ...contractorSpan, header: "Contractor" },
 ];
 
 
@@ -38,8 +38,6 @@ const headerLayout = [
  */
 class ProjectSubProjects extends Component {
    
-
-
     render() {
         const { project } = this.props;
         return (
@@ -63,7 +61,7 @@ class ProjectSubProjects extends Component {
                                 {/* eslint-disable react/jsx-props-no-spreading */}
     
                                 <Col
-                                    {...subProjectNameSpan}
+                                    {...nameSpan}
                                     className="contentEllipse"
                                     title={item.description}
                                 >
@@ -76,18 +74,20 @@ class ProjectSubProjects extends Component {
 
                                     </Link>
                                 </Col>
-                                <Col {...contractorSpan}>{item.details ? item.details.contractor.name : "N/A"}</Col>
-                                <Col {...agencySpan}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
-                                <Col {...phaseSpan}>{item.details ? item.details.phase.name : "N/A"}</Col>
+                                <Col {...itemSpan}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
                                 <Col {...locationSpan}>
                                     {item.sub_project_locations.length <= 0 ? "N/A" : item.sub_project_locations.map(({ quantity }, index) => {
                                         return (index ? ", " : "") + quantity;
                                     })}
-                                </Col>
-            
+                                </Col>            
                                 <Col {...startDateSpan}>
                                     {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'Not set')}
                                 </Col>
+                                <Col {...endDateSpan}>
+                                    {isoDateToHumanReadableDate(item.details ? item.details.end_date : 'Not set')}
+                                </Col>
+                                <Col {...valueSpan}>{item.details ? item.details.value : "N/A"}</Col>
+                                <Col {...contractorSpan}>{item.details ? item.details.contractor.name : "N/A"}</Col>
 
                                 {/* eslint-enable react/jsx-props-no-spreading */}
                             </ListItem>
@@ -98,7 +98,6 @@ class ProjectSubProjects extends Component {
         );
     }
 }
-
 
 export default ProjectSubProjects;
 
