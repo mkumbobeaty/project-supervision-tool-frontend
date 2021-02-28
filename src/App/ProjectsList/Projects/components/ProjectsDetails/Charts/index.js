@@ -88,8 +88,8 @@ const SectorChat = () => {
     data: data,
     angleField: 'value',
     colorField: 'type',
-    radius: 0.7,
-    innerRadius: 0.8,
+    radius: 0.6,
+    innerRadius: 0.85,
     label: {
       type: 'inner',
       offset: '-50%',
@@ -108,9 +108,9 @@ const SectorChat = () => {
           overflow: 'hidden',
           textOverflow: 'ellipsis',
         },
-        // formatter: function formatter() {
-        //   return '';
-        // },
+        formatter: function formatter() {
+          return '';
+        },
       },
     },
   };

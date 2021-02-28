@@ -91,3 +91,7 @@
 .base-map {
     height: 49vh;
 }
+
+.sector_chat {
+    padding-right: 30px;
+}

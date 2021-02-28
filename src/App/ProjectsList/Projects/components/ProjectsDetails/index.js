@@ -42,8 +42,8 @@ class Project extends Component {
               </Sider>
               <Content className="project_contents">
                 <Row>
-                  <Col span={12}>
-
+                  <Col span={12} className="sector_chat">
+                    <SectorChat project={project} />
                   </Col>
                   <Col span={12} className="project_map"  >
                     <Spin spinning={mapLoading} tip="Loading data...">
