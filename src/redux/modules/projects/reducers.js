@@ -144,7 +144,7 @@ const project = (state = { data: null, error: null, loading: false }, action) =>
 }
 
 // selected human resource
-const selectedProjects = (state = null, action) => {
+const selectedProject = (state = null, action) => {
     switch (action.type) {
         case types.SELECT_PROJECT:
             return action.payload;
@@ -286,7 +286,7 @@ const progress = (state = { data: [], error: null, loading: false }, action) => 
 
 
 export const resources = combineReducers({
-    selectedProjects,
+    selectedProject,
     Projects,
     project,
     locations,

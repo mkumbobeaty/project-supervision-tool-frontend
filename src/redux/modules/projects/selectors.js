@@ -179,3 +179,10 @@ export const getItemsSelector = (state) => state?.resources?.items?.data;
  * @return {Object} progress
  */
 export const getProgressSelector = (state) => state?.resources?.progress?.data;
+
+/**
+ * @function
+ * @name selectedProject
+ * @param {Object} state redux state
+ */
+export const selectedProject = (state) => state?.resources?.selectedProject
