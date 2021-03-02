@@ -12,7 +12,8 @@ function NationalSubProjectsOverview(
     {
         subProjectsStatistics,
         loadingStatistics,
-        getSubProjectsStatistics
+        getSubProjectsStatistics,
+        subProjectCountByRegion
     }
     ) {
 
@@ -25,9 +26,9 @@ function NationalSubProjectsOverview(
 
     // transform data into structure that
     // filter can display
-    const getFilterData = (items) => items.map(({region_name, projects_count, id}) => ({
-        title: region_name,
-        value: projects_count,
+    const getFilterData = (items) => items.map(({name, sub_projects_count, id}) => ({
+        title: name,
+        value: sub_projects_count,
         id
     }));
 
@@ -43,11 +44,10 @@ function NationalSubProjectsOverview(
 
     // const handleOnClickFilterItem = (id) => getProjectsByRegion(id);
 
-const projectsCountByRegion = [3, 4,5,6]
     // prepare data for ProjectsRegionsPredefinedFilter
     const filterConfig = {filterTitle: 'Regions', filterRightTitle: 'Regions', filterLeftTitle: 'Sub Projects'}
-    const filterData = projectsCountByRegion?.length > 0 ? getFilterData(projectsCountByRegion) : []
-
+    const filterData = subProjectCountByRegion?.length > 0 ? getFilterData(subProjectCountByRegion) : []
+console.log(subProjectCountByRegion)
 
     return (
         <SideNavItemOverview
