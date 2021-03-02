@@ -3,8 +3,10 @@ import {combineReducers} from "redux";
 
 
 const selectedInitialState = { data: null, error: null, loading: false };
-
-
+const sideNavMenuInitialState = {
+    showNationalOverview: true,
+    showSubProjectOverview: true,
+}
 /**
  * @function
  * @name subProject
@@ -43,8 +45,25 @@ const subProjectsStatistics = (state = {data: null , loading: false, error: null
     }
 };
 
+ /**
+  * @function
+  * @name sideNavMenu
+  * @description reducer that manages UI state of sideNavMenu
+  */
+ const sideNavMenu = (state = sideNavMenuInitialState, action) => {
+    switch (action.type) {
+        case types.SHOW_NATIONAL_SUB_PROJECTS_OVERVIEW:
+            return { ...state, showNationalOverview: action.payload };
+        case types.SHOW_SUB_PROJECTS_OVERVIEW:
+            return { ...state, showSubProjectOverview:action.payload}
+        default:
+            return state;
+    }
+};
+
 export const subProjects = combineReducers({
  selected,
+ sideNavMenu,
  subProjectsStatistics
 })
 

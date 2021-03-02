@@ -59,4 +59,18 @@ export const getSubProjectStatisticsStart = makeActionCreator(types.GET_SUB_PROJ
  */
  export const getSubProjectStatisticsFailure = makeActionCreator(types.GET_SUB_PROJECT_STATISTICS_FAILURE, 'payload');
 
+/**
+ * @function
+ * @name showNationalSubProjectsOverview
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const showNationalSubProjectsOverview = makeActionCreator(types.SHOW_NATIONAL_SUB_PROJECTS_OVERVIEW, 'payload');
+
+/**
+ * @function
+ * @name showSubProjectsOverview
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const showSubProjectsOverview = makeActionCreator(types.SHOW_SUB_PROJECTS_OVERVIEW, 'payload');
+
 
