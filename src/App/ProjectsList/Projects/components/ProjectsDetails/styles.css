@@ -81,3 +81,17 @@
 .project-subproject>.Toolbar {
     display: none;
 }
+
+.project_map {
+    padding: 1px;
+    height: 50vh;
+    border: 2px solid #e0ddddfa;
+}
+
+.base-map {
+    height: 49vh;
+}
+
+.sector_chat {
+    padding-right: 30px;
+}

@@ -20,8 +20,8 @@ const createProjects = (project) =>
  * Fetch all projects from API
  *
  */
-const getProjects = (nextPage) => {
-    return axios.get(`/projects`, {params:{page: nextPage}}).then((response) => response.data);
+const getProjects = (params={}) => {
+    return axios.get(`/projects`, {params:{page: params.nextPage, searchField:'name', searchQuery: params.searchQuery} }).then((response) => response.data);
 }
 
 

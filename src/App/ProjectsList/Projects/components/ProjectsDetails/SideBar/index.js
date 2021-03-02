@@ -5,30 +5,38 @@ const SidebarSection = ({ project }) => {
     return (
         <div>
             <span >
-                <h4>Project Id</h4>
-                <p>{project ? project?.id : 'N/A'}</p>                                                                                                                                                                                                                                                                                                       {/* <p>{project.id}</p> */}
+                <h4>Status</h4>
+                <p>{project?.details ? project?.details.status : 'N/A'}</p>
+                {/* <p>{project?.details ? project?.sub_project.total : 'N/A'}</p> */}
             </span>
             <span >
-                <h4>Status of the Project</h4>
-                <p>{project?.details ? project?.details.status.toString() : 'N/A'}</p>
+                <h4>Approval date</h4>
+                <p>{project?.details ? new Date(project?.details.approval_date).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'}) : 'N/A'}</p>                                                                                                                                                                                                                                                                                                    {/* <p>{project.id}</p> */}
             </span>
-
             <span >
-                <h4>Project Team Leader</h4>
-                <p>{ project?.details ? project?.details.funding_organisation.focalPerson.first_name + " " + project?.details.funding_organisation.focalPerson.last_name : 'N/A'}</p>                                                                                                                                                                                                                                                                                                       {/* <p>{project.id}</p> */}
+                <h4>Closing date</h4>
+                <p>{project?.details ? new Date(project?.details.closing_date).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'}) : 'N/A'}</p>                                                                                                                                                                                                                                                                                                    {/* <p>{project.id}</p> */}
             </span>
-
             <span >
-                <h4>Borrower</h4>
-                <p>{project?.details ? project?.details.borrower.name : 'N/A'}</p>
+                <h4>Project Total Cost</h4>
+                <p>{project?.details ? new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(project?.details.total_project_cost.amount) : 'N/A'}</p>
             </span>
             <span >
                 <h4>Commitment Amount</h4>
-                <p>{project?.details ? project?.details.commitment_amount.amount : 'N/A'}</p>
+                <p>{project?.details ? new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(project?.details.commitment_amount.amount) : 'N/A'}</p>
             </span>
             <span >
-                <h4>Total Project Cost</h4>
-                <p>{project?.details ? project?.details.total_project_cost.amount : 'N/A'}</p>
+                <h4>Project Lead</h4>
+                <p>{ project?.details ? project?.details.funding_organisation.focalPerson.first_name + " " + project?.details.funding_organisation.focalPerson.last_name : 'N/A'}</p>                                                                                                                                                                                                                                                                                                       {/* <p>{project.id}</p> */}
+            </span>
+            <span >
+                <h4>Project Coordinator</h4>
+                <p>{ project?.details ? project?.details.implementing_agency.focalPerson.first_name + " " + project?.details.implementing_agency.focalPerson.last_name : 'N/A'}</p>                                                                                                                                                                                                                                                                                                       {/* <p>{project.id}</p> */}
+            </span>
+
+            <span >
+                <h4>Implementing Agency</h4>
+                <p>{project?.details ? project?.details.implementing_agency.name : 'N/A'}</p>
             </span>
             <span >
                 <h4>Project locations</h4>
@@ -36,19 +44,19 @@ const SidebarSection = ({ project }) => {
                     console.log("give" + location.level)
                     if (location.level === 'district') {
                         return (
-                            <p>-{location.region.name},{location.district.name}</p>
+                            <p>{location.region.name},{location.district.name}</p>
                         )
                     }
                     else {
-                        return <p> - {location.region.name}</p>
+                        return <p>{location.region.name}</p>
 
                     }
 
                 }) : 'N/A'}
             </span>
             <span >
-                <h4>Country/Project region</h4>
-                <p>{project?.details ? project?.details?.country?.name : 'N/A'},{project?.details?.project_region}</p>
+                <h4>Last updated</h4>
+                <p>{project?.details ? new Date(project?.details.approval_date).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'}) : 'N/A'}</p>                                                                                                                                                                                                                                                                                                    {/* <p>{project.id}</p> */}
             </span>
         </div>
 
