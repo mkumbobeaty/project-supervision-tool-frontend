@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { SubProjectsOverview } from "./components/SubProjectsOverview";
 import { mapSubProjectSelectors } from "../../../../../../../../redux/modules/map/subProjects";
+import SubProjectsOverview from "./components/SubProjectsOverview";
 
 /**
  * @function
@@ -11,7 +11,6 @@ import { mapSubProjectSelectors } from "../../../../../../../../redux/modules/ma
  * and project details
  */
 function SubProjectsMenuItemDetails({ isShowSubProjectOverview }) {
-    debugger
     return (
         <>
             {isShowSubProjectOverview ? <SubProjectsOverview /> : ''}
