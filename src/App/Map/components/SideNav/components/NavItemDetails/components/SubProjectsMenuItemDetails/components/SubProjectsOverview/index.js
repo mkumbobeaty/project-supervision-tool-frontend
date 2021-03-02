@@ -27,7 +27,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getSubProjectsStatistics: bindActionCreators(mapSubProjectActions.getSubProjectStatisticsStart, dispatch),
+    getSubProjectsStatistics: bindActionCreators(mapSubProjectActions.getSubProjectOverviewStart, dispatch),
 });
 
 

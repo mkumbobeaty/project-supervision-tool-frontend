@@ -45,6 +45,21 @@ const subProjectsStatistics = (state = {data: null , loading: false, error: null
     }
 };
 
+const subProjectOverview = (state = {data:[]
+}, action) => {
+    switch (action.type) {
+        case types.GET_SUB_PROJECTS_OVERVIEW_START:
+            return {...state}
+        case types.GET_SUB_PROJECTS_OVERVIEW_SUCCESS:
+            return {...state, data: action.payload};
+        case types.CLEAR_SUB_PROJECTS_OVERVIEW:
+            return {...state, data: []};
+        case types.GET_SUB_PROJECTS_OVERVIEW_FAILURE:
+            return {...state, error: action.payload};
+        default:
+            return state;
+    }
+};
  /**
   * @function
   * @name sideNavMenu
@@ -64,7 +79,8 @@ const subProjectsStatistics = (state = {data: null , loading: false, error: null
 export const subProjects = combineReducers({
  selected,
  sideNavMenu,
- subProjectsStatistics
+ subProjectsStatistics,
+ subProjectOverview
 })
 
 
