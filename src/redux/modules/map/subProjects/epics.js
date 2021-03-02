@@ -29,7 +29,26 @@ export const getSubProjectMapEpic = action$ => {
     )
 };
 
+/**
+ *
+ * @function
+ * @name getSubProjectsStatistics
+ * @param action$ stream of actions
+ */
+const getSubProjectsStatistics = action$ => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECT_STATISTICS_START),
+        switchMap(() => {
+            return from(API.getSubProjectsStatistics()).pipe(
+                switchMap(res => of(actions.getSubProjectStatisticsSuccess(res.data))),
+                catchError(error => of(actions.getSubProjectStatisticsFailure(error)))
+            );
+        }),
+    );
+}
+
 
 export const mapSubProjectEpics = combineEpics(
     getSubProjectMapEpic,
+    getSubProjectsStatistics,
 );

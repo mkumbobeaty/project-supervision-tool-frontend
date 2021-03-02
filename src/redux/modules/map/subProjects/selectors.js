@@ -4,3 +4,18 @@
  * @param {Object} state redux state
  */
 export const getSubProjectSelector = (state) => state.map.subProjects.selected?.data;
+
+
+/**
+ * @function
+ * @name getSubProjectsStatistics
+ * @param {Object} state redux state
+ */
+export const getSubProjectsStatistics = (state) => state?.map?.subProjects?.subProjectsStatistics?.data;
+
+/**
+ * @function
+ * @name getSubProjectsStatisticsLoading
+ * @param {Object} state redux state
+ */
+export const getSubProjectsStatisticsLoading = (state) => state?.map?.subProjects?.subProjectsStatistics.loading;
