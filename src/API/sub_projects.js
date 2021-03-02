@@ -109,6 +109,8 @@ const updateSubProject = (subProject, id) => {
         .then((response) => response.data);
 };
 
+const getSubProjectsStatistics = () => axios.get('/sub_projects/statistics').then((response)=> response.data);
+
 export default {
     getSubProjects,
     getSubProject,
@@ -118,5 +120,6 @@ export default {
     getSubProjectItems,
     getSubProjectEquipments,
     createSubProjectItem,
-    updateSubProject
+    updateSubProject,
+    getSubProjectsStatistics,
 }

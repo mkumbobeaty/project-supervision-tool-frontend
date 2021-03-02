@@ -36,3 +36,41 @@ export const getSubProjectFailure = makeActionCreator(types.GET_SUB_PROJECT_FAIL
  * @return {Object} action
  */
 export const clearSubProject = makeActionCreator(types.CLEAR_SUB_PROJECT);
+
+// get region project statistics
+/**
+ * @function
+ * @name getSubProjectStatisticsStart
+ *  @param {String} payload region id
+ */
+export const getSubProjectStatisticsStart = makeActionCreator(types.GET_SUB_PROJECT_STATISTICS_START, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectStatisticsSuccess
+ * @param {Array} payload fetched sub projects 
+ */
+ export const getSubProjectStatisticsSuccess = makeActionCreator(types.GET_SUB_PROJECT_STATISTICS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectStatisticsFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getSubProjectStatisticsFailure = makeActionCreator(types.GET_SUB_PROJECT_STATISTICS_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name showNationalSubProjectsOverview
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const showNationalSubProjectsOverview = makeActionCreator(types.SHOW_NATIONAL_SUB_PROJECTS_OVERVIEW, 'payload');
+
+/**
+ * @function
+ * @name showSubProjectsOverview
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const showSubProjectsOverview = makeActionCreator(types.SHOW_SUB_PROJECTS_OVERVIEW, 'payload');
+
+
