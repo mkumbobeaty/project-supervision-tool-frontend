@@ -94,5 +94,10 @@
 }
 
 .sector_chat {
-    padding-right: 30px;
+    padding-right: 5px;
+}
+
+.sector_title {
+    color: #0f6788;
+    margin: -10px 0 -10px 10px;
 }
