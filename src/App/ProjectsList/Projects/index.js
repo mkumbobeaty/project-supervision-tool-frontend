@@ -18,25 +18,22 @@ import "./styles.css";
 
 
 /* constants */
+const codeSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
 const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
-const projectNameSpan = { xxl: 5, xl: 6, lg: 6, md: 8, sm: 10, xs: 11 };
-const organisationSpan = { xxl: 4, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
-const borrowerSpan = { xxl: 5, xl: 4, lg: 4, md: 4, sm: 4, xs: 5 };
-const statusSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
-const approvalSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
+const nameSpan = { xxl: 5, xl: 6, lg: 6, md: 8, sm: 10, xs: 11 };
+const subProjectsSpan = { xxl: 4, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
+const projectLeadSpan = { xxl: 5, xl: 4, lg: 4, md: 4, sm: 4, xs: 5 };
+const projectCoordinatorSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
 
 const { confirm } = Modal;
 
-
-
-
 const headerLayout = [
+  { ...codeSpan, header: "Code" },
   { ...projectIdSpan, header: "Project ID" },
-  { ...projectNameSpan, header: "Project Name" },
-  { ...organisationSpan, header: "Funding Organisation" },
-  { ...borrowerSpan, header: "Borrower" },
-  { ...statusSpan, header: "Project status" },
-  { ...approvalSpan, header: "Approval FY" },
+  { ...nameSpan, header: "Name" },
+  { ...subProjectsSpan, header: "Sub-projects" },
+  { ...projectLeadSpan, header: "Project Lead" },
+  { ...projectCoordinatorSpan, header: "Project Coordinator" },
 ];
 
 
@@ -280,13 +277,14 @@ class Projects extends Component {
               )}
             >
               {/* eslint-disable react/jsx-props-no-spreading */}
+              <Col {...codeSpan}>{item? item?.code : 'N/A'}</Col>
               <Col {...projectIdSpan} className="contentEllipse">
                 {" "}
 
                 {item.id ? item.id : "All"}
               </Col>
               <Col
-                {...projectNameSpan}
+                {...nameSpan}
                 className="contentEllipse"
                 title={item.description}
               >
@@ -299,12 +297,9 @@ class Projects extends Component {
                   {item.name}
                 </Link>
               </Col>
-              <Col {...organisationSpan}>{item.details ? item.details?.funding_organisation?.name : 'N/A'}</Col>
-              <Col {...borrowerSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
-              <Col {...statusSpan}>{item.details ? item.details.status.toString() : 'N/A'}</Col>
-              <Col {...approvalSpan}>
-                {isoDateToHumanReadableDate(item.details?.approval_fy)}
-              </Col>
+              <Col {...subProjectsSpan}>{item.sub_projects ? item.sub_projects.length : 'N/A'}</Col>
+              <Col {...projectLeadSpan}>{item.leaders ? item.leaders[0].first_name + ' ' + item.leaders[0].last_name : 'N/A'}</Col>
+              <Col {...projectCoordinatorSpan}>{item.details.implementing_agency ? item.details.implementing_agency.focalPerson.first_name + ' ' + item.details.implementing_agency.focalPerson.last_name : 'N/A'}</Col>
 
               {/* eslint-enable react/jsx-props-no-spreading */}
             </ListItem>
