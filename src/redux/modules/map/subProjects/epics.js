@@ -47,8 +47,28 @@ const getSubProjectsStatistics = action$ => {
     );
 }
 
+/**
+ * @function
+ * @name getSubProjectsOverviewEpic
+ * @param action$ stream of actions
+ */
+const getSubProjectsOverviewEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECTS_OVERVIEW_START),
+        switchMap(() => {
+            return from(API.getSubProjectOverview()).pipe(
+                switchMap(res => from([
+                    actions.getSubProjectOverviewSuccess(res.data),
+                    actions.getSubProjectStatisticsStart()
+                ])),
+                catchError(error => from([actions.getSubProjectOverviewFailure(error)]))
+            );
+        }),
+    );
+}
 
 export const mapSubProjectEpics = combineEpics(
     getSubProjectMapEpic,
     getSubProjectsStatistics,
+    getSubProjectsOverviewEpic,
 );
