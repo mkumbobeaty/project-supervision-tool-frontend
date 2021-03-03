@@ -6,6 +6,7 @@ import { mapSubProjectActions, mapSubProjectSelectors } from '../../../../../../
 import ProjectsTopSection from "../../../ProjectsMenuItemDetails/components/ProjectsTopSection";
 import NationalSubProjectsOverview from "../NationalSubProjectsOverview";
 import RegionalSubProjectsOverview from "../RegionalSubProjectsOverview";
+import TopSection from "../../../TopSection";
 
 const SubProjectsOverview = ({
     subProjectsStatistics,
@@ -24,7 +25,7 @@ const SubProjectsOverview = ({
 }) => {
     return (
         <>
-            <ProjectsTopSection title='SUB PROJECTS' />
+            <TopSection  title='SUB PROJECTS'  searchPlaceHolder='Search SubProjects'/>
             { showSubProjectsNationalOverview ? <NationalSubProjectsOverview
                 getSubProjectsOverview={getSubProjectsOverview}
                 subProjectsStatistics={subProjectsStatistics}

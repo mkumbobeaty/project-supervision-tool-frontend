@@ -1,11 +1,11 @@
 
 import React from 'react';
 import {AutoComplete, Input} from "antd";
+import PropTypes from 'prop-types';
 import './styles.css';
 
 
-function CustomSearch() {
-
+function CustomSearch({placeholder}) {
     return (
         <AutoComplete
             className='CustomSearch'
@@ -15,9 +15,18 @@ function CustomSearch() {
             onSelect={()=> {}}
             onSearch={() => {}}
         >
-            <Input.Search size="large" placeholder="Search Projects" enterButton />
+            <Input.Search size="large" placeholder={placeholder} enterButton />
         </AutoComplete>
     );
 }
 
 export default CustomSearch;
+
+CustomSearch.propTypes ={
+    placeholder: PropTypes.string,
+}
+
+CustomSearch.defaulltProps = {
+    placeholder: '',
+}
+
