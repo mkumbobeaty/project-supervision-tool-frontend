@@ -1,24 +1,28 @@
 import React from "react";
 import TopSection from "../TopSection";
+import DataSet from "./components/DataSet";
 
-function CommingSoon() {
-
-    return (
-        <div>
-            <b>Work on progress</b> <small>(coming soon!!)</small>
-        </div>
-    );
-
-}
+import './styles.css'
 
 function DataSetsMenuItemDetails() {
 
     return (
-        <TopSection searchPlaceHolder="Search Data sets" title="DATA SETS (1434)" />
+        <>
+            <TopSection searchPlaceHolder="Search Data " title="DATA SETS (1434)" />
+            <div className='data-set-items'>
+                <DataSet />
+                <DataSet />
+                <DataSet />
+                <DataSet />
+                <DataSet />
+                <DataSet />
+                <DataSet />
+                <DataSet />
+                <DataSet />
+            </div>
+        </>
     )
 
 }
-
-
 
 export default DataSetsMenuItemDetails
