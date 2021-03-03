@@ -36,10 +36,15 @@ function DataSetInfo() {
 
 
 function DataSet() {
-
     return (
         <div className='DataSet'>
-            <Popover className='data-set-info' content={DataSetInfo} title={<b>Data Set Details</b>} placement="right">
+            <Popover
+                className='data-set-info'
+                content={DataSetInfo}
+                title={<b>Data Set Details</b>}
+                placement="right"
+                trigger="click"
+            >
                 <ExclamationCircleOutlined />
             </Popover>
             <div className='data-set-name-source'>

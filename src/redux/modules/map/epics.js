@@ -6,6 +6,7 @@ import API from "../../../API";
 import * as actions from "./actions";
 import {mapProjectActions, mapProjectEpics} from './projects/'
 import {mapSubProjectActions, mapSubProjectEpics} from "./subProjects";
+import { mapDataSetsEpics } from './dataSets'
 
 /**
  * @function
@@ -191,6 +192,7 @@ const backFromSubProjectElementToSubProjectDetailsEpics = actions$ => actions$.p
 export const mapRootEpic = combineEpics(
     mapProjectEpics,
     mapSubProjectEpics,
+    mapDataSetsEpics,
     getProjectsOverviewEpic,
     getProjectsByRegionEpic,
     triggerGetRegionDetailEpic,
