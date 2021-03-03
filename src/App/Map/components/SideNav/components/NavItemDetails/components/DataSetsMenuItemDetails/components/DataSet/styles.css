@@ -25,9 +25,16 @@
 .DataSetAction {
     font-size: 1em;
     line-height: 16px;
-    color: #0071bc;
     font-weight: 700;
     margin-left: 5px;
     cursor: pointer;
     text-align: right;
+}
+
+.DataSet .add {
+    color: #0071bc;
+}
+
+.DataSet .close {
+    color: #dd4f48;
 }

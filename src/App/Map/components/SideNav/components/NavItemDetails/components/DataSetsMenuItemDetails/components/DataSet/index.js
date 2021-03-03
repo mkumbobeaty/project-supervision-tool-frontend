@@ -1,12 +1,25 @@
-import React from "react";
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import React, {useState} from "react";
+import { ExclamationCircleOutlined, CloseOutlined } from '@ant-design/icons';
 
 import './styles.css';
 
 function DataSetAction() {
+    const [close, setClose] = useState(false);
+
     return (
         <div className='DataSetAction'>
-            Add
+            <div
+                className='add'
+                style={{'display': close ? 'none' : 'block'}}
+                onClick={() => setClose(true)}
+            >
+                Add
+            </div>
+            <CloseOutlined
+                className='close'
+                style={{'display': close ? 'block': 'none'}}
+                onClick={() => setClose(false)}
+            />
         </div>
     )
 }
