@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.css'
 import ProjectsMenuItemDetails from './components/ProjectsMenuItemDetails';
+import SubProjectsMenuItemDetails from './components/SubProjectsMenuItemDetails';
 
 function CommingSoon() {
 
@@ -10,12 +11,6 @@ function CommingSoon() {
             <b>Work on progress</b> <small>(coming soon!!)</small>
         </div>
     );
-
-}
-
-function SubProjectsMenuItemDetails() {
-
-    return <CommingSoon/>
 
 }
 

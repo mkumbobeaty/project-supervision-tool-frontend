@@ -9,7 +9,6 @@ import {bindActionCreators} from "redux";
 import {projectActions} from "../../../../../../../../../../redux/modules/projects";
 import {mapProjectActions} from "../../../../../../../../../../redux/modules/map/projects";
 
-
 /**
  * @function
  * @name ProjectsOverview
@@ -36,7 +35,7 @@ function ProjectsOverview(
 ) {
     return (
         <>
-            <ProjectsTopSection/>
+            <ProjectsTopSection title="PROJECTS" />
             {showNationalOverview ? <NationalProjectsOverview
                 getProjectsOverview={getProjectsOverview}
                 projectsStatistics={projectsStatistics}

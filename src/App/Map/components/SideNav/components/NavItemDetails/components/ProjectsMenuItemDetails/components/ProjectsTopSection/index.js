@@ -10,12 +10,12 @@ import './styles.css';
  * @name ProjectsTopSection
  * @description renders top section which has search bar, item title and filter button
  */
-function ProjectsTopSection() {
+function ProjectsTopSection({title}) {
     return (
         <div className='ProjectsTopSection'>
             <CustomSearch/>
             <section>
-                <div>PROJECTS</div>
+                <div>{title}</div>
                 <Button type="primary" style={{fontSize: 10}} size='small'>FILTERS</Button>
             </section>
             <hr/>
