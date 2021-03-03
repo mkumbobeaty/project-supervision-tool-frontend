@@ -1,4 +1,5 @@
 import React from "react";
+import TopSection from "../TopSection";
 
 function CommingSoon() {
 
@@ -12,7 +13,9 @@ function CommingSoon() {
 
 function DataSetsMenuItemDetails() {
 
-    return <CommingSoon/>
+    return (
+        <TopSection searchPlaceHolder="Search Data sets" title="DATA SETS (1434)" />
+    )
 
 }
 

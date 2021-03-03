@@ -36,7 +36,7 @@ function ProjectsOverview(
 ) {
     return (
         <>
-            <TopSection title="PROJECTS" />
+            <TopSection title="PROJECTS"  searchPlaceHolder='Search Projects'/>
             {showNationalOverview ? <NationalProjectsOverview
                 getProjectsOverview={getProjectsOverview}
                 projectsStatistics={projectsStatistics}

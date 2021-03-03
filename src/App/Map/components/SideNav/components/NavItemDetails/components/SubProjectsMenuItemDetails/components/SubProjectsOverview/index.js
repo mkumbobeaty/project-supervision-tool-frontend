@@ -10,7 +10,7 @@ import TopSection from "../../../TopSection";
 const SubProjectsOverview = ({ subProjectsStatistics, getSubProjectsStatistics, showSubProjectsNationalOverview, loadingStatistics }) => {
     return (
         <>
-            <TopSection title='SUB PROJECTS' />
+            <TopSection  title='SUB PROJECTS'  searchPlaceHolder='Search SubProjects'/>
             { showSubProjectsNationalOverview ? <NationalSubProjectsOverview
                 getSubProjectsStatistics={getSubProjectsStatistics}
                 subProjectsStatistics={subProjectsStatistics}
