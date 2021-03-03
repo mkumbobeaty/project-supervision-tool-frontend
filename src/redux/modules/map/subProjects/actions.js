@@ -73,4 +73,30 @@ export const showNationalSubProjectsOverview = makeActionCreator(types.SHOW_NATI
  */
 export const showSubProjectsOverview = makeActionCreator(types.SHOW_SUB_PROJECTS_OVERVIEW, 'payload');
 
+/**
+ * @function
+ * @name getSubProjectOverviewStart
+ *  @param {String} payload region id
+ */
+export const getSubProjectOverviewStart = makeActionCreator(types.GET_SUB_PROJECTS_OVERVIEW_START, 'payload');
 
+/**
+ * @function
+ * @name getSubProjectOverviewSuccess
+ */
+export const getSubProjectOverviewSuccess = makeActionCreator(types.GET_SUB_PROJECTS_OVERVIEW_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectOverviewFailure
+ */
+export const getSubProjectOverviewFailure = makeActionCreator(types.GET_SUB_PROJECTS_OVERVIEW_FAILURE, 'payload');
+
+
+/**
+ * @function
+ * @name clearSubProjectOverview
+ * @description clears sub project  in state
+ * @return {Object} action
+ */
+export const clearSubProjectOverview = makeActionCreator(types.CLEAR_SUB_PROJECTS_OVERVIEW);
