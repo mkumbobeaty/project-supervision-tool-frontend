@@ -5,6 +5,7 @@ import {from, of} from "rxjs";
 import API from "../../../../API";
 import * as actions from "./actions";
 import {mapProjectActions} from "../projects";
+import { mapActions } from "..";
 
 
 /**
@@ -83,6 +84,7 @@ const getSubProjectsByRegionEpic = action$ => {
                     actions.getRegionSubProjectStatisticsStart(payload),
                     actions.getSubProjectsByRegionSuccess(res.data),
                     actions.clearSubProjectStatistics(),
+                    mapActions.getRegionStart(payload),
                     actions.showRegionSubProjectsOverview(true),
                     actions.showNationalSubProjectsOverview(false)
                 ])),

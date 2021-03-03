@@ -145,6 +145,12 @@ export const getSubProjectsByRegionStart = makeActionCreator(types.GET_SUB_PROJE
  */
  export const getSubProjectsByRegionFailures = makeActionCreator(types.GET_SUB_PROJECTS_REGIONS_OVERVIEW_FAILURE, 'payload');
 
+ /**
+ * @function
+ * @name clearRegionProjects
+ */
+export const clearRegionSubProjects = makeActionCreator(types.CLEAR_SUB_PROJECTS_REGIONS_OVERVIEW);
+
 /**
  * @function
  * @name getRegionSubProjectStatisticsStart

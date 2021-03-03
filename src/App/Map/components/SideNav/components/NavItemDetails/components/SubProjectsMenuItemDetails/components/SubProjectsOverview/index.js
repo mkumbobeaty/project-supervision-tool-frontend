@@ -7,6 +7,7 @@ import ProjectsTopSection from "../../../ProjectsMenuItemDetails/components/Proj
 import NationalSubProjectsOverview from "../NationalSubProjectsOverview";
 import RegionalSubProjectsOverview from "../RegionalSubProjectsOverview";
 import TopSection from "../../../TopSection";
+import { mapSelectors } from "../../../../../../../../../../redux/modules/map";
 
 const SubProjectsOverview = ({
     subProjectsStatistics,
@@ -21,7 +22,9 @@ const SubProjectsOverview = ({
     regionSubProjectsOverView,
     setShowRegionalOverview,
     setShowNationalOverview,
-    getSubProject
+    getSubProject,
+    region,
+    clearRegionSubProjects
 }) => {
     return (
         <>
@@ -40,6 +43,8 @@ const SubProjectsOverview = ({
                 setShowNationalOverview={setShowNationalOverview}
                 setShowRegionalOverview={setShowRegionalOverview}
                 getSubProject={getSubProject}
+                region={region}
+                clearRegionSubProjects={clearRegionSubProjects}
             /> : ''}
         </>
     );
@@ -54,6 +59,8 @@ const mapStateToProps = state => ({
     showRegionalOverview: mapSubProjectSelectors.showRegionalOverviewSelector(state),
     showRegionalOverviewLoader: mapSubProjectSelectors.getRegionSubProjectsStatisticsLoader(state),
     regionSubProjectsOverView: mapSubProjectSelectors.getRegionSubProjectsOverviewSelector(state),
+    region: mapSelectors.getRegionDetailsSelector(state),
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -61,7 +68,8 @@ const mapDispatchToProps = (dispatch) => ({
     getSubProjectsByRegion: bindActionCreators(mapSubProjectActions.getSubProjectsByRegionStart, dispatch),
     setShowRegionalOverview: bindActionCreators(mapSubProjectActions.showRegionSubProjectsOverview, dispatch),
     setShowNationalOverview: bindActionCreators(mapSubProjectActions.showNationalSubProjectsOverview, dispatch),
-    getSubProject:bindActionCreators(mapSubProjectActions.getSubProjectStart, dispatch)
+    getSubProject:bindActionCreators(mapSubProjectActions.getSubProjectStart, dispatch),
+    clearRegionSubProjects:bindActionCreators(mapSubProjectActions.clearRegionSubProjects, dispatch)
 });
 
 

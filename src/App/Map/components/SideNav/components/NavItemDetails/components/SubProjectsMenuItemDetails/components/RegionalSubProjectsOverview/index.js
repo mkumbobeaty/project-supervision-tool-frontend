@@ -15,7 +15,9 @@ function RegionalSubProjectsOverview({
     getSubProject,
     regionSubProjectsOverView,
     showRegionalOverviewLoader,
-    regionSubProjectStatistics
+    regionSubProjectStatistics,
+    region,
+    clearRegionSubProjects
 }) {
 
     
@@ -41,7 +43,7 @@ function RegionalSubProjectsOverview({
 
 
     // config data from the predefined filter
-    const filterConfig = { filterTitle: 'Districts', filterRightTitle: 'Districts', filterLeftTitle: 'Sub projects' }
+    const filterConfig = { filterTitle: 'Districts', filterRightTitle: 'Districts', filterLeftTitle: 'Sub Project(s)' }
 
     // prepare data to display on predefined filter
     const filterData = regionSubProjectsOverView?.length > 0 ? regionSubProjectsOverView.map(({ name, sub_projects_count, id }) =>
@@ -54,6 +56,7 @@ function RegionalSubProjectsOverview({
     const handleGoBack = () => {
         setShowNationalOverview(true);
         setShowRegionalOverview(false);
+        clearRegionSubProjects()
     }
 
     return (
@@ -62,7 +65,7 @@ function RegionalSubProjectsOverview({
             predefinedFilterConfig={filterConfig}
             predefinedFilterData={filterData}
             showRegionalOverviewLoader={showRegionalOverviewLoader}
-            // title={region?.name}
+            title={region?.name}
             handleOnclickFilterItem={handleOnClickFilterItem}
             goBack={handleGoBack}
         />
@@ -77,7 +80,7 @@ RegionalSubProjectsOverview.propTypes = {
     region: PropTypes.object,
     setShowNationalOverview: PropTypes.func.isRequired,
     setShowRegionalOverview: PropTypes.func.isRequired,
-    clearRegionalProjects: PropTypes.func.isRequired,
+    clearRegionSubProjects: PropTypes.func.isRequired,
     regionSubProjectsOverView: PropTypes.array.isRequired,
     getSubProject: PropTypes.func.isRequired,
     showRegionalOverviewLoader: PropTypes.bool,
