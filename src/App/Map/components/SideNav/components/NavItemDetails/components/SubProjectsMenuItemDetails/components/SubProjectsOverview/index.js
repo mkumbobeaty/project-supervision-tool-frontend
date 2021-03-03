@@ -5,11 +5,12 @@ import { bindActionCreators } from "redux";
 import { mapSubProjectActions, mapSubProjectSelectors } from '../../../../../../../../../../redux/modules/map/subProjects';
 import ProjectsTopSection from "../../../ProjectsMenuItemDetails/components/ProjectsTopSection";
 import NationalSubProjectsOverview from "../NationalSubProjectsOverview";
+import TopSection from "../../../TopSection";
 
 const SubProjectsOverview = ({ subProjectsStatistics, getSubProjectsStatistics, showSubProjectsNationalOverview, loadingStatistics }) => {
     return (
         <>
-            <ProjectsTopSection title='SUB PROJECTS' />
+            <TopSection title='SUB PROJECTS' />
             { showSubProjectsNationalOverview ? <NationalSubProjectsOverview
                 getSubProjectsStatistics={getSubProjectsStatistics}
                 subProjectsStatistics={subProjectsStatistics}

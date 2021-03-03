@@ -3,22 +3,7 @@ import PropTypes from 'prop-types';
 import './styles.css'
 import ProjectsMenuItemDetails from './components/ProjectsMenuItemDetails';
 import SubProjectsMenuItemDetails from './components/SubProjectsMenuItemDetails';
-
-function CommingSoon() {
-
-    return (
-        <div>
-            <b>Work on progress</b> <small>(coming soon!!)</small>
-        </div>
-    );
-
-}
-
-function DataSetsMenuItemDetails() {
-
-    return <CommingSoon/>
-
-}
+import DataSetsMenuItemDetails from "./components/DataSetsMenuItemDetails";
 
 
 function NavItemDetails({activeItem}) {

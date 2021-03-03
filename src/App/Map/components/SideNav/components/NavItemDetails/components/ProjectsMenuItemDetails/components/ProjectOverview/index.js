@@ -8,6 +8,7 @@ import {mapActions, mapSelectors} from "../../../../../../../../../../redux/modu
 import {bindActionCreators} from "redux";
 import {projectActions} from "../../../../../../../../../../redux/modules/projects";
 import {mapProjectActions} from "../../../../../../../../../../redux/modules/map/projects";
+import TopSection from "../../../TopSection";
 
 /**
  * @function
@@ -35,7 +36,7 @@ function ProjectsOverview(
 ) {
     return (
         <>
-            <ProjectsTopSection title="PROJECTS" />
+            <TopSection title="PROJECTS" />
             {showNationalOverview ? <NationalProjectsOverview
                 getProjectsOverview={getProjectsOverview}
                 projectsStatistics={projectsStatistics}
