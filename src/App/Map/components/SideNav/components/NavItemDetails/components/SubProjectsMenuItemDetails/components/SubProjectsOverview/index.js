@@ -6,7 +6,7 @@ import { mapSubProjectActions, mapSubProjectSelectors } from '../../../../../../
 import ProjectsTopSection from "../../../ProjectsMenuItemDetails/components/ProjectsTopSection";
 import NationalSubProjectsOverview from "../NationalSubProjectsOverview";
 
-const SubProjectsOverview = ({ subProjectsStatistics, subProjectCountByRegion, getSubProjectsOverview, showSubProjectsNationalOverview, loadingStatistics }) => {
+const SubProjectsOverview = ({ subProjectsStatistics, getSubProjectsByRegion, subProjectCountByRegion, getSubProjectsOverview, showSubProjectsNationalOverview, loadingStatistics }) => {
     return (
         <>
             <ProjectsTopSection title='SUB PROJECTS' />
@@ -15,6 +15,7 @@ const SubProjectsOverview = ({ subProjectsStatistics, subProjectCountByRegion, g
                 subProjectsStatistics={subProjectsStatistics}
                 subProjectCountByRegion={subProjectCountByRegion}
                 loadingStatistics={loadingStatistics}
+                getSubProjectsByRegion={getSubProjectsByRegion}
             /> : ''}
         </>
     );
@@ -24,11 +25,15 @@ const mapStateToProps = state => ({
     subProjectsStatistics: mapSubProjectSelectors.getSubProjectsStatistics(state),
     loadingStatistics: mapSubProjectSelectors.getSubProjectsStatisticsLoading(state),
     showSubProjectsNationalOverview: mapSubProjectSelectors.showSubProjectNationalOverview(state),
-    subProjectCountByRegion: mapSubProjectSelectors.getSubProjectsOverviewSelector(state)
+    subProjectCountByRegion: mapSubProjectSelectors.getSubProjectsOverviewSelector(state),
+    regionSubProjectStatistics: mapSubProjectSelectors.getRegionSubProjectsStatistics(state),
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getSubProjectsOverview: bindActionCreators(mapSubProjectActions.getSubProjectOverviewStart, dispatch),
+    getSubProjectsByRegion: bindActionCreators(mapSubProjectActions.getSubProjectsByRegionStart, dispatch),
+
 });
 
 
