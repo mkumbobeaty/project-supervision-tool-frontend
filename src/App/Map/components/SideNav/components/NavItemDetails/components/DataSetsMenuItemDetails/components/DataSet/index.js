@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { ExclamationCircleOutlined, CloseOutlined } from '@ant-design/icons';
 
 import './styles.css';
+import {Popover} from "antd";
 
 function DataSetAction() {
     const [close, setClose] = useState(false);
@@ -24,17 +25,26 @@ function DataSetAction() {
     )
 }
 
+function DataSetInfo() {
+    return (
+        <div className='DataSetTitleHoverInfo'>
+            <div>Agricultural land (% of land area)</div>
+            <div>Source: World Development Indicators</div>
+        </div>
+    )
+}
+
 
 function DataSet() {
 
     return (
         <div className='DataSet'>
-            <div className='data-set-info'>
+            <Popover className='data-set-info' content={DataSetInfo} title={<b>Data Set Details</b>} placement="right">
                 <ExclamationCircleOutlined />
-            </div>
+            </Popover>
             <div className='data-set-name-source'>
-                <div>Agricultural land (% of land area)</div>
-                <div>Source: World Development Indicators</div>
+                <div title='Agricultural land (% of land area)'>Agricultural land (% of land area)</div>
+                <div title='World Development Indicators'>Source: World Development Indicators</div>
             </div>
             <DataSetAction />
         </div>
