@@ -40,3 +40,10 @@ export const showSubProjectOverview = (state) => state?.map?.subProjects?.sideNa
  * @param {Object} state redux state
  */
 export const getSubProjectoOverviewSelector = (state) => state.map.subProjects.subProjectOverview?.data;
+
+/**
+ * @function
+ * @name getMapLoadingSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectMapLoadingSelector = (state) => state?.map?.subProjects.mapLoading;

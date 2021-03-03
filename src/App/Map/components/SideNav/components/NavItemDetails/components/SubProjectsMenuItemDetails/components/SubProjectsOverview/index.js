@@ -11,7 +11,7 @@ const SubProjectsOverview = ({ subProjectsStatistics, subProjectCountByRegion, g
         <>
             <ProjectsTopSection title='SUB PROJECTS' />
             { showSubProjectsNationalOverview ? <NationalSubProjectsOverview
-                getSubProjectsStatistics={getSubProjectsOverview}
+                getSubProjectsOverview={getSubProjectsOverview}
                 subProjectsStatistics={subProjectsStatistics}
                 subProjectCountByRegion={subProjectCountByRegion}
                 loadingStatistics={loadingStatistics}

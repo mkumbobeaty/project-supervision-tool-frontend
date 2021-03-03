@@ -92,4 +92,3 @@ export const getSubProjectOverviewSuccess = makeActionCreator(types.GET_SUB_PROJ
  */
 export const getSubProjectOverviewFailure = makeActionCreator(types.GET_SUB_PROJECTS_OVERVIEW_FAILURE, 'payload');
 
-export const showMapLoader = makeActionCreator(types.SHOW_SUB_PROJECT_MAP_LOADER, 'payload');

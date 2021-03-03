@@ -12,7 +12,7 @@ function NationalSubProjectsOverview(
     {
         subProjectsStatistics,
         loadingStatistics,
-        getSubProjectsStatistics,
+        getSubProjectsOverview,
         subProjectCountByRegion
     }
     ) {
@@ -20,7 +20,7 @@ function NationalSubProjectsOverview(
     // get project overview when
     // a  component has mounted
     useEffect(() => {
-        getSubProjectsStatistics();
+        getSubProjectsOverview();
     }, []);
 
 
@@ -47,7 +47,6 @@ function NationalSubProjectsOverview(
     // prepare data for ProjectsRegionsPredefinedFilter
     const filterConfig = {filterTitle: 'Regions', filterRightTitle: 'Regions', filterLeftTitle: 'Sub Projects'}
     const filterData = subProjectCountByRegion?.length > 0 ? getFilterData(subProjectCountByRegion) : []
-console.log(subProjectCountByRegion)
 
     return (
         <SideNavItemOverview
@@ -66,7 +65,7 @@ export default NationalSubProjectsOverview;
 
 NationalSubProjectsOverview.propTypes = {
     subProjectsStatistics: PropTypes.object,
-    getSubProjectsStatistics: PropTypes.func.isRequired
+    getSubProjectsOverview: PropTypes.func.isRequired
 }
 
 NationalSubProjectsOverview.defaultProps = {
