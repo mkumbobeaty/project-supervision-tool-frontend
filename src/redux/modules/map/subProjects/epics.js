@@ -91,9 +91,31 @@ const getSubProjectsByRegionEpic = action$ => {
         }),
     );
 }
+
+/**
+ *
+ * @function
+ * @name getRegionSubProjectStatisticsEpic
+ * @param action$ stream of actions
+ */
+const getRegionSubProjectStatisticsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_REGION_SUB_PROJECT_STATISTICS_START),
+        switchMap(({payload}) => {
+            return from(API.getSubRegionProjectStatistics(payload)).pipe(
+                switchMap(res => from([
+                    actions.getRegionSubProjectStatisticsSuccess(res.data),
+                ])),
+                catchError(error => of(actions.getRegionSubProjectStatisticsFailure(error)))
+            );
+        }),
+    );
+}
+
 export const mapSubProjectEpics = combineEpics(
     getSubProjectMapEpic,
     getSubProjectsStatistics,
     getSubProjectsOverviewEpic,
-    getSubProjectsByRegionEpic
+    getSubProjectsByRegionEpic,
+    getRegionSubProjectStatisticsEpic
 );

@@ -34,7 +34,8 @@ function RegionalSubProjectsOverview({
     // data tobe displayed  on the overview filter
     const overViewData = regionSubProjectStatistics ? [
         { title: 'Sub Projects', value: regionSubProjectStatistics.sub_projects },
-        { title: 'Districts', value: regionSubProjectStatistics.projects },
+        { title: 'Commitment Amount', value: "23456 USD" },
+        { title: 'Districts', value: "2" },
 
     ] : [];
 
@@ -54,8 +55,6 @@ function RegionalSubProjectsOverview({
         setShowNationalOverview(true);
         setShowRegionalOverview(false);
     }
-    console.log("region", regionSubProjectsOverView)
-    console.log("region statics", regionSubProjectStatistics)
 
     return (
         <SideNavItemOverview
