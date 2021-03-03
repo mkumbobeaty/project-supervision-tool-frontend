@@ -57,7 +57,6 @@ function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject, ge
     const sideMenuObj = subProject ? mapToSideMenuObject(subProject) : null;
     const history = useHistory();
     
-    const handleOnclickSubProjectElement = (id) => getSubProjectElement(id);
     const viewFullSubProjectDetails = () => history.push(`/app/sub_projects/${subProject.id}`);
 
 
