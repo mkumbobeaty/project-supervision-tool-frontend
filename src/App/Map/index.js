@@ -143,7 +143,7 @@ const mapStateToProps = (state) => ({
     subProjectElement: projectSelectors.getSubProjectElementSelector(state),
     project: mapProjectSelectors.getProjectSelector(state),
     wfsLayerData: mapSelectors.getWfsLayerDataSelector(state),
-    subProjectsOverview: mapSubProjectSelectors.getSubProjectoOverviewSelector(state),
+    subProjectsOverview: mapSubProjectSelectors.getSubProjectsOverviewSelector(state),
     loading: mapSubProjectSelectors.getSubProjectMapLoadingSelector(state),
     isShowSubProjectOverview: mapSubProjectSelectors.showSubProjectOverview(state)
 });

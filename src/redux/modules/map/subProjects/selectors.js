@@ -39,7 +39,7 @@ export const showSubProjectOverview = (state) => state?.map?.subProjects?.sideNa
  * @name getSubProjectSelector
  * @param {Object} state redux state
  */
-export const getSubProjectoOverviewSelector = (state) => state.map.subProjects.subProjectOverview?.data;
+export const getSubProjectsOverviewSelector = (state) => state.map.subProjects.subProjectOverview?.dataoverview;
 
 /**
  * @function

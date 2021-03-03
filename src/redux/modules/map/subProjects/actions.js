@@ -92,3 +92,11 @@ export const getSubProjectOverviewSuccess = makeActionCreator(types.GET_SUB_PROJ
  */
 export const getSubProjectOverviewFailure = makeActionCreator(types.GET_SUB_PROJECTS_OVERVIEW_FAILURE, 'payload');
 
+
+/**
+ * @function
+ * @name clearSubProjectOverview
+ * @description clears sub project  in state
+ * @return {Object} action
+ */
+export const clearSubProjectOverview = makeActionCreator(types.CLEAR_SUB_PROJECTS_OVERVIEW);

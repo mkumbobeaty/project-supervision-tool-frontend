@@ -77,7 +77,6 @@ class SubProjectRegionsGeoJson extends Component{
         return (
             <>
                 { this.renderProjectsOverview(subProjectsOverview) }
-                {subProjectsOverview.length > 0 ? <Legend key="projects-legend"/> : ''}
             </>
         );
     }

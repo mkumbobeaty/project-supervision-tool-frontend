@@ -47,15 +47,15 @@ const subProjectsStatistics = (state = { data: null, loading: false, error: null
 };
 
 const subProjectOverview = (state = {
-    data: []
+    dataoverview: []
 }, action) => {
     switch (action.type) {
         case types.GET_SUB_PROJECTS_OVERVIEW_START:
             return { ...state }
         case types.GET_SUB_PROJECTS_OVERVIEW_SUCCESS:
-            return { ...state, data: action.payload };
+            return { ...state, dataoverview: action.payload };
         case types.CLEAR_SUB_PROJECTS_OVERVIEW:
-            return { ...state, data: [] };
+            return { ...state, dataoverview: [] };
         case types.GET_SUB_PROJECTS_OVERVIEW_FAILURE:
             return { ...state, error: action.payload };
         default:

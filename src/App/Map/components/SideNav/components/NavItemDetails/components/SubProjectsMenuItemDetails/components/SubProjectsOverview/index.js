@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
     subProjectsStatistics: mapSubProjectSelectors.getSubProjectsStatistics(state),
     loadingStatistics: mapSubProjectSelectors.getSubProjectsStatisticsLoading(state),
     showSubProjectsNationalOverview: mapSubProjectSelectors.showSubProjectNationalOverview(state),
-    subProjectCountByRegion: mapSubProjectSelectors.getSubProjectoOverviewSelector(state)
+    subProjectCountByRegion: mapSubProjectSelectors.getSubProjectsOverviewSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
