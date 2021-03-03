@@ -5,8 +5,7 @@ import {from, of} from "rxjs";
 import API from "../../../../API";
 import * as actions from "./actions";
 import {mapProjectActions} from "../projects";
-import { showMapLoader } from "../actions";
-import { act } from "react-dom/test-utils";
+
 
 /**
  * @function
@@ -81,7 +80,7 @@ const getSubProjectsByRegionEpic = action$ => {
         switchMap(({payload}) => {
             return from(API.getSubProjectsByRegion(payload)).pipe(
                 switchMap(res => from([
-                    actions.getSubProjectStatisticsStart(payload),
+                    actions.getRegionSubProjectStatisticsStart(payload),
                     actions.getSubProjectsByRegionSuccess(res.data),
                     actions.clearSubProjectStatistics(),
                     actions.showRegionSubProjectsOverview(true),

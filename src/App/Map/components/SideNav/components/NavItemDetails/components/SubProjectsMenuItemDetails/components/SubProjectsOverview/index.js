@@ -5,8 +5,23 @@ import { bindActionCreators } from "redux";
 import { mapSubProjectActions, mapSubProjectSelectors } from '../../../../../../../../../../redux/modules/map/subProjects';
 import ProjectsTopSection from "../../../ProjectsMenuItemDetails/components/ProjectsTopSection";
 import NationalSubProjectsOverview from "../NationalSubProjectsOverview";
+import RegionalSubProjectsOverview from "../RegionalSubProjectsOverview";
 
-const SubProjectsOverview = ({ subProjectsStatistics, getSubProjectsByRegion, subProjectCountByRegion, getSubProjectsOverview, showSubProjectsNationalOverview, loadingStatistics }) => {
+const SubProjectsOverview = ({
+    subProjectsStatistics,
+    getSubProjectsByRegion,
+    subProjectCountByRegion,
+    getSubProjectsOverview,
+    showSubProjectsNationalOverview,
+    regionSubProjectStatistics,
+    loadingStatistics,
+    showRegionalOverview,
+    showRegionalOverviewLoader,
+    regionSubProjectsOverView,
+    setShowRegionalOverview,
+    setShowNationalOverview,
+    getSubProject
+}) => {
     return (
         <>
             <ProjectsTopSection title='SUB PROJECTS' />
@@ -16,6 +31,14 @@ const SubProjectsOverview = ({ subProjectsStatistics, getSubProjectsByRegion, su
                 subProjectCountByRegion={subProjectCountByRegion}
                 loadingStatistics={loadingStatistics}
                 getSubProjectsByRegion={getSubProjectsByRegion}
+            /> : ''}
+            {showRegionalOverview ? <RegionalSubProjectsOverview
+                regionSubProjectStatistics={regionSubProjectStatistics}
+                showRegionalOverviewLoader={showRegionalOverviewLoader}
+                regionSubProjectsOverView={regionSubProjectsOverView}
+                setShowNationalOverview={setShowNationalOverview}
+                setShowRegionalOverview={setShowRegionalOverview}
+                getSubProject={getSubProject}
             /> : ''}
         </>
     );
@@ -27,13 +50,17 @@ const mapStateToProps = state => ({
     showSubProjectsNationalOverview: mapSubProjectSelectors.showSubProjectNationalOverview(state),
     subProjectCountByRegion: mapSubProjectSelectors.getSubProjectsOverviewSelector(state),
     regionSubProjectStatistics: mapSubProjectSelectors.getRegionSubProjectsStatistics(state),
-
+    showRegionalOverview: mapSubProjectSelectors.showRegionalOverviewSelector(state),
+    showRegionalOverviewLoader: mapSubProjectSelectors.getRegionSubProjectsStatisticsLoader(state),
+    regionSubProjectsOverView: mapSubProjectSelectors.getRegionSubProjectsOverviewSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getSubProjectsOverview: bindActionCreators(mapSubProjectActions.getSubProjectOverviewStart, dispatch),
     getSubProjectsByRegion: bindActionCreators(mapSubProjectActions.getSubProjectsByRegionStart, dispatch),
-
+    setShowRegionalOverview: bindActionCreators(mapSubProjectActions.showRegionSubProjectsOverview, dispatch),
+    setShowNationalOverview: bindActionCreators(mapSubProjectActions.showNationalSubProjectsOverview, dispatch),
+    getSubProject:bindActionCreators(mapSubProjectActions.getSubProjectStart, dispatch)
 });
 
 

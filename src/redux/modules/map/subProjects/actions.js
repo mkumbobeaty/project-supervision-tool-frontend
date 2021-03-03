@@ -83,6 +83,13 @@ export const showSubProjectsOverview = makeActionCreator(types.SHOW_SUB_PROJECTS
 
 /**
  * @function
+ * @name showSubProjectsByRegion
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const showSubProjectsByRegion = makeActionCreator(types.SHOW_REGIONAL_SUB_PROJECTS_OVERVIEW, 'payload');
+
+/**
+ * @function
  * @name showRegionSubProjectsOverview
  * @param {Boolean} payload value to ether show or hide
  */

@@ -38,6 +38,14 @@ export const showSubProjectOverview = (state) => state?.map?.subProjects?.sideNa
 
 /**
  * @function
+ * @name showRegionalOverviewSelector
+ * @param {Object} state redux state
+ * @return {Boolean} showProjectOverview status
+ */
+export const showRegionalOverviewSelector = (state) => state?.map?.subProjects?.sideNavMenu?.showRegionalOverview;
+
+/**
+ * @function
  * @name getSubProjectSelector
  * @param {Object} state redux state
  */
