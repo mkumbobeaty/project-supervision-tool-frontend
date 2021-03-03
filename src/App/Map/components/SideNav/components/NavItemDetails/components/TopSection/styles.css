@@ -1,0 +1,17 @@
+
+
+.TopSection {
+    padding: 20px 10px 0 10px;
+}
+
+.TopSection section {
+    padding-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.TopSection section div {
+    color: #2f333b;
+    font-weight: bold;
+}
