@@ -12,6 +12,7 @@ import itemsAPI from './items';
 import progressAPI from './progress'
 import wfsRequests from  './wfs_requests';
 import usersAPI from './users';
+import geonodeAPI from './geonode';
 
 export default {
     ...projectsAPI,
@@ -26,5 +27,6 @@ export default {
     ...wfsRequests,
     ...itemsAPI,
     ...progressAPI,
-    ...usersAPI
+    ...usersAPI,
+    ...geonodeAPI,
 }

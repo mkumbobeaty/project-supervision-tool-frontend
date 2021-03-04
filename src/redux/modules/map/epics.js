@@ -6,6 +6,7 @@ import API from "../../../API";
 import * as actions from "./actions";
 import {mapProjectActions, mapProjectEpics} from './projects/'
 import {mapSubProjectActions, mapSubProjectEpics} from "./subProjects";
+import { mapDataSetsEpics } from './dataSets'
 
 /**
  * @function
@@ -20,7 +21,8 @@ const getProjectsOverviewEpic = action$ => {
                 switchMap(res => from([
                     actions.getProjectsOverviewSuccess(res.data),
                     actions.showMapLoader(false),
-                    actions.getProjectsStatisticsStart()
+                    actions.getProjectsStatisticsStart(),
+                    mapSubProjectActions.clearSubProjectOverview()
                 ])),
                 catchError(error => from([actions.getProjectsOverviewFailure(error), actions.showMapLoader(false)]))
             );
@@ -191,6 +193,7 @@ const backFromSubProjectElementToSubProjectDetailsEpics = actions$ => actions$.p
 export const mapRootEpic = combineEpics(
     mapProjectEpics,
     mapSubProjectEpics,
+    mapDataSetsEpics,
     getProjectsOverviewEpic,
     getProjectsByRegionEpic,
     triggerGetRegionDetailEpic,

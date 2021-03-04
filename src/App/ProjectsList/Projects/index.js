@@ -298,7 +298,7 @@ class Projects extends Component {
                 </Link>
               </Col>
               <Col {...subProjectsSpan}>{item.sub_projects ? item.sub_projects.length : 'N/A'}</Col>
-              <Col {...projectLeadSpan}>{item.leaders ? item.leaders[0].first_name + ' ' + item.leaders[0].last_name : 'N/A'}</Col>
+              <Col {...projectLeadSpan}>{item.leaders ? item?.leaders.map(({first_name, last_name}, index) => { return <p>{first_name } {last_name} {index >= 0 ? "," : ""}</p>}): 'N/A'}</Col>
               <Col {...projectCoordinatorSpan}>{item.details.implementing_agency ? item.details.implementing_agency.focalPerson.first_name + ' ' + item.details.implementing_agency.focalPerson.last_name : 'N/A'}</Col>
 
               {/* eslint-enable react/jsx-props-no-spreading */}

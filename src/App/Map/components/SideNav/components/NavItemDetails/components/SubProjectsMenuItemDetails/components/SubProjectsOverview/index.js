@@ -7,13 +7,14 @@ import ProjectsTopSection from "../../../ProjectsMenuItemDetails/components/Proj
 import NationalSubProjectsOverview from "../NationalSubProjectsOverview";
 import TopSection from "../../../TopSection";
 
-const SubProjectsOverview = ({ subProjectsStatistics, getSubProjectsStatistics, showSubProjectsNationalOverview, loadingStatistics }) => {
+const SubProjectsOverview = ({ subProjectsStatistics, subProjectCountByRegion, getSubProjectsOverview, showSubProjectsNationalOverview, loadingStatistics }) => {
     return (
         <>
             <TopSection  title='SUB PROJECTS'  searchPlaceHolder='Search SubProjects'/>
             { showSubProjectsNationalOverview ? <NationalSubProjectsOverview
-                getSubProjectsStatistics={getSubProjectsStatistics}
+                getSubProjectsOverview={getSubProjectsOverview}
                 subProjectsStatistics={subProjectsStatistics}
+                subProjectCountByRegion={subProjectCountByRegion}
                 loadingStatistics={loadingStatistics}
             /> : ''}
         </>
@@ -24,11 +25,11 @@ const mapStateToProps = state => ({
     subProjectsStatistics: mapSubProjectSelectors.getSubProjectsStatistics(state),
     loadingStatistics: mapSubProjectSelectors.getSubProjectsStatisticsLoading(state),
     showSubProjectsNationalOverview: mapSubProjectSelectors.showSubProjectNationalOverview(state),
-
+    subProjectCountByRegion: mapSubProjectSelectors.getSubProjectsOverviewSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getSubProjectsStatistics: bindActionCreators(mapSubProjectActions.getSubProjectStatisticsStart, dispatch),
+    getSubProjectsOverview: bindActionCreators(mapSubProjectActions.getSubProjectOverviewStart, dispatch),
 });
 
 
