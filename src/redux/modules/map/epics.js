@@ -21,7 +21,8 @@ const getProjectsOverviewEpic = action$ => {
                 switchMap(res => from([
                     actions.getProjectsOverviewSuccess(res.data),
                     actions.showMapLoader(false),
-                    actions.getProjectsStatisticsStart()
+                    actions.getProjectsStatisticsStart(),
+                    mapSubProjectActions.clearSubProjectOverview()
                 ])),
                 catchError(error => from([actions.getProjectsOverviewFailure(error), actions.showMapLoader(false)]))
             );

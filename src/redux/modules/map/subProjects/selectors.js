@@ -33,3 +33,17 @@ export const showSubProjectNationalOverview = (state) => state?.map?.subProjects
  * @param {Object} state redux state
  */
 export const showSubProjectOverview = (state) => state?.map?.subProjects?.sideNavMenu?.showSubProjectOverview;
+
+/**
+ * @function
+ * @name getSubProjectSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectsOverviewSelector = (state) => state.map.subProjects.subProjectOverview?.dataoverview;
+
+/**
+ * @function
+ * @name getMapLoadingSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectMapLoadingSelector = (state) => state?.map?.subProjects.mapLoading;
