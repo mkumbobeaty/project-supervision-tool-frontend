@@ -8,17 +8,16 @@ import DataSet from "./components/DataSet";
 import './styles.css'
 import {mapDataSetsActions, mapDataSetsSelectors} from "../../../../../../../../redux/modules/map/dataSets";
 
-function DataSetsMenuItemDetails({ getLayers, layers, addDataSet, removeDataSet}) {
+function DataSetsMenuItemDetails({ getLayers, layers, addDataSet, removeDataSet, total}) {
     useEffect(() => {
       getLayers();
       console.log(layers);
     }, []);
 
-    const renderLayers = (data) => data.map(layer => (<DataSet layer={layer} addDataSet={addDataSet} removeDataSet={removeDataSet}/>))
 
     return (
         <>
-            <TopSection searchPlaceHolder="Search Data " title="DATA SETS (1434)" />
+            <TopSection searchPlaceHolder="Search Data " title={`DATA SETS (${total})`} />
             <div className='data-set-items'>
                 {layers.length > 0 ? layers.map(layer => (<DataSet layer={layer} addDataSet={addDataSet} removeDataSet={removeDataSet}/>)) : ''}
             </div>
@@ -30,6 +29,7 @@ function DataSetsMenuItemDetails({ getLayers, layers, addDataSet, removeDataSet}
 
 const mapStateToProps = state => ({
     layers: mapDataSetsSelectors.getGeonodeLayersSelector(state),
+    total: mapDataSetsSelectors.getTotalDataSetsSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -46,8 +46,10 @@ DataSetsMenuItemDetails.propTypes = {
     removeDataSet: PropTypes.func.isRequired,
     getLayers: PropTypes.func.isRequired,
     layers: PropTypes.array.isRequired,
+    total: PropTypes.number,
 }
 
 DataSetsMenuItemDetails.defaultProps = {
-    layers: []
+    layers: [],
+    total: 0,
 }
