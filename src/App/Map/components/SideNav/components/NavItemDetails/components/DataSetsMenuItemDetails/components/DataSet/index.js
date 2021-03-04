@@ -5,7 +5,7 @@ import { ExclamationCircleOutlined, CloseOutlined } from '@ant-design/icons';
 import './styles.css';
 import {Popover} from "antd";
 
-function DataSetAction() {
+function DataSetAction({addDataSet, removeDataSet, dataSet}) {
     const [close, setClose] = useState(false);
 
     return (
@@ -13,17 +13,29 @@ function DataSetAction() {
             <div
                 className='add'
                 style={{'display': close ? 'none' : 'block'}}
-                onClick={() => setClose(true)}
+                onClick={() => {
+                    setClose(true);
+                     addDataSet(dataSet)
+                }}
             >
                 Add
             </div>
             <CloseOutlined
                 className='close'
                 style={{'display': close ? 'block': 'none'}}
-                onClick={() => setClose(false)}
+                onClick={() => {
+                    setClose(false);
+                    removeDataSet(dataSet)
+                }}
             />
         </div>
     )
+}
+
+DataSetAction.propTypes = {
+    dataSet: PropTypes.object.isRequired,
+    addDataSet: PropTypes.func.isRequired,
+    removeDataSet: PropTypes.func.isRequired,
 }
 
 function DataSetInfo({layer}) {
@@ -43,7 +55,7 @@ DataSetInfo.propTypes = {
 }
 
 
-function DataSet({layer}) {
+function DataSet({layer, addDataSet, removeDataSet}) {
     const {name, abstract } = layer;
     return (
         <div className='DataSet'>
@@ -60,7 +72,11 @@ function DataSet({layer}) {
                 <div title={name} >{name}</div>
                 <div title={abstract}>Abstract: {abstract}</div>
             </div>
-            <DataSetAction />
+            <DataSetAction
+                addDataSet={addDataSet}
+                removeDataSet={removeDataSet}
+                dataSet={layer}
+            />
         </div>
 
     )
@@ -72,5 +88,7 @@ function DataSet({layer}) {
 export default DataSet;
 
 DataSet.propTypes = {
-    layer: PropTypes.object.isRequired
+    layer: PropTypes.object.isRequired,
+    addDataSet: PropTypes.func.isRequired,
+    removeDataSet: PropTypes.func.isRequired,
 }
