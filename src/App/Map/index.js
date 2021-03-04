@@ -16,7 +16,7 @@ import ProjectLocations from "./components/ProjectLocations";
 import SubProjectLocations from "./components/SubProjectLocations";
 import SubProjectElementWfsLayer from "./components/SubProjectElementWfsLayer";
 import { mapProjectSelectors } from "../../redux/modules/map/projects";
-import { mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
+import { mapSubProjectActions, mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
 import SubRegionsGeoJson from './components/SubRegionsGeoJson ';
 import ShowDataSets from "./components/ShowDataSets";
 
@@ -99,6 +99,7 @@ class MapDashboard extends Component {
         const {
             projectsOverview,
             getProjectsByRegion,
+            getSubProjectsByRegion,
             regionDetails,
             regionProjects,
             project,
@@ -117,7 +118,7 @@ class MapDashboard extends Component {
                                 getProjectsByRegion={getProjectsByRegion}
                                 projectsOverview={projectsOverview}
                             />
-                        <SubRegionsGeoJson subProjectsOverview={subProjectsOverview} />
+                        <SubRegionsGeoJson subProjectsOverview={subProjectsOverview} getSubProjectsByRegion={getSubProjectsByRegion} />
                         {regionDetails ? <RegionDetailGeoJson data={regionDetails} /> : ''}
                         {regionDetails && (regionProjects.length > 0) ?
                             <ProjectPoints
@@ -153,6 +154,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
     getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
+    getSubProjectsByRegion: bindActionCreators(mapSubProjectActions.getSubProjectsByRegionStart, dispatch),
+
 });
 
 

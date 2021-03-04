@@ -78,7 +78,23 @@ axios.post(`/locations`, project_location).then((response) => response.data);
  * */
 const getSubProjectOverview = () =>
 axios.get(`/locations/regions/sub_projects_overview`).then((response) => response.data);
+/**
+ * @function
+ * @name getSubProjectsByRegion
+ * @param {string} region_id
+ * @description get projects based on region
+ * */
+const getSubProjectsByRegion = (region_id) =>
+    axios.get(`/locations/sub_projects_overview_by_region/${region_id}`).then((response) => response.data);
 
+/**
+ * @function
+ * @name getSubRegionProjectStatistics
+ * @param {string} region_id
+ * @description get projects statistics based on region
+ * */
+const getSubRegionProjectStatistics = (region_id) =>
+    axios.get(`/locations/region/${region_id}/sub_project_statistics`).then((response) => response.data);
 
 export default {
     getProjectOverview,
@@ -89,5 +105,7 @@ export default {
     getLocations,
     getRegionProjectStatistics,
     createProjectLocation,
-    getSubProjectOverview
+    getSubProjectOverview,
+    getSubProjectsByRegion,
+    getSubRegionProjectStatistics
 }

@@ -1,3 +1,5 @@
+import { subProjects } from "./reducers";
+
 /**
  * @function
  * @name getSubProjectSelector
@@ -36,6 +38,14 @@ export const showSubProjectOverview = (state) => state?.map?.subProjects?.sideNa
 
 /**
  * @function
+ * @name showRegionalOverviewSelector
+ * @param {Object} state redux state
+ * @return {Boolean} showProjectOverview status
+ */
+export const showRegionalOverviewSelector = (state) => state?.map?.subProjects?.sideNavMenu?.showRegionalOverview;
+
+/**
+ * @function
  * @name getSubProjectSelector
  * @param {Object} state redux state
  */
@@ -47,3 +57,24 @@ export const getSubProjectsOverviewSelector = (state) => state.map.subProjects.s
  * @param {Object} state redux state
  */
 export const getSubProjectMapLoadingSelector = (state) => state?.map?.subProjects.mapLoading;
+
+/**
+ * @function
+ * @name getRegionSubProjectsStatistics
+ * @param {Object} state redux state
+ */
+export const getRegionSubProjectsStatistics = (state) => state?.map?.subProjects?.regionSubProjectsStatistics?.data;
+
+/**
+ * @function
+ * @name getRegionSubProjectsStatisticsLoader
+ * @param {Object} state redux state
+ */
+export const getRegionSubProjectsStatisticsLoader = (state) => state?.map?.subProjects?.regionSubProjectsStatistics?.loading;
+
+/**
+ * @function
+ * @name getRegionProjectsSelector
+ * @param {Object} state redux state
+ */
+export const getRegionSubProjectsOverviewSelector = (state) => state?.map?.subProjects?.regionSubProjects?.data;

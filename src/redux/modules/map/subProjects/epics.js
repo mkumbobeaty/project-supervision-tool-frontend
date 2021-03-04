@@ -5,6 +5,8 @@ import {from, of} from "rxjs";
 import API from "../../../../API";
 import * as actions from "./actions";
 import {mapProjectActions} from "../projects";
+import { mapActions } from "..";
+
 
 /**
  * @function
@@ -67,8 +69,56 @@ const getSubProjectsOverviewEpic = action$ => {
     );
 }
 
+/**
+ *
+ * @function
+ * @name getSubProjectsByRegionEpic
+ * @param action$ stream of actions
+ */
+const getSubProjectsByRegionEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECTS_REGIONS_OVERVIEW_START),
+        switchMap(({payload}) => {
+            return from(API.getSubProjectsByRegion(payload)).pipe(
+                switchMap(res => from([
+                    actions.getRegionSubProjectStatisticsStart(payload),
+                    actions.getSubProjectsByRegionSuccess(res.data),
+                    actions.clearSubProjectOverview(),
+                    mapActions.getRegionStart(payload),
+                    actions.showRegionSubProjectsOverview(true),
+                    actions.showNationalSubProjectsOverview(false)
+                ])),
+                catchError(error => of(actions.getSubProjectsByRegionFailures(error)))
+            );
+        }),
+    );
+}
+
+
+/**
+ *
+ * @function
+ * @name getRegionSubProjectStatisticsEpic
+ * @param action$ stream of actions
+ */
+const getRegionSubProjectStatisticsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_REGION_SUB_PROJECT_STATISTICS_START),
+        switchMap(({payload}) => {
+            return from(API.getSubRegionProjectStatistics(payload)).pipe(
+                switchMap(res => from([
+                    actions.getRegionSubProjectStatisticsSuccess(res.data),
+                ])),
+                catchError(error => of(actions.getRegionSubProjectStatisticsFailure(error)))
+            );
+        }),
+    );
+}
+
 export const mapSubProjectEpics = combineEpics(
     getSubProjectMapEpic,
     getSubProjectsStatistics,
     getSubProjectsOverviewEpic,
+    getSubProjectsByRegionEpic,
+    getRegionSubProjectStatisticsEpic
 );
