@@ -6,19 +6,18 @@ import './styles.css';
 
 /**
  * @function
- * @name RegionalSubProjectsOverview
+ * @name DistrictsSubProjectsOverview
  * @description renders project overview at regional level
  */
-function RegionalSubProjectsOverview({
-    setShowNationalOverview,
+function DistrictsSubProjectsOverview({
     setShowRegionalOverview,
+    setShowDistrictsOverview,
+     districtsSubProjects,
+    showDistrictsOverviewLoader,
+    // regionSubProjectStatistics,
+    // region,
     getSubProject,
-    regionSubProjectsOverView,
-    showRegionalOverviewLoader,
-    regionSubProjectStatistics,
-    region,
-    getDistricts,
-    clearRegionSubProjects
+    clearDistrictsSubProjects
 }) {
 
     
@@ -35,8 +34,8 @@ function RegionalSubProjectsOverview({
     // }
 
     // data tobe displayed  on the overview filter
-    const overViewData = regionSubProjectStatistics ? [
-        { title: 'Sub Projects', value: regionSubProjectStatistics.sub_projects },
+    const overViewData = districtsSubProjects ? [
+        { title: 'Sub Projects', value: districtsSubProjects.length },
         { title: 'Commitment Amount', value: "23456 USD" },
         { title: 'Districts', value: "2" },
 
@@ -44,31 +43,30 @@ function RegionalSubProjectsOverview({
 
 
     // config data from the predefined filter
-    const filterConfig = { filterTitle: 'Districts', filterRightTitle: 'Districts', filterLeftTitle: 'Sub Project(s)' }
+    const filterConfig = { filterTitle: 'Sub Project(s)', filterRightTitle: 'Sub Project(s)', filterLeftTitle: 'Phase' }
 
     // prepare data to display on predefined filter
-    const filterData = regionSubProjectsOverView?.length > 0 ? regionSubProjectsOverView.map(({ name, sub_projects_count, id }) =>
-        ({ title: name, value: sub_projects_count, id })) : '';
+    const filterData = districtsSubProjects?.length > 0 ? districtsSubProjects.map(({ name, details, id }) =>
+        ({ title: name, value: details.phase.name, id })) : '';
 
     const handleOnClickFilterItem = (id) => {
-        // getSubProject(id);
-        getDistricts(id)
+        getSubProject(id)
         console.log("clicked" + id)
     };
 
     const handleGoBack = () => {
-        setShowNationalOverview(true);
-        setShowRegionalOverview(false);
-        clearRegionSubProjects()
+        setShowRegionalOverview(true);
+        setShowDistrictsOverview(false);
+        // clearDistrictsSubProjects()
     }
-
+debugger
     return (
         <SideNavItemOverview
             overViewData={overViewData}
             predefinedFilterConfig={filterConfig}
             predefinedFilterData={filterData}
-            showRegionalOverviewLoader={showRegionalOverviewLoader}
-            title={region?.name}
+            showDistrictsOverviewLoader={showDistrictsOverviewLoader}
+            title={districtsSubProjects?.[0].sub_project_locations.map(({district}) => district.name)} 
             handleOnclickFilterItem={handleOnClickFilterItem}
             goBack={handleGoBack}
         />
@@ -76,20 +74,20 @@ function RegionalSubProjectsOverview({
 
 }
 
-export default RegionalSubProjectsOverview;
+export default DistrictsSubProjectsOverview;
 
-RegionalSubProjectsOverview.propTypes = {
+DistrictsSubProjectsOverview.propTypes = {
     regionSubProjectStatistics: PropTypes.object,
     region: PropTypes.object,
-    setShowNationalOverview: PropTypes.func.isRequired,
     setShowRegionalOverview: PropTypes.func.isRequired,
-    clearRegionSubProjects: PropTypes.func.isRequired,
-    regionSubProjectsOverView: PropTypes.array.isRequired,
+    setShowDistrictsOverview: PropTypes.func.isRequired,
+    clearDistrictsSubProjects: PropTypes.func.isRequired,
+    districtsSubProjects: PropTypes.array.isRequired,
     getSubProject: PropTypes.func.isRequired,
-    showRegionalOverviewLoader: PropTypes.bool,
+    showDistrictsOverviewLoader: PropTypes.bool,
 }
 
-RegionalSubProjectsOverview.defaultProps = {
+DistrictsSubProjectsOverview.defaultProps = {
     region: null,
     regionSubProjectStatistics: null,
 }
