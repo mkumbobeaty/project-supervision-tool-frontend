@@ -129,7 +129,7 @@ const getDistrictsPerRegionEpic = action$ => {
             return from(API.getDistrictsSubProjectOverview(payload)).pipe(
                 switchMap(res =>  from([
                     actions.getDistrictsSubProjectsOverviewSuccess(res.data),
-                    actions.clearRegionSubProjects(),
+                    // actions.clearRegionSubProjects(),
                     actions.getDistrictsStart(payload),
                     actions.showDistrictsSubProjectsOverview(true),
                     actions.showRegionSubProjectsOverview(false),
@@ -146,7 +146,6 @@ const districtsEpic = action$ => {
         switchMap(({payload}) =>  {
             return from(API.getDistricts(payload)).pipe(
             switchMap(res => { 
-                debugger
                 return of(actions.getDistrictsSuccess(res.data)) }),
             catchError(error => of(actions.getDistrictsFailure(error)))
         )}

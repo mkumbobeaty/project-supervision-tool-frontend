@@ -107,7 +107,7 @@ const sideNavMenu = (state = sideNavMenuInitialState, action) => {
             return { ...state, showSubProjectOverview: action.payload }
         case types.SHOW_REGIONAL_SUB_PROJECTS_OVERVIEW:
             return { ...state, showRegionalOverview: action.payload };
-        case types.SHOW_REGIONAL_SUB_PROJECTS_OVERVIEW:
+        case types.SHOW_DISTRICTS_SUB_PROJECTS_OVERVIEW:
             return { ...state, showDistrictsOverview: action.payload };
         default:
             return state;
@@ -119,9 +119,9 @@ const districtsSubProjects = (state = { data: [], error: null, loading: false },
         case types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_START:
             return { ...state, loading: true };
         case types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_SUCCESS:
-            return { ...state, data: action.payload };
+            return { ...state, data: action.payload, loading:false };
         case types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_FAILURE:
-            return { ...state, error: action.payload };
+            return { ...state, error: action.payload, loading:false };
         case types.CLEAR_DISRTRICTS_SUB_PROJECTS_OVERVIEW:
             return { ...state, data: [] };
         default:

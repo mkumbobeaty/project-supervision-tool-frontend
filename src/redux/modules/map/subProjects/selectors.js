@@ -91,6 +91,13 @@ export const getRegionSubProjectsOverviewSelector = (state) => state?.map?.subPr
  * @name getDistrictsSubProjectsSelector
  * @param {Object} state redux state
  */
-export const getDistrictsSubProjectsSelector = (state) => state?.map?.districtsSubProjects?.data;
+export const getDistrictsSubProjectsSelector = (state) => state?.map?.subProjects?.districtsSubProjects?.data;
+
+/**
+ * @function
+ * @name getDistrictsSubProjectsLoader
+ * @param {Object} state redux state
+ */
+export const getDistrictsSubProjectsLoader = (state) => state?.map?.subProjects?.districtsSubProjects?.loading;
 
 export const getDistrictsMapSelector = (state) => state?.subProjects?.districts.data;
