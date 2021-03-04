@@ -15,7 +15,7 @@ const axiosGeonode = Axios.create({
  * @description get layers  from Geonode
  */
 const getLayers = () =>
-    axiosGeonode.get(`${baseUrl}/layers`).then((response) => response.data);
+    axiosGeonode.get(`${baseUrl}/layers`, {params: { limit: 10}}).then((response) => response.data);
 
 
 export default {

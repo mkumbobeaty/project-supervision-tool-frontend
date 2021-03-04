@@ -6,40 +6,44 @@ import TopSection from "../TopSection";
 import DataSet from "./components/DataSet";
 
 import './styles.css'
-import {mapDataSetsActions} from "../../../../../../../../redux/modules/map/dataSets";
+import {mapDataSetsActions, mapDataSetsSelectors} from "../../../../../../../../redux/modules/map/dataSets";
 
-function DataSetsMenuItemDetails({ getLayers}) {
+function DataSetsMenuItemDetails({ getLayers, layers}) {
     useEffect(() => {
       getLayers();
+      console.log(layers);
     }, []);
+
+    const renderLayers = (data) => data.map(layer => (<DataSet layer={layer}/>))
 
     return (
         <>
             <TopSection searchPlaceHolder="Search Data " title="DATA SETS (1434)" />
             <div className='data-set-items'>
-                <DataSet />
-                <DataSet />
-                <DataSet />
-                <DataSet />
-                <DataSet />
-                <DataSet />
-                <DataSet />
-                <DataSet />
-                <DataSet />
+                {layers.length > 0 ? renderLayers(layers) : ''}
             </div>
         </>
     )
 
 }
 
-DataSetsMenuItemDetails.propTypes = {
-    getLayers: PropTypes.func.isRequired
-}
 
-
+const mapStateToProps = state => ({
+    layers: mapDataSetsSelectors.getGeonodeLayersSelector(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
     getLayers: bindActionCreators(mapDataSetsActions.getGeonodeLayersStart, dispatch),
 });
 
-export default connect(null, mapDispatchToProps)(DataSetsMenuItemDetails)
+export default connect(mapStateToProps, mapDispatchToProps)(DataSetsMenuItemDetails)
+
+
+DataSetsMenuItemDetails.propTypes = {
+    getLayers: PropTypes.func.isRequired,
+    layers: PropTypes.func.isRequired,
+}
+
+DataSetsMenuItemDetails.defaultProps = {
+    layers: []
+}

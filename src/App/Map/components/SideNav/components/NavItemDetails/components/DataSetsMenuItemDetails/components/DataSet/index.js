@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import PropTypes from 'prop-types';
 import { ExclamationCircleOutlined, CloseOutlined } from '@ant-design/icons';
 
 import './styles.css';
@@ -25,22 +26,30 @@ function DataSetAction() {
     )
 }
 
-function DataSetInfo() {
+function DataSetInfo({layer}) {
+    const {name, abstract , data_quality_statement, supplemental_information} = layer
     return (
         <div className='DataSetTitleHoverInfo'>
-            <div>Agricultural land (% of land area)</div>
-            <div>Source: World Development Indicators</div>
+            <div>Name: { name }</div>
+            <div>Abstract: { abstract }</div>
+            <div>Data Quality Statement: { data_quality_statement }</div>
+            <div>Supplemental Information: { supplemental_information }</div>
         </div>
     )
 }
 
+DataSetInfo.propTypes = {
+    layer: PropTypes.object.isRequired
+}
 
-function DataSet() {
+
+function DataSet({layer}) {
+    const {name, abstract } = layer;
     return (
         <div className='DataSet'>
             <Popover
                 className='data-set-info'
-                content={DataSetInfo}
+                content={<DataSetInfo layer={layer}/>}
                 title={<b>Data Set Details</b>}
                 placement="right"
                 trigger="click"
@@ -48,8 +57,8 @@ function DataSet() {
                 <ExclamationCircleOutlined />
             </Popover>
             <div className='data-set-name-source'>
-                <div title='Agricultural land (% of land area)'>Agricultural land (% of land area)</div>
-                <div title='World Development Indicators'>Source: World Development Indicators</div>
+                <div title={name} >{name}</div>
+                <div title={abstract}>Abstract: {abstract}</div>
             </div>
             <DataSetAction />
         </div>
@@ -60,4 +69,8 @@ function DataSet() {
 
 
 
-export default DataSet
+export default DataSet;
+
+DataSet.propTypes = {
+    layer: PropTypes.object.isRequired
+}
