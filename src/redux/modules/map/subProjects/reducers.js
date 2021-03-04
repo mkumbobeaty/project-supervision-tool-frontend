@@ -64,7 +64,7 @@ const subProjectOverview = (state = {
     }
 };
 
-const regionSubProjects = (state = {data:[], error:null}, action) => {
+const regionSubProjects = (state = { data: [], error: null }, action) => {
     switch (action.type) {
         case types.GET_SUB_PROJECTS_REGIONS_OVERVIEW_SUCCESS:
             return { ...state, data: action.payload };
@@ -76,6 +76,8 @@ const regionSubProjects = (state = {data:[], error:null}, action) => {
             return state;
     }
 };
+
+
 
 const regionSubProjectsStatistics = (state = { data: null, loading: false, error: null }, action) => {
     switch (action.type) {
@@ -105,6 +107,23 @@ const sideNavMenu = (state = sideNavMenuInitialState, action) => {
             return { ...state, showSubProjectOverview: action.payload }
         case types.SHOW_REGIONAL_SUB_PROJECTS_OVERVIEW:
             return { ...state, showRegionalOverview: action.payload };
+        case types.SHOW_REGIONAL_SUB_PROJECTS_OVERVIEW:
+            return { ...state, showDistrictsOverview: action.payload };
+        default:
+            return state;
+    }
+};
+
+const districtsSubProjects = (state = { data: [], error: null, loading: false }, action) => {
+    switch (action.type) {
+        case types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_START:
+            return { ...state, loading: true };
+        case types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_SUCCESS:
+            return { ...state, data: action.payload };
+        case types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_FAILURE:
+            return { ...state, error: action.payload };
+        case types.CLEAR_DISRTRICTS_SUB_PROJECTS_OVERVIEW:
+            return { ...state, data: [] };
         default:
             return state;
     }
@@ -116,7 +135,8 @@ export const subProjects = combineReducers({
     subProjectsStatistics,
     subProjectOverview,
     regionSubProjects,
-    regionSubProjectsStatistics
+    regionSubProjectsStatistics,
+    districtsSubProjects
 })
 
 

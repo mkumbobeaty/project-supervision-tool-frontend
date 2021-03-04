@@ -97,6 +97,13 @@ export const showRegionSubProjectsOverview = makeActionCreator(types.SHOW_REGION
 
 /**
  * @function
+ * @name showDistrictsSubProjectsOverview
+ * @param {Boolean} payload value to ether show or hide
+ */
+export const showDistrictsSubProjectsOverview = makeActionCreator(types.SHOW_DISTRICTS_SUB_PROJECTS_OVERVIEW, 'payload');
+
+/**
+ * @function
  * @name getSubProjectOverviewStart
  *  @param {String} payload region id
  */
@@ -174,3 +181,30 @@ export const clearRegionSubProjects = makeActionCreator(types.CLEAR_SUB_PROJECTS
  * @param {Object} payload error object returned by server
  */
  export const getRegionSubProjectStatisticsFailure = makeActionCreator(types.GET_REGION_SUB_PROJECT_STATISTICS_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name getDistrictsSubProjectsOverviewStart
+ *  @param {String} payload region id
+ */
+export const getDistrictsSubProjectsOverviewStart = makeActionCreator(types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_START, 'payload');
+
+/**
+ * @function
+ * @name getDistrictsSubProjectsOverviewSuccess
+ * @param {Array} payload fetched projects
+ */
+ export const getDistrictsSubProjectsOverviewSuccess = makeActionCreator(types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name clearProjectsStatistics
+ */
+ export const clearDistrictsPerRegion = makeActionCreator(types.CLEAR_DISRTRICTS_SUB_PROJECTS_OVERVIEW);
+
+/**
+ * @function
+ * @name getDistrictsSubProjectsOverviewFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getDistrictsSubProjectsOverviewFailure = makeActionCreator(types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_FAILURE, 'payload');

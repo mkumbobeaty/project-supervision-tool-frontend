@@ -6,6 +6,7 @@ import API from "../../../../API";
 import * as actions from "./actions";
 import {mapProjectActions} from "../projects";
 import { mapActions } from "..";
+import { act } from "react-dom/test-utils";
 
 
 /**
@@ -115,10 +116,35 @@ const getRegionSubProjectStatisticsEpic = action$ => {
     );
 }
 
+/**
+ *
+ * @function
+ * @name getDistrictsPerRegionEpic
+ * @param action$ stream of actions
+ */
+const getDistrictsPerRegionEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_START),
+        switchMap(({payload}) => {
+            return from(API.getDistrictsByRegion(payload)).pipe(
+                switchMap(res => from([
+                    actions.getDistrictsSubProjectsOverviewSuccess(res.data),
+                    actions.clearRegionSubProjects(),
+                    actions.showDistrictsSubProjectsOverview(true),
+                    actions.showRegionSubProjectsOverview(false),
+                    actions.showNationalSubProjectsOverview(false)
+                ])),
+                catchError(error => of(actions.getDistrictsSubProjectsOverviewFailure(error)))
+            );
+        }),
+    );
+}
+
 export const mapSubProjectEpics = combineEpics(
     getSubProjectMapEpic,
     getSubProjectsStatistics,
     getSubProjectsOverviewEpic,
     getSubProjectsByRegionEpic,
-    getRegionSubProjectStatisticsEpic
+    getRegionSubProjectStatisticsEpic,
+    getDistrictsPerRegionEpic
 );

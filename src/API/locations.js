@@ -96,6 +96,17 @@ const getSubProjectsByRegion = (region_id) =>
 const getSubRegionProjectStatistics = (region_id) =>
     axios.get(`/locations/region/${region_id}/sub_project_statistics`).then((response) => response.data);
 
+
+/**
+ * @function
+ * @name getDistrictsByRegion
+ * @param {string} region_id
+ * @description get projects based on region
+ * */
+const getDistrictsByRegion = (region_id) =>
+    axios.get(`/locations/districts/${region_id}`).then((response) => response.data);
+
+
 export default {
     getProjectOverview,
     getProjectsByRegion,
@@ -107,5 +118,6 @@ export default {
     createProjectLocation,
     getSubProjectOverview,
     getSubProjectsByRegion,
-    getSubRegionProjectStatistics
+    getSubRegionProjectStatistics,
+    getDistrictsByRegion
 }
