@@ -16,6 +16,7 @@ function DataSetAction({addDataSet, removeDataSet, dataSet}) {
                 onClick={() => {
                     setClose(true);
                      addDataSet(dataSet)
+                     removeDataSet(null)
                 }}
             >
                 Add
@@ -26,6 +27,7 @@ function DataSetAction({addDataSet, removeDataSet, dataSet}) {
                 onClick={() => {
                     setClose(false);
                     removeDataSet(dataSet)
+                    addDataSet(null)
                 }}
             />
         </div>
