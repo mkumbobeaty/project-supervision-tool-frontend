@@ -22,15 +22,6 @@ class SideNav extends Component {
         regionProjects: [],
     }
 
-    componentDidMount() {
-
-        // Axios.get(`https://geonode.project-supervision-tool.ga/geoserver/wfs?service=wfs&version=2.0.0&request=GetFeature&typeNames=geonode:dar_es_salaam_school_points&outputFormat=application/json`)
-        //     .then(res => console.log(res.data));
-
-        Axios.get(`https://geonode.project-supervision-tool.ga/api/layers/24`)
-            .then(res => console.log(res.data));
-    }
-
     render() {
         const {
             setActiveMapSideMenuItem,

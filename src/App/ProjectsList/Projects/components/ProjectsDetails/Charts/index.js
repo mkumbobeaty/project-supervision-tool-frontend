@@ -29,7 +29,7 @@
 //       title: {
 //         text: "Sectors",
 //         fontSize: 20,
-
+//         horizontalAlign: "left",
 //       },
 //       legend: {
 //         horizontalAlign: "right",
@@ -38,7 +38,7 @@
 //         cursor: "pointer",
 //         itemclick: explodePie
 //       },
-//       width: 440,
+//       width: 400,
 //       data: [{
 //         type: "doughnut",
 //         innerRadius: 90,
@@ -58,33 +58,20 @@
 
 import React from 'react';
 import { Pie } from '@ant-design/charts';
+import sectors from '../../../../../../API/sectors';
 
-const SectorChat = () => {
-  var data = [
-    {
-      type: 'Urban Transport',
-      value: 48,
-    },
-    {
-      type: 'Other Water Supply, Sanitation and Waste Management',
-      value: 29,
-    },
-    {
-      type: 'Sub-National Government',
-      value: 12,
-    },
-    {
-      type: 'Other Transportation',
-      value: 5,
-    },
-    {
-      type: 'Other Public Administration',
-      value: 3,
-    },
-  ];
+const SectorChat = ({ project }) => {
+
+  var data = project?.sectors ? project?.sectors.map(sector => {
+    return (
+      {
+        type: sector.name,
+        value: parseInt((sector.details.percent), 10)
+      }
+    )
+  }) : [];
+
   var config = {
-    padding: 0,
-    appendPadding: 10,
     data: data,
     angleField: 'value',
     colorField: 'type',
@@ -96,7 +83,7 @@ const SectorChat = () => {
       content: '{value}',
       style: {
         textAlign: 'center',
-        fontSize: 14,
+        fontSize: 0,
       },
     },
     interactions: [{ type: 'element-selected' }, { type: 'element-active' }],
@@ -114,7 +101,12 @@ const SectorChat = () => {
       },
     },
   };
-  return <Pie {...config} />;
+  return (
+    <div className="chartDetails">
+      <h1 className="sector_title">Sectors</h1>
+      <Pie {...config} />
+    </div>
+  )
 };
 
 export default SectorChat;
