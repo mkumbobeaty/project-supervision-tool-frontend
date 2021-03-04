@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import WMSCapabilities from 'wms-capabilities';
 import PropTypes from 'prop-types';
 import {withLeaflet} from "react-leaflet";
 import {mapDataSetsSelectors} from "../../../redux/modules/map/dataSets";
 import L from "leaflet";
+import Axios from "axios";
 
 
 /**
@@ -27,18 +29,27 @@ class ShowDataSets extends Component {
     addDataSet = (dataSet) => {
         const { map } = this.props.leaflet;
         const { mapLayers } = this.state;
-        const geonodeLayer = L.tileLayer.wms("https://geonode.project-supervision-tool.ga/geoserver/ows", {
-            layers: dataSet.typename,
-            format: 'image/png',
-            transparent: true,
-        });
-        map.addLayer(geonodeLayer);
-        mapLayers[dataSet.typename] = geonodeLayer;
-        this.setState(mapLayers);
-        const corner1 = L.latLng(dataSet.bbox_y0,dataSet.bbox_x0);
-        const corner2 = L.latLng(dataSet.bbox_y1, dataSet.bbox_x1);
-        const bounds = L.latLngBounds(corner1, corner2);
-        map.fitBounds(bounds);
+        Axios.get(`https://geonode.project-supervision-tool.ga/geoserver/wms?service=wms&version=1.1.1&request=GetCapabilities`)
+            .then(res => {
+                const capabilities = new WMSCapabilities().parse(res.data);
+                const myLayer = capabilities.Capability.Layer.Layer.find(l => l.Name === dataSet.typename );
+                const {LatLonBoundingBox} = myLayer;
+                console.log(myLayer);
+
+                const geonodeLayer = L.tileLayer.wms("https://geonode.project-supervision-tool.ga/geoserver/ows", {
+                    layers: dataSet.typename,
+                    format: 'image/png',
+                    transparent: true,
+                });
+
+                mapLayers[dataSet.typename] = geonodeLayer;
+                this.setState(mapLayers);
+                map.addLayer(geonodeLayer);
+                const corner1 = L.latLng(LatLonBoundingBox[1],LatLonBoundingBox[0]);
+                const corner2 = L.latLng(LatLonBoundingBox[3],LatLonBoundingBox[2]);
+                const bounds = L.latLngBounds(corner1, corner2);
+                map.fitBounds(bounds);
+            });
     }
 
 
