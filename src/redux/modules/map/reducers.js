@@ -3,6 +3,7 @@ import { mapProjectTypes } from "./projects"
 import {combineReducers} from "redux";
 import { projects } from './projects/reducers'
 import { subProjects } from './subProjects/reducers'
+import { dataSets } from './dataSets/reducers'
 
 const initialConfigState = {
     showFeatureDetails: false,
@@ -222,6 +223,7 @@ const sideNavMenuInitialState = {
 export const map = combineReducers({
     projects,
     subProjects,
+    dataSets,
     config,
     projectOverview,
     sideNavMenu,
