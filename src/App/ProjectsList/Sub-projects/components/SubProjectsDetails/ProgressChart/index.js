@@ -141,8 +141,8 @@ export default class ProgressChart extends Component {
     };
   
     return (
-      <div className="chartDetails">
-        <CanvasJSChart options={options} />
+      <div className="chartProgress">
+        <CanvasJSChart options={options} style={{padding:24}} />
       </div>
     )
   }

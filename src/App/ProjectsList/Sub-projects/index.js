@@ -69,8 +69,7 @@ class SubProjects extends Component {
    * @since 0.1.0
    */
   handleMapPreview = (item_id) => {
-    const { getProject, match: { params }
-    } = this.props;
+    const { getProject } = this.props;
     getProject(item_id);
     console.log(item_id)
     let path = '/app/map';
@@ -99,7 +98,7 @@ class SubProjects extends Component {
     });
   };
 
-  /**
+ /**
   * @function
   * @name openSubProjectForm
   * @description Open Human Resources form
@@ -107,6 +106,10 @@ class SubProjects extends Component {
   * @version 0.1.0
   * @since 0.1.0
   */
+ openSubProjectForm = () => {
+  const { openSubProjectForm } = this.props;
+  openSubProjectForm();
+};
 
   /**
    * @function

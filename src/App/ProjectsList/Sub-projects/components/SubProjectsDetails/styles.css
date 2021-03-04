@@ -56,10 +56,9 @@
     padding: 0 0 0 24px;
 }
 
-.chartDetails {
+.chartDetails, .chartProgress {
     border: 1px solid #e0ddddfa;
-    padding: 15px 0;
-    padding-right: 15px;
+    padding: 15px 15px 15px 0;
     /* width: 25vw !important;  */
 }
 
@@ -67,8 +66,12 @@
     display: none;
 }
 
-.chartDetails>canvas {
+.chartDetails>canvas, .chartProgress>canvas {
     padding: 0 25px;
+}
+
+.chartDetails {
+    padding-left: 15px;
 }
 
 .details {
