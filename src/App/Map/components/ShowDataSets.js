@@ -35,7 +35,13 @@ class ShowDataSets extends Component {
         map.addLayer(geonodeLayer);
         mapLayers[dataSet.typename] = geonodeLayer;
         this.setState(mapLayers);
+        const corner1 = L.latLng(dataSet.bbox_y0,dataSet.bbox_x0);
+        const corner2 = L.latLng(dataSet.bbox_y1, dataSet.bbox_x1);
+        const bounds = L.latLngBounds(corner1, corner2);
+        map.fitBounds(bounds);
     }
+
+
     removeDataSet = (dataSet) => {
         const { map } = this.props.leaflet;
         const { mapLayers } = this.state;
