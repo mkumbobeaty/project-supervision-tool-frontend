@@ -83,7 +83,7 @@ const getSubProjectsByRegionEpic = action$ => {
                 switchMap(res => from([
                     actions.getRegionSubProjectStatisticsStart(payload),
                     actions.getSubProjectsByRegionSuccess(res.data),
-                    actions.clearSubProjectStatistics(),
+                    actions.clearSubProjectOverview(),
                     mapActions.getRegionStart(payload),
                     actions.showRegionSubProjectsOverview(true),
                     actions.showNationalSubProjectsOverview(false)
@@ -93,6 +93,7 @@ const getSubProjectsByRegionEpic = action$ => {
         }),
     );
 }
+
 
 /**
  *
