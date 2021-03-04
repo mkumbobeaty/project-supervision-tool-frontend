@@ -99,12 +99,12 @@ const getSubRegionProjectStatistics = (region_id) =>
 
 /**
  * @function
- * @name getDistrictsByRegion
- * @param {string} region_id
+ * @name getDistrictsSubProjectOverview
+ * @param {string} district_id
  * @description get projects based on region
  * */
-const getDistrictsByRegion = (region_id) =>
-    axios.get(`/locations/districts/${region_id}`).then((response) => response.data);
+const getDistrictsSubProjectOverview = (district_id) =>
+    axios.get(`/locations/districts/${district_id}/sub_projects`).then((response) => response.data);
 
 
 export default {
@@ -119,5 +119,5 @@ export default {
     getSubProjectOverview,
     getSubProjectsByRegion,
     getSubRegionProjectStatistics,
-    getDistrictsByRegion
+    getDistrictsSubProjectOverview
 }

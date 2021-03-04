@@ -126,18 +126,32 @@ const getDistrictsPerRegionEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_START),
         switchMap(({payload}) => {
-            return from(API.getDistrictsByRegion(payload)).pipe(
-                switchMap(res => from([
+            return from(API.getDistrictsSubProjectOverview(payload)).pipe(
+                switchMap(res =>  from([
                     actions.getDistrictsSubProjectsOverviewSuccess(res.data),
                     actions.clearRegionSubProjects(),
+                    actions.getDistrictsStart(payload),
                     actions.showDistrictsSubProjectsOverview(true),
                     actions.showRegionSubProjectsOverview(false),
-                    actions.showNationalSubProjectsOverview(false)
                 ])),
                 catchError(error => of(actions.getDistrictsSubProjectsOverviewFailure(error)))
             );
         }),
     );
+}
+
+const districtsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_DISTRICTS_START),
+        switchMap(({payload}) =>  {
+            return from(API.getDistricts(payload)).pipe(
+            switchMap(res => { 
+                debugger
+                return of(actions.getDistrictsSuccess(res.data)) }),
+            catchError(error => of(actions.getDistrictsFailure(error)))
+        )}
+        ),
+    )                                                                                                                                                                                                       
 }
 
 export const mapSubProjectEpics = combineEpics(
@@ -146,5 +160,6 @@ export const mapSubProjectEpics = combineEpics(
     getSubProjectsOverviewEpic,
     getSubProjectsByRegionEpic,
     getRegionSubProjectStatisticsEpic,
-    getDistrictsPerRegionEpic
+    getDistrictsPerRegionEpic,
+    districtsEpic
 );

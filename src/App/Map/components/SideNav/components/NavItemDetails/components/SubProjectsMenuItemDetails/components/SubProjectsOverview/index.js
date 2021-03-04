@@ -7,7 +7,7 @@ import ProjectsTopSection from "../../../ProjectsMenuItemDetails/components/Proj
 import NationalSubProjectsOverview from "../NationalSubProjectsOverview";
 import RegionalSubProjectsOverview from "../RegionalSubProjectsOverview";
 import TopSection from "../../../TopSection";
-import { mapSelectors } from "../../../../../../../../../../redux/modules/map";
+import { mapActions, mapSelectors } from "../../../../../../../../../../redux/modules/map";
 
 const SubProjectsOverview = ({
     subProjectsStatistics,
@@ -24,7 +24,9 @@ const SubProjectsOverview = ({
     setShowNationalOverview,
     getSubProject,
     region,
-    clearRegionSubProjects
+    getDistricts,
+    clearRegionSubProjects,
+    showDistrictsSubProjectOverview
 }) => {
     return (
         <>
@@ -42,10 +44,13 @@ const SubProjectsOverview = ({
                 regionSubProjectsOverView={regionSubProjectsOverView}
                 setShowNationalOverview={setShowNationalOverview}
                 setShowRegionalOverview={setShowRegionalOverview}
-                getSubProject={getSubProject}
+                getDistricts={getDistricts}
                 region={region}
                 clearRegionSubProjects={clearRegionSubProjects}
             /> : ''}
+            {
+            showDistrictsSubProjectOverview ? "hello" : ''
+            }
         </>
     );
 }
@@ -60,6 +65,7 @@ const mapStateToProps = state => ({
     showRegionalOverviewLoader: mapSubProjectSelectors.getRegionSubProjectsStatisticsLoader(state),
     regionSubProjectsOverView: mapSubProjectSelectors.getRegionSubProjectsOverviewSelector(state),
     region: mapSelectors.getRegionDetailsSelector(state),
+    showDistrictsSubProjectOverview: mapSubProjectSelectors.showDistrictsSubProjectOverview(state)
 
 });
 
@@ -69,6 +75,7 @@ const mapDispatchToProps = (dispatch) => ({
     setShowRegionalOverview: bindActionCreators(mapSubProjectActions.showRegionSubProjectsOverview, dispatch),
     setShowNationalOverview: bindActionCreators(mapSubProjectActions.showNationalSubProjectsOverview, dispatch),
     getSubProject:bindActionCreators(mapSubProjectActions.getSubProjectStart, dispatch),
+    getDistricts:bindActionCreators(mapSubProjectActions.getDistrictsSubProjectsOverviewStart, dispatch),
     clearRegionSubProjects:bindActionCreators(mapSubProjectActions.clearRegionSubProjects, dispatch)
 });
 

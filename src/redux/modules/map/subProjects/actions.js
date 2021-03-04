@@ -208,3 +208,25 @@ export const getDistrictsSubProjectsOverviewStart = makeActionCreator(types.GET_
  * @param {Object} payload error object returned by server
  */
  export const getDistrictsSubProjectsOverviewFailure = makeActionCreator(types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_FAILURE, 'payload');
+
+
+ export function getDistrictsStart(region_id) {
+    return {
+      type: types.GET_DISTRICTS_START,
+      payload:region_id
+    };
+  }
+  
+  export function getDistrictsSuccess(districts) {
+    return {
+      type: types.GET_DISTRICTS_SUCCESS,
+      payload: districts,
+    };
+  }
+  
+  export function getDistrictsFailure(error) {
+    return {
+      type: types.GET_DISTRICTS_FAILURE,
+      payload: error,
+    };
+  }

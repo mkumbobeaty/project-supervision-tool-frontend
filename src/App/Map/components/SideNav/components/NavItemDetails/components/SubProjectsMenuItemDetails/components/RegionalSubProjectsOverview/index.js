@@ -17,6 +17,7 @@ function RegionalSubProjectsOverview({
     showRegionalOverviewLoader,
     regionSubProjectStatistics,
     region,
+    getDistricts,
     clearRegionSubProjects
 }) {
 
@@ -50,7 +51,9 @@ function RegionalSubProjectsOverview({
         ({ title: name, value: sub_projects_count, id })) : '';
 
     const handleOnClickFilterItem = (id) => {
-        getSubProject(id);
+        // getSubProject(id);
+        getDistricts(id)
+        console.log("clicked" + id)
     };
 
     const handleGoBack = () => {
