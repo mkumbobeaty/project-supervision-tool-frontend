@@ -56,6 +56,7 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
  */
 const getItemFromItems = (itemId, items) => {
     const item = items.find(({ id }) => id === itemId);
+    console.log(item)
     return item.name;
 }
 
@@ -128,7 +129,19 @@ class MoreSubProjectDetails extends Component {
         const { selected, items, subProject, progress } = this.props;
         return (
             <Form.Provider
-                onFormFinish={(name, { values, forms }) => { }}>
+                onFormFinish={(name, { values, forms }) => {
+                    if (name === 'subProjectItemsForm') {
+                        const { MoreSubProjectDetails } = forms;
+                        const items = MoreSubProjectDetails.getFieldValue('items') || [];
+                        MoreSubProjectDetails.setFieldsValue({
+                            items: [...items, values],
+                        });
+                        this.setState({visibleSubProjectItems: false});
+                      }
+
+                 }}
+                
+                >
                 <Form
                     labelCol={labelCol}
                     wrapperCol={wrapperCol}
@@ -213,6 +226,7 @@ class MoreSubProjectDetails extends Component {
                     >
                         {({ getFieldValue }) => {
                             const itemsData = getFieldValue('items') || [];
+                            console.log(itemsData[0]);
                             return (
                                 <div style={{
                                     display: 'flex',

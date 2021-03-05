@@ -35,7 +35,6 @@ const SubProjectItemsForm = ({ visible, onCancel, items, subProject, progress })
 
         setLoading(true)
         const sub_project_id = subProject?.data.id;
-        debugger
         API.createItems({ item_id, quantity, sub_project_id, progress_id, })
             .then(() => {
                 form.submit();
@@ -47,8 +46,8 @@ const SubProjectItemsForm = ({ visible, onCancel, items, subProject, progress })
     };
 
     return (
-        <Modal title="Add Project Items" visible={visible} onOk={onOk} onCancel={onCancel} confirmLoading={loading}>
-            <Form form={form} layout="vertical" name="SubprojectItemsForm">
+        <Modal title="Add Project Items" visible={visible} onOk={onOk} onCancel={onCancel} confirmLoading={loading} destroyOnClose={true}>
+            <Form form={form} layout="vertical" name="subProjectItemsForm">
                 {/* start:items*/}
                 <Form.Item
                     label="Items"

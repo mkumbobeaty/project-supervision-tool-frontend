@@ -180,7 +180,6 @@ class SubProjects extends Component {
   */
   searchSubProject = (searchData) => {
     const { searchSubProject } = this.props;
-    debugger
     searchSubProject(searchData);
   };
 

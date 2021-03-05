@@ -65,7 +65,6 @@ function BasicSubProjectDetailsForm({
             next();
         }
         else {
-            debugger
             createSubProject({ ...values, locations });
             next();
         }
