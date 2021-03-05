@@ -280,9 +280,11 @@ class SubProjects extends Component {
                 </Col>
                 <Col {...projectIdSpan} className="contentEllipse">
 
-                  {item ? item?.code : "N/A"}
+                  {item ? item?.project_id : "N/A"}
                 </Col>
-                <Col {...itemsSpan} className="contentEllipse"> {item.sub_project_items.length <= 0 ? "N/A" : item.sub_project_items.map(({ item }, index) => {
+                <Col {...itemsSpan} className="contentEllipse" title={item.sub_project_items.length <= 0 ? "N/A" : item.sub_project_items.map(({ item }, index) => {
+                  return (index ? ", " : "") + item.name;
+                })}> {item?.sub_project_items.length <= 0 ? "N/A" : item?.sub_project_items.map(({ item }, index) => {
                   return (index ? ", " : "") + item.name;
                 })}</Col>
 
