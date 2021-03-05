@@ -27,16 +27,19 @@ class ProjectLocations extends Component{
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (((prevProps.project !== this.props.project) && this.props.project)){
-            const { map } = this.props.leaflet;
-            map.setView(L.latLng(-6.161184, 35.745426), 6);
+            // const { map } = this.props.leaflet;
+            // map.setView(L.latLng(-6.161184, 35.745426), 6);
         }
     }
-
+    onEachFeature = (feature, layer) => {
+        const { map } = this.props.leaflet;
+        map.fitBounds(layer.getBounds());
+    }
 
     renderSubProjects = (subProjects) => {
         const data = mapSubProjectsToLocationPoints(subProjects);
         return data.map(({coordinates, id, name }) => (
-            <Marker position={[coordinates[1], coordinates[0]]} key={id}>
+            <Marker position={[coordinates[1], coordinates[0]]} key={id}  onEachFeature={this.onEachFeature}> 
                 <Popup>
                     <h3>Sub Project </h3>
                     <div> { name }</div>
@@ -45,8 +48,9 @@ class ProjectLocations extends Component{
         ));
     }
 
-    renderRegions = (project) => project?.locations.map(({ region, id }) => {
+   
 
+    renderRegions = (project) => project?.locations.map(({ region, id }) => {
 
         const geojsonFeature = {
             "type": "Feature",
@@ -54,7 +58,7 @@ class ProjectLocations extends Component{
         };
 
         return (
-            <GeoJSON key={id} data={geojsonFeature}>
+            <GeoJSON key={id} data={geojsonFeature} onEachFeature={this.onEachFeature}>
                 <Popup>
                     <div><b>Project :</b> { project.name}</div>
                     <div><b>Region :</b> { region.name}</div>

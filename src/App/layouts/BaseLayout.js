@@ -5,12 +5,20 @@ import { Link, Switch, Route } from "react-router-dom";
 import UserMenu from "../navigation/UserMenu";
 import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
-import Dashboards from "../Dashboards";
+// import Dashboards from "../Dashboards";
 import MapDashboard from "../Map";
 import Projects from "../ProjectsList/Projects";
-import SubProjects from "../ProjectsList/Sub-projects";
+import SubProjects from "../ProjectsList/Sub-projects/";
 import Project from "../ProjectsList/Projects/components/ProjectsDetails";
 import SubProject from "../ProjectsList/Sub-projects/components/SubProjectsDetails/"
+import SubProjectItems from "../ProjectsList/Sub-projects/components/SubProjectItems";
+import SubProjectEquipments from "../ProjectsList/Sub-projects/components/SubProjectEquipments";
+// import Settings from "../Settings";
+import GeoNode from "../GeoNode";
+import Users from "../Users";
+import Agencies from "../Agencies";
+import AdminPanel from "../AdminPanel";
+import PrivateRoute from '../Auth/PrivateRoute';
 import "./styles.css";
 
 /* constants */
@@ -26,7 +34,7 @@ const breadcrumbNameMap = {
     name: "projects",
     title: "projects Module",
   },
-  "/app/sub-projects": {
+  "/app/sub_projects": {
     name: "sub-projects",
     title: "List of all Sub-projects",
   },
@@ -35,9 +43,25 @@ const breadcrumbNameMap = {
     name: "Project",
     title: "Detail of single project",
   },
-  "/app/sub-projects/:type": {
+  "/app/sub_projects/:type": {
     name: "Sub Project",
     title: "Detail of single sub project",
+  },
+  "/app/sub-project-items": {
+    name: "Sub Project items",
+    title: "List of all sub project items",
+  },
+  "/app/sub-project-equipments": {
+    name: "Sub Project Equipments",
+    title: "List of all sub project equipments",
+  },
+  "/app/human-resources": {
+    name: "Human Resources",
+    title: "List of all human resources",
+  },
+  "/app/sub-projects-contracts": {
+    name: "Sub Project Contracts",
+    title: "List of all Sub Project Contracts",
   },
   "/app/adminpanel": {
     name: "Admin Panel",
@@ -48,6 +72,13 @@ const breadcrumbNameMap = {
     name: "Dashboards",
     title: "Dashboards",
   },
+
+  /* users routes */
+  "/app/users": {
+    name: "users",
+    title: "users Module",
+  },
+
 };
 
 /**
@@ -115,41 +146,71 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
       </Header>
       <Content className="BaseLayoutContent">
         <Switch>
-          <Route exact path={`${baseUrl}/`} component={Home} />
-          {/* Projects routes */}
-          <Route
+          <PrivateRoute exact path={`${baseUrl}/`} component={Home} />
+          {/* Projects PrivateRoutes */}
+          <PrivateRoute
             exact
             path={`${baseUrl}/projects`}
             component={Projects}
           />{" "}
-           <Route
+          <PrivateRoute
             exact
             path={`${baseUrl}/projects/:id`}
-            render={({match}) => <Project match={match}/>}
+            render={({ match }, props) => <Project match={match} {...props} />}
           />
-          <Route
+          <PrivateRoute exact path={`${baseUrl}/sub_projects`} component={SubProjects} />
+
+          <PrivateRoute
             exact
-            path={`${baseUrl}/sub-projects`}
-            render={(props) => <SubProjects {...props}/>}
+            path={`${baseUrl}/sub_projects/:id`}
+            render={({ match }, props ) => <SubProject match={match} {...props}/>}
           />
-           <Route
+          <PrivateRoute
             exact
-            path={`${baseUrl}/sub-projects/:id`}
-            render={({match}) => <SubProject match={match}/>}
-          />          
-          <Route path={`${baseUrl}/map`} component={MapDashboard} />
+            path={`${baseUrl}/sub-project-items`}
+            render={(props) => <SubProjectItems {...props} />}
+          />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/sub-project-equipments`}
+            render={(props) => <SubProjectEquipments {...props} />}
+          />
+
+          <PrivateRoute path={`${baseUrl}/map`} component={MapDashboard} />
           {/* Admin panel */}
-          <Route path={`${baseUrl}/adminpanel`} component={() => {
-            window.location.href = 'https://pamoja-backend.herokuapp.com/';
-            return null;
-          }} />
-          {/* Dashboard routes */}
-          <Route
+
+          {/* Dashboard PrivateRoutes */}
+          {/* <PrivateRoute
             exact
             path={`${baseUrl}/dashboards`}
             component={Dashboards}
+          /> */}
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/geo-node`}
+            component={GeoNode}
           />
-          <Route component={PageNotFound} />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/users`}
+            component={Users}
+          />
+          {/* <PrivateRoute
+            exact
+            path={`${baseUrl}/settings`}
+            component={Settings}
+          /> */}
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/agencies`}
+            component={Agencies}
+          />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/admin-panel`}
+            component={AdminPanel}
+          />
+          <PrivateRoute component={PageNotFound} />
         </Switch>
       </Content>
     </Layout>

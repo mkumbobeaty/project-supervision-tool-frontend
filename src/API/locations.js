@@ -9,6 +9,7 @@ import axios from "./config";
 const getProjectOverview = () =>
     axios.get(`/locations/regions/projects_overview`).then((response) => response.data);
 
+
 /**
  * @function
  * @name getLocation
@@ -70,6 +71,14 @@ const getDistricts = (regionId) =>
 const createProjectLocation =(project_location) => 
 axios.post(`/locations`, project_location).then((response) => response.data);
 
+   /**
+ * @function
+ * @name getSubProjectOverview
+ * @description get sub project overview per region
+ * */
+const getSubProjectOverview = () =>
+axios.get(`/locations/regions/sub_projects_overview`).then((response) => response.data);
+
 
 export default {
     getProjectOverview,
@@ -80,4 +89,5 @@ export default {
     getLocations,
     getRegionProjectStatistics,
     createProjectLocation,
+    getSubProjectOverview
 }

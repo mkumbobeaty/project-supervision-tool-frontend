@@ -1,8 +1,8 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from '../duck';
-import { Col, Drawer, Modal } from "antd";
+import { projectActions, projectOperation, projectSelectors } from '../../../redux/modules/projects';
+import { Col, Drawer, Modal, Steps } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import Topbar from "../../components/Topbar";
@@ -18,25 +18,22 @@ import "./styles.css";
 
 
 /* constants */
+const codeSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
 const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
-const projectNameSpan = { xxl: 5, xl: 6, lg: 6, md: 8, sm: 10, xs: 11 };
-const organisationSpan = { xxl: 4, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
-const borrowerSpan = { xxl: 5, xl: 4, lg: 4, md: 4, sm: 4, xs: 5 };
-const statusSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
-const approvalSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
+const nameSpan = { xxl: 5, xl: 6, lg: 6, md: 8, sm: 10, xs: 11 };
+const subProjectsSpan = { xxl: 4, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
+const projectLeadSpan = { xxl: 5, xl: 4, lg: 4, md: 4, sm: 4, xs: 5 };
+const projectCoordinatorSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
 
 const { confirm } = Modal;
 
-
-
-
 const headerLayout = [
+  { ...codeSpan, header: "Code" },
   { ...projectIdSpan, header: "Project ID" },
-  { ...projectNameSpan, header: "Project Name" },
-  { ...organisationSpan, header: "Funding Organisation" },
-  { ...borrowerSpan, header: "Borrower" },
-  { ...statusSpan, header: "Project status" },
-  { ...approvalSpan, header: "Approval FY" },
+  { ...nameSpan, header: "Name" },
+  { ...subProjectsSpan, header: "Sub-projects" },
+  { ...projectLeadSpan, header: "Project Lead" },
+  { ...projectCoordinatorSpan, header: "Project Coordinator" },
 ];
 
 
@@ -173,10 +170,38 @@ class Projects extends Component {
     this.setState({ isEditForm: false });
   };
 
+  /**   
+   * @function
+   * @name handleSearch
+   * @description Handle list search action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleSearch = (searchData)  => {
+    console.log(searchData)
+    this.props.searchProject({searchQuery: searchData})
+  };
+
+  /**   
+   * @function
+   * @name handleRefresh
+   * @description Handle refresh action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleRefresh = ()  => {
+    this.props.fetchProjects()
+  };
+
   render() {
     const {
       projects,
       loading,
+      page,
+      total,
+      paginateProject,
       searchQuery,
       showForm,
       selected,
@@ -193,6 +218,7 @@ class Projects extends Component {
           search={{
             size: "large",
             placeholder: "Search for Projects here ...",
+            onSearch: this.handleSearch,
             onChange: this.searchInitiative,
             value: searchQuery,
           }}
@@ -212,13 +238,13 @@ class Projects extends Component {
         <ProjectsList
           itemName="Projects"
           items={projects}
-          // page={page}
+          page={page}
           loading={loading}
-          // itemCount={total}
+          itemCount={total}
           onFilter={this.openFiltersModal}
-          onRefresh={this.handleRefreshInitiative}
+          onRefresh={this.handleRefresh}
           onPaginate={(nextPage) => {
-            this.paginateInitiative(nextPage);
+            paginateProject({page: nextPage});
           }}
           headerLayout={headerLayout}
           renderListItem={({
@@ -227,57 +253,57 @@ class Projects extends Component {
             onSelectItem,
             onDeselectItem,
           }) => (
-              <ListItem
-                key={item.id} // eslint-disable-line
-                name={item.name}
-                item={item}
-                isSelected={isSelected}
-                onSelectItem={onSelectItem}
-                onDeselectItem={onDeselectItem}
-                renderActions={() => (
-                  <ListItemActions
-                    edit={{
-                      name: "Edit project",
-                      title: "Update project details",
-                      onClick: () => this.handleEdit(item),
-                    }}
-                    archive={{
-                      name: "Archive project",
-                      title:
-                        "Remove project from list of active Projects",
-                      onClick: () => this.showArchiveConfirm(item),
-                    }}
-                  />
-                )}
+            <ListItem
+              key={item.id} // eslint-disable-line
+              name={item.name}
+              item={item}
+              isSelected={isSelected}
+              // onSelectItem={onSelectItem}
+              onDeselectItem={onDeselectItem}
+              renderActions={() => (
+                <ListItemActions
+                  edit={{
+                    name: "Edit project",
+                    title: "Update project details",
+                    onClick: () => this.handleEdit(item),
+                  }}
+                  archive={{
+                    name: "Archive project",
+                    title:
+                      "Remove project from list of active Projects",
+                    onClick: () => this.showArchiveConfirm(item),
+                  }}
+                />
+              )}
+            >
+              {/* eslint-disable react/jsx-props-no-spreading */}
+              <Col {...codeSpan}>{item? item?.code : 'N/A'}</Col>
+              <Col {...projectIdSpan} className="contentEllipse">
+                {" "}
+
+                {item.id ? item.id : "All"}
+              </Col>
+              <Col
+                {...nameSpan}
+                className="contentEllipse"
+                title={item.description}
               >
-                {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...projectIdSpan} className="humanResourceEllipse">
-                  {" "}
-                  <Link
-                    to={{
-                      pathname: `/app/projects/${item.id}`,
-                    }}
-                  >
-                    {item.id ? item.id : "All"}
-                  </Link>
-                </Col>
-                <Col
-                  {...projectNameSpan}
-                  className="humanResourceEllipse"
-                  title={item.description}
+                <Link
+                  to={{
+                    pathname: `/app/projects/${item.id}`,
+                  }}
+                  className="Projects"
                 >
                   {item.name}
-                </Col>
-                <Col {...organisationSpan}>{item.details ? item.details?.funding_organisation?.name : 'N/A'}</Col>
-                <Col {...borrowerSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
-                <Col {...statusSpan}>{item.details ? item.details.status.toString() : 'N/A'}</Col>
-                <Col {...approvalSpan}>
-                  {isoDateToHumanReadableDate(item.details?.approval_fy)}
-                </Col>
+                </Link>
+              </Col>
+              <Col {...subProjectsSpan}>{item.sub_projects ? item.sub_projects.length : 'N/A'}</Col>
+              <Col {...projectLeadSpan}>{item.leaders ? item?.leaders.map(({first_name, last_name}, index) => { return <p>{first_name } {last_name} {index >= 0 ? "," : ""}</p>}): 'N/A'}</Col>
+              <Col {...projectCoordinatorSpan}>{item.details.implementing_agency ? item.details.implementing_agency.focalPerson.first_name + ' ' + item.details.implementing_agency.focalPerson.last_name : 'N/A'}</Col>
 
-                {/* eslint-enable react/jsx-props-no-spreading */}
-              </ListItem>
-            )}
+              {/* eslint-enable react/jsx-props-no-spreading */}
+            </ListItem>
+          )}
         />
         {/* end list */}
         <Drawer
@@ -341,6 +367,8 @@ const mapDispatchToProps = {
   createProject: projectOperation.createProjectStart,
   openProjectForm: projectSectorsOperator.openForm,
   closeProjectForm: projectSectorsOperator.closeForm,
+  paginateProject: projectActions.getProjectsStart,
+  searchProject: projectActions.getProjectsStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

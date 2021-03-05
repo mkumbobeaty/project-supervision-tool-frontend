@@ -4,7 +4,6 @@ import SideNavItemOverview from "../SideNavItemOverview";
 import {moneyFormat} from "../../../../../../../../../../Util";
 import './styles.css';
 
-
 /**
  * @function
  * @name NationalProjectsOverview
@@ -16,6 +15,7 @@ function NationalProjectsOverview(
         getProjectsOverview,
         projectsCountByRegion,
         getProjectsByRegion,
+        loadingStatistics
     }
     ) {
 
@@ -45,10 +45,11 @@ function NationalProjectsOverview(
     // prepare data for projects overview table
     const commitmentAmount = projectsStatistics?.commitment_amount ? getCommitmentAmount(projectsStatistics) : '';
     const overViewData = projectsStatistics ? [
-        {title: 'Projects', value: projectsStatistics.projects},
+        {title: 'Projects', value: projectsStatistics.projects,},
         {title: 'Commitment Amount', value: commitmentAmount},
         {title: 'Regions', value: projectsStatistics.regions},
-    ] : [];
+    ] :  []
+    ;
 
     const handleOnClickFilterItem = (id) => getProjectsByRegion(id);
 
@@ -63,6 +64,7 @@ function NationalProjectsOverview(
             overViewData={overViewData}
             predefinedFilterData={filterData}
             predefinedFilterConfig={filterConfig}
+            loadingStatistics={loadingStatistics}
             handleOnclickFilterItem={handleOnClickFilterItem}
             title='National Overview'
         />

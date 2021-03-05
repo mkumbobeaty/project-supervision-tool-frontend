@@ -7,7 +7,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import SignIn from './App/Auth/components/SignIn';
 import BaseLayout from './App/layouts/BaseLayout';
 import {bindActionCreators} from "redux";
-import {appActions} from './App/duck';
+import {appActions} from './redux/modules/app';
 
 Spin.setDefaultIndicator(<LoadingOutlined style={{ fontSize: 24 }} spin />);
 class App extends Component{

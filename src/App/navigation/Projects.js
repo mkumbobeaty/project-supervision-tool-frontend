@@ -16,8 +16,8 @@ const routes = [
     description: modules.vehicles,
   },
   {
-    name: 'Sub-Projects',
-    path: '/sub-projects',
+    name: 'Sub Projects',
+    path: '/sub_projects',
     icon: initiativesIcon,
     description: modules.initiatives,
   },

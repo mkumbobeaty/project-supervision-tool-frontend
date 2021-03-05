@@ -148,9 +148,6 @@ const CustomList = ({
 
       <ListHeader
         headerLayout={headerLayout}
-        onSelectAll={handleSelectPageItems}
-        onDeselectAll={handleDeselectPageItems}
-        isBulkSelected={selectedPages.includes(page)}
       />
 
       <List

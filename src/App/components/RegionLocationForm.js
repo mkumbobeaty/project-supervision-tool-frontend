@@ -1,6 +1,6 @@
-import {Form, Modal, Select} from "antd";
+import { Form, Modal, Select } from "antd";
 import PropTypes from 'prop-types';
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AlgoliaPlaces from 'algolia-places-react';
 import API from '../../API';
 
@@ -19,28 +19,43 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
     }, [visible]);
 };
 
-const RegionLocationForm = ({ visible, onCancel, locations,  setLocations, regions }) => {
+const RegionLocationForm = ({ visible, onCancel, locations, setLocations, regions }) => {
     const [form] = Form.useForm();
     useResetFormOnCloseModal({
         form,
         visible,
     });
-    const [point, setPoint] = useState(null);
 
-    const handleSelectedSuggestion = ({latlng}) => setPoint({ type: 'Point', coordinates: [latlng.lng, latlng.lat]  })
+    /*
+    * state for loading after click
+    */
+    const [loading, setLoading] = useState(false);
+
+    const [point, setPoint] = useState(null);
+    const handleSelectedSuggestion = ({ latlng }) => setPoint({ type: 'Point', coordinates: [latlng.lng, latlng.lat] })
 
     const onOk = () => {
         const region = form.getFieldValue('region') || null;
-        API.createProjectLocation({ region_id: region, level: 'region', point})
-            .then( ({ data }) => {
-                setLocations([ ...locations, data.id]);
+        setLoading(true)
+        API.createProjectLocation({ region_id: region, level: 'region', point })
+            .then(({ data }) => {
+                setLocations([...locations, data.id]);
                 form.submit();
             });
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
 
     };
 
     return (
-        <Modal title="Add Project Location" visible={visible} onOk={onOk} onCancel={onCancel}>
+        <Modal
+            title="Add Project Location"
+            visible={visible} onOk={onOk}
+            onCancel={onCancel}
+            confirmLoading={loading}
+            destroyOnClose={true}
+        >
             <Form form={form} layout="vertical" name="userForm">
                 <Form.Item
                     label="Region"
@@ -53,8 +68,8 @@ const RegionLocationForm = ({ visible, onCancel, locations,  setLocations, regio
                     ]}
                 >
                     <Select>
-                        { regions.map(({ id, name}) => (
-                            <Select.Option value={id}>{ name }</Select.Option>
+                        {regions.map(({ id, name }) => (
+                            <Select.Option value={id}>{name}</Select.Option>
                         ))}
                     </Select>
                 </Form.Item>

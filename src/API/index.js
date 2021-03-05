@@ -8,7 +8,11 @@ import agenciesAPI from './agencies';
 import moneyAPI from './money';
 import subProjectElementsAPI from  './sub_project_elements';
 import environmentalCategoriesAPI from  './environmental_categories';
+import itemsAPI from './items';
+import progressAPI from './progress'
 import wfsRequests from  './wfs_requests';
+import usersAPI from './users';
+import geonodeAPI from './geonode';
 
 export default {
     ...projectsAPI,
@@ -21,4 +25,8 @@ export default {
     ...subProjectElementsAPI,
     ...environmentalCategoriesAPI,
     ...wfsRequests,
+    ...itemsAPI,
+    ...progressAPI,
+    ...usersAPI,
+    ...geonodeAPI,
 }

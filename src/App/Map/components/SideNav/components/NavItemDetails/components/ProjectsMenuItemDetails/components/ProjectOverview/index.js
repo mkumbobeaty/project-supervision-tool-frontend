@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import ProjectsTopSection from "../ProjectsTopSection";
 import NationalProjectsOverview from "../NationalProjectsOverview";
 import RegionalProjectsOverview from "../RegionalProjectsOverview";
-import {mapActions, mapSelectors} from "../../../../../../../../duck";
+import {mapActions, mapSelectors} from "../../../../../../../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
-import {projectActions} from "../../../../../../../../../ProjectsList/duck";
-
+import {projectActions} from "../../../../../../../../../../redux/modules/projects";
+import {mapProjectActions} from "../../../../../../../../../../redux/modules/map/projects";
+import TopSection from "../../../TopSection";
 
 /**
  * @function
@@ -29,19 +30,23 @@ function ProjectsOverview(
         setShowRegionalOverview,
         clearRegionalProjects,
         region,
+        loadingStatistics,
+        showRegionalOverviewLoader
     }
 ) {
     return (
         <>
-            <ProjectsTopSection/>
+            <TopSection title="PROJECTS"  searchPlaceHolder='Search Projects'/>
             {showNationalOverview ? <NationalProjectsOverview
                 getProjectsOverview={getProjectsOverview}
                 projectsStatistics={projectsStatistics}
                 projectsCountByRegion={projectsCountByRegion}
                 getProjectsByRegion={getProjectsByRegion}
+                loadingStatistics={loadingStatistics}
             /> : ''}
             {showRegionalOverview ? <RegionalProjectsOverview
                 regionProjectStatistics={regionProjectStatistics}
+                showRegionalOverviewLoader={showRegionalOverviewLoader}
                 regionProjects={regionProjects}
                 getProject={getProject}
                 region={region}
@@ -58,9 +63,11 @@ function ProjectsOverview(
 const mapStateToProps = state => ({
     projectsStatistics: mapSelectors.getProjectsStatistics(state),
     regionProjectStatistics: mapSelectors.getRegionProjectsStatistics(state),
+    loadingStatistics : mapSelectors.getProjectsStatisticsLoading(state),
     projectsCountByRegion: mapSelectors.getProjectsOverview(state),
     showNationalOverview: mapSelectors.showNationalOverviewSelector(state),
     showRegionalOverview: mapSelectors.showRegionalOverviewSelector(state),
+    showRegionalOverviewLoader: mapSelectors.regionProjectsStatisticsLoader(state),
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     region: mapSelectors.getRegionDetailsSelector(state),
 });
@@ -71,7 +78,7 @@ const mapDispatchToProps = (dispatch) => ({
     setShowRegionalOverview: bindActionCreators(mapActions.showRegionalProjectsOverview, dispatch),
     setShowNationalOverview: bindActionCreators(mapActions.showNationalProjectsOverview, dispatch),
     clearRegionalProjects: bindActionCreators(mapActions.clearRegionProjects, dispatch),
-    getProject: bindActionCreators(projectActions.getProjectStart, dispatch),
+    getProject: bindActionCreators(mapProjectActions.getProjectStart, dispatch),
 });
 
 

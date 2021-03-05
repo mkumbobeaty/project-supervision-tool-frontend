@@ -1,4 +1,6 @@
 import React from "react";
+import { Col, Row, } from 'antd';
+import { isoDateToHumanReadableDate } from "../../../../../../Util";
 
 const SidebarSection = ({ sub_project }) => {
 
@@ -23,7 +25,7 @@ const SidebarSection = ({ sub_project }) => {
                 <p>{sub_project?.details ? sub_project?.details.contractor.name : "N/A"}</p>
             </span>
             <span >
-                <h4>Actor(LGA)</h4>
+                <h4>Local Government Authority</h4>
                 <p>{sub_project?.details ? sub_project?.details.actor.name : "N/A"}</p>
             </span>
             <span >
@@ -42,17 +44,14 @@ const SidebarSection = ({ sub_project }) => {
                 }) : 'N/A'}
             </span>
             <span >
-                <h4>Human Resource</h4>
-                {
-                    sub_project?.human_resources?.name ?
-                        sub_project?.human_resources.map(({ name }) => <p> - {name}</p>) : 'N/A'
-                }
+                <h4>Start Date</h4>
+                <p>{isoDateToHumanReadableDate(sub_project?.details ? sub_project?.details.start_date : 'N/A')}</p>
+
             </span>
             <span >
-                <h4>Sub project milestones</h4>
-                {
-                    sub_project?.sub_project_milestones?.name ? sub_project?.sub_project_milestones.map(({ name }) => <p> - {name}</p>) : 'N/A'
-                }
+                <h4>End Date</h4>
+               <p>{isoDateToHumanReadableDate(sub_project?.details ? sub_project?.details.END_date : 'N/A')}</p>
+
             </span>
             <span style={{ paddingTop: 24 }}><h4>Description</h4>
                 <p>{sub_project ? sub_project?.description : 'N/A'}</p>

@@ -2,14 +2,17 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import BackLink from "../BackLink";
-import './styles.css';
 import CustomGridList from "../CustomGridList";
 import PredefinedFilter from "../PredefinedFilter";
 import LongActionButton from "../LongActionButton";
-import {mapActions} from "../../../../../../../../duck";
+import {mapActions} from "../../../../../../../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
-import {projectActions, projectSelectors} from "../../../../../../../../../ProjectsList/duck";
+import {projectActions, projectSelectors} from "../../../../../../../../../../redux/modules/projects";
 import {isoDateToHumanReadableDate} from "../../../../../../../../../../Util";
+import { useHistory } from 'react-router-dom';
+import { Spin } from 'antd';
+import './styles.css';
+import {mapSubProjectSelectors} from "../../../../../../../../../../redux/modules/map/subProjects";
 
 
 /**
@@ -48,17 +51,18 @@ const mapToSideMenuObject = ({ details, name, description , sub_project_items}) 
  * @name SubProjectDetails
  * @description renders sub project details
  */
-function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject, getSubProjectElement}) {
+function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject, getSubProjectElement,subProjectLoader}) {
     const handleGoBack = () => goBackFromSubProjectToProjectDetails(subProject?.project_id);
 
     const sideMenuObj = subProject ? mapToSideMenuObject(subProject) : null;
-
-    const handleOnclickSubProjectElement = (id) => getSubProjectElement(id);
-    const viewFullSubProjectDetails = () => console.log('View full sub project details clicked');
+    const history = useHistory();
+    
+    const viewFullSubProjectDetails = () => history.push(`/app/sub_projects/${subProject.id}`);
 
 
     return (
         <div className='SubProjectDetails'>
+           
             <section className="top-section">
                 <div className='title'>
                     <div title='Sample Subproject'>{sideMenuObj?.name}</div>
@@ -66,11 +70,14 @@ function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject, ge
                 <BackLink goBack={handleGoBack}/>
             </section>
             <hr/>
+            { subProject ?
+            <div>
             <section>
                 <div><b>contractor:</b> {sideMenuObj?.contractor}</div>
                 <div><b>consultant:</b> {sideMenuObj?.consultant}</div>
                 <div><b>LGA:</b> {sideMenuObj?.lga}</div>
-            </section>
+            </section> 
+            
             <hr/>
             <section>{sideMenuObj?.description}</section>
             {sideMenuObj?.customGridListData ? <CustomGridList data={sideMenuObj?.customGridListData}/> : ''}
@@ -78,12 +85,14 @@ function SubProjectDetails({goBackFromSubProjectToProjectDetails, subProject, ge
                 handleOnclick={viewFullSubProjectDetails}
                 title='view full sub-project details'
             />
+            </div>: <Spin spinning={subProjectLoader} style={{ paddingLeft: 125, paddingTop:150 }} /> }
         </div>
     );
 }
 
 const mapStateToProps = (state) => ({
-    subProject: projectSelectors.getSubProjectSelector(state),
+    subProject: mapSubProjectSelectors.getSubProjectSelector(state),
+    subProjectLoader: projectSelectors.getSubProjectLoadingSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

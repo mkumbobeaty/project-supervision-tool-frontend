@@ -12,7 +12,10 @@ import axios from "./config";
  * @version 0.1.0
  * @since 0.1.0
  */
-const getSubProjects = () => axios.get(`/sub_projects/`).then((response) => response.data);
+const getSubProjects = (params = {}) => {
+    return axios.get(`/sub_projects/`, { params: { page: params.page, per_page: 10, searchField:'name', searchQuery:params.searchQuery } }).then((response) => response.data);
+}
+
 
 /**
  * Get a sub project from the API
@@ -65,10 +68,58 @@ const createSubProjectDetails = (subProjectDetails) =>
         .then((response) => response.data);
 
 
+const getSubProjectItems = () => axios.get('/sub_project_items').then(response => response.data);
+
+/**
+ * creating  sub project item
+ * @function
+ * @name createSubProjectItem
+ * @param {Object} id
+ * @returns {Promise}
+ */
+const createSubProjectItem = (values) => { axios.post('/sub_project_items', values).then((response) => response.data) };
+
+/**
+ * 
+ * Get a sub project item from the API
+ * @function
+ * @name getSubProjectEquipments
+ * @param {Object} id - Id of a sub project equipment
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const getSubProjectEquipments = () => axios.get(`/sub_project_equipments`).then((response) => response.data);
+
+/**
+ * 
+ * Edit a sub project item from the API
+ * @function
+ * @name editSubProject
+ * @param {Object} id - Id of a sub project
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const updateSubProject = (subProject, id) => {
+    return axios
+        .patch(`/sub_projects/${id}`, subProject)
+        .then((response) => response.data);
+};
+
+const getSubProjectsStatistics = () => axios.get('/sub_projects/statistics').then((response)=> response.data);
+
 export default {
     getSubProjects,
     getSubProject,
     deleteSubProject,
     createSubProject,
     createSubProjectDetails,
+    getSubProjectItems,
+    getSubProjectEquipments,
+    createSubProjectItem,
+    updateSubProject,
+    getSubProjectsStatistics,
 }

@@ -2,28 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.css'
 import ProjectsMenuItemDetails from './components/ProjectsMenuItemDetails';
-
-function CommingSoon() {
-
-    return (
-        <div>
-            <b>Work on progress</b> <small>(coming soon!!)</small>
-        </div>
-    );
-
-}
-
-function SubProjectsMenuItemDetails() {
-
-    return <CommingSoon/>
-
-}
-
-function DataSetsMenuItemDetails() {
-
-    return <CommingSoon/>
-
-}
+import SubProjectsMenuItemDetails from './components/SubProjectsMenuItemDetails';
+import DataSetsMenuItemDetails from "./components/DataSetsMenuItemDetails";
 
 
 function NavItemDetails({activeItem}) {

@@ -2,15 +2,18 @@ import React from "react";
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
-import {projectActions, projectSelectors} from '../../../../../../../../../ProjectsList/duck'
+import {projectActions, projectSelectors} from '../../../../../../../../../../redux/modules/projects'
 import {isoDateToHumanReadableDate, moneyFormat} from "../../../../../../../../../../Util";
-import {mapActions, mapSelectors} from "../../../../../../../../duck";
+import {mapActions, mapSelectors} from "../../../../../../../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
 import PredefinedFilter from "../PredefinedFilter";
 import BackLink from "../BackLink";
-import './styles.css';
 import CustomGridList from "../CustomGridList";
 import LongActionButton from "../LongActionButton";
+import { useHistory } from 'react-router-dom';
+import './styles.css';
+import {mapProjectActions, mapProjectSelectors} from "../../../../../../../../../../redux/modules/map/projects";
+import {mapSubProjectActions} from "../../../../../../../../../../redux/modules/map/subProjects";
 
 
 function ProjectDetails({
@@ -60,8 +63,9 @@ function ProjectDetails({
         {title: "PROJECT LOCATIONS", value: project?.locations.length},
     ];
 
-    const  showFullProjectDetails = () => console.log('show full project details is clicked');
-
+    const history = useHistory();
+    const  showFullProjectDetails = () => history.push(`/app/projects/${project.id}`);
+    
     return project ? (
         <div className="ProjectInfo">
             <section className="top-section">
@@ -92,15 +96,15 @@ function ProjectDetails({
 }
 
 const mapStateToProps = state => ({
-    project: projectSelectors.getProjectSelector(state),
+    project: mapProjectSelectors.getProjectSelector(state),
     regionId: mapSelectors.selectedRegionIdSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
-    getSubProject: bindActionCreators(projectActions.getSubProjectStart, dispatch),
+    getSubProject: bindActionCreators(mapSubProjectActions.getSubProjectStart, dispatch),
     showProjectsOverview: bindActionCreators(mapActions.showProjectsOverview, dispatch),
-    clearProject: bindActionCreators(projectActions.clearProject, dispatch),
+    clearProject: bindActionCreators(mapProjectActions.clearProject, dispatch),
     showProjectDetails: bindActionCreators(mapActions.showProjectDetails, dispatch),
     showSubProjectDetails: bindActionCreators(mapActions.showSubProjectDetails, dispatch),
 });

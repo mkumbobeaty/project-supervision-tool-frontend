@@ -1,21 +1,24 @@
-import React, {Component} from 'react';
-import {Spin} from 'antd';
+import React, { Component } from 'react';
+import { Spin } from 'antd';
 import PropTypes from "prop-types";
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import L from 'leaflet';
 import "./styles.css";
 import BaseMap from "./BaseMap";
-import {bindActionCreators} from "redux";
-import {mapActions, mapSelectors} from "./duck";
-import {projectSelectors} from '../ProjectsList/duck'
+import { bindActionCreators } from "redux";
+import { mapActions, mapSelectors } from "../../redux/modules/map";
+import { projectSelectors } from '../../redux/modules/projects'
 import SideNav from "./components/SideNav";
 import RegionsGeoJson from "./components/RegionsGeoJson";
 import RegionDetailGeoJson from "./components/RegionDetailsGeoJson";
 import ProjectPoints from "./components/ProjectPoints";
 import ProjectLocations from "./components/ProjectLocations";
 import SubProjectLocations from "./components/SubProjectLocations";
-import SubProjectElementLocations from "./components/SubProjectElementLocations";
 import SubProjectElementWfsLayer from "./components/SubProjectElementWfsLayer";
+import { mapProjectSelectors } from "../../redux/modules/map/projects";
+import { mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
+import SubRegionsGeoJson from './components/SubRegionsGeoJson ';
+import ShowDataSets from "./components/ShowDataSets";
 
 class MapDashboard extends Component {
     state = {
@@ -101,28 +104,30 @@ class MapDashboard extends Component {
             project,
             mapLoading,
             subProject,
-            subProjectElement,
             getWfsLayerData,
             wfsLayerData,
+            subProjectsOverview,
         } = this.props;
         return (
             <div className="MapDashboard">
-                <SideNav/>
+                <SideNav />
                 <Spin spinning={mapLoading} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>
-                        <RegionsGeoJson
-                            getProjectsByRegion={getProjectsByRegion}
-                            projectsOverview={projectsOverview}
-                        />
-                        {regionDetails ? <RegionDetailGeoJson data={regionDetails}/> : ''}
+                    <RegionsGeoJson
+                                getProjectsByRegion={getProjectsByRegion}
+                                projectsOverview={projectsOverview}
+                            />
+                        <SubRegionsGeoJson subProjectsOverview={subProjectsOverview} />
+                        {regionDetails ? <RegionDetailGeoJson data={regionDetails} /> : ''}
                         {regionDetails && (regionProjects.length > 0) ?
                             <ProjectPoints
                                 regionDetails={regionDetails}
                                 regionProjects={regionProjects}
                             /> : ''}
-                        <ProjectLocations project={project}/>
-                        { wfsLayerData ? <SubProjectElementWfsLayer subProject={subProject} wfsLayerData={wfsLayerData}/> :
-                            <SubProjectLocations getWfsLayerData={getWfsLayerData} subProject={subProject}/> }
+                        <ProjectLocations project={project} />
+                        {wfsLayerData ? <SubProjectElementWfsLayer subProject={subProject} wfsLayerData={wfsLayerData} /> :
+                            <SubProjectLocations getWfsLayerData={getWfsLayerData} subProject={subProject} />}
+                        <ShowDataSets />
                     </BaseMap>
                 </Spin>
             </div>
@@ -136,10 +141,13 @@ const mapStateToProps = (state) => ({
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     regionDetails: mapSelectors.getRegionDetailsSelector(state),
     projectsOverview: mapSelectors.getProjectsOverview(state),
-    subProject: projectSelectors.getSubProjectSelector(state),
+    subProject: mapSubProjectSelectors.getSubProjectSelector(state),
     subProjectElement: projectSelectors.getSubProjectElementSelector(state),
-    project: projectSelectors.getProjectSelector(state),
+    project: mapProjectSelectors.getProjectSelector(state),
     wfsLayerData: mapSelectors.getWfsLayerDataSelector(state),
+    subProjectsOverview: mapSubProjectSelectors.getSubProjectsOverviewSelector(state),
+    loading: mapSubProjectSelectors.getSubProjectMapLoadingSelector(state),
+    isShowSubProjectOverview: mapSubProjectSelectors.showSubProjectOverview(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -46,8 +46,9 @@
 }
 
 .chartDetails {
-    border: 1px solid #e0ddddfa;
+    /* border: 1px solid #e0ddddfa; */
     padding: 15px 0;
+    height: 50vh;
     /* width: 25vw !important;  */
 
 }
@@ -80,4 +81,23 @@
 
 .project-subproject>.Toolbar {
     display: none;
+}
+
+.project_map {
+    padding: 1px;
+    height: 50vh;
+    border: 2px solid #e0ddddfa;
+}
+
+.project_map  .base-map {
+    height: 49vh;
+}
+
+.sector_chat {
+    padding-right: 5px;
+}
+
+.sector_title {
+    color: #0f6788;
+    margin: -10px 0 -10px 10px;
 }
