@@ -29,3 +29,10 @@ export const getRemovedDataSetSelector = (state) => state?.map?.dataSets?.select
  * @param {Object} state redux state
  */
 export const getTotalDataSetsSelector = (state) => state?.map?.dataSets?.layers?.data?.meta.total_count;
+
+/**
+ * @function
+ * @name getDataSetsLoaderSelector
+ * @param {Object} state redux state
+ */
+export const getDataSetsLoaderSelector = (state) => state.map.dataSets.layers.loading;

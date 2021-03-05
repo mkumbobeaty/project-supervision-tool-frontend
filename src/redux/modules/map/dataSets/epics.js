@@ -8,8 +8,8 @@ import * as actions from "./actions";
 export const getGeonodeLayersEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_GEONODE_LAYERS_START),
-        switchMap(() => {
-            return from(API.getLayers()).pipe(
+        switchMap(({payload}) => {
+            return from(API.getLayers(payload)).pipe(
                 switchMap(res => {
                     return from([
                         actions.getGeonodeLayersSuccess(res),

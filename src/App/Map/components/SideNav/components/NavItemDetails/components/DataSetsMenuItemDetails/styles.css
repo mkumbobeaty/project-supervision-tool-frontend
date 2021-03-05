@@ -1,5 +1,11 @@
 
 
-.data-set-items {
+.DataSetsMenuItemDetails .data-set-items {
     padding: 0 10px 0 10px;
+}
+
+.DataSetsMenuItemDetails .paginate-datasets {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
 }

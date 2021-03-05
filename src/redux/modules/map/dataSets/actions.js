@@ -10,14 +10,14 @@ import * as types from "./types";
  * @name getGeonodeLayersStart
  * @return {Object} action
  * */
-export const getGeonodeLayersStart = makeActionCreator(types.GET_GEONODE_LAYERS_START);
+export const getGeonodeLayersStart = makeActionCreator(types.GET_GEONODE_LAYERS_START, 'payload');
 
 /**
  * @function
  * @name getGeonodeLayersSuccess
  * @param {Object} payload layer
  * @return {Object} action
- * */
+ */
 export const getGeonodeLayersSuccess = makeActionCreator(types.GET_GEONODE_LAYERS_SUCCESS, 'payload');
 
 /**
