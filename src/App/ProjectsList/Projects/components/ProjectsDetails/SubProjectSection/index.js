@@ -30,7 +30,7 @@ const headerLayout = [
 
 /**
  * @class
- * @name Sub  Projects
+ * @name SubProjects
  * @description Render actions list which have search box, actions and Sub Projects list
  *
  * @version 0.1.0
@@ -67,7 +67,7 @@ class ProjectSubProjects extends Component {
                                 >
                                     <Link
                                         to={{
-                                            pathname: `/app/resources/initiatives/${item.project_id}`,
+                                            pathname: `/app/sub-projects/${item.id}`,
                                         }}
                                     >
                                         {item.name}

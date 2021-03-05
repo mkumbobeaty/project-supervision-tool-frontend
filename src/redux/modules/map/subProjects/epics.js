@@ -5,6 +5,9 @@ import {from, of} from "rxjs";
 import API from "../../../../API";
 import * as actions from "./actions";
 import {mapProjectActions} from "../projects";
+import { mapActions } from "..";
+import { act } from "react-dom/test-utils";
+
 
 /**
  * @function
@@ -67,8 +70,95 @@ const getSubProjectsOverviewEpic = action$ => {
     );
 }
 
+/**
+ *
+ * @function
+ * @name getSubProjectsByRegionEpic
+ * @param action$ stream of actions
+ */
+const getSubProjectsByRegionEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECTS_REGIONS_OVERVIEW_START),
+        switchMap(({payload}) => {
+            return from(API.getSubProjectsByRegion(payload)).pipe(
+                switchMap(res => from([
+                    actions.getRegionSubProjectStatisticsStart(payload),
+                    actions.getSubProjectsByRegionSuccess(res.data),
+                    actions.clearSubProjectOverview(),
+                    mapActions.getRegionStart(payload),
+                    actions.showRegionSubProjectsOverview(true),
+                    actions.showNationalSubProjectsOverview(false)
+                ])),
+                catchError(error => of(actions.getSubProjectsByRegionFailures(error)))
+            );
+        }),
+    );
+}
+
+
+/**
+ *
+ * @function
+ * @name getRegionSubProjectStatisticsEpic
+ * @param action$ stream of actions
+ */
+const getRegionSubProjectStatisticsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_REGION_SUB_PROJECT_STATISTICS_START),
+        switchMap(({payload}) => {
+            return from(API.getSubRegionProjectStatistics(payload)).pipe(
+                switchMap(res => from([
+                    actions.getRegionSubProjectStatisticsSuccess(res.data),
+                ])),
+                catchError(error => of(actions.getRegionSubProjectStatisticsFailure(error)))
+            );
+        }),
+    );
+}
+
+/**
+ *
+ * @function
+ * @name getDistrictsPerRegionEpic
+ * @param action$ stream of actions
+ */
+const getDistrictsPerRegionEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_START),
+        switchMap(({payload}) => {
+            return from(API.getDistrictsSubProjectOverview(payload)).pipe(
+                switchMap(res =>  from([
+                    actions.getDistrictsSubProjectsOverviewSuccess(res.data),
+                    // actions.clearRegionSubProjects(),
+                    actions.getDistrictsStart(payload),
+                    actions.showDistrictsSubProjectsOverview(true),
+                    actions.showRegionSubProjectsOverview(false),
+                ])),
+                catchError(error => of(actions.getDistrictsSubProjectsOverviewFailure(error)))
+            );
+        }),
+    );
+}
+
+const districtsEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_DISTRICTS_START),
+        switchMap(({payload}) =>  {
+            return from(API.getDistricts(payload)).pipe(
+            switchMap(res => { 
+                return of(actions.getDistrictsSuccess(res.data)) }),
+            catchError(error => of(actions.getDistrictsFailure(error)))
+        )}
+        ),
+    )                                                                                                                                                                                                       
+}
+
 export const mapSubProjectEpics = combineEpics(
     getSubProjectMapEpic,
     getSubProjectsStatistics,
     getSubProjectsOverviewEpic,
+    getSubProjectsByRegionEpic,
+    getRegionSubProjectStatisticsEpic,
+    getDistrictsPerRegionEpic,
+    districtsEpic
 );

@@ -84,6 +84,7 @@ class SubProject extends Component {
                    {  <ImageList handleViewImage={this.handleViewImage} showImage={showImage} sub_project={sub_project} />}
                   </Col>
                 </Row>
+                {/* <ImageGallary /> */}
               </Content>
             </Layout> : <ImagesGallery sub_project={sub_project} selectedImage={selectedImage} />}
 

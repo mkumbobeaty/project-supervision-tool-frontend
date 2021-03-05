@@ -25,7 +25,6 @@ export default class ItemsChat extends Component {
       animationEnabled: true,
       exportFileName: "Doughnut Chart",
       exportEnabled: true,
-      animationEnabled: true,
       title: {
         text: "Sub Project Items",
         fontSize: 20,
@@ -57,9 +56,7 @@ export default class ItemsChat extends Component {
       <div className="chartDetails">
         <CanvasJSChart options={options} /> 
       </div> 
-      :
-      <h2></h2>
-      
+      :" N/A "      
     )
   }
 }

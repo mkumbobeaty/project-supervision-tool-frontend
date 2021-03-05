@@ -13,7 +13,8 @@ function NationalSubProjectsOverview(
         subProjectsStatistics,
         loadingStatistics,
         getSubProjectsOverview,
-        subProjectCountByRegion
+        subProjectCountByRegion,
+        getSubProjectsByRegion,
     }
     ) {
 
@@ -42,7 +43,7 @@ function NationalSubProjectsOverview(
     ] :  []
     ;
 
-    // const handleOnClickFilterItem = (id) => getProjectsByRegion(id);
+    const handleOnClickFilterItem = (id) => getSubProjectsByRegion(id);
 
     // prepare data for ProjectsRegionsPredefinedFilter
     const filterConfig = {filterTitle: 'Regions', filterRightTitle: 'Regions', filterLeftTitle: 'Sub Projects'}
@@ -54,7 +55,7 @@ function NationalSubProjectsOverview(
             predefinedFilterData={filterData}
             predefinedFilterConfig={filterConfig}
             loadingStatistics={loadingStatistics}
-            // handleOnclickFilterItem={handleOnClickFilterItem}
+            handleOnclickFilterItem={handleOnClickFilterItem}
             title='National Overview'
         />
     );
@@ -65,7 +66,9 @@ export default NationalSubProjectsOverview;
 
 NationalSubProjectsOverview.propTypes = {
     subProjectsStatistics: PropTypes.object,
-    getSubProjectsOverview: PropTypes.func.isRequired
+    getSubProjectsOverview: PropTypes.func.isRequired,
+    getSubProjectsByRegion: PropTypes.array.isRequired,
+
 }
 
 NationalSubProjectsOverview.defaultProps = {
