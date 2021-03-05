@@ -18,6 +18,7 @@ import SubProjectElementWfsLayer from "./components/SubProjectElementWfsLayer";
 import { mapProjectSelectors } from "../../redux/modules/map/projects";
 import { mapSubProjectActions, mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
 import SubRegionsGeoJson from './components/SubRegionsGeoJson ';
+import ShowDataSets from "./components/ShowDataSets";
 
 class MapDashboard extends Component {
     state = {
@@ -127,6 +128,7 @@ class MapDashboard extends Component {
                         <ProjectLocations project={project} />
                         {wfsLayerData ? <SubProjectElementWfsLayer subProject={subProject} wfsLayerData={wfsLayerData} /> :
                             <SubProjectLocations getWfsLayerData={getWfsLayerData} subProject={subProject} />}
+                        <ShowDataSets />
                     </BaseMap>
                 </Spin>
             </div>

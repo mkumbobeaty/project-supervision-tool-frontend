@@ -16,7 +16,20 @@ const layers = (state = {data: null , loading: false, error: null  }, action) =>
 };
 
 
+const selected = (state = {added: null ,removed: null }, action) => {
+    switch (action.type) {
+        case types.SET_SELECTED_LAYER:
+            return { ...state, added: action.payload};
+        case types.REMOVE_SELECTED_LAYER:
+            return { ...state, removed: action.payload};
+        default:
+            return state;
+    }
+};
+
+
 
 export const dataSets = combineReducers({
-   layers
+   layers,
+    selected
 })
