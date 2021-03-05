@@ -8,13 +8,12 @@ import {
     Col,
     Select,
     DatePicker,
-    Typography,
 
 } from "antd";
 import { connect } from "react-redux";
 import API from '../../../../API';
-import {generateDateString,createDateFromString} from "../../../../Util";
-import {projectActions, projectSelectors} from "../../../../redux/modules/projects";
+import { generateDateString, createDateFromString } from "../../../../Util";
+import { projectActions, projectSelectors } from "../../../../redux/modules/projects";
 import { subProjectsActions } from "../../../../redux/modules/subProjects";
 
 /* state actions */
@@ -83,6 +82,8 @@ class MoreSubProjectDetails extends Component {
             .then(({ data }) => this.setState({ phases: data }));
         API.getContractors()
             .then(({ data }) => this.setState({ contractors: data }));
+        const { getItems } = this.props;
+        getItems()
     }
 
 
@@ -113,7 +114,7 @@ class MoreSubProjectDetails extends Component {
 
     render() {
         const { supervising_agencies, actors, phases, contractors, } = this.state;
-        const { selected } = this.props;
+        const { selected, items} = this.props;
         return (
             <Form.Provider
                 onFormFinish={(name, { values, forms }) => { }}>
@@ -129,6 +130,7 @@ class MoreSubProjectDetails extends Component {
                         actor_id: selected?.details?.actor.name,
                         phase_id: selected?.details?.phase.name,
                         contractor_id: selected?.details?.contractor.name,
+                        item_id:selected?.details.item.name,
                         start_date: createDateFromString(selected?.details?.start_date),
                         end_date: createDateFromString(selected?.details?.end_date),
                     }}
@@ -166,6 +168,18 @@ class MoreSubProjectDetails extends Component {
                         </Select>
                     </Form.Item>
                     {/* end:LGA */}
+                    {/* start:contractors  */}
+                    <Form.Item
+                        label="Items"
+                        name="item_id"
+                    >
+                        <Select>
+                            {items.map((item) => (
+                                <Select.Option value={item.id}>{item.name}</Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    {/* end:contractors */}
 
                     {/* start:agencies */}
                     <Form.Item
@@ -259,12 +273,14 @@ class MoreSubProjectDetails extends Component {
 const mapStateToProps = (state) => {
     return {
         subProject: projectSelectors.getSubProjectSelector(state),
+        items: projectSelectors.getItemsSelector(state)
     };
 };
 
 const mapDispatchToProps = {
     closeForm: projectActions.closeSubProjectForm,
-    getSubProjects: subProjectsActions.getSubProjectsStart
+    getSubProjects: subProjectsActions.getSubProjectsStart,
+    getItems: projectActions.getItemsStart
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoreSubProjectDetails);

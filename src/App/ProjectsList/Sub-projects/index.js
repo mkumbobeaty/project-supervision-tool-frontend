@@ -17,11 +17,11 @@ import { bindActionCreators } from "redux";
 
 
 /* constants */
-const subProjectNameSpan = { xxl: 3, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
-const contractorSpan = { xxl: 5, xl: 3, lg: 5, md: 3, sm: 4, xs: 5 };
-const phaseSpan = { xxl: 2, xl: 2, lg: 3, md: 2, sm: 4, xs: 0 };
+const subProjectNameSpan = { xxl: 3, xl: 4, lg: 4, md: 5, sm: 10, xs: 11 };
+const contractorSpan = { xxl: 3, xl: 3, lg: 5, md: 3, sm: 4, xs: 5 };
+const itemsSpan = { xxl: 4, xl: 3, lg: 4, md: 5, sm: 4, xs: 0 };
 const agencySpan = { xxl: 4, xl: 4, lg: 4, md: 3, sm: 4, xs: 5 };
-const locationSpan = { xxl: 3, xl: 4, lg: 0, md: 0, sm: 0, xs: 0 };
+const locationSpan = { xxl: 3, xl: 3, lg: 0, md: 0, sm: 0, xs: 0 };
 const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
 const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
 
@@ -29,12 +29,12 @@ const { confirm } = Modal;
 
 const headerLayout = [
   { ...subProjectNameSpan, header: "Name" },
-  { ...projectIdSpan, header: "Project ID" },
+  { ...projectIdSpan, header: "Project" },
+  { ...itemsSpan, header: "Items" },
   { ...locationSpan, header: "Location" },
-  { ...agencySpan, header: "Supervision Agency" },
-  { ...contractorSpan, header: "Contractor" },
-  { ...phaseSpan, header: "Phase" },
   { ...startDateSpan, header: "Start Date" },
+  { ...contractorSpan, header: "Contractor" },
+  { ...agencySpan, header: "Supervision Agency" },
 ];
 
 
@@ -98,18 +98,18 @@ class SubProjects extends Component {
     });
   };
 
- /**
-  * @function
-  * @name openSubProjectForm
-  * @description Open Human Resources form
-  *
-  * @version 0.1.0
-  * @since 0.1.0
-  */
- openSubProjectForm = () => {
-  const { openSubProjectForm } = this.props;
-  openSubProjectForm();
-};
+  /**
+   * @function
+   * @name openSubProjectForm
+   * @description Open Human Resources form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  openSubProjectForm = () => {
+    const { openSubProjectForm } = this.props;
+    openSubProjectForm();
+  };
 
   /**
    * @function
@@ -170,15 +170,15 @@ class SubProjects extends Component {
     paginateSubProject(page);
   };
 
-   /**   
-   * @function
-   * @name searchSubProject
-   * @description Handle list refresh action
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  searchSubProject = (searchData)  => {
+  /**   
+  * @function
+  * @name searchSubProject
+  * @description Handle list refresh action
+  *
+  * @version 0.1.0
+  * @since 0.1.0
+  */
+  searchSubProject = (searchData) => {
     const { searchSubProject } = this.props;
     debugger
     searchSubProject(searchData);
@@ -203,7 +203,7 @@ class SubProjects extends Component {
           search={{
             size: "large",
             placeholder: "Search for Sub-project here ...",
-            onSearch:this.searchSubProject,
+            onSearch: this.searchSubProject,
             // onChange:this.searchSubProject,
             value: searchQuery
           }}
@@ -280,20 +280,23 @@ class SubProjects extends Component {
                 </Col>
                 <Col {...projectIdSpan} className="contentEllipse">
 
-                  {item.project_id ? item.project_id : "N/A"}
+                  {item ? item?.code : "N/A"}
                 </Col>
+                <Col {...itemsSpan} className="contentEllipse"> {item.sub_project_items.length <= 0 ? "N/A" : item.sub_project_items.map(({ item }, index) => {
+                  return (index ? ", " : "") + item.name;
+                })}</Col>
+
                 <Col {...locationSpan} className="contentEllipse">
-                  {item.sub_project_locations.length <= 0 ? "" : item.sub_project_locations.map(({ district }, index) => {
+                  {item.sub_project_locations.length <= 0 ? "N/A" : item.sub_project_locations.map(({ district }, index) => {
                     return (index ? ", " : "") + district.name;
                   })}
                 </Col>
-                <Col {...agencySpan} className="contentEllipse" title={item?.details?.supervising_agency.name}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
-                <Col {...contractorSpan} className="contentEllipse">{item.details ? item.details.contractor.name : "N/A"}</Col>
-                {/* <Col {...actorSpan}>{item.details ? item.details.actor.name : "N/A"}</Col> */}
-                <Col {...phaseSpan}>{item.details ? item.details.phase.name : "N/A"}</Col>
                 <Col {...startDateSpan}>
                   {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'N/A')}
                 </Col>
+                <Col {...contractorSpan} className="contentEllipse">{item.details ? item.details.contractor.name : "N/A"}</Col>
+
+                <Col {...agencySpan} className="contentEllipse" title={item?.details?.supervising_agency.name}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
 
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
@@ -345,7 +348,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchSubProjects:bindActionCreators(subProjectsActions.getSubProjectsStart, dispatch), 
+  fetchSubProjects: bindActionCreators(subProjectsActions.getSubProjectsStart, dispatch),
   deleteSubproject: bindActionCreators(projectOperation.deleteSubProjectStart, dispatch),
   paginateSubProject(page) {
     dispatch(subProjectsActions.getSubProjectsStart({ page }));
