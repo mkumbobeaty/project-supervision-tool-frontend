@@ -98,7 +98,7 @@ class SubProjects extends Component {
     });
   };
 
-  /**
+ /**
   * @function
   * @name openSubProjectForm
   * @description Open Human Resources form
@@ -106,6 +106,10 @@ class SubProjects extends Component {
   * @version 0.1.0
   * @since 0.1.0
   */
+ openSubProjectForm = () => {
+  const { openSubProjectForm } = this.props;
+  openSubProjectForm();
+};
 
   /**
    * @function
