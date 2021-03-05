@@ -66,7 +66,7 @@ class SubProject extends Component {
                   <Col span={11} className="sub_project_map"  >
                     <h4 className='mapHeaderTitle'>Sub Project Location</h4>
                     <Spin spinning={mapLoading} tip="Loading data...">
-                      <BaseMap ref={this.map} zoomControl={false}>
+                      <BaseMap ref={this.map} zoomControl={true}>
                         <SubProjectLocations getWfsLayerData={getWfsLayerData} subProject={sub_project} />
                       </BaseMap>
                     </Spin>

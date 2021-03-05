@@ -98,7 +98,6 @@ class SubProjectForm extends Component {
 const mapStateToProps = (state) => {
   return {
     projects: projectSelectors.getProjectsSelector(state),
-    selected: subProjectsSelectors.selectedSubProject(state)
   };
 };
 

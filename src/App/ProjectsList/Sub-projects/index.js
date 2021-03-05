@@ -14,6 +14,8 @@ import SubProjectForm from "./Form";
 import "./styles.css";
 import { subProjectsActions, subProjectsSelectors } from "../../../redux/modules/subProjects"
 import { bindActionCreators } from "redux";
+import { mapActions } from "../../../redux/modules/map";
+import PreviewOnMap from "./PreviewOnMap";
 
 
 /* constants */
@@ -53,6 +55,8 @@ class SubProjects extends Component {
     isEditForm: false,
     cached: null,
     visible: false,
+    previewOnMap: false,
+
   };
 
   componentDidMount() {
@@ -68,11 +72,25 @@ class SubProjects extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  handleMapPreview = (item_id) => {
+  handleMapPreview = (subProject) => {
+    const { selectSubProject } = this.props;
+    selectSubProject(subProject);
+
+    this.setState({previewOnMap: true })
+  };
+
+   /**
+   * @function
+   * @name handleViewDetails
+   * @description Handle detail preview
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleViewDetails = (item_id) => {
     const { getProject } = this.props;
     getProject(item_id);
-    console.log(item_id)
-    let path = '/app/map';
+    let path = `/app/sub_projects/${item_id}`;
     this.props.history.push(path);
   };
 
@@ -126,20 +144,7 @@ class SubProjects extends Component {
     closeSubProjectForm();
   };
 
-  // /**
-  //  * @function
-  //  * @name handleAfterCloseForm
-  //  * @description Perform post close form cleanups
-  //  *
-  //  * @version 0.1.0
-  //  * @since 0.1.0
-  //  */
-  // handleAfterCloseForm = () => {
-  //   const { selectProject } = this.props;
-  //   selectProject(null);
-  //   this.setState({ isEditForm: false });
-  // };
-
+  
   /**
   * @function
   * @name handleEdit
@@ -191,11 +196,13 @@ class SubProjects extends Component {
       showForm,
       page,
       total,
-      paginateSubProject
+      paginateSubProject,
+      getWfsLayerData,
+      selected
     } = this.props;
 
-    const { isEditForm } = this.state;
-    return (
+    const { isEditForm,previewOnMap } = this.state;
+    return previewOnMap ? <PreviewOnMap data={selected} /> : (
       <div>
         {/* Topbar */}
         <Topbar
@@ -256,6 +263,20 @@ class SubProjects extends Component {
                         "Remove Sub project from list of active Sub Projects",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
+                    view={
+                      {
+                        name:"View more",
+                        title:"View more detail of selected sub project",
+                        onClick: () => this.handleViewDetails(item.id)
+                      }
+                    }
+                    onMapPreview={
+                      {
+                        name:"Preview on Map",
+                        title:"View Sub project on map",
+                        onClick: () => this.handleMapPreview(item)
+                      }
+                    }
                   />
                 )}
               >
@@ -316,7 +337,7 @@ class SubProjects extends Component {
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
         >
-          <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} closeSubProjectForm={this.closeSubProjectForm} />
+          <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} closeSubProjectForm={this.closeSubProjectForm} selected={selected} />
         </Drawer>
       </div>
     );
@@ -344,7 +365,9 @@ const mapStateToProps = (state) => {
     loading: subProjectsSelectors.getSubProjectsLoadingSelector(state),
     showForm: projectSelectors.getSubProjectShowFormSelector(state),
     page: subProjectsSelectors.getSubProjectsPageSelector(state),
-    total: subProjectsSelectors.getSubProjectsTotalSelector(state)
+    total: subProjectsSelectors.getSubProjectsTotalSelector(state),
+    selected: subProjectsSelectors.selectedSubProject(state)
+
   };
 };
 
@@ -361,6 +384,8 @@ const mapDispatchToProps = (dispatch) => ({
   openSubProjectForm: bindActionCreators(projectActions.openSubProjectForm, dispatch),
   closeSubProjectForm: bindActionCreators(projectActions.closeSubProjectForm, dispatch),
   selectSubProject: bindActionCreators(subProjectsActions.selectedSubProject, dispatch),
+  getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjects);
