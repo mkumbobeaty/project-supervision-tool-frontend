@@ -21,7 +21,7 @@ import PreviewOnMap from "./PreviewOnMap";
 /* constants */
 const subProjectNameSpan = { xxl: 3, xl: 4, lg: 4, md: 5, sm: 10, xs: 11 };
 const contractorSpan = { xxl: 3, xl: 3, lg: 5, md: 3, sm: 4, xs: 5 };
-const itemsSpan = { xxl: 4, xl: 3, lg: 4, md: 5, sm: 4, xs: 0 };
+const endDataSpan = { xxl: 4, xl: 3, lg: 4, md: 5, sm: 4, xs: 0 };
 const agencySpan = { xxl: 4, xl: 4, lg: 4, md: 3, sm: 4, xs: 5 };
 const locationSpan = { xxl: 3, xl: 3, lg: 0, md: 0, sm: 0, xs: 0 };
 const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
@@ -32,9 +32,9 @@ const { confirm } = Modal;
 const headerLayout = [
   { ...subProjectNameSpan, header: "Name" },
   { ...projectIdSpan, header: "Project" },
-  { ...itemsSpan, header: "Items" },
   { ...locationSpan, header: "Location" },
   { ...startDateSpan, header: "Start Date" },
+  { ...endDataSpan, header: "End date" },
   { ...contractorSpan, header: "Contractor" },
   { ...agencySpan, header: "Supervision Agency" },
 ];
@@ -64,6 +64,7 @@ class SubProjects extends Component {
     fetchSubProjects();
   }
 
+
   /**
    * @function
    * @name handleMapPreview
@@ -72,13 +73,14 @@ class SubProjects extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  handleMapPreview = (subProject) => {
-    const { selectSubProject } = this.props;
-    selectSubProject(subProject);
-
+  handleMapPreview = (item_id) => {
+    const { getSubProject, match: { params } } = this.props;
     this.setState({previewOnMap: true })
+    getSubProject(item_id);
+    console.log(item_id)
+    let path = '/app/map';
+    this.props.history.push(path);
   };
-
    /**
    * @function
    * @name handleViewDetails
@@ -88,8 +90,8 @@ class SubProjects extends Component {
    * @since 0.1.0
    */
   handleViewDetails = (item_id) => {
-    const { getProject } = this.props;
-    getProject(item_id);
+    const { getSubProject } = this.props;
+    getSubProject(item_id);
     let path = `/app/sub_projects/${item_id}`;
     this.props.history.push(path);
   };
@@ -302,7 +304,7 @@ class SubProjects extends Component {
 
                   {item ? item?.project_id : "N/A"}
                 </Col>
-                <Col {...itemsSpan} className="contentEllipse" title={item.sub_project_items.length <= 0 ? "N/A" : item.sub_project_items.map(({ item }, index) => {
+                <Col {...endDataSpan} className="contentEllipse" title={item.sub_project_items.length <= 0 ? "N/A" : item.sub_project_items.map(({ item }, index) => {
                   return (index ? ", " : "") + item.name;
                 })}> {item?.sub_project_items.length <= 0 ? "N/A" : item?.sub_project_items.map(({ item }, index) => {
                   return (index ? ", " : "") + item.name;
@@ -380,7 +382,7 @@ const mapDispatchToProps = (dispatch) => ({
   searchSubProject(searchQuery) {
     dispatch(subProjectsActions.getSubProjectsStart({ searchQuery }));
   },
-  getProject: bindActionCreators(projectOperation.getProjectStart, dispatch),
+  getSubProject: bindActionCreators(projectActions.getSubProjectStart, dispatch),
   openSubProjectForm: bindActionCreators(projectActions.openSubProjectForm, dispatch),
   closeSubProjectForm: bindActionCreators(projectActions.closeSubProjectForm, dispatch),
   selectSubProject: bindActionCreators(subProjectsActions.selectedSubProject, dispatch),
