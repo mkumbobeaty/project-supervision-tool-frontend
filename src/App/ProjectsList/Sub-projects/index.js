@@ -14,14 +14,16 @@ import SubProjectForm from "./Form";
 import "./styles.css";
 import { subProjectsActions, subProjectsSelectors } from "../../../redux/modules/subProjects"
 import { bindActionCreators } from "redux";
+import { mapActions } from "../../../redux/modules/map";
+import PreviewOnMap from "./PreviewOnMap";
 
 
 /* constants */
-const subProjectNameSpan = { xxl: 3, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
-const contractorSpan = { xxl: 5, xl: 3, lg: 5, md: 3, sm: 4, xs: 5 };
-const phaseSpan = { xxl: 2, xl: 2, lg: 3, md: 2, sm: 4, xs: 0 };
+const subProjectNameSpan = { xxl: 3, xl: 4, lg: 4, md: 5, sm: 10, xs: 11 };
+const contractorSpan = { xxl: 3, xl: 3, lg: 5, md: 3, sm: 4, xs: 5 };
+const endDataSpan = { xxl: 4, xl: 3, lg: 4, md: 5, sm: 4, xs: 0 };
 const agencySpan = { xxl: 4, xl: 4, lg: 4, md: 3, sm: 4, xs: 5 };
-const locationSpan = { xxl: 3, xl: 4, lg: 0, md: 0, sm: 0, xs: 0 };
+const locationSpan = { xxl: 3, xl: 3, lg: 0, md: 0, sm: 0, xs: 0 };
 const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
 const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
 
@@ -29,12 +31,12 @@ const { confirm } = Modal;
 
 const headerLayout = [
   { ...subProjectNameSpan, header: "Name" },
-  { ...projectIdSpan, header: "Project ID" },
+  { ...projectIdSpan, header: "Project" },
   { ...locationSpan, header: "Location" },
-  { ...agencySpan, header: "Supervision Agency" },
-  { ...contractorSpan, header: "Contractor" },
-  { ...phaseSpan, header: "Phase" },
   { ...startDateSpan, header: "Start Date" },
+  { ...endDataSpan, header: "End date" },
+  { ...contractorSpan, header: "Contractor" },
+  { ...agencySpan, header: "Supervision Agency" },
 ];
 
 
@@ -53,12 +55,15 @@ class SubProjects extends Component {
     isEditForm: false,
     cached: null,
     visible: false,
+    previewOnMap: false,
+
   };
 
   componentDidMount() {
     const { fetchSubProjects } = this.props;
     fetchSubProjects();
   }
+
 
   /**
    * @function
@@ -69,10 +74,25 @@ class SubProjects extends Component {
    * @since 0.1.0
    */
   handleMapPreview = (item_id) => {
-    const { getProject } = this.props;
-    getProject(item_id);
+    const { getSubProject, match: { params } } = this.props;
+    this.setState({previewOnMap: true })
+    getSubProject(item_id);
     console.log(item_id)
     let path = '/app/map';
+    this.props.history.push(path);
+  };
+   /**
+   * @function
+   * @name handleViewDetails
+   * @description Handle detail preview
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleViewDetails = (item_id) => {
+    const { getSubProject } = this.props;
+    getSubProject(item_id);
+    let path = `/app/sub_projects/${item_id}`;
     this.props.history.push(path);
   };
 
@@ -98,18 +118,18 @@ class SubProjects extends Component {
     });
   };
 
- /**
-  * @function
-  * @name openSubProjectForm
-  * @description Open Human Resources form
-  *
-  * @version 0.1.0
-  * @since 0.1.0
-  */
- openSubProjectForm = () => {
-  const { openSubProjectForm } = this.props;
-  openSubProjectForm();
-};
+  /**
+   * @function
+   * @name openSubProjectForm
+   * @description Open Human Resources form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  openSubProjectForm = () => {
+    const { openSubProjectForm } = this.props;
+    openSubProjectForm();
+  };
 
   /**
    * @function
@@ -126,20 +146,7 @@ class SubProjects extends Component {
     closeSubProjectForm();
   };
 
-  // /**
-  //  * @function
-  //  * @name handleAfterCloseForm
-  //  * @description Perform post close form cleanups
-  //  *
-  //  * @version 0.1.0
-  //  * @since 0.1.0
-  //  */
-  // handleAfterCloseForm = () => {
-  //   const { selectProject } = this.props;
-  //   selectProject(null);
-  //   this.setState({ isEditForm: false });
-  // };
-
+  
   /**
   * @function
   * @name handleEdit
@@ -170,17 +177,16 @@ class SubProjects extends Component {
     paginateSubProject(page);
   };
 
-   /**   
-   * @function
-   * @name searchSubProject
-   * @description Handle list refresh action
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  searchSubProject = (searchData)  => {
+  /**   
+  * @function
+  * @name searchSubProject
+  * @description Handle list refresh action
+  *
+  * @version 0.1.0
+  * @since 0.1.0
+  */
+  searchSubProject = (searchData) => {
     const { searchSubProject } = this.props;
-    debugger
     searchSubProject(searchData);
   };
 
@@ -192,18 +198,20 @@ class SubProjects extends Component {
       showForm,
       page,
       total,
-      paginateSubProject
+      paginateSubProject,
+      getWfsLayerData,
+      selected
     } = this.props;
 
-    const { isEditForm } = this.state;
-    return (
+    const { isEditForm,previewOnMap } = this.state;
+    return previewOnMap ? <PreviewOnMap data={selected} /> : (
       <div>
         {/* Topbar */}
         <Topbar
           search={{
             size: "large",
             placeholder: "Search for Sub-project here ...",
-            onSearch:this.searchSubProject,
+            onSearch: this.searchSubProject,
             // onChange:this.searchSubProject,
             value: searchQuery
           }}
@@ -257,6 +265,20 @@ class SubProjects extends Component {
                         "Remove Sub project from list of active Sub Projects",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
+                    view={
+                      {
+                        name:"View more",
+                        title:"View more detail of selected sub project",
+                        onClick: () => this.handleViewDetails(item.id)
+                      }
+                    }
+                    onMapPreview={
+                      {
+                        name:"Preview on Map",
+                        title:"View Sub project on map",
+                        onClick: () => this.handleMapPreview(item)
+                      }
+                    }
                   />
                 )}
               >
@@ -280,20 +302,25 @@ class SubProjects extends Component {
                 </Col>
                 <Col {...projectIdSpan} className="contentEllipse">
 
-                  {item.project_id ? item.project_id : "N/A"}
+                  {item ? item?.project_id : "N/A"}
                 </Col>
+                <Col {...endDataSpan} className="contentEllipse" title={item.sub_project_items.length <= 0 ? "N/A" : item.sub_project_items.map(({ item }, index) => {
+                  return (index ? ", " : "") + item.name;
+                })}> {item?.sub_project_items.length <= 0 ? "N/A" : item?.sub_project_items.map(({ item }, index) => {
+                  return (index ? ", " : "") + item.name;
+                })}</Col>
+
                 <Col {...locationSpan} className="contentEllipse">
-                  {item.sub_project_locations.length <= 0 ? "" : item.sub_project_locations.map(({ district }, index) => {
+                  {item.sub_project_locations.length <= 0 ? "N/A" : item.sub_project_locations.map(({ district }, index) => {
                     return (index ? ", " : "") + district.name;
                   })}
                 </Col>
-                <Col {...agencySpan} className="contentEllipse" title={item?.details?.supervising_agency.name}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
-                <Col {...contractorSpan} className="contentEllipse">{item.details ? item.details.contractor.name : "N/A"}</Col>
-                {/* <Col {...actorSpan}>{item.details ? item.details.actor.name : "N/A"}</Col> */}
-                <Col {...phaseSpan}>{item.details ? item.details.phase.name : "N/A"}</Col>
                 <Col {...startDateSpan}>
                   {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'N/A')}
                 </Col>
+                <Col {...contractorSpan} className="contentEllipse">{item.details ? item.details.contractor.name : "N/A"}</Col>
+
+                <Col {...agencySpan} className="contentEllipse" title={item?.details?.supervising_agency.name}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
 
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
@@ -312,7 +339,7 @@ class SubProjects extends Component {
           maskClosable={false}
           afterClose={this.handleAfterCloseForm}
         >
-          <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} closeSubProjectForm={this.closeSubProjectForm} />
+          <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} closeSubProjectForm={this.closeSubProjectForm} selected={selected} />
         </Drawer>
       </div>
     );
@@ -340,12 +367,14 @@ const mapStateToProps = (state) => {
     loading: subProjectsSelectors.getSubProjectsLoadingSelector(state),
     showForm: projectSelectors.getSubProjectShowFormSelector(state),
     page: subProjectsSelectors.getSubProjectsPageSelector(state),
-    total: subProjectsSelectors.getSubProjectsTotalSelector(state)
+    total: subProjectsSelectors.getSubProjectsTotalSelector(state),
+    selected: subProjectsSelectors.selectedSubProject(state)
+
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchSubProjects:bindActionCreators(subProjectsActions.getSubProjectsStart, dispatch), 
+  fetchSubProjects: bindActionCreators(subProjectsActions.getSubProjectsStart, dispatch),
   deleteSubproject: bindActionCreators(projectOperation.deleteSubProjectStart, dispatch),
   paginateSubProject(page) {
     dispatch(subProjectsActions.getSubProjectsStart({ page }));
@@ -353,10 +382,12 @@ const mapDispatchToProps = (dispatch) => ({
   searchSubProject(searchQuery) {
     dispatch(subProjectsActions.getSubProjectsStart({ searchQuery }));
   },
-  getProject: bindActionCreators(projectOperation.getProjectStart, dispatch),
+  getSubProject: bindActionCreators(projectActions.getSubProjectStart, dispatch),
   openSubProjectForm: bindActionCreators(projectActions.openSubProjectForm, dispatch),
   closeSubProjectForm: bindActionCreators(projectActions.closeSubProjectForm, dispatch),
   selectSubProject: bindActionCreators(subProjectsActions.selectedSubProject, dispatch),
+  getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjects);

@@ -7,15 +7,16 @@ import {
     Row,
     Col,
     Select,
-    DatePicker,
     Typography,
+    DatePicker,
 
 } from "antd";
 import { connect } from "react-redux";
 import API from '../../../../API';
-import {generateDateString,createDateFromString} from "../../../../Util";
-import {projectActions, projectSelectors} from "../../../../redux/modules/projects";
+import { generateDateString, createDateFromString } from "../../../../Util";
+import { projectActions, projectSelectors } from "../../../../redux/modules/projects";
 import { subProjectsActions } from "../../../../redux/modules/subProjects";
+import SubProjectItemsForm from "./SubProjectItems";
 
 /* state actions */
 
@@ -50,12 +51,13 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
 
 /**
  * @function
- * @name getSectorNameFromSectors
- * @description get sector name from sectors
+ * @name getItemFromItems
+ * @description get item name from items
  */
-const getSectorNameFromSectors = (sectorId, sectors) => {
-    const sector = sectors.find(({ id }) => id === sectorId);
-    return sector.name;
+const getItemFromItems = (itemId, items) => {
+    const item = items.find(({ id }) => id === itemId);
+    console.log(item)
+    return item.name;
 }
 
 
@@ -65,7 +67,7 @@ class MoreSubProjectDetails extends Component {
         isEditForm: false,
         visibleTotalProjectCost: false,
         visibleCommitmentAmount: false,
-        visibleProjectSectors: false,
+        visibleSubProjectItems: false,
         commitment_amount_id: null,
         total_project_cost_id: null,
         supervising_agencies: [],
@@ -83,7 +85,18 @@ class MoreSubProjectDetails extends Component {
             .then(({ data }) => this.setState({ phases: data }));
         API.getContractors()
             .then(({ data }) => this.setState({ contractors: data }));
+        const { getItems, getProgress } = this.props;
+        getItems();
+        getProgress();
     }
+
+    showSubProjectItemsModal = () => {
+        this.setState({ visibleSubProjectItems: true });
+    };
+
+    hideSubProjectItemsModal = () => {
+        this.setState({ visibleSubProjectItems: false });
+    };
 
 
     // form finish(submit) handler
@@ -112,11 +125,23 @@ class MoreSubProjectDetails extends Component {
 
 
     render() {
-        const { supervising_agencies, actors, phases, contractors, } = this.state;
-        const { selected } = this.props;
+        const { supervising_agencies, actors, phases, contractors, visibleSubProjectItems, } = this.state;
+        const { selected, items, subProject, progress } = this.props;
         return (
             <Form.Provider
-                onFormFinish={(name, { values, forms }) => { }}>
+                onFormFinish={(name, { values, forms }) => {
+                    if (name === 'subProjectItemsForm') {
+                        const { MoreSubProjectDetails } = forms;
+                        const items = MoreSubProjectDetails.getFieldValue('items') || [];
+                        MoreSubProjectDetails.setFieldsValue({
+                            items: [...items, values],
+                        });
+                        this.setState({visibleSubProjectItems: false});
+                      }
+
+                 }}
+                
+                >
                 <Form
                     labelCol={labelCol}
                     wrapperCol={wrapperCol}
@@ -129,6 +154,7 @@ class MoreSubProjectDetails extends Component {
                         actor_id: selected?.details?.actor.name,
                         phase_id: selected?.details?.phase.name,
                         contractor_id: selected?.details?.contractor.name,
+                        item_id: selected?.details.item.name,
                         start_date: createDateFromString(selected?.details?.start_date),
                         end_date: createDateFromString(selected?.details?.end_date),
                     }}
@@ -193,6 +219,51 @@ class MoreSubProjectDetails extends Component {
                     </Form.Item>
                     {/* end:contractors */}
 
+                    {/* start: items list */}
+                    <Form.Item
+                        label="Sub Project Items"
+                        shouldUpdate={(prevValues, curValues) => prevValues.items !== curValues.items}
+                    >
+                        {({ getFieldValue }) => {
+                            const itemsData = getFieldValue('items') || [];
+                            console.log(itemsData[0]);
+                            return (
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'flex-start'
+                                }}>
+                                    {itemsData.length ? (
+                                        <ul>
+                                            {itemsData.map((item, index) => (
+                                                <li key={index} className="user">
+                                                    {`${getItemFromItems(item.item_id, items)} - (${item.quantity})`}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    ) : (
+                                            <div>
+                                                <Typography.Text className="ant-form-text" type="secondary">
+                                                    No Item(s) yet, please add item(s)
+                          </Typography.Text>
+                                            </div>
+                                        )}
+                                    <Button
+                                        size="small"
+                                        htmlType="button"
+                                        style={{
+                                            fontSize: '0.9em'
+                                        }}
+                                        onClick={this.showSubProjectItemsModal}
+                                    >
+                                        Add
+                    </Button>
+                                </div>
+                            );
+                        }}
+                    </Form.Item>
+                    {/* end: project sectors list */}
+
 
                     <Row justify="space-between">
                         <Col span={8}>
@@ -247,6 +318,13 @@ class MoreSubProjectDetails extends Component {
 
                 </Form>
 
+                <SubProjectItemsForm
+                    visible={visibleSubProjectItems}
+                    onCancel={this.hideSubProjectItemsModal}
+                    items={items}
+                    subProject={subProject}
+                    progress={progress}
+                />
 
 
             </Form.Provider>
@@ -259,12 +337,16 @@ class MoreSubProjectDetails extends Component {
 const mapStateToProps = (state) => {
     return {
         subProject: projectSelectors.getSubProjectSelector(state),
+        items: projectSelectors.getItemsSelector(state),
+        progress: projectSelectors.getProgressSelector(state)
     };
 };
 
 const mapDispatchToProps = {
     closeForm: projectActions.closeSubProjectForm,
-    getSubProjects: subProjectsActions.getSubProjectsStart
+    getSubProjects: subProjectsActions.getSubProjectsStart,
+    getItems: projectActions.getItemsStart,
+    getProgress: projectActions.getProgressStart,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoreSubProjectDetails);
@@ -272,13 +354,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(MoreSubProjectDetail
 
 MoreSubProjectDetails.defaultProps = {
     subProject: null,
-    sectors: [],
+    items: [],
+    progress: null
 };
 
 MoreSubProjectDetails.propTypes = {
     subProject: PropTypes.object.isRequired,
+    items: PropTypes.object.isRequired,
+    progress: PropTypes.object.isRequired,
     closeForm: PropTypes.func.isRequired,
     getSubProjects: PropTypes.func.isRequired,
+    getProgress: PropTypes.func.isRequired,
+    getItems: PropTypes.func.isRequired
 };
 
 

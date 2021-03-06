@@ -97,6 +97,7 @@ function BasicSubProjectDetailsForm({
                         name: selected?.name,
                         project_id: selected?.project_id,
                         description: selected?.description,
+                        code:selected?.code
                     }}
 
                 >
@@ -147,6 +148,25 @@ function BasicSubProjectDetailsForm({
                         <Select>
                             {projects.map(({ id, name }) => (
                                 <Select.Option value={id}>{name}</Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    {/*end: project id */}
+
+                      {/*start: project id */}
+                      <Form.Item
+                        label="Project Code"
+                        name="code"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Project code is required",
+                            },
+                        ]}
+                    >
+                        <Select>
+                            {projects.map(({ code }) => (
+                                <Select.Option value={code}>{code}</Select.Option>
                             ))}
                         </Select>
                     </Form.Item>
