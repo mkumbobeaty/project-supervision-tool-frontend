@@ -26,10 +26,10 @@ class SubProjectRegionsGeoJson extends Component{
         }
     }
 
-    handleOnClickGeojson = ({properties}) => this.props.getProjectsByRegion(properties.id);
+    handleOnClickGeojson = ({properties}) => this.props.getSubProjectsByRegion(properties.id);
     onEachFeature = (feature, layer) =>  layer.on({ click: () => this.handleOnClickGeojson(feature)});
 
-    renderProjectsOverview = (data) => data.map(({geom,id, name, sub_projects_count}) => {
+    renderSubProjectsOverview = (data) => data.map(({geom,id, name, sub_projects_count}) => {
         const parsedGeometry = JSON.parse(geom);
         const geoJsonObject= {
             "type": "Feature",
@@ -76,7 +76,7 @@ class SubProjectRegionsGeoJson extends Component{
 
         return (
             <>
-                { this.renderProjectsOverview(subProjectsOverview) }
+                { this.renderSubProjectsOverview(subProjectsOverview) }
             </>
         );
     }
