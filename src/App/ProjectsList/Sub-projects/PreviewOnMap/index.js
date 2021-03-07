@@ -5,7 +5,7 @@ import "./styles.css";
 import BaseMap from "../../../Map/BaseMap";
 import {getGeoJsonFromLocation} from '../../../../Util';
 
-class PreviewInitiativeOnMap extends  Component {
+class PreviewOnMap extends  Component {
     state = {
         lat: -6.161184,
         lng: 35.745426,
@@ -32,8 +32,8 @@ class PreviewInitiativeOnMap extends  Component {
     }
 
     render() {
-        const { initiative } = this.props;
-        const geo_json = getGeoJsonFromLocation(initiative);
+        const { data } = this.props;
+        const geo_json = getGeoJsonFromLocation(data);
 
         return (
         <BaseMap ref={this.map}>
@@ -44,4 +44,4 @@ class PreviewInitiativeOnMap extends  Component {
 }
 
 
-export default PreviewInitiativeOnMap;
+export default PreviewOnMap;
