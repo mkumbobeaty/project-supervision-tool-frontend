@@ -178,9 +178,9 @@ class Projects extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  handleSearch = (searchData)  => {
+  handleSearch = (searchData) => {
     console.log(searchData)
-    this.props.searchProject({searchQuery: searchData})
+    this.props.searchProject({ searchQuery: searchData })
   };
 
   /**   
@@ -191,7 +191,7 @@ class Projects extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  handleRefresh = ()  => {
+  handleRefresh = () => {
     this.props.fetchProjects()
   };
 
@@ -244,7 +244,7 @@ class Projects extends Component {
           onFilter={this.openFiltersModal}
           onRefresh={this.handleRefresh}
           onPaginate={(nextPage) => {
-            paginateProject({page: nextPage});
+            paginateProject({ page: nextPage });
           }}
           headerLayout={headerLayout}
           renderListItem={({
@@ -253,57 +253,58 @@ class Projects extends Component {
             onSelectItem,
             onDeselectItem,
           }) => (
-            <ListItem
-              key={item.id} // eslint-disable-line
-              name={item.name}
-              item={item}
-              isSelected={isSelected}
-              // onSelectItem={onSelectItem}
-              onDeselectItem={onDeselectItem}
-              renderActions={() => (
-                <ListItemActions
-                  edit={{
-                    name: "Edit project",
-                    title: "Update project details",
-                    onClick: () => this.handleEdit(item),
-                  }}
-                  archive={{
-                    name: "Archive project",
-                    title:
-                      "Remove project from list of active Projects",
-                    onClick: () => this.showArchiveConfirm(item),
-                  }}
-                />
-              )}
-            >
-              {/* eslint-disable react/jsx-props-no-spreading */}
-              <Col {...codeSpan}>{item? item?.code : 'N/A'}</Col>
-              <Col {...projectIdSpan} className="contentEllipse">
-                {" "}
-
-                {item.id ? item.id : "All"}
-              </Col>
-              <Col
-                {...nameSpan}
-                className="contentEllipse"
-                title={item.description}
+              <ListItem
+                key={item.id} // eslint-disable-line
+                name={item.name}
+                item={item}
+                isSelected={isSelected}
+                // onSelectItem={onSelectItem}
+                onDeselectItem={onDeselectItem}
+                renderActions={() => (
+                  <ListItemActions
+                    edit={{
+                      name: "Edit project",
+                      title: "Update project details",
+                      onClick: () => this.handleEdit(item),
+                    }}
+                    archive={{
+                      name: "Archive project",
+                      title:
+                        "Remove project from list of active Projects",
+                      onClick: () => this.showArchiveConfirm(item),
+                    }}
+                  />
+                )}
               >
-                <Link
-                  to={{
-                    pathname: `/app/projects/${item.id}`,
-                  }}
-                  className="Projects"
-                >
-                  {item.name}
-                </Link>
-              </Col>
-              <Col {...subProjectsSpan}>{item.sub_projects ? item.sub_projects.length : 'N/A'}</Col>
-              <Col {...projectLeadSpan}>{item.leaders ? item?.leaders.map(({first_name, last_name}, index) => { return <p>{first_name } {last_name} {index >= 0 ? "," : ""}</p>}): 'N/A'}</Col>
-              <Col {...projectCoordinatorSpan}>{item.details.implementing_agency ? item.details.implementing_agency.focalPerson.first_name + ' ' + item.details.implementing_agency.focalPerson.last_name : 'N/A'}</Col>
+                {/* eslint-disable react/jsx-props-no-spreading */}
+                <Col {...codeSpan}>{item ? item?.code : 'N/A'}</Col>
+                <Col {...projectIdSpan} className="contentEllipse">
+                  {" "}
 
-              {/* eslint-enable react/jsx-props-no-spreading */}
-            </ListItem>
-          )}
+                  {item.id ? item.id : "All"}
+                </Col>
+                <Col
+                  {...nameSpan}
+                  className="contentEllipse"
+                  title={item.description}
+                >
+                  <Link
+                    to={{
+                      pathname: `/app/projects/${item.id}`,
+                    }}
+                    className="Projects"
+                  >
+                    {item.name}
+                  </Link>
+                </Col>
+                <Col {...subProjectsSpan}>{item.sub_projects ? item.sub_projects.length : 'N/A'}</Col>
+                <Col {...projectLeadSpan} title={item?.leaders.map(({ first_name, last_name }) => { return " " + first_name + " " + last_name })} >
+                  {item.leaders ? item?.leaders.map(({ first_name, last_name }, index) => { return (index ? ", " : "") + first_name + " " + last_name }).slice(0, 2) : 'N/A'}</Col>
+                <Col {...projectCoordinatorSpan}>{item.details.implementing_agency ? item.details.implementing_agency.focalPerson.first_name + ' ' + item.details.implementing_agency.focalPerson.last_name : 'N/A'}</Col>
+
+                {/* eslint-enable react/jsx-props-no-spreading */}
+              </ListItem>
+            )}
         />
         {/* end list */}
         <Drawer
