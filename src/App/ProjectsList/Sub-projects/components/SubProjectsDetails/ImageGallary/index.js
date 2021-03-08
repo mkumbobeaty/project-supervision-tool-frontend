@@ -3,6 +3,7 @@ import { Row, Col, Modal, Button } from 'antd';
 import { LeftOutlined, RightOutlined, } from '@ant-design/icons';
 import UploadPhotoForm from './uploadImage';
 import "./styles.css";
+import FileUpload from "../../../../../components/FileUpload";
 
 const dummyRequest = ({ file, onSuccess }) => {
     setTimeout(() => {
@@ -148,7 +149,8 @@ class ImageList extends React.Component {
                 </div>
                 }
                 <Modal title="Upload Photo" visible={this.state.isModalVisible} onCancel={this.handleCancel} footer={null}>
-                    <UploadPhotoForm dummyRequest={dummyRequest} onChange={this.onChange} selectedFileList={this.state.selectedFileList} sub_project={sub_project} />
+                    {/*<UploadPhotoForm dummyRequest={dummyRequest} onChange={this.onChange} selectedFileList={this.state.selectedFileList} sub_project={sub_project} />*/}
+                    <FileUpload subProject={sub_project}/>
                 </Modal>
             </div>
 
