@@ -12,6 +12,7 @@ import SubProjectLocations from "../../../../Map/components/SubProjectLocations"
 import { mapActions, mapSelectors } from "../../../../../redux/modules/map";
 import ImageList from "./ImageGallary";
 import ImagesGallery from "./ImageGallary/imageGallaries";
+import FullscreenControl from 'react-leaflet-fullscreen';
 import "./styles.css";
 
 const { Content, Sider } = Layout;
@@ -67,6 +68,7 @@ class SubProject extends Component {
                     <h4 className='mapHeaderTitle'>Sub Project Location</h4>
                     <Spin spinning={mapLoading} tip="Loading data...">
                       <BaseMap ref={this.map} zoomControl={true}>
+                      <FullscreenControl position="topright" />
                         <SubProjectLocations getWfsLayerData={getWfsLayerData} subProject={sub_project} />
                       </BaseMap>
                     </Spin>
