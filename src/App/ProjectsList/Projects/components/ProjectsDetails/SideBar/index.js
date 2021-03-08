@@ -1,6 +1,18 @@
 import React from "react";
+import { moneyFormat } from "../../../../../../Util";
+
+const getCommitmentAmount = (data) => {
+    const { amount, currency } = data
+    const { iso } = currency;
+    const money = moneyFormat(amount);
+    return `${iso} ${money}`;
+}
+
 
 const SidebarSection = ({ project }) => {
+
+    const commitmentAmount = project?.details?.commitment_amount ? getCommitmentAmount(project?.details?.commitment_amount) : 'N/A';
+    const totalProjectCost = project?.details.total_project_cost ? getCommitmentAmount(project.details.total_project_cost) : 'N/A';
 
     return (
         <div>
@@ -11,27 +23,28 @@ const SidebarSection = ({ project }) => {
             </span>
             <span >
                 <h4>Approval date</h4>
-                <p>{project?.details ? new Date(project?.details.approval_date).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'}) : 'N/A'}</p>                                                                                                                                                                                                                                                                                                    {/* <p>{project.id}</p> */}
+                <p>{project?.details ? new Date(project?.details.approval_date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}</p>
             </span>
             <span >
                 <h4>Closing date</h4>
-                <p>{project?.details ? new Date(project?.details.closing_date).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'}) : 'N/A'}</p>                                                                                                                                                                                                                                                                                                    {/* <p>{project.id}</p> */}
+                <p>{project?.details ? new Date(project?.details.closing_date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}</p>
             </span>
             <span >
                 <h4>Project Total Cost</h4>
-                <p>{project?.details ? new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(project?.details.total_project_cost.amount) : 'N/A'}</p>
+                <p>{totalProjectCost}</p>
             </span>
             <span >
                 <h4>Commitment Amount</h4>
-                <p>{project?.details ? new Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'}).format(project?.details.commitment_amount.amount) : 'N/A'}</p>
+                <p>{commitmentAmount}</p>
             </span>
             <span >
                 <h4>Project Lead</h4>
-                <p>{ project?.details ? project?.details.funding_organisation.focalPerson.first_name + " " + project?.details.funding_organisation.focalPerson.last_name : 'N/A'}</p>                                                                                                                                                                                                                                                                                                       {/* <p>{project.id}</p> */}
+                <p>{project?.leaders ? project.leaders.map(({ first_name, last_name }, index) => { return (index ? ", " : "") + first_name + " " + last_name }) : 'N/A'}</p>
+
             </span>
             <span >
                 <h4>Project Coordinator</h4>
-                <p>{ project?.details ? project?.details.implementing_agency.focalPerson.first_name + " " + project?.details.implementing_agency.focalPerson.last_name : 'N/A'}</p>                                                                                                                                                                                                                                                                                                       {/* <p>{project.id}</p> */}
+                <p>{project?.details ? project?.details.implementing_agency.focalPerson.first_name + " " + project?.details.implementing_agency.focalPerson.last_name : 'N/A'}</p>
             </span>
 
             <span >
@@ -56,7 +69,7 @@ const SidebarSection = ({ project }) => {
             </span>
             <span >
                 <h4>Last updated</h4>
-                <p>{project?.details ? new Date(project?.details.approval_date).toLocaleDateString("en-US", {year: 'numeric', month: 'long', day: 'numeric'}) : 'N/A'}</p>                                                                                                                                                                                                                                                                                                    {/* <p>{project.id}</p> */}
+                <p>{project?.details ? new Date(project?.details.approval_date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' }) : 'N/A'}</p>
             </span>
         </div>
 

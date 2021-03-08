@@ -59,7 +59,6 @@ function DistrictsSubProjectsOverview({
         setShowDistrictsOverview(false);
         // clearDistrictsSubProjects()
     }
-debugger
     return (
         <SideNavItemOverview
             overViewData={overViewData}
