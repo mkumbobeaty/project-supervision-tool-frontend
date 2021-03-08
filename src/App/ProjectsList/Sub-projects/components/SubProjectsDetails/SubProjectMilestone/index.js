@@ -12,8 +12,6 @@ const nameSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 14, xs: 12 };
 const taskSpan = { xxl: 6, xl:6, lg: 6, md: 6, sm: 4, xs: 6 };
 const completionDateSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
 
-
-
 const headerLayout = [
     { ...nameSpan, header: "Name" },
     { ...taskSpan, header: "Tasks", }, ,
@@ -35,7 +33,7 @@ class SubProjectsMilestone extends Component {
         return (
             <div className="sub-project-milestone">
                 {/* list Reversides */}
-                <h4 className='headerTitle'>Milestones</h4>
+                {/* <h4 className='headerTitle'>Milestones</h4> */}
                 <ListHeaderData headerLayout={headerLayout} />
                 <List
                     itemName="Sub_project_milestone"
