@@ -16,6 +16,7 @@ import { subProjectsActions, subProjectsSelectors } from "../../../redux/modules
 import { bindActionCreators } from "redux";
 import { mapActions } from "../../../redux/modules/map";
 import PreviewOnMap from "./PreviewOnMap";
+import SurveyForm from "./SurveyForm";
 
 
 /* constants */
@@ -81,6 +82,22 @@ class SubProjects extends Component {
     let path = '/app/map';
     this.props.history.push(path);
   };
+
+
+  /**
+   * @function
+   * @name createSurvey
+   * @description creates new survey through kobotoolbox and  attach to sub project
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  createSurvey = (subProject) => {
+    console.log('inside createSurvey',subProject)
+  };
+
+
+
    /**
    * @function
    * @name handleViewDetails
@@ -121,7 +138,7 @@ class SubProjects extends Component {
   /**
    * @function
    * @name openSubProjectForm
-   * @description Open Human Resources form
+   * @description Open Create SubProject form
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -133,8 +150,21 @@ class SubProjects extends Component {
 
   /**
    * @function
+   * @name openSubProjectSurveyForm
+   * @description Open Create SubProject Survey form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  openSubProjectSurveyForm = () => {
+    const { openSubProjectSurveyForm } = this.props;
+    openSubProjectSurveyForm();
+  };
+
+  /**
+   * @function
    * @name closeSubProjectForm
-   * @description close Human Resources form
+   * @description close Create SubProject form
    *
    * @version 0.1.0
    * @since 0.1.0
@@ -144,6 +174,20 @@ class SubProjects extends Component {
     const { closeSubProjectForm, selectSubProject } = this.props;
     selectSubProject(null)
     closeSubProjectForm();
+  };
+
+  /**
+   * @function
+   * @name closeSubProjectSurveyForm
+   * @description close Create Survey Form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  closeSubProjectSurveyForm = () => {
+    const { closeSubProjectSurveyForm, selectSubProject } = this.props;
+    selectSubProject(null)
+    closeSubProjectSurveyForm();
   };
 
   /**
@@ -195,6 +239,7 @@ class SubProjects extends Component {
       searchQuery,
       loading,
       showForm,
+      showSurveyForm,
       page,
       total,
       paginateSubProject,
@@ -278,6 +323,13 @@ class SubProjects extends Component {
                         onClick: () => this.handleMapPreview(item)
                       }
                     }
+                    createSurvey={
+                      {
+                        name:"Create Survey",
+                        title:"Create sub project survey",
+                        onClick: () => this.openSubProjectSurveyForm()
+                      }
+                    }
                   />
                 )}
               >
@@ -326,6 +378,8 @@ class SubProjects extends Component {
             )}
         />
         {/* end list */}
+
+        {/* Sub project form */}
         <Drawer
           title={
             isEditForm ? "Edit Sub Projects" : "Add New Sub Projects"}
@@ -336,9 +390,23 @@ class SubProjects extends Component {
           bodyStyle={{ paddingBottom: 80 }}
           destroyOnClose
           maskClosable={false}
-          afterClose={this.handleAfterCloseForm}
+          afterClose={() => {}}
         >
           <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} closeSubProjectForm={this.closeSubProjectForm} selected={selected} />
+        </Drawer>
+
+        {/* Survey form */}
+        <Drawer
+          title={"Create SubProject Survey"}
+          width={550}
+          onClose={this.closeSubProjectSurveyForm}
+          footer={null}
+          visible={showSurveyForm}
+          bodyStyle={{ paddingBottom: 80 }}
+          destroyOnClose
+          maskClosable={false}
+        >
+          <SurveyForm isEditForm={isEditForm} onCancel={this.closeSubProjectSurveyForm} closeSubProjectSurveyForm={this.closeSubProjectSurveyForm} selected={selected} />
         </Drawer>
       </div>
     );
@@ -365,6 +433,7 @@ const mapStateToProps = (state) => {
     subProjects: subProjectsSelectors.getSubProjectsSelector(state),
     loading: subProjectsSelectors.getSubProjectsLoadingSelector(state),
     showForm: projectSelectors.getSubProjectShowFormSelector(state),
+    showSurveyForm: projectSelectors.getSubProjectShowSurveyFormSelector(state),
     page: subProjectsSelectors.getSubProjectsPageSelector(state),
     total: subProjectsSelectors.getSubProjectsTotalSelector(state),
     selected: subProjectsSelectors.selectedSubProject(state)
@@ -383,7 +452,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getSubProject: bindActionCreators(projectActions.getSubProjectStart, dispatch),
   openSubProjectForm: bindActionCreators(projectActions.openSubProjectForm, dispatch),
+  openSubProjectSurveyForm: bindActionCreators(projectActions.openSubProjectSurveyForm, dispatch),
   closeSubProjectForm: bindActionCreators(projectActions.closeSubProjectForm, dispatch),
+  closeSubProjectSurveyForm: bindActionCreators(projectActions.closeSubProjectSurveyForm, dispatch),
   selectSubProject: bindActionCreators(subProjectsActions.selectedSubProject, dispatch),
   getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
 

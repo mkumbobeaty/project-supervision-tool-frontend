@@ -2,21 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-  DeleteOutlined,
-  DiffOutlined,
-  EditOutlined,
-  EyeOutlined,
-  MoreOutlined,
-  ShareAltOutlined,
-  SwapOutlined,
-  SyncOutlined,
-  UserSwitchOutlined,
-  CloseCircleOutlined,
-  CheckCircleOutlined,
-  CarOutlined,
+    DeleteOutlined,
+    DiffOutlined,
+    EditOutlined,
+    EyeOutlined,
+    MoreOutlined,
+    ShareAltOutlined,
+    SwapOutlined,
+    SyncOutlined,
+    UserSwitchOutlined,
+    CloseCircleOutlined,
+    CheckCircleOutlined,
+    CarOutlined,
+    FileProtectOutlined
 } from '@ant-design/icons';
 
-import { Dropdown, Button, Menu } from 'antd';
+import {Dropdown, Button, Menu} from 'antd';
 
 // TODO refactor this to receive menu items rather than objects
 /**
@@ -46,242 +47,250 @@ import { Dropdown, Button, Menu } from 'antd';
  * @since 0.1.0
  */
 const ListItemActions = ({
-  onMapPreview,
-  view,
-  edit,
-  share,
-  archive,
-  transfer,
-  adjust,
-  whatsapp,
-  reload,
-  assignPermissions,
-  cancelDispatch,
-  dispatch,
-  atPickup,
-  fromPickup,
-  atDropOff,
-  fromDropOff,
-  completeDispatch,
-}) => (
-  <Dropdown
-    overlay={
-      <Menu>
-        {view && (
-          <Menu.Item key="view" onClick={view.onClick} title={view.title}>
-            <EyeOutlined /> {view.name}
-          </Menu.Item>
-        )}
+                             onMapPreview,
+                             view,
+                             edit,
+                             share,
+                             createSurvey,
+                             archive,
+                             transfer,
+                             adjust,
+                             whatsapp,
+                             reload,
+                             assignPermissions,
+                             cancelDispatch,
+                             dispatch,
+                             atPickup,
+                             fromPickup,
+                             atDropOff,
+                             fromDropOff,
+                             completeDispatch,
+                         }) => (
+    <Dropdown
+        overlay={
+            <Menu>
+                {view && (
+                    <Menu.Item key="view" onClick={view.onClick} title={view.title}>
+                        <EyeOutlined/> {view.name}
+                    </Menu.Item>
+                )}
 
-        {onMapPreview && (
-          <Menu.Item
-            key="onMapPreview"
-            onClick={onMapPreview.onClick}
-            title={onMapPreview.title}
-          >
-            <EyeOutlined /> {onMapPreview.name}
-          </Menu.Item>
-        )}
+                {onMapPreview && (
+                    <Menu.Item
+                        key="onMapPreview"
+                        onClick={onMapPreview.onClick}
+                        title={onMapPreview.title}
+                    >
+                        <EyeOutlined/> {onMapPreview.name}
+                    </Menu.Item>
+                )}
 
-        {edit && (
-          <Menu.Item key="edit" onClick={edit.onClick} title={edit.title}>
-            <EditOutlined /> {edit.name}
-          </Menu.Item>
-        )}
+                {edit && (
+                    <Menu.Item key="edit" onClick={edit.onClick} title={edit.title}>
+                        <EditOutlined/> {edit.name}
+                    </Menu.Item>
+                )}
 
-        {assignPermissions && (
-          <Menu.Item
-            key="share"
-            onClick={assignPermissions.onClick}
-            title={assignPermissions.title}
-          >
-            <UserSwitchOutlined /> {assignPermissions.name}
-          </Menu.Item>
-        )}
+                {createSurvey && (
+                    <Menu.Item key="createSurvey" onClick={createSurvey.onClick} title={createSurvey.title}>
+                        <FileProtectOutlined /> {createSurvey.name}
+                    </Menu.Item>
+                )}
 
-        {dispatch && (
-          <Menu.Item
-            key="dispatch"
-            onClick={dispatch.onClick}
-            title={dispatch.title}
-          >
-            <CarOutlined /> {dispatch.name}
-          </Menu.Item>
-        )}
 
-        {atPickup && (
-          <Menu.Item
-            key="atPickup"
-            onClick={atPickup.onClick}
-            title={atPickup.title}
-          >
-            <CarOutlined /> {atPickup.name}
-          </Menu.Item>
-        )}
+                {assignPermissions && (
+                    <Menu.Item
+                        key="share"
+                        onClick={assignPermissions.onClick}
+                        title={assignPermissions.title}
+                    >
+                        <UserSwitchOutlined/> {assignPermissions.name}
+                    </Menu.Item>
+                )}
 
-        {fromPickup && (
-          <Menu.Item
-            key="fromPickup"
-            onClick={fromPickup.onClick}
-            title={fromPickup.title}
-          >
-            <CarOutlined /> {fromPickup.name}
-          </Menu.Item>
-        )}
+                {dispatch && (
+                    <Menu.Item
+                        key="dispatch"
+                        onClick={dispatch.onClick}
+                        title={dispatch.title}
+                    >
+                        <CarOutlined/> {dispatch.name}
+                    </Menu.Item>
+                )}
 
-        {atDropOff && (
-          <Menu.Item
-            key="atDropOff"
-            onClick={atDropOff.onClick}
-            title={atDropOff.title}
-          >
-            <CarOutlined /> {atDropOff.name}
-          </Menu.Item>
-        )}
+                {atPickup && (
+                    <Menu.Item
+                        key="atPickup"
+                        onClick={atPickup.onClick}
+                        title={atPickup.title}
+                    >
+                        <CarOutlined/> {atPickup.name}
+                    </Menu.Item>
+                )}
 
-        {fromDropOff && (
-          <Menu.Item
-            key="fromDropOff"
-            onClick={fromDropOff.onClick}
-            title={fromDropOff.title}
-          >
-            <CarOutlined /> {fromDropOff.name}
-          </Menu.Item>
-        )}
+                {fromPickup && (
+                    <Menu.Item
+                        key="fromPickup"
+                        onClick={fromPickup.onClick}
+                        title={fromPickup.title}
+                    >
+                        <CarOutlined/> {fromPickup.name}
+                    </Menu.Item>
+                )}
 
-        {completeDispatch && (
-          <Menu.Item
-            key="completeDispatch"
-            onClick={completeDispatch.onClick}
-            title={completeDispatch.title}
-          >
-            <CheckCircleOutlined />
-            {completeDispatch.name}
-          </Menu.Item>
-        )}
+                {atDropOff && (
+                    <Menu.Item
+                        key="atDropOff"
+                        onClick={atDropOff.onClick}
+                        title={atDropOff.title}
+                    >
+                        <CarOutlined/> {atDropOff.name}
+                    </Menu.Item>
+                )}
 
-        {cancelDispatch && (
-          <Menu.Item
-            key="cancelDispatch"
-            onClick={cancelDispatch.onClick}
-            title={cancelDispatch.title}
-          >
-            <CloseCircleOutlined />
-            {cancelDispatch.name}
-          </Menu.Item>
-        )}
+                {fromDropOff && (
+                    <Menu.Item
+                        key="fromDropOff"
+                        onClick={fromDropOff.onClick}
+                        title={fromDropOff.title}
+                    >
+                        <CarOutlined/> {fromDropOff.name}
+                    </Menu.Item>
+                )}
 
-        {reload && (
-          <Menu.Item key="reload" onClick={reload.onClick} title={reload.title}>
-            <SyncOutlined /> {reload.name}
-          </Menu.Item>
-        )}
+                {completeDispatch && (
+                    <Menu.Item
+                        key="completeDispatch"
+                        onClick={completeDispatch.onClick}
+                        title={completeDispatch.title}
+                    >
+                        <CheckCircleOutlined/>
+                        {completeDispatch.name}
+                    </Menu.Item>
+                )}
 
-        {share && (
-          <Menu.Item key="share" onClick={share.onClick} title={share.title}>
-            <ShareAltOutlined /> {share.name}
-          </Menu.Item>
-        )}
+                {cancelDispatch && (
+                    <Menu.Item
+                        key="cancelDispatch"
+                        onClick={cancelDispatch.onClick}
+                        title={cancelDispatch.title}
+                    >
+                        <CloseCircleOutlined/>
+                        {cancelDispatch.name}
+                    </Menu.Item>
+                )}
 
-        {archive && (
-          <Menu.Item
-            key="archive"
-            onClick={archive.onClick}
-            title={archive.title}
-          >
-            <DeleteOutlined /> {archive.name}
-          </Menu.Item>
-        )}
+                {reload && (
+                    <Menu.Item key="reload" onClick={reload.onClick} title={reload.title}>
+                        <SyncOutlined/> {reload.name}
+                    </Menu.Item>
+                )}
 
-        {transfer && (
-          <Menu.Item
-            key="transfer"
-            onClick={transfer.onClick}
-            title={transfer.title}
-          >
-            <SwapOutlined /> {transfer.name}
-          </Menu.Item>
-        )}
+                {share && (
+                    <Menu.Item key="share" onClick={share.onClick} title={share.title}>
+                        <ShareAltOutlined/> {share.name}
+                    </Menu.Item>
+                )}
 
-        {adjust && (
-          <Menu.Item
-            key="transfer"
-            onClick={adjust.onClick}
-            title={adjust.title}
-          >
-            <DiffOutlined /> {adjust.name}
-          </Menu.Item>
-        )}
+                {archive && (
+                    <Menu.Item
+                        key="archive"
+                        onClick={archive.onClick}
+                        title={archive.title}
+                    >
+                        <DeleteOutlined/> {archive.name}
+                    </Menu.Item>
+                )}
 
-        {whatsapp && (
-          <Menu.Item key="transfer" title={whatsapp.title}>
-            <a target="_blank" rel="noopener noreferrer" href={whatsapp.link}>
-              <DiffOutlined /> {whatsapp.name}
-            </a>
-          </Menu.Item>
-        )}
-      </Menu>
-    }
-    trigger={['click']}
-  >
-    <Button
-      shape="circle"
-      size="large"
-      icon={<MoreOutlined />}
-      className="actionButton"
-      title="More actions"
-    />
-  </Dropdown>
+                {transfer && (
+                    <Menu.Item
+                        key="transfer"
+                        onClick={transfer.onClick}
+                        title={transfer.title}
+                    >
+                        <SwapOutlined/> {transfer.name}
+                    </Menu.Item>
+                )}
+
+                {adjust && (
+                    <Menu.Item
+                        key="transfer"
+                        onClick={adjust.onClick}
+                        title={adjust.title}
+                    >
+                        <DiffOutlined/> {adjust.name}
+                    </Menu.Item>
+                )}
+
+                {whatsapp && (
+                    <Menu.Item key="transfer" title={whatsapp.title}>
+                        <a target="_blank" rel="noopener noreferrer" href={whatsapp.link}>
+                            <DiffOutlined/> {whatsapp.name}
+                        </a>
+                    </Menu.Item>
+                )}
+            </Menu>
+        }
+        trigger={['click']}
+    >
+        <Button
+            shape="circle"
+            size="large"
+            icon={<MoreOutlined/>}
+            className="actionButton"
+            title="More actions"
+        />
+    </Dropdown>
 );
 
 /* props validation */
 const actionShape = {
-  name: PropTypes.string,
-  title: PropTypes.string,
-  onClick: PropTypes.func,
-};
-ListItemActions.propTypes = {
-  view: PropTypes.shape(actionShape),
-  onMapPreview: PropTypes.shape(actionShape),
-  edit: PropTypes.shape(actionShape),
-  reload: PropTypes.shape(actionShape),
-  share: PropTypes.shape(actionShape),
-  archive: PropTypes.shape(actionShape),
-  transfer: PropTypes.shape(actionShape),
-  adjust: PropTypes.shape(actionShape),
-  assignPermissions: PropTypes.shape(actionShape),
-  whatsapp: PropTypes.shape({
     name: PropTypes.string,
     title: PropTypes.string,
-    link: PropTypes.string,
-  }),
-  completeDispatch: PropTypes.shape(actionShape),
-  cancelDispatch: PropTypes.shape(actionShape),
-  dispatch: PropTypes.shape(actionShape),
-  atPickup: PropTypes.shape(actionShape),
-  fromPickup: PropTypes.shape(actionShape),
-  atDropOff: PropTypes.shape(actionShape),
-  fromDropOff: PropTypes.shape(actionShape),
+    onClick: PropTypes.func,
+};
+ListItemActions.propTypes = {
+    view: PropTypes.shape(actionShape),
+    onMapPreview: PropTypes.shape(actionShape),
+    edit: PropTypes.shape(actionShape),
+    reload: PropTypes.shape(actionShape),
+    share: PropTypes.shape(actionShape),
+    archive: PropTypes.shape(actionShape),
+    transfer: PropTypes.shape(actionShape),
+    adjust: PropTypes.shape(actionShape),
+    assignPermissions: PropTypes.shape(actionShape),
+    whatsapp: PropTypes.shape({
+        name: PropTypes.string,
+        title: PropTypes.string,
+        link: PropTypes.string,
+    }),
+    completeDispatch: PropTypes.shape(actionShape),
+    cancelDispatch: PropTypes.shape(actionShape),
+    dispatch: PropTypes.shape(actionShape),
+    atPickup: PropTypes.shape(actionShape),
+    fromPickup: PropTypes.shape(actionShape),
+    atDropOff: PropTypes.shape(actionShape),
+    fromDropOff: PropTypes.shape(actionShape),
 };
 
 ListItemActions.defaultProps = {
-  view: null,
-  onMapPreview: null,
-  edit: null,
-  reload: null,
-  share: null,
-  archive: null,
-  transfer: null,
-  adjust: null,
-  whatsapp: null,
-  assignPermissions: null,
-  completeDispatch: null,
-  cancelDispatch: null,
-  dispatch: null,
-  atPickup: null,
-  fromPickup: null,
-  atDropOff: null,
-  fromDropOff: null,
+    view: null,
+    onMapPreview: null,
+    edit: null,
+    reload: null,
+    share: null,
+    archive: null,
+    transfer: null,
+    adjust: null,
+    whatsapp: null,
+    assignPermissions: null,
+    completeDispatch: null,
+    cancelDispatch: null,
+    dispatch: null,
+    atPickup: null,
+    fromPickup: null,
+    atDropOff: null,
+    fromDropOff: null,
 };
 
 export default ListItemActions;

@@ -191,7 +191,7 @@ const sub_projects = (state = defaultSubProjects, action) => {
         case types.DELETE_SUB_PROJECT_SUCCESS:
             return { ...state, sub_project: action.payload };
         case types.DELETE_SUB_PROJECT_FAILURE:
-            return { ...state, error: action.payload };;
+            return { ...state, error: action.payload };
         default:
             return state;
     }
@@ -203,6 +203,7 @@ const subProjectState = {
     error: null,
     loading: false,
     showForm: false,
+    showSurveyForm: false,
     posting: false
 };
 /**
@@ -219,8 +220,12 @@ const subProject = (state = subProjectState, action) => {
             return { ...state, loading: true };
         case types.OPEN_SUB_PROJECT_FORM:
             return { ...state, showForm: true };
+        case types.OPEN_SUB_PROJECT_SURVEY_FORM:
+            return { ...state, showSurveyForm: true };
         case types.CLOSE_SUB_PROJECT_FORM:
             return { ...state, showForm: false };
+        case types.CLOSE_SUB_PROJECT_SURVEY_FORM:
+            return { ...state, showSurveyForm: false };
         case types.GET_SUB_PROJECT_SUCCESS:
             return { ...state, data: action.payload, loading: false };
         case types.CREATE_SUB_PROJECT_SUCCESS:

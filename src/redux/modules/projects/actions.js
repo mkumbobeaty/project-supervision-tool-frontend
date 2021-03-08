@@ -201,12 +201,27 @@ export const getSubProjectFailure = makeActionCreator(types.GET_SUB_PROJECT_FAIL
  * */
 export const openSubProjectForm = makeActionCreator(types.OPEN_SUB_PROJECT_FORM);
 
+
+/**
+ * @function
+ * @name openSubProjectSurveyForm
+ * @return {Object} action
+ * */
+export const openSubProjectSurveyForm = makeActionCreator(types.OPEN_SUB_PROJECT_SURVEY_FORM);
+
 /**
  * @function
  * @name closeSubProjectForm
  * @return {Object} action
  * */
 export const closeSubProjectForm = makeActionCreator(types.CLOSE_SUB_PROJECT_FORM);
+
+/**
+ * @function
+ * @name closeSubProjectSurveyForm
+ * @return {Object} action
+ * */
+export const closeSubProjectSurveyForm = makeActionCreator(types.CLOSE_SUB_PROJECT_SURVEY_FORM);
 
 
 /**
