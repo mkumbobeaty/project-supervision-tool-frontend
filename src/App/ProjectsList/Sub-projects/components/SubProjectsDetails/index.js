@@ -20,7 +20,7 @@ class SubProject extends Component {
 
   state = {
     showImage: false,
-    selectedImage:{}
+    selectedImage: {}
 
   }
   componentDidMount() {
@@ -30,7 +30,7 @@ class SubProject extends Component {
   }
 
   handleViewImage = (image) => {
-    this.setState({ showImage: true, selectedImage: image})
+    this.setState({ showImage: true, selectedImage: image })
   }
 
   handleViewClose = () => {
@@ -39,7 +39,7 @@ class SubProject extends Component {
 
   render() {
     const { sub_project, loading, mapLoading, getWfsLayerData } = this.props;
-    const { showImage,selectedImage  } = this.state;
+    const { showImage, selectedImage } = this.state;
     return (
       <Layout className="sub-project-layout">
         <Spin spinning={loading} tip="Loading..." >
@@ -81,7 +81,18 @@ class SubProject extends Component {
                     < SubProjectEquipment sub_project={sub_project} offset={1} />
                   </Col>
                   <Col span={11} style={{ marginTop: 26 }} className='Sub-project-image'>
-                   {  <ImageList handleViewImage={this.handleViewImage} showImage={showImage} sub_project={sub_project} />}
+                    {<ImageList handleViewImage={this.handleViewImage} showImage={showImage} sub_project={sub_project} />}
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={24} >
+                    <SubProjectsMilestone sub_project={sub_project} />
+                  </Col>
+                  <Col span={24} style={{ marginTop: 26 }}>
+                    <SubProjectHumanResource sub_project={sub_project} />
+                  </Col>
+                  <Col span={24} style={{ marginTop: 26 }}>
+                    < SubProjectEquipment sub_project={sub_project} />
                   </Col>
                 </Row>
                 {/* <ImageGallary /> */}
