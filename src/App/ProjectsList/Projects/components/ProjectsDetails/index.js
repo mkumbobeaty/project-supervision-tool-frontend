@@ -3,12 +3,13 @@ import { Col, Layout, Row, Spin } from 'antd';
 import SectorChat from "./Charts";
 import ProjectSubProjects from "./SubProjectSection";
 import SidebarSection from "./SideBar";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects";
 import BaseMap from "../../../../Map/BaseMap";
-import "./styles.css";
+import FullscreenControl from 'react-leaflet-fullscreen';
 import { mapSelectors } from "../../../../../redux/modules/map";
+import ProjectLocations from  "../../../../Map/components/ProjectLocations";
+import "./styles.css";
 
 const { Content, Sider } = Layout;
 
@@ -36,13 +37,14 @@ class Project extends Component {
               </Sider>
               <Content className="project_contents">
                 <Row>
-                  <Col span={13} className="sector_chat">
+                  <Col span={12} className="sector_chat">
                     <SectorChat project={project} />
                   </Col>
-                  <Col span={11} className="project_map"  >
+                  <Col span={11} className="project_map" offset={1} >
                     <Spin spinning={mapLoading} tip="Loading data...">
-                      <BaseMap ref={this.map} zoomControl={false}>
-                        {/* <SubProjectLocations getWfsLayerData={getWfsLayerData} subProject={sub_project} /> */}
+                      <BaseMap ref={this.map} zoomControl={true}>
+                      <FullscreenControl position="topright" />
+                      <ProjectLocations project={project} />
                       </BaseMap>
                     </Spin>
                   </Col>
