@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Form, Input, Button } from 'antd';
+import API from '../../../../API';
 
 /* ui */
 const labelCol = {
@@ -26,19 +27,35 @@ const wrapperCol = {
  * @name BasicSubProjectDetailsForm
  * @description renders form for creating sub project
  */
-function SurveyForm() {
+function SurveyForm(
+    {
+        onCancel,
+        closeSubProjectSurveyForm,
+        selected
+    }
+) {
 
-    const onFinish = (values) => console.log(values);
+    const onFinish = (values) => {
+        const payload = {name: values.name, asset_type: 'survey', settings: {
+                description: values.description
+            }};
+        API.createSurvey(payload)
+            .then( res => API.createSubProjectSurvey({
+                survey_id: res.uid,
+                category_name: 'sub_project_survey',
+                sub_project_id: selected.id,
+            }));
+    };
 
 
     return (
         <Form
             labelCol={labelCol}
             wrapperCol={wrapperCol}
-            name="basicForm"
+            name="surveyForm"
             onFinish={onFinish}
             autoComplete="off"
-            className="ProjectForm"
+            className="surveyForm"
         >
             <h4>Please Fill the form correctly</h4>
 
@@ -74,6 +91,13 @@ function SurveyForm() {
 
             {/* start:form actions */}
             <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+                <Button
+                    type="primary"
+                    style={{ marginRight: 8 }}
+                    onClick={onCancel}
+                >
+                    Cancel
+                </Button>
                 <Button
                     type="primary"
                     htmlType="submit"

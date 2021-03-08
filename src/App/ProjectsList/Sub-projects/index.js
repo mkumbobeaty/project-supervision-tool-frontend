@@ -156,8 +156,9 @@ class SubProjects extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  openSubProjectSurveyForm = () => {
-    const { openSubProjectSurveyForm } = this.props;
+  openSubProjectSurveyForm = (subProject) => {
+    const { openSubProjectSurveyForm, selectSubProject} = this.props;
+    selectSubProject(subProject)
     openSubProjectSurveyForm();
   };
 
@@ -327,7 +328,7 @@ class SubProjects extends Component {
                       {
                         name:"Create Survey",
                         title:"Create sub project survey",
-                        onClick: () => this.openSubProjectSurveyForm()
+                        onClick: () => this.openSubProjectSurveyForm(item)
                       }
                     }
                   />
@@ -397,7 +398,7 @@ class SubProjects extends Component {
 
         {/* Survey form */}
         <Drawer
-          title={"Create SubProject Survey"}
+          title={"Create Survey for SubProject"}
           width={550}
           onClose={this.closeSubProjectSurveyForm}
           footer={null}
@@ -406,7 +407,7 @@ class SubProjects extends Component {
           destroyOnClose
           maskClosable={false}
         >
-          <SurveyForm isEditForm={isEditForm} onCancel={this.closeSubProjectSurveyForm} closeSubProjectSurveyForm={this.closeSubProjectSurveyForm} selected={selected} />
+          <SurveyForm onCancel={this.closeSubProjectSurveyForm} closeSubProjectSurveyForm={this.closeSubProjectSurveyForm} selected={selected} />
         </Drawer>
       </div>
     );
