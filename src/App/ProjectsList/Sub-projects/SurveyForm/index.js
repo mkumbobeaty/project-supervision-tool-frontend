@@ -59,7 +59,7 @@ function SurveyForm(
 
     return showMessage ? (
         <div>
-            <h3>Your Survey has been created successfully</h3>
+            <h3>Your Survey has been created successfully!</h3>
             <p>Your survey has been created and linked with the SubProject.</p>
             <p>The Survey form is now Empty, click link below to open Kobotoolbox and fill the  survey with questions</p>
             <div><a href="https://kf.survey-project-supervision-tool.ga/">Kobotoolbox(https://kf.survey-project-supervision-tool.ga)</a></div>
