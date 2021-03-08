@@ -1,24 +1,23 @@
-
-import React from 'react';
-import { Form, Input, Button } from 'antd';
+import React, {useState} from 'react';
+import {Form, Input, Button} from 'antd';
 import API from '../../../../API';
 
 /* ui */
 const labelCol = {
-    xs: { span: 24 },
-    sm: { span: 24 },
-    md: { span: 24 },
-    lg: { span: 24 },
-    xl: { span: 24 },
-    xxl: { span: 24 },
+    xs: {span: 24},
+    sm: {span: 24},
+    md: {span: 24},
+    lg: {span: 24},
+    xl: {span: 24},
+    xxl: {span: 24},
 };
 const wrapperCol = {
-    xs: { span: 24 },
-    sm: { span: 24 },
-    md: { span: 24 },
-    lg: { span: 24 },
-    xl: { span: 24 },
-    xxl: { span: 24 },
+    xs: {span: 24},
+    sm: {span: 24},
+    md: {span: 24},
+    lg: {span: 24},
+    xl: {span: 24},
+    xxl: {span: 24},
 };
 
 
@@ -35,20 +34,37 @@ function SurveyForm(
     }
 ) {
 
+    const [showMessage, setShowMessage] = useState(false);
+    const [loading, setLoading] = useState(false);
+
     const onFinish = (values) => {
-        const payload = {name: values.name, asset_type: 'survey', settings: {
+        const payload = {
+            name: values.name, asset_type: 'survey', settings: {
                 description: values.description
-            }};
+            }
+        };
+        setLoading(true)
         API.createSurvey(payload)
-            .then( res => API.createSubProjectSurvey({
+            .then(res => API.createSubProjectSurvey({
                 survey_id: res.uid,
                 category_name: 'sub_project_survey',
                 sub_project_id: selected.id,
-            }));
+            })
+                .then(res => {
+                    setShowMessage(true);
+                    setLoading(false);
+                }));
     };
 
 
-    return (
+    return showMessage ? (
+        <div>
+            <h3>Your Survey has been created successfully</h3>
+            <p>Your survey has been created and linked with the SubProject.</p>
+            <p>The Survey form is now Empty, click link below to open Kobotoolbox and fill the  survey with questions</p>
+            <div><a href="https://kf.survey-project-supervision-tool.ga/">Kobotoolbox(https://kf.survey-project-supervision-tool.ga)</a></div>
+        </div>
+    ): (
         <Form
             labelCol={labelCol}
             wrapperCol={wrapperCol}
@@ -70,7 +86,7 @@ function SurveyForm(
                     },
                 ]}
             >
-                <Input />
+                <Input/>
             </Form.Item>
             {/* end: name */}
 
@@ -85,15 +101,15 @@ function SurveyForm(
                     },
                 ]}
             >
-                <Input />
+                <Input/>
             </Form.Item>
             {/* end:Description */}
 
             {/* start:form actions */}
-            <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+            <Form.Item wrapperCol={{span: 24}} style={{textAlign: "right"}}>
                 <Button
                     type="primary"
-                    style={{ marginRight: 8 }}
+                    style={{marginRight: 8}}
                     onClick={onCancel}
                 >
                     Cancel
@@ -101,7 +117,8 @@ function SurveyForm(
                 <Button
                     type="primary"
                     htmlType="submit"
-                    style={{ marginLeft: 8 }}
+                    loading={loading}
+                    style={{marginLeft: 8}}
                 >
                     Save
                 </Button>
