@@ -18,12 +18,13 @@ import "./styles.css";
 
 
 /* constants */
-const codeSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
-const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
-const nameSpan = { xxl: 5, xl: 6, lg: 6, md: 8, sm: 10, xs: 11 };
-const subProjectsSpan = { xxl: 4, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
-const projectLeadSpan = { xxl: 5, xl: 4, lg: 4, md: 4, sm: 4, xs: 5 };
-const projectCoordinatorSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const codeSpan = { xxl: 2, xl: 3, lg: 3, md: 3, sm: 2, xs: 3 };
+const projectIdSpan = { xxl: 3, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
+const nameSpan = { xxl: 5, xl: 5, lg: 5, md: 7, sm: 5, xs: 7 };
+const subProjectsSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 4, xs: 2 };
+const projectLeadSpan = { xxl: 3, xl: 3, lg: 4, md: 4, sm: 4, xs: 2 };
+const statusSpan = { xxl: 3, xl: 3, lg: 3, md: 2, sm: 4, xs: 4 };
+const projectCoordinatorSpan = { xxl: 3, xl: 3, lg: 2, md: 0, sm: 0, xs: 0 };
 
 const { confirm } = Modal;
 
@@ -32,6 +33,7 @@ const headerLayout = [
   { ...projectIdSpan, header: "Project ID" },
   { ...nameSpan, header: "Name" },
   { ...subProjectsSpan, header: "Sub-projects" },
+  { ...statusSpan, header: "Status" },
   { ...projectLeadSpan, header: "Project Lead" },
   { ...projectCoordinatorSpan, header: "Project Coordinator" },
 ];
@@ -298,6 +300,7 @@ class Projects extends Component {
                   </Link>
                 </Col>
                 <Col {...subProjectsSpan}>{item.sub_projects ? item.sub_projects.length : 'N/A'}</Col>
+                <Col {...statusSpan}>{item?.details ? item?.details.status : 'N/A'}</Col>
                 <Col {...projectLeadSpan} title={item?.leaders.map(({ first_name, last_name }) => { return " " + first_name + " " + last_name })} >
                   {item.leaders ? item?.leaders.map(({ first_name, last_name }, index) => { return (index ? ", " : "") + first_name + " " + last_name }).slice(0, 2) : 'N/A'}</Col>
                 <Col {...projectCoordinatorSpan}>{item.details.implementing_agency ? item.details.implementing_agency.focalPerson.first_name + ' ' + item.details.implementing_agency.focalPerson.last_name : 'N/A'}</Col>
