@@ -4,6 +4,7 @@ import SidebarSection from "./SideBar";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects";
+import SubProjectContract from "./SubProjectContract";
 import SubProjectEquipment from "./SubProjectEquipment";
 import SubProjectsMilestone from "./SubProjectMilestone";
 import SubProjectHumanResource from "./SubProjectHumanResource";
@@ -20,7 +21,12 @@ class SubProject extends Component {
 
   state = {
     showImage: false,
-    selectedImage: {}
+    selectedImage: {},
+    showColumn: false,
+    showMilestone: false,
+    showHumanResource: false,
+    showEquipment: false,
+    showContract: false
 
   }
   componentDidMount() {
@@ -37,9 +43,13 @@ class SubProject extends Component {
     this.setState({ showImage: false, selectedImage: {} })
   }
 
+  handleClick = () => {
+    this.setState({ showMilestone: true })
+  }
+
   render() {
     const { sub_project, loading, mapLoading, getWfsLayerData } = this.props;
-    const { showImage, selectedImage } = this.state;
+    const { showImage, selectedImage, showColumn, showMilestone,showHumanResource, showEquipment, showContract} = this.state;
     return (
       <Layout className="sub-project-layout">
         <Spin spinning={loading} tip="Loading..." >
@@ -71,7 +81,7 @@ class SubProject extends Component {
                       </BaseMap>
                     </Spin>
                   </Col>
-                  <Col span={12} >
+                  {/* <Col span={12} >
                     <SubProjectsMilestone sub_project={sub_project} offset={1} />
                   </Col>
                   <Col span={11} style={{ marginTop: 26 }}>
@@ -79,20 +89,30 @@ class SubProject extends Component {
                   </Col>
                   <Col span={12} style={{ marginTop: 26 }}>
                     < SubProjectEquipment sub_project={sub_project} offset={1} />
-                  </Col>
+                  </Col> */}
                   <Col span={11} style={{ marginTop: 26 }} className='Sub-project-image'>
                     {<ImageList handleViewImage={this.handleViewImage} showImage={showImage} sub_project={sub_project} />}
                   </Col>
                 </Row>
-                <Row>
+                <Row className="sub-poject-lists">
+                  <Col span={24}>
+                    <Button className="sub-poject-lists-button" onClick={this.handleClick}>MILESTONES</Button>
+                    <Button className="sub-poject-lists-button">HUMAN RESOURCES</Button>
+                    <Button className="sub-poject-lists-button">EQUIPMENT MOBILIZATION</Button>
+                    <Button className="sub-poject-lists-button">CONTRACTS</Button>
+                  </Col>
+                  {showMilestone ? <h1>alan</h1> : null}
                   <Col span={24} >
                     <SubProjectsMilestone sub_project={sub_project} />
                   </Col>
-                  <Col span={24} style={{ marginTop: 26 }}>
+                  <Col span={24}>
                     <SubProjectHumanResource sub_project={sub_project} />
                   </Col>
-                  <Col span={24} style={{ marginTop: 26 }}>
+                  <Col span={24}>
                     < SubProjectEquipment sub_project={sub_project} />
+                  </Col>
+                  <Col span={24}>
+                    < SubProjectContract sub_project={sub_project} />
                   </Col>
                 </Row>
                 {/* <ImageGallary /> */}

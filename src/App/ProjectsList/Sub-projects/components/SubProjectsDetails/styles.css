@@ -96,7 +96,6 @@
 }
 
 .sub-project-equipment {
-    margin-left: 30px;
     border: 1px solid #e0ddddfa;
     padding: 28px;
 }
@@ -127,6 +126,16 @@
 }
 
 .sub-poject-lists {
-    margin-top: 20px;
+    margin-top: 50px;
     margin-left: 0px;
 }
+
+.sub-poject-lists-button {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    color: #0f6788;
+}
+
+
+
+
