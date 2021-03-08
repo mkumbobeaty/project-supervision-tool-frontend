@@ -94,7 +94,7 @@ class SubProjects extends Component {
     const { getSubProject, setShowSubProjectDetails, setProjectOverview, setProjectDetail, match: { params }} = this.props;
     this.setState({ previewOnMap: true })
     getSubProject(item.id);
-    setShowSubProjectDetails(true);
+    // setShowSubProjectDetails(true);
     // setProjectOverview(false);
   };
 
@@ -148,7 +148,6 @@ class SubProjects extends Component {
     selectSubProject(null)
     closeSubProjectForm();
   };
-
 
   /**
   * @function
