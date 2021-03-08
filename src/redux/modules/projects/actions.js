@@ -467,3 +467,26 @@ export const getProgressSuccess = makeActionCreator(types.GET_PROGRESS_SUCCESS, 
  * @return {Object} action
  * */
 export const getProgressFailure = makeActionCreator(types.GET_PROJECTS_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name uploadPhotoStart
+ * @return {Object} action
+ * */
+export const uploadPhotoStart = makeActionCreator(types.UPLOAD_PHOTO_START);
+
+/**
+ * @function
+ * @name uploadPhotoSuccess
+ * @param {Object} payload Progress
+ * @return {Object} action
+ * */
+export const uploadPhotoSuccess = makeActionCreator(types.UPLOAD_PHOTO_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name uploadPhotoFailure
+ * @param {Object} payload  Progress failure response
+ * @return {Object} action
+ * */
+export const uploadPhotoFailure = makeActionCreator(types.UPLOAD_PHOTO_FAILURE, 'payload');

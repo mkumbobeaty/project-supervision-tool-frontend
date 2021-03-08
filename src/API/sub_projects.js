@@ -109,6 +109,19 @@ const updateSubProject = (subProject, id) => {
         .then((response) => response.data);
 };
 
+
+/**
+ * @function
+ * @name uploadPhotos
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const uploadPhotos = (id, photo) =>
+    axios
+        .post(`/sub_projects/${id}/upload_photo`, photo)
+        .then((response) => response.data);
+
+
 const getSubProjectsStatistics = () => axios.get('/sub_projects/statistics').then((response)=> response.data);
 
 export default {
@@ -122,4 +135,5 @@ export default {
     createSubProjectItem,
     updateSubProject,
     getSubProjectsStatistics,
+    uploadPhotos
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Modal, Button } from 'antd';
 import { LeftOutlined, RightOutlined, } from '@ant-design/icons';
 import "./styles.css";
 
@@ -11,7 +11,27 @@ class ImageList extends React.Component {
             fadedright: false,
             start: 0,
             finish: 2,
+            isModalVisible: false
         }
+    }
+
+
+    showModal = () => {
+        this.setState({
+            isModalVisible: true
+        });
+    };
+
+    handleOk = () => {
+        this.setState({
+            isModalVisible: false
+        });
+    };
+
+    handleCancel = () => {
+        this.setState({
+            isModalVisible: false
+        });
     }
 
     leftClick() {
@@ -70,12 +90,13 @@ class ImageList extends React.Component {
         const fadedright = this.state.fadedright ? "arrow-right faded-right" : "arrow-right";
         const { sub_project } = this.props
         return (
-            <div>
+            <div className="photoGallary">
                 {
                     sub_project?.photos.length > 0 ? <div className="container">
                         <div className='top-nav'>
                             <h4 className='mapHeaderTitle'>Sub Project photo album</h4>
                             <h4 className='viewAllPhoto' onClick={this.handleShowGallary}> View All Photo</h4>
+                            <Button className='add_photo' type="primary" onClick={this.showModal}>Upload photo  </Button>
                         </div>
                         <Row className="slideshow ">
                             {
@@ -94,6 +115,12 @@ class ImageList extends React.Component {
                         </div>
                     </div> : <h4 className='mapHeaderTitle'>No Photo Album for this sub project</h4>
                 }
+               
+                <Modal title="Basic Modal" visible={this.state.isModalVisible} onOk={this.handleOk} onCancel={this.handleCancel}>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Modal>
             </div>
 
         )

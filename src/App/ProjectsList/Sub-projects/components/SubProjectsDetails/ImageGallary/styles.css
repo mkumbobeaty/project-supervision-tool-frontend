@@ -1,7 +1,9 @@
 .Sub-project-image>.ant-image {
     margin-right: 15px;
 }
-
+.photoGallary{
+    margin-left: 25px;
+}
 body, html {
     height: 100%;
     margin: 0;

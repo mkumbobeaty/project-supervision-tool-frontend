@@ -75,19 +75,19 @@ class SubProject extends Component {
                     </Spin>
                   </Col>
                   <Col span={12}  className='Sub-project-image' >
-                  {<ImageList handleViewImage={this.handleViewImage} showImage={showImage} sub_project={sub_project} />}
+                  {<ImageList handleViewImage={this.handleViewImage} showImage={showImage} sub_project={sub_project} offset={1}/>}
                   </Col>
                   <Col span={24} style={{ marginTop: 26 }}>
                   <div className="card-container">
                     <Tabs type="card">
                       <TabPane tab="Milestone" key="1">
-                      <SubProjectsMilestone sub_project={sub_project} offset={1} />
+                      <SubProjectsMilestone sub_project={sub_project}/>
                       </TabPane>
                       <TabPane tab="Human Resources" key="2">
                       <SubProjectHumanResource sub_project={sub_project} />
                       </TabPane>
                       <TabPane tab="Equipment Mobilization" key="3">
-                      < SubProjectEquipment sub_project={sub_project} offset={1} />
+                      < SubProjectEquipment sub_project={sub_project} />
                       </TabPane>
                     </Tabs>
                   </div>

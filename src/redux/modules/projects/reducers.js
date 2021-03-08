@@ -284,6 +284,28 @@ const progress = (state = { data: [], error: null, loading: false }, action) => 
     }
 };
 
+// /**
+//  * @function
+//  * @name uploadPhoto
+//  * @description reducer that manages sub project instance
+//  * @param {Object} state
+//  * @param {Object} action
+//  * @return {Object} updated state
+//  * 
+//  */
+// const uploadPhoto = (state = {}, action) => {
+//     switch (action.type) {
+//         case types.CREATE_SUB_PROJECT_START:
+//             return true;
+//         case types.CREATE_SUB_PROJECT_SUCCESS:
+//             return false;
+//         case types.CREATE_SUB_PROJECT_FAILURE:
+//             return false;
+//         default:
+//             return state;
+//     }
+// };
+
 
 export const resources = combineReducers({
     selectedProject,

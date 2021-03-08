@@ -129,6 +129,24 @@ export const getProjectEpic = action$ => {
 
 /**
  * @function
+ * @name uploadPhotoEpic
+ * @param action$
+ * @return action$
+ */
+const uploadPhotoEpic = action$ => {
+    return action$.pipe(
+        ofType(types.UPLOAD_PHOTO_START),
+        switchMap(({payload}) => {
+            return from(API.uploadPhotos(payload))
+        }),
+        switchMap(res => { return of(actions.updateProjectSuccess(res)) }),
+        catchError(error => of(actions.updateProjectFailure(error)))
+    )
+}
+
+
+/**
+ * @function
  * @name regionsEpic
  * @description gets all regions
  * @param action$
@@ -268,6 +286,7 @@ export const projectsRootEpic = combineEpics(
     getEnvironmentalCategoriesEpic,
     getItemsEpic,
     getProgressEpic,
+    uploadPhotoEpic
 );
 
 
