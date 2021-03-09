@@ -71,12 +71,12 @@ const routes = [
     icon: settingsIcons,
     description: modules.dashboards,
   },
-  // {
-  //   name: 'Users',
-  //   path: '/users',
-  //   icon: humanResourcesIcons,
-  //   description: modules.dashboards,
-  // },
+  {
+    name: 'Users',
+    path: '/users',
+    icon: humanResourcesIcons,
+    description: modules.dashboards,
+  },
   // {
   //   name: 'Settings',
   //   path: '/settings',
@@ -93,6 +93,12 @@ const routes = [
     name: 'Admin Panel',
     path: '/admin-panel',
     icon: settingsIcons,
+    description: modules.dashboards,
+  },
+  {
+    name: 'Items',
+    path: '/items',
+    icon: equipmentsIcons,
     description: modules.dashboards,
   },
 
