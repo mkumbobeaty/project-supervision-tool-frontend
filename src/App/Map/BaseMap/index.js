@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import {Map, TileLayer} from 'react-leaflet';
 import "./styles.css";
 import 'leaflet/dist/leaflet.css';
+import 'react-leaflet-fullscreen/dist/styles.css'
+
+
 
 import L from 'leaflet';
 delete L.Icon.Default.prototype._getIconUrl;

@@ -108,13 +108,29 @@ const getSubProjectEquipmentsEpic = action$ => {
 }
 
 
-
-
+/**
+ * @function
+ * @name uploadPhotoEpic
+ * @param action$
+ * @return action$
+ */
+const uploadPhotoEpic = action$ => {
+    return action$.pipe(
+        ofType(types.UPLOAD_PHOTO_START),
+        switchMap(({payload}) => {
+            debugger
+            return from(API.uploadPhotos(payload, payload.sub_project_id))
+        }),
+        switchMap(res => { return of(actions.uploadPhotoSuccess(res)) }),
+        catchError(error => of(actions.uploadPhotoFailure(error)))
+    )
+}
 
 export const subProjectsEpic = combineEpics(
     getsubProjectsEpic,
     getSubProjectItemsEpic,
     createSubProjectItemEpic,
     getSubProjectEquipmentsEpic,
-    updateSubProjectEpic
+    updateSubProjectEpic,
+    uploadPhotoEpic
 )

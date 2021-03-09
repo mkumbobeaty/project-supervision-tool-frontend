@@ -1,14 +1,16 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
-import { Row, Col, Layout } from "antd";
+import { Row, Col, Layout, } from "antd";
 import { isoDateToHumanReadableDate } from "../../../../../../Util";
 
 const { Content } = Layout;
 
 const ImagesGallery = ({ sub_project, selectedImage}) => {
-  const [images, setImages] = React.useState(null);
-  React.useEffect(() => {
+  const [images, setImages] = useState(null);
+
+
+  useEffect(() => {
     let shouldCancel = false;
 
     if (!shouldCancel && sub_project?.photos && sub_project?.photos.length > 0) {
