@@ -197,6 +197,21 @@ class Projects extends Component {
     this.props.fetchProjects()
   };
 
+   /**
+   * @function
+   * @name handleViewDetails
+   * @description Handle detail preview
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleViewDetails = (item_id) => {
+    const { getProject } = this.props;
+    getProject(item_id);
+    let path = `/app/projects/${item_id}`;
+    this.props.history.push(path);
+  };
+
   render() {
     const {
       projects,
@@ -275,7 +290,15 @@ class Projects extends Component {
                         "Remove project from list of active Projects",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
+                    view={
+                      {
+                        name:"View Deatail",
+                        title:"View more detail of selected project",
+                        onClick: () => this.handleViewDetails(item.id)
+                      }
+                    }
                   />
+                  
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
@@ -373,6 +396,7 @@ const mapDispatchToProps = {
   closeProjectForm: projectSectorsOperator.closeForm,
   paginateProject: projectActions.getProjectsStart,
   searchProject: projectActions.getProjectsStart,
+  getProject:projectActions.getProjectStart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
