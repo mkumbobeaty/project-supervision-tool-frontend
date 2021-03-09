@@ -13,16 +13,17 @@ import { bindActionCreators } from "redux";
 // import PropTypes from "prop-types";
 
 /* constants */
-const contractIdSpan = { xxl: 3, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
-const contractNameSpan = { xxl: 8, xl: 10, lg: 10, md: 4, sm: 4, xs: 5 };
-const contractDurationSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
-const contractCostSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const itemIdSpan = { xxl: 3, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
+const itemNameSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
+const itemDescriptionSpan = { xxl: 8, xl: 10, lg: 10, md: 4, sm: 4, xs: 5 };
+const itemCapacitySpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+
 
 const headerLayout = [
-  { ...contractIdSpan, header: "Contract ID" },
-  { ...contractNameSpan, header: "Contract Name" },
-  { ...contractDurationSpan, header: "Contract Duration" },
-  { ...contractCostSpan, header: "Contract Cost" },
+  { ...itemIdSpan, header: "Item ID" },
+  { ...itemNameSpan, header: "Item Name" },
+  { ...itemDescriptionSpan, header: "Description" },
+  { ...itemCapacitySpan, header: "Capacity" },
 ]
 
 class Items extends Component {
@@ -49,7 +50,7 @@ class Items extends Component {
           }}
           actions={[
             {
-              label: "New Contract",
+              label: "New Item",
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New item",
@@ -107,18 +108,18 @@ class Items extends Component {
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...contractIdSpan} className="contentEllipse">
+                <Col {...itemIdSpan} className="contentEllipse">
                   {item.unit_id}
                 </Col>
                 <Col
-                  {...contractNameSpan}
+                  {...itemNameSpan}
                   className="contentEllipse"
                   title={item.description}
                 >
                   {item.name}
                 </Col>
-                <Col {...contractDurationSpan}>{item? item.description : 'N/A'}</Col>
-                <Col {...contractCostSpan}>{item? item.capacity : 'N/A'}</Col>
+                <Col {...itemDescriptionSpan}>{item? item.description : 'N/A'}</Col>
+                <Col {...itemCapacitySpan}>{item? item.capacity : 'N/A'}</Col>
                 
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
