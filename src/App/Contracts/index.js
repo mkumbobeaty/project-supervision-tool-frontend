@@ -28,10 +28,10 @@ const headerLayout = [
 
 class Contracts extends Component {
 
-  componentDidMount() {
-    const { fetchContracts } = this.props;
-    fetchContracts();
-  }
+  // componentDidMount() {
+  //   const { fetchContracts } = this.props;
+  //   fetchContracts();
+  // }
 
   render() {
     const {
