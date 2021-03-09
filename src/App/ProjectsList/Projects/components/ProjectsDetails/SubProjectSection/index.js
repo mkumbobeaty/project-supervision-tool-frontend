@@ -67,7 +67,7 @@ class ProjectSubProjects extends Component {
                                 >
                                     <Link
                                         to={{
-                                            pathname: `/app/sub-projects/${item.id}`,
+                                            pathname: `/app//sub_projects/${item.id}`,
                                         }}
                                     >
                                         {item.name}
@@ -81,8 +81,8 @@ class ProjectSubProjects extends Component {
                                 </Col>
                                 <Col {...phaseSpan}>{item?.details ? item?.details?.phase.name : "N/A"}</Col>
 
-                                <Col className="contentEllipse" {...agencySpan}>{item?.details ? item.details.supervising_agency.name : "N/A"}</Col>
-                                <Col className="contentEllipse" {...contractorSpan}>{item.details ? item.details.contractor.name : "N/A"}</Col>
+                                <Col className="contentEllipse" {...agencySpan} title={item.details.supervising_agency.name}>{item?.details ? item.details.supervising_agency.name : "N/A"}</Col>
+                                <Col className="contentEllipse" {...contractorSpan} title={item.details.contractor.name}>{item.details ? item.details.contractor.name : "N/A"}</Col>
                                 <Col {...startDateSpan}>
                                     {isoDateToHumanReadableDate(item?.details ? item.details.start_date : 'Not set')}
                                 </Col>
