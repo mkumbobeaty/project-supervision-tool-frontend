@@ -36,10 +36,10 @@ class Project extends Component {
               </Sider>
               <Content className="project_contents">
                 <Row>
-                  <Col span={13} className="sector_chat">
+                  <Col span={12} className="sector_chat">
                     <SectorChat project={project} />
                   </Col>
-                  <Col span={11} className="project_map"  >
+                  <Col span={11} className="project_map" offset={1} >
                     <Spin spinning={mapLoading} tip="Loading data...">
                       <BaseMap ref={this.map} zoomControl={false}>
                         {/* <SubProjectLocations getWfsLayerData={getWfsLayerData} subProject={sub_project} /> */}
