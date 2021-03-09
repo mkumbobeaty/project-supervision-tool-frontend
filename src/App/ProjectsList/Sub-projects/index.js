@@ -76,7 +76,7 @@ class SubProjects extends Component {
    */
   handleMapPreview = (item_id) => {
     const { getSubProject, match: { params } } = this.props;
-    this.setState({previewOnMap: true })
+    this.setState({ previewOnMap: true })
     getSubProject(item_id);
     console.log(item_id)
     let path = '/app/map';
@@ -93,19 +93,19 @@ class SubProjects extends Component {
    * @since 0.1.0
    */
   createSurvey = (subProject) => {
-    console.log('inside createSurvey',subProject)
+    console.log('inside createSurvey', subProject)
   };
 
 
 
-   /**
-   * @function
-   * @name handleViewDetails
-   * @description Handle detail preview
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
+  /**
+  * @function
+  * @name handleViewDetails
+  * @description Handle detail preview
+  *
+  * @version 0.1.0
+  * @since 0.1.0
+  */
   handleViewDetails = (item_id) => {
     const { getSubProject } = this.props;
     getSubProject(item_id);
@@ -157,7 +157,7 @@ class SubProjects extends Component {
    * @since 0.1.0
    */
   openSubProjectSurveyForm = (subProject) => {
-    const { openSubProjectSurveyForm, selectSubProject} = this.props;
+    const { openSubProjectSurveyForm, selectSubProject } = this.props;
     selectSubProject(subProject)
     openSubProjectSurveyForm();
   };
@@ -248,7 +248,7 @@ class SubProjects extends Component {
       selected
     } = this.props;
 
-    const { isEditForm,previewOnMap } = this.state;
+    const { isEditForm, previewOnMap } = this.state;
     return previewOnMap ? <PreviewOnMap data={selected} /> : (
       <div>
         {/* Topbar */}
@@ -312,22 +312,22 @@ class SubProjects extends Component {
                     }}
                     view={
                       {
-                        name:"View more",
-                        title:"View more detail of selected sub project",
+                        name: "View Details",
+                        title: "View more detail of selected sub project",
                         onClick: () => this.handleViewDetails(item.id)
                       }
                     }
                     onMapPreview={
                       {
-                        name:"Preview on Map",
-                        title:"View Sub project on map",
+                        name: "Preview on Map",
+                        title: "View Sub project on map",
                         onClick: () => this.handleMapPreview(item)
                       }
                     }
                     createSurvey={
                       {
-                        name:"Create Survey",
-                        title:"Create sub project survey",
+                        name: "Create Survey",
+                        title: "Create sub project survey",
                         onClick: () => this.openSubProjectSurveyForm(item)
                       }
                     }
@@ -356,11 +356,6 @@ class SubProjects extends Component {
 
                   {item ? item?.project_id : "N/A"}
                 </Col>
-                <Col {...endDataSpan} className="contentEllipse" title={item.sub_project_items.length <= 0 ? "N/A" : item.sub_project_items.map(({ item }, index) => {
-                  return (index ? ", " : "") + item.name;
-                })}> {item?.sub_project_items.length <= 0 ? "N/A" : item?.sub_project_items.map(({ item }, index) => {
-                  return (index ? ", " : "") + item.name;
-                })}</Col>
 
                 <Col {...locationSpan} className="contentEllipse">
                   {item.sub_project_locations.length <= 0 ? "N/A" : item.sub_project_locations.map(({ district }, index) => {
@@ -369,6 +364,9 @@ class SubProjects extends Component {
                 </Col>
                 <Col {...startDateSpan}>
                   {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'N/A')}
+                </Col>
+                <Col {...endDataSpan}>
+                  {isoDateToHumanReadableDate(item.details ? item.details.end_date : 'N/A')}
                 </Col>
                 <Col {...contractorSpan} className="contentEllipse">{item.details ? item.details.contractor.name : "N/A"}</Col>
 
@@ -391,7 +389,7 @@ class SubProjects extends Component {
           bodyStyle={{ paddingBottom: 80 }}
           destroyOnClose
           maskClosable={false}
-          afterClose={() => {}}
+          afterClose={() => { }}
         >
           <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} closeSubProjectForm={this.closeSubProjectForm} selected={selected} />
         </Drawer>
