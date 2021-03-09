@@ -197,14 +197,14 @@ class Projects extends Component {
     this.props.fetchProjects()
   };
 
-   /**
-   * @function
-   * @name handleViewDetails
-   * @description Handle detail preview
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
+  /**
+  * @function
+  * @name handleViewDetails
+  * @description Handle detail preview
+  *
+  * @version 0.1.0
+  * @since 0.1.0
+  */
   handleViewDetails = (item_id) => {
     const { getProject } = this.props;
     getProject(item_id);
@@ -292,13 +292,13 @@ class Projects extends Component {
                     }}
                     view={
                       {
-                        name:"View Deatail",
-                        title:"View more detail of selected project",
+                        name: "View Deatail",
+                        title: "View more detail of selected project",
                         onClick: () => this.handleViewDetails(item.id)
                       }
                     }
                   />
-                  
+
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
@@ -396,7 +396,7 @@ const mapDispatchToProps = {
   closeProjectForm: projectSectorsOperator.closeForm,
   paginateProject: projectActions.getProjectsStart,
   searchProject: projectActions.getProjectsStart,
-  getProject:projectActions.getProjectStart
+  getProject: projectActions.getProjectStart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
