@@ -36,7 +36,7 @@ class SubProjectEquipment extends Component {
         return (
             <div className="sub-project-equipment">
                 {/* list starts */}
-                <h4 className='headerTitle'>Sub Project Equipment</h4>
+                {/* <h4 className='headerTitle'>Sub Project Equipment</h4> */}
                 <ListHeaderData headerLayout={headerLayout} />
                 <List
                     itemName="Sub_project_equipment"

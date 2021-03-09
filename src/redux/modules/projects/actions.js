@@ -482,3 +482,4 @@ export const getProgressSuccess = makeActionCreator(types.GET_PROGRESS_SUCCESS, 
  * @return {Object} action
  * */
 export const getProgressFailure = makeActionCreator(types.GET_PROJECTS_FAILURE, 'payload');
+
