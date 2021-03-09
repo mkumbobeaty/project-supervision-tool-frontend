@@ -13,6 +13,8 @@ import progressAPI from './progress'
 import wfsRequests from  './wfs_requests';
 import usersAPI from './users';
 import geonodeAPI from './geonode';
+import kobotoolboxAPI from './kobotoolbox';
+import subProjectSurveyAPI from './sub_project_survey';
 
 export default {
     ...projectsAPI,
@@ -29,4 +31,6 @@ export default {
     ...progressAPI,
     ...usersAPI,
     ...geonodeAPI,
+    ...kobotoolboxAPI,
+    ...subProjectSurveyAPI,
 }

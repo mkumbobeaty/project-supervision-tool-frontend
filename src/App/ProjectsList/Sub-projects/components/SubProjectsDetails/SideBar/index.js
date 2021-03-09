@@ -1,6 +1,31 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { Col, Row, } from 'antd';
+import API from '../../../../../../API';
 import { isoDateToHumanReadableDate } from "../../../../../../Util";
+
+
+const SubProjectSurveys = ({ subProjectSurveys }) => {
+
+    const [surveys, setSurveys] = useState([]);
+
+    useEffect(() => {
+        const surveyIds = subProjectSurveys.map(({survey_id}) => survey_id);
+        API.getAssets()
+            .then( res => {
+                const results = res.results.filter(r => !surveyIds.includes(r));
+                setSurveys(results);
+            })
+    }, [])
+
+    return surveys.length > 0 ?(
+        <>
+            <h4>Sub project Surveys</h4>
+            <ul>
+                {surveys.map(survey => (<li>{survey.name}</li>))}
+            </ul>
+        </>
+    ): 'N/A';
+}
 
 const SidebarSection = ({ sub_project }) => {
 
@@ -30,7 +55,7 @@ const SidebarSection = ({ sub_project }) => {
             </span>
             <span >
                 <h4>Sub project locations</h4>
-                {sub_project?.sub_project_locations ? sub_project?.sub_project_locations.map(location => {
+                {sub_project?.sub_project_locations.length > 0 ? sub_project?.sub_project_locations.map(location => {
                     if (location.level === 'region') {
                         return (
                             <p>-{location.region.name},{location.district.name}</p>
@@ -42,6 +67,9 @@ const SidebarSection = ({ sub_project }) => {
                     }
 
                 }) : 'N/A'}
+            </span>
+            <span>
+                { sub_project?.surveys && sub_project?.surveys.length > 0 ? <SubProjectSurveys subProjectSurveys={sub_project.surveys} />: 'N/A'}
             </span>
             <span >
                 <h4>Start Date</h4>

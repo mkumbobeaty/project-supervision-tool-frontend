@@ -93,7 +93,6 @@ class SubProject extends Component {
                   </div>
                   </Col>
                 </Row>
-                {/* <ImageGallary /> */}
               </Content>
             </Layout> : <ImagesGallery sub_project={sub_project} selectedImage={selectedImage} />}
 
