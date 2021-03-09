@@ -74,7 +74,7 @@ class SubProject extends Component {
                       </BaseMap>
                     </Spin>
                   </Col>
-                  <Col span={12}  className='Sub-project-image' >
+                  <Col span={13}  className='Sub-project-image' >
                   {<ImageList handleViewImage={this.handleViewImage} showImage={showImage} sub_project={sub_project} offset={1}/>}
                   </Col>
                   <Col span={24} style={{ marginTop: 26 }}>

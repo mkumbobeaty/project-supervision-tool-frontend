@@ -116,11 +116,12 @@ const updateSubProject = (subProject, id) => {
  * @version 0.1.0
  * @since 0.1.0
  */
-const uploadPhotos = (id, photo) =>
-    axios
-        .post(`/sub_projects/${id}/upload_photo`, photo)
-        .then((response) => response.data);
-
+const uploadPhotos = (data) =>  { 
+    debugger 
+    return   axios
+    .post(`/sub_projects/${data.id}/upload_photo`, data)
+    .then((response) => response.data);
+}
 
 const getSubProjectsStatistics = () => axios.get('/sub_projects/statistics').then((response)=> response.data);
 

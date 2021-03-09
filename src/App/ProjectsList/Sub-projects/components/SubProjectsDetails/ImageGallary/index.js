@@ -1,7 +1,14 @@
 import React from 'react';
 import { Row, Col, Modal, Button } from 'antd';
 import { LeftOutlined, RightOutlined, } from '@ant-design/icons';
+import UploadPhotoForm from './uploadImage';
 import "./styles.css";
+
+const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };  
 
 class ImageList extends React.Component {
     constructor(props) {
@@ -11,7 +18,9 @@ class ImageList extends React.Component {
             fadedright: false,
             start: 0,
             finish: 2,
-            isModalVisible: false
+            isModalVisible: false,
+            selectedFile: null,
+            selectedFileList: []
         }
     }
 
@@ -82,6 +91,25 @@ class ImageList extends React.Component {
         }
         else return "No photo uploaded"
     }
+    
+      onChange = info => {
+        const nextState = {};
+        switch (info.file.status) {
+          case "uploading":
+            nextState.selectedFileList = [info.file];
+            break;
+          case "done":
+            nextState.selectedFile = info.file;
+            nextState.selectedFileList = [info.file];
+            break;
+    
+          default:
+            // error or removed
+            nextState.selectedFile = null;
+            nextState.selectedFileList = [];
+        }
+        this.setState(() => nextState);
+      };
 
     render() {
         var startindex = this.state.start;
@@ -113,13 +141,14 @@ class ImageList extends React.Component {
                             <LeftOutlined className={fadedleft} onClick={this.leftClick.bind(this)} />
                             <RightOutlined className={fadedright} onClick={this.rightClick.bind(this)} />
                         </div>
-                    </div> : <h4 className='mapHeaderTitle'>No Photo Album for this sub project</h4>
+                    </div> : 
+                    <div className='top-nav'>
+                    <h4 className='mapHeaderTitle'>No Photo Album for this sub project</h4>
+                    <Button className='add_photo' type="primary" onClick={this.showModal}>Upload photo </Button>
+                </div>
                 }
-               
-                <Modal title="Basic Modal" visible={this.state.isModalVisible} onOk={this.handleOk} onCancel={this.handleCancel}>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
+                <Modal title="Upload Photo" visible={this.state.isModalVisible} onCancel={this.handleCancel} footer={null}>
+                    <UploadPhotoForm dummyRequest={dummyRequest} onChange={this.onChange} selectedFileList={this.state.selectedFileList} sub_project={sub_project} />
                 </Modal>
             </div>
 
