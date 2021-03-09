@@ -20,6 +20,7 @@ import AdminPanel from "../AdminPanel";
 import PrivateRoute from '../Auth/PrivateRoute';
 import Users from "../Users";
 import Items from "../Items";
+import Contracts from "../Contracts";
 import "./styles.css";
 
 /* constants */
@@ -85,6 +86,13 @@ const breadcrumbNameMap = {
     name: "items",
     title: "items Module",
   },
+
+   /* Contracts routes */
+   "/app/contracts:": {
+    name: "contracts",
+    title: "contracts Module",
+  },
+  
 
 };
 
@@ -222,6 +230,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/items`}
             component={Items}
+          />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/contracts`}
+            component={Contracts}
           />
           <PrivateRoute component={PageNotFound} />
         </Switch>

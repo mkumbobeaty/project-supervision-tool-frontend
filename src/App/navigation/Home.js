@@ -98,7 +98,13 @@ const routes = [
   {
     name: 'Items',
     path: '/items',
-    icon: equipmentsIcons,
+    icon: itemsIcons,
+    description: modules.dashboards,
+  },
+  {
+    name: 'Contracts',
+    path: '/contracts',
+    icon: contractsIcons,
     description: modules.dashboards,
   },
 

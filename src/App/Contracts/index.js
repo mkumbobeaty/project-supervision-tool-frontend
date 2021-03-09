@@ -6,35 +6,36 @@ import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
 import { Col, } from "antd";
-import { itemsOperation, itemsSelectors } from '../../redux/modules/items';
-import * as itemsActions from '../../redux/modules/items/actions';
+// import { contractsOperation, contractsSelectors } from '../../redux/modules/contracts';
+// import * as contractsActions from '../../redux/modules/contracts/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 // import PropTypes from "prop-types";
 
 /* constants */
-const contractIdSpan = { xxl: 3, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
-const contractNameSpan = { xxl: 8, xl: 10, lg: 10, md: 4, sm: 4, xs: 5 };
-const contractDurationSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
-const contractCostSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const itemIdSpan = { xxl: 3, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
+const itemNameSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
+const itemDescriptionSpan = { xxl: 8, xl: 10, lg: 10, md: 4, sm: 4, xs: 5 };
+const itemCapacitySpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+
 
 const headerLayout = [
-  { ...contractIdSpan, header: "Contract ID" },
-  { ...contractNameSpan, header: "Contract Name" },
-  { ...contractDurationSpan, header: "Contract Duration" },
-  { ...contractCostSpan, header: "Contract Cost" },
+  { ...itemIdSpan, header: "Item ID" },
+  { ...itemNameSpan, header: "Item Name" },
+  { ...itemDescriptionSpan, header: "Description" },
+  { ...itemCapacitySpan, header: "Capacity" },
 ]
 
-class Items extends Component {
+class Contracts extends Component {
 
   componentDidMount() {
-    const { fetchItems } = this.props;
-    fetchItems();
+    const { fetchContracts } = this.props;
+    fetchContracts();
   }
 
   render() {
     const {
-      items,
+      contracts,
       loading,
     } = this.props;
     return (
@@ -43,13 +44,13 @@ class Items extends Component {
         <Topbar
           search={{
             size: "large",
-            placeholder: "Search for items here ...",
+            placeholder: "Search for contracts here ...",
             // onChange: this.searchInitiative,
             // value: searchQuery,
           }}
           actions={[
             {
-              label: "New Contract",
+              label: "New Item",
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New item",
@@ -60,8 +61,8 @@ class Items extends Component {
         {/* end Topbar */}
         {/* list starts */}
         <ProjectsList
-          itemName="Items"
-          items={items}
+          itemName="Contracts"
+          contracts={contracts}
           // page={page}
           loading={loading}
           // itemCount={total}
@@ -79,9 +80,9 @@ class Items extends Component {
           }) => (
             <Link
               to={{
-                pathname: `/app/items/${item.id}`,
+                pathname: `/app/contracts/${item.id}`,
               }}
-              className="Items"
+              className="Contracts"
             >
               <ListItem
                 key={item.id} // eslint-disable-line
@@ -100,25 +101,25 @@ class Items extends Component {
                     archive={{
                       name: "Archive item",
                       title:
-                        "Remove item from list of Items",
+                        "Remove item from list of Contracts",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
                   />
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...contractIdSpan} className="contentEllipse">
+                <Col {...itemIdSpan} className="contentEllipse">
                   {item.unit_id}
                 </Col>
                 <Col
-                  {...contractNameSpan}
+                  {...itemNameSpan}
                   className="contentEllipse"
                   title={item.description}
                 >
                   {item.name}
                 </Col>
-                <Col {...contractDurationSpan}>{item? item.description : 'N/A'}</Col>
-                <Col {...contractCostSpan}>{item? item.capacity : 'N/A'}</Col>
+                <Col {...itemDescriptionSpan}>{item? item.description : 'N/A'}</Col>
+                <Col {...itemCapacitySpan}>{item? item.capacity : 'N/A'}</Col>
                 
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
@@ -133,30 +134,30 @@ class Items extends Component {
   }
 }
 
-// Items.propTypes = {
+// Contracts.propTypes = {
 //   loading: PropTypes.bool.isRequired,
-//   items: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+//   contracts: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
 //     .isRequired,
 //   page: PropTypes.number.isRequired,
 //   searchQuery: PropTypes.string,
 //   total: PropTypes.number.isRequired,
 // };
 
-// Items.defaultProps = {
-//   items: null,
+// Contracts.defaultProps = {
+//   contracts: null,
 //   searchQuery: undefined,
 //   loading: null,
 // };
 
 const mapStateToProps = (state) => {
   return {
-    items: itemsSelectors.getItemsSelector(state),
-    loading: itemsSelectors.getItemsLoadingSelector(state),
+    // contracts: contractsSelectors.getContractsSelector(state),
+    // loading: contractsSelectors.getContractsLoadingSelector(state),
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchItems: bindActionCreators(itemsActions.getItemsStart, dispatch),
+  // fetchContracts: bindActionCreators(contractsActions.getContractsStart, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Items);
+export default connect(mapStateToProps, mapDispatchToProps)(Contracts);
