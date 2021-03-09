@@ -4,7 +4,6 @@ import { moneyFormat } from "../../../../../../Util";
 const getCommitmentAmount = (data) => {
     const { amount, currency } = data
     const { iso } = currency;
-    debugger
     const money = moneyFormat(amount);
     return `${iso} ${money}`;
 }

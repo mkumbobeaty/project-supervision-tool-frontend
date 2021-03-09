@@ -9,22 +9,22 @@ import "./styles.css";
 
 
 /* constants */
-const nameSpan = { xxl: 4, xl: 4, lg: 5, md: 8, sm: 10, xs: 11 };
-const itemSpan = { xxl: 4, xl: 4, lg: 6, md: 4, sm: 4, xs: 5 };
-const locationSpan = { xxl: 5, xl: 4, lg: 0, md: 0, sm: 0, xs: 0 };
-const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
-const endDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
-const valueSpan = { xxl: 2, xl: 2, lg: 3, md: 4, sm: 4, xs: 3 };
-const contractorSpan = { xxl: 4, xl: 5, lg: 4, md: 6, sm: 6, xs: 5 };
+const nameSpan = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 10, xs: 11 };
+const locationSpan = { xxl: 3, xl: 3, lg: 3, md: 3, sm: 0, xs: 0 };
+const agencySpan = { xxl: 4, xl: 4, lg: 3, md: 4, sm: 4, xs: 5 };
+const startDateSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
+const endDateSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
+const phaseSpan = { xxl: 3, xl: 3, lg: 3, md: 3, sm: 4, xs: 3 };
+const contractorSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 6, xs: 5 };
 
 const headerLayout = [
     { ...nameSpan, header: "Name" },
-    { ...itemSpan, header: "Item" },
     { ...locationSpan, header: "Location" },
+    { ...phaseSpan, header: "Phase" },
+    { ...agencySpan, header: "Supervision Agency" },
+    { ...contractorSpan, header: "Contractor" },
     { ...startDateSpan, header: "Start Date" },
     { ...endDateSpan, header: "End Date" },
-    { ...valueSpan, header: "Value" },
-    { ...contractorSpan, header: "Contractor" },
 ];
 
 
@@ -37,12 +37,12 @@ const headerLayout = [
  * @since 0.1.0
  */
 class ProjectSubProjects extends Component {
-   
+
     render() {
         const { project } = this.props;
         return (
             <div className="project-subproject">
-                <h3>List of Sub-projects under {project? project.name : 'N/A'}</h3>
+                <h3>List of Sub-projects under {project ? project.name : 'N/A'}</h3>
                 {/* list starts */}
                 <ItemsList
                     itemName="Sub-project"
@@ -59,7 +59,7 @@ class ProjectSubProjects extends Component {
                                 className="itemList"
                             >
                                 {/* eslint-disable react/jsx-props-no-spreading */}
-    
+
                                 <Col
                                     {...nameSpan}
                                     className="contentEllipse"
@@ -74,21 +74,21 @@ class ProjectSubProjects extends Component {
 
                                     </Link>
                                 </Col>
-                                <Col {...itemSpan}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
                                 <Col {...locationSpan}>
-                                    {item.sub_project_locations.length <= 0 ? "N/A" : item.sub_project_locations.map(({ quantity }, index) => {
-                                        return (index ? ", " : "") + quantity;
+                                    {item.sub_project_locations.length <= 0 ? "N/A" : item.sub_project_locations.map(({ district }, index) => {
+                                        return (index ? ", " : "") + district.name;
                                     })}
-                                </Col>            
+                                </Col>
+                                <Col {...phaseSpan}>{item?.details ? item?.details?.phase.name : "N/A"}</Col>
+
+                                <Col className="contentEllipse" {...agencySpan}>{item?.details ? item.details.supervising_agency.name : "N/A"}</Col>
+                                <Col className="contentEllipse" {...contractorSpan}>{item.details ? item.details.contractor.name : "N/A"}</Col>
                                 <Col {...startDateSpan}>
-                                    {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'Not set')}
+                                    {isoDateToHumanReadableDate(item?.details ? item.details.start_date : 'Not set')}
                                 </Col>
                                 <Col {...endDateSpan}>
-                                    {isoDateToHumanReadableDate(item.details ? item.details.end_date : 'Not set')}
+                                    {isoDateToHumanReadableDate(item?.details ? item.details.end_date : 'Not set')}
                                 </Col>
-                                <Col {...valueSpan}>{item.details ? item.details.value : "N/A"}</Col>
-                                <Col {...contractorSpan}>{item.details ? item.details.contractor.name : "N/A"}</Col>
-
                                 {/* eslint-enable react/jsx-props-no-spreading */}
                             </ListItem>
                         )}

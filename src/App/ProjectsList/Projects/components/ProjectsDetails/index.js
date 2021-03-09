@@ -6,9 +6,10 @@ import SidebarSection from "./SideBar";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects";
 import BaseMap from "../../../../Map/BaseMap";
-import "./styles.css";
+import FullscreenControl from 'react-leaflet-fullscreen';
 import { mapSelectors } from "../../../../../redux/modules/map";
 import ProjectLocations from  "../../../../Map/components/ProjectLocations";
+import "./styles.css";
 
 const { Content, Sider } = Layout;
 
@@ -41,7 +42,8 @@ class Project extends Component {
                   </Col>
                   <Col span={11} className="project_map" offset={1} >
                     <Spin spinning={mapLoading} tip="Loading data...">
-                      <BaseMap ref={this.map} zoomControl={false}>
+                      <BaseMap ref={this.map} zoomControl={true}>
+                      <FullscreenControl position="topright" />
                       <ProjectLocations project={project} />
                       </BaseMap>
                     </Spin>
