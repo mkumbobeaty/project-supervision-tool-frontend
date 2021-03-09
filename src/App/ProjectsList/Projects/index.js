@@ -302,7 +302,7 @@ class Projects extends Component {
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...codeSpan}>{item ? item?.code : 'N/A'}</Col>
+                <Col {...codeSpan}>{item ? item?.code.toUpperCase() : 'N/A'}</Col>
                 <Col {...projectIdSpan} className="contentEllipse">
                   {" "}
 
