@@ -1,7 +1,18 @@
 import React, {useEffect, useState} from "react";
-import { Col, Row, } from 'antd';
 import API from '../../../../../../API';
 import { isoDateToHumanReadableDate } from "../../../../../../Util";
+
+
+const SurveyItem =  ({survey}) => {
+
+
+
+    return (
+        <>
+            <span>{survey.name}</span>
+        </>
+    );
+}
 
 
 const SubProjectSurveys = ({ subProjectSurveys }) => {
@@ -21,7 +32,7 @@ const SubProjectSurveys = ({ subProjectSurveys }) => {
         <>
             <h4>Sub project Surveys</h4>
             <ul>
-                {surveys.map(survey => (<li>{survey.name}</li>))}
+                {surveys.map(survey => (<li><SurveyItem survey={survey}/></li>))}
             </ul>
         </>
     ): 'N/A';

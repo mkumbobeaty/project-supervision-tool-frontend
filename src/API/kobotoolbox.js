@@ -1,7 +1,8 @@
 
 import Axios from 'axios';
 
-const kfBaseurl = 'https://kf.survey-project-supervision-tool.ga/api/v2'
+const kfBaseurl = 'https://kf.survey-project-supervision-tool.ga/api/v2';
+const kcBaseurl = 'https://kc.survey-project-supervision-tool.ga/api/v1';
 
 const axiosKobotoolbox = Axios.create({
     headers: {
@@ -26,8 +27,17 @@ const getAssets = () =>
 const createSurvey = (survey) =>
     axiosKobotoolbox.post(`${kfBaseurl}/assets/`, survey).then((response) => response.data);
 
+/**
+ * @function
+ * @name createSurvey
+ * @description create new survey
+ */
+const getEnketoLink = (id) =>
+    axiosKobotoolbox.post(`${kcBaseurl}/forms/${id}/enketo`).then((response) => response.data);
+
 
 export default {
     getAssets,
     createSurvey,
+    getEnketoLink,
 }
