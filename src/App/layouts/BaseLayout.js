@@ -218,7 +218,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           /> */}
           <PrivateRoute
             exact
-            path={`${baseUrl}/agencies`}
+            path={`${baseUrl}/admin-panel/agencies`}
             component={Agencies}
           />
           <PrivateRoute
