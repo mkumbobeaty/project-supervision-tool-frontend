@@ -312,7 +312,7 @@ class SubProjects extends Component {
                     }}
                     view={
                       {
-                        name: "View more",
+                        name: "View Details",
                         title: "View more detail of selected sub project",
                         onClick: () => this.handleViewDetails(item.id)
                       }
