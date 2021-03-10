@@ -41,8 +41,8 @@ const routes = [
   //   description: modules.map,
   // },
   {
-    name: 'Sub Project Equipments',
-    path: '/sub-project-equipments',
+    name: 'Equipments',
+    path: '/equipments',
     icon: equipmentsIcons,
     description: modules.map,
   },
@@ -105,6 +105,18 @@ const routes = [
     name: 'Contracts',
     path: '/contracts',
     icon: contractsIcons,
+    description: modules.dashboards,
+  },
+  {
+    name: 'Milestones',
+    path: '/milestones',
+    icon: dashboardIcon,
+    description: modules.dashboards,
+  },
+  {
+    name: 'Roles',
+    path: '/roles',
+    icon: dashboardIcon,
     description: modules.dashboards,
   },
 
