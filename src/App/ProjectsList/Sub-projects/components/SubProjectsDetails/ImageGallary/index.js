@@ -1,7 +1,15 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Modal, Button } from 'antd';
 import { LeftOutlined, RightOutlined, } from '@ant-design/icons';
+import UploadPhotoForm from './uploadImage';
 import "./styles.css";
+import FileUpload from "../../../../../components/FileUpload";
+
+const dummyRequest = ({ file, onSuccess }) => {
+    setTimeout(() => {
+      onSuccess("ok");
+    }, 0);
+  };  
 
 class ImageList extends React.Component {
     constructor(props) {
@@ -11,7 +19,29 @@ class ImageList extends React.Component {
             fadedright: false,
             start: 0,
             finish: 2,
+            isModalVisible: false,
+            selectedFile: null,
+            selectedFileList: []
         }
+    }
+
+
+    showModal = () => {
+        this.setState({
+            isModalVisible: true
+        });
+    };
+
+    handleOk = () => {
+        this.setState({
+            isModalVisible: false
+        });
+    };
+
+    handleCancel = () => {
+        this.setState({
+            isModalVisible: false
+        });
     }
 
     leftClick() {
@@ -62,6 +92,25 @@ class ImageList extends React.Component {
         }
         else return "No photo uploaded"
     }
+    
+      onChange = info => {
+        const nextState = {};
+        switch (info.file.status) {
+          case "uploading":
+            nextState.selectedFileList = [info.file];
+            break;
+          case "done":
+            nextState.selectedFile = info.file;
+            nextState.selectedFileList = [info.file];
+            break;
+    
+          default:
+            // error or removed
+            nextState.selectedFile = null;
+            nextState.selectedFileList = [];
+        }
+        this.setState(() => nextState);
+      };
 
     render() {
         var startindex = this.state.start;
@@ -70,12 +119,13 @@ class ImageList extends React.Component {
         const fadedright = this.state.fadedright ? "arrow-right faded-right" : "arrow-right";
         const { sub_project } = this.props
         return (
-            <div>
+            <div className="photoGallary">
                 {
                     sub_project?.photos.length > 0 ? <div className="container">
                         <div className='top-nav'>
                             <h4 className='mapHeaderTitle'>Sub Project photo album</h4>
                             <h4 className='viewAllPhoto' onClick={this.handleShowGallary}> View All Photo</h4>
+                            <Button className='add_photo' type="primary" onClick={this.showModal}>Upload photo  </Button>
                         </div>
                         <Row className="slideshow ">
                             {
@@ -92,8 +142,16 @@ class ImageList extends React.Component {
                             <LeftOutlined className={fadedleft} onClick={this.leftClick.bind(this)} />
                             <RightOutlined className={fadedright} onClick={this.rightClick.bind(this)} />
                         </div>
-                    </div> : <h4 className='mapHeaderTitle'>No Photo Album for this sub project</h4>
+                    </div> : 
+                    <div className='top-nav'>
+                    <h4 className='mapHeaderTitle'>No Photo Album for this sub project</h4>
+                    <Button className='add_photo' type="primary" onClick={this.showModal}>Upload photo </Button>
+                </div>
                 }
+                <Modal title="Upload Photo" visible={this.state.isModalVisible} onCancel={this.handleCancel} footer={null}>
+                    {/*<UploadPhotoForm dummyRequest={dummyRequest} onChange={this.onChange} selectedFileList={this.state.selectedFileList} sub_project={sub_project} />*/}
+                    <FileUpload subProject={sub_project}/>
+                </Modal>
             </div>
 
         )

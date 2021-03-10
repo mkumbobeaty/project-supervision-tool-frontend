@@ -16,8 +16,8 @@
     padding: 0 !important;
 }
 .sub-project-milestone{
-    margin-left: 30px;
-    border: 1px solid #e0ddddfa;
-    padding: 28px;
+    /* margin-left: 30px; */
+    /* border: 1px solid #e0ddddfa; */
+    padding: 0 28px;
     /* margin-top: 26px; */
 }

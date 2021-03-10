@@ -31,7 +31,7 @@ class SubProjectHumanResource extends Component {
         return (
             <div className="sub_project_human_resource">
                 {/* list starts */}
-                <h4 className='headerTitle'>Human Resource</h4>
+                {/* <h4 className='headerTitle'>Human Resource</h4> */}
                 <ListHeaderData headerLayout={headerLayout} />
                 <List
                     itemName="Sub_project_human_resource"

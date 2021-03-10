@@ -127,6 +127,7 @@ export const getProjectEpic = action$ => {
 }
 
 
+
 /**
  * @function
  * @name regionsEpic
@@ -268,6 +269,6 @@ export const projectsRootEpic = combineEpics(
     getEnvironmentalCategoriesEpic,
     getItemsEpic,
     getProgressEpic,
-);
+    );
 
 
