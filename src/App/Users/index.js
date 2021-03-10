@@ -44,6 +44,9 @@ class Users extends Component {
     const {
       users,
       loading,
+      page,
+      total,
+      paginateUser,
     } = this.props;
     return (
       <div>
@@ -70,13 +73,13 @@ class Users extends Component {
         <ProjectsList
           itemName="Users"
           items={users}
-          // page={page}
+          page={page}
           loading={loading}
-          // itemCount={total}
-          // onFilter={this.openFiltersModal}
-          // onRefresh={this.handleRefreshInitiative}
+          itemCount={total}
+          onFilter={this.openFiltersModal}
+          onRefresh={this.handleRefreshInitiative}
           onPaginate={(nextPage) => {
-            this.paginateInitiative(nextPage);
+            paginateUser({ page: nextPage });
           }}
           headerLayout={headerLayout}
           renderListItem={({
@@ -151,14 +154,14 @@ class Users extends Component {
   }
 }
 
-// Users.propTypes = {
-//   loading: PropTypes.bool.isRequired,
-//   users: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
-//     .isRequired,
-//   page: PropTypes.number.isRequired,
-//   searchQuery: PropTypes.string,
-//   total: PropTypes.number.isRequired,
-// };
+Users.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  users: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+    .isRequired,
+  page: PropTypes.number.isRequired,
+  searchQuery: PropTypes.string,
+  total: PropTypes.number.isRequired,
+};
 
 // Users.defaultProps = {
 //   users: null,
@@ -170,11 +173,14 @@ const mapStateToProps = (state) => {
   return {
     users: usersSelectors.getUsersSelector(state),
     loading: usersSelectors.getUsersLoadingSelector(state),
+    page: usersSelectors.getUsersPageSelector(state),
+    total: usersSelectors.getUsersTotalSelector(state),
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   fetchUsers: bindActionCreators(usersActions.getUsersStart, dispatch),
+  paginateUser: bindActionCreators(usersActions.getUsersStart, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users);
