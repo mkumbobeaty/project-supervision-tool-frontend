@@ -40,6 +40,44 @@ class Users extends Component {
     fetchUsers();
   }
 
+  /**   
+   * @function
+   * @name handleSearch
+   * @description Handle list search action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+   handleSearch = (searchData) => {
+    console.log(searchData)
+    this.props.searchProject({ searchQuery: searchData })
+  };
+
+  /**   
+   * @function
+   * @name handleRefresh
+   * @description Handle refresh action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+   handleRefresh = () => {
+    this.props.fetchUsers()
+  };
+
+  /**
+   * @function
+   * @name openProjectForm
+   * @description Open Human Resources form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+   openProjectForm = () => {
+    const { openProjectForm } = this.props;
+    openProjectForm();
+  };
+
   render() {
     const {
       users,
@@ -47,6 +85,7 @@ class Users extends Component {
       page,
       total,
       paginateUser,
+      searchQuery,
     } = this.props;
     return (
       <div>
@@ -56,7 +95,8 @@ class Users extends Component {
             size: "large",
             placeholder: "Search for users here ...",
             // onChange: this.searchInitiative,
-            // value: searchQuery,
+            onSearch: this.handleSearch,
+            value: searchQuery,
           }}
           actions={[
             {
@@ -64,7 +104,7 @@ class Users extends Component {
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New user",
-              // onClick: this.openProjectForm,
+              onClick: this.openProjectForm,
             },
           ]}
         />
@@ -77,7 +117,7 @@ class Users extends Component {
           loading={loading}
           itemCount={total}
           onFilter={this.openFiltersModal}
-          onRefresh={this.handleRefreshInitiative}
+          onRefresh={this.handleRefresh}
           onPaginate={(nextPage) => {
             paginateUser({ page: nextPage });
           }}
@@ -150,7 +190,6 @@ class Users extends Component {
         {/* end list */}
       </div>
     )
-
   }
 }
 
@@ -163,11 +202,11 @@ Users.propTypes = {
   total: PropTypes.number.isRequired,
 };
 
-// Users.defaultProps = {
-//   users: null,
-//   searchQuery: undefined,
-//   loading: null,
-// };
+Users.defaultProps = {
+  users: null,
+  searchQuery: undefined,
+  loading: null,
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -181,6 +220,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   fetchUsers: bindActionCreators(usersActions.getUsersStart, dispatch),
   paginateUser: bindActionCreators(usersActions.getUsersStart, dispatch),
+  searchProject: bindActionCreators(usersActions.getUsersStart, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Users);
