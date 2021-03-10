@@ -5,9 +5,9 @@ import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
-import { Col, } from "antd";
+import { Col, Modal } from "antd";
 import { isoDateToHumanReadableDate } from "../../Util";
-import { usersOperation, usersSelectors } from '../../redux/modules/users';
+import { usersSelectors } from '../../redux/modules/users';
 import * as usersActions from '../../redux/modules/users/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
@@ -32,6 +32,8 @@ const headerLayout = [
   { ...phoneSpan, header: "Phone" },
   { ...emailSpan, header: "Email" },
 ];
+
+const { confirm } = Modal;
 
 class Users extends Component {
 
@@ -76,6 +78,28 @@ class Users extends Component {
    openProjectForm = () => {
     const { openProjectForm } = this.props;
     openProjectForm();
+  };
+
+  /**
+   * @function
+   * @name showArchiveConfirm
+   * @description show confirm modal before archiving a Event Initiative
+   * @param {object} item Resource item to be archived
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+   showArchiveConfirm = (item) => {
+    const { deleteUser } = this.props;
+    confirm({
+      title: `Are you sure you want to archive this record ?`,
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        deleteUser(item.id);
+      },
+    });
   };
 
   render() {
@@ -128,12 +152,12 @@ class Users extends Component {
             onSelectItem,
             onDeselectItem,
           }) => (
-            <Link
-              to={{
-                pathname: `/app/users/${item.id}`,
-              }}
-              className="Users"
-            >
+            // <Link
+            //   to={{
+            //     pathname: `/app/users/${item.id}`,
+            //   }}
+            //   className="Users"
+            // >
               <ListItem
                 key={item.id} // eslint-disable-line
                 name={item.first_name}
@@ -183,7 +207,7 @@ class Users extends Component {
                 </Col>
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
-            </Link>
+            // </Link>
           )
           }
         />
@@ -221,6 +245,6 @@ const mapDispatchToProps = (dispatch) => ({
   fetchUsers: bindActionCreators(usersActions.getUsersStart, dispatch),
   paginateUser: bindActionCreators(usersActions.getUsersStart, dispatch),
   searchProject: bindActionCreators(usersActions.getUsersStart, dispatch),
+  deleteUser: bindActionCreators(usersActions.deleteUserStart, dispatch),
 });
-
 export default connect(mapStateToProps, mapDispatchToProps)(Users);
