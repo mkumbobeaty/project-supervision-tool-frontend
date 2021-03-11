@@ -456,7 +456,6 @@ const mapDispatchToProps = (dispatch) => ({
   closeSubProjectSurveyForm: bindActionCreators(projectActions.closeSubProjectSurveyForm, dispatch),
   selectSubProject: bindActionCreators(subProjectsActions.selectedSubProject, dispatch),
   getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjects);

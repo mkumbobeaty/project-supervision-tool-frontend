@@ -8,6 +8,20 @@ import axios from "./config";
 const getUsers = () =>
     axios.get(`/users`).then((response) => response.data);
 
+/**
+ * create new User
+ *
+ * @function
+ * @name createUser
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+ const createUsers = (User) => { 
+    axios.post(`/Users`, User).then((response) => response.data);
+ }
+ 
+
 
 /**
  * detaches a User from list
@@ -26,5 +40,6 @@ const getUsers = () =>
 
 export default {
     getUsers,
+    createUsers,
     deleteUser,
 }

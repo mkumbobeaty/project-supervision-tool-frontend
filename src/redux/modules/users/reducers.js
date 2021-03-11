@@ -19,6 +19,12 @@ const usersData = (state = initialUsers, action) => {
             return { ...state, loading: false, data: action.payload }
         case types.GET_USERS_FAILURE:
             return { ...state, loading: false, error: action.payload }
+        case types.CREATE_USER_START:
+            return { ...state, posting: true };
+        case types.CREATE_USER_SUCCESS:
+            return { ...state, user: action.payload, posting: false, loading: false };
+        case types.CREATE_USER_FAILURE:
+            return { error: action.payload.error };
         case types.DELETE_USER_START:
             return { ...state };
         case types.DELETE_USER_SUCCESS:

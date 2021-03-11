@@ -5,13 +5,15 @@ import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
-import { Col, Modal } from "antd";
+import { Col, Modal, Button } from "antd";
 import { isoDateToHumanReadableDate } from "../../Util";
 import { usersSelectors } from '../../redux/modules/users';
 import * as usersActions from '../../redux/modules/users/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import PropTypes from "prop-types";
+import UserForm from "./Components/UserFom";
+import "./styles.css"
 
 /* constants */
 const userIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
@@ -37,6 +39,11 @@ const { confirm } = Modal;
 
 class Users extends Component {
 
+  state = {
+    visible: false,
+  };
+
+
   componentDidMount() {
     const { fetchUsers } = this.props;
     fetchUsers();
@@ -50,7 +57,7 @@ class Users extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-   handleSearch = (searchData) => {
+  handleSearch = (searchData) => {
     console.log(searchData)
     this.props.searchProject({ searchQuery: searchData })
   };
@@ -63,21 +70,24 @@ class Users extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-   handleRefresh = () => {
+  handleRefresh = () => {
     this.props.fetchUsers()
   };
 
   /**
    * @function
-   * @name openProjectForm
-   * @description Open Human Resources form
+   * @name openFormModal
+   * @description Open User form
    *
    * @version 0.1.0
    * @since 0.1.0
    */
-   openProjectForm = () => {
-    const { openProjectForm } = this.props;
-    openProjectForm();
+  openFormModal = () => {
+    this.setState({ visible: true })
+  };
+
+  handleCancel = () => {
+    this.setState({visible: false})
   };
 
   /**
@@ -89,7 +99,7 @@ class Users extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-   showArchiveConfirm = (item) => {
+  showArchiveConfirm = (item) => {
     const { deleteUser } = this.props;
     confirm({
       title: `Are you sure you want to archive this record ?`,
@@ -111,6 +121,7 @@ class Users extends Component {
       paginateUser,
       searchQuery,
     } = this.props;
+    const { visible } = this.state;
     return (
       <div>
         {/* Topbar */}
@@ -124,11 +135,11 @@ class Users extends Component {
           }}
           actions={[
             {
-              label: "New personnel",
+              label: "New User",
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New user",
-              onClick: this.openProjectForm,
+              onClick: this.openFormModal,
             },
           ]}
         />
@@ -158,60 +169,80 @@ class Users extends Component {
             //   }}
             //   className="Users"
             // >
-              <ListItem
-                key={item.id} // eslint-disable-line
-                name={item.first_name}
-                item={item}
-                isSelected={isSelected}
-                onSelectItem={onSelectItem}
-                onDeselectItem={onDeselectItem}
-                renderActions={() => (
-                  <ListItemActions
-                    edit={{
-                      name: "Edit user",
-                      title: "Update user details",
-                      onClick: () => this.handleEdit(item),
-                    }}
-                    archive={{
-                      name: "Archive user",
-                      title:
-                        "Remove user from list of active Users",
-                      onClick: () => this.showArchiveConfirm(item),
-                    }}
-                  />
-                )}
-              >
-                {/* eslint-disable react/jsx-props-no-spreading */}
-                {/* <Col {...userIdSpan} className="contentEllipse">
+            <ListItem
+              key={item.id} // eslint-disable-line
+              name={item.first_name}
+              item={item}
+              isSelected={isSelected}
+              onSelectItem={onSelectItem}
+              onDeselectItem={onDeselectItem}
+              renderActions={() => (
+                <ListItemActions
+                  edit={{
+                    name: "Edit user",
+                    title: "Update user details",
+                    onClick: () => this.handleEdit(item),
+                  }}
+                  archive={{
+                    name: "Archive user",
+                    title:
+                      "Remove user from list of active Users",
+                    onClick: () => this.showArchiveConfirm(item),
+                  }}
+                />
+              )}
+            >
+              {/* eslint-disable react/jsx-props-no-spreading */}
+              {/* <Col {...userIdSpan} className="contentEllipse">
                   {item.first_name}
                   {item.middle_name}
                   {item.last_name}
                 </Col> */}
-                <Col
-                  {...userNameSpan}
-                  className="contentEllipse"
-                  title={item.description}
-                >
-                  {item.first_name}{" "}
-                  {item.middle_name}{" "}
-                  {item.last_name}
-                </Col>
-                <Col {...userRoleSpan}>{item.details ? item.details?.funding_organisation?.name : 'N/A'}</Col>
-                <Col {...userTitleSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
-                <Col {...organisationSpan}>{item.details ? item.details.status.toString() : 'N/A'}</Col>
-                <Col {...phoneSpan}>
-                  {item.phone}
-                </Col>
-                <Col {...emailSpan}>
-                  {item.email}
-                </Col>
-                {/* eslint-enable react/jsx-props-no-spreading */}
-              </ListItem>
+              <Col
+                {...userNameSpan}
+                className="contentEllipse"
+                title={item.description}
+              >
+                {item.first_name}{" "}
+                {item.middle_name}{" "}
+                {item.last_name}
+              </Col>
+              <Col {...userRoleSpan}>{item.details ? item.details?.funding_organisation?.name : 'N/A'}</Col>
+              <Col {...userTitleSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
+              <Col {...organisationSpan}>{item.details ? item.details.status.toString() : 'N/A'}</Col>
+              <Col {...phoneSpan}>
+                {item.phone}
+              </Col>
+              <Col {...emailSpan}>
+                {item.email}
+              </Col>
+              {/* eslint-enable react/jsx-props-no-spreading */}
+            </ListItem>
             // </Link>
           )
           }
         />
         {/* end list */}
+
+        {/*User Form Modal */}
+        <Modal
+          className="user-form-modal"
+          visible={visible}
+          title="Add User"
+          // title={props.mode === 'add' ? 'Add New Customer' : 'Edit Customer'}
+          // onOk={handleOk}
+          onCancel={this.handleCancel}
+        // footer={[
+        //     <Button key='back' onClick={handleCancel}>
+        //         Cancel
+        //     </Button>,
+        //     <Button key='submit' type='primary' loading={loading} onClick={props.mode === 'add' ? handleClick : handlePut} >
+        //         Save
+        //     </Button>
+        // ]}
+        >
+          <UserForm />
+      </Modal>
       </div>
     )
   }

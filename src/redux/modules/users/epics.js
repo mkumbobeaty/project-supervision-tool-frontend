@@ -27,6 +27,29 @@ export const getUsersEpic = action$  => {
     )
 }
 
+/**
+ * @function
+ * @name createUserEPic
+ * @param action$
+ * @return action$
+ */
+export const createUserEPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_USER_START),
+        switchMap(({payload}) => {
+            return from(API.createUsers(payload))
+        }),
+        switchMap(res => { return of(actions.createUserSuccess(res)) }),
+        catchError(error => of(actions.createUserFailure(error)))
+    )
+}
+
+// /**
+//  * @function
+//  * @name deleteUserEpic
+//  * @param action$
+//  * @return action$
+//  */
 export const deleteUserEpic = action$ => {
     return action$.pipe(
         ofType(types.DELETE_USER_START),

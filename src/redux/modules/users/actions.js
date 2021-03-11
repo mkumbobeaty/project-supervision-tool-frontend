@@ -21,6 +21,28 @@ export function getUsersFailure (error) {
     }
 }
 
+export function createUserStart(user) {
+  return {
+    type: types.CREATE_USER_START,
+    payload:user,
+  };
+}
+
+export function createUserSuccess(user) {
+  return {
+    type: types.CREATE_USER_SUCCESS,
+    payload: user,
+  };
+}
+
+export function createUserFailure(error) {
+  return {
+    type: types.CREATE_USER_FAILURE,
+    payload: error,
+  };
+}
+
+
 // deleting User
 export function deleteUserStart(user_id) {
     return {
