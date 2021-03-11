@@ -26,3 +26,15 @@ export const getUsersEpic = action$  => {
         }) 
     )
 }
+
+export const deleteUserEpic = action$ => {
+    return action$.pipe(
+        ofType(types.DELETE_USER_START),
+        switchMap(({payload}) => {
+            return from(API.deleteUser(payload)).pipe(
+                switchMap(res => { return of(actions.deleteUserSuccess(res), actions.getUsersStart()) }),
+            )
+        }),
+        catchError(error => of(actions.deleteUserFailure(error)))
+    );
+}
