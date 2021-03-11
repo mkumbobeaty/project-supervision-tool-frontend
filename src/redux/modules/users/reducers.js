@@ -8,6 +8,7 @@ const initialUsers = {
     total: 1,
     page: 1,
     error: null,
+    user: {},
 }
 
 const usersData = (state = initialUsers, action) => {
