@@ -8,6 +8,7 @@ const UserForm = (props) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
+    
   };
 
   const handleSubmit = () => {
@@ -31,7 +32,7 @@ const UserForm = (props) => {
       >
 
         <Form.Item
-          name='firstName'
+          name='first_name'
           label='First Name'
           rules={[
             {
@@ -44,7 +45,7 @@ const UserForm = (props) => {
         </Form.Item>
 
         <Form.Item
-          name='middleName'
+          name='middle_name'
           label='Middle Name'
           rules={[
             {
@@ -57,7 +58,7 @@ const UserForm = (props) => {
         </Form.Item>
 
         <Form.Item
-          name='lastName'
+          name='last_name'
           label='Last Name'
           rules={[
             {
@@ -69,7 +70,7 @@ const UserForm = (props) => {
           <Input />
         </Form.Item>
 
-        <Form.Item
+        {/* <Form.Item
           name='role'
           label='Role'
           rules={[
@@ -80,9 +81,9 @@ const UserForm = (props) => {
           ]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item
+        {/* <Form.Item
           name='title'
           label='Title'
           rules={[
@@ -93,9 +94,9 @@ const UserForm = (props) => {
           ]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
-        <Form.Item
+        {/* <Form.Item
           name='organisation'
           label='Organisation'
           rules={[
@@ -106,10 +107,10 @@ const UserForm = (props) => {
           ]}
         >
           <Input />
-        </Form.Item>
+        </Form.Item> */}
 
         <Form.Item
-          name='phoneNumber'
+          name='phone'
           label='Phone Number'
           rules={[
             {
