@@ -41,6 +41,8 @@ class Users extends Component {
 
   state = {
     visible: false,
+    editMode: false,
+    formValues: {}
   };
 
 
@@ -74,6 +76,18 @@ class Users extends Component {
     this.props.fetchUsers()
   };
 
+  /**   
+   * @function
+   * @name handleEdit
+   * @description Handle edit action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+   handleEdit = (item) => {
+    this.openFormModal(item)
+  };
+
   /**
    * @function
    * @name openFormModal
@@ -82,13 +96,15 @@ class Users extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  openFormModal = () => {
+  openFormModal = (item) => {
+    if(item.id) {
+      this.setState({ editMode: true, formValues: item })
+    }
     this.setState({ visible: true })
   };
 
   handleCancel = () => {
-    this.setState({visible: false})
-    console.log("cancelled")
+    this.setState({visible: false, editMode: false})
   };
 
   /**
@@ -229,7 +245,7 @@ class Users extends Component {
         <Modal
           className="user-form-modal"
           visible={visible}
-          title="Add User"
+          title={this.state.editMode ? "Edit User" : "Add User"}
           // title={props.mode === 'add' ? 'Add New Customer' : 'Edit Customer'}
           // onOk={handleOk}
           onCancel={this.handleCancel}
@@ -242,7 +258,7 @@ class Users extends Component {
         //     </Button>
         // ]}
         >
-          <UserForm handleCancel={this.handleCancel} />
+          <UserForm handleCancel={this.handleCancel} editMode={this.state.editMode} formValues={this.state.formValues} />
       </Modal>
       </div>
     )

@@ -7,7 +7,7 @@ import { focalPeopleEpic } from "../App/FocalPeople/duck/epics";
 import { sectorsEpic } from '../App/ProjectsList/Projects/components/ProjectsSectors/duck/epics';
 import { projectDetailsEpic } from '../App/ProjectsList/Projects/components/ProjectsDetails/duck/epics';
 import {subProjectsEpic} from './modules/subProjects/epics';
-import { getUsersEpic, createUserEPic, deleteUserEpic } from "./modules/users/epics";
+import { getUsersEpic, createUserEPic, editUserEpic, deleteUserEpic } from "./modules/users/epics";
 
 export const rootEpic = combineEpics(
     loginEpic,
@@ -22,5 +22,6 @@ export const rootEpic = combineEpics(
     subProjectsEpic,
     getUsersEpic,
     createUserEPic,
+    editUserEpic,
     deleteUserEpic,
 )

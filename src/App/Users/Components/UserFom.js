@@ -14,12 +14,19 @@ const UserForm = (props) => {
       created_at: "",
       updated_at: ""
     }
-    props.createUser(user)
+
+    if(props.editMode === true ) {
+      props.editUser(user)
+    } else {
+      props.createUser(user)
+    }
+
     props.handleCancel();
   };
 
   return (
     <>
+      {props.editMode ? form.setFieldsValue(props.formValues) : form.resetFields()}
       <Form
         form={form}
         name='register'
@@ -157,6 +164,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   createUser: usersActions.createUserStart,
+  editUser: usersActions.editUserStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserForm);

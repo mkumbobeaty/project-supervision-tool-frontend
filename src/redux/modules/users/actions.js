@@ -42,6 +42,27 @@ export function createUserFailure(error) {
   };
 }
 
+// editing User
+export function editUserStart(user) {
+  return {
+    type: types.EDIT_USER_START,
+    payload:user
+  };
+}
+
+export function editUserSuccess(user) {
+  return {
+    type: types.EDIT_USER_SUCCESS,
+    payload: user,
+  };
+}
+
+export function editUserFailure(error) {
+  return {
+    type: types.EDIT_USER_FAILURE,
+    payload: error,
+  };
+}
 
 // deleting User
 export function deleteUserStart(user_id) {

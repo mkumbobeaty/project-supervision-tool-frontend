@@ -21,6 +21,25 @@ const createUsers = (user) => {
     console.log(user)
     axios.post(`/users`, user ).then((response) => console.log(response.data));
 }
+
+/**
+ * 
+ * Edit user from the API
+ * @function
+ * @name editUser
+ * @param {Object} id - Id of user
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+ const editUser = (user, id) => {
+     console.log(id)
+    return axios
+        .patch(`/users/${id}`, user)
+        .then((response) => response.data);
+};
+
 /**
  * detaches a User from list
  *
@@ -39,5 +58,6 @@ const deleteUser = (User) => {
 export default {
     getUsers,
     createUsers,
+    editUser,
     deleteUser,
 }
