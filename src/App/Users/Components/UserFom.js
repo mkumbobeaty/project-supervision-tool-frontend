@@ -8,17 +8,15 @@ const UserForm = (props) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    
+    const user = {
+      ...values,
+      password: "password",
+      created_at: "",
+      updated_at: ""
+    }
+    props.createUser(user)
+    props.handleCancel();
   };
-
-  const handleSubmit = () => {
-    form.validateFields()
-      .then(values => {
-        console.log(values)
-        props.createUser(values)
-      })
-  }
-
 
   return (
     <>
@@ -140,7 +138,7 @@ const UserForm = (props) => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" onClick={handleSubmit}>
+          <Button type="primary" htmlType="submit">
             Submit
         </Button>
         </Form.Item>

@@ -17,13 +17,10 @@ const getUsers = () =>
  * @version 0.1.0
  * @since 0.1.0
  */
- const createUsers = (user) => { 
-     console.log(user)
-    axios.post(`/users`, user).then((response) => response.data);
- }
- 
-
-
+const createUsers = (user) => {
+    console.log(user)
+    axios.post(`/users`, user ).then((response) => console.log(response.data));
+}
 /**
  * detaches a User from list
  *
@@ -33,7 +30,7 @@ const getUsers = () =>
  * @version 0.1.0
  * @since 0.1.0
  */
- const deleteUser = (User) => {
+const deleteUser = (User) => {
     return axios
         .delete(`users/${User}`)
         .then((response) => response.data);

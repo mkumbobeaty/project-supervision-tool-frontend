@@ -88,6 +88,7 @@ class Users extends Component {
 
   handleCancel = () => {
     this.setState({visible: false})
+    console.log("cancelled")
   };
 
   /**
@@ -241,7 +242,7 @@ class Users extends Component {
         //     </Button>
         // ]}
         >
-          <UserForm />
+          <UserForm handleCancel={this.handleCancel} />
       </Modal>
       </div>
     )
