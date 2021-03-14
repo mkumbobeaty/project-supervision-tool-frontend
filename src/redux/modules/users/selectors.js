@@ -13,4 +13,18 @@ export const getUsersSelector = (state) => {
  * @name getUsersLoadingSelector
  * @param {Object} state redux state
  */
-export const getUsersLoadingSelector = (state) => state.users?.usersData?.loading
+export const getUsersLoadingSelector = (state) => state.users?.usersData?.loading;
+
+/**
+ * @function
+ * @name getUsersPageSelector
+ * @param {Object} state redux state
+ */
+ export const getUsersPageSelector = (state) => state.users?.usersData?.page;
+
+ /**
+ * @function
+ * @name getUsersTotalSelector
+ * @param {Object} state redux state
+ */
+  export const getUsersTotalSelector = (state) => state.users?.usersData?.total;

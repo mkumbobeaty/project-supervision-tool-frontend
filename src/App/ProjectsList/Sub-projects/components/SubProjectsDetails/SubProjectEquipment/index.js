@@ -14,11 +14,11 @@ const remarksSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 5, xs: 5 };
 
 
 const headerLayout = [
+    { ...mobilizationSpan, header: "Name", title: 'Equipment name' },
     { ...subProjectQuantitySpan, header: "Q/Contract", title: 'Quantity contract' },
     { ...quantityMobilizedSpan, header: "Q/Mobilized", title: 'Quantity mobilized' },
     { ...capacitySpan, header: "Capacity", title: 'capacity' },
     { ...remarksSpan, header: "Remarks", title: 'Remarks' },
-    { ...mobilizationSpan, header: "Mobilization date", title: 'Mobilization date' },
 ];
 
 /**
@@ -51,6 +51,7 @@ class SubProjectEquipment extends Component {
                         >
                             {/* eslint-disable react/jsx-props-no-spreading */}
 
+                            <Col {...mobilizationSpan}>{item ? item?.item?.name : "N/A"}</Col>
                             <Col
                                 {...subProjectQuantitySpan}
                                 className="contentEllipse"
@@ -60,7 +61,7 @@ class SubProjectEquipment extends Component {
                             <Col {...quantityMobilizedSpan}>{item ? item?.quantity_mobilized : "N/A"}</Col>
                             <Col {...capacitySpan}>{item ? item?.item?.capacity : "N/A"}</Col>
                             <Col {...remarksSpan}>{item ? item.remarks : "N/A"}</Col>
-                            <Col {...mobilizationSpan}>{item ? item.mobilization_date : "N/A"}</Col>
+
 
                             {/* eslint-enable react/jsx-props-no-spreading */}
                         </List.Item>
