@@ -8,16 +8,19 @@ const UserForm = (props) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    const user = {
-      ...values,
-      password: "password",
-      created_at: "",
-      updated_at: ""
-    }
 
     if(props.editMode === true ) {
+      const user = {
+        ...props.formValues,
+        ...values
+      }
       props.editUser(user)
     } else {
+      const user = {
+        ...values,
+        password: values.last_name
+      }
+      console.log(user)
       props.createUser(user)
     }
 

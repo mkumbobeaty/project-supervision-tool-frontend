@@ -39,7 +39,7 @@ export const createUserEPic = action$ => {
         switchMap(({payload}) => {
             return from(API.createUsers(payload))
         }),
-        switchMap(res => { return of(actions.createUserSuccess(res)) }),
+        switchMap(res => { return of(actions.createUserSuccess(res), actions.getUsersStart()) }),
         catchError(error => of(actions.createUserFailure(error)))
     )
 }
