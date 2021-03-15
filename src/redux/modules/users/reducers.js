@@ -3,7 +3,7 @@ import * as types from './types';
 import { combineReducers } from "redux";
 
 const initialUsers = {
-    data: [],
+    data: null,
     loading: false,
     total: 1,
     page: 1,

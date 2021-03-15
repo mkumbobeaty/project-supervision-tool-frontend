@@ -139,6 +139,7 @@ class Users extends Component {
       searchQuery,
     } = this.props;
     const { visible } = this.state;
+    console.log(users)
     return (
       <div>
         {/* Topbar */}

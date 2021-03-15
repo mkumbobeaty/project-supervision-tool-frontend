@@ -4,9 +4,7 @@
  * @param {Object} state redux state
  */
 
-export const getUsersSelector = (state) => {
-    return state.users?.usersData?.data;
-}
+export const getUsersSelector = (state) => state.users?.usersData?.data?.data || [];
 
 /**
  * @function
