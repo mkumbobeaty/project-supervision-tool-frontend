@@ -15,10 +15,11 @@ import SubProjectItems from "../ProjectsList/Sub-projects/components/SubProjectI
 import SubProjectEquipments from "../ProjectsList/Sub-projects/components/SubProjectEquipments";
 // import Settings from "../Settings";
 import GeoNode from "../GeoNode";
-import Users from "../Users";
 import Agencies from "../Agencies";
 import AdminPanel from "../AdminPanel";
 import PrivateRoute from '../Auth/PrivateRoute';
+import Users from "../Users";
+import Contracts from "../Contracts";
 import "./styles.css";
 
 /* constants */
@@ -34,7 +35,7 @@ const breadcrumbNameMap = {
     name: "projects",
     title: "projects Module",
   },
-  "/app/sub_projects": {
+  "/app/sub-projects": {
     name: "sub-projects",
     title: "List of all Sub-projects",
   },
@@ -43,7 +44,7 @@ const breadcrumbNameMap = {
     name: "Project",
     title: "Detail of single project",
   },
-  "/app/sub_projects/:type": {
+  "/app/sub-projects/:type": {
     name: "Sub Project",
     title: "Detail of single sub project",
   },
@@ -74,11 +75,16 @@ const breadcrumbNameMap = {
   },
 
   /* users routes */
-  "/app/users": {
+  "/app/users:": {
     name: "users",
     title: "users Module",
   },
 
+   /* Contracts routes */
+   "/app/contracts:": {
+    name: "contracts",
+    title: "contracts Module",
+  },
 };
 
 /**
@@ -162,7 +168,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
 
           <PrivateRoute
             exact
-            path={`${baseUrl}/sub_projects/:id`}
+            path={`${baseUrl}/sub-projects/:id`}
             render={({ match }, props ) => <SubProject match={match} {...props}/>}
           />
           <PrivateRoute
@@ -172,8 +178,9 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           />
           <PrivateRoute
             exact
-            path={`${baseUrl}/sub-project-equipments`}
-            render={(props) => <SubProjectEquipments {...props} />}
+            path={`${baseUrl}/equipments`}
+            /*render={(props) => <SubProjectEquipments {...props} />}*/
+            component={SubProjectEquipments}
           />
 
           <PrivateRoute path={`${baseUrl}/map`} component={MapDashboard} />
@@ -192,7 +199,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           />
           <PrivateRoute
             exact
-            path={`${baseUrl}/users`}
+            path={`${baseUrl}/admin-panel/users`}
             component={Users}
           />
           {/* <PrivateRoute
@@ -202,13 +209,18 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           /> */}
           <PrivateRoute
             exact
-            path={`${baseUrl}/agencies`}
+            path={`${baseUrl}/admin-panel/agencies`}
             component={Agencies}
           />
           <PrivateRoute
             exact
             path={`${baseUrl}/admin-panel`}
             component={AdminPanel}
+          />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/contracts`}
+            component={Contracts}
           />
           <PrivateRoute component={PageNotFound} />
         </Switch>

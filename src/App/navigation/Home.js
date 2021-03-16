@@ -40,12 +40,12 @@ const routes = [
   //   icon: itemsIcons,
   //   description: modules.map,
   // },
-  // {
-  //   name: 'Sub Project Equipments',
-  //   path: '/sub-project-equipments',
-  //   icon: equipmentsIcons,
-  //   description: modules.map,
-  // },
+  {
+    name: 'Equipments',
+    path: '/equipments',
+    icon: equipmentsIcons,
+    description: modules.map,
+  },
   // {
   //   name: 'Sub Project Contracts',
   //   path: '/sub-projects-contracts',
@@ -83,19 +83,30 @@ const routes = [
   //   icon: settingsIcons,
   //   description: modules.dashboards,
   // },
-  {
-    name: 'Agencies',
-    path: '/Agencies',
-    icon: settingsIcons,
-    description: modules.dashboards,
-  },
+  // {
+  //   name: 'Agencies',
+  //   path: '/Agencies',
+  //   icon: settingsIcons,
+  //   description: modules.dashboards,
+  // },
   {
     name: 'Admin Panel',
     path: '/admin-panel',
     icon: settingsIcons,
     description: modules.dashboards,
   },
-
+  {
+    name: 'Items',
+    path: '/items',
+    icon: itemsIcons,
+    description: modules.dashboards,
+  },
+  {
+    name: 'Contracts',
+    path: '/contracts',
+    icon: contractsIcons,
+    description: modules.dashboards,
+  },
 ];
 
 /**
