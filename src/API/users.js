@@ -5,8 +5,10 @@ import axios from "./config";
  * @name getUsers
  * @description get Users
  * */
-const getUsers = (params={}) =>
-    axios.get(`/users`, { params: { page: params.page, per_page: 10 } }).then((response) => response.data);
+const getUsers = (params={}) => {
+    return axios.get(`/users`, { params: { page: params.page, per_page: 10, searchField:'name', searchQuery: params.searchQuery } }).then((response) => response.data);
+}
+    
 
 /**
  * create new User

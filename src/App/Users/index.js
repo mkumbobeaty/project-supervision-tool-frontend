@@ -61,7 +61,7 @@ class Users extends Component {
    */
   handleSearch = (searchData) => {
     console.log(searchData)
-    this.props.searchProject({ searchQuery: searchData })
+    this.props.searchUser({ searchQuery: searchData })
   };
 
   /**   
@@ -292,7 +292,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   fetchUsers: bindActionCreators(usersActions.getUsersStart, dispatch),
   paginateUser: bindActionCreators(usersActions.getUsersStart, dispatch),
-  searchProject: bindActionCreators(usersActions.getUsersStart, dispatch),
+  searchUser: bindActionCreators(usersActions.getUsersStart, dispatch),
   deleteUser: bindActionCreators(usersActions.deleteUserStart, dispatch),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Users);
