@@ -23,7 +23,7 @@ const UserForm = (props) => {
       console.log(user)
       props.createUser(user)
     }
-
+    form.resetFields()
     props.handleCancel();
   };
 
