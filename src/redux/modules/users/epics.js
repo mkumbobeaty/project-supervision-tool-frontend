@@ -16,8 +16,8 @@ import * as types from './types';
 export const getUsersEpic = action$  => {
     return action$.pipe(
         ofType(types.GET_USERS_START),
-        switchMap(() => {
-            return from(API.getUsers()).pipe(
+        switchMap(({payload}) => {
+            return from(API.getUsers(payload)).pipe(
                 switchMap(res => {
                     return of(actions.getUsersSuccess(res.data))
                 }),

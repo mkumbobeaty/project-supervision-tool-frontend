@@ -1,9 +1,10 @@
 import * as types from './types';
 
 // action creator for fetching users
-export function getUsersStart () {
+export function getUsersStart (params) {
     return {
         type: types.GET_USERS_START,
+        payload: params
     }
 }
 
