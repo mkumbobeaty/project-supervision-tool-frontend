@@ -16,8 +16,8 @@ import * as types from './types';
 export const getUsersEpic = action$  => {
     return action$.pipe(
         ofType(types.GET_USERS_START),
-        switchMap(() => {
-            return from(API.getUsers()).pipe(
+        switchMap(({payload}) => {
+            return from(API.getUsers(payload)).pipe(
                 switchMap(res => {
                     return of(actions.getUsersSuccess(res.data))
                 }),
@@ -39,7 +39,7 @@ export const createUserEPic = action$ => {
         switchMap(({payload}) => {
             return from(API.createUsers(payload))
         }),
-        switchMap(res => { return of(actions.createUserSuccess(res)) }),
+        switchMap(res => { return of(actions.createUserSuccess(res), actions.getUsersStart()) }),
         catchError(error => of(actions.createUserFailure(error)))
     )
 }

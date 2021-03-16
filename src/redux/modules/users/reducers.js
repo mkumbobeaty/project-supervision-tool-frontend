@@ -3,7 +3,7 @@ import * as types from './types';
 import { combineReducers } from "redux";
 
 const initialUsers = {
-    data: [],
+    data: null,
     loading: false,
     total: 1,
     page: 1,
@@ -16,7 +16,8 @@ const usersData = (state = initialUsers, action) => {
         case types.GET_USERS_START:
             return { ...state, loading: true }
         case types.GET_USERS_SUCCESS:
-            return { ...state, loading: false, data: action.payload }
+            return { ...state, loading: false, data: action.payload, 
+                total: action.payload.meta.total, page: action.payload.meta.current_page }
         case types.GET_USERS_FAILURE:
             return { ...state, loading: false, error: action.payload }
         case types.CREATE_USER_START:
