@@ -13,18 +13,17 @@ import { bindActionCreators } from "redux";
 // import PropTypes from "prop-types";
 
 /* constants */
-const itemIdSpan = { xxl: 3, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
-const itemNameSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
-const itemDescriptionSpan = { xxl: 8, xl: 10, lg: 10, md: 4, sm: 4, xs: 5 };
-const itemCapacitySpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const contractorSpan = { xxl: 10, xl: 6, lg: 6, md: 5, sm: 5, xs: 4 };
+const contratValuerSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 4, xs: 3 };
+const contractPeriodSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 4, xs: 3 };
+
 
 
 const headerLayout = [
-  { ...itemIdSpan, header: "Item ID" },
-  { ...itemNameSpan, header: "Item Name" },
-  { ...itemDescriptionSpan, header: "Description" },
-  { ...itemCapacitySpan, header: "Capacity" },
-]
+  { ...contractorSpan, header: "Contractor" },
+  { ...contratValuerSpan, header: "Contract Value" },
+  { ...contractPeriodSpan, header: "Contract Period" },
+];
 
 class Contracts extends Component {
 
@@ -108,19 +107,16 @@ class Contracts extends Component {
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...itemIdSpan} className="contentEllipse">
-                  {item.unit_id}
-                </Col>
                 <Col
-                  {...itemNameSpan}
+                  {...contractorSpan}
                   className="contentEllipse"
-                  title={item.description}
+                  title={item?.description}
                 >
-                  {item.name}
+                  {item ? item?.contractor?.name : "N/A"}
                 </Col>
-                <Col {...itemDescriptionSpan}>{item? item.description : 'N/A'}</Col>
-                <Col {...itemCapacitySpan}>{item? item.capacity : 'N/A'}</Col>
-                
+                <Col {...contratValuerSpan}>{item ? item?.contract_time?.original_contract_period : "N/A"}</Col>
+                <Col {...contractPeriodSpan}>{item ? item?.contract_cost?.contract_award_value?.amount : "N/A"}</Col>
+
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             </Link>
