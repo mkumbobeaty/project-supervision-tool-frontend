@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Topbar from "../components/Topbar";
-import ProjectsList from "../components/List";
+import ContractsList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
@@ -37,7 +37,6 @@ class Contracts extends Component {
       contracts,
       loading,
     } = this.props;
-    console.log(contracts)
     return (
       <div>
         {/* Topbar */}
@@ -60,9 +59,9 @@ class Contracts extends Component {
         />
         {/* end Topbar */}
         {/* list starts */}
-        <ProjectsList
+        <ContractsList
           itemName="Contracts"
-          contracts={contracts}
+          items={contracts}
           // page={page}
           loading={loading}
           // itemCount={total}
@@ -86,7 +85,7 @@ class Contracts extends Component {
             >
               <ListItem
                 key={item.id} // eslint-disable-line
-                name={item.name}
+                name={item.contractor.name}
                 item={item}
                 isSelected={isSelected}
                 onSelectItem={onSelectItem}
@@ -108,16 +107,9 @@ class Contracts extends Component {
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col
-                  {...contractorSpan}
-                  className="contentEllipse"
-                  title={contracts.contractor}
-                >
-                  {contracts ? contracts?.contractor?.name : "N/A"}
-                </Col>
-                <Col {...contratValuerSpan}>{contracts ? contracts?.contract_time?.original_contract_period : "N/A"}</Col>
-                <Col {...contractPeriodSpan}>{contracts ? contracts?.contract_cost?.contract_award_value?.amount : "N/A"}</Col>
-
+                <Col {...contractorSpan}>{item ? item.contractor?.name : "N/A"}                </Col>
+                <Col {...contratValuerSpan}>{item ? item.contract_cost?.contract_award_value?.amount : "N/A"}</Col>
+                <Col {...contractPeriodSpan}>{item ? item.contract_time?.original_contract_period : "N/A"}</Col>
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             </Link>

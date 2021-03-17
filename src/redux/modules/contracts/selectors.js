@@ -4,16 +4,15 @@
  * @param {Object} state redux state
  */
 
-export const getContractsSelector = (state) => {
-    console.log(state.contracts.contractsData.data)
-    return state.contracts?.contractsData?.data?.data || [];}
+export const getContractsSelector = (state) => state.contracts?.contractsData?.data?.data || [];
 
 /**
  * @function
  * @name getContractsLoadingSelector
  * @param {Object} state redux state
  */
-export const getContractsLoadingSelector = (state) => state.Contracts?.ContractsData?.loading;
+export const getContractsLoadingSelector = (state) => state.contracts?.contractsData?.loading;
+
 
 /**
  * @function
