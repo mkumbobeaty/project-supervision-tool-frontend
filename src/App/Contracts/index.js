@@ -6,11 +6,11 @@ import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
 import { Col, } from "antd";
-// import { contractsOperation, contractsSelectors } from '../../redux/modules/contracts';
-// import * as contractsActions from '../../redux/modules/contracts/actions';
+import { contractsSelectors } from '../../redux/modules/contracts';
+import * as contractsActions from '../../redux/modules/contracts/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 /* constants */
 const contractorSpan = { xxl: 10, xl: 6, lg: 6, md: 5, sm: 5, xs: 4 };
@@ -27,16 +27,17 @@ const headerLayout = [
 
 class Contracts extends Component {
 
-  // componentDidMount() {
-  //   const { fetchContracts } = this.props;
-  //   fetchContracts();
-  // }
+  componentDidMount() {
+    const { fetchContracts } = this.props;
+    fetchContracts();
+  }
 
   render() {
     const {
       contracts,
       loading,
     } = this.props;
+    console.log(contracts)
     return (
       <div>
         {/* Topbar */}
@@ -49,10 +50,10 @@ class Contracts extends Component {
           }}
           actions={[
             {
-              label: "New Item",
+              label: "New Contract",
               icon: <PlusOutlined />,
               size: "large",
-              title: "Add New item",
+              title: "Add New Contract",
               // onClick: this.openProjectForm,
             },
           ]}
@@ -93,14 +94,14 @@ class Contracts extends Component {
                 renderActions={() => (
                   <ListItemActions
                     edit={{
-                      name: "Edit item",
-                      title: "Update item details",
+                      name: "Edit contract",
+                      title: "Update contract details",
                       onClick: () => this.handleEdit(item),
                     }}
                     archive={{
-                      name: "Archive item",
+                      name: "Archive contract",
                       title:
-                        "Remove item from list of Contracts",
+                        "Remove contract from list of Contracts",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
                   />
@@ -110,12 +111,12 @@ class Contracts extends Component {
                 <Col
                   {...contractorSpan}
                   className="contentEllipse"
-                  title={item?.description}
+                  title={contracts.contractor}
                 >
-                  {item ? item?.contractor?.name : "N/A"}
+                  {contracts ? contracts?.contractor?.name : "N/A"}
                 </Col>
-                <Col {...contratValuerSpan}>{item ? item?.contract_time?.original_contract_period : "N/A"}</Col>
-                <Col {...contractPeriodSpan}>{item ? item?.contract_cost?.contract_award_value?.amount : "N/A"}</Col>
+                <Col {...contratValuerSpan}>{contracts ? contracts?.contract_time?.original_contract_period : "N/A"}</Col>
+                <Col {...contractPeriodSpan}>{contracts ? contracts?.contract_cost?.contract_award_value?.amount : "N/A"}</Col>
 
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
@@ -130,30 +131,30 @@ class Contracts extends Component {
   }
 }
 
-// Contracts.propTypes = {
-//   loading: PropTypes.bool.isRequired,
-//   contracts: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
-//     .isRequired,
-//   page: PropTypes.number.isRequired,
-//   searchQuery: PropTypes.string,
-//   total: PropTypes.number.isRequired,
-// };
+Contracts.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  contracts: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+    .isRequired,
+  page: PropTypes.number.isRequired,
+  searchQuery: PropTypes.string,
+  total: PropTypes.number.isRequired,
+};
 
-// Contracts.defaultProps = {
-//   contracts: null,
-//   searchQuery: undefined,
-//   loading: null,
-// };
+Contracts.defaultProps = {
+  contracts: null,
+  searchQuery: undefined,
+  loading: null,
+};
 
 const mapStateToProps = (state) => {
   return {
-    // contracts: contractsSelectors.getContractsSelector(state),
-    // loading: contractsSelectors.getContractsLoadingSelector(state),
+    contracts: contractsSelectors.getContractsSelector(state),
+    loading: contractsSelectors.getContractsLoadingSelector(state),
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  // fetchContracts: bindActionCreators(contractsActions.getContractsStart, dispatch),
+  fetchContracts: bindActionCreators(contractsActions.getContractsStart, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contracts);
