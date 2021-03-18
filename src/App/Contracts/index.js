@@ -32,6 +32,19 @@ class Contracts extends Component {
     fetchContracts();
   }
 
+  /**   
+   * @function
+   * @name handleSearch
+   * @description Handle list search action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+   handleSearch = (searchData) => {
+    console.log(searchData)
+    this.props.searchContract({ searchQuery: searchData })
+  };
+
   render() {
     const {
       contracts,
@@ -39,6 +52,7 @@ class Contracts extends Component {
       page,
       total,
       paginateContract,
+      searchQuery,
     } = this.props;
     return (
       <div>
@@ -47,8 +61,9 @@ class Contracts extends Component {
           search={{
             size: "large",
             placeholder: "Search for contracts here ...",
-            // onChange: this.searchInitiative,
-            // value: searchQuery,
+            onSearch: this.handleSearch,
+            onChange: this.searchInitiative,
+            value: searchQuery,
           }}
           actions={[
             {
@@ -153,6 +168,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   fetchContracts: bindActionCreators(contractsActions.getContractsStart, dispatch),
   paginateContract: bindActionCreators(contractsActions.getContractsStart, dispatch),
+  searchContract: bindActionCreators(contractsActions.getContractsStart, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contracts);
