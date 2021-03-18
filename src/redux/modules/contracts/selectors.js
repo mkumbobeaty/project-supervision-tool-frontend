@@ -19,11 +19,11 @@ export const getContractsLoadingSelector = (state) => state.contracts?.contracts
  * @name getContractsPageSelector
  * @param {Object} state redux state
  */
- export const getContractsPageSelector = (state) => state.Contracts?.ContractsData?.page;
+ export const getContractsPageSelector = (state) => state.contracts?.contractsData?.page;
 
  /**
  * @function
  * @name getContractsTotalSelector
  * @param {Object} state redux state
  */
-  export const getContractsTotalSelector = (state) => state.Contracts?.ContractsData?.total;
+  export const getContractsTotalSelector = (state) => state.contracts?.contractsData?.total;

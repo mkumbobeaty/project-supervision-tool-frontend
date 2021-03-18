@@ -36,6 +36,9 @@ class Contracts extends Component {
     const {
       contracts,
       loading,
+      page,
+      total,
+      paginateContract,
     } = this.props;
     return (
       <div>
@@ -62,13 +65,13 @@ class Contracts extends Component {
         <ContractsList
           itemName="Contracts"
           items={contracts}
-          // page={page}
+          page={page}
           loading={loading}
-          // itemCount={total}
+          itemCount={total}
           // onFilter={this.openFiltersModal}
           // onRefresh={this.handleRefreshInitiative}
           onPaginate={(nextPage) => {
-            this.paginateInitiative(nextPage);
+            paginateContract ({ page: nextPage });
           }}
           headerLayout={headerLayout}
           renderListItem={({
@@ -142,11 +145,14 @@ const mapStateToProps = (state) => {
   return {
     contracts: contractsSelectors.getContractsSelector(state),
     loading: contractsSelectors.getContractsLoadingSelector(state),
+    page: contractsSelectors.getContractsPageSelector(state),
+    total: contractsSelectors.getContractsTotalSelector(state),
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   fetchContracts: bindActionCreators(contractsActions.getContractsStart, dispatch),
+  paginateContract: bindActionCreators(contractsActions.getContractsStart, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contracts);
