@@ -5,7 +5,7 @@ import { combineReducers } from "redux";
 const initialContracts = {
     data: null,
     loading: false,
-    total: 1,
+    total: 0,
     page: 1,
     error: null,
     contract: {},
