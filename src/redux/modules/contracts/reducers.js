@@ -9,6 +9,7 @@ const initialContracts = {
     page: 1,
     error: null,
     contract: {},
+    showForm: false,
 }
 
 const contractsData = (state = initialContracts, action) => {
@@ -38,6 +39,10 @@ const contractsData = (state = initialContracts, action) => {
             return { ...state, contract: action.payload, loading: false };
         case types.DELETE_CONTRACT_FAILURE:
             return action.payload;
+        case types.OPEN_FORM:
+                return { ...state, showForm: true };
+        case types.CLOSE_FORM:
+                return { ...state, showForm: false };
         default:
             return state
     }

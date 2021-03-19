@@ -27,3 +27,10 @@ export const getContractsLoadingSelector = (state) => state.contracts?.contracts
  * @param {Object} state redux state
  */
   export const getContractsTotalSelector = (state) => state.contracts?.contractsData?.total;
+
+  /**
+ * @function
+ * @name getContractsShowFormSelector
+ * @param {Object} state redux state
+ */
+   export const getContractsShowFormSelector = (state) => state.contracts?.contractsData?.showForm;

@@ -5,7 +5,7 @@ import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
-import { Col, } from "antd";
+import { Col, Drawer} from "antd";
 import { contractsSelectors } from '../../redux/modules/contracts';
 import * as contractsActions from '../../redux/modules/contracts/actions';
 import { connect } from 'react-redux';
@@ -40,9 +40,22 @@ class Contracts extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-   handleSearch = (searchData) => {
+  handleSearch = (searchData) => {
     console.log(searchData)
     this.props.searchContract({ searchQuery: searchData })
+  };
+
+  /**
+ * @function
+ * @name openContractForm
+ * @description Open Human Resources form
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+  openContractForm = () => {
+    const { openContractForm } = this.props;
+    openContractForm();
   };
 
   render() {
@@ -53,6 +66,7 @@ class Contracts extends Component {
       total,
       paginateContract,
       searchQuery,
+      showForm,
     } = this.props;
     return (
       <div>
@@ -71,7 +85,7 @@ class Contracts extends Component {
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New Contract",
-              // onClick: this.openProjectForm,
+              onClick: this.openContractForm,
             },
           ]}
         />
@@ -86,7 +100,7 @@ class Contracts extends Component {
           // onFilter={this.openFiltersModal}
           // onRefresh={this.handleRefreshInitiative}
           onPaginate={(nextPage) => {
-            paginateContract ({ page: nextPage });
+            paginateContract({ page: nextPage });
           }}
           headerLayout={headerLayout}
           renderListItem={({
@@ -135,6 +149,29 @@ class Contracts extends Component {
           }
         />
         {/* end list */}
+
+        <Drawer
+          title={
+            isEditForm ? "Edit Projects" : "Add New Projects"
+          } width={550}
+          onClose={this.closeProjectForm}
+          footer={null}
+          visible={showForm}
+          bodyStyle={{ paddingBottom: 80 }}
+          destroyOnClose
+          maskClosable={false}
+          afterClose={this.handleAfterCloseForm}
+        >
+          {/* <CommonProjectForm
+            selected={selected}
+            isEditForm={isEditForm}
+            createProject={createProject}
+            focalPeoples={focalPeoples}
+            Projects={projects}
+            getProjects={fetchProjects}
+            handleAfterCloseForm={this.handleAfterCloseForm}
+            handleAfterSubmit={this.closeProjectForm} /> */}
+        </Drawer>
       </div>
     )
 
@@ -162,6 +199,7 @@ const mapStateToProps = (state) => {
     loading: contractsSelectors.getContractsLoadingSelector(state),
     page: contractsSelectors.getContractsPageSelector(state),
     total: contractsSelectors.getContractsTotalSelector(state),
+    showForm: contractsSelectors.getContractsShowFormSelector(state),
   }
 }
 
@@ -169,6 +207,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchContracts: bindActionCreators(contractsActions.getContractsStart, dispatch),
   paginateContract: bindActionCreators(contractsActions.getContractsStart, dispatch),
   searchContract: bindActionCreators(contractsActions.getContractsStart, dispatch),
+  openContractForm: bindActionCreators(contractsActions.openForm, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contracts);

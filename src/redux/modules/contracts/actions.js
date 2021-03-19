@@ -86,3 +86,15 @@ export function deleteContractStart(contract_id) {
       payload: error,
     };
   }
+
+  export function openForm() {
+    return {
+      type: types.OPEN_FORM,
+    };
+  }
+  
+  export function closeForm() {
+    return {
+      type: types.CLOSE_FORM,
+    };
+  }

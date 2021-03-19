@@ -9,6 +9,7 @@ const initialUsers = {
     page: 1,
     error: null,
     user: {},
+    showForm: false,
 }
 
 const usersData = (state = initialUsers, action) => {
