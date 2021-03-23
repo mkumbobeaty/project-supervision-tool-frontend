@@ -27,6 +27,11 @@ const headerLayout = [
 
 class Contracts extends Component {
 
+  state = {
+    isEditForm: false,
+    // visible: false,
+  };
+
   componentDidMount() {
     const { fetchContracts } = this.props;
     fetchContracts();
@@ -58,6 +63,19 @@ class Contracts extends Component {
     openContractForm();
   };
 
+  /**
+ * @function
+ * @name closeContractForm
+ * @description Open Human Resources form
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+   closeContractForm = () => {
+    const { closeContractForm } = this.props;
+    closeContractForm();
+  };
+
   render() {
     const {
       contracts,
@@ -68,6 +86,7 @@ class Contracts extends Component {
       searchQuery,
       showForm,
     } = this.props;
+    const { isEditForm } = this.state;
     return (
       <div>
         {/* Topbar */}
@@ -152,15 +171,15 @@ class Contracts extends Component {
 
         <Drawer
           title={
-            isEditForm ? "Edit Projects" : "Add New Projects"
+            isEditForm ? "Edit Contracts" : "Add New Contracts"
           } width={550}
-          onClose={this.closeProjectForm}
+          onClose={this.closeContractForm}
           footer={null}
           visible={showForm}
-          bodyStyle={{ paddingBottom: 80 }}
+          // bodyStyle={{ paddingBottom: 80 }}
           destroyOnClose
           maskClosable={false}
-          afterClose={this.handleAfterCloseForm}
+          // afterClose={this.handleAfterCloseForm}
         >
           {/* <CommonProjectForm
             selected={selected}
@@ -208,6 +227,7 @@ const mapDispatchToProps = (dispatch) => ({
   paginateContract: bindActionCreators(contractsActions.getContractsStart, dispatch),
   searchContract: bindActionCreators(contractsActions.getContractsStart, dispatch),
   openContractForm: bindActionCreators(contractsActions.openForm, dispatch),
+  closeContractForm: bindActionCreators(contractsActions.closeForm, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contracts);
