@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from 'prop-types';
 import BackLink from "../BackLink";
 import OverviewTable from "../OverviewTable";
-import { Spin, Checkbox } from 'antd';
+import { Spin } from 'antd';
 import './styles.css';
 
 /**
@@ -10,13 +10,6 @@ import './styles.css';
  * @name SideNavItemOverview
  * @description renders project overview at national level
  */
-const status = [
-    'Active', 'Closed', 'Droped'
-]
-
-function onChange(e) {
-    console.log(`checked = ${e.target.checked}`);
-}
 
 function SideNavItemOverview({
     overViewData,
@@ -39,13 +32,9 @@ function SideNavItemOverview({
             </section> : <section className='project-over-view-table'>
                     {loadingStatistics === true ? <Spin spinning={loadingStatistics} style={{ paddingLeft: 125 }} /> : <OverviewTable data={overViewData} />}
                 </section>}
-
-            <section className='project-regions-filters'>
-                <div className="status">
-                    {status.map(data => <Checkbox onChange={onChange}>{data}</Checkbox>)}
-                </div>
-                <hr />
-            </section>
+            {/* <section className='project-regions-filters'>
+              
+            </section> */}
         </div>
     );
 

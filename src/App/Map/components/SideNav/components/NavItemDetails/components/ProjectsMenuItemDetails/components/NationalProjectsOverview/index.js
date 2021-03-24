@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import SideNavItemOverview from "../SideNavItemOverview";
 import { moneyFormat } from "../../../../../../../../../../Util";
-import './styles.css';
 import ProjectsOverviewFilter from "../Filters";
+import './styles.css';
 
 /**
  * @function
@@ -57,12 +57,8 @@ function NationalProjectsOverview(
                 overViewData={overViewData}
                 loadingStatistics={loadingStatistics}
                 overViewData={overViewData}
-                // predefinedFilterConfig={filterConfig}
-                // predefinedFilterData={filterData}
-                // handleOnclickFilterItem={handleOnClickFilterItem}
             />
-            <ProjectsOverviewFilter locations={projectsCountByRegion} />
-        
+            <ProjectsOverviewFilter locations={projectsCountByRegion} projects={projects} handleOnClickFilterItem={handleOnClickFilterItem} />
         </div>
     );
 
