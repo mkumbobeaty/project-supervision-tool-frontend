@@ -18,7 +18,9 @@ function NationalProjectsOverview(
         getProjectsByRegion,
         loadingStatistics,
         projects,
-        getProjects
+        getProjects,
+        getSectors,
+        sectors
     }
 ) {
 
@@ -27,6 +29,7 @@ function NationalProjectsOverview(
     useEffect(() => {
         getProjectsOverview();
         getProjects();
+        getSectors();
     }, []);
 
     // generate project commitment amount string
@@ -58,7 +61,12 @@ function NationalProjectsOverview(
                 loadingStatistics={loadingStatistics}
                 overViewData={overViewData}
             />
-            <ProjectsOverviewFilter locations={projectsCountByRegion} projects={projects} handleOnClickFilterItem={handleOnClickFilterItem} />
+            <ProjectsOverviewFilter 
+                locations={projectsCountByRegion} 
+                projects={projects} 
+                handleOnClickFilterItem={handleOnClickFilterItem} 
+                sectors={sectors}
+                />
         </div>
     );
 

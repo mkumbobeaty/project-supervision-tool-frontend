@@ -10,6 +10,7 @@ import {projectActions, projectSelectors} from "../../../../../../../../../../re
 import {mapProjectActions} from "../../../../../../../../../../redux/modules/map/projects";
 import TopSection from "../../../TopSection";
 import projects from "../../../../../../../../../../API/projects";
+import { projectSectorsActions, projectSectorsSelectors } from "../../../../../../../../../ProjectsList/Projects/components/ProjectsSectors/duck";
 
 /**
  * @function
@@ -35,6 +36,8 @@ function ProjectsOverview(
         showRegionalOverviewLoader,
         projects,
         getProjects,
+        sectors,
+        getSectors,
     }
 ) {
     return (
@@ -48,6 +51,9 @@ function ProjectsOverview(
                 loadingStatistics={loadingStatistics}
                 getProjects={getProjects}
                 projects={projects}
+                getSectors={getSectors}
+                sectors={sectors}
+
             /> : ''}
             {showRegionalOverview ? <RegionalProjectsOverview
                 regionProjectStatistics={regionProjectStatistics}
@@ -74,7 +80,8 @@ const mapStateToProps = state => ({
     showRegionalOverviewLoader: mapSelectors.regionProjectsStatisticsLoader(state),
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     region: mapSelectors.getRegionDetailsSelector(state),
-    projects:projectSelectors.getProjectsSelector(state)
+    projects:projectSelectors.getProjectsSelector(state),
+    sectors: projectSectorsSelectors.getSectorsSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -84,7 +91,9 @@ const mapDispatchToProps = (dispatch) => ({
     setShowNationalOverview: bindActionCreators(mapActions.showNationalProjectsOverview, dispatch),
     clearRegionalProjects: bindActionCreators(mapActions.clearRegionProjects, dispatch),
     getProject: bindActionCreators(mapProjectActions.getProjectStart, dispatch),
-    getProjects:bindActionCreators(projectActions.getProjectsStart, dispatch)
+    getProjects:bindActionCreators(projectActions.getProjectsStart, dispatch),
+    getSectors: bindActionCreators(projectSectorsActions.getSectorsStart, dispatch)
+
 });
 
 
