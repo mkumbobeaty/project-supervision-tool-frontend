@@ -36,7 +36,7 @@ function ProjectsOverview(
 ) {
     return (
         <>
-            <TopSection title="PROJECTS"  searchPlaceHolder='Search Projects'/>
+            <TopSection title="PROJECTS OVERVIEW"/>
             {showNationalOverview ? <NationalProjectsOverview
                 getProjectsOverview={getProjectsOverview}
                 projectsStatistics={projectsStatistics}
@@ -58,7 +58,6 @@ function ProjectsOverview(
         </>
     );
 }
-
 
 const mapStateToProps = state => ({
     projectsStatistics: mapSelectors.getProjectsStatistics(state),

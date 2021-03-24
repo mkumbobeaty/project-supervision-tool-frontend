@@ -45,7 +45,7 @@ function NationalProjectsOverview(
     const commitmentAmount = projectsStatistics?.commitment_amount ? getCommitmentAmount(projectsStatistics) : '';
     const overViewData = projectsStatistics ? [
         {title: 'Projects', value: projectsStatistics.projects,},
-        {title: 'Commitment Amount', value: commitmentAmount},
+        {title: 'Sub Projects', value: 24},
         {title: 'Regions', value: projectsStatistics.regions},
     ] :  []
     ;
@@ -65,7 +65,7 @@ function NationalProjectsOverview(
             predefinedFilterConfig={filterConfig}
             loadingStatistics={loadingStatistics}
             handleOnclickFilterItem={handleOnClickFilterItem}
-            title='National Overview'
+            // title='National Overview'
         />
     );
 
