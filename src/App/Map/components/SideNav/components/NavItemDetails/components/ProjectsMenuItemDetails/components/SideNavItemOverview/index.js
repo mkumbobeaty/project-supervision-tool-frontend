@@ -24,11 +24,11 @@ function SideNavItemOverview({
 
     return (
         <div className='SideNavItemOverview'>
-
+{/* 
             <section className='title-and-back-button'>
                 <div>{title}</div>
                 {goBack ? <BackLink goBack={goBack} /> : ''}
-            </section>
+            </section> */}
 
             { showRegionalOverviewLoader ? <section className='project-over-view-table'>
                 {showRegionalOverviewLoader === true ? <Spin spinning={showRegionalOverviewLoader} style={{ paddingLeft: 125 }} /> : <OverviewTable data={overViewData} />}
@@ -36,14 +36,14 @@ function SideNavItemOverview({
                     {loadingStatistics === true ? <Spin spinning={loadingStatistics} style={{ paddingLeft: 125 }} /> : <OverviewTable data={overViewData} />}
                 </section>}
 
-            <section className='project-regions-filters'>
+            {/* <section className='project-regions-filters'>
                 {predefinedFilterData.length > 0 ? <PredefinedFilter
                     data={predefinedFilterData}
                     config={predefinedFilterConfig}
                     handleOnclickFilterItem={handleOnclickFilterItem}
                     filterTitle={predefinedFilterConfig.filterTitle}
                 /> : ''}
-            </section>
+            </section> */}
         </div>
     );
 

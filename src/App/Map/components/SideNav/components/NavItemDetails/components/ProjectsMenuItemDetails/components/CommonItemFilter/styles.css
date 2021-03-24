@@ -1,0 +1,23 @@
+.CommonItemFilter {
+    padding: 10px;
+}
+
+.CommonItemFilter h4 {
+    color: #0071bc;
+    text-transform: uppercase;
+    padding: 15px 0 0;
+}
+.projectFilter {
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.projectFilter label {
+    text-overflow: ellipsis;
+    display: inline-block;
+    overflow: hidden;
+    width: 350px;
+    white-space: nowrap;
+    vertical-align: middle;
+  }
