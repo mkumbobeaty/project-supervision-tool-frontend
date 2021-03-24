@@ -5,7 +5,7 @@ import BackLink from "../BackLink";
 import OverviewTable from "../OverviewTable";
 import { Spin, Checkbox } from 'antd';
 import './styles.css';
-import CommonItemFilter from "../CommonItemFilter";
+import CommonItemFilter from "../Filters/components/CommonItemFilter";
 
 /**
  * @function
@@ -52,24 +52,13 @@ function SideNavItemOverview({
                     {status.map(data => <Checkbox onChange={onChange}>{data}</Checkbox>)}
                 </div>
                 <hr />
-                <CommonItemFilter
-                    title="Project Status"
-                    filterData={projects}
-                />
-                <CommonItemFilter
-                    title="Sectors"
-                    filterData={projects}
-                />
-                <CommonItemFilter
-                    title="Locations"
-                    filterData={locations}
-                />
-                {/* {predefinedFilterData.length > 0 ? <PredefinedFilter
+            
+                {predefinedFilterData.length > 0 ? <CommonItemFilter
                     data={predefinedFilterData}
                     config={predefinedFilterConfig}
                     handleOnclickFilterItem={handleOnclickFilterItem}
                     filterTitle={predefinedFilterConfig.filterTitle}
-                /> : ''} */}
+                /> : ''}
             </section>
         </div>
     );

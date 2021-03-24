@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import SideNavItemOverview from "../SideNavItemOverview";
 import { moneyFormat } from "../../../../../../../../../../Util";
 import './styles.css';
-import CommonItemFilter from "../CommonItemFilter";
+import CommonItemFilter from "../Filters/components/CommonItemFilter";
 
 /**
  * @function
@@ -40,7 +40,8 @@ function NationalProjectsOverview(
     // filter can display
     const getFilterData = (items) => items.map(({ region_name, projects_count, id }) => ({
         title: region_name,
-        value: projects_count,
+        value: region_name,
+        total_count:projects_count,
         id
     }));
 
@@ -58,15 +59,17 @@ function NationalProjectsOverview(
 
 
     // prepare data for ProjectsRegionsPredefinedFilter
-    const filterConfig = { filterTitle: 'Regions', filterRightTitle: 'Regions', filterLeftTitle: 'Projects' }
+    const filterConfig = { filterTitle: 'Locations' }
     const filterData = projectsCountByRegion.length > 0 ? getFilterData(projectsCountByRegion) : []
-
 
     return (
         <div>
             <SideNavItemOverview
                 overViewData={overViewData}
                 loadingStatistics={loadingStatistics}
+                overViewData={overViewData}
+                predefinedFilterConfig={filterConfig}
+                predefinedFilterData={filterData}
                 handleOnclickFilterItem={handleOnClickFilterItem}
                 projects={projects}
                 locations={projectsCountByRegion}
