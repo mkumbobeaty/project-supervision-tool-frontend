@@ -5,9 +5,9 @@ import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
-import { Col, } from "antd";
+import { Col, Modal } from "antd";
 import { isoDateToHumanReadableDate } from "../../Util";
-import { usersOperation, usersSelectors } from '../../redux/modules/users';
+import { usersSelectors } from '../../redux/modules/users';
 import * as usersActions from '../../redux/modules/users/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
@@ -33,6 +33,8 @@ const headerLayout = [
   { ...emailSpan, header: "Email" },
 ];
 
+const { confirm } = Modal;
+
 class Users extends Component {
 
   componentDidMount() {
@@ -40,10 +42,74 @@ class Users extends Component {
     fetchUsers();
   }
 
+  /**   
+   * @function
+   * @name handleSearch
+   * @description Handle list search action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+   handleSearch = (searchData) => {
+    console.log(searchData)
+    this.props.searchProject({ searchQuery: searchData })
+  };
+
+  /**   
+   * @function
+   * @name handleRefresh
+   * @description Handle refresh action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+   handleRefresh = () => {
+    this.props.fetchUsers()
+  };
+
+  /**
+   * @function
+   * @name openProjectForm
+   * @description Open Human Resources form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+   openProjectForm = () => {
+    const { openProjectForm } = this.props;
+    openProjectForm();
+  };
+
+  /**
+   * @function
+   * @name showArchiveConfirm
+   * @description show confirm modal before archiving a Event Initiative
+   * @param {object} item Resource item to be archived
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+   showArchiveConfirm = (item) => {
+    const { deleteUser } = this.props;
+    confirm({
+      title: `Are you sure you want to archive this record ?`,
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        deleteUser(item.id);
+      },
+    });
+  };
+
   render() {
     const {
       users,
       loading,
+      page,
+      total,
+      paginateUser,
+      searchQuery,
     } = this.props;
     return (
       <div>
@@ -53,7 +119,8 @@ class Users extends Component {
             size: "large",
             placeholder: "Search for users here ...",
             // onChange: this.searchInitiative,
-            // value: searchQuery,
+            onSearch: this.handleSearch,
+            value: searchQuery,
           }}
           actions={[
             {
@@ -61,7 +128,7 @@ class Users extends Component {
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New user",
-              // onClick: this.openProjectForm,
+              onClick: this.openProjectForm,
             },
           ]}
         />
@@ -70,13 +137,13 @@ class Users extends Component {
         <ProjectsList
           itemName="Users"
           items={users}
-          // page={page}
+          page={page}
           loading={loading}
-          // itemCount={total}
-          // onFilter={this.openFiltersModal}
-          // onRefresh={this.handleRefreshInitiative}
+          itemCount={total}
+          onFilter={this.openFiltersModal}
+          onRefresh={this.handleRefresh}
           onPaginate={(nextPage) => {
-            this.paginateInitiative(nextPage);
+            paginateUser({ page: nextPage });
           }}
           headerLayout={headerLayout}
           renderListItem={({
@@ -85,12 +152,12 @@ class Users extends Component {
             onSelectItem,
             onDeselectItem,
           }) => (
-            <Link
-              to={{
-                pathname: `/app/users/${item.id}`,
-              }}
-              className="Users"
-            >
+            // <Link
+            //   to={{
+            //     pathname: `/app/users/${item.id}`,
+            //   }}
+            //   className="Users"
+            // >
               <ListItem
                 key={item.id} // eslint-disable-line
                 name={item.first_name}
@@ -140,41 +207,44 @@ class Users extends Component {
                 </Col>
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
-            </Link>
+            // </Link>
           )
           }
         />
         {/* end list */}
       </div>
     )
-
   }
 }
 
-// Users.propTypes = {
-//   loading: PropTypes.bool.isRequired,
-//   users: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
-//     .isRequired,
-//   page: PropTypes.number.isRequired,
-//   searchQuery: PropTypes.string,
-//   total: PropTypes.number.isRequired,
-// };
+Users.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  users: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+    .isRequired,
+  page: PropTypes.number.isRequired,
+  searchQuery: PropTypes.string,
+  total: PropTypes.number.isRequired,
+};
 
-// Users.defaultProps = {
-//   users: null,
-//   searchQuery: undefined,
-//   loading: null,
-// };
+Users.defaultProps = {
+  users: null,
+  searchQuery: undefined,
+  loading: null,
+};
 
 const mapStateToProps = (state) => {
   return {
     users: usersSelectors.getUsersSelector(state),
     loading: usersSelectors.getUsersLoadingSelector(state),
+    page: usersSelectors.getUsersPageSelector(state),
+    total: usersSelectors.getUsersTotalSelector(state),
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   fetchUsers: bindActionCreators(usersActions.getUsersStart, dispatch),
+  paginateUser: bindActionCreators(usersActions.getUsersStart, dispatch),
+  searchProject: bindActionCreators(usersActions.getUsersStart, dispatch),
+  deleteUser: bindActionCreators(usersActions.deleteUserStart, dispatch),
 });
-
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

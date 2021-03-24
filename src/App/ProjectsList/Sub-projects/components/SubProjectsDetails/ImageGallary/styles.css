@@ -1,7 +1,9 @@
 .Sub-project-image>.ant-image {
     margin-right: 15px;
 }
-
+.photoGallary{
+    margin-left: 25px;
+}
 body, html {
     height: 100%;
     margin: 0;
@@ -16,7 +18,7 @@ body, html {
     height: 100%;
     width: 100%;
     background-color: #ffffff;
-    ;
+    padding-top: 15px;
 }
 
 .arrows {

@@ -25,7 +25,6 @@ function NationalProjectsOverview(
         getProjectsOverview();
     }, []);
 
-
     // generate project commitment amount string
     const getCommitmentAmount = ({commitment_amount}) => {
         const {iso, total} = commitment_amount;

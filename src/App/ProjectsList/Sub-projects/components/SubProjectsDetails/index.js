@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Col, Layout, Row, Spin } from 'antd';
+import { Button, Col, Layout, Row, Spin, Tabs } from 'antd';
 import SidebarSection from "./SideBar";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
@@ -13,9 +13,11 @@ import SubProjectLocations from "../../../../Map/components/SubProjectLocations"
 import { mapActions, mapSelectors } from "../../../../../redux/modules/map";
 import ImageList from "./ImageGallary";
 import ImagesGallery from "./ImageGallary/imageGallaries";
+import FullscreenControl from 'react-leaflet-fullscreen';
 import "./styles.css";
 
 const { Content, Sider } = Layout;
+const { TabPane } = Tabs;
 
 class SubProject extends Component {
 
@@ -49,7 +51,7 @@ class SubProject extends Component {
 
   render() {
     const { sub_project, loading, mapLoading, getWfsLayerData } = this.props;
-    const { showImage, selectedImage, showColumn, showMilestone,showHumanResource, showEquipment, showContract} = this.state;
+    const { showImage, selectedImage } = this.state;
     return (
       <Layout className="sub-project-layout">
         <Spin spinning={loading} tip="Loading..." >
@@ -77,45 +79,30 @@ class SubProject extends Component {
                     <h4 className='mapHeaderTitle'>Sub Project Location</h4>
                     <Spin spinning={mapLoading} tip="Loading data...">
                       <BaseMap ref={this.map} zoomControl={true}>
+                        <FullscreenControl position="topright" />
                         <SubProjectLocations getWfsLayerData={getWfsLayerData} subProject={sub_project} />
                       </BaseMap>
                     </Spin>
                   </Col>
-                  {/* <Col span={12} >
-                    <SubProjectsMilestone sub_project={sub_project} offset={1} />
+                  <Col span={13}  className='Sub-project-image' >
+                  {<ImageList handleViewImage={this.handleViewImage} showImage={showImage} sub_project={sub_project} offset={1}/>}
                   </Col>
-                  <Col span={11} style={{ marginTop: 26 }}>
-                    <SubProjectHumanResource sub_project={sub_project} />
-                  </Col>
-                  <Col span={12} style={{ marginTop: 26 }}>
-                    < SubProjectEquipment sub_project={sub_project} offset={1} />
-                  </Col> */}
-                  <Col span={11} style={{ marginTop: 26 }} className='Sub-project-image'>
-                    {<ImageList handleViewImage={this.handleViewImage} showImage={showImage} sub_project={sub_project} />}
-                  </Col>
-                </Row>
-                <Row className="sub-poject-lists">
-                  <Col span={24}>
-                    <Button className="sub-poject-lists-button" onClick={this.handleClick}>MILESTONES</Button>
-                    <Button className="sub-poject-lists-button">HUMAN RESOURCES</Button>
-                    <Button className="sub-poject-lists-button">EQUIPMENT MOBILIZATION</Button>
-                    <Button className="sub-poject-lists-button">CONTRACTS</Button>
-                  </Col>
-                  {showMilestone ? <h1>alan</h1> : null}
-                  <Col span={24} >
-                    <SubProjectsMilestone sub_project={sub_project} />
-                  </Col>
-                  <Col span={24}>
-                    <SubProjectHumanResource sub_project={sub_project} />
-                  </Col>
-                  <Col span={24}>
-                    < SubProjectEquipment sub_project={sub_project} />
-                  </Col>
-                  <Col span={24}>
-                    < SubProjectContract sub_project={sub_project} />
+                  <Col span={24} style={{ marginTop: 26 }}>
+                  <div className="card-container">
+                    <Tabs type="card">
+                      <TabPane tab="Milestone" key="1">
+                      <SubProjectsMilestone sub_project={sub_project}/>
+                      </TabPane>
+                      <TabPane tab="Human Resources" key="2">
+                      <SubProjectHumanResource sub_project={sub_project} />
+                      </TabPane>
+                      <TabPane tab="Equipment Mobilization" key="3">
+                      < SubProjectEquipment sub_project={sub_project} />
+                      </TabPane>
+                    </Tabs>
+                  </div>
                   </Col>
                 </Row>
-                {/* <ImageGallary /> */}
               </Content>
             </Layout> : <ImagesGallery sub_project={sub_project} selectedImage={selectedImage} />}
 

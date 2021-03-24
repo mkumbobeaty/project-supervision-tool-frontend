@@ -155,20 +155,16 @@ function BasicSubProjectDetailsForm({
 
                       {/*start: project id */}
                       <Form.Item
-                        label="Project Code"
+                        label="SubProject Code"
                         name="code"
                         rules={[
                             {
                                 required: true,
-                                message: "Project code is required",
+                                message: "SubProject code is required",
                             },
                         ]}
                     >
-                        <Select>
-                            {projects.map(({ code }) => (
-                                <Select.Option value={code}>{code}</Select.Option>
-                            ))}
-                        </Select>
+                          <Input />
                     </Form.Item>
                     {/*end: project id */}
 

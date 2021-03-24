@@ -67,24 +67,6 @@ const SubProjectItemsForm = ({ visible, onCancel, items, subProject, progress })
                 </Form.Item>
                 {/*    end:items*/}
 
-                <Form.Item
-                    label="Progress"
-                    name="progress_id"
-                    rules={[
-                        {
-                            required: true,
-                            message: "Progress is required",
-                        },
-                    ]}
-                >
-                    <Select>
-                        {progress.map(({ id, actual }) => (
-                            <Select.Option value={id}>{actual}</Select.Option>
-                        ))}
-                    </Select>
-                </Form.Item>
-                {/*    end:items*/}
-
                 {/* start:quantity */}
                 <Form.Item
                     label="Quantity"

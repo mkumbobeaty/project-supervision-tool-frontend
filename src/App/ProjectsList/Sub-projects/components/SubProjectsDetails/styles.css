@@ -96,8 +96,9 @@
 }
 
 .sub-project-equipment {
-    border: 1px solid #e0ddddfa;
-    padding: 28px;
+    /* margin-left: 30px;
+    border: 1px solid #e0ddddfa; */
+    padding: 0 28px;
 }
 
 .sub_project_map .base-map {
@@ -124,18 +125,18 @@
 .imageDetail h4 {
     font-weight: 600;
 }
+.sub-project-contents .ant-tabs-card > .ant-tabs-nav{
+    text-transform: uppercase;
 
-.sub-poject-lists {
-    margin-top: 50px;
-    margin-left: 0px;
 }
-
-.sub-poject-lists-button {
-    border-top-left-radius: 7px;
-    border-top-right-radius: 7px;
-    color: #0f6788;
+.sub-project-contents .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active {
+    color: #1890ff;
+    background: #1890ff;
 }
+.sub-project-contents .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #ffffff;
 
-
-
-
+}
+.sub-project-contents .ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab {
+    border-radius: 10px 10px 0 0;
+}

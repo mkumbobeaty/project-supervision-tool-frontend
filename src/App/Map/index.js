@@ -3,7 +3,6 @@ import { Spin } from 'antd';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import L from 'leaflet';
-import "./styles.css";
 import BaseMap from "./BaseMap";
 import { bindActionCreators } from "redux";
 import { mapActions, mapSelectors } from "../../redux/modules/map";
@@ -19,6 +18,7 @@ import { mapProjectSelectors } from "../../redux/modules/map/projects";
 import { mapSubProjectActions, mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
 import SubRegionsGeoJson from './components/SubRegionsGeoJson ';
 import ShowDataSets from "./components/ShowDataSets";
+import "./styles.css";
 
 class MapDashboard extends Component {
     state = {
