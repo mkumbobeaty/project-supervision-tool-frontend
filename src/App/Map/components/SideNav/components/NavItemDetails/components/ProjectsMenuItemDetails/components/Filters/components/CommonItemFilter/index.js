@@ -53,7 +53,6 @@ const renderFilterItems = items => items.map(({ title, value, id,total_count }, 
             <hr />
             <section>
                 {renderFilterItems(data)}
-
             </section>
         </div>
     );

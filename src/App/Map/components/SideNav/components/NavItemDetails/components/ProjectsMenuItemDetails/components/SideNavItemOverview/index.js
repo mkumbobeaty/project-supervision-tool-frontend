@@ -1,11 +1,9 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import PredefinedFilter from "../PredefinedFilter";
 import BackLink from "../BackLink";
 import OverviewTable from "../OverviewTable";
 import { Spin, Checkbox } from 'antd';
 import './styles.css';
-import CommonItemFilter from "../Filters/components/CommonItemFilter";
 
 /**
  * @function
@@ -22,15 +20,10 @@ function onChange(e) {
 
 function SideNavItemOverview({
     overViewData,
-    predefinedFilterData,
-    predefinedFilterConfig,
     title,
     goBack,
-    handleOnclickFilterItem,
     loadingStatistics,
     showRegionalOverviewLoader,
-    projects,
-    locations,
 }) {
 
     return (
@@ -52,13 +45,6 @@ function SideNavItemOverview({
                     {status.map(data => <Checkbox onChange={onChange}>{data}</Checkbox>)}
                 </div>
                 <hr />
-            
-                {predefinedFilterData.length > 0 ? <CommonItemFilter
-                    data={predefinedFilterData}
-                    config={predefinedFilterConfig}
-                    handleOnclickFilterItem={handleOnclickFilterItem}
-                    filterTitle={predefinedFilterConfig.filterTitle}
-                /> : ''}
             </section>
         </div>
     );
