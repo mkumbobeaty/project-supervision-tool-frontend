@@ -3,14 +3,23 @@ import PropTypes from 'prop-types';
 import PredefinedFilter from "../PredefinedFilter";
 import BackLink from "../BackLink";
 import OverviewTable from "../OverviewTable";
-import { Spin } from 'antd';
+import { Spin, Checkbox } from 'antd';
 import './styles.css';
+import CommonItemFilter from "../CommonItemFilter";
 
 /**
  * @function
  * @name SideNavItemOverview
  * @description renders project overview at national level
  */
+const status = [
+    'Active', 'Closed', 'Droped'
+]
+
+function onChange(e) {
+    console.log(`checked = ${e.target.checked}`);
+}
+
 function SideNavItemOverview({
     overViewData,
     predefinedFilterData,
@@ -19,12 +28,14 @@ function SideNavItemOverview({
     goBack,
     handleOnclickFilterItem,
     loadingStatistics,
-    showRegionalOverviewLoader
+    showRegionalOverviewLoader,
+    projects,
+    locations,
 }) {
 
     return (
         <div className='SideNavItemOverview'>
-{/* 
+            {/* 
             <section className='title-and-back-button'>
                 <div>{title}</div>
                 {goBack ? <BackLink goBack={goBack} /> : ''}
@@ -36,14 +47,30 @@ function SideNavItemOverview({
                     {loadingStatistics === true ? <Spin spinning={loadingStatistics} style={{ paddingLeft: 125 }} /> : <OverviewTable data={overViewData} />}
                 </section>}
 
-            {/* <section className='project-regions-filters'>
-                {predefinedFilterData.length > 0 ? <PredefinedFilter
+            <section className='project-regions-filters'>
+                <div className="status">
+                    {status.map(data => <Checkbox onChange={onChange}>{data}</Checkbox>)}
+                </div>
+                <hr />
+                <CommonItemFilter
+                    title="Project Status"
+                    filterData={projects}
+                />
+                <CommonItemFilter
+                    title="Sectors"
+                    filterData={projects}
+                />
+                <CommonItemFilter
+                    title="Locations"
+                    filterData={locations}
+                />
+                {/* {predefinedFilterData.length > 0 ? <PredefinedFilter
                     data={predefinedFilterData}
                     config={predefinedFilterConfig}
                     handleOnclickFilterItem={handleOnclickFilterItem}
                     filterTitle={predefinedFilterConfig.filterTitle}
-                /> : ''}
-            </section> */}
+                /> : ''} */}
+            </section>
         </div>
     );
 

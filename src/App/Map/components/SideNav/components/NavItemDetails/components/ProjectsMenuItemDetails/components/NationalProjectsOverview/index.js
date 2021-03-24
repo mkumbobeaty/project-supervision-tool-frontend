@@ -68,12 +68,10 @@ function NationalProjectsOverview(
                 overViewData={overViewData}
                 loadingStatistics={loadingStatistics}
                 handleOnclickFilterItem={handleOnClickFilterItem}
-            />
-            <CommonItemFilter
-                title="Project Status"
                 projects={projects}
-                
+                locations={projectsCountByRegion}
             />
+           
         </div>
     );
 

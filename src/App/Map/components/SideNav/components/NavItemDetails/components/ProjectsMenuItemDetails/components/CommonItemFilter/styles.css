@@ -1,5 +1,6 @@
 .CommonItemFilter {
     padding: 10px;
+    border-bottom: 0.8px solid #d9d9d9;
 }
 
 .CommonItemFilter h4 {
@@ -21,3 +22,8 @@
     white-space: nowrap;
     vertical-align: middle;
   }
+  @media screen and (max-width: 1024px) {
+    .projectFilter label {
+        width: 180px;
+      }
+}
