@@ -79,4 +79,3 @@ export const deleteItemEpic = action$ => {
         catchError(error => of(actions.deleteItemFailure(error)))
     );
 }
-

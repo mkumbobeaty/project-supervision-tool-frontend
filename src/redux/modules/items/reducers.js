@@ -38,6 +38,7 @@ const itemsData = (state = initialItems, action) => {
                 return action.payload;
             default:
                 return state
+
     }
 }
 

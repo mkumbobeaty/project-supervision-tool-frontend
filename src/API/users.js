@@ -6,7 +6,7 @@ import axios from "./config";
  * @description get Users
  * */
 const getUsers = (params={}) => {
-    return axios.get(`/users`, { params: { page: params.page, per_page: 10, searchField:'name', searchQuery: params.searchQuery } }).then((response) => response.data);
+    return axios.get(`/users`, { params: { page: params.page, per_page: 10, searchField:'first_name', searchQuery: params.searchQuery } }).then((response) => response.data);
 }
     
 

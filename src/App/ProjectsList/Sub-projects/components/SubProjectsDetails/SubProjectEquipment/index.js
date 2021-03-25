@@ -5,20 +5,21 @@ import ListHeaderData from '../../ListHeader';
 import "./styles.css";
 
 /* constants */
-const subProjectQuantitySpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 6, xs: 6 };
-const quantityMobilizedSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 4, xs: 5 };
-const capacitySpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 4, xs: 5 };
-const mobilizationSpan = { xxl: 6, xl: 6, lg: 6, md: 5, sm: 4, xs: 3 };
-const remarksSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 5, xs: 5 };
-
-
+const nameSpan = { xxl: 5, xl: 4, lg: 4, md: 4, sm: 4, xs: 0 };
+const capacitySpan = { xxl: 5, xl: 4, lg: 4, md: 4, sm: 4, xs: 0 };
+const contractAmountSpan = { xxl: 3, xl: 3, lg: 3, md: 3, sm: 3, xs: 10 };
+const mobilizedAmountSpan = { xxl: 3, xl: 3, lg: 3, md: 3, sm: 3, xs: 10 };
+const mobilizedDateSpan = { xxl: 3, xl: 3, lg: 4, md: 0, sm: 0, xs: 0 };
+const remarksSPan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 10, xs: 11 };
 
 const headerLayout = [
-    { ...mobilizationSpan, header: "Name", title: 'Equipment name' },
-    { ...subProjectQuantitySpan, header: "Q/Contract", title: 'Quantity contract' },
-    { ...quantityMobilizedSpan, header: "Q/Mobilized", title: 'Quantity mobilized' },
-    { ...capacitySpan, header: "Capacity", title: 'capacity' },
-    { ...remarksSpan, header: "Remarks", title: 'Remarks' },
+    { ...nameSpan, header: "Name" },
+    { ...capacitySpan, header: "Capacity" },
+    { ...contractAmountSpan, header: "Contract Amount" },
+    { ...mobilizedAmountSpan, header: "Mobilized Amount" },
+    { ...mobilizedDateSpan, header: "Mobilization Date" },
+    { ...remarksSPan, header: "Remarks" },
+
 ];
 
 /**
@@ -51,17 +52,12 @@ class SubProjectEquipment extends Component {
                         >
                             {/* eslint-disable react/jsx-props-no-spreading */}
 
-                            <Col {...mobilizationSpan}>{item ? item?.item?.name : "N/A"}</Col>
-                            <Col
-                                {...subProjectQuantitySpan}
-                                className="contentEllipse"
-                            >
-                                {item ? item?.quantity_per_contract : "N/A"}
-                            </Col>
-                            <Col {...quantityMobilizedSpan}>{item ? item?.quantity_mobilized : "N/A"}</Col>
-                            <Col {...capacitySpan}>{item ? item?.item?.capacity : "N/A"}</Col>
-                            <Col {...remarksSpan}>{item ? item.remarks : "N/A"}</Col>
-
+                            <Col {...nameSpan}>{item.item ? item.id : "N/A"}</Col>
+                            <Col {...capacitySpan}>{item.item ? item.capacity : "N/A"}</Col>
+                            <Col {...contractAmountSpan}>{item ? item.quantity_per_contract : "N/A"}</Col>
+                            <Col {...mobilizedAmountSpan}>{item ? item.quantity_mobilized : "N/A"}</Col>
+                            <Col {...mobilizedDateSpan}>{item ? item.mobilization_date : "N/A"}</Col>
+                            <Col {...remarksSPan} >{item ? item.remarks : "N/A"}</Col>
 
                             {/* eslint-enable react/jsx-props-no-spreading */}
                         </List.Item>
