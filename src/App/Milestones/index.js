@@ -6,35 +6,34 @@ import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
 import { Col, } from "antd";
-// import { agenciesOperation, agenciesSelectors } from '../../redux/modules/agencies';
-// import * as agenciesActions from '../../redux/modules/agencies/actions';
+// import { milestonesOperation, milestonesSelectors } from '../../redux/modules/milestones';
+// import * as milestonesActions from '../../redux/modules/milestones/actions';
 import { connect } from 'react-redux';
 // import { bindActionCreators } from "redux";
 // import PropTypes from "prop-types";
+import { isoDateToHumanReadableDate } from "../../Util";
 
 /* constants */
-const nameSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
-const phoneNumberSpan = { xxl: 3, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
-const emailSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
-const addressSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const nameSpan = { xxl: 6, xl: 6, lg: 6, md:6, sm: 6, xs: 6 };
+const taskSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 4, xs: 6 };
+const completionDateSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
 
 const headerLayout = [
   { ...nameSpan, header: "Name" },
-  { ...phoneNumberSpan, header: "Phone Number" },
-  { ...emailSpan, header: "Email" },
-  { ...addressSpan, header: "Address" },
-]
+  { ...taskSpan, header: "Tasks", },
+  { ...completionDateSpan, header: "Completion Date" },
+];
 
-class Agencies extends Component {
+class Milestones extends Component {
 
-//   componentDidMount() {
-//     const { fetchAgencies } = this.props;
-//     fetchAgencies();
-//   }
+  // componentDidMount() {
+  //   const { fetchMilestones } = this.props;
+  //   fetchMilestones();
+  // }
 
   render() {
     const {
-      agencies,
+      milestones,
       loading,
     } = this.props;
     return (
@@ -43,13 +42,13 @@ class Agencies extends Component {
         <Topbar
           search={{
             size: "large",
-            placeholder: "Search for agencies here ...",
+            placeholder: "Search for milestones here ...",
             // onChange: this.searchInitiative,
             // value: searchQuery,
           }}
           actions={[
             {
-              label: "New Contract",
+              label: "New Item",
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New item",
@@ -60,8 +59,8 @@ class Agencies extends Component {
         {/* end Topbar */}
         {/* list starts */}
         <ProjectsList
-          itemName="Agencies"
-          item={agencies}
+          itemName="Milestones"
+          items={milestones}
           // page={page}
           loading={loading}
           // itemCount={total}
@@ -79,9 +78,9 @@ class Agencies extends Component {
           }) => (
             <Link
               to={{
-                pathname: `/app/agencies/${item.id}`,
+                pathname: `/app/milestones/${item.id}`,
               }}
-              className="Agencies"
+              className="Milestones"
             >
               <ListItem
                 key={item.id} // eslint-disable-line
@@ -100,26 +99,23 @@ class Agencies extends Component {
                     archive={{
                       name: "Archive item",
                       title:
-                        "Remove item from list of Agencies",
+                        "Remove item from list of Milestones",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
                   />
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...nameSpan} className="contentEllipse">
-                  {item.unit_id}
-                </Col>
                 <Col
-                  {...phoneNumberSpan}
+                  {...nameSpan}
                   className="contentEllipse"
-                  title={item.description}
+                  title={item?.description}
                 >
-                  {item.name}
+                  {item ? item?.name : "N/A"}
                 </Col>
-                <Col {...emailSpan}>{item? item.description : 'N/A'}</Col>
-                <Col {...addressSpan}>{item? item.capacity : 'N/A'}</Col>
-                
+                <Col {...taskSpan}>{item ? item?.tasks : "N/A"}</Col>
+                <Col {...completionDateSpan}>{isoDateToHumanReadableDate(item ? item?.created_ad : "N/A")}</Col>
+
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             </Link>
@@ -133,30 +129,30 @@ class Agencies extends Component {
   }
 }
 
-// Agencies.propTypes = {
+// Milestones.propTypes = {
 //   loading: PropTypes.bool.isRequired,
-//   agencies: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+//   milestones: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
 //     .isRequired,
 //   page: PropTypes.number.isRequired,
 //   searchQuery: PropTypes.string,
 //   total: PropTypes.number.isRequired,
 // };
 
-// Agencies.defaultProps = {
-//   agencies: null,
+// Milestones.defaultProps = {
+//   milestones: null,
 //   searchQuery: undefined,
 //   loading: null,
 // };
 
 const mapStateToProps = (state) => {
-  return {
-    // agencies: agenciesSelectors.getAgenciesSelector(state),
-    // loading: agenciesSelectors.getAgenciesLoadingSelector(state),
-  }
+  // return {
+  //   milestones: milestonesSelectors.getMilestonesSelector(state),
+  //   loading: milestonesSelectors.getMilestonesLoadingSelector(state),
+  // }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-//   fetchAgencies: bindActionCreators(agenciesActions.getAgenciesStart, dispatch),
+  // fetchMilestones: bindActionCreators(milestonesActions.getMilestonesStart, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Agencies);
+export default connect(mapStateToProps, mapDispatchToProps)(Milestones);

@@ -14,7 +14,7 @@ const completionDateSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
 
 const headerLayout = [
     { ...nameSpan, header: "Name" },
-    { ...taskSpan, header: "Tasks" },
+    { ...taskSpan, header: "Tasks", },
     { ...completionDateSpan, header: "Completion Date" },
 ];
 

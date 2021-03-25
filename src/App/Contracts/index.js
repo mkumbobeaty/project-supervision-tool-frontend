@@ -6,35 +6,36 @@ import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
 import { Col, } from "antd";
-// import { agenciesOperation, agenciesSelectors } from '../../redux/modules/agencies';
-// import * as agenciesActions from '../../redux/modules/agencies/actions';
+// import { contractsOperation, contractsSelectors } from '../../redux/modules/contracts';
+// import * as contractsActions from '../../redux/modules/contracts/actions';
 import { connect } from 'react-redux';
-// import { bindActionCreators } from "redux";
+import { bindActionCreators } from "redux";
 // import PropTypes from "prop-types";
 
 /* constants */
-const nameSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
-const phoneNumberSpan = { xxl: 3, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
-const emailSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
-const addressSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const itemIdSpan = { xxl: 3, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
+const itemNameSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
+const itemDescriptionSpan = { xxl: 8, xl: 10, lg: 10, md: 4, sm: 4, xs: 5 };
+const itemCapacitySpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+
 
 const headerLayout = [
-  { ...nameSpan, header: "Name" },
-  { ...phoneNumberSpan, header: "Phone Number" },
-  { ...emailSpan, header: "Email" },
-  { ...addressSpan, header: "Address" },
+  { ...itemIdSpan, header: "Item ID" },
+  { ...itemNameSpan, header: "Item Name" },
+  { ...itemDescriptionSpan, header: "Description" },
+  { ...itemCapacitySpan, header: "Capacity" },
 ]
 
-class Agencies extends Component {
+class Contracts extends Component {
 
-//   componentDidMount() {
-//     const { fetchAgencies } = this.props;
-//     fetchAgencies();
-//   }
+  // componentDidMount() {
+  //   const { fetchContracts } = this.props;
+  //   fetchContracts();
+  // }
 
   render() {
     const {
-      agencies,
+      contracts,
       loading,
     } = this.props;
     return (
@@ -43,13 +44,13 @@ class Agencies extends Component {
         <Topbar
           search={{
             size: "large",
-            placeholder: "Search for agencies here ...",
+            placeholder: "Search for contracts here ...",
             // onChange: this.searchInitiative,
             // value: searchQuery,
           }}
           actions={[
             {
-              label: "New Contract",
+              label: "New Item",
               icon: <PlusOutlined />,
               size: "large",
               title: "Add New item",
@@ -60,8 +61,8 @@ class Agencies extends Component {
         {/* end Topbar */}
         {/* list starts */}
         <ProjectsList
-          itemName="Agencies"
-          item={agencies}
+          itemName="Contracts"
+          contracts={contracts}
           // page={page}
           loading={loading}
           // itemCount={total}
@@ -79,9 +80,9 @@ class Agencies extends Component {
           }) => (
             <Link
               to={{
-                pathname: `/app/agencies/${item.id}`,
+                pathname: `/app/contracts/${item.id}`,
               }}
-              className="Agencies"
+              className="Contracts"
             >
               <ListItem
                 key={item.id} // eslint-disable-line
@@ -100,25 +101,25 @@ class Agencies extends Component {
                     archive={{
                       name: "Archive item",
                       title:
-                        "Remove item from list of Agencies",
+                        "Remove item from list of Contracts",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
                   />
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...nameSpan} className="contentEllipse">
+                <Col {...itemIdSpan} className="contentEllipse">
                   {item.unit_id}
                 </Col>
                 <Col
-                  {...phoneNumberSpan}
+                  {...itemNameSpan}
                   className="contentEllipse"
                   title={item.description}
                 >
                   {item.name}
                 </Col>
-                <Col {...emailSpan}>{item? item.description : 'N/A'}</Col>
-                <Col {...addressSpan}>{item? item.capacity : 'N/A'}</Col>
+                <Col {...itemDescriptionSpan}>{item? item.description : 'N/A'}</Col>
+                <Col {...itemCapacitySpan}>{item? item.capacity : 'N/A'}</Col>
                 
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
@@ -133,30 +134,30 @@ class Agencies extends Component {
   }
 }
 
-// Agencies.propTypes = {
+// Contracts.propTypes = {
 //   loading: PropTypes.bool.isRequired,
-//   agencies: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+//   contracts: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
 //     .isRequired,
 //   page: PropTypes.number.isRequired,
 //   searchQuery: PropTypes.string,
 //   total: PropTypes.number.isRequired,
 // };
 
-// Agencies.defaultProps = {
-//   agencies: null,
+// Contracts.defaultProps = {
+//   contracts: null,
 //   searchQuery: undefined,
 //   loading: null,
 // };
 
 const mapStateToProps = (state) => {
   return {
-    // agencies: agenciesSelectors.getAgenciesSelector(state),
-    // loading: agenciesSelectors.getAgenciesLoadingSelector(state),
+    // contracts: contractsSelectors.getContractsSelector(state),
+    // loading: contractsSelectors.getContractsLoadingSelector(state),
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-//   fetchAgencies: bindActionCreators(agenciesActions.getAgenciesStart, dispatch),
+  // fetchContracts: bindActionCreators(contractsActions.getContractsStart, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Agencies);
+export default connect(mapStateToProps, mapDispatchToProps)(Contracts);
