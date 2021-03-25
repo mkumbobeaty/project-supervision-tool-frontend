@@ -5,9 +5,40 @@ import axios from "./config";
  * @name getUsers
  * @description get Users
  * */
-const getUsers = () =>
-    axios.get(`/users`).then((response) => response.data);
+const getUsers = (params={}) => {
+    return axios.get(`/users`, { params: { page: params.page, per_page: 10, searchField:'first_name', searchQuery: params.searchQuery } }).then((response) => response.data);
+}
+    
 
+/**
+ * create new User
+ *
+ * @function
+ * @name createUser
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const createUsers = (user) => axios.post(`/users`, user ).then((response) => response.data);
+
+
+/**
+ * 
+ * Edit user from the API
+ * @function
+ * @name editUser
+ * @param {Object} id - Id of user
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+ const editUser = (user, id) => {
+     console.log(id)
+    return axios
+        .patch(`/users/${id}`, user)
+        .then((response) => response.data);
+};
 
 /**
  * detaches a User from list
@@ -18,7 +49,7 @@ const getUsers = () =>
  * @version 0.1.0
  * @since 0.1.0
  */
- const deleteUser = (User) => {
+const deleteUser = (User) => {
     return axios
         .delete(`users/${User}`)
         .then((response) => response.data);
@@ -26,5 +57,7 @@ const getUsers = () =>
 
 export default {
     getUsers,
+    createUsers,
+    editUser,
     deleteUser,
 }

@@ -16,8 +16,8 @@ import * as types from './types';
 export const getUsersEpic = action$  => {
     return action$.pipe(
         ofType(types.GET_USERS_START),
-        switchMap(() => {
-            return from(API.getUsers()).pipe(
+        switchMap(({payload}) => {
+            return from(API.getUsers(payload)).pipe(
                 switchMap(res => {
                     return of(actions.getUsersSuccess(res.data))
                 }),
@@ -27,6 +27,47 @@ export const getUsersEpic = action$  => {
     )
 }
 
+/**
+ * @function
+ * @name createUserEPic
+ * @param action$
+ * @return action$
+ */
+export const createUserEPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_USER_START),
+        switchMap(({payload}) => {
+            return from(API.createUsers(payload))
+        }),
+        switchMap(res => { return of(actions.createUserSuccess(res), actions.getUsersStart()) }),
+        catchError(error => of(actions.createUserFailure(error)))
+    )
+}
+
+/**
+ * @function
+ * @name editUserEpic
+ * @param action$
+ * @return action$
+ */
+ export const editUserEpic = action$ => {
+    return action$.pipe(
+        ofType(types.EDIT_USER_START),
+        switchMap(({payload}) => {
+            return from(API.editUser(payload, payload.id)).pipe(
+                switchMap(res => { return of(actions.editUserSuccess(res), actions.getUsersStart()) }),
+            )
+        }),
+        catchError(error => of(actions.editUserFailure(error)))
+    );
+}
+
+/**
+ * @function
+ * @name deleteUserEpic
+ * @param action$
+ * @return action$
+ */
 export const deleteUserEpic = action$ => {
     return action$.pipe(
         ofType(types.DELETE_USER_START),
