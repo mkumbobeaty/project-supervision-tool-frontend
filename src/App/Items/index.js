@@ -158,6 +158,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchItems: bindActionCreators(itemsActions.getItemsStart, dispatch),
+  paginateItem: bindActionCreators(itemsActions.getItemsStart, dispatch),
+  searchItem: bindActionCreators(itemsActions.getItemsStart, dispatch),
+  deleteItem: bindActionCreators(itemsActions.deleteItemStart, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Items);

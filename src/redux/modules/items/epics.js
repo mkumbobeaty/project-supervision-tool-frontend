@@ -26,3 +26,56 @@ export const getItemsEpic = action$  => {
         }) 
     )
 }
+
+/**
+ * @function
+ * @name createItemEPic
+ * @param action$
+ * @return action$
+ */
+ export const createItemEPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_ITEM_START),
+        switchMap(({payload}) => {
+            return from(API.createItems(payload))
+        }),
+        switchMap(res => { return of(actions.createItemSuccess(res)) }),
+        catchError(error => of(actions.createItemFailure(error)))
+    )
+}
+
+/**
+ * @function
+ * @name editItemEpic
+ * @param action$
+ * @return action$
+ */
+ export const editItemEpic = action$ => {
+    return action$.pipe(
+        ofType(types.EDIT_ITEM_START),
+        switchMap(({payload}) => {
+            return from(API.editItem(payload, payload.id)).pipe(
+                switchMap(res => { return of(actions.editItemSuccess(res), actions.getItemsStart()) }),
+            )
+        }),
+        catchError(error => of(actions.editItemFailure(error)))
+    );
+}
+
+/**
+ * @function
+ * @name deleteItemEpic
+ * @param action$
+ * @return action$
+ */
+export const deleteItemEpic = action$ => {
+    return action$.pipe(
+        ofType(types.DELETE_ITEM_START),
+        switchMap(({payload}) => {
+            return from(API.deleteItem(payload)).pipe(
+                switchMap(res => { return of(actions.deleteItemSuccess(res), actions.getItemsStart()) }),
+            )
+        }),
+        catchError(error => of(actions.deleteItemFailure(error)))
+    );
+}

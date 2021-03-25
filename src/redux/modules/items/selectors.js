@@ -13,4 +13,5 @@ export const getItemsSelector = (state) => {
  * @name getItemsLoadingSelector
  * @param {Object} state redux state
  */
-export const getItemsLoadingSelector = (state) => state.items?.itemsData?.loading
+export const getItemsLoadingSelector = (state) => state.resources?.items?.loading;
+
