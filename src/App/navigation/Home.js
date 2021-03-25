@@ -107,19 +107,6 @@ const routes = [
     icon: contractsIcons,
     description: modules.dashboards,
   },
-  {
-    name: 'Milestones',
-    path: '/milestones',
-    icon: dashboardIcon,
-    description: modules.dashboards,
-  },
-  {
-    name: 'Roles',
-    path: '/roles',
-    icon: dashboardIcon,
-    description: modules.dashboards,
-  },
-
 ];
 
 /**

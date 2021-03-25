@@ -8,6 +8,7 @@ import { sectorsEpic } from '../App/ProjectsList/Projects/components/ProjectsSec
 import { projectDetailsEpic } from '../App/ProjectsList/Projects/components/ProjectsDetails/duck/epics';
 import {subProjectsEpic} from './modules/subProjects/epics';
 import { getUsersEpic, createUserEPic, editUserEpic, deleteUserEpic } from "./modules/users/epics";
+import { getContractsEpic, createContractEPic, editContractEpic, deleteContractEpic } from "./modules/contracts/epics";
 
 export const rootEpic = combineEpics(
     loginEpic,
@@ -24,4 +25,8 @@ export const rootEpic = combineEpics(
     createUserEPic,
     editUserEpic,
     deleteUserEpic,
+    getContractsEpic,
+    createContractEPic,
+    editContractEpic,
+    deleteContractEpic,
 )

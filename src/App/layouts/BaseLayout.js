@@ -19,10 +19,7 @@ import Agencies from "../Agencies";
 import AdminPanel from "../AdminPanel";
 import PrivateRoute from '../Auth/PrivateRoute';
 import Users from "../Users";
-import Items from "../Items";
 import Contracts from "../Contracts";
-import Milestones from "../Milestones";
-import Roles from "../Roles";
 import "./styles.css";
 
 /* constants */
@@ -82,37 +79,11 @@ const breadcrumbNameMap = {
     name: "users",
     title: "users Module",
   },
-
-  /* Items routes */
-  "/app/items:": {
-    name: "items",
-    title: "items Module",
-  },
-
    /* Contracts routes */
    "/app/contracts:": {
     name: "contracts",
     title: "contracts Module",
   },
-
-  "/app/equipments": {
-    name: "Equipments",
-    title: "List of all Equipments",
-  },
-
-  /* Milestones routes */
-  "/app/milestones:": {
-    name: "milestones",
-    title: "milestones Module",
-  },
-
-  /* roless routes */
-  "/app/roles:": {
-    name: "roles",
-    title: "roles Module",
-  },
-
-
 };
 
 /**
@@ -247,23 +218,8 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           />
           <PrivateRoute
             exact
-            path={`${baseUrl}/items`}
-            component={Items}
-          />
-          <PrivateRoute
-            exact
             path={`${baseUrl}/contracts`}
             component={Contracts}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/milestones`}
-            component={Milestones}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/roles`}
-            component={Roles}
           />
           <PrivateRoute component={PageNotFound} />
         </Switch>

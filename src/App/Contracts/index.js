@@ -1,43 +1,92 @@
 import React, { Component } from "react";
 import Topbar from "../components/Topbar";
-import ProjectsList from "../components/List";
+import ContractsList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
-import { Col, } from "antd";
-// import { contractsOperation, contractsSelectors } from '../../redux/modules/contracts';
-// import * as contractsActions from '../../redux/modules/contracts/actions';
+import { Col, Drawer} from "antd";
+import { contractsSelectors } from '../../redux/modules/contracts';
+import * as contractsActions from '../../redux/modules/contracts/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 /* constants */
-const itemIdSpan = { xxl: 3, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
-const itemNameSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
-const itemDescriptionSpan = { xxl: 8, xl: 10, lg: 10, md: 4, sm: 4, xs: 5 };
-const itemCapacitySpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const contractorSpan = { xxl: 10, xl: 6, lg: 6, md: 5, sm: 5, xs: 4 };
+const contratValuerSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 4, xs: 3 };
+const contractPeriodSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 4, xs: 3 };
+
 
 
 const headerLayout = [
-  { ...itemIdSpan, header: "Item ID" },
-  { ...itemNameSpan, header: "Item Name" },
-  { ...itemDescriptionSpan, header: "Description" },
-  { ...itemCapacitySpan, header: "Capacity" },
-]
+  { ...contractorSpan, header: "Contractor" },
+  { ...contratValuerSpan, header: "Contract Value" },
+  { ...contractPeriodSpan, header: "Contract Period" },
+];
 
 class Contracts extends Component {
 
-  // componentDidMount() {
-  //   const { fetchContracts } = this.props;
-  //   fetchContracts();
-  // }
+  state = {
+    isEditForm: false,
+    // visible: false,
+  };
+
+  componentDidMount() {
+    const { fetchContracts } = this.props;
+    fetchContracts();
+  }
+
+  /**   
+   * @function
+   * @name handleSearch
+   * @description Handle list search action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  handleSearch = (searchData) => {
+    console.log(searchData)
+    this.props.searchContract({ searchQuery: searchData })
+  };
+
+  /**
+ * @function
+ * @name openContractForm
+ * @description Open Human Resources form
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+  openContractForm = () => {
+    const { openContractForm } = this.props;
+    openContractForm();
+  };
+
+  /**
+ * @function
+ * @name closeContractForm
+ * @description Open Human Resources form
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+   closeContractForm = () => {
+    const { closeContractForm } = this.props;
+    closeContractForm();
+  };
 
   render() {
     const {
       contracts,
       loading,
+      page,
+      total,
+      paginateContract,
+      searchQuery,
+      showForm,
     } = this.props;
+    const { isEditForm } = this.state;
     return (
       <div>
         {/* Topbar */}
@@ -45,31 +94,32 @@ class Contracts extends Component {
           search={{
             size: "large",
             placeholder: "Search for contracts here ...",
-            // onChange: this.searchInitiative,
-            // value: searchQuery,
+            onSearch: this.handleSearch,
+            onChange: this.searchInitiative,
+            value: searchQuery,
           }}
           actions={[
             {
-              label: "New Item",
+              label: "New Contract",
               icon: <PlusOutlined />,
               size: "large",
-              title: "Add New item",
-              // onClick: this.openProjectForm,
+              title: "Add New Contract",
+              onClick: this.openContractForm,
             },
           ]}
         />
         {/* end Topbar */}
         {/* list starts */}
-        <ProjectsList
+        <ContractsList
           itemName="Contracts"
-          contracts={contracts}
-          // page={page}
+          items={contracts}
+          page={page}
           loading={loading}
-          // itemCount={total}
+          itemCount={total}
           // onFilter={this.openFiltersModal}
           // onRefresh={this.handleRefreshInitiative}
           onPaginate={(nextPage) => {
-            this.paginateInitiative(nextPage);
+            paginateContract({ page: nextPage });
           }}
           headerLayout={headerLayout}
           renderListItem={({
@@ -86,7 +136,7 @@ class Contracts extends Component {
             >
               <ListItem
                 key={item.id} // eslint-disable-line
-                name={item.name}
+                name={item.contractor.name}
                 item={item}
                 isSelected={isSelected}
                 onSelectItem={onSelectItem}
@@ -94,33 +144,23 @@ class Contracts extends Component {
                 renderActions={() => (
                   <ListItemActions
                     edit={{
-                      name: "Edit item",
-                      title: "Update item details",
+                      name: "Edit contract",
+                      title: "Update contract details",
                       onClick: () => this.handleEdit(item),
                     }}
                     archive={{
-                      name: "Archive item",
+                      name: "Archive contract",
                       title:
-                        "Remove item from list of Contracts",
+                        "Remove contract from list of Contracts",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
                   />
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...itemIdSpan} className="contentEllipse">
-                  {item.unit_id}
-                </Col>
-                <Col
-                  {...itemNameSpan}
-                  className="contentEllipse"
-                  title={item.description}
-                >
-                  {item.name}
-                </Col>
-                <Col {...itemDescriptionSpan}>{item? item.description : 'N/A'}</Col>
-                <Col {...itemCapacitySpan}>{item? item.capacity : 'N/A'}</Col>
-                
+                <Col {...contractorSpan}>{item ? item.contractor?.name : "N/A"}                </Col>
+                <Col {...contratValuerSpan}>{item ? item.contract_cost?.contract_award_value?.amount : "N/A"}</Col>
+                <Col {...contractPeriodSpan}>{item ? item.contract_time?.original_contract_period : "N/A"}</Col>
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             </Link>
@@ -128,36 +168,65 @@ class Contracts extends Component {
           }
         />
         {/* end list */}
+        <Drawer
+          title={
+            isEditForm ? "Edit Contracts" : "Add New Contracts"
+          } width={550}
+          onClose={this.closeContractForm}
+          footer={null}
+          visible={showForm}
+          // bodyStyle={{ paddingBottom: 80 }}
+          destroyOnClose
+          maskClosable={false}
+          // afterClose={this.handleAfterCloseForm}
+        >
+          {/* <CommonProjectForm
+            selected={selected}
+            isEditForm={isEditForm}
+            createProject={createProject}
+            focalPeoples={focalPeoples}
+            Projects={projects}
+            getProjects={fetchProjects}
+            handleAfterCloseForm={this.handleAfterCloseForm}
+            handleAfterSubmit={this.closeProjectForm} /> */}
+        </Drawer>
       </div>
     )
 
   }
 }
 
-// Contracts.propTypes = {
-//   loading: PropTypes.bool.isRequired,
-//   contracts: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
-//     .isRequired,
-//   page: PropTypes.number.isRequired,
-//   searchQuery: PropTypes.string,
-//   total: PropTypes.number.isRequired,
-// };
+Contracts.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  contracts: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+    .isRequired,
+  page: PropTypes.number.isRequired,
+  searchQuery: PropTypes.string,
+  total: PropTypes.number.isRequired,
+};
 
-// Contracts.defaultProps = {
-//   contracts: null,
-//   searchQuery: undefined,
-//   loading: null,
-// };
+Contracts.defaultProps = {
+  contracts: null,
+  searchQuery: undefined,
+  loading: null,
+};
 
 const mapStateToProps = (state) => {
   return {
-    // contracts: contractsSelectors.getContractsSelector(state),
-    // loading: contractsSelectors.getContractsLoadingSelector(state),
+    contracts: contractsSelectors.getContractsSelector(state),
+    loading: contractsSelectors.getContractsLoadingSelector(state),
+    page: contractsSelectors.getContractsPageSelector(state),
+    total: contractsSelectors.getContractsTotalSelector(state),
+    showForm: contractsSelectors.getContractsShowFormSelector(state),
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  // fetchContracts: bindActionCreators(contractsActions.getContractsStart, dispatch),
+  fetchContracts: bindActionCreators(contractsActions.getContractsStart, dispatch),
+  paginateContract: bindActionCreators(contractsActions.getContractsStart, dispatch),
+  searchContract: bindActionCreators(contractsActions.getContractsStart, dispatch),
+  openContractForm: bindActionCreators(contractsActions.openForm, dispatch),
+  closeContractForm: bindActionCreators(contractsActions.closeForm, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contracts);
