@@ -4,6 +4,7 @@ import SidebarSection from "./SideBar";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects";
+import SubProjectContract from "./SubProjectContract";
 import SubProjectEquipment from "./SubProjectEquipment";
 import SubProjectsMilestone from "./SubProjectMilestone";
 import SubProjectHumanResource from "./SubProjectHumanResource";
@@ -22,7 +23,12 @@ class SubProject extends Component {
 
   state = {
     showImage: false,
-    selectedImage: {}
+    selectedImage: {},
+    showColumn: false,
+    showMilestone: false,
+    showHumanResource: false,
+    showEquipment: false,
+    showContract: false
 
   }
   componentDidMount() {
@@ -37,6 +43,10 @@ class SubProject extends Component {
 
   handleViewClose = () => {
     this.setState({ showImage: false, selectedImage: {} })
+  }
+
+  handleClick = () => {
+    this.setState({ showMilestone: true })
   }
 
   render() {
