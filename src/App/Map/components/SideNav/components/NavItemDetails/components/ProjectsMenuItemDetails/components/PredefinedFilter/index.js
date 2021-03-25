@@ -12,7 +12,7 @@ function PredefinedFilter({data, config, handleOnclickFilterItem, filterTitle })
     const renderFilterHeader = (info) => (
         <article className='filter-header'>
             <div>{info?.filterRightTitle}</div>
-            <div>{info?.filterLeftTitle}</div>
+            {/* <div>{info?.filterLeftTitle}</div> */}
         </article>
     );
 

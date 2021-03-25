@@ -11,20 +11,26 @@ import { subProjectsOperator, subProjectsSelectors } from "../../../../../redux/
 
 
 /* constants */
-const remarksSPan = { xxl: 4, xl: 4, lg: 5, md: 5, sm: 10, xs: 11 };
-const mobilizedSpan = { xxl: 5, xl: 5, lg: 5, md: 7, sm: 0, xs: 0 };
-const quantityContractSpan = { xxl: 4, xl: 4, lg: 4, md: 5, sm: 5, xs: 10 };
+const nameSpan = { xxl: 5, xl: 5, lg: 4, md: 4, sm: 4, xs: 0 };
 const capacitySpan = { xxl: 5, xl: 5, lg: 4, md: 4, sm: 4, xs: 0 };
-const mobilizedDateSpan = { xxl: 4, xl: 4, lg: 4, md: 0, sm: 0, xs: 0 };
+const contractAmountSpan = { xxl: 4, xl: 3, lg: 3, md: 3, sm: 3, xs: 10 };
+const mobilizedAmountSpan = { xxl: 4, xl: 3, lg: 3, md: 3, sm: 3, xs: 10 };
+// const mobilizedSpan = { xxl: 5, xl: 5, lg: 5, md: 7, sm: 0, xs: 0 };
+// const quantityContractSpan = { xxl: 4, xl: 4, lg: 4, md: 5, sm: 5, xs: 10 };
+const mobilizedDateSpan = { xxl: 4, xl: 3, lg: 4, md: 0, sm: 0, xs: 0 };
+const remarksSPan = { xxl: 4, xl: 4, lg: 5, md: 5, sm: 10, xs: 11 };
 
 const { confirm } = Modal;
 
 const headerLayout = [
-  { ...quantityContractSpan, header: "Quantity Per Contract" },
-  { ...mobilizedSpan, header: "Quantity Mobilized" },
+  { ...nameSpan, header: "Name" },
   { ...capacitySpan, header: "Capacity" },
-  { ...remarksSPan, header: "Remarks" },
+  { ...contractAmountSpan, header: "Contract Amount" },
+  { ...mobilizedAmountSpan, header: "Mobilized Amount" },
+  // { ...mobilizedSpan, header: "Quantity Mobilized" },
+  // { ...quantityContractSpan, header: "Quantity Per Contract" },
   { ...mobilizedDateSpan, header: "Mobilization Date" },
+  { ...remarksSPan, header: "Remarks" },
 
 ];
 
@@ -39,10 +45,10 @@ const headerLayout = [
  */
 class SubProjectEquipments extends Component {
 
-  componentDidMount() {
-    const { getSubProjectEquipments } = this.props;
-    getSubProjectEquipments()
-  }
+  // componentDidMount() {
+  //   const { getSubProjectEquipments } = this.props;
+  //   getSubProjectEquipments()
+  // }
 
   render() {
     const {
@@ -85,7 +91,7 @@ class SubProjectEquipments extends Component {
           }) => (
               <ListItem
                 key={item.id} // eslint-disable-line
-                name={item.name}
+                // name={item.name}
                 item={item}
                 isSelected={isSelected}
                 onSelectItem={onSelectItem}
@@ -108,11 +114,12 @@ class SubProjectEquipments extends Component {
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
 
-                <Col {...quantityContractSpan}>{item ? item.quantity_per_contract : "N/A"}</Col>
-                <Col {...mobilizedSpan}>{item ? item.quantity_mobilized : "N/A"}</Col>
-                <Col {...capacitySpan}>{item.item ? item.item.capacity : "N/A"}</Col>
-                <Col {...remarksSPan} >{item ? item.remarks : "N/A"}</Col>
+                <Col {...nameSpan}>{item.item ? item.id : "N/A"}</Col>
+                <Col {...capacitySpan}>{item.item ? item.capacity : "N/A"}</Col>
+                <Col {...contractAmountSpan}>{item ? item.quantity_per_contract : "N/A"}</Col>
+                <Col {...mobilizedAmountSpan}>{item ? item.quantity_mobilized : "N/A"}</Col>
                 <Col {...mobilizedDateSpan}>{item ? item.mobilization_date : "N/A"}</Col>
+                <Col {...remarksSPan} >{item ? item.remarks : "N/A"}</Col>
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             )}
@@ -146,5 +153,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjectEquipments);
-
-

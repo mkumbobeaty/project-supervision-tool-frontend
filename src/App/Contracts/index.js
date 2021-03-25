@@ -168,7 +168,6 @@ class Contracts extends Component {
           }
         />
         {/* end list */}
-
         <Drawer
           title={
             isEditForm ? "Edit Contracts" : "Add New Contracts"

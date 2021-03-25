@@ -1,5 +1,4 @@
 import React from "react";
-import {Button} from "antd";
 import PropTypes from 'prop-types';
 import CustomSearch from "../CustomSearch";
 import './styles.css';
@@ -13,11 +12,13 @@ import './styles.css';
 function TopSection({title, searchPlaceHolder}) {
     return (
         <div className='TopSection'>
-            <CustomSearch placeholder={searchPlaceHolder}/>
-            <section>
+             <section>
                 <div>{title}</div>
-                <Button type="primary" style={{fontSize: 10}} size='small'>FILTERS</Button>
             </section>
+            {/* <section>
+            <CustomSearch placeholder={searchPlaceHolder}/>
+            </section> */}
+           
             <hr/>
         </div>
     );

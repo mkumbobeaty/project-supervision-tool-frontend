@@ -6,35 +6,35 @@ import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import { PlusOutlined } from "@ant-design/icons";
 import { Col, } from "antd";
-// import { agenciesOperation, agenciesSelectors } from '../../redux/modules/agencies';
-// import * as agenciesActions from '../../redux/modules/agencies/actions';
+import { isoDateToHumanReadableDate } from "../../Util";
+// import { rolesOperation, rolesSelectors } from '../../redux/modules/roles';
+// import * as rolesActions from '../../redux/modules/roles/actions';
 import { connect } from 'react-redux';
 // import { bindActionCreators } from "redux";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
 /* constants */
-const nameSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
-const phoneNumberSpan = { xxl: 3, xl: 4, lg: 5, md: 6, sm: 8, xs: 5 };
-const emailSpan = { xxl: 6, xl: 4, lg: 8, md: 8, sm: 10, xs: 11 };
-const addressSpan = { xxl: 3, xl: 2, lg: 0, md: 0, sm: 0, xs: 0 };
+const roleNameSpan = { xxl: 4, xl: 6, lg: 6, md: 8, sm: 10, xs: 11 };
+const roleDescriptionSpan = { xxl: 5, xl: 4, lg: 4, md: 4, sm: 4, xs: 5 };
+
 
 const headerLayout = [
-  { ...nameSpan, header: "Name" },
-  { ...phoneNumberSpan, header: "Phone Number" },
-  { ...emailSpan, header: "Email" },
-  { ...addressSpan, header: "Address" },
-]
+  // { ...userIdSpan, header: "user ID" },
+  { ...roleNameSpan, header: "Name" },
+  { ...roleDescriptionSpan, header: "Description" },
+  
+];
 
-class Agencies extends Component {
+class Roles extends Component {
 
-//   componentDidMount() {
-//     const { fetchAgencies } = this.props;
-//     fetchAgencies();
-//   }
+  // componentDidMount() {
+  //   const { fetchRoles } = this.props;
+  //   fetchRoles();
+  // }
 
   render() {
     const {
-      agencies,
+      roles,
       loading,
     } = this.props;
     return (
@@ -43,16 +43,16 @@ class Agencies extends Component {
         <Topbar
           search={{
             size: "large",
-            placeholder: "Search for agencies here ...",
+            placeholder: "Search for roles here ...",
             // onChange: this.searchInitiative,
             // value: searchQuery,
           }}
           actions={[
             {
-              label: "New Contract",
+              label: "New personnel",
               icon: <PlusOutlined />,
               size: "large",
-              title: "Add New item",
+              title: "Add New user",
               // onClick: this.openProjectForm,
             },
           ]}
@@ -60,8 +60,8 @@ class Agencies extends Component {
         {/* end Topbar */}
         {/* list starts */}
         <ProjectsList
-          itemName="Agencies"
-          item={agencies}
+          itemName="Roles"
+          items={roles}
           // page={page}
           loading={loading}
           // itemCount={total}
@@ -79,13 +79,13 @@ class Agencies extends Component {
           }) => (
             <Link
               to={{
-                pathname: `/app/agencies/${item.id}`,
+                pathname: `/app/roles/${item.id}`,
               }}
-              className="Agencies"
+              className="Roles"
             >
               <ListItem
                 key={item.id} // eslint-disable-line
-                name={item.name}
+                name={item.first_name}
                 item={item}
                 isSelected={isSelected}
                 onSelectItem={onSelectItem}
@@ -93,32 +93,35 @@ class Agencies extends Component {
                 renderActions={() => (
                   <ListItemActions
                     edit={{
-                      name: "Edit item",
-                      title: "Update item details",
+                      name: "Edit user",
+                      title: "Update user details",
                       onClick: () => this.handleEdit(item),
                     }}
                     archive={{
-                      name: "Archive item",
+                      name: "Archive user",
                       title:
-                        "Remove item from list of Agencies",
+                        "Remove user from list of active Roles",
                       onClick: () => this.showArchiveConfirm(item),
                     }}
                   />
                 )}
               >
                 {/* eslint-disable react/jsx-props-no-spreading */}
-                <Col {...nameSpan} className="contentEllipse">
-                  {item.unit_id}
-                </Col>
+                {/* <Col {...userIdSpan} className="contentEllipse">
+                  {item.first_name}
+                  {item.middle_name}
+                  {item.last_name}
+                </Col> */}
                 <Col
-                  {...phoneNumberSpan}
+                  {...roleNameSpan}
                   className="contentEllipse"
                   title={item.description}
                 >
-                  {item.name}
+                  {item.first_name}{" "}
+                  {item.middle_name}{" "}
+                  {item.last_name}
                 </Col>
-                <Col {...emailSpan}>{item? item.description : 'N/A'}</Col>
-                <Col {...addressSpan}>{item? item.capacity : 'N/A'}</Col>
+                <Col {...roleDescriptionSpan}>{item.details ? item.details.borrower.name : 'N/A'}</Col>
                 
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
@@ -133,30 +136,30 @@ class Agencies extends Component {
   }
 }
 
-// Agencies.propTypes = {
+// Roles.propTypes = {
 //   loading: PropTypes.bool.isRequired,
-//   agencies: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
+//   roles: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
 //     .isRequired,
 //   page: PropTypes.number.isRequired,
 //   searchQuery: PropTypes.string,
 //   total: PropTypes.number.isRequired,
 // };
 
-// Agencies.defaultProps = {
-//   agencies: null,
+// Roles.defaultProps = {
+//   roles: null,
 //   searchQuery: undefined,
 //   loading: null,
 // };
 
 const mapStateToProps = (state) => {
   return {
-    // agencies: agenciesSelectors.getAgenciesSelector(state),
-    // loading: agenciesSelectors.getAgenciesLoadingSelector(state),
+    // roles: rolesSelectors.getRolesSelector(state),
+    // loading: rolesSelectors.getRolesLoadingSelector(state),
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-//   fetchAgencies: bindActionCreators(agenciesActions.getAgenciesStart, dispatch),
+  // fetchRoles: bindActionCreators(rolesActions.getRolesStart, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Agencies);
+export default connect(mapStateToProps, mapDispatchToProps)(Roles);
