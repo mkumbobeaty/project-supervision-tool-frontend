@@ -3,27 +3,29 @@
     border-bottom: 0.8px solid #d9d9d9;
 }
 
-.CommonItemFilter h4 {
+.CommonItemFilter h4, .ProjectsFilter h4 {
     color: #0071bc;
     text-transform: uppercase;
-    /* padding: 15px 0 0; */
 }
+
 .projectFilter {
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
 .projectFilter label {
     text-overflow: ellipsis;
     display: inline-block;
     overflow: hidden;
-    width: 350px;
+    width: 330px;
     white-space: nowrap;
     vertical-align: middle;
-  }
-  @media screen and (max-width: 1024px) {
+}
+
+@media screen and (max-width: 1024px) {
     .projectFilter label {
         width: 180px;
-      }
+    }
 }

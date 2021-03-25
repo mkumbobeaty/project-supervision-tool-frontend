@@ -25,15 +25,15 @@ const ProjectsFilter = ({ handleOnclickFilterItem, predefinedFilterData }) => {
 
     return (
         <section className="ProjectsFilter">
+            <h4>{filterConfig.filterTitle}</h4>
               <div className="status">
                     {status.map(data => <Checkbox onChange={onChange}>{data}</Checkbox>)}
                 </div>
-                <hr />
             {filterData.length > 0 ? <CommonItemFilter
                 data={filterData}
                 config={filterConfig}
                 handleOnclickFilterItem={handleOnclickFilterItem}
-                filterTitle={filterConfig.filterTitle}
+                // filterTitle={filterConfig.filterTitle}
             /> : ''}
         </section>
     )

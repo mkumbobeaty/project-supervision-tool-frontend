@@ -42,7 +42,7 @@ function CommonItemFilter({ data, config, handleOnclickFilterItem, filterTitle }
 
 const renderFilterItems = items => items.map(({ title, value, id,total_count }, i) => (
         <div className='projectFilter' onClick={() => handleOnclickFilterItem(id)}>
-            <Checkbox onChange={onChange} title={title} key={i}>{value} <span>{total_count}</span></Checkbox>
+            <Checkbox onChange={onChange} title={title} key={i}>{value} </Checkbox><span>{total_count}</span>
         </div>
 
     ));
