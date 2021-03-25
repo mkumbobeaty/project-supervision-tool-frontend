@@ -502,7 +502,6 @@ class ProjectDetailsForm extends Component {
 
 }
 
-
 const mapStateToProps = (state) => {
   return {
     agencies: projectDetailsSelectors.getAgenciesSelector(state),

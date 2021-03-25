@@ -6,9 +6,11 @@ import NationalProjectsOverview from "../NationalProjectsOverview";
 import RegionalProjectsOverview from "../RegionalProjectsOverview";
 import {mapActions, mapSelectors} from "../../../../../../../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
-import {projectActions} from "../../../../../../../../../../redux/modules/projects";
+import {projectActions, projectSelectors} from "../../../../../../../../../../redux/modules/projects";
 import {mapProjectActions} from "../../../../../../../../../../redux/modules/map/projects";
 import TopSection from "../../../TopSection";
+import projects from "../../../../../../../../../../API/projects";
+import { projectSectorsActions, projectSectorsSelectors } from "../../../../../../../../../ProjectsList/Projects/components/ProjectsSectors/duck";
 
 /**
  * @function
@@ -31,18 +33,27 @@ function ProjectsOverview(
         clearRegionalProjects,
         region,
         loadingStatistics,
-        showRegionalOverviewLoader
+        showRegionalOverviewLoader,
+        projects,
+        getProjects,
+        sectors,
+        getSectors,
     }
 ) {
     return (
         <>
-            <TopSection title="PROJECTS"  searchPlaceHolder='Search Projects'/>
+            <TopSection title="PROJECTS OVERVIEW"/>
             {showNationalOverview ? <NationalProjectsOverview
                 getProjectsOverview={getProjectsOverview}
                 projectsStatistics={projectsStatistics}
                 projectsCountByRegion={projectsCountByRegion}
                 getProjectsByRegion={getProjectsByRegion}
                 loadingStatistics={loadingStatistics}
+                getProjects={getProjects}
+                projects={projects}
+                getSectors={getSectors}
+                sectors={sectors}
+
             /> : ''}
             {showRegionalOverview ? <RegionalProjectsOverview
                 regionProjectStatistics={regionProjectStatistics}
@@ -59,7 +70,6 @@ function ProjectsOverview(
     );
 }
 
-
 const mapStateToProps = state => ({
     projectsStatistics: mapSelectors.getProjectsStatistics(state),
     regionProjectStatistics: mapSelectors.getRegionProjectsStatistics(state),
@@ -70,6 +80,8 @@ const mapStateToProps = state => ({
     showRegionalOverviewLoader: mapSelectors.regionProjectsStatisticsLoader(state),
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     region: mapSelectors.getRegionDetailsSelector(state),
+    projects:projectSelectors.getProjectsSelector(state),
+    sectors: projectSectorsSelectors.getSectorsSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -79,6 +91,9 @@ const mapDispatchToProps = (dispatch) => ({
     setShowNationalOverview: bindActionCreators(mapActions.showNationalProjectsOverview, dispatch),
     clearRegionalProjects: bindActionCreators(mapActions.clearRegionProjects, dispatch),
     getProject: bindActionCreators(mapProjectActions.getProjectStart, dispatch),
+    getProjects:bindActionCreators(projectActions.getProjectsStart, dispatch),
+    getSectors: bindActionCreators(projectSectorsActions.getSectorsStart, dispatch)
+
 });
 
 
