@@ -13,7 +13,7 @@ const getFilterData = (items) => items.map(({ region_name, projects_count, id })
 
 const LocationsFilter = ({ handleOnclickFilterItem, predefinedFilterData }) => {
 
-    const filterConfig = { filterTitle: 'Locations' }
+    const filterConfig = { filterTitle: 'Regions' }
     const filterData = predefinedFilterData.length > 0 ? getFilterData(predefinedFilterData) : []
 
     return (

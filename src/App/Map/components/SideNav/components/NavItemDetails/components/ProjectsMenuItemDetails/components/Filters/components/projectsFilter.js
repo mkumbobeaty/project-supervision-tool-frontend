@@ -26,6 +26,7 @@ const ProjectsFilter = ({ handleOnclickFilterItem, predefinedFilterData }) => {
     return (
         <section className="ProjectsFilter">
             <h4>{filterConfig.filterTitle}</h4>
+            <hr />
               <div className="status">
                     {status.map(data => <Checkbox onChange={onChange}>{data}</Checkbox>)}
                 </div>
