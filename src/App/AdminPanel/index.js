@@ -58,6 +58,12 @@ const routes = [
         icon: humanResourcesIcons,
         description: modules.map,
     },
+    {
+        name: 'User roles',
+        path: '/User-roles',
+        icon: settingsIcons,
+        description: modules.dashboards,
+      },
 ];
 
 
