@@ -182,14 +182,6 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           />
 
           <PrivateRoute path={`${baseUrl}/map`} component={MapDashboard} />
-          {/* Admin panel */}
-
-          {/* Dashboard PrivateRoutes */}
-          {/* <PrivateRoute
-            exact
-            path={`${baseUrl}/dashboards`}
-            component={Dashboards}
-          /> */}
           <PrivateRoute
             exact
             path={`${baseUrl}/geo-node`}
@@ -200,11 +192,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             path={`${baseUrl}/admin-panel/users`}
             component={Users}
           />
-          {/* <PrivateRoute
+          <PrivateRoute
             exact
-            path={`${baseUrl}/settings`}
-            component={Settings}
-          /> */}
+            path={`${baseUrl}/admin-panel/roles`}
+            component={Users}
+          />
           <PrivateRoute
             exact
             path={`${baseUrl}/admin-panel/agencies`}

@@ -44,7 +44,7 @@ const routes = [
 
     {
         name: 'User roles',
-        path: '/User-roles',
+        path: '/roles',
         icon: settingsIcons,
         description: modules.dashboards,
       },
