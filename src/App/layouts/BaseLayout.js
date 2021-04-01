@@ -21,6 +21,7 @@ import PrivateRoute from '../Auth/PrivateRoute';
 import Users from "../Users";
 import Contracts from "../Contracts";
 import "./styles.css";
+import Roles from "../Roles";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -195,7 +196,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           <PrivateRoute
             exact
             path={`${baseUrl}/admin-panel/roles`}
-            component={Users}
+            component={Roles}
           />
           <PrivateRoute
             exact
