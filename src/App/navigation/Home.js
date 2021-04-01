@@ -29,84 +29,29 @@ const routes = [
     description: modules.initiatives,
   },
   {
-    name: 'Map',
+    name: 'MAPS',
     path: '/map',
     icon: mapsIcon,
     description: modules.map,
   },
-  // {
-  //   name: 'Sub Project Items',
-  //   path: '/sub-project-items',
-  //   icon: itemsIcons,
-  //   description: modules.map,
-  // },
-  {
-    name: 'Equipments',
-    path: '/equipments',
-    icon: equipmentsIcons,
-    description: modules.map,
-  },
-  // {
-  //   name: 'Sub Project Contracts',
-  //   path: '/sub-projects-contracts',
-  //   icon: contractsIcons,
-  //   description: modules.map,
-  // },
-  // {
-  //   name: 'Human Resources',
-  //   path: '/human-resources',
-  //   icon: humanResourcesIcons,
-  //   description: modules.map,
-  // },
-
-  // {
-  //   name: 'Dashboards',
-  //   path: '/dashboards',
-  //   icon: dashboardIcon,
-  //   description: modules.dashboards,
-  // },
-  {
-    name: 'Geo Node',
-    path: '/geo-node',
-    icon: settingsIcons,
-    description: modules.dashboards,
-  },
-  {
-    name: 'Users',
-    path: '/users',
-    icon: humanResourcesIcons,
-    description: modules.dashboards,
-  },
-  // {
-  //   name: 'Settings',
-  //   path: '/settings',
-  //   icon: settingsIcons,
-  //   description: modules.dashboards,
-  // },
-  // {
-  //   name: 'Agencies',
-  //   path: '/Agencies',
-  //   icon: settingsIcons,
-  //   description: modules.dashboards,
-  // },
   {
     name: 'Admin Panel',
     path: '/admin-panel',
     icon: settingsIcons,
-    description: modules.dashboards,
+    description: modules.adimin_panel,
   },
   {
-    name: 'Items',
-    path: '/items',
-    icon: itemsIcons,
-    description: modules.dashboards,
-  },
-  {
-    name: 'Contracts',
+    name: 'CONTRACT MANAGEMENT',
     path: '/contracts',
     icon: contractsIcons,
-    description: modules.dashboards,
+    description: modules.contract_management,
   },
+  {
+    name: 'Documents',
+    path: '/documents',
+    icon: contractsIcons,
+    description: modules.documents,
+  }
 ];
 
 /**

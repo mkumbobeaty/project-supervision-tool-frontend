@@ -35,9 +35,9 @@ const breadcrumbNameMap = {
     name: "projects",
     title: "projects Module",
   },
-  "/app/sub-projects": {
-    name: "sub-projects",
-    title: "List of all Sub-projects",
+  "/app/sub_projects": {
+    name: "Subprojects",
+    title: "List of all Subprojects",
   },
 
   "/app/projects/:type": {
@@ -64,7 +64,7 @@ const breadcrumbNameMap = {
     name: "Sub Project Contracts",
     title: "List of all Sub Project Contracts",
   },
-  "/app/adminpanel": {
+  "/app/admin-panel": {
     name: "Admin Panel",
     title: "Admin Panel module",
   },
@@ -125,10 +125,9 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
 
   // TODO clean this up
   const breadcrumbItems = [].concat(extraBreadcrumbItems);
-
   return (
     <Layout className="BaseLayout">
-      <Header className="BaseLayoutHeader">
+      <Header className="BaseLayoutHeader" >
         <Row type="flex" align="middle">
           {/* breadcrumb section start */}
           <Col xxl={22} xl={22} lg={22} md={22} sm={20} xs={20} justify="start">
