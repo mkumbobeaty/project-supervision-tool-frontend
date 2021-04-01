@@ -22,12 +22,7 @@ const routes = [
     //   icon: dashboardIcon,
     //   description: modules.dashboards,
     // },
-    {
-        name: 'Admin imports',
-        path: '/admin-imports',
-        icon: settingsIcons,
-        description: modules.dashboards,
-      },
+   
     // {
     //   name: 'Settings',
     //   path: '/settings',
@@ -40,36 +35,6 @@ const routes = [
       icon: settingsIcons,
       description: modules.dashboards,
     },
-    {
-        name: 'Construction issues',
-        path: '/construction-issues',
-        icon: settingsIcons,
-        description: modules.dashboards,
-      },
-      {
-        name: 'E & s issues',
-        path: '/e&s-issues',
-        icon: settingsIcons,
-        description: modules.dashboards,
-      },
-      {
-        name: 'issue resolve status',
-        path: '/issue_resolve_status',
-        icon: settingsIcons,
-        description: modules.dashboards,
-      },
-      {
-        name: 'Sub-project Status',
-        path: '/sub-project-themes',
-        icon: settingsIcons,
-        description: modules.dashboards,
-      },
-      {
-        name: 'Sub-project themes',
-        path: '/sub-project-themes',
-        icon: settingsIcons,
-        description: modules.dashboards,
-      },
       {
         name: 'users',
         path: '/users',
@@ -83,18 +48,7 @@ const routes = [
         icon: settingsIcons,
         description: modules.dashboards,
       },
-      {
-        name: 'Equipments',
-        path: '/equipments',
-        icon: settingsIcons,
-        description: modules.dashboards,
-      },
-      {
-        name: 'Human resources',
-        path: '/human-resources',
-        icon: settingsIcons,
-        description: modules.dashboards,
-      }
+      
 ];
 
 
