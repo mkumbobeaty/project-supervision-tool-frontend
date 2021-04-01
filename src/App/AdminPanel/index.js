@@ -23,11 +23,11 @@ const routes = [
     //   description: modules.dashboards,
     // },
     {
-        name: 'Users',
-        path: '/users',
-        icon: humanResourcesIcons,
+        name: 'Admin imports',
+        path: '/admin-imports',
+        icon: settingsIcons,
         description: modules.dashboards,
-    },
+      },
     // {
     //   name: 'Settings',
     //   path: '/settings',
@@ -41,29 +41,60 @@ const routes = [
       description: modules.dashboards,
     },
     {
-        name: 'Sub Project Contracts',
-        path: '/sub-projects-contracts',
-        icon: contractsIcons,
-        description: modules.map,
-    },
-    {
-      name: 'Sub Project Equipments',
-      path: '/sub-project-equipments',
-      icon: equipmentsIcons,
-      description: modules.map,
-    },
-    {
-        name: 'Human Resources',
-        path: '/human-resources',
-        icon: humanResourcesIcons,
-        description: modules.map,
-    },
+        name: 'Construction issues',
+        path: '/construction-issues',
+        icon: settingsIcons,
+        description: modules.dashboards,
+      },
+      {
+        name: 'E & s issues',
+        path: '/e&s-issues',
+        icon: settingsIcons,
+        description: modules.dashboards,
+      },
+      {
+        name: 'issue resolve status',
+        path: '/issue_resolve_status',
+        icon: settingsIcons,
+        description: modules.dashboards,
+      },
+      {
+        name: 'Sub-project Status',
+        path: '/sub-project-themes',
+        icon: settingsIcons,
+        description: modules.dashboards,
+      },
+      {
+        name: 'Sub-project themes',
+        path: '/sub-project-themes',
+        icon: settingsIcons,
+        description: modules.dashboards,
+      },
+      {
+        name: 'users',
+        path: '/users',
+        icon: settingsIcons,
+        description: modules.dashboards,
+      },
+
     {
         name: 'User roles',
         path: '/User-roles',
         icon: settingsIcons,
         description: modules.dashboards,
       },
+      {
+        name: 'Equipments',
+        path: '/equipments',
+        icon: settingsIcons,
+        description: modules.dashboards,
+      },
+      {
+        name: 'Human resources',
+        path: '/human-resources',
+        icon: settingsIcons,
+        description: modules.dashboards,
+      }
 ];
 
 
