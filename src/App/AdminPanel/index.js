@@ -22,12 +22,7 @@ const routes = [
     //   icon: dashboardIcon,
     //   description: modules.dashboards,
     // },
-    {
-        name: 'Users',
-        path: '/users',
-        icon: humanResourcesIcons,
-        description: modules.dashboards,
-    },
+   
     // {
     //   name: 'Settings',
     //   path: '/settings',
@@ -40,30 +35,20 @@ const routes = [
       icon: settingsIcons,
       description: modules.dashboards,
     },
-    {
-        name: 'Sub Project Contracts',
-        path: '/sub-projects-contracts',
-        icon: contractsIcons,
-        description: modules.map,
-    },
-    {
-      name: 'Sub Project Equipments',
-      path: '/sub-project-equipments',
-      icon: equipmentsIcons,
-      description: modules.map,
-    },
-    {
-        name: 'Human Resources',
-        path: '/human-resources',
-        icon: humanResourcesIcons,
-        description: modules.map,
-    },
+      {
+        name: 'users',
+        path: '/users',
+        icon: settingsIcons,
+        description: modules.dashboards,
+      },
+
     {
         name: 'User roles',
         path: '/User-roles',
         icon: settingsIcons,
         description: modules.dashboards,
       },
+      
 ];
 
 
