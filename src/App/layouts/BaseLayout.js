@@ -6,6 +6,7 @@ import UserMenu from "../navigation/UserMenu";
 import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
 // import Dashboards from "../Dashboards";
+import Permission from "../Permission";
 import MapDashboard from "../Map";
 import Projects from "../ProjectsList/Projects";
 import SubProjects from "../ProjectsList/Sub-projects/";
@@ -207,6 +208,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/admin-panel`}
             component={AdminPanel}
+          />
+           <PrivateRoute
+            exact
+            path={`${baseUrl}/admin-panel/permission`}
+            component={Permission}
           />
           <PrivateRoute
             exact
