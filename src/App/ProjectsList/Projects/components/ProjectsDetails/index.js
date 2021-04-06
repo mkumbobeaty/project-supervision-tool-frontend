@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import { Col, Layout, Row, Spin } from 'antd';
 import SectorChat from "./Charts";
-import ProjectSubProjects from "./SubProjectSection";
-import SidebarSection from "./SideBar";
+import KeyDetailSection from "./KeyDetails";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects";
 import BaseMap from "../../../../Map/BaseMap";
 import FullscreenControl from 'react-leaflet-fullscreen';
 import { mapSelectors } from "../../../../../redux/modules/map";
-import ProjectLocations from  "../../../../Map/components/ProjectLocations";
+import ProjectLocations from "../../../../Map/components/ProjectLocations";
 import "./styles.css";
 
 const { Content, Sider } = Layout;
@@ -28,13 +27,15 @@ class Project extends Component {
         <Spin spinning={loading} tip="Loading..." >
           <Content style={{ padding: '0 50px' }}>
             <h3>{project?.name}</h3>
+            <div className="container description" >
+              <h4>Project Development Objective</h4>
+              <p>{project ? project?.description : 'N/A'}</p>
+            </div>
             <Layout className="project-inner_layout" >
-              <Sider className="project-sider" width={280}>
-                <div className="sidebar-header">
-                  <h2 id="sider-title">Key Details</h2>
-                </div>
-                <SidebarSection project={project} />
-              </Sider>
+              <div className="keyDetails " width={280}>
+                <h2 id="sider-title">Key Details</h2>
+                <KeyDetailSection project={project} />
+              </div>
               <Content className="project_contents">
                 <Row>
                   <Col span={12} className="sector_chat">
@@ -43,13 +44,13 @@ class Project extends Component {
                   <Col span={11} className="project_map" offset={1} >
                     <Spin spinning={mapLoading} tip="Loading data...">
                       <BaseMap ref={this.map} zoomControl={true}>
-                      <FullscreenControl position="topright" />
-                      <ProjectLocations project={project} />
+                        <FullscreenControl position="topright" />
+                        <ProjectLocations project={project} />
                       </BaseMap>
                     </Spin>
                   </Col>
                 </Row>
-                <ProjectSubProjects project={project} />
+                {/* <ProjectSubProjects project={project} /> */}
               </Content>
             </Layout>
           </Content>
