@@ -22,7 +22,7 @@ const RegionsFilter = ({regions}) => {
     return (
         <CheckBoxGroupFilter
             items={regionsFilterData}
-            itemsPerPage={1}
+            itemsPerPage={5}
             filterTitle={`Regions`}
         />
     )

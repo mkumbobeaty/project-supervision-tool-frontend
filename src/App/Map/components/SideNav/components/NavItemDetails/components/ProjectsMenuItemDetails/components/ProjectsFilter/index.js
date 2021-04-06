@@ -21,7 +21,7 @@ const ProjectsFilter = ({projects}) => {
     return (
         <CheckBoxGroupFilter
             items={projectsFilterData}
-            itemsPerPage={1}
+            itemsPerPage={5}
             filterTitle={`Projects`}
         />
         )

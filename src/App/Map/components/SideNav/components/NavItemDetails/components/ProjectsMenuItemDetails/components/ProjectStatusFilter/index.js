@@ -7,7 +7,7 @@ const ProjectStatusFilter = ({statuses}) => {
     return (
         <CheckBoxGroupFilter
             items={statuses}
-            itemsPerPage={1}
+            itemsPerPage={5}
             filterTitle={`Status`}
         />
     )
