@@ -15,14 +15,14 @@ const headerLayout = [
   { ...userNameSpan, header: "Name" }
 ];
 
-function Roles() {
+function Permission() {
   return (
     <div>
       {/* Topbar */}
       <Topbar
         search={{
           size: "large",
-          placeholder: "Search for roles here ...",
+          placeholder: "Search for permission here ...",
           // onChange: this.searchInitiative,
           // onSearch: this.handleSearch,
           // value: searchQuery,
@@ -40,7 +40,7 @@ function Roles() {
       {/* end Topbar */}
       {/* list starts */}
       <RolesList
-        itemName="Roles"
+        itemName="Permission"
         items={[]}
         page={1}
         loading={false}
@@ -100,4 +100,4 @@ function Roles() {
   )
 }
 
-export default Roles;
+export default Permission;

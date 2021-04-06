@@ -6,6 +6,7 @@ import UserMenu from "../navigation/UserMenu";
 import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
 // import Dashboards from "../Dashboards";
+import Permission from "../Permission";
 import MapDashboard from "../Map";
 import Projects from "../ProjectsList/Projects";
 import SubProjects from "../ProjectsList/Sub-projects/";
@@ -21,6 +22,7 @@ import PrivateRoute from '../Auth/PrivateRoute';
 import Users from "../Users";
 import Contracts from "../Contracts";
 import "./styles.css";
+import Roles from "../Roles";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -182,14 +184,6 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           />
 
           <PrivateRoute path={`${baseUrl}/map`} component={MapDashboard} />
-          {/* Admin panel */}
-
-          {/* Dashboard PrivateRoutes */}
-          {/* <PrivateRoute
-            exact
-            path={`${baseUrl}/dashboards`}
-            component={Dashboards}
-          /> */}
           <PrivateRoute
             exact
             path={`${baseUrl}/geo-node`}
@@ -200,11 +194,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             path={`${baseUrl}/admin-panel/users`}
             component={Users}
           />
-          {/* <PrivateRoute
+          <PrivateRoute
             exact
-            path={`${baseUrl}/settings`}
-            component={Settings}
-          /> */}
+            path={`${baseUrl}/admin-panel/roles`}
+            component={Roles}
+          />
           <PrivateRoute
             exact
             path={`${baseUrl}/admin-panel/agencies`}
@@ -214,6 +208,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/admin-panel`}
             component={AdminPanel}
+          />
+           <PrivateRoute
+            exact
+            path={`${baseUrl}/admin-panel/permission`}
+            component={Permission}
           />
           <PrivateRoute
             exact
