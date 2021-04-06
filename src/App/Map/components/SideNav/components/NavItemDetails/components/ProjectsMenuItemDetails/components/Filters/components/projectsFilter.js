@@ -20,21 +20,22 @@ function onChange(e) {
 
 const ProjectsFilter = ({ handleOnclickFilterItem, predefinedFilterData }) => {
 
-    const filterConfig = { filterTitle: 'Projects Status' }
+    const filterConfig = { filterTitle: 'Projects' }
     const filterData = predefinedFilterData.length > 0 ? getFilterData(predefinedFilterData) : []
 
     return (
         <section className="ProjectsFilter">
-            <h4>{filterConfig.filterTitle}</h4>
+            <h4 className="ProjectsFilterStatus">Projects Status</h4>
             <hr />
               <div className="status">
                     {status.map(data => <Checkbox onChange={onChange}>{data}</Checkbox>)}
                 </div>
+              <hr />
             {filterData.length > 0 ? <CommonItemFilter
                 data={filterData}
                 config={filterConfig}
                 handleOnclickFilterItem={handleOnclickFilterItem}
-                // filterTitle={filterConfig.filterTitle}
+                filterTitle={filterConfig.filterTitle}
             /> : ''}
         </section>
     )

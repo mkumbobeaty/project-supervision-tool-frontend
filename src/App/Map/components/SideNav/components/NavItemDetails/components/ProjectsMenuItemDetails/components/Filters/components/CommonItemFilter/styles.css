@@ -5,7 +5,7 @@
 
 .CommonItemFilter h4, .ProjectsFilter h4 {
     color: #0071bc;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
 }
 
 .projectFilter {

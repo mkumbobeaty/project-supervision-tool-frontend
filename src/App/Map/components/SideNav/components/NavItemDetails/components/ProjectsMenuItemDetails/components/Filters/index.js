@@ -12,7 +12,7 @@ const ProjectsOverviewFilter = ({ handleOnclickFilterItem, locations, projects, 
             <ProjectsFilter predefinedFilterData={projects}
                 handleOnclickFilterItem={handleOnclickFilterItem} />
 
-            <SectorsFilter handleOnclickFilterItem={handleOnclickFilterItem} predefinedFilterData={sectors} />
+            {/* <SectorsFilter handleOnclickFilterItem={handleOnclickFilterItem} predefinedFilterData={sectors} /> */}
             <LocationsFilter
                 predefinedFilterData={locations}
                 handleOnclickFilterItem={handleOnclickFilterItem}
