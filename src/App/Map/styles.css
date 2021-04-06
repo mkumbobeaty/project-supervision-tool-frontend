@@ -9,3 +9,6 @@
     line-height: 17px;
     color: #fff;
 }
+.NavItemDetails{
+    overflow-y: auto;
+}
