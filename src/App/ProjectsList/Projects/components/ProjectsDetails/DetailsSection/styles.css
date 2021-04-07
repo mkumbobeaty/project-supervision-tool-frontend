@@ -1,0 +1,10 @@
+.project_components {
+    margin-top: 25px;
+}
+.project_components h4{
+    text-decoration: underline ;
+}
+.project_components .ant-table-thead .ant-table-cell, .project_components h4{
+    color: #0f6788;
+    font-size: 16px;
+}

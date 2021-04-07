@@ -11,6 +11,7 @@ import ProjectLocations from "../../../../Map/components/ProjectLocations";
 import ProjectsProgress from "./Progress";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../../Util";
 import "./styles.css";
+import DetailsSection from "./DetailsSection";
 
 const { Content } = Layout;
 
@@ -85,7 +86,7 @@ class Project extends Component {
                     </Spin>
                   </Col>
                 </Row>
-                {/* <ProjectSubProjects project={project} /> */}
+                <DetailsSection />
               </Content>
             </Layout>
           </Content>
