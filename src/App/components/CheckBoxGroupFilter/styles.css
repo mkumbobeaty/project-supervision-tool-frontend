@@ -1,21 +1,21 @@
-.CommonItemFilter {
+.CheckBoxGroupFilter {
     padding: 10px;
     border-bottom: 0.8px solid #d9d9d9;
 }
 
-.CommonItemFilter h4, .ProjectsFilter h4 {
+.CheckBoxGroupFilter h4, .CheckBoxGroupFilter h4 {
     color: #0071bc;
     /* text-transform: uppercase; */
 }
 
-.projectFilter {
+.CheckBoxGroupFilter {
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 
-.projectFilter label {
+.CheckBoxGroupFilter label {
     text-overflow: ellipsis;
     display: inline-block;
     overflow: hidden;
@@ -25,7 +25,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .projectFilter label {
+    .CheckBoxGroupFilter label {
         width: 180px;
     }
 }

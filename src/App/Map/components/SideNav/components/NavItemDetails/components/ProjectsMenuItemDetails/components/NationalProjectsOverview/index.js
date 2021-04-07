@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import SideNavItemOverview from "../SideNavItemOverview";
 import { moneyFormat } from "../../../../../../../../../../Util";
-import ProjectsOverviewFilter from "../Filters";
 import './styles.css';
+import ProjectsFilter from "../ProjectsFilter";
+import RegionsFilter from "../RegionsFilter";
+import ProjectStatusFilter from "../ProjectStatusFilter";
 
 /**
  * @function
@@ -20,7 +22,6 @@ function NationalProjectsOverview(
         projects,
         getProjects,
         getSectors,
-        sectors
     }
 ) {
 
@@ -46,14 +47,15 @@ function NationalProjectsOverview(
         { title: 'Projects', value: projectsStatistics.projects, },
         { title: 'Sub Projects', value: 24 },
         { title: 'Regions', value: projectsStatistics.regions },
-    ] : []
-        ;
-
+    ] : [];
     const handleOnClickFilterItem = (id) => getProjectsByRegion(id);
 
 
-    // prepare data for ProjectsRegionsPredefinedFilter
-    
+    const statuses = [
+        {title: 'Active', value: 'Active', id: 1},
+        {title: 'Closed', value: 'Closed', id: 1},
+        {title: 'Dropped', value: 'Dropped', id: 1}
+    ]
     return (
         <div>
             <SideNavItemOverview
@@ -61,12 +63,9 @@ function NationalProjectsOverview(
                 loadingStatistics={loadingStatistics}
                 overViewData={overViewData}
             />
-            <ProjectsOverviewFilter 
-                locations={projectsCountByRegion} 
-                projects={projects} 
-                handleOnClickFilterItem={handleOnClickFilterItem} 
-                sectors={sectors}
-                />
+            <ProjectStatusFilter statuses={statuses} />
+            <ProjectsFilter projects={projects}/>
+            <RegionsFilter regions={projectsCountByRegion}/>
         </div>
     );
 
