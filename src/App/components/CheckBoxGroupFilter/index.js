@@ -25,7 +25,7 @@ function CheckBoxGroupFilter({handleOnclickFilterItem, filterTitle, itemsPerPage
     const renderFilterItems = items => items.map(({title, value, id, total_count}, i) => {
         return (
             <div className='projectFilter' onClick={() => handleOnclickFilterItem(id)}>
-                <Checkbox onChange={onChange} title={title} key={i}>{value} </Checkbox><span>{total_count}</span>
+                <Checkbox onChange={onChange} title={title} key={i} >{value} </Checkbox><span>{total_count}</span>
             </div>
 
         )
@@ -43,7 +43,7 @@ function CheckBoxGroupFilter({handleOnclickFilterItem, filterTitle, itemsPerPage
     };
 
     return items.length > 0 ? (
-        <div className='CommonItemFilter'>
+        <div className='CheckBoxGroupFilter'>
             <h4>{filterTitle}</h4>
             <hr/>
             <section>
