@@ -2,16 +2,16 @@ import { Col, Row } from "antd";
 import React from "react";
 
 
-const totalCostSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
-const projectIdSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
-const commitmentSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
-const subProjectsSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
-const projectLeadSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
-const statusSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
-const projectCoordinatorSpan = { xxl: 6, xl: 6, lg: 6, md: 0, sm: 0, xs: 0 };
-const implementingAgencySpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
-const projectsLocationSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
-const lastUpdateSpan = { xxl: 6, xl: 6, lg: 6, md: 0, sm: 0, xs: 0 };
+const totalCostSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
+const projectIdSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
+const commitmentSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm:12, xs: 12 };
+const subProjectsSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm:12,xs: 12 };
+const projectLeadSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm:12,xs: 12 };
+const statusSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
+const projectCoordinatorSpan = { xxl: 6, xl: 6, lg: 6, md: 0, sm: 12, xs: 12 };
+const implementingAgencySpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
+const projectsLocationSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
+const lastUpdateSpan = { xxl: 6, xl: 6, lg: 6, md: 0, sm: 12, xs: 12 };
 
 
 const KeyDetailSection = ({ project, commitmentAmount, totalProjectCost }) => {

@@ -10,6 +10,10 @@
     border-bottom: 1px solid #8f8c8c42;
 }
 
+.contents {
+    padding: 0 50px;
+}
+
 .keyDetails {
     background-color: rgb(246, 246, 246) !important;
     padding: 20px 20px 20px 40px;
@@ -102,10 +106,9 @@ h2#sider-title {
     margin-left: auto;
 }
 
-
 .project_contents .ant-tabs-card>.ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab-active {
     color: #1890ff;
-    background: #0f6788 
+    background: #0f6788
 }
 
 .project_contents .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
@@ -113,11 +116,33 @@ h2#sider-title {
 }
 
 .project_contents .ant-tabs-card.ant-tabs-top>.ant-tabs-nav .ant-tabs-tab, .ant-tabs-card.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-tab {
-padding: 10px 70px;}
+    padding: 10px 70px;
+}
+
+@media screen and (max-width: 426px) {
+    .keyDetails {
+        padding: 0;
+    }
+    .contents {
+        padding: 0 20px;
+    }
+    .project-layout h3 {
+        padding: 15px;
+    }
+    .container{
+        margin: 0;
+    }
+}
 
 @media (min-width: 768px) {
     .container {
         width: 750px;
+    }
+    .keyDetails {
+        padding: 0;
+    }
+    .contents {
+        padding: 0 20px;
     }
 }
 

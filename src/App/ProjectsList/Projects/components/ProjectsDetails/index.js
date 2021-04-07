@@ -15,6 +15,9 @@ import DetailsSection from "./DetailsSection";
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
+const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
+const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
+
 class Project extends Component {
 
   componentDidMount() {
@@ -41,14 +44,14 @@ class Project extends Component {
     return (
       <Layout className="project-layout">
         <Spin spinning={loading} tip="Loading..." >
-          <Content style={{ padding: '0 50px' }}>
+          <Content className="contents">
             <h3>{project?.name}</h3>
             <div className="container description" >
               <h4>Project Development Objective</h4>
               <p>{project ? project?.description : 'N/A'}</p>
             </div>
             <Layout className="project-inner_layout" >
-              <div className="keyDetails " width={280}>
+              <div className="keyDetails ">
                 <h2 id="sider-title">Key Details</h2>
                 <KeyDetailSection project={project} commitmentAmount={commitmentAmount} totalProjectCost={totalProjectCost} />
               </div>
@@ -57,7 +60,7 @@ class Project extends Component {
                 <Tabs type="card">
                   <TabPane tab="Project Overview" key="1">
                       <Row>
-                        <Col span={12} className="sector_chat">
+                        <Col {...firstSpan} className="sector_chat">
                           <ProjectsProgress
                             title="Financial Progress"
                             percentage={75}
@@ -79,7 +82,7 @@ class Project extends Component {
                             progress_final_value={closing_date}
                           />
                         </Col>
-                        <Col span={11} className="project_map" offset={1} >
+                        <Col {...secondSpan} className="project_map" offset={1} >
                           <Spin spinning={mapLoading} tip="Loading data...">
                             <BaseMap ref={this.map} zoomControl={true}>
                               <FullscreenControl position="topright" />
