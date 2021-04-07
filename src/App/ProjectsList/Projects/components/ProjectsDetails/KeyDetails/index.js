@@ -1,13 +1,6 @@
 import { Col, Row } from "antd";
 import React from "react";
-import { moneyFormat } from "../../../../../../Util";
 
-const getCommitmentAmount = (data) => {
-    const { amount, currency } = data
-    const { iso } = currency;
-    const money = moneyFormat(amount);
-    return `${iso} ${money}`;
-}
 
 const totalCostSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
 const projectIdSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
@@ -21,10 +14,7 @@ const projectsLocationSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 6, xs: 6 };
 const lastUpdateSpan = { xxl: 6, xl: 6, lg: 6, md: 0, sm: 0, xs: 0 };
 
 
-const KeyDetailSection = ({ project }) => {
-
-    const commitmentAmount = project?.details?.commitment_amount ? getCommitmentAmount(project?.details?.commitment_amount) : 'N/A';
-    const totalProjectCost = project?.details.total_project_cost ? getCommitmentAmount(project.details.total_project_cost) : 'N/A';
+const KeyDetailSection = ({ project, commitmentAmount, totalProjectCost }) => {
 
     return (
         <section className="container">
