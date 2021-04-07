@@ -29,22 +29,13 @@
     position: static;
 }
 
-.sidebar-header {
-    display: flex;
-}
-
-#sider-title {
+/* #sider-title {
     color: #0f6788;
     font-weight: 600;
     font-size: 16px;
     margin-bottom: 15px;
     width: 65%;
-}
-
-.sidebar-header a {
-    color: #0f6788;
-    text-decoration: underline;
-}
+} */
 
 .sider h4, .details h4 {
     color: #0f6788;

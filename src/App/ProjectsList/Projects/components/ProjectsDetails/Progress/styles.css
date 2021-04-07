@@ -1,0 +1,24 @@
+.projectsProgress .ant-progress-inner {
+    border-radius: 0 !important;
+}
+
+.projectsProgress h5{
+    text-align: center;
+    color: #0f6788;
+    font-size: 18px;
+    padding-bottom: 10px;
+}
+.projectsProgress h4{
+    color: #0f6788;
+}
+.progress {
+    border-left: 1px solid #888b8d;
+    height: 45px;
+    border-right: 1px solid #888b8d;
+
+  }
+.progress-value{
+    display: flex;
+    justify-content: space-between;
+
+}

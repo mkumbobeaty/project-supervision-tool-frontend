@@ -1,45 +1,99 @@
 import React from "react";
-import { Col, Row, } from 'antd';
-import { isoDateToHumanReadableDate } from "../../../../../../Util";
+import { Table } from "antd";
+import "./styles.css";
 
-const DetailsSection = ({ project }) => {
+const DetailsSection = () => {
+    let sameKey;
+    const columns = [
+        {
+            title: "Components",
+            dataIndex: "state_name",
+            key: "state_name",
+            render: (value, row, index) => {
+                const obj = {
+                    children: value,
+                    props: {}
+                };
+                if (!(sameKey !== value)) {
+                    obj.props.rowSpan = 0;
+                    return obj;
+                }
+                const count = data.filter(item => item.state_name === value).length;
+                sameKey = value;
+                obj.props.rowSpan = count;
+                return obj;
+            }
+        },
+
+        {
+            title: "S/n",
+            dataIndex: "gender",
+            key: 1
+        },
+        {
+            title: "Sub-Components",
+            dataIndex: "total",
+            key: 2
+        },
+
+
+    ];
+
+    const data = [
+        {
+            state_name: "Priority Infustructure",
+            gender: "1a",
+            total: "Priority Roads",
+        },
+        {
+            state_name: "Priority Infustructure",
+            gender: "1b",
+            total: "Flood control and storm water drainage",
+        },
+        {
+            state_name: "Priority Infustructure",
+            gender: "1c",
+            total: "Contingency for Disaster risk response",
+        },
+        {
+            state_name: "Upgrading low income community",
+            gender: "2a",
+            total: "Ilala MC",
+        },
+        {
+            state_name: "Upgrading low income community",
+            gender: "2b",
+            total: "kinondoni MC",
+        },
+        {
+            state_name: "Upgrading low income community",
+            gender: "2c",
+            total: "Temeke MC",
+        },
+        {
+            state_name: "Implementing Support and monitoring and evaluation",
+            gender: "3a",
+            total: Math.floor(Math.random() * 90 + 10),
+        },
+        {
+            state_name: "Implementing Support and monitoring and evaluation",
+            gender: "3b",
+            total: Math.floor(Math.random() * 90 + 10),
+        },
+    ];
+
     return (
-        <div>
-            <header className="detail-header"><h2>Other Projects Details</h2></header>
-            <Row gutter={[16, 24]} className="details">
-                <Col className="gutter-row" span={8}>
-                    <h4>Approval FY </h4>
-                    <p>{isoDateToHumanReadableDate(project?.details?.approval_fy)}</p>
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <h4>Approval Date</h4>
-                    <p>{isoDateToHumanReadableDate(project?.details?.approval_date)}</p>
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <h4>Closing Date</h4>
-                    <p>{isoDateToHumanReadableDate(project?.details?.closing_date)}</p>
-                </Col>
-                <Col className="gutter-row" span={8}>
-                    <h4>Implementing Agency</h4>
-                    <p>{project?.details ? project?.details.implementing_agency.name : 'N/A'}</p>
-                </Col>
-                <Col className="gutter-row" span={8}>
+        <section className="project_components">
+            <h4>Projects Components</h4>
+            <Table
+                columns={columns}
+                dataSource={data.map((d, i) => ({ key: i, ...d }))}
+                pagination={false}
+                bordered={true}
+            />
+        </section>
 
-                    <h4>Funding Organisation</h4>
-                    <p>{project?.details ? project?.details.funding_organisation.name : 'N/A'}</p>
-                </Col>
-                <Col className="gutter-row" span={8}>
-
-                    <h4>Environment Category</h4>
-                    <p>{project?.details ? project?.details?.environmental_category?.name : 'N/A'}</p>
-                </Col>
-                <Col span={24}><h4>Description</h4>
-                    <p>{project ? project?.description : 'N/A'}</p>
-                </Col>
-            </Row>
-        </div>
-
-    )
-}
+    );
+};
 
 export default DetailsSection;
