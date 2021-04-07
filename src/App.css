@@ -197,3 +197,15 @@ code {
     margin-top: 0 !important;
   }
 }
+@media screen and (min-width: 375px){
+  .SignIn .ant-form {
+    width: 350px !important;
+}
+.SignIn h5 {
+  padding-top: 20px !important;
+  font-size: 12px !important;
+}
+.Logo h2 {
+  font-size: 15px;
+}
+}
