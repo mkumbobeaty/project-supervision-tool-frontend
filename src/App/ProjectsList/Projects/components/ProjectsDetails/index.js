@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Col, Layout, Row, Spin } from 'antd';
-import SectorChat from "./Charts";
+import { Col, Layout, Row, Spin, Tabs } from 'antd';
 import KeyDetailSection from "./KeyDetails";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../../../redux/modules/projects";
@@ -14,7 +13,7 @@ import "./styles.css";
 import DetailsSection from "./DetailsSection";
 
 const { Content } = Layout;
-
+const { TabPane } = Tabs;
 
 class Project extends Component {
 
@@ -36,8 +35,8 @@ class Project extends Component {
 
     const commitmentAmount = project?.details?.commitment_amount ? this.getCommitmentAmount(project?.details?.commitment_amount) : 'N/A';
     const totalProjectCost = project?.details.total_project_cost ? this.getCommitmentAmount(project.details.total_project_cost) : 'N/A';
-    const approval_date = project?.details ?  isoDateToHumanReadableDate(project?.details?.approval_date) : 'N/A';
-    const closing_date = project?.details ?  isoDateToHumanReadableDate(project?.details?.closing_date) : 'N/A'
+    const approval_date = project?.details ? isoDateToHumanReadableDate(project?.details?.approval_date) : 'N/A';
+    const closing_date = project?.details ? isoDateToHumanReadableDate(project?.details?.closing_date) : 'N/A'
 
     return (
       <Layout className="project-layout">
@@ -54,39 +53,54 @@ class Project extends Component {
                 <KeyDetailSection project={project} commitmentAmount={commitmentAmount} totalProjectCost={totalProjectCost} />
               </div>
               <Content className="project_contents container">
-                <Row>
-                  <Col span={12} className="sector_chat">
-                    <ProjectsProgress
-                      title="Financial Progress"
-                      percentage={75} 
-                      trailColor="#888b8d"
-                      start_value="0%"
-                      end_value={commitmentAmount}
-                      progress_final_title="Disbursment gap"
-                      progress_initial_title="Total Disbursed"
-                      progress__initial_value={totalProjectCost}
-                      progress_final_value="36%"
-                    />
-                    <ProjectsProgress 
-                    title="Elapsed Time"
-                     percentage={45}
-                      trailColor="#888b8d"
-                      progress_final_title="Closing date"
-                      progress_initial_title="Approval Date"
-                      progress__initial_value={approval_date}
-                      progress_final_value={closing_date}
-                       />
-                  </Col>
-                  <Col span={11} className="project_map" offset={1} >
-                    <Spin spinning={mapLoading} tip="Loading data...">
-                      <BaseMap ref={this.map} zoomControl={true}>
-                        <FullscreenControl position="topright" />
-                        <ProjectLocations project={project} />
-                      </BaseMap>
-                    </Spin>
-                  </Col>
-                </Row>
-                <DetailsSection />
+              <div className="card-container">
+                <Tabs type="card">
+                  <TabPane tab="Project Overview" key="1">
+                      <Row>
+                        <Col span={12} className="sector_chat">
+                          <ProjectsProgress
+                            title="Financial Progress"
+                            percentage={75}
+                            trailColor="#888b8d"
+                            start_value="0%"
+                            end_value={commitmentAmount}
+                            progress_final_title="Disbursment gap"
+                            progress_initial_title="Total Disbursed"
+                            progress__initial_value={totalProjectCost}
+                            progress_final_value="36%"
+                          />
+                          <ProjectsProgress
+                            title="Elapsed Time"
+                            percentage={45}
+                            trailColor="#888b8d"
+                            progress_final_title="Closing date"
+                            progress_initial_title="Approval Date"
+                            progress__initial_value={approval_date}
+                            progress_final_value={closing_date}
+                          />
+                        </Col>
+                        <Col span={11} className="project_map" offset={1} >
+                          <Spin spinning={mapLoading} tip="Loading data...">
+                            <BaseMap ref={this.map} zoomControl={true}>
+                              <FullscreenControl position="topright" />
+                              <ProjectLocations project={project} />
+                            </BaseMap>
+                          </Spin>
+                        </Col>
+                      </Row>
+                      <DetailsSection />
+                  </TabPane>
+                  <TabPane tab="Projects Dashbord" key="2">
+                    <h4> Comming Soon</h4>
+                  </TabPane>
+                  <TabPane tab="Agreed Actions" key="3">
+                    <h4> Comming Soon</h4>
+                  </TabPane>
+                  <TabPane tab="Monitoring and Evaluation" key="4">
+                    <h4> Comming Soon</h4>
+                  </TabPane>
+                </Tabs>
+              </div>
               </Content>
             </Layout>
           </Content>
