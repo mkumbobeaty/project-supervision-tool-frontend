@@ -21,12 +21,12 @@ import "./styles.css";
 
 
 /* constants */
-const codeSpan = { xxl: 2, xl: 3, lg: 3, md: 3, sm: 2, xs: 3 };
-const projectIdSpan = { xxl: 3, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
-const nameSpan = { xxl: 5, xl: 5, lg: 5, md: 7, sm: 5, xs: 7 };
-const subProjectsSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 4, xs: 2 };
-const projectLeadSpan = { xxl: 3, xl: 3, lg: 4, md: 4, sm: 4, xs: 2 };
-const statusSpan = { xxl: 3, xl: 3, lg: 3, md: 2, sm: 4, xs: 4 };
+const codeSpan = { xxl: 2, xl: 3, lg: 3, md: 4, sm: 5, xs: 5 };
+const projectIdSpan = { xxl: 3, xl: 2, lg: 2, md: 3, sm: 5, xs: 5 };
+const nameSpan = { xxl: 5, xl: 5, lg: 5, md: 7, sm: 0, xs: 0 };
+const subProjectsSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 5, xs: 5 };
+const projectLeadSpan = { xxl: 3, xl: 3, lg: 4, md: 0, sm: 0, xs: 0 };
+const statusSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 5, xs: 5 };
 const projectCoordinatorSpan = { xxl: 3, xl: 3, lg: 2, md: 0, sm: 0, xs: 0 };
 
 const { confirm } = Modal;
@@ -337,7 +337,7 @@ class Projects extends Component {
                   )}
                 >
                   {/* eslint-disable react/jsx-props-no-spreading */}
-                  <Col {...codeSpan}>{item ? item?.code.toUpperCase() : 'N/A'}</Col>
+                  <Col {...codeSpan} title={item.name} className="contentEllipse" >{item ? item?.code.toUpperCase() : 'N/A'}</Col>
                   <Col {...projectIdSpan} className="contentEllipse">
                     {" "}
 
@@ -346,7 +346,7 @@ class Projects extends Component {
                   <Col
                     {...nameSpan}
                     className="contentEllipse"
-                    title={item.description}
+                    title={item.descrition}
                   >
                     <Link
                       to={{
