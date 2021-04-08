@@ -483,3 +483,50 @@ export const getProgressSuccess = makeActionCreator(types.GET_PROGRESS_SUCCESS, 
  * */
 export const getProgressFailure = makeActionCreator(types.GET_PROJECTS_FAILURE, 'payload');
 
+/**
+ * @function
+ * @name getProjectStatusStart
+ * @param {Number} subProjectId
+ * @return {Object} action
+ * */
+export const getProjectStatusStart = makeActionCreator(types.GET_PROJECT_STATUS_START, 'payload');
+
+/**
+ * @function
+ * @name getProjectStatusSuccess
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const getProjectStatusSuccess = makeActionCreator(types.GET_PROJECT_STATUS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getProjectStatusFailure
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const getProjectStatusFailure = makeActionCreator(types.GET_PROJECT_STATUS_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name filterProjectsStart
+ * @param {Number} subProjectId
+ * @return {Object} action
+ * */
+export const filterProjectsStart = makeActionCreator(types.FILTER_PROJECTS_START, 'payload');
+
+/**
+ * @function
+ * @name filterProjectsSuccess
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const filterProjectsSuccess = makeActionCreator(types.FILTER_PROJECTS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name filterProjectsFailure
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const filterProjectsFailure = makeActionCreator(types.FILTER_PROJECTS_FAILURE, 'payload');

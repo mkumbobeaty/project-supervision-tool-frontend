@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from 'prop-types';
 import CheckBoxGroupFilter from "../../../../../../../../../components/CheckBoxGroupFilter";
 
-const prepareFilterItems = (items) => items.map(({ region_name, projects_count, id }) => ({
-    title: region_name,
-    value: region_name,
+const prepareFilterItems = (items) => items.map(({ name, id, projects_count }) => ({
+    title: name,
+    value: name,
     total_count: projects_count,
     id
 }));
@@ -12,12 +12,6 @@ const prepareFilterItems = (items) => items.map(({ region_name, projects_count, 
 const RegionsFilter = ({regions}) => {
 
     const regionsFilterData = regions.length > 0 ? prepareFilterItems(regions) : [];
-
-    // const status = [
-    //     {title: 'Active', value: 'Active', id: 1},
-    //     {title: 'Closed', value: 'Closed', id: 1},
-    //     {title: 'Dropped', value: 'Dropped', id: 1}
-    // ]
 
     return (
         <CheckBoxGroupFilter

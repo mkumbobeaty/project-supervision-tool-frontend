@@ -36,8 +36,11 @@ function ProjectsOverview(
         showRegionalOverviewLoader,
         projects,
         getProjects,
-        sectors,
-        getSectors,
+        statuses,
+        getProjectStatus,
+        regions,
+        getRegions,
+        getFilteredProjects
     }
 ) {
     return (
@@ -51,8 +54,11 @@ function ProjectsOverview(
                 loadingStatistics={loadingStatistics}
                 getProjects={getProjects}
                 projects={projects}
-                getSectors={getSectors}
-                sectors={sectors}
+                statuses={statuses}
+                getProjectStatus={getProjectStatus}
+                getRegions={getRegions}
+                regions={regions}
+                getFilteredProjects={getFilteredProjects}
 
             /> : ''}
             {showRegionalOverview ? <RegionalProjectsOverview
@@ -81,7 +87,9 @@ const mapStateToProps = state => ({
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     region: mapSelectors.getRegionDetailsSelector(state),
     projects:projectSelectors.getProjectsSelector(state),
-    sectors: projectSectorsSelectors.getSectorsSelector(state),
+    statuses: projectSelectors.getProjectStatusSelector(state),
+    regions: projectSelectors.getRegionsSelector(state),
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -92,8 +100,9 @@ const mapDispatchToProps = (dispatch) => ({
     clearRegionalProjects: bindActionCreators(mapActions.clearRegionProjects, dispatch),
     getProject: bindActionCreators(mapProjectActions.getProjectStart, dispatch),
     getProjects:bindActionCreators(projectActions.getProjectsStart, dispatch),
-    getSectors: bindActionCreators(projectSectorsActions.getSectorsStart, dispatch)
-
+    getProjectStatus: bindActionCreators(projectActions.getProjectStatusStart, dispatch),
+    getRegions: bindActionCreators(projectActions.getRegionsStart, dispatch),
+    getFilteredProjects:bindActionCreators(projectActions.filterProjectsStart, dispatch),
 });
 
 

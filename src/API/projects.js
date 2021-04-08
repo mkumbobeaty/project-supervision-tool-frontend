@@ -26,6 +26,15 @@ const getProjects = (params={}) => {
 
 
 /**
+ * Fetch all projects from API
+ *
+ */
+const getFilteredProjects = (params={}) => {
+    return axios.get(`/projects`, {params:{filter:[params]}}).then((response) => response.data);
+}
+
+
+/**
  * edit existing human resources
  *
  * @function
@@ -93,6 +102,7 @@ const getCurrencies = () => {
     return axios.get(`/currencies`).then((response) => response.data);
 }
 
+
 /**
  * @function
  * @name postTotalCost
@@ -107,6 +117,14 @@ axios.post(`/money`, total_cost).then((response) => response.data);
 const createProjectDetails =(details) => 
 axios.post(`/project_details`, details).then((response) => response.data);
 
+/**
+ * Fetch all projects status from API
+ *
+ */
+const getProjectStatus = () => {
+    return axios.get(`/project_status`).then((response) => response.data);
+}
+
 export default {
     createProjects,
     getProjects,
@@ -116,5 +134,7 @@ export default {
     getProjectsStatistics,
     getCurrencies,
     postTotalCost,
-    createProjectDetails
+    createProjectDetails,
+    getProjectStatus,
+    getFilteredProjects
 }
