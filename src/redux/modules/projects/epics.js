@@ -266,20 +266,19 @@ const projectStatusEpic = action$ => {
     )
 };
 
-const filterProjectsEpic = action$ => {
-    return action$.pipe(
-        ofType(types.FILTER_PROJECTS_START),
-        switchMap((action) => {
-            return from(API.getFilteredProjects(action.payload)).pipe(
-                switchMap(res => {
-                    debugger
-                    return of(actions.filterProjectsSuccess(res.data))
-                }),
-                catchError(error => of(actions.filterProjectsFailure(error)))
-            );
-        }),
-    )
-};
+// const filterProjectsEpic = action$ => {
+//     return action$.pipe(
+//         ofType(types.FILTER_PROJECTS_START),
+//         switchMap((action) => {
+//             return from(API.getProject(action.payload)).pipe(
+//                 switchMap(res => {
+//                     return of(actions.filterProjectsSuccess(res.data))
+//                 }),
+//                 catchError(error => of(actions.filterProjectsFailure(error)))
+//             );
+//         }),
+//     )
+// };
 
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
@@ -298,7 +297,7 @@ export const projectsRootEpic = combineEpics(
     getItemsEpic,
     getProgressEpic,
     projectStatusEpic,
-    filterProjectsEpic
+    // filterProjectsEpic
     );
 
 

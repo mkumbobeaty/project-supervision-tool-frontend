@@ -16,22 +16,14 @@ const createProjects = (project) =>
         .then((response) => response.data);
 
 
-/**
- * Fetch all projects from API
- *
- */
-const getProjects = (params={}) => {
-    return axios.get(`/projects`, {params:{page: params.nextPage, searchField:'name', searchQuery: params.searchQuery} }).then((response) => response.data);
-}
 
 
 /**
  * Fetch all projects from API
  *
  */
-const getFilteredProjects = (params={}) => {
-    debugger
-    return axios.get(`/projects`, {params: {filter: 'filter', project_status_id:params}}).then((response) => response.data);
+const getProjects = (filter = {}) => {
+    return axios.get(`/projects`, {params: filter}).then((response) => response.data);
 }
 
 
@@ -137,5 +129,4 @@ export default {
     postTotalCost,
     createProjectDetails,
     getProjectStatus,
-    getFilteredProjects
 }

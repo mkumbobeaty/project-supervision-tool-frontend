@@ -499,6 +499,7 @@ export const getProjectStatusStart = makeActionCreator(types.GET_PROJECT_STATUS_
  * */
 export const getProjectStatusSuccess = makeActionCreator(types.GET_PROJECT_STATUS_SUCCESS, 'payload');
 
+
 /**
  * @function
  * @name getProjectStatusFailure
@@ -507,26 +508,29 @@ export const getProjectStatusSuccess = makeActionCreator(types.GET_PROJECT_STATU
  * */
 export const getProjectStatusFailure = makeActionCreator(types.GET_PROJECT_STATUS_FAILURE, 'payload');
 
+
+
+// Project Filters action creators
 /**
  * @function
- * @name filterProjectsStart
- * @param {Number} subProjectId
+ * @name setProjectStatusFilter
+ * @param {Number} payload
  * @return {Object} action
  * */
-export const filterProjectsStart = makeActionCreator(types.FILTER_PROJECTS_START, 'payload');
+export const setProjectStatusFilter = makeActionCreator(types.SET_PROJECT_STATUS_FILTER, 'payload');
 
 /**
  * @function
- * @name filterProjectsSuccess
+ * @name setProjectIdFilter
  * @param {Object} payload 
  * @return {Object} action
  * */
-export const filterProjectsSuccess = makeActionCreator(types.FILTER_PROJECTS_SUCCESS, 'payload');
+export const setProjectIdFilter = makeActionCreator(types.SET_PROJECT_ID_FILTER, 'payload');
 
 /**
  * @function
- * @name filterProjectsFailure
+ * @name setProjectRegionsFilter
  * @param {Object} payload 
  * @return {Object} action
  * */
-export const filterProjectsFailure = makeActionCreator(types.FILTER_PROJECTS_FAILURE, 'payload');
+export const setProjectRegionsFilter = makeActionCreator(types.SET_PROJECT_REGIONS_FILTER, 'payload');
