@@ -272,9 +272,10 @@ const filterProjectsEpic = action$ => {
         switchMap((action) => {
             return from(API.getFilteredProjects(action.payload)).pipe(
                 switchMap(res => {
+                    debugger
                     return of(actions.filterProjectsSuccess(res.data))
                 }),
-                catchError(error => of(actions.filterProjectsStart(error)))
+                catchError(error => of(actions.filterProjectsFailure(error)))
             );
         }),
     )

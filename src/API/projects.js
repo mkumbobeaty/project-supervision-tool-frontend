@@ -30,7 +30,8 @@ const getProjects = (params={}) => {
  *
  */
 const getFilteredProjects = (params={}) => {
-    return axios.get(`/projects`, {params:{filter:[params]}}).then((response) => response.data);
+    debugger
+    return axios.get(`/projects`, {params: {filter: 'filter', project_status_id:params}}).then((response) => response.data);
 }
 
 
