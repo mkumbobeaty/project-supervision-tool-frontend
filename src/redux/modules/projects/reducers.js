@@ -289,6 +289,19 @@ const progress = (state = { data: [], error: null, loading: false }, action) => 
     }
 };
 
+const progectStatus= (state = { data: [], error: null, loading: false }, action) => {
+    switch (action.type) {
+        case types.GET_PROJECT_STATUS_START:
+            return { ...state, loading: true }
+        case types.GET_PROJECT_STATUS_SUCCESS:
+            return { ...state, data: action.payload, loading: false, }
+        case types.GET_PROJECT_STATUS_FAILURE:
+            return { ...state, error: action.message, loading: false };
+        default:
+            return state;
+    }
+};
+
 // /**
 //  * @function
 //  * @name uploadPhoto
@@ -325,5 +338,6 @@ export const resources = combineReducers({
     creatingSubProjects,
     environmentalCategories,
     items,
-    progress
+    progress,
+    progectStatus
 })

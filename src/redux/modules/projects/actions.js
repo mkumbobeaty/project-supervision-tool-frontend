@@ -483,3 +483,27 @@ export const getProgressSuccess = makeActionCreator(types.GET_PROGRESS_SUCCESS, 
  * */
 export const getProgressFailure = makeActionCreator(types.GET_PROJECTS_FAILURE, 'payload');
 
+/**
+ * @function
+ * @name getProjectStatusStart
+ * @param {Number} subProjectId
+ * @return {Object} action
+ * */
+export const getProjectStatusStart = makeActionCreator(types.GET_PROJECT_STATUS_START, 'payload');
+
+/**
+ * @function
+ * @name getProjectStatusSuccess
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const getProjectStatusSuccess = makeActionCreator(types.GET_PROJECT_STATUS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getProjectStatusFailure
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const getProjectStatusFailure = makeActionCreator(types.GET_PROJECT_STATUS_FAILURE, 'payload');
+

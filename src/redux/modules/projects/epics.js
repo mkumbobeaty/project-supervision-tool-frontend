@@ -252,6 +252,20 @@ const getProgressEpic = action$ => {
     )                                                                                                                                                                                                       
 }
 
+const projectStatusEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_PROJECT_STATUS_START),
+        switchMap((action) => {
+            return from(API.getProjectStatus(action.payload)).pipe(
+                switchMap(res => {
+                    return of(actions.getProjectStatusSuccess(res.data))
+                }),
+                catchError(error => of(actions.getProjectStatusFailure(error)))
+            );
+        }),
+    )
+};
+
 
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
@@ -269,6 +283,7 @@ export const projectsRootEpic = combineEpics(
     getEnvironmentalCategoriesEpic,
     getItemsEpic,
     getProgressEpic,
+    projectStatusEpic
     );
 
 
