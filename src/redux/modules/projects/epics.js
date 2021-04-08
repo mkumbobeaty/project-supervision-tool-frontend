@@ -266,19 +266,15 @@ const projectStatusEpic = action$ => {
     )
 };
 
-// const filterProjectsEpic = action$ => {
-//     return action$.pipe(
-//         ofType(types.FILTER_PROJECTS_START),
-//         switchMap((action) => {
-//             return from(API.getProject(action.payload)).pipe(
-//                 switchMap(res => {
-//                     return of(actions.filterProjectsSuccess(res.data))
-//                 }),
-//                 catchError(error => of(actions.filterProjectsFailure(error)))
-//             );
-//         }),
-//     )
-// };
+const filterProjectsEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_PROJECT_STATUS_FILTER),
+        switchMap((action) => {
+            console.log('ni state', state$.value.resources.filters);
+            return of(actions.getProjectsStart(state$.value.resources.filters))
+        }),
+    )
+};
 
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
@@ -297,7 +293,7 @@ export const projectsRootEpic = combineEpics(
     getItemsEpic,
     getProgressEpic,
     projectStatusEpic,
-    // filterProjectsEpic
+    filterProjectsEpic
     );
 
 
