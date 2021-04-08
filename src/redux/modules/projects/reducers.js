@@ -115,6 +115,12 @@ const Projects = (state = defaultProjects, action) => {
             return { ...state, project: action.payload };
         case types.DELETE_PROJECT_FAILURE:
             return action.payload;
+        case types.FILTER_PROJECTS_START:
+            return { ...state, loading: true };
+        case types.FILTER_PROJECTS_SUCCESS:
+            return { ...state, data: action.payload, loading: false }
+        case types.FILTER_PROJECTS_FAILURE:
+            return { ...state, error: action.message, loading: false, };
         default:
             return state;
     }
@@ -289,7 +295,7 @@ const progress = (state = { data: [], error: null, loading: false }, action) => 
     }
 };
 
-const progectStatus= (state = { data: [], error: null, loading: false }, action) => {
+const progectStatus = (state = { data: [], error: null, loading: false }, action) => {
     switch (action.type) {
         case types.GET_PROJECT_STATUS_START:
             return { ...state, loading: true }

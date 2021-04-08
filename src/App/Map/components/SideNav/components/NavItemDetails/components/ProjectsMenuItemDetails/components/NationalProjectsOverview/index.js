@@ -17,7 +17,6 @@ function NationalProjectsOverview(
     {
         projectsStatistics,
         getProjectsOverview,
-        projectsCountByRegion,
         getProjectsByRegion,
         loadingStatistics,
         projects,
@@ -25,7 +24,8 @@ function NationalProjectsOverview(
         getProjectStatus,
         statuses,
         getRegions,
-        regions
+        regions,
+        getFilteredProjects
     }
 ) {
 
@@ -56,11 +56,6 @@ function NationalProjectsOverview(
     const handleOnClickFilterItem = (id) => getProjectsByRegion(id);
 
 
-    // const statuses = [
-    //     {title: 'Active', value: 'Active', id: 1},
-    //     {title: 'Closed', value: 'Closed', id: 1},
-    //     {title: 'Dropped', value: 'Dropped', id: 1}
-    // ]
     return (
         <div>
             <SideNavItemOverview
@@ -68,7 +63,7 @@ function NationalProjectsOverview(
                 loadingStatistics={loadingStatistics}
                 overViewData={overViewData}
             />
-            <ProjectStatusFilter statuses={statuses} />
+            <ProjectStatusFilter statuses={statuses} filterProjectsbyStatus={getFilteredProjects}/>
             <ProjectsFilter projects={projects}/>
             <RegionsFilter regions={regions}/>
         </div>

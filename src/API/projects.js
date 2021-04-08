@@ -26,6 +26,15 @@ const getProjects = (params={}) => {
 
 
 /**
+ * Fetch all projects from API
+ *
+ */
+const getFilteredProjects = (params={}) => {
+    return axios.get(`/projects`, {params:{filter:[params]}}).then((response) => response.data);
+}
+
+
+/**
  * edit existing human resources
  *
  * @function
@@ -126,5 +135,6 @@ export default {
     getCurrencies,
     postTotalCost,
     createProjectDetails,
-    getProjectStatus
+    getProjectStatus,
+    getFilteredProjects
 }

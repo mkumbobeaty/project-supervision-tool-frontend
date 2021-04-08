@@ -507,3 +507,26 @@ export const getProjectStatusSuccess = makeActionCreator(types.GET_PROJECT_STATU
  * */
 export const getProjectStatusFailure = makeActionCreator(types.GET_PROJECT_STATUS_FAILURE, 'payload');
 
+/**
+ * @function
+ * @name filterProjectsStart
+ * @param {Number} subProjectId
+ * @return {Object} action
+ * */
+export const filterProjectsStart = makeActionCreator(types.FILTER_PROJECTS_START, 'payload');
+
+/**
+ * @function
+ * @name filterProjectsSuccess
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const filterProjectsSuccess = makeActionCreator(types.FILTER_PROJECTS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name filterProjectsFailure
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const filterProjectsFailure = makeActionCreator(types.FILTER_PROJECTS_FAILURE, 'payload');
