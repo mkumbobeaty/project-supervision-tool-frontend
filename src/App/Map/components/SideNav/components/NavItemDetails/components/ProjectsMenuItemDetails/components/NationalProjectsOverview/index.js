@@ -6,6 +6,7 @@ import './styles.css';
 import ProjectsFilter from "../ProjectsFilter";
 import RegionsFilter from "../RegionsFilter";
 import ProjectStatusFilter from "../ProjectStatusFilter";
+import { getRegionsFailure } from "../../../../../../../../../../redux/modules/projects/actions";
 
 /**
  * @function
@@ -21,7 +22,10 @@ function NationalProjectsOverview(
         loadingStatistics,
         projects,
         getProjects,
-        getSectors,
+        getProjectStatus,
+        statuses,
+        getRegions,
+        regions
     }
 ) {
 
@@ -30,7 +34,8 @@ function NationalProjectsOverview(
     useEffect(() => {
         getProjectsOverview();
         getProjects();
-        getSectors();
+        getProjectStatus();
+        getRegions();
     }, []);
 
     // generate project commitment amount string
@@ -51,11 +56,11 @@ function NationalProjectsOverview(
     const handleOnClickFilterItem = (id) => getProjectsByRegion(id);
 
 
-    const statuses = [
-        {title: 'Active', value: 'Active', id: 1},
-        {title: 'Closed', value: 'Closed', id: 1},
-        {title: 'Dropped', value: 'Dropped', id: 1}
-    ]
+    // const statuses = [
+    //     {title: 'Active', value: 'Active', id: 1},
+    //     {title: 'Closed', value: 'Closed', id: 1},
+    //     {title: 'Dropped', value: 'Dropped', id: 1}
+    // ]
     return (
         <div>
             <SideNavItemOverview
@@ -65,9 +70,10 @@ function NationalProjectsOverview(
             />
             <ProjectStatusFilter statuses={statuses} />
             <ProjectsFilter projects={projects}/>
-            <RegionsFilter regions={projectsCountByRegion}/>
+            <RegionsFilter regions={regions}/>
         </div>
     );
+
 
 }
 

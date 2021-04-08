@@ -201,4 +201,4 @@ export const selectedProject = (state) => state?.resources?.selectedProject
  * @param {Object} state redux state
  * @return {Object} progress
  */
-export const getProjectStatusSelector = (state) => state?.resources?.projectStatus?.data;
+export const getProjectStatusSelector = (state) => state?.resources?.progectStatus?.data;

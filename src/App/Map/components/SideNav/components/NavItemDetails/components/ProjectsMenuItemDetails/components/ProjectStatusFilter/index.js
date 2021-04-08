@@ -4,9 +4,19 @@ import CheckBoxGroupFilter from "../../../../../../../../../components/CheckBoxG
 
 const ProjectStatusFilter = ({statuses}) => {
 
+const getFilterData = (items) => items.map(({name, description, id}) => ({
+        title: description,
+        value: name,
+        id
+    }));
+
+const statusFilter = statuses.length > 0 ? getFilterData(statuses) : []
+
+console.log(statusFilter);
+
     return (
         <CheckBoxGroupFilter
-            items={statuses}
+            items={statusFilter}
             itemsPerPage={5}
             filterTitle={`Status`}
         />
