@@ -25,7 +25,9 @@ function NationalProjectsOverview(
         statuses,
         getRegions,
         regions,
-        getFilteredProjects
+        setProjectStatusFilter,
+        setProjectIdFilter,
+        setProjectRegionsFilter
     }
 ) {
 
@@ -50,11 +52,9 @@ function NationalProjectsOverview(
     const commitmentAmount = projectsStatistics?.commitment_amount ? getCommitmentAmount(projectsStatistics) : '';
     const overViewData = projectsStatistics ? [
         { title: 'Projects', value: projectsStatistics.projects, },
-        { title: 'Sub Projects', value: 24 },
+        { title: 'Sub Projects', value: projectsStatistics.sub_projects },
         { title: 'Regions', value: projectsStatistics.regions },
     ] : [];
-    const handleOnClickFilterItem = (id) => getProjectsByRegion(id);
-
 
     return (
         <div>
@@ -63,9 +63,9 @@ function NationalProjectsOverview(
                 loadingStatistics={loadingStatistics}
                 overViewData={overViewData}
             />
-            <ProjectStatusFilter statuses={statuses} filterProjectsbyStatus={getFilteredProjects}/>
-            <ProjectsFilter projects={projects}/>
-            <RegionsFilter regions={regions}/>
+            <ProjectStatusFilter statuses={statuses} setProjectStatusFilter={setProjectStatusFilter}/>
+            <ProjectsFilter projects={projects} setProjectIdFilter={setProjectIdFilter} />
+            <RegionsFilter regions={regions} setProjectRegionsFilter={setProjectRegionsFilter} />
         </div>
     );
 

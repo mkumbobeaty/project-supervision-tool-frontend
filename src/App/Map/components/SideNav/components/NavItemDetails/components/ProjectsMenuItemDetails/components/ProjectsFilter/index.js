@@ -1,34 +1,54 @@
-import React from "react";
+import React, {useEffect, useState}from "react";
 import PropTypes from 'prop-types';
 import CheckBoxGroupFilter from "../../../../../../../../../components/CheckBoxGroupFilter";
 
-const prepareFilterItems = (items) => items.map(({name, id,}) => ({
+const prepareFilterItems = (items) => items.map(({ name, id, }) => ({
     title: name,
     value: name,
     id
 }));
 
-const ProjectsFilter = ({projects}) => {
+const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
 
     const projectsFilterData = projects.length > 0 ? prepareFilterItems(projects) : [];
+   
+    const [projectsIds, setProjectId] = useState([]);
 
-    // const status = [
-    //     {title: 'Active', value: 'Active', id: 1},
-    //     {title: 'Closed', value: 'Closed', id: 1},
-    //     {title: 'Dropped', value: 'Dropped', id: 1}
-    // ]
+    useEffect(() => {
+        setProjectIdFilter(projectsIds.join(','));
+    }, [projectsIds]);
+
+
+    const handleOnclickFilterItem = (project_id) => {
+        if (projectsIds.includes(project_id)) {
+            const filterUncheckedItem = projectsIds.filter((i) => i !== project_id);
+            setProjectId(filterUncheckedItem);
+        }
+        else {
+            setProjectId([...projectsIds, project_id]);
+        }
+    
+     }
 
     return (
         <CheckBoxGroupFilter
             items={projectsFilterData}
             itemsPerPage={5}
             filterTitle={`Projects`}
+            handleFilter={handleOnclickFilterItem}
+            projectFilterClass="projectFilter"
         />
-        )
+    )
 }
 
 export default ProjectsFilter;
 
 ProjectsFilter.propTypes = {
-    projects: PropTypes.array.isRequired
+    projects: PropTypes.array.isRequired,
+    handleOnclickFilterItem:PropTypes.func.isRequired
+
+}
+ProjectsFilter.defaultProps = {
+    handleOnclickFilterItem: () => {
+    },
 }

@@ -9,7 +9,7 @@ import './styles.css';
  * @name CheckBoxGroupFilter
  * @description renders checkbox filters
  */
-function CheckBoxGroupFilter({handleOnclickFilterItem, filterTitle, itemsPerPage, items}) {
+function CheckBoxGroupFilter({handleFilter, filterTitle, itemsPerPage, items, projectFilterClass}) {
     const [itemsToShow, setItemsToShow] = useState([]);
     const [next, setNext] = useState(itemsPerPage);
 
@@ -18,14 +18,11 @@ function CheckBoxGroupFilter({handleOnclickFilterItem, filterTitle, itemsPerPage
         setItemsToShow(slicedItems);
     };
 
-    function onChange(e) {
-        console.log(`checked = ${e.target.checked}`);
-    }
 
     const renderFilterItems = items => items.map(({title, value, id, total_count}, i) => {
         return (
-            <div className='projectFilter' onClick={() => handleOnclickFilterItem(id)}>
-                <Checkbox onChange={onChange} title={title} key={i} >{value} </Checkbox><span>{total_count}</span>
+            <div className={projectFilterClass}>
+                <Checkbox onClick={() => handleFilter(id)} title={title} key={i} >{value} </Checkbox><span>{total_count}</span>
             </div>
 
         )
@@ -45,8 +42,7 @@ function CheckBoxGroupFilter({handleOnclickFilterItem, filterTitle, itemsPerPage
     return items.length > 0 ? (
         <div className='CheckBoxGroupFilter'>
             <h4>{filterTitle}</h4>
-            <hr/>
-            <section>
+            <section className="CheckBoxFilter">
                 {renderFilterItems(itemsToShow)}
                 {showLoadMore(itemsToShow, items) ? '' :
                     <span className="LoadMore" onClick={handleShowMoreItems}>Load more</span>}
@@ -63,11 +59,11 @@ CheckBoxGroupFilter.propTypes = {
     items: PropTypes.array.isRequired,
     itemsPerPage: PropTypes.number.isRequired,
     filterTitle: PropTypes.string.isRequired,
-    handleOnclickFilterItem: PropTypes.func.isRequired,
+    handleFilter: PropTypes.func.isRequired,
 }
 
 CheckBoxGroupFilter.defaultProps = {
-    handleOnclickFilterItem: () => {
+    handleFilter: () => {
     },
     config: null,
 }

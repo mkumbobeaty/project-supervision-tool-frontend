@@ -7,11 +7,11 @@
     height: 93vh;
     z-index: 1000;
     background: #ffffff;
-    border-top: 4px solid #2d98d4;
+    border-top: 2px solid #0f6788;
 }
 
 .SideNav .nav-items-list {
-    background: #2d98d4;
+    background: #0f6788;
 }
 
 hr {

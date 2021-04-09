@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './styles.css'
 import ProjectsMenuItemDetails from './components/ProjectsMenuItemDetails';
 import SubProjectsMenuItemDetails from './components/SubProjectsMenuItemDetails';
 import DataSetsMenuItemDetails from "./components/DataSetsMenuItemDetails";
+import './styles.css'
 
 
-function NavItemDetails({activeItem}) {
+function NavItemDetails({ activeItem }) {
     return (
         <div
-            style={activeItem === '' ? {display: 'none'} : {width: '20vw'}}
+            style={activeItem === '' ? { display: 'none' } : { width: '20vw' }}
             className='NavItemDetails'
         >
-            {activeItem === 'projects' ? <ProjectsMenuItemDetails/> : ''}
-            {activeItem === 'sub-projects' ? <SubProjectsMenuItemDetails/> : ''}
-            {activeItem === 'data-sets' ? <DataSetsMenuItemDetails/> : ''}
+            {/* {activeItem === 'home' ? <Link to='/app' >Home</Link> : ''} */}
+            {activeItem === 'projects' ? <ProjectsMenuItemDetails /> : ''}
+            {activeItem === 'map-layers' ? <DataSetsMenuItemDetails /> : ''}
         </div>
     );
 }

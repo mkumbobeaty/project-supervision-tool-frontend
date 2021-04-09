@@ -60,7 +60,7 @@ export const getSubProjectsOverviewSelector = (state) => state.map.subProjects.s
 
 /**
  * @function
- * @name getMapLoadingSelector
+ * @name getSubProjectMapLoadingSelector
  * @param {Object} state redux state
  */
 export const getSubProjectMapLoadingSelector = (state) => state?.map?.subProjects.mapLoading;

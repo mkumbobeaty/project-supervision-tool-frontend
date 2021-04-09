@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import CheckBoxGroupFilter from "../../../../../../../../../components/CheckBoxGroupFilter";
 
@@ -9,7 +9,24 @@ const prepareFilterItems = (items) => items.map(({ name, id, projects_count }) =
     id
 }));
 
-const RegionsFilter = ({regions}) => {
+const RegionsFilter = ({ regions, setProjectRegionsFilter }) => {
+
+
+    const [regionsIds, setRegionId] = useState([]);
+    useEffect(() => {
+        setProjectRegionsFilter(regionsIds.join(','));
+    }, [regionsIds]);
+
+    const handleOnclickFilterItem = (status_id) => {
+        if (regionsIds.includes(status_id)) {
+            const filterUncheckedItem = regionsIds.filter((i) => i !== status_id);
+            setRegionId(filterUncheckedItem);
+        }
+        else {
+            setRegionId([...regionsIds, status_id]);
+        }
+
+    }
 
     const regionsFilterData = regions.length > 0 ? prepareFilterItems(regions) : [];
 
@@ -18,6 +35,7 @@ const RegionsFilter = ({regions}) => {
             items={regionsFilterData}
             itemsPerPage={5}
             filterTitle={`Regions`}
+            handleFilter={handleOnclickFilterItem}
         />
     )
 }

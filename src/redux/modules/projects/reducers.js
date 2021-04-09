@@ -22,12 +22,38 @@ const defaultSubProjects = {
     sub_project: {}
 };
 
+const projectFilter = {
+    'filter[id]': '',
+    'filter[project_status_id]': '',
+    'filter[regions.id]': '',
+};
+
+
+/**
+ * @function
+ * @name filters
+ * @description reducer that manages project filter state
+ */
+const filters = (state = projectFilter, action) => {
+    switch (action.type) {
+        case types.SET_PROJECT_STATUS_FILTER:
+            return { ...state, 'filter[project_status_id]': action.payload  };
+        case types.SET_PROJECT_ID_FILTER:
+            return { ...state, 'filter[id]': action.payload  };
+        case types.SET_PROJECT_REGIONS_FILTER:
+            return { ...state, 'filter[regions.id]': action.payload  };
+        default:
+            return state;
+    }
+};
+
+
 /**
  * @function
  * @name regions
  * @description reducer that manages regions state
  */
-const regions = (state = [], action) => {
+const regions = (state = projectFilter, action) => {
     switch (action.type) {
         case types.GET_REGIONS_START:
             return state;
@@ -39,6 +65,9 @@ const regions = (state = [], action) => {
             return state;
     }
 };
+
+
+
 
 
 /**
@@ -115,12 +144,6 @@ const Projects = (state = defaultProjects, action) => {
             return { ...state, project: action.payload };
         case types.DELETE_PROJECT_FAILURE:
             return action.payload;
-        case types.FILTER_PROJECTS_START:
-            return { ...state, loading: true };
-        case types.FILTER_PROJECTS_SUCCESS:
-            return { ...state, data: action.payload, loading: false }
-        case types.FILTER_PROJECTS_FAILURE:
-            return { ...state, error: action.message, loading: false, };
         default:
             return state;
     }
@@ -295,7 +318,7 @@ const progress = (state = { data: [], error: null, loading: false }, action) => 
     }
 };
 
-const progectStatus = (state = { data: [], error: null, loading: false }, action) => {
+const projectStatus = (state = { data: [], error: null, loading: false }, action) => {
     switch (action.type) {
         case types.GET_PROJECT_STATUS_START:
             return { ...state, loading: true }
@@ -308,29 +331,18 @@ const progectStatus = (state = { data: [], error: null, loading: false }, action
     }
 };
 
-// /**
-//  * @function
-//  * @name uploadPhoto
-//  * @description reducer that manages sub project instance
-//  * @param {Object} state
-//  * @param {Object} action
-//  * @return {Object} updated state
-//  * 
-//  */
-// const uploadPhoto = (state = {}, action) => {
-//     switch (action.type) {
-//         case types.CREATE_SUB_PROJECT_START:
-//             return true;
-//         case types.CREATE_SUB_PROJECT_SUCCESS:
-//             return false;
-//         case types.CREATE_SUB_PROJECT_FAILURE:
-//             return false;
-//         default:
-//             return state;
-//     }
-// };
-
-
+const projectsFilter = (state = { data: [], error: null, loading: false }, action) => {
+    switch (action.type) {
+        case types.GET_PROJECTS_FILTER_START:
+            return { ...state, loading: true }
+        case types.GET_PROJECTS_FILTER_SUCCESS:
+            return { ...state, data: action.payload, loading: false, }
+        case types.GET_PROJECTS_FILTER_FAILURE:
+            return { ...state, error: action.message, loading: false };
+        default:
+            return state;
+    }
+};
 export const resources = combineReducers({
     selectedProject,
     Projects,
@@ -345,5 +357,7 @@ export const resources = combineReducers({
     environmentalCategories,
     items,
     progress,
-    progectStatus
+    filters,
+    projectStatus,
+    projectsFilter
 })

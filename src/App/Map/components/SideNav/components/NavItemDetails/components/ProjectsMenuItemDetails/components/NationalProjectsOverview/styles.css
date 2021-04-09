@@ -1,0 +1,37 @@
+.projectFilter {
+    padding-top: 10px;
+}
+.projectFilter:last-child {
+    margin-bottom: 20px;
+}
+.projectFilter span {
+    text-decoration: underline;
+}
+
+.projectFilter label {
+    text-overflow: ellipsis;
+    display: inline-block;
+    overflow: hidden;
+    width: 330px;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.ProjectsOverviewFilter .status {
+    padding: 10px;
+}
+
+.ProjectsFilter h4 {
+    padding: 0 10px;
+}
+
+.LoadMore {
+    color: #0f6788;
+    font-size: 15px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.statusFilter {
+    display: inline-block;
+}
