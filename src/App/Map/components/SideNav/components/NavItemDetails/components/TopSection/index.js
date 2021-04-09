@@ -27,9 +27,10 @@ export default TopSection;
 
 TopSection.propTypes = {
     title: PropTypes.string,
-    searchPlaceHolder: PropTypes.string.isRequired
+    searchPlaceHolder: PropTypes.string
 }
 
 TopSection.defaultProps = {
-    title: ''
+    title: '',
+    searchPlaceHolder: '',
 }

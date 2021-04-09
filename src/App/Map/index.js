@@ -6,11 +6,10 @@ import L from 'leaflet';
 import BaseMap from "./BaseMap";
 import { bindActionCreators } from "redux";
 import { mapActions, mapSelectors } from "../../redux/modules/map";
-import { projectSelectors } from '../../redux/modules/projects'
 import SideNav from "./components/SideNav";
 import ProjectPoints from "./components/ProjectPoints";
 import { mapProjectSelectors } from "../../redux/modules/map/projects";
-import { mapSubProjectActions, mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
+import {  mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
 import "./styles.css";
 
 class MapDashboard extends Component {
@@ -22,25 +21,14 @@ class MapDashboard extends Component {
 
     static propTypes = {
         mapLoading: PropTypes.bool.isRequired,
-        getProjectsByRegion: PropTypes.func.isRequired,
-        regionDetails: PropTypes.object,
         projectsOverview: PropTypes.array.isRequired,
-        regionProjects: PropTypes.array.isRequired,
         getWfsLayerData: PropTypes.func.isRequired,
         project: PropTypes.object,
-        subProject: PropTypes.object,
-        subProjectElement: PropTypes.object,
     };
 
     static defaultProps = {
         projectsOverview: [],
         project: null,
-        subProject: null,
-        subProjectElement: null,
-        regionProjects: [],
-        regionDetails: null,
-        getProjectsByRegion: () => {
-        },
     };
 
     constructor(props) {
@@ -108,24 +96,15 @@ class MapDashboard extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    mapLoading: projectSelectors.getProjectsLoadingSelector(state),
-    regionProjects: mapSelectors.getRegionProjectsSelector(state),
-    regionDetails: mapSelectors.getRegionDetailsSelector(state),
+    mapLoading: mapProjectSelectors.getProjectLoadingSelector(state),
     projectsOverview: mapSelectors.getProjectsOverview(state),
-    subProject: mapSubProjectSelectors.getSubProjectSelector(state),
-    subProjectElement: projectSelectors.getSubProjectElementSelector(state),
-    project: mapProjectSelectors.getProjectSelector(state),
-    projects: projectSelectors.getProjectsSelector(state),
+    projects: mapProjectSelectors.getProjectsSelector(state),
     wfsLayerData: mapSelectors.getWfsLayerDataSelector(state),
-    subProjectsOverview: mapSubProjectSelectors.getSubProjectsOverviewSelector(state),
     loading: mapSubProjectSelectors.getSubProjectMapLoadingSelector(state),
-    isShowSubProjectOverview: mapSubProjectSelectors.showSubProjectOverview(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
     getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
-    getSubProjectsByRegion: bindActionCreators(mapSubProjectActions.getSubProjectsByRegionStart, dispatch),
 
 });
 

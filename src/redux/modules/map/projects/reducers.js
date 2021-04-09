@@ -20,7 +20,24 @@ const selected = (state = selectedInitialState, action) => {
     }
 }
 
+const all = (state = selectedInitialState, action) => {
+    switch (action.type) {
+        case types.GET_PROJECTS_START:
+            return { ...state, loading: true }
+        case types.GET_PROJECTS_SUCCESS:
+            return { ...state, data: action.payload, loading: false }
+        case types.CLEAR_PROJECTS:
+            return { ...state, data: null }
+        case types.GET_PROJECTS_FAILURE:
+            return { ...state, error: action.payload, loading: false }
+        default:
+            return state;
+
+    }
+}
+
 
 export const projects = combineReducers({
- selected
+ selected,
+ all,
 })
