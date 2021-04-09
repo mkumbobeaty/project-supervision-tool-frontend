@@ -8,7 +8,7 @@ const prepareFilterItems = (items) => items.map(({ name, id, }) => ({
     id
 }));
 
-const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
+const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects, getProject }) => {
 
     const projectsFilterData = projects.length > 0 ? prepareFilterItems(projects) : [];
    
@@ -17,6 +17,12 @@ const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
     useEffect(() => {
         setProjectIdFilter(projectsIds.join(','));
     }, [projectsIds]);
+
+    const handleOnClickFilterValue = (value) => {
+        getSubProjects();
+        getProject(value);
+    };
+
 
 
     const handleOnclickFilterItem = (project_id) => {
@@ -27,7 +33,6 @@ const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
         else {
             setProjectId([...projectsIds, project_id]);
         }
-    
      }
 
     return (
@@ -35,8 +40,9 @@ const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
             items={projectsFilterData}
             itemsPerPage={5}
             filterTitle={`Projects`}
+            handleOnClickFilterValue={handleOnClickFilterValue}
             handleFilter={handleOnclickFilterItem}
-            projectFilterClass="projectFilter"
+            // filterClass="projectFilter"
         />
     )
 }
@@ -45,7 +51,8 @@ export default ProjectsFilter;
 
 ProjectsFilter.propTypes = {
     projects: PropTypes.array.isRequired,
-    handleOnclickFilterItem:PropTypes.func.isRequired
+    handleOnclickFilterItem:PropTypes.func.isRequired,
+    getProject:PropTypes.func.isRequired,
 
 }
 ProjectsFilter.defaultProps = {

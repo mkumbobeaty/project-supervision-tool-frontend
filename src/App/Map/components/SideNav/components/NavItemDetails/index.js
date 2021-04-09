@@ -12,7 +12,6 @@ function NavItemDetails({ activeItem }) {
             style={activeItem === '' ? { display: 'none' } : { width: '20vw' }}
             className='NavItemDetails'
         >
-            {/* {activeItem === 'home' ? <Link to='/app' >Home</Link> : ''} */}
             {activeItem === 'projects' ? <ProjectsMenuItemDetails /> : ''}
             {activeItem === 'map-layers' ? <DataSetsMenuItemDetails /> : ''}
         </div>
