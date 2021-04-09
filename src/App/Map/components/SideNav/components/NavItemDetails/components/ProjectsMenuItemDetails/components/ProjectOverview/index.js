@@ -46,7 +46,7 @@ function ProjectsOverview(
 ) {
     return (
         <>
-            <TopSection title="PROJECTS OVERVIEW"/>
+            <TopSection title="OVERVIEWS"/>
             {showNationalOverview ? <NationalProjectsOverview
                 getProjectsOverview={getProjectsOverview}
                 projectsStatistics={projectsStatistics}

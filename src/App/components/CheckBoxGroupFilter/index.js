@@ -42,8 +42,7 @@ function CheckBoxGroupFilter({handleFilter, filterTitle, itemsPerPage, items, pr
     return items.length > 0 ? (
         <div className='CheckBoxGroupFilter'>
             <h4>{filterTitle}</h4>
-            <hr/>
-            <section>
+            <section className="CheckBoxFilter">
                 {renderFilterItems(itemsToShow)}
                 {showLoadMore(itemsToShow, items) ? '' :
                     <span className="LoadMore" onClick={handleShowMoreItems}>Load more</span>}
