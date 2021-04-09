@@ -1,16 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ProjectsTopSection from "../ProjectsTopSection";
-import NationalProjectsOverview from "../NationalProjectsOverview";
-import RegionalProjectsOverview from "../RegionalProjectsOverview";
 import {mapActions, mapSelectors} from "../../../../../../../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
 import {projectActions, projectSelectors} from "../../../../../../../../../../redux/modules/projects";
 import {mapProjectActions} from "../../../../../../../../../../redux/modules/map/projects";
 import TopSection from "../../../TopSection";
-import projects from "../../../../../../../../../../API/projects";
-import { projectSectorsActions, projectSectorsSelectors } from "../../../../../../../../../Projects/components/ProjectsSectors/duck";
+import SideNavItemOverview from "../SideNavItemOverview";
+import ProjectStatusFilter from "../ProjectStatusFilter";
+import ProjectsFilter from "../ProjectsFilter";
+import RegionsFilter from "../RegionsFilter";
 
 /**
  * @function
@@ -21,19 +20,7 @@ function ProjectsOverview(
     {
         projectsStatistics,
         getProjectsOverview,
-        projectsCountByRegion,
-        getProjectsByRegion,
-        showRegionalOverview,
-        showNationalOverview,
-        regionProjectStatistics,
-        regionProjects,
-        getProject,
-        setShowNationalOverview,
-        setShowRegionalOverview,
-        clearRegionalProjects,
-        region,
         loadingStatistics,
-        showRegionalOverviewLoader,
         projects,
         getProjects,
         statuses,
@@ -45,35 +32,41 @@ function ProjectsOverview(
         setProjectRegionsFilter
     }
 ) {
+
+    // get project overview when
+    // a  component has mounted
+    useEffect(() => {
+        getProjectsOverview();
+        getProjects();
+        getProjectStatus();
+        getRegions();
+    }, []);
+
+    const overViewData = projectsStatistics ? [
+        { title: 'Projects', value: projectsStatistics.projects, },
+        { title: 'Sub Projects', value: projectsStatistics.sub_projects },
+        { title: 'Regions', value: projectsStatistics.regions },
+    ] : [];
+
     return (
         <>
             <TopSection title="OVERVIEWS"/>
-            {showNationalOverview ? <NationalProjectsOverview
-                getProjectsOverview={getProjectsOverview}
-                projectsStatistics={projectsStatistics}
-                projectsCountByRegion={projectsCountByRegion}
-                getProjectsByRegion={getProjectsByRegion}
+            <SideNavItemOverview
+                overViewData={overViewData}
                 loadingStatistics={loadingStatistics}
-                getProjects={getProjects}
-                projects={projects}
+            />
+            <ProjectStatusFilter
                 statuses={statuses}
-                getProjectStatus={getProjectStatus}
-                getRegions={getRegions}
-                regions={regions}
                 setProjectStatusFilter={setProjectStatusFilter}
+            />
+            <ProjectsFilter
+                projects={projects}
                 setProjectIdFilter={setProjectIdFilter}
+            />
+            <RegionsFilter
+                regions={regions}
                 setProjectRegionsFilter={setProjectRegionsFilter}
-            /> : ''}
-            {showRegionalOverview ? <RegionalProjectsOverview
-                regionProjectStatistics={regionProjectStatistics}
-                showRegionalOverviewLoader={showRegionalOverviewLoader}
-                regionProjects={regionProjects}
-                getProject={getProject}
-                region={region}
-                setShowNationalOverview={setShowNationalOverview}
-                setShowRegionalOverview={setShowRegionalOverview}
-                clearRegionalProjects={clearRegionalProjects}
-            /> : ''}
+            />
 
         </>
     );

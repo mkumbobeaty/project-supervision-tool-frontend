@@ -9,7 +9,7 @@ import './styles.css';
  * @name CheckBoxGroupFilter
  * @description renders checkbox filters
  */
-function CheckBoxGroupFilter({handleFilter, filterTitle, itemsPerPage, items, projectFilterClass}) {
+function CheckBoxGroupFilter({handleFilter, filterTitle, itemsPerPage, items, filterClass, handleOnClickFilterValue}) {
     const [itemsToShow, setItemsToShow] = useState([]);
     const [next, setNext] = useState(itemsPerPage);
 
@@ -21,10 +21,10 @@ function CheckBoxGroupFilter({handleFilter, filterTitle, itemsPerPage, items, pr
 
     const renderFilterItems = items => items.map(({title, value, id, total_count}, i) => {
         return (
-            <div className={projectFilterClass}>
-                <Checkbox onClick={() => handleFilter(id)} title={title} key={i} >{value} </Checkbox><span>{total_count}</span>
+            <div className={filterClass}>
+                <div><Checkbox onClick={() => handleFilter(id)} title={title} key={i} /> <span onClick={handleOnClickFilterValue}>{value}</span> </div>
+                <span>{total_count}</span>
             </div>
-
         )
     });
 
@@ -59,11 +59,15 @@ CheckBoxGroupFilter.propTypes = {
     items: PropTypes.array.isRequired,
     itemsPerPage: PropTypes.number.isRequired,
     filterTitle: PropTypes.string.isRequired,
+    filterClass: PropTypes.string,
     handleFilter: PropTypes.func.isRequired,
+    handleOnClickFilterValue: PropTypes.func,
 }
 
 CheckBoxGroupFilter.defaultProps = {
     handleFilter: () => {
     },
     config: null,
+    filterClass: '',
+    handleOnClickFilterValue: () => {},
 }

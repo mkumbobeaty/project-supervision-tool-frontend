@@ -36,7 +36,7 @@ const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
             itemsPerPage={5}
             filterTitle={`Projects`}
             handleFilter={handleOnclickFilterItem}
-            projectFilterClass="projectFilter"
+            // filterClass="projectFilter"
         />
     )
 }

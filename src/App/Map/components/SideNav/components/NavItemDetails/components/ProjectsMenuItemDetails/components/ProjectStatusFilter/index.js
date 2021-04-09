@@ -36,7 +36,7 @@ const statusFilter = statuses.length > 0 ? getFilterData(statuses) : []
             itemsPerPage={5}
             filterTitle={`Status`}
             handleFilter={handleOnclickFilterItem}
-            projectFilterClass="statusFilter"
+            filterClass="statusFilter"
 
         />
     )
