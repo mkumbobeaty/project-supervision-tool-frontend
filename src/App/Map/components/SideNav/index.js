@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
-import Axios from "axios";
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
-import './styles.css';
 import SideNavItem from "./components/SideNavItem";
 import humanResourceImg from '../../../../assets/icons/human-resources-zero-opacity.svg'
 import whiteHhumanResourceImg from '../../../../assets/icons/white-human-resources.svg'
+import whiteIcon from "../../../../assets/icons/white-initiative.svg"
 import NavItemDetails from "./components/NavItemDetails";
 import {mapActions, mapSelectors} from "../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
+import { Link } from 'react-router-dom';
+import './styles.css';
 
 class SideNav extends Component {
 
@@ -30,6 +31,16 @@ class SideNav extends Component {
         return (
             <div className='SideNav'>
                 <div className='nav-items-list'>
+                <Link to='/app' >
+                <SideNavItem
+                        activeThumbnail={humanResourceImg}
+                        inactiveThumbnail={whiteIcon}
+                        itemId='projects'
+                        activeItem='home'
+                        setActiveItem={setActiveMapSideMenuItem}
+                    />
+                </Link>
+                
                     <SideNavItem
                         title="Projects"
                         activeThumbnail={humanResourceImg}
@@ -40,19 +51,10 @@ class SideNav extends Component {
                     />
 
                     <SideNavItem
-                        title="Sub Projects"
+                        title="Map Layers"
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteHhumanResourceImg}
-                        itemId='sub-projects'
-                        activeItem={activeItem}
-                        setActiveItem={setActiveMapSideMenuItem}
-                    />
-
-                    <SideNavItem
-                        title="Data Sets"
-                        activeThumbnail={humanResourceImg}
-                        inactiveThumbnail={whiteHhumanResourceImg}
-                        itemId='data-sets'
+                        itemId='map-layers'
                         activeItem={activeItem}
                         setActiveItem={setActiveMapSideMenuItem}
                         getOverview={() => {
