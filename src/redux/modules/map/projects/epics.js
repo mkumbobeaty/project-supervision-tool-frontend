@@ -1,7 +1,7 @@
 import {combineEpics, ofType} from "redux-observable";
 import * as types from "./types";
 import {catchError, switchMap} from "rxjs/operators";
-import {from} from "rxjs";
+import {from, of} from "rxjs";
 import API from "../../../../API";
 import * as actions from "./actions";
 import {mapActions} from '../index'
@@ -26,6 +26,20 @@ export const getProjectMapEpic = action$ => {
     );
 }
 
+export const projectsListMapEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_PROJECTS_START),
+        switchMap((action) => {
+            return from(API.getProjects(action.payload)).pipe(
+                switchMap(res => {
+                    return of(actions.getProjectsSuccess(res.data))
+                }),
+                catchError(error => of(actions.getProjectsFailure(error)))
+            );
+        }),
+    )
+};
+
 export const showProjectDetailsEpic = action$ => {
     return action$.pipe(
         ofType(mapSubProjectTypes.GET_SUB_PROJECTS_START),
@@ -42,4 +56,5 @@ export const showProjectDetailsEpic = action$ => {
 export const mapProjectEpics = combineEpics(
     getProjectMapEpic,
     showProjectDetailsEpic,
+    projectsListMapEpic,
 );

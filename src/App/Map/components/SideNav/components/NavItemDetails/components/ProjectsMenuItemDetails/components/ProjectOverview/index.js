@@ -31,6 +31,7 @@ function ProjectsOverview(
         setProjectStatusFilter,
         setProjectIdFilter,
         getSubProjects,
+        getProjectsFilters,
         setProjectRegionsFilter
     }
 ) {
@@ -40,6 +41,7 @@ function ProjectsOverview(
     useEffect(() => {
         getProjectsOverview();
         getProjects();
+        getProjectsFilters();
         getProjectStatus();
         getRegions();
     }, []);
@@ -87,14 +89,14 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => ({
     getProjectsOverview: bindActionCreators(mapActions.getProjectStatisticsStart, dispatch),
     getProject: bindActionCreators(mapProjectActions.getProjectStart, dispatch),
-    getProjects:bindActionCreators(projectActions.getProjectFilterStart, dispatch),
+    getProjects:bindActionCreators(mapProjectActions.getProjectsStart, dispatch),
+    getProjectsFilters:bindActionCreators(projectActions.getProjectFilterStart, dispatch),
     getProjectStatus: bindActionCreators(projectActions.getProjectStatusStart, dispatch),
     getRegions: bindActionCreators(projectActions.getRegionsStart, dispatch),
     setProjectStatusFilter:bindActionCreators(projectActions.setProjectStatusFilter, dispatch),
     setProjectIdFilter:bindActionCreators(projectActions.setProjectIdFilter, dispatch),
     setProjectRegionsFilter:bindActionCreators(projectActions.setProjectRegionsFilter, dispatch),
     getSubProjects:bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
-
 });
 
 
