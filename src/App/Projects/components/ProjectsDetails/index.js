@@ -11,6 +11,7 @@ import ProjectsProgress from "./Progress";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
 import "./styles.css";
 import DetailsSection from "./DetailsSection";
+import ProjectPoints from "../../../Map/components/ProjectPoints";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -86,7 +87,7 @@ class Project extends Component {
                           <Spin spinning={mapLoading} tip="Loading data...">
                             <BaseMap ref={this.map} zoomControl={true}>
                               <FullscreenControl position="topright" />
-                              <ProjectLocations project={project} />
+                              {/* <ProjectPoints project={project} /> */}
                             </BaseMap>
                           </Spin>
                         </Col>
