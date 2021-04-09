@@ -3,12 +3,11 @@ import { Table } from 'antd';
 
 const columns = [
     {
-        title: 'Name',
-        dataIndex: 'report-type',
-        render: text => <a>{text}</a>,
+        title: 'Report Type',
+        dataIndex: 'report_type',
     },
     {
-        title: 'Cash Assets',
+        title: 'Subminted On',
         className: 'column-money',
         dataIndex: 'submitted_on',
         align: 'right',
@@ -22,21 +21,32 @@ const columns = [
 const data = [
     {
         key: '1',
-        name: 'John Brown',
-        submitted_on: '￥300,000.00',
-        submited_by: 'New York No. 1 Lake Park',
+        report_type: 'CSC Progress Report',
+        submitted_on: '24-12-2020',
+        submited_by: 'Ms Jonisia',
     },
     {
         key: '2',
-        name: 'Jim Green',
-        submitted_on: '￥1,256,000.00',
-        submited_by: 'London No. 1 Lake Park',
+        report_type: 'CSC Progress Report',
+        submitted_on: '29-12-2020',
+        submited_by: 'Edgar Vitus',
     },
     {
         key: '3',
-        name: 'Joe Black',
-        submitted_on: '￥120,000.00',
-        submited_by: 'Sidney No. 1 Lake Park',
+        report_type: 'CSC Progress Report',
+        submitted_on: '26-01-2021',
+        submited_by: 'Joe Black',
+    },
+    {
+        key: '4',
+        report_type: 'CSC Progress Report',
+        submitted_on: '04-03-2021',
+        submited_by: 'Mr Mlawa',
+    }, {
+        key: '5',
+        report_type: 'CSC Progress Report',
+        submitted_on: '12-03-2021',
+        submited_by: 'Judith Bakari',
     },
 ];
 
@@ -47,6 +57,7 @@ const ReportOverview = () => {
             columns={columns}
             dataSource={data}
             title={() => 'Latest Reports'}
+            pagination={false}
         />
     )
 }

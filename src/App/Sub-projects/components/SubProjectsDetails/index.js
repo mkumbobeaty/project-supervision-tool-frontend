@@ -103,7 +103,7 @@ class SubProject extends Component {
 
                           </Spin>
                         </Col>
-                        <Col {...firstSpan}>
+                        <Col {...firstSpan} className="reportOverview">
                             <ReportOverview />
                         </Col>
                       </Row>
