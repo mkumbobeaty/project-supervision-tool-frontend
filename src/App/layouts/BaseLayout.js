@@ -8,12 +8,12 @@ import Home from "../navigation/Home";
 // import Dashboards from "../Dashboards";
 import Permission from "../Permission";
 import MapDashboard from "../Map";
-import Projects from "../ProjectsList/Projects";
-import SubProjects from "../ProjectsList/Sub-projects/";
-import Project from "../ProjectsList/Projects/components/ProjectsDetails";
-import SubProject from "../ProjectsList/Sub-projects/components/SubProjectsDetails/"
-import SubProjectItems from "../ProjectsList/Sub-projects/components/SubProjectItems";
-import SubProjectEquipments from "../ProjectsList/Sub-projects/components/SubProjectEquipments";
+import Projects from "../Projects";
+import SubProjects from "../Sub-projects/";
+import Project from "../Projects/components/ProjectsDetails";
+import SubProject from "../Sub-projects/components/SubProjectsDetails/"
+import SubProjectItems from "../Sub-projects/components/SubProjectItems";
+import SubProjectEquipments from "../Sub-projects/components/SubProjectEquipments";
 // import Settings from "../Settings";
 import GeoNode from "../GeoNode";
 import Agencies from "../Agencies";

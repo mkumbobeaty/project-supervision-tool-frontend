@@ -266,16 +266,12 @@ const projectStatusEpic = action$ => {
     )
 };
 
-const filterProjectsEpic = action$ => {
+const filterProjectsEpic = (action$, state$) => {
     return action$.pipe(
-        ofType(types.FILTER_PROJECTS_START),
+        ofType(types.SET_PROJECT_STATUS_FILTER),
         switchMap((action) => {
-            return from(API.getFilteredProjects(action.payload)).pipe(
-                switchMap(res => {
-                    return of(actions.filterProjectsSuccess(res.data))
-                }),
-                catchError(error => of(actions.filterProjectsStart(error)))
-            );
+            console.log('ni state', state$.value.resources.filters);
+            return of(actions.getProjectsStart(state$.value.resources.filters))
         }),
     )
 };

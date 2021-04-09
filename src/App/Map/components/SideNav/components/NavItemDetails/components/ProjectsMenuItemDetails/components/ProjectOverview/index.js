@@ -10,7 +10,7 @@ import {projectActions, projectSelectors} from "../../../../../../../../../../re
 import {mapProjectActions} from "../../../../../../../../../../redux/modules/map/projects";
 import TopSection from "../../../TopSection";
 import projects from "../../../../../../../../../../API/projects";
-import { projectSectorsActions, projectSectorsSelectors } from "../../../../../../../../../ProjectsList/Projects/components/ProjectsSectors/duck";
+import { projectSectorsActions, projectSectorsSelectors } from "../../../../../../../../../Projects/components/ProjectsSectors/duck";
 
 /**
  * @function
@@ -40,7 +40,7 @@ function ProjectsOverview(
         getProjectStatus,
         regions,
         getRegions,
-        getFilteredProjects
+        setProjectStatusFilter
     }
 ) {
     return (
@@ -58,7 +58,7 @@ function ProjectsOverview(
                 getProjectStatus={getProjectStatus}
                 getRegions={getRegions}
                 regions={regions}
-                getFilteredProjects={getFilteredProjects}
+                setProjectStatusFilter={setProjectStatusFilter}
 
             /> : ''}
             {showRegionalOverview ? <RegionalProjectsOverview
@@ -102,7 +102,7 @@ const mapDispatchToProps = (dispatch) => ({
     getProjects:bindActionCreators(projectActions.getProjectsStart, dispatch),
     getProjectStatus: bindActionCreators(projectActions.getProjectStatusStart, dispatch),
     getRegions: bindActionCreators(projectActions.getRegionsStart, dispatch),
-    getFilteredProjects:bindActionCreators(projectActions.filterProjectsStart, dispatch),
+    setProjectStatusFilter:bindActionCreators(projectActions.setProjectStatusFilter, dispatch),
 });
 
 
@@ -120,6 +120,7 @@ ProjectsOverview.propTypes = {
     clearRegionalProjects: PropTypes.func.isRequired,
     getProject: PropTypes.func.isRequired,
     regionProjects: PropTypes.array.isRequired,
+    setProjectStatusFilter: PropTypes.array.isRequired,
 }
 
 ProjectsOverview.defaultProps = {

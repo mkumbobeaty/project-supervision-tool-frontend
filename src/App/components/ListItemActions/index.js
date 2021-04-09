@@ -14,6 +14,8 @@ import {
     CloseCircleOutlined,
     CheckCircleOutlined,
     CarOutlined,
+    BookOutlined,
+    GlobalOutlined,
     FileProtectOutlined
 } from '@ant-design/icons';
 
@@ -64,6 +66,7 @@ const ListItemActions = ({
                              fromPickup,
                              atDropOff,
                              fromDropOff,
+                             fillSurvey,
                              completeDispatch,
                          }) => (
     <Dropdown
@@ -74,6 +77,11 @@ const ListItemActions = ({
                         <EyeOutlined/> {view.name}
                     </Menu.Item>
                 )}
+                {fillSurvey && (
+                    <Menu.Item key="fillSurvey" onClick={fillSurvey.onClick} title={fillSurvey.title}>
+                        <BookOutlined /> {fillSurvey.name}
+                    </Menu.Item>
+                )}
 
                 {onMapPreview && (
                     <Menu.Item
@@ -81,7 +89,7 @@ const ListItemActions = ({
                         onClick={onMapPreview.onClick}
                         title={onMapPreview.title}
                     >
-                        <EyeOutlined/> {onMapPreview.name}
+                        <GlobalOutlined /> {onMapPreview.name}
                     </Menu.Item>
                 )}
 

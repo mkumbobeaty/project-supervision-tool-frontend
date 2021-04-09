@@ -6,7 +6,7 @@ import {generateColor, generateNumberRange} from "../../../Util";
 import Legend from "./Legend";
 import Layout, { Content, Header } from 'antd/lib/layout/layout';
 import  '../styles.css'
-class RegionsGeoJson extends Component{
+class RegionsGeoJson extends Component {
 
     getColor = (numberRange, projects_count) => {
         if (projects_count <= numberRange[1]) return generateColor(0);

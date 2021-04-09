@@ -97,38 +97,15 @@ class MapDashboard extends Component {
 
     render() {
         const {
-            projectsOverview,
-            getProjectsByRegion,
-            getSubProjectsByRegion,
-            regionDetails,
-            regionProjects,
-            project,
             mapLoading,
-            subProject,
-            getWfsLayerData,
-            wfsLayerData,
-            subProjectsOverview,
+            projects,
         } = this.props;
         return (
             <div className="MapDashboard">
                 <SideNav />
                 <Spin spinning={mapLoading} tip="Loading data...">
                     <BaseMap ref={this.map} zoomControl={false}>
-                    <RegionsGeoJson
-                                getProjectsByRegion={getProjectsByRegion}
-                                projectsOverview={projectsOverview}
-                            />
-                        <SubRegionsGeoJson subProjectsOverview={subProjectsOverview} getSubProjectsByRegion={getSubProjectsByRegion} />
-                        {regionDetails ? <RegionDetailGeoJson data={regionDetails} /> : ''}
-                        {regionDetails && (regionProjects.length > 0) ?
-                            <ProjectPoints
-                                regionDetails={regionDetails}
-                                regionProjects={regionProjects}
-                            /> : ''}
-                        <ProjectLocations project={project} />
-                        {wfsLayerData ? <SubProjectElementWfsLayer subProject={subProject} wfsLayerData={wfsLayerData} /> :
-                            <SubProjectLocations getWfsLayerData={getWfsLayerData} subProject={subProject} />}
-                        <ShowDataSets />
+                        {projects.length > 0 ?  <ProjectPoints projects={projects} /> : ''}
                     </BaseMap>
                 </Spin>
             </div>
@@ -145,6 +122,7 @@ const mapStateToProps = (state) => ({
     subProject: mapSubProjectSelectors.getSubProjectSelector(state),
     subProjectElement: projectSelectors.getSubProjectElementSelector(state),
     project: mapProjectSelectors.getProjectSelector(state),
+    projects: projectSelectors.getProjectsSelector(state),
     wfsLayerData: mapSelectors.getWfsLayerDataSelector(state),
     subProjectsOverview: mapSubProjectSelectors.getSubProjectsOverviewSelector(state),
     loading: mapSubProjectSelectors.getSubProjectMapLoadingSelector(state),

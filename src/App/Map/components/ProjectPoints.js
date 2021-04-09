@@ -3,12 +3,13 @@ import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import Spiderfy from "./Spiderfy";
 import {Link} from "react-router-dom";
+import * as turf from '@turf/turf';
+import Axios from "axios";
 
 class ProjectPoints extends Component {
 
     static propTypes = {
-        regionProjects: PropTypes.array.isRequired,
-        regionDetails: PropTypes.object.isRequired,
+        projects: PropTypes.array.isRequired,
     }
 
     handleSpiderfyClick = marker => {
@@ -23,52 +24,34 @@ class ProjectPoints extends Component {
         console.log(markers);
     };
 
-    generateRegionProjectsGeojsonPoints = () => {
-        const {regionProjects, regionDetails } = this.props;
-
-
-        const regionLocations = regionProjects.map(({ locations, id, name}) => {
-
-             return locations.map(({region, point}) => ({
-                type: "Feature",
-                properties: {
-                    regionId: region.id,
-                    regionName: region.name,
-                    key: `${id}${region.id}`,
-                    name
-                },
-                geometry: point
-            }));
-        }).flat();
-
-        return regionLocations.filter(({properties}) => properties.regionId === regionDetails.id);
-
-    }
-
-
     render() {
-
-        const data = this.generateRegionProjectsGeojsonPoints();
+        const { projects } = this.props;
+        Axios.get(`https://kc.survey-project-supervision-tool.ga/o/authorize?client_id=${process.env.REACT_APP_KOBOTOOL_BOX_CLIENT_ID}&response_type=code&state=xyz`)
+            .then(res => console.log('looking at form', res));
         return (
             <Spiderfy
                 onClick={this.handleSpiderfyClick}
                 onSpiderfy={this.handleSpiderfy}
                 onUnspiderfy={this.handleUnspiderfy}
             >
-                { data.map( ({ geometry, properties }) => {
-                    return (
-                        <Marker
-                            position={[geometry.coordinates[1], geometry.coordinates[0]]}
-                            title={properties.regionName}
-                            key={properties.key}
-                        >
-                            <Popup>
-                                <div><b>Region name:</b> { properties.regionName}</div>
-                                <div><b>Project name:</b> { properties.name}</div>
-                                <Link to="/app/map">View project</Link>
-                            </Popup>
-                        </Marker>
-                    );
+                { projects.map( ({ regions }) => {
+                     return regions.length > 0 ? regions.map((region) => {
+                        const polygon = JSON.parse(region.geom);
+                         const { geometry } = turf.pointOnFeature(polygon);
+                         return (
+                            <Marker
+                                position={[geometry.coordinates[1], geometry.coordinates[0]]}
+                                title={region.name}
+                                key={region.id}
+                            >
+                                <Popup>
+                                    <div><b>Region name:</b> { region.name}</div>
+                                    <Link to="/app/map">View project</Link>
+                                </Popup>
+                            </Marker>
+                        );
+                    }) : '';
+
                 })}
             </Spiderfy>);
     }
