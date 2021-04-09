@@ -8,7 +8,7 @@ const prepareFilterItems = (items) => items.map(({ name, id, }) => ({
     id
 }));
 
-const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects }) => {
+const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects, getProject }) => {
 
     const projectsFilterData = projects.length > 0 ? prepareFilterItems(projects) : [];
    
@@ -18,7 +18,10 @@ const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects }) => {
         setProjectIdFilter(projectsIds.join(','));
     }, [projectsIds]);
 
-    const handleOnClickFilterValue = () => getSubProjects();
+    const handleOnClickFilterValue = (value) => {
+        getSubProjects();
+        getProject(value);
+    };
 
 
 
@@ -48,7 +51,8 @@ export default ProjectsFilter;
 
 ProjectsFilter.propTypes = {
     projects: PropTypes.array.isRequired,
-    handleOnclickFilterItem:PropTypes.func.isRequired
+    handleOnclickFilterItem:PropTypes.func.isRequired,
+    getProject:PropTypes.func.isRequired,
 
 }
 ProjectsFilter.defaultProps = {

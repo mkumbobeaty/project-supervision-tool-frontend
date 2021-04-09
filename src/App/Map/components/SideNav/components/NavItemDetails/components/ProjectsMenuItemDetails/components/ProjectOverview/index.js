@@ -32,6 +32,7 @@ function ProjectsOverview(
         setProjectIdFilter,
         getSubProjects,
         getProjectsFilters,
+        getProject,
         setProjectRegionsFilter
     }
 ) {
@@ -66,6 +67,7 @@ function ProjectsOverview(
             <ProjectsFilter
                 projects={projects}
                 getSubProjects={getSubProjects}
+                getProject={getProject}
                 setProjectIdFilter={setProjectIdFilter}
             />
             <RegionsFilter

@@ -15,12 +15,9 @@ export const getProjectMapEpic = action$ => {
                 switchMap(res => {
                     return from([
                         actions.getProjectSuccess(res.data),
-                        mapActions.clearRegionDetails(),
-                        mapActions.showProjectsOverview(false),
-                        mapActions.showProjectDetails(true),
                     ])
                 }),
-                catchError(error => from([actions.getProjectFailure(error), mapActions.clearRegionDetails()]))
+                catchError(error => from([actions.getProjectFailure(error)]))
             );
         }),
     );
@@ -46,6 +43,7 @@ export const showProjectDetailsEpic = action$ => {
         switchMap(() => from([
             mapActions.showProjectsOverview(false),
             mapActions.showProjectDetails(true),
+            actions.clearProjects(true),
         ])),
     );
 }
