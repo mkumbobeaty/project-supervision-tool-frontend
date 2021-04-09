@@ -284,6 +284,16 @@ const filterProjectByIdEpic = (action$, state$) => {
     )
 };
 
+const filterProjectByRegionEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_PROJECT_REGIONS_FILTER),
+        switchMap(() => {
+            return of(actions.getProjectsStart(state$.value.resources.filters))
+        }),
+    )
+};
+
+
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
     getProjectEpic,
@@ -302,7 +312,8 @@ export const projectsRootEpic = combineEpics(
     getProgressEpic,
     projectStatusEpic,
     filterProjectsEpic,
-    filterProjectByIdEpic
+    filterProjectByIdEpic,
+    filterProjectByRegionEpic
     );
 
 
