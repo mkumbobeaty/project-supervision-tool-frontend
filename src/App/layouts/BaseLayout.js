@@ -38,15 +38,15 @@ const breadcrumbNameMap = {
     title: "projects Module",
   },
   "/app/sub_projects": {
-    name: "Subprojects",
+    name: "Sub Projects",
     title: "List of all Subprojects",
   },
 
-  "/app/projects/:type": {
+  "/app/projects/:type": {  
     name: "Project",
     title: "Detail of single project",
   },
-  "/app/sub-projects/:type": {
+  "/app/sub_projects/:type": {
     name: "Sub Project",
     title: "Detail of single sub project",
   },
@@ -168,7 +168,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
 
           <PrivateRoute
             exact
-            path={`${baseUrl}/sub-projects/:id`}
+            path={`${baseUrl}/sub_projects/:id`}
             render={({ match }, props ) => <SubProject match={match} {...props}/>}
           />
           <PrivateRoute

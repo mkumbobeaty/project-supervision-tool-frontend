@@ -108,6 +108,7 @@ class SubProjects extends Component {
   */
   handleViewDetails = (item_id) => {
     const { getSubProject } = this.props;
+    console.log(item_id)
     getSubProject(item_id);
     let path = `/app/sub_projects/${item_id}`;
     this.props.history.push(path);

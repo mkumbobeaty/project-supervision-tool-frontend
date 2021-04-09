@@ -2,12 +2,6 @@
     background-color: #ffffff !important;
 }
 
-.sub-project-inner-layout {
-    border-top: 1px solid #e0ddddfa;
-    /* padding: 20px 0; */
-    margin: 16px 0;
-}
-
 .top-nav {
     display: flex;
     justify-content: space-between;
@@ -29,28 +23,15 @@
     position: static;
 }
 
-/* #sider-title {
-    color: #0f6788;
-    font-weight: 600;
-    font-size: 16px;
-    margin-bottom: 15px;
-    width: 65%;
-} */
-
 .sider h4, .details h4 {
     color: #0f6788;
     margin-bottom: 0!important;
 }
 
-.sub-project-contents {
-    margin-top: 24px;
-    padding: 0 0 0 24px;
-}
 
 .chartDetails, .chartProgress {
     border: 1px solid #e0ddddfa;
     padding: 15px 15px 15px 0;
-    /* width: 25vw !important;  */
 }
 
 .canvasjs-chart-credit {
@@ -86,12 +67,6 @@
     display: none;
 }
 
-.sub-project-equipment {
-    /* margin-left: 30px;
-    border: 1px solid #e0ddddfa; */
-    padding: 0 28px;
-}
-
 .sub_project_map .base-map {
     height: 50vh;
 }
@@ -116,18 +91,22 @@
 .imageDetail h4 {
     font-weight: 600;
 }
-.sub-project-contents .ant-tabs-card > .ant-tabs-nav{
-    text-transform: uppercase;
 
-}
-.sub-project-contents .ant-tabs-card > .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card > div > .ant-tabs-nav .ant-tabs-tab-active {
+.sub-project-contents .ant-tabs-card>.ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab-active {
     color: #1890ff;
-    background: #1890ff;
+    background: #0f6788
 }
+
 .sub-project-contents .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: #ffffff;
-
 }
-.sub-project-contents .ant-tabs-card.ant-tabs-top > .ant-tabs-nav .ant-tabs-tab, .ant-tabs-card.ant-tabs-top > div > .ant-tabs-nav .ant-tabs-tab {
-    border-radius: 10px 10px 0 0;
+
+.sub-project-contents .ant-tabs-card.ant-tabs-top>.ant-tabs-nav .ant-tabs-tab, .ant-tabs-card.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-tab {
+    padding: 10px 70px;
+}
+.card-container{
+border-top: 0.5px solid #e8e8e8;
+}
+.Progress-overview{
+    margin-top: 20px;
 }
