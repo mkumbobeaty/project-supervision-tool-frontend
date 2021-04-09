@@ -8,7 +8,7 @@ const prepareFilterItems = (items) => items.map(({ name, id, }) => ({
     id
 }));
 
-const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
+const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects }) => {
 
     const projectsFilterData = projects.length > 0 ? prepareFilterItems(projects) : [];
    
@@ -17,6 +17,9 @@ const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
     useEffect(() => {
         setProjectIdFilter(projectsIds.join(','));
     }, [projectsIds]);
+
+    const handleOnClickFilterValue = () => getSubProjects();
+
 
 
     const handleOnclickFilterItem = (project_id) => {
@@ -27,7 +30,6 @@ const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
         else {
             setProjectId([...projectsIds, project_id]);
         }
-    
      }
 
     return (
@@ -35,6 +37,7 @@ const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
             items={projectsFilterData}
             itemsPerPage={5}
             filterTitle={`Projects`}
+            handleOnClickFilterValue={handleOnClickFilterValue}
             handleFilter={handleOnclickFilterItem}
             // filterClass="projectFilter"
         />

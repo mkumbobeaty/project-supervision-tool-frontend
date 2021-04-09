@@ -37,7 +37,6 @@ const statusFilter = statuses.length > 0 ? getFilterData(statuses) : []
             filterTitle={`Status`}
             handleFilter={handleOnclickFilterItem}
             filterClass="statusFilter"
-
         />
     )
 }
@@ -46,7 +45,7 @@ export default ProjectStatusFilter;
 
 ProjectStatusFilter.propTypes = {
     statuses: PropTypes.array.isRequired,
-    handleOnclickFilterItem:PropTypes.func.isRequired
+    handleOnclickFilterItem:PropTypes.func.isRequired,
 }
 
 ProjectStatusFilter.defaultProps = {

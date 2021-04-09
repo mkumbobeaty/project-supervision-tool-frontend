@@ -66,33 +66,11 @@ function ProjectDetails({
     const history = useHistory();
     const  showFullProjectDetails = () => history.push(`/app/projects/${project.id}`);
     
-    return project ? (
+    return  (
         <div className="ProjectInfo">
-            <section className="top-section">
-                <div className='project-title'>
-                    <div>{project.name}</div>
-                </div>
-                <BackLink goBack={handleGoBack}/>
-            </section>
-            <hr/>
-            <section className="sector">
-                PROJECT ID : {project.id}
-            </section>
-            <hr/>
-            <section>{project.description}</section>
-            <CustomGridList data={customGridLisData}/>
-            <LongActionButton
-                title="view  full project details"
-                handleOnclick={showFullProjectDetails}
-            />
-            <PredefinedFilter
-                    sectionName="Sub Projects"
-                    data={items}
-                    filterTitle='Sub projects'
-                    handleOnclickFilterItem={handleOnclickSubProject}
-                />
+           Project details
         </div>
-    ) : '';
+    ) ;
 }
 
 const mapStateToProps = state => ({

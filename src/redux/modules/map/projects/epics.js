@@ -5,6 +5,7 @@ import {from} from "rxjs";
 import API from "../../../../API";
 import * as actions from "./actions";
 import {mapActions} from '../index'
+import {mapSubProjectTypes} from "../subProjects";
 
 export const getProjectMapEpic = action$ => {
     return action$.pipe(
@@ -25,7 +26,20 @@ export const getProjectMapEpic = action$ => {
     );
 }
 
+export const showProjectDetailsEpic = action$ => {
+    return action$.pipe(
+        ofType(mapSubProjectTypes.GET_SUB_PROJECTS_START),
+        switchMap(() => from([
+            mapActions.showProjectsOverview(false),
+            mapActions.showProjectDetails(true),
+        ])),
+    );
+}
+
+
+
 
 export const mapProjectEpics = combineEpics(
     getProjectMapEpic,
+    showProjectDetailsEpic,
 );
