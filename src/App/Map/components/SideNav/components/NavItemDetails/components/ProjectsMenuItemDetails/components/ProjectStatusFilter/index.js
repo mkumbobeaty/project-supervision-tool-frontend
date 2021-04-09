@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import CheckBoxGroupFilter from "../../../../../../../../../components/CheckBoxGroupFilter";
 
 const ProjectStatusFilter = ({statuses,setProjectStatusFilter}) => {
-    const [statusIds, setStatusId] = useState([]);
+
+const [statusIds, setStatusId] = useState([]);
     useEffect(() => {
         setProjectStatusFilter(statusIds.join(','));
     }, [statusIds]);

@@ -269,8 +269,16 @@ const projectStatusEpic = action$ => {
 const filterProjectsEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_PROJECT_STATUS_FILTER),
-        switchMap((action) => {
-            console.log('ni state', state$.value.resources.filters);
+        switchMap(() => {
+            return of(actions.getProjectsStart(state$.value.resources.filters))
+        }),
+    )
+};
+
+const filterProjectByIdEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_PROJECT_ID_FILTER),
+        switchMap(() => {
             return of(actions.getProjectsStart(state$.value.resources.filters))
         }),
     )
@@ -293,7 +301,8 @@ export const projectsRootEpic = combineEpics(
     getItemsEpic,
     getProgressEpic,
     projectStatusEpic,
-    filterProjectsEpic
+    filterProjectsEpic,
+    filterProjectByIdEpic
     );
 
 

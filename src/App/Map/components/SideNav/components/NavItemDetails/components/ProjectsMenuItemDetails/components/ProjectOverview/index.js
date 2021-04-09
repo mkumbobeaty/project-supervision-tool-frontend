@@ -40,7 +40,8 @@ function ProjectsOverview(
         getProjectStatus,
         regions,
         getRegions,
-        setProjectStatusFilter
+        setProjectStatusFilter,
+        setProjectIdFilter
     }
 ) {
     return (
@@ -59,7 +60,7 @@ function ProjectsOverview(
                 getRegions={getRegions}
                 regions={regions}
                 setProjectStatusFilter={setProjectStatusFilter}
-
+                setProjectIdFilter={setProjectIdFilter}
             /> : ''}
             {showRegionalOverview ? <RegionalProjectsOverview
                 regionProjectStatistics={regionProjectStatistics}
@@ -103,6 +104,7 @@ const mapDispatchToProps = (dispatch) => ({
     getProjectStatus: bindActionCreators(projectActions.getProjectStatusStart, dispatch),
     getRegions: bindActionCreators(projectActions.getRegionsStart, dispatch),
     setProjectStatusFilter:bindActionCreators(projectActions.setProjectStatusFilter, dispatch),
+    setProjectIdFilter:bindActionCreators(projectActions.setProjectIdFilter, dispatch)
 });
 
 

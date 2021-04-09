@@ -25,7 +25,8 @@ function NationalProjectsOverview(
         statuses,
         getRegions,
         regions,
-        setProjectStatusFilter
+        setProjectStatusFilter,
+        setProjectIdFilter
     }
 ) {
 
@@ -64,7 +65,7 @@ function NationalProjectsOverview(
                 overViewData={overViewData}
             />
             <ProjectStatusFilter statuses={statuses} setProjectStatusFilter={setProjectStatusFilter}/>
-            <ProjectsFilter projects={projects}/>
+            <ProjectsFilter projects={projects} setProjectIdFilter={setProjectIdFilter} />
             <RegionsFilter regions={regions}/>
         </div>
     );
