@@ -1,7 +1,8 @@
 .project-title {
     /*background-color: #525a68;*/
-   }
-.project-title h4{
+}
+
+.project-title h4 {
     padding: 0px;
     margin-bottom: 10px;
     font-size: 12px;
@@ -9,17 +10,43 @@
     line-height: 17px;
     color: #fff;
 }
-.NavItemDetails{
+
+.NavItemDetails {
     overflow-y: auto;
     overflow-x: hidden;
-
 }
 
-.customizedIcon{
+.customizedIcon {
     border-radius: 50%;
     background-color: #0f6788;
     width: 30px !important;
     height: 30px !important;
     margin: 0 !important;
     opacity: 0.8;
+}
+
+.leaflet-popup.leaflet-zoom-animated {
+    left: -135px !important
+}
+
+.leaflet-popup-content{
+    width: 265px !important;
+    margin: 0 !important;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 0 !important;
+    border: 1px solid #3b3a3a94;
+}
+
+.mapPopup h3, .projectDetail {
+    margin: 13px 19px;
+}
+
+.timeFrame {
+    display: flex;
+    justify-content: space-between;
+}
+.leaflet-popup-content .projectDetail p{
+    margin-top: 0 !important;
 }
