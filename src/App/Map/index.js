@@ -102,10 +102,10 @@ class MapDashboard extends Component {
         } = this.props;
         return (
             <div className="MapDashboard">
-                <SideNav />
                 <Spin spinning={mapLoading} tip="Loading data...">
+                    <SideNav />
                     <BaseMap ref={this.map} zoomControl={false}>
-                        {projects.length > 0 ?  <ProjectPoints projects={projects} /> : ''}
+                        {projects.length > 0 ? <ProjectPoints projects={projects} /> : ''}
                     </BaseMap>
                 </Spin>
             </div>
@@ -115,7 +115,7 @@ class MapDashboard extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    mapLoading: mapSelectors.getMapLoadingSelector(state),
+    mapLoading: projectSelectors.getProjectsLoadingSelector(state),
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     regionDetails: mapSelectors.getRegionDetailsSelector(state),
     projectsOverview: mapSelectors.getProjectsOverview(state),

@@ -266,15 +266,47 @@ const projectStatusEpic = action$ => {
     )
 };
 
+const projectFilterEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_PROJECTS_FILTER_START),
+        switchMap((action) => {
+            return from(API.getProjects(action.payload)).pipe(
+                switchMap(res => {
+                    return of(actions.getProjectFilterSuccess(res.data))
+                }),
+                catchError(error => of(actions.getProjectFilterFailure(error)))
+            );
+        }),
+    )
+};
+
 const filterProjectsEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_PROJECT_STATUS_FILTER),
-        switchMap((action) => {
-            console.log('ni state', state$.value.resources.filters);
+        switchMap(() => {
             return of(actions.getProjectsStart(state$.value.resources.filters))
         }),
     )
 };
+
+const filterProjectByIdEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_PROJECT_ID_FILTER),
+        switchMap(() => {
+            return of(actions.getProjectsStart(state$.value.resources.filters))
+        }),
+    )
+};
+
+const filterProjectByRegionEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_PROJECT_REGIONS_FILTER),
+        switchMap(() => {
+            return of(actions.getProjectsStart(state$.value.resources.filters))
+        }),
+    )
+};
+
 
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
@@ -293,7 +325,10 @@ export const projectsRootEpic = combineEpics(
     getItemsEpic,
     getProgressEpic,
     projectStatusEpic,
-    filterProjectsEpic
+    projectFilterEpic,
+    filterProjectsEpic,
+    filterProjectByIdEpic,
+    filterProjectByRegionEpic
     );
 
 

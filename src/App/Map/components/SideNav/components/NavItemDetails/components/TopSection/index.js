@@ -13,14 +13,12 @@ function TopSection({title, searchPlaceHolder}) {
     return (
         <div className='TopSection'>
              <section>
-                <div>{title}</div>
+                <h3>{title}</h3>
             </section>
             {/* <section>
             <CustomSearch placeholder={searchPlaceHolder}/>
             </section> */}
-           
-            <hr/>
-        </div>
+           </div>
     );
 
 }

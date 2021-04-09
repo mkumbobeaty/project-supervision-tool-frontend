@@ -318,7 +318,7 @@ const progress = (state = { data: [], error: null, loading: false }, action) => 
     }
 };
 
-const progectStatus = (state = { data: [], error: null, loading: false }, action) => {
+const projectStatus = (state = { data: [], error: null, loading: false }, action) => {
     switch (action.type) {
         case types.GET_PROJECT_STATUS_START:
             return { ...state, loading: true }
@@ -331,29 +331,18 @@ const progectStatus = (state = { data: [], error: null, loading: false }, action
     }
 };
 
-// /**
-//  * @function
-//  * @name uploadPhoto
-//  * @description reducer that manages sub project instance
-//  * @param {Object} state
-//  * @param {Object} action
-//  * @return {Object} updated state
-//  * 
-//  */
-// const uploadPhoto = (state = {}, action) => {
-//     switch (action.type) {
-//         case types.CREATE_SUB_PROJECT_START:
-//             return true;
-//         case types.CREATE_SUB_PROJECT_SUCCESS:
-//             return false;
-//         case types.CREATE_SUB_PROJECT_FAILURE:
-//             return false;
-//         default:
-//             return state;
-//     }
-// };
-
-
+const projectsFilter = (state = { data: [], error: null, loading: false }, action) => {
+    switch (action.type) {
+        case types.GET_PROJECTS_FILTER_START:
+            return { ...state, loading: true }
+        case types.GET_PROJECTS_FILTER_SUCCESS:
+            return { ...state, data: action.payload, loading: false, }
+        case types.GET_PROJECTS_FILTER_FAILURE:
+            return { ...state, error: action.message, loading: false };
+        default:
+            return state;
+    }
+};
 export const resources = combineReducers({
     selectedProject,
     Projects,
@@ -369,5 +358,6 @@ export const resources = combineReducers({
     items,
     progress,
     filters,
-    progectStatus
+    projectStatus,
+    projectsFilter
 })

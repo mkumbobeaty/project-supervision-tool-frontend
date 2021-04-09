@@ -129,7 +129,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
   const breadcrumbItems = [].concat(extraBreadcrumbItems);
   return (
     <Layout className="BaseLayout">
-      <Header className="BaseLayoutHeader" >
+      <Header className="BaseLayoutHeader">
         <Row type="flex" align="middle">
           {/* breadcrumb section start */}
           <Col xxl={22} xl={22} lg={22} md={22} sm={20} xs={20} justify="start">

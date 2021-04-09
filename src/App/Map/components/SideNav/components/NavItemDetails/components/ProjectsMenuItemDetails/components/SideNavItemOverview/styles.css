@@ -8,5 +8,5 @@
 }
 
 .SideNavItemOverview .project-over-view-table {
-    padding: 10px 0 10px 0;
+    border-top: 1.5px solid #2f333b49;
 }

@@ -3,7 +3,7 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    background: #e8eaf3;
+    background: #f6f6f6;
 }
 
 .OverviewTable .value {
