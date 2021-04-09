@@ -40,6 +40,9 @@ h2#sider-title {
 .key-details>.ant-col {
     padding-top: 15px;
 }
+.key-details{
+    padding-bottom: 15px;
+}
 
 .project_contents {
     /* margin-top: 24px; */
