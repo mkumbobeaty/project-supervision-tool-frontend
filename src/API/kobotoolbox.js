@@ -21,23 +21,22 @@ const getAssets = () =>
 
 /**
  * @function
- * @name createSurvey
- * @description create new survey
+ * @name getAsset
+ * @description get assets from kobotoolbox
  */
-const createSurvey = (survey) =>
-    axiosKobotoolbox.post(`${kfBaseurl}/assets/`, survey).then((response) => response.data);
+const getAsset = (id) =>
+    axiosKobotoolbox.get(`${kfBaseurl}/assets/${id}/`).then((response) => response.data);
 
 /**
  * @function
  * @name createSurvey
  * @description create new survey
  */
-const getEnketoLink = (id) =>
-    axiosKobotoolbox.post(`${kcBaseurl}/forms/${id}/enketo`).then((response) => response.data);
-
+const createSurvey = (survey) =>
+    axiosKobotoolbox.post(`${kfBaseurl}/assets/`, survey).then((response) => response.data);
 
 export default {
     getAssets,
+    getAsset,
     createSurvey,
-    getEnketoLink,
 }

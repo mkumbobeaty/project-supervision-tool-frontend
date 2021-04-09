@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Spiderfy from "./Spiderfy";
 import {Link} from "react-router-dom";
 import * as turf from '@turf/turf';
+import Axios from "axios";
 
 class ProjectPoints extends Component {
 
@@ -25,6 +26,8 @@ class ProjectPoints extends Component {
 
     render() {
         const { projects } = this.props;
+        Axios.get(`https://kc.survey-project-supervision-tool.ga/o/authorize?client_id=${process.env.REACT_APP_KOBOTOOL_BOX_CLIENT_ID}&response_type=code&state=xyz`)
+            .then(res => console.log('looking at form', res));
         return (
             <Spiderfy
                 onClick={this.handleSpiderfyClick}

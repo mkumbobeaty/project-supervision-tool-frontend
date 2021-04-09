@@ -10,7 +10,7 @@ import {projectActions, projectSelectors} from "../../../../../../../../../../re
 import {mapProjectActions} from "../../../../../../../../../../redux/modules/map/projects";
 import TopSection from "../../../TopSection";
 import projects from "../../../../../../../../../../API/projects";
-import { projectSectorsActions, projectSectorsSelectors } from "../../../../../../../../../ProjectsList/Projects/components/ProjectsSectors/duck";
+import { projectSectorsActions, projectSectorsSelectors } from "../../../../../../../../../Projects/components/ProjectsSectors/duck";
 
 /**
  * @function
