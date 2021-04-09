@@ -5,13 +5,12 @@
 }
 
 .TopSection section {
-    padding-top: 15px;
+    padding-top:10px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
 }
 
-.TopSection section div {
-    color: #2f333b;
-    font-weight: bold;
+.TopSection section h3 {
+    color: #0f6788;
 }

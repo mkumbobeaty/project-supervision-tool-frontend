@@ -83,7 +83,7 @@ export const getProjectsOverview = (state) => state?.map?.projectOverview?.data;
  * @name getProjectsStatistics
  * @param {Object} state redux state
  */
-export const getProjectsStatistics = (state) => state?.map?.projectsStatistics?.data;
+export const getProjectsStatistics = (state) => state?.map?.projectStatistics?.data;
 
 /**
  * @function

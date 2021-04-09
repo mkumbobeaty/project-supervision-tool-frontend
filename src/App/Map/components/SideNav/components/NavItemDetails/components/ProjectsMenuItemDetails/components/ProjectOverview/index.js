@@ -96,7 +96,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    getProjectsOverview: bindActionCreators(mapActions.getProjectsOverviewStart, dispatch),
+    getProjectsOverview: bindActionCreators(mapActions.getProjectStatisticsStart, dispatch),
     getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
     setShowRegionalOverview: bindActionCreators(mapActions.showRegionalProjectsOverview, dispatch),
     setShowNationalOverview: bindActionCreators(mapActions.showNationalProjectsOverview, dispatch),
