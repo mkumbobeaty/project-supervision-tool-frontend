@@ -14,3 +14,12 @@
     overflow-x: hidden;
 
 }
+
+.customizedIcon{
+    border-radius: 50%;
+    background-color: #0f6788;
+    width: 30px !important;
+    height: 30px !important;
+    margin: 0 !important;
+    opacity: 0.8;
+}

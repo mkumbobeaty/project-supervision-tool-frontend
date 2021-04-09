@@ -11,7 +11,7 @@ const prepareFilterItems = (items) => items.map(({ name, id, }) => ({
 const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
 
     const projectsFilterData = projects.length > 0 ? prepareFilterItems(projects) : [];
-
+   
     const [projectsIds, setProjectId] = useState([]);
 
     useEffect(() => {
@@ -29,7 +29,6 @@ const ProjectsFilter = ({ projects,setProjectIdFilter }) => {
         }
     
      }
-    
 
     return (
         <CheckBoxGroupFilter

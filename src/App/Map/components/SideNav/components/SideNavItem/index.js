@@ -2,9 +2,10 @@ import React from 'react';
 import './styles.css'
 
 const styles = {
-    color: '#2d98d4',
-    backgroundColor: '#ffffff',
-    borderRight: '2px solid #dcd9d954'
+    color: '#fff',
+    backgroundColor: '#324850',
+    borderRight: '1px solid #dcd9d954',
+
 }
 
 function SideNavItem({

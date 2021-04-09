@@ -1,9 +1,13 @@
 import {withLeaflet, Popup, Marker} from "react-leaflet";
+import L, { divIcon }from 'leaflet';
+
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import Spiderfy from "./Spiderfy";
 import {Link} from "react-router-dom";
 import * as turf from '@turf/turf';
+import { Button } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
 
 class ProjectPoints extends Component {
 
@@ -35,11 +39,16 @@ class ProjectPoints extends Component {
                      return regions.length > 0 ? regions.map((region) => {
                         const polygon = JSON.parse(region.geom);
                          const { geometry } = turf.pointOnFeature(polygon);
+
+                
+                        var customizedIcon = L.divIcon({className: 'customizedIcon'});
+
                          return (
                             <Marker
                                 position={[geometry.coordinates[1], geometry.coordinates[0]]}
                                 title={region.name}
                                 key={region.id}
+                                icon={customizedIcon}
                             >
                                 <Popup>
                                     <div><b>Region name:</b> { region.name}</div>

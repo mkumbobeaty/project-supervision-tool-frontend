@@ -89,7 +89,7 @@ const mapStateToProps = state => ({
     showRegionalOverviewLoader: mapSelectors.regionProjectsStatisticsLoader(state),
     regionProjects: mapSelectors.getRegionProjectsSelector(state),
     region: mapSelectors.getRegionDetailsSelector(state),
-    projects:projectSelectors.getProjectsSelector(state),
+    projects:projectSelectors.getProjectsFilterSelector(state),
     statuses: projectSelectors.getProjectStatusSelector(state),
     regions: projectSelectors.getRegionsSelector(state),
 
@@ -102,7 +102,7 @@ const mapDispatchToProps = (dispatch) => ({
     setShowNationalOverview: bindActionCreators(mapActions.showNationalProjectsOverview, dispatch),
     clearRegionalProjects: bindActionCreators(mapActions.clearRegionProjects, dispatch),
     getProject: bindActionCreators(mapProjectActions.getProjectStart, dispatch),
-    getProjects:bindActionCreators(projectActions.getProjectsStart, dispatch),
+    getProjects:bindActionCreators(projectActions.getProjectFilterStart, dispatch),
     getProjectStatus: bindActionCreators(projectActions.getProjectStatusStart, dispatch),
     getRegions: bindActionCreators(projectActions.getRegionsStart, dispatch),
     setProjectStatusFilter:bindActionCreators(projectActions.setProjectStatusFilter, dispatch),

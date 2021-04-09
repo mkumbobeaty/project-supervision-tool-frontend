@@ -266,6 +266,20 @@ const projectStatusEpic = action$ => {
     )
 };
 
+const projectFilterEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_PROJECTS_FILTER_START),
+        switchMap((action) => {
+            return from(API.getProjects(action.payload)).pipe(
+                switchMap(res => {
+                    return of(actions.getProjectFilterSuccess(res.data))
+                }),
+                catchError(error => of(actions.getProjectFilterFailure(error)))
+            );
+        }),
+    )
+};
+
 const filterProjectsEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_PROJECT_STATUS_FILTER),
@@ -311,6 +325,7 @@ export const projectsRootEpic = combineEpics(
     getItemsEpic,
     getProgressEpic,
     projectStatusEpic,
+    projectFilterEpic,
     filterProjectsEpic,
     filterProjectByIdEpic,
     filterProjectByRegionEpic

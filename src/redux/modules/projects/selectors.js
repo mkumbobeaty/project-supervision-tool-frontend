@@ -197,8 +197,16 @@ export const selectedProject = (state) => state?.resources?.selectedProject
 
 /**
  * @function
- * @name getProgressSelector
+ * @name getProjectStatusSelector
  * @param {Object} state redux state
  * @return {Object} progress
  */
-export const getProjectStatusSelector = (state) => state?.resources?.progectStatus?.data;
+export const getProjectStatusSelector = (state) => state?.resources?.projectStatus?.data;
+
+/**
+ * @function
+ * @name getProjectsFilteSelector
+ * @param {Object} state redux state
+ * @return {Object} progress
+ */
+export const getProjectsFilterSelector = (state) => state?.resources?.projectsFilter?.data?.data || [];

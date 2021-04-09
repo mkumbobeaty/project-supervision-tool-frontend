@@ -56,8 +56,6 @@ function NationalProjectsOverview(
         { title: 'Regions', value: projectsStatistics.regions },
     ] : [];
 
-    console.log(projectsStatistics)
-
     return (
         <div>
             <SideNavItemOverview
