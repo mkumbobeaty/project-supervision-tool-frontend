@@ -6,12 +6,10 @@ import { projectOperation, projectSelectors } from "../../../../redux/modules/pr
 import BaseMap from "../../../Map/BaseMap";
 import FullscreenControl from 'react-leaflet-fullscreen';
 import { mapSelectors } from "../../../../redux/modules/map";
-import ProjectLocations from "../../../Map/components/ProjectLocations";
 import ProjectsProgress from "./Progress";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
 import "./styles.css";
 import DetailsSection from "./DetailsSection";
-import ProjectPoints from "../../../Map/components/ProjectPoints";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;

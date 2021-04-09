@@ -9,11 +9,12 @@ import "./styles.css";
 import KeyDetailSection from "./KeyDetails";
 import ProjectsProgress from "../../../Projects/components/ProjectsDetails/Progress";
 import { isoDateToHumanReadableDate } from "../../../../Util";
+import ReportOverview from "./ReportOverview";
 
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
 
-const { Content, Sider } = Layout;
+const { Content } = Layout;
 const { TabPane } = Tabs;
 
 class SubProject extends Component {
@@ -101,6 +102,9 @@ class SubProject extends Component {
                             </div>
 
                           </Spin>
+                        </Col>
+                        <Col {...firstSpan}>
+                            <ReportOverview />
                         </Col>
                       </Row>
                     </TabPane>

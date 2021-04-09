@@ -8,16 +8,9 @@ import { bindActionCreators } from "redux";
 import { mapActions, mapSelectors } from "../../redux/modules/map";
 import { projectSelectors } from '../../redux/modules/projects'
 import SideNav from "./components/SideNav";
-import RegionsGeoJson from "./components/RegionsGeoJson";
-import RegionDetailGeoJson from "./components/RegionDetailsGeoJson";
 import ProjectPoints from "./components/ProjectPoints";
-import ProjectLocations from "./components/ProjectLocations";
-import SubProjectLocations from "./components/SubProjectLocations";
-import SubProjectElementWfsLayer from "./components/SubProjectElementWfsLayer";
 import { mapProjectSelectors } from "../../redux/modules/map/projects";
 import { mapSubProjectActions, mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
-import SubRegionsGeoJson from './components/SubRegionsGeoJson ';
-import ShowDataSets from "./components/ShowDataSets";
 import "./styles.css";
 
 class MapDashboard extends Component {
