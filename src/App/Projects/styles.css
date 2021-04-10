@@ -18,6 +18,9 @@
   .FormModal {
     width: 90% !important;
   }
+  .contentEllipse > a, .Projects {
+    padding: 12px;
+}
 }
 
 /* .ProjectForm .ant-input-number {
