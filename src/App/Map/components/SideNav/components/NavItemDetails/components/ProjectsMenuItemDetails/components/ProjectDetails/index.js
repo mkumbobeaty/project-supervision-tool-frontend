@@ -6,19 +6,34 @@ import './styles.css';
 import { mapProjectSelectors } from "../../../../../../../../../../redux/modules/map/projects";
 import { mapSubProjectActions, mapSubProjectSelectors } from "../../../../../../../../../../redux/modules/map/subProjects";
 import SubProjectTypesFilter from "../SuProjectTypesFilter";
+import SubProjectStatusFilter from "../SuProjectStatusFilter";
+import { projectActions, projectSelectors } from "../../../../../../../../../../redux/modules/projects";
+import RegionsFilter from "../RegionsFilter";
 
-
-function ProjectDetails({ subProjectTypes, setSubProjectTypesFilter, getSubProjectTypes, getSubProjectStatus }) {
+function ProjectDetails({ 
+    subProjectTypes,
+    subProjectStatus,
+     setSubProjectTypesFilter, 
+     getSubProjectTypes,
+      getSubProjectStatus,
+      setSubProjectStatusFilter, 
+      regions,
+      getRegions,
+      setSubProjectRegionsFilter,
+    }) {
     useEffect(() => {
         getSubProjectTypes();
         getSubProjectStatus();
+        getRegions()
     }, []);
 
 
     return (
         <div className="ProjectInfo">
             <SubProjectTypesFilter subProjectTypes={subProjectTypes} setSubProjectTypesFilter={setSubProjectTypesFilter}
-            />     
+            />
+            <SubProjectStatusFilter subProjectStatus={subProjectStatus} setSubProjectStatusFilter={setSubProjectStatusFilter} />
+            <RegionsFilter regions={regions} setProjectRegionsFilter={setSubProjectRegionsFilter} />  
        </div>
     );
 }
@@ -26,7 +41,8 @@ function ProjectDetails({ subProjectTypes, setSubProjectTypesFilter, getSubProje
 const mapStateToProps = state => ({
     project: mapProjectSelectors.getProjectSelector(state),
     subProjectTypes: mapSubProjectSelectors.getSubProjectTypesSelector(state),
-    subProjectStatus: mapSubProjectSelectors.getSubProjectStatusSelector(state)
+    subProjectStatus: mapSubProjectSelectors.getSubProjectStatusSelector(state),
+    regions: projectSelectors.getRegionsSelector(state),
 
 });
 
@@ -34,7 +50,10 @@ const mapDispatchToProps = (dispatch) => ({
     getSubProject: bindActionCreators(mapSubProjectActions.getSubProjectStart, dispatch),
     getSubProjectTypes: bindActionCreators(mapSubProjectActions.getSubProjectTypesStart, dispatch),
     getSubProjectStatus: bindActionCreators(mapSubProjectActions.getSubProjectStatusStart, dispatch),
-    setSubProjectTypesFilter: bindActionCreators(mapSubProjectActions.setSubProjectTypesFilter, dispatch)
+    setSubProjectTypesFilter: bindActionCreators(mapSubProjectActions.setSubProjectTypesFilter, dispatch),
+    setSubProjectStatusFilter: bindActionCreators(mapSubProjectActions.setSubProjectStatusFilter, dispatch),
+    getRegions: bindActionCreators(projectActions.getRegionsStart, dispatch),
+    setSubProjectRegionsFilter: bindActionCreators(mapSubProjectActions.setSubProjectRegionsFilter, dispatch),
 
 });
 

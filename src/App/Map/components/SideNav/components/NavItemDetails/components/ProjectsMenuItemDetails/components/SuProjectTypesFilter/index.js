@@ -33,7 +33,7 @@ const SubProjectTypesFilter = ({ subProjectTypes,setSubProjectTypesFilter }) => 
         <CheckBoxGroupFilter
             items={SubprojectTypesFilterData}
             itemsPerPage={5}
-            filterTitle={`subProjectTypes`}
+            filterTitle={`Subproject Types`}
             handleFilter={handleOnclickFilterItem}
             // filterClass="projectFilter"
         />
