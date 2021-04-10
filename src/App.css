@@ -168,14 +168,7 @@ code {
 @media screen and (max-width: 1024px) {
   .FormModal {
     width: 80% !important;
-  }
-
-  .FormModal-80 {
-    width: 70% !important;
-  }
-}
-
-@media screen and (max-width: 768px) {
+  }@media screen and (max-width: 768px) {
   .FormModal {
     width: 80% !important;
   }
@@ -209,3 +202,9 @@ code {
   font-size: 15px;
 }
 }
+
+  .FormModal-80 {
+    width: 70% !important;
+  }
+}
+

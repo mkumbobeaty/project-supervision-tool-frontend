@@ -31,8 +31,9 @@ class SideNav extends Component {
         return (
             <div className='SideNav'>
                 <div className='nav-items-list'>
-                <Link to='/app' >
+                <Link to='/app' className="SideNavItem">
                 <SideNavItem
+                title="Home"
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteIcon}
                         itemId='projects'

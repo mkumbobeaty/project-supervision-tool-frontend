@@ -1,4 +1,3 @@
-
 .SideNav {
     display: flex;
     position: fixed;
@@ -16,4 +15,32 @@
 
 hr {
     border-top: 1px solid #dee3e8
+}
+
+@media screen and (max-width: 1024px) {}
+
+@media screen and (max-width: 768px) {}
+
+@media screen and (max-width: 426px) {}
+
+@media screen and (min-width: 375px) {
+    .SideNav {
+        width: 100%;
+        display: inline;
+        border: 0;
+      
+    }
+    .SideNav .nav-items-list {
+        display: flex;
+    }
+    .SideNavItem{
+        height: 8vh;
+            flex-grow: 1;
+        padding: 0px;
+        border-bottom: none;
+    }
+    .SideNavItem img {
+        height: 30px;
+    }
+
 }
