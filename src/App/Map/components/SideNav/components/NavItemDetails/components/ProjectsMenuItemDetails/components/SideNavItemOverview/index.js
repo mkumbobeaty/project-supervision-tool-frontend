@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import BackLink from "../BackLink";
 import OverviewTable from "../OverviewTable";
 import { Spin } from 'antd';
 import './styles.css';
@@ -13,8 +12,6 @@ import './styles.css';
 
 function SideNavItemOverview({
     overViewData,
-    title,
-    goBack,
     loadingStatistics,
     showRegionalOverviewLoader,
 }) {

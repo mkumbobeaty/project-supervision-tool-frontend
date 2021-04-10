@@ -5,8 +5,6 @@ import {mapSelectors} from '../../../../../../../../redux/modules/map';
 import ProjectsOverview from "./components/ProjectOverview";
 import ProjectDetails from "./components/ProjectDetails";
 
-
-
 /**
  * @function
  * @name ProjectsMenuItemDetails

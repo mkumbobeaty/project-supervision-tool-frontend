@@ -1,16 +1,17 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {mapActions, mapSelectors} from "../../../../../../../../../../redux/modules/map";
-import {bindActionCreators} from "redux";
-import {projectActions, projectSelectors} from "../../../../../../../../../../redux/modules/projects";
-import {mapProjectActions} from "../../../../../../../../../../redux/modules/map/projects";
+import { mapActions, mapSelectors } from "../../../../../../../../../../redux/modules/map";
+import { bindActionCreators } from "redux";
+import { projectActions, projectSelectors } from "../../../../../../../../../../redux/modules/projects";
+import { mapProjectActions } from "../../../../../../../../../../redux/modules/map/projects";
 import TopSection from "../../../TopSection";
 import SideNavItemOverview from "../SideNavItemOverview";
 import ProjectStatusFilter from "../ProjectStatusFilter";
 import ProjectsFilter from "../ProjectsFilter";
 import RegionsFilter from "../RegionsFilter";
-import {mapSubProjectActions} from "../../../../../../../../../../redux/modules/map/subProjects";
+import { mapSubProjectActions, mapSubProjectSelectors } from "../../../../../../../../../../redux/modules/map/subProjects";
+import SubProjectTypesFilter from "../SuProjectTypesFilter";
 
 /**
  * @function
@@ -33,7 +34,12 @@ function ProjectsOverview(
         getSubProjects,
         getProjectsFilters,
         getProject,
-        setProjectRegionsFilter
+        setProjectRegionsFilter,
+        getSubProjectTypes,
+        getSubProjectStatus,
+        subProjectTypes,
+        subProjectStatus,
+        setSubProjectTypesFilter
     }
 ) {
 
@@ -55,7 +61,7 @@ function ProjectsOverview(
 
     return (
         <>
-            <TopSection title="OVERVIEWS"/>
+            <TopSection title="OVERVIEWS" />
             <SideNavItemOverview
                 overViewData={overViewData}
                 loadingStatistics={loadingStatistics}
@@ -74,6 +80,7 @@ function ProjectsOverview(
                 regions={regions}
                 setProjectRegionsFilter={setProjectRegionsFilter}
             />
+    
 
         </>
     );
@@ -81,24 +88,24 @@ function ProjectsOverview(
 
 const mapStateToProps = state => ({
     projectsStatistics: mapSelectors.getProjectsStatistics(state),
-    loadingStatistics : mapSelectors.getProjectsStatisticsLoading(state),
-    projects:projectSelectors.getProjectsFilterSelector(state),
+    loadingStatistics: mapSelectors.getProjectsStatisticsLoading(state),
+    projects: projectSelectors.getProjectsFilterSelector(state),
     statuses: projectSelectors.getProjectStatusSelector(state),
     regions: projectSelectors.getRegionsSelector(state),
-
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getProjectsOverview: bindActionCreators(mapActions.getProjectStatisticsStart, dispatch),
     getProject: bindActionCreators(mapProjectActions.getProjectStart, dispatch),
-    getProjects:bindActionCreators(mapProjectActions.getProjectsStart, dispatch),
-    getProjectsFilters:bindActionCreators(projectActions.getProjectFilterStart, dispatch),
+    getProjects: bindActionCreators(mapProjectActions.getProjectsStart, dispatch),
+    getProjectsFilters: bindActionCreators(projectActions.getProjectFilterStart, dispatch),
     getProjectStatus: bindActionCreators(projectActions.getProjectStatusStart, dispatch),
     getRegions: bindActionCreators(projectActions.getRegionsStart, dispatch),
-    setProjectStatusFilter:bindActionCreators(projectActions.setProjectStatusFilter, dispatch),
-    setProjectIdFilter:bindActionCreators(projectActions.setProjectIdFilter, dispatch),
-    setProjectRegionsFilter:bindActionCreators(projectActions.setProjectRegionsFilter, dispatch),
-    getSubProjects:bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
+    setProjectStatusFilter: bindActionCreators(projectActions.setProjectStatusFilter, dispatch),
+    setProjectIdFilter: bindActionCreators(projectActions.setProjectIdFilter, dispatch),
+    setProjectRegionsFilter: bindActionCreators(projectActions.setProjectRegionsFilter, dispatch),
+    getSubProjects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
+   
 });
 
 
