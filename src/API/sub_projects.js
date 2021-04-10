@@ -124,6 +124,32 @@ const uploadPhotos = (sub_project_id, payload) =>  {
 
 const getSubProjectsStatistics = () => axios.get('/sub_projects/statistics').then((response)=> response.data);
 
+/**
+ * 
+ * Get a sub project types from the API
+ * @function
+ * @name getSubProjectTypes
+ * @param {Object} id - Id of a sub project type
+ * @returns {Promise}
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const getSubProjectTypes = () => axios.get(`/sub_project_types`).then((response) => response.data);
+
+/**
+ * 
+ * Get a sub project status from the API
+ * @function
+ * @name getSubProjectStatus
+ * @param {Object} id - Id of a sub project status
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const getSubProjectStatus = () => axios.get(`/sub_project_status`).then((response) => response.data);
+
+
 export default {
     getSubProjects,
     getSubProject,
@@ -135,5 +161,7 @@ export default {
     createSubProjectItem,
     updateSubProject,
     getSubProjectsStatistics,
-    uploadPhotos
+    uploadPhotos,
+    getSubProjectStatus,
+    getSubProjectTypes
 }
