@@ -6,6 +6,7 @@ import API from "../../../../API";
 import * as actions from "./actions";
 import {mapProjectActions} from "../projects";
 import { mapActions } from "..";
+import { mapSubProjectActions } from ".";
 
 
 /**
@@ -188,6 +189,61 @@ const getSubProjectStatusEpic = action$ => {
         }),
     );
 }
+
+const filterSubProjectTypesEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_SUB_PROJECT_TYPES_FILTER),
+        switchMap(() => {
+            return of(mapSubProjectActions.getSubProjectsStart(state$.value.map.subProjects.filters))
+        }),
+    )
+};
+
+const filterSubProjectStatusEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_SUB_PROJECT_STATUS_FILTER),
+        switchMap(() => {
+            return of(mapSubProjectActions.getSubProjectsStart(state$.value.map.subProjects.filters))
+        }),
+    )
+};
+
+const filterSubProjectByDistrictsEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_SUB_PROJECT_DISTRICT_FILTER),
+        switchMap(() => {
+            return of(mapSubProjectActions.getSubProjectsStart(state$.value.map.subProjects.filters))
+        }),
+    )
+};
+
+const filterSubProjectByRegionEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_SUB_PROJECT_REGIONS_FILTER),
+        switchMap(() => {
+            return of(mapSubProjectActions.getSubProjectsStart(state$.value.map.subProjects.filters))
+        }),
+    )
+};
+
+const filterSubProjectContractorEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_SUB_PROJECT_CONTRACTOR_FILTER),
+        switchMap(() => {
+            return of(mapSubProjectActions.getSubProjectsStart(state$.value.map.subProjects.filters))
+        }),
+    )
+};
+
+const filterSubProjectComponentEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_SUB_PROJECT_COMPONENT_FILTER),
+        switchMap(() => {
+            return of(mapSubProjectActions.getSubProjectsStart(state$.value.map.subProjects.filters))
+        }),
+    )
+};
+
 export const mapSubProjectEpics = combineEpics(
     getSubProjectMapEpic,
     getSubProjectsStatistics,
@@ -198,5 +254,10 @@ export const mapSubProjectEpics = combineEpics(
     districtsEpic,
     getSubProjectTypesEpic,
     getSubProjectStatusEpic,
-
+    filterSubProjectByDistrictsEpic,
+    filterSubProjectByRegionEpic,
+    filterSubProjectContractorEpic,
+    filterSubProjectTypesEpic,
+    filterSubProjectStatusEpic,
+    filterSubProjectComponentEpic
 );

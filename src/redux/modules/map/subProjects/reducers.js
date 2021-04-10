@@ -189,6 +189,38 @@ const subProjectTypes = (state = { data: [], error: null }, action) => {
     }
 };
 
+const subProjectFilter = {
+    'filter[sub_project_status_id]': '',
+    'filter[sub_project_type_id]': '',
+    'filter[districts.id]': '',
+    'filter[districts.region_id]': '',
+    'filter[procuringEntityPackage.procuringEntity.project_sub_component_id]': '',
+    'filter[procuringEntityPackage.contract.contractor_id]': ''
+};
+
+/**
+ * @function
+ * @name filters
+ * @description reducer that manages sub project filter state
+ */
+const filters = (state = subProjectFilter, action) => {
+    switch (action.type) {
+        case types.SET_SUB_PROJECT_TYPES_FILTER:
+            return { ...state, 'filter[sub_project_type_id]': action.payload };
+        case types.SET_SUB_PROJECT_STATUS_FILTER:
+            return { ...state, 'filter[sub_project_status_id]': action.payload };
+        case types.SET_SUB_PROJECT_DISTRICT_FILTER:
+            return { ...state, 'filter[districts.id]': action.payload };
+        case types.SET_SUB_PROJECT_REGIONS_FILTER:
+            return { ...state, 'filter[districts.region_id]': action.payload };
+        case types.SET_SUB_PROJECT_COMPONENT_FILTER:
+            return { ...state, 'filter[procuringEntityPackage.procuringEntity.project_sub_component_id]': action.payload };
+        case types.SET_SUB_PROJECT_CONTRACTOR_FILTER:
+            return { ...state, 'filter[procuringEntityPackage.contract.contractor_id]': action.payload };
+        default:
+            return state;
+    }
+};
 
 export const subProjects = combineReducers({
     selected,
@@ -201,7 +233,8 @@ export const subProjects = combineReducers({
     districts,
     all,
     subProjectStatus,
-    subProjectTypes
+    subProjectTypes,
+    filters
 })
 
 
