@@ -4,6 +4,7 @@ import API from '../../../API';
 import {ofType, combineEpics} from 'redux-observable';
 import {of, from} from 'rxjs';
 import {switchMap, catchError,} from "rxjs/operators";
+import {mapProjectActions} from "../map/projects";
 
 export const projectsListEpic = action$ => {
     return action$.pipe(
@@ -40,29 +41,6 @@ export const getSubProjectEpic = action$ => {
     )
 };
 
-
-/**
- * @function
- * @name getSubProjectElementEpic
- * @param action$
- * @return action$
- */
-export const getSubProjectElementEpic = action$ => {
-    return action$.pipe(
-        ofType(types.GET_SUB_PROJECT_ELEMENT_START),
-        switchMap(({payload}) => {
-            return from(API.getSubProjectElement(payload)).pipe(
-                switchMap(res => {
-                    return from([
-                        actions.getSubProjectElementSuccess(res.data),
-                        actions.clearSubProject()
-                    ])
-                }),
-                catchError(error => of(actions.getSubProjectElementFailure(error)))
-            );
-        }),
-    )
-};
 
 
 /**
@@ -284,7 +262,7 @@ const filterProjectsEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_PROJECT_STATUS_FILTER),
         switchMap(() => {
-            return of(actions.getProjectsStart(state$.value.resources.filters))
+            return of(mapProjectActions.getProjectsStart(state$.value.resources.filters))
         }),
     )
 };
@@ -293,7 +271,7 @@ const filterProjectByIdEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_PROJECT_ID_FILTER),
         switchMap(() => {
-            return of(actions.getProjectsStart(state$.value.resources.filters))
+            return of(mapProjectActions.getProjectsStart(state$.value.resources.filters))
         }),
     )
 };
@@ -302,7 +280,7 @@ const filterProjectByRegionEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_PROJECT_REGIONS_FILTER),
         switchMap(() => {
-            return of(actions.getProjectsStart(state$.value.resources.filters))
+            return of(mapProjectActions.getProjectsStart(state$.value.resources.filters))
         }),
     )
 };
@@ -320,7 +298,6 @@ export const projectsRootEpic = combineEpics(
     createProjectLocationPic,
     getSubProjectEpic,
     createSubProjectEpic,
-    getSubProjectElementEpic,
     getEnvironmentalCategoriesEpic,
     getItemsEpic,
     getProgressEpic,
