@@ -153,6 +153,41 @@ const districtsEpic = action$ => {
     )                                                                                                                                                                                                       
 }
 
+/**
+ *
+ * @function
+ * @name getSubProjectTypesEpic
+ * @param action$ stream of actions
+ */
+const getSubProjectTypesEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECT_TYPES_START),
+        switchMap(() => {
+            return from(API.getSubProjectTypes()).pipe(
+                switchMap(res => of(actions.getSubProjectTypesSuccess(res.data))),
+                catchError(error => of(actions.getSubProjectTypesFailure(error)))
+            );
+        }),
+    );
+}
+
+/**
+ *
+ * @function
+ * @name getSubProjectStatusEpic
+ * @param action$ stream of actions
+ */
+const getSubProjectStatusEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECT_STATUS_START),
+        switchMap(() => {
+            return from(API.getSubProjectStatus()).pipe(
+                switchMap(res => of(actions.getSubProjectStatusSuccess(res.data))),
+                catchError(error => of(actions.getSubProjectStatusFailure(error)))
+            );
+        }),
+    );
+}
 export const mapSubProjectEpics = combineEpics(
     getSubProjectMapEpic,
     getSubProjectsStatistics,
@@ -160,5 +195,8 @@ export const mapSubProjectEpics = combineEpics(
     getSubProjectsByRegionEpic,
     getRegionSubProjectStatisticsEpic,
     getDistrictsPerRegionEpic,
-    districtsEpic
+    districtsEpic,
+    getSubProjectTypesEpic,
+    getSubProjectStatusEpic,
+
 );

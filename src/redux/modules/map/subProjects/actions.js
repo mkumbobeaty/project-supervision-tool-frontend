@@ -1,7 +1,5 @@
 import {makeActionCreator} from "../../../../Util";
 import * as types from "./types";
-
-
 // retrieve a single sub project
 
 /**
@@ -264,3 +262,45 @@ export const getDistrictsSubProjectsOverviewStart = makeActionCreator(types.GET_
       payload: error,
     };
   }
+
+
+/**
+ * @function
+ * @name getSubProjectTypesStart
+ */
+export const getSubProjectTypesStart = makeActionCreator(types.GET_SUB_PROJECT_TYPES_START);
+
+/**
+ * @function
+ * @name getSubProjectTypesSuccess
+ * @param {Array} payload fetched sub-projects types
+ */
+ export const getSubProjectTypesSuccess = makeActionCreator(types.GET_SUB_PROJECT_TYPES_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectTypesFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getSubProjectTypesFailure = makeActionCreator(types.GET_SUB_PROJECT_TYPES_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectStatusStart
+ */
+export const getSubProjectStatusStart = makeActionCreator(types.GET_SUB_PROJECT_STATUS_START);
+
+/**
+ * @function
+ * @name getSubProjectStatusSuccess
+ * @param {Array} payload fetched projects
+ */
+ export const getSubProjectStatusSuccess = makeActionCreator(types.GET_SUB_PROJECT_STATUS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectStatusFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getSubProjectStatusFailure = makeActionCreator(types.GET_SUB_PROJECT_STATUS_FAILURE, 'payload');
+

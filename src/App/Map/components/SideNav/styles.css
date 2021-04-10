@@ -100,6 +100,9 @@ hr {
 }
 
 @media screen and (max-width: 426px) {
+    .BaseLayoutContent .MapDashboard{
+        overflow: hidden;
+    }
     .SideNav {
         width: 100%;
         display: inline;

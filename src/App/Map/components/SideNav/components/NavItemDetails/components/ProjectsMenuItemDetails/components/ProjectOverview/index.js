@@ -10,7 +10,7 @@ import SideNavItemOverview from "../SideNavItemOverview";
 import ProjectStatusFilter from "../ProjectStatusFilter";
 import ProjectsFilter from "../ProjectsFilter";
 import RegionsFilter from "../RegionsFilter";
-import {mapSubProjectActions} from "../../../../../../../../../../redux/modules/map/subProjects";
+import {mapSubProjectActions, mapSubProjectSelectors} from "../../../../../../../../../../redux/modules/map/subProjects";
 
 /**
  * @function
@@ -33,7 +33,11 @@ function ProjectsOverview(
         getSubProjects,
         getProjectsFilters,
         getProject,
-        setProjectRegionsFilter
+        setProjectRegionsFilter,
+        getSubProjectTypes,
+        getSubProjectStatus,
+        subProjectTypes,
+        subProjectStatus
     }
 ) {
 
@@ -45,6 +49,8 @@ function ProjectsOverview(
         getProjectsFilters();
         getProjectStatus();
         getRegions();
+        getSubProjectTypes();
+        getSubProjectStatus();
     }, []);
 
     const overViewData = projectsStatistics ? [
@@ -85,6 +91,8 @@ const mapStateToProps = state => ({
     projects:projectSelectors.getProjectsFilterSelector(state),
     statuses: projectSelectors.getProjectStatusSelector(state),
     regions: projectSelectors.getRegionsSelector(state),
+    subProjectTypes: mapSubProjectSelectors.getSubProjectTypesSelector(state),
+    subProjectStatus:mapSubProjectSelectors.getSubProjectStatusSelector(state)
 
 });
 
@@ -99,6 +107,9 @@ const mapDispatchToProps = (dispatch) => ({
     setProjectIdFilter:bindActionCreators(projectActions.setProjectIdFilter, dispatch),
     setProjectRegionsFilter:bindActionCreators(projectActions.setProjectRegionsFilter, dispatch),
     getSubProjects:bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
+    getSubProjectTypes: bindActionCreators(mapSubProjectActions.getSubProjectTypesStart, dispatch),
+    getSubProjectStatus: bindActionCreators(mapSubProjectActions.getSubProjectStatusStart, dispatch)
+
 });
 
 

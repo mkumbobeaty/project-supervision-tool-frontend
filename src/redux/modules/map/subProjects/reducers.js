@@ -142,9 +142,9 @@ const districtsSubProjects = (state = { data: [], error: null, loading: false },
         case types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_START:
             return { ...state, loading: true };
         case types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_SUCCESS:
-            return { ...state, data: action.payload, loading:false };
+            return { ...state, data: action.payload, loading: false };
         case types.GET_DISRTRICTS_SUB_PROJECTS_OVERVIEW_FAILURE:
-            return { ...state, error: action.payload, loading:false };
+            return { ...state, error: action.payload, loading: false };
         case types.CLEAR_DISRTRICTS_SUB_PROJECTS_OVERVIEW:
             return { ...state, data: [] };
         default:
@@ -152,7 +152,7 @@ const districtsSubProjects = (state = { data: [], error: null, loading: false },
     }
 };
 
-const districts = (state = {data:[], error:null}, action) => {
+const districts = (state = { data: [], error: null }, action) => {
     switch (action.type) {
         case types.GET_DISTRICTS_SUCCESS:
             return { ...state, data: action.payload };
@@ -162,6 +162,33 @@ const districts = (state = {data:[], error:null}, action) => {
             return state;
     }
 };
+
+const subProjectStatus = (state = { data: [], error: null }, action) => {
+    switch (action.type) {
+        case types.GET_SUB_PROJECT_STATUS_START:
+            return { ...state };
+        case types.GET_SUB_PROJECT_STATUS_SUCCESS:
+            return { ...state, data: action.payload };
+        case types.GET_SUB_PROJECT_STATUS_FAILURE:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+const subProjectTypes = (state = { data: [], error: null }, action) => {
+    switch (action.type) {
+        case types.GET_SUB_PROJECT_TYPES_START:
+            return { ...state };
+        case types.GET_SUB_PROJECT_TYPES_SUCCESS:
+            return { ...state, data: action.payload };
+        case types.GET_SUB_PROJECT_TYPES_FAILURE:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 
 export const subProjects = combineReducers({
     selected,
@@ -173,6 +200,8 @@ export const subProjects = combineReducers({
     districtsSubProjects,
     districts,
     all,
+    subProjectStatus,
+    subProjectTypes
 })
 
 
