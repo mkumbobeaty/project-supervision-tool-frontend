@@ -7,7 +7,7 @@ import BasicSubProjectDetailsForm from "./BasicSubProjectDetailsForm";
 import MoreSubProjectDetails from "./MoreSubProjectDetailsForm";
 import {projectActions, projectSelectors} from "../../../redux/modules/projects";
 import API from "../../../API";
-import { subProjectsActions, subProjectsSelectors } from "../../../redux/modules/subProjects";
+import { subProjectsActions } from "../../../redux/modules/subProjects";
 
 
 const { Step } = Steps;
