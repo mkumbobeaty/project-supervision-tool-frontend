@@ -1,4 +1,4 @@
-import { Col, Row, Checkbox } from 'antd';
+import { Col, Row } from 'antd';
 import PropTypes from 'prop-types';
 import React from 'react';
 import './styles.css';

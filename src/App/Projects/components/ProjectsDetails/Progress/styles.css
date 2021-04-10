@@ -2,10 +2,10 @@
     border-radius: 0 !important;
 }
 
-.projectsProgress h5{
+.projectsProgress h5,.Progress-overview h5{
     text-align: center;
     color: #0f6788;
-    font-size: 18px;
+    font-size: 16px;
     padding-bottom: 10px;
 }
 .projectsProgress h4{

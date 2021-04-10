@@ -20,17 +20,19 @@ import SurveyForm from "./SurveyForm";
 
 
 /* constants */
-const subProjectNameSpan = { xxl: 3, xl: 4, lg: 4, md: 5, sm: 10, xs: 11 };
-const contractorSpan = { xxl: 3, xl: 3, lg: 5, md: 3, sm: 4, xs: 5 };
-const endDataSpan = { xxl: 4, xl: 3, lg: 4, md: 5, sm: 4, xs: 0 };
-const agencySpan = { xxl: 4, xl: 4, lg: 4, md: 3, sm: 4, xs: 5 };
+const subProjectNameSpan = { xxl: 3, xl: 4, lg: 4, md: 5, sm: 0, xs: 0 };
+const contractorSpan = { xxl: 3, xl: 3, lg: 5, md: 3, sm: 0, xs: 0 };
+const endDataSpan = { xxl: 4, xl: 3, lg: 4, md: 5, sm: 5, xs: 5 };
+const agencySpan = { xxl: 4, xl: 4, lg: 4, md: 3, sm: 0, xs: 0 };
 const locationSpan = { xxl: 3, xl: 3, lg: 0, md: 0, sm: 0, xs: 0 };
-const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
-const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 2, xs: 3 };
+const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 5, xs: 5 };
+const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 5, xs: 5 };
+const codeSpan = { xxl: 0, xl: 0, lg: 0, md: 0, sm: 5, xs: 5 };
 
 const { confirm } = Modal;
 
 const headerLayout = [
+  { ...codeSpan, header: "Code" },
   { ...subProjectNameSpan, header: "Name" },
   { ...projectIdSpan, header: "Project" },
   { ...locationSpan, header: "Location" },
@@ -108,6 +110,7 @@ class SubProjects extends Component {
   */
   handleViewDetails = (item_id) => {
     const { getSubProject } = this.props;
+    console.log(item_id)
     getSubProject(item_id);
     let path = `/app/sub_projects/${item_id}`;
     this.props.history.push(path);
@@ -373,6 +376,10 @@ class SubProjects extends Component {
                     {item.name}
                   </Link>
 
+                </Col>
+                <Col {...codeSpan} >
+
+                  {item ? item?.code : "N/A"}
                 </Col>
                 <Col {...projectIdSpan} className="contentEllipse">
 

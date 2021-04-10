@@ -1,5 +1,3 @@
-import { subProjects } from "./reducers";
-
 /**
  * @function
  * @name getSubProjectSelector

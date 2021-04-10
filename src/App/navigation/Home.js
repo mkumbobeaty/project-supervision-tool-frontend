@@ -1,14 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import dashboardIcon from '../../assets/icons/overview-dashboard.svg';
 import resourcesIcon from '../../assets/icons/resources.svg';
 import settingsIcons from '../../assets/icons/admin-settings.svg';
 import NavigationMenu from '../components/NavigationMenu';
 import initiativesIcon from '../../assets/icons/initiatives.svg';
 import mapsIcon from "../../assets/icons/maps.svg";
-import humanResourcesIcons from '../../assets/icons/human-resources.svg';
-import itemsIcons from '../../assets/icons/needs.svg';
-import equipmentsIcons from '../../assets/icons/production-capacity.svg';
 import contractsIcons from '../../assets/icons/financial-resources.svg';
 
 import modules from '../../modules.json';

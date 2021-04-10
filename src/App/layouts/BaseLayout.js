@@ -12,8 +12,6 @@ import Projects from "../Projects";
 import SubProjects from "../Sub-projects/";
 import Project from "../Projects/components/ProjectsDetails";
 import SubProject from "../Sub-projects/components/SubProjectsDetails/"
-import SubProjectItems from "../Sub-projects/components/SubProjectItems";
-import SubProjectEquipments from "../Sub-projects/components/SubProjectEquipments";
 // import Settings from "../Settings";
 import GeoNode from "../GeoNode";
 import Agencies from "../Agencies";
@@ -38,15 +36,15 @@ const breadcrumbNameMap = {
     title: "projects Module",
   },
   "/app/sub_projects": {
-    name: "Subprojects",
+    name: "Sub Projects",
     title: "List of all Subprojects",
   },
 
-  "/app/projects/:type": {
+  "/app/projects/:type": {  
     name: "Project",
     title: "Detail of single project",
   },
-  "/app/sub-projects/:type": {
+  "/app/sub_projects/:type": {
     name: "Sub Project",
     title: "Detail of single sub project",
   },
@@ -168,21 +166,10 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
 
           <PrivateRoute
             exact
-            path={`${baseUrl}/sub-projects/:id`}
+            path={`${baseUrl}/sub_projects/:id`}
             render={({ match }, props ) => <SubProject match={match} {...props}/>}
           />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/sub-project-items`}
-            render={(props) => <SubProjectItems {...props} />}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/equipments`}
-            /*render={(props) => <SubProjectEquipments {...props} />}*/
-            component={SubProjectEquipments}
-          />
-
+      
           <PrivateRoute path={`${baseUrl}/map`} component={MapDashboard} />
           <PrivateRoute
             exact
