@@ -10,6 +10,7 @@ import ProjectsProgress from "./Progress";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
 import "./styles.css";
 import DetailsSection from "./DetailsSection";
+import ProjectPoints from "../../../Map/components/ProjectPoints";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -81,16 +82,13 @@ class Project extends Component {
                             progress_final_value={closing_date}
                           />
                         </Col>
-                        <Col {...secondSpan} offset={1} >
-                          <h5>Project Locations</h5>
-                          <div className="project_map">
-                            <Spin spinning={mapLoading} tip="Loading data...">
-                              <BaseMap ref={this.map} zoomControl={true}>
-                                <FullscreenControl position="topright" />
-                                {/* <ProjectPoints project={project} /> */}
-                              </BaseMap>
-                            </Spin>
-                            </div>
+                        <Col {...secondSpan} className="project_map" offset={1} >
+                          <Spin spinning={mapLoading} tip="Loading data...">
+                            <BaseMap ref={this.map} zoomControl={true}>
+                              <FullscreenControl position="topright" />
+                              {/* <ProjectPoints project={project} /> */}
+                            </BaseMap>
+                          </Spin>
                         </Col>
                       </Row>
                         <DetailsSection />

@@ -1,4 +1,3 @@
-
 .SideNav {
     display: flex;
     position: fixed;
@@ -16,4 +15,118 @@
 
 hr {
     border-top: 1px solid #dee3e8
+}
+
+@media screen and (max-width: 2560px) {
+    .SideNavItem:not(:first-child) {
+        border-top: 1px solid #dcd9d954;
+        ;
+        border-bottom: 1px solid #dcd9d954;
+    }
+}
+
+@media screen and (max-width: 1440px) {
+    .CheckBoxGroupFilter label {
+        width: 320px;
+    }
+    .CheckBoxGroupFilter .statusFilter label {
+        width: 80px;
+    }
+    .NavItemDetails {
+        width: 24vw !important;
+    }
+    .SideNavItem:not(:first-child) {
+        border-top: 1px solid #dcd9d954;
+        ;
+        border-bottom: 1px solid #dcd9d954;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .CheckBoxGroupFilter label {
+        width: 280px;
+    }
+    .CheckBoxGroupFilter .statusFilter label {
+        width: 74px;
+    }
+    .NavItemDetails {
+        width: 30vw !important;
+    }
+    .SideNav {
+        top: 4.5%;
+    }
+    .SideNavItem:not(:first-child) {
+        border-top: 1px solid #dcd9d954;
+        ;
+        border-bottom: 1px solid #dcd9d954;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .SideNav {
+        width: 100%;
+        display: inline;
+        border: 0;
+        height: inherit !important;
+        top: 11.5%;
+    }
+    .SideNav .nav-items-list {
+        display: flex;
+    }
+    .SideNavItem {
+        height: 10vh;
+        flex-grow: 1;
+        padding: 0px;
+        border-bottom: none;
+    }
+    .SideNavItem:not(:first-child) {
+        border-left: 1px solid #dcd9d954;
+        ;
+        border-right: 1px solid #dcd9d954;
+    }
+    .SideNavItem img {
+        height: 30px;
+    }
+    .NavItemDetails {
+        width: 100% !important;
+        height: 34vh;
+    }
+    .CheckBoxGroupFilter .statusFilter label {
+        width: 180px;
+    }
+    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .regionFilter label {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .SideNav {
+        width: 100%;
+        display: inline;
+        border: 0;
+        height: inherit !important;
+        top: 8.5%;
+    }
+    .SideNav .nav-items-list {
+        display: flex;
+    }
+    .SideNavItem {
+        height: 8vh;
+        flex-grow: 1;
+        padding: 0px;
+        border-bottom: none;
+    }
+    .SideNavItem img {
+        height: 30px;
+    }
+    .NavItemDetails {
+        width: 100% !important;
+        height: 34vh;
+    }
+    .CheckBoxGroupFilter .statusFilter label {
+        width: 98px;
+    }
+    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .regionFilter label {
+        width: 100%;
+    }
 }
