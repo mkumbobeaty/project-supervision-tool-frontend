@@ -9,6 +9,8 @@ import SubProjectTypesFilter from "../SuProjectTypesFilter";
 import SubProjectStatusFilter from "../SuProjectStatusFilter";
 import { projectActions, projectSelectors } from "../../../../../../../../../../redux/modules/projects";
 import RegionsFilter from "../RegionsFilter";
+import DistrictsFilter from "../DistrictsFilter";
+import { setSubProjectDistrictFilter } from "../../../../../../../../../../redux/modules/map/subProjects/actions";
 
 function ProjectDetails({ 
     subProjectTypes,
@@ -20,11 +22,15 @@ function ProjectDetails({
       regions,
       getRegions,
       setSubProjectRegionsFilter,
+      districts,
+      getDistricts,
+      setSubProjectDistrictsFilter
     }) {
     useEffect(() => {
         getSubProjectTypes();
         getSubProjectStatus();
-        getRegions()
+        getRegions();
+        getDistricts('TZ07');
     }, []);
 
 
@@ -33,7 +39,8 @@ function ProjectDetails({
             <SubProjectTypesFilter subProjectTypes={subProjectTypes} setSubProjectTypesFilter={setSubProjectTypesFilter}
             />
             <SubProjectStatusFilter subProjectStatus={subProjectStatus} setSubProjectStatusFilter={setSubProjectStatusFilter} />
-            <RegionsFilter regions={regions} setProjectRegionsFilter={setSubProjectRegionsFilter} />  
+            <RegionsFilter regions={regions} setProjectRegionsFilter={setSubProjectRegionsFilter} /> 
+            <DistrictsFilter districts={districts} setSubProjectDistrictsFilter={setSubProjectDistrictsFilter} />
        </div>
     );
 }
@@ -43,7 +50,7 @@ const mapStateToProps = state => ({
     subProjectTypes: mapSubProjectSelectors.getSubProjectTypesSelector(state),
     subProjectStatus: mapSubProjectSelectors.getSubProjectStatusSelector(state),
     regions: projectSelectors.getRegionsSelector(state),
-
+    districts:projectSelectors.getDistrictsSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -54,6 +61,8 @@ const mapDispatchToProps = (dispatch) => ({
     setSubProjectStatusFilter: bindActionCreators(mapSubProjectActions.setSubProjectStatusFilter, dispatch),
     getRegions: bindActionCreators(projectActions.getRegionsStart, dispatch),
     setSubProjectRegionsFilter: bindActionCreators(mapSubProjectActions.setSubProjectRegionsFilter, dispatch),
+    getDistricts: bindActionCreators(projectActions.getDistrictsStart, dispatch),
+    setSubProjectDistrictsFilter: bindActionCreators(mapSubProjectActions.setSubProjectDistrictFilter, dispatch),
 
 });
 
