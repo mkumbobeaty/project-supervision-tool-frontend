@@ -21,6 +21,12 @@
   .contentEllipse > a, .Projects {
     padding: 12px;
 }
+.container{
+  padding: 0 !important;
+}
+.key-details {
+  padding-left: 15px;
+}
 }
 
 /* .ProjectForm .ant-input-number {

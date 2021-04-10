@@ -85,7 +85,7 @@ class MapDashboard extends Component {
             <div className="MapDashboard">
                 <Spin spinning={mapLoading} tip="Loading data...">
                     <SideNav />
-                    <BaseMap ref={this.map} zoomControl={false}>
+                    <BaseMap ref={this.map} zoomControl={false} >
                         {projects.length > 0 ? <ProjectPoints projects={projects} /> : ''}
                     </BaseMap>
                 </Spin>

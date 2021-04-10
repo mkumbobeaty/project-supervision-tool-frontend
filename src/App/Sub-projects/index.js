@@ -20,14 +20,14 @@ import SurveyForm from "./SurveyForm";
 
 
 /* constants */
-const subProjectNameSpan = { xxl: 3, xl: 4, lg: 4, md: 5, sm: 0, xs: 0 };
+const subProjectNameSpan = { xxl: 3, xl: 4, lg: 4, md: 5, sm: 20, xs: 20 };
 const contractorSpan = { xxl: 3, xl: 3, lg: 5, md: 3, sm: 0, xs: 0 };
-const endDataSpan = { xxl: 4, xl: 3, lg: 4, md: 5, sm: 5, xs: 5 };
+const endDataSpan = { xxl: 4, xl: 3, lg: 4, md: 5, sm: 0, xs: 0 };
 const agencySpan = { xxl: 4, xl: 4, lg: 4, md: 3, sm: 0, xs: 0 };
 const locationSpan = { xxl: 3, xl: 3, lg: 0, md: 0, sm: 0, xs: 0 };
-const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 5, xs: 5 };
-const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 5, xs: 5 };
-const codeSpan = { xxl: 0, xl: 0, lg: 0, md: 0, sm: 5, xs: 5 };
+const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
+const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 0, xs: 0 };
+const codeSpan = { xxl: 0, xl: 0, lg: 0, md: 0, sm: 0, xs: 0 };
 
 const { confirm } = Modal;
 
