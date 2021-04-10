@@ -6,7 +6,6 @@ import API from "../../../../API";
 import * as actions from "./actions";
 import {mapProjectActions} from "../projects";
 import { mapActions } from "..";
-import { act } from "react-dom/test-utils";
 
 
 /**

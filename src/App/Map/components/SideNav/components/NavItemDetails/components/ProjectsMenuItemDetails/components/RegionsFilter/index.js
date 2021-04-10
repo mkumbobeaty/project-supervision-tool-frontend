@@ -35,6 +35,7 @@ const RegionsFilter = ({ regions, setProjectRegionsFilter }) => {
             items={regionsFilterData}
             itemsPerPage={5}
             filterTitle={`Regions`}
+            // filterClass={`projectFilter`}
             handleFilter={handleOnclickFilterItem}
             projectFilterClass="regionFilter"
         />

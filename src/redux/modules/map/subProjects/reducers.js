@@ -11,6 +11,29 @@ const sideNavMenuInitialState = {
 
 /**
  * @function
+ * @name all
+ * @description reducer that manages selected sub project instance on map
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} updated state
+ */
+const all = (state = { data: [], error: null, loading: false }, action) => {
+    switch (action.type) {
+        case types.GET_SUB_PROJECTS_START:
+            return { ...state, loading: true };
+        case types.GET_SUB_PROJECTS_SUCCESS:
+            return { ...state, data: action.payload, loading: false };
+        case types.GET_SUB_PROJECTS_FAILURE:
+            return { ...state, error: action.payload, loading: false };
+        case types.CLEAR_SUB_PROJECTS:
+            return { ...state, data: null };
+        default:
+            return state;
+    }
+}
+
+/**
+ * @function
  * @name subProject
  * @description reducer that manages selected sub project instance on map
  * @param {Object} state
@@ -148,7 +171,8 @@ export const subProjects = combineReducers({
     regionSubProjects,
     regionSubProjectsStatistics,
     districtsSubProjects,
-    districts
+    districts,
+    all,
 })
 
 

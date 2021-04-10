@@ -1,16 +1,16 @@
-import React from "react";
+import React, {useEffect} from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import ProjectsTopSection from "../ProjectsTopSection";
-import NationalProjectsOverview from "../NationalProjectsOverview";
-import RegionalProjectsOverview from "../RegionalProjectsOverview";
 import {mapActions, mapSelectors} from "../../../../../../../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
 import {projectActions, projectSelectors} from "../../../../../../../../../../redux/modules/projects";
 import {mapProjectActions} from "../../../../../../../../../../redux/modules/map/projects";
 import TopSection from "../../../TopSection";
-import projects from "../../../../../../../../../../API/projects";
-import { projectSectorsActions, projectSectorsSelectors } from "../../../../../../../../../Projects/components/ProjectsSectors/duck";
+import SideNavItemOverview from "../SideNavItemOverview";
+import ProjectStatusFilter from "../ProjectStatusFilter";
+import ProjectsFilter from "../ProjectsFilter";
+import RegionsFilter from "../RegionsFilter";
+import {mapSubProjectActions} from "../../../../../../../../../../redux/modules/map/subProjects";
 
 /**
  * @function
@@ -21,19 +21,7 @@ function ProjectsOverview(
     {
         projectsStatistics,
         getProjectsOverview,
-        projectsCountByRegion,
-        getProjectsByRegion,
-        showRegionalOverview,
-        showNationalOverview,
-        regionProjectStatistics,
-        regionProjects,
-        getProject,
-        setShowNationalOverview,
-        setShowRegionalOverview,
-        clearRegionalProjects,
-        region,
         loadingStatistics,
-        showRegionalOverviewLoader,
         projects,
         getProjects,
         statuses,
@@ -42,38 +30,50 @@ function ProjectsOverview(
         getRegions,
         setProjectStatusFilter,
         setProjectIdFilter,
+        getSubProjects,
+        getProjectsFilters,
+        getProject,
         setProjectRegionsFilter
     }
 ) {
+
+    // get project overview when
+    // a  component has mounted
+    useEffect(() => {
+        getProjectsOverview();
+        getProjects();
+        getProjectsFilters();
+        getProjectStatus();
+        getRegions();
+    }, []);
+
+    const overViewData = projectsStatistics ? [
+        { title: 'Projects', value: projectsStatistics.projects, },
+        { title: 'Sub Projects', value: projectsStatistics.sub_projects },
+        { title: 'Regions', value: projectsStatistics.regions },
+    ] : [];
+
     return (
         <>
             <TopSection title="OVERVIEWS"/>
-            {showNationalOverview ? <NationalProjectsOverview
-                getProjectsOverview={getProjectsOverview}
-                projectsStatistics={projectsStatistics}
-                projectsCountByRegion={projectsCountByRegion}
-                getProjectsByRegion={getProjectsByRegion}
+            <SideNavItemOverview
+                overViewData={overViewData}
                 loadingStatistics={loadingStatistics}
-                getProjects={getProjects}
-                projects={projects}
+            />
+            <ProjectStatusFilter
                 statuses={statuses}
-                getProjectStatus={getProjectStatus}
-                getRegions={getRegions}
-                regions={regions}
                 setProjectStatusFilter={setProjectStatusFilter}
-                setProjectIdFilter={setProjectIdFilter}
-                setProjectRegionsFilter={setProjectRegionsFilter}
-            /> : ''}
-            {showRegionalOverview ? <RegionalProjectsOverview
-                regionProjectStatistics={regionProjectStatistics}
-                showRegionalOverviewLoader={showRegionalOverviewLoader}
-                regionProjects={regionProjects}
+            />
+            <ProjectsFilter
+                projects={projects}
+                getSubProjects={getSubProjects}
                 getProject={getProject}
-                region={region}
-                setShowNationalOverview={setShowNationalOverview}
-                setShowRegionalOverview={setShowRegionalOverview}
-                clearRegionalProjects={clearRegionalProjects}
-            /> : ''}
+                setProjectIdFilter={setProjectIdFilter}
+            />
+            <RegionsFilter
+                regions={regions}
+                setProjectRegionsFilter={setProjectRegionsFilter}
+            />
 
         </>
     );
@@ -81,14 +81,7 @@ function ProjectsOverview(
 
 const mapStateToProps = state => ({
     projectsStatistics: mapSelectors.getProjectsStatistics(state),
-    regionProjectStatistics: mapSelectors.getRegionProjectsStatistics(state),
     loadingStatistics : mapSelectors.getProjectsStatisticsLoading(state),
-    projectsCountByRegion: mapSelectors.getProjectsOverview(state),
-    showNationalOverview: mapSelectors.showNationalOverviewSelector(state),
-    showRegionalOverview: mapSelectors.showRegionalOverviewSelector(state),
-    showRegionalOverviewLoader: mapSelectors.regionProjectsStatisticsLoader(state),
-    regionProjects: mapSelectors.getRegionProjectsSelector(state),
-    region: mapSelectors.getRegionDetailsSelector(state),
     projects:projectSelectors.getProjectsFilterSelector(state),
     statuses: projectSelectors.getProjectStatusSelector(state),
     regions: projectSelectors.getRegionsSelector(state),
@@ -97,18 +90,15 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getProjectsOverview: bindActionCreators(mapActions.getProjectStatisticsStart, dispatch),
-    getProjectsByRegion: bindActionCreators(mapActions.getProjectsByRegionStart, dispatch),
-    setShowRegionalOverview: bindActionCreators(mapActions.showRegionalProjectsOverview, dispatch),
-    setShowNationalOverview: bindActionCreators(mapActions.showNationalProjectsOverview, dispatch),
-    clearRegionalProjects: bindActionCreators(mapActions.clearRegionProjects, dispatch),
     getProject: bindActionCreators(mapProjectActions.getProjectStart, dispatch),
-    getProjects:bindActionCreators(projectActions.getProjectFilterStart, dispatch),
+    getProjects:bindActionCreators(mapProjectActions.getProjectsStart, dispatch),
+    getProjectsFilters:bindActionCreators(projectActions.getProjectFilterStart, dispatch),
     getProjectStatus: bindActionCreators(projectActions.getProjectStatusStart, dispatch),
     getRegions: bindActionCreators(projectActions.getRegionsStart, dispatch),
     setProjectStatusFilter:bindActionCreators(projectActions.setProjectStatusFilter, dispatch),
     setProjectIdFilter:bindActionCreators(projectActions.setProjectIdFilter, dispatch),
-    setProjectRegionsFilter:bindActionCreators(projectActions.setProjectRegionsFilter, dispatch)
-
+    setProjectRegionsFilter:bindActionCreators(projectActions.setProjectRegionsFilter, dispatch),
+    getSubProjects:bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
 });
 
 
@@ -116,16 +106,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProjectsOverview);
 
 ProjectsOverview.propTypes = {
     projectsStatistics: PropTypes.object,
-    showRegionalOverview: PropTypes.bool.isRequired,
-    showNationalOverview: PropTypes.bool.isRequired,
     projectsCountByRegion: PropTypes.array.isRequired,
     getProjectsOverview: PropTypes.func.isRequired,
-    getProjectsByRegion: PropTypes.func.isRequired,
     setShowNationalOverview: PropTypes.func.isRequired,
     setShowRegionalOverview: PropTypes.func.isRequired,
-    clearRegionalProjects: PropTypes.func.isRequired,
     getProject: PropTypes.func.isRequired,
-    regionProjects: PropTypes.array.isRequired,
+    getSubProjects: PropTypes.func.isRequired,
     setProjectStatusFilter: PropTypes.array.isRequired,
 }
 

@@ -37,6 +37,40 @@ export const getSubProjectFailure = makeActionCreator(types.GET_SUB_PROJECT_FAIL
  */
 export const clearSubProject = makeActionCreator(types.CLEAR_SUB_PROJECT);
 
+
+/**
+ * @function
+ * @name getSubProjectsStart
+ * @param {Number} subProjectId
+ * @return {Object} action
+ * */
+export const getSubProjectsStart = makeActionCreator(types.GET_SUB_PROJECTS_START, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectsSuccess
+ * @param {Object} payload sub project
+ * @return {Object} action
+ * */
+export const getSubProjectsSuccess = makeActionCreator(types.GET_SUB_PROJECTS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectsFailure
+ * @param {Object} payload sub project failure response
+ * @return {Object} action
+ * */
+export const getSubProjectsFailure = makeActionCreator(types.GET_SUB_PROJECTS_FAILURE, 'payload');
+
+
+/**
+ * @function
+ * @name clearSubProjects
+ * @description clears sub project  in state
+ * @return {Object} action
+ */
+export const clearSubProjects = makeActionCreator(types.CLEAR_SUB_PROJECTS);
+
 // get region project statistics
 /**
  * @function

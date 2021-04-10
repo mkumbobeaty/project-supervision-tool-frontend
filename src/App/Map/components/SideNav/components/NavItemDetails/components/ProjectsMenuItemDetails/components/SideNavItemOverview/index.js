@@ -21,20 +21,13 @@ function SideNavItemOverview({
 
     return (
         <div className='SideNavItemOverview'>
-            {/* 
-            <section className='title-and-back-button'>
-                <div>{title}</div>
-                {goBack ? <BackLink goBack={goBack} /> : ''}
-            </section> */}
+
 
             { showRegionalOverviewLoader ? <section className='project-over-view-table'>
                 {showRegionalOverviewLoader === true ? <Spin spinning={showRegionalOverviewLoader} style={{ paddingLeft: 125 }} /> : <OverviewTable data={overViewData} />}
             </section> : <section className='project-over-view-table'>
                     {loadingStatistics === true ? <Spin spinning={loadingStatistics} style={{ paddingLeft: 125 }} /> : <OverviewTable data={overViewData} />}
                 </section>}
-            {/* <section className='project-regions-filters'>
-              
-            </section> */}
         </div>
     );
 
@@ -44,8 +37,6 @@ export default SideNavItemOverview;
 
 SideNavItemOverview.propTypes = {
     overViewData: PropTypes.array.isRequired,
-    predefinedFilterConfig: PropTypes.object.isRequired,
-    predefinedFilterData: PropTypes.array.isRequired,
     title: PropTypes.string,
     goBack: PropTypes.func,
     handleOnclickFilterItem: PropTypes.func,
