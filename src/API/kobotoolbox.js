@@ -29,6 +29,14 @@ const getAsset = (id) =>
 
 /**
  * @function
+ * @name getAssetData
+ * @description get assets data from kobotoolbox
+ */
+const getAssetData = (id) =>
+    axiosKobotoolbox.get(`${kfBaseurl}/assets/${id}/data/`).then((response) => response.data);
+
+/**
+ * @function
  * @name createSurvey
  * @description create new survey
  */
@@ -38,5 +46,6 @@ const createSurvey = (survey) =>
 export default {
     getAssets,
     getAsset,
+    getAssetData,
     createSurvey,
 }

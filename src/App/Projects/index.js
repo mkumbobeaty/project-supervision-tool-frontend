@@ -252,7 +252,7 @@ class Projects extends Component {
       <SideNav>
       </SideNav>
       <Spin spinning={mapLoading} tip="Loading data...">
-        <BaseMap ref={this.map} zoomControl={false}>
+        <BaseMap ref={this.map} zoomControl={true}>
           <ProjectLocations project={project} />
         </BaseMap>
       </Spin>
