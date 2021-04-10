@@ -21,26 +21,33 @@ hr {
 
 @media screen and (max-width: 768px) {}
 
-@media screen and (max-width: 426px) {}
-
-@media screen and (min-width: 375px) {
+@media screen and (max-width: 426px) {
     .SideNav {
         width: 100%;
         display: inline;
         border: 0;
-      
+        height: inherit !important;
     }
     .SideNav .nav-items-list {
         display: flex;
     }
-    .SideNavItem{
+    .SideNavItem {
         height: 8vh;
-            flex-grow: 1;
+        flex-grow: 1;
         padding: 0px;
         border-bottom: none;
     }
     .SideNavItem img {
         height: 30px;
     }
-
+    .NavItemDetails{
+        width: 100% !important;
+        height: 34vh;
+    }
+    .CheckBoxGroupFilter .statusFilter label {
+        width: 98px;
+    }
+    .CheckBoxGroupFilter .projectFilter label,.CheckBoxGroupFilter .regionFilter label {
+        width: 100%;
+    }
 }
