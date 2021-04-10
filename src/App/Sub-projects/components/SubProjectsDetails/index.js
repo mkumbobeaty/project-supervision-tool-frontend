@@ -10,6 +10,7 @@ import KeyDetailSection from "./KeyDetails";
 import ProjectsProgress from "../../../Projects/components/ProjectsDetails/Progress";
 import { isoDateToHumanReadableDate } from "../../../../Util";
 import ReportOverview from "./ReportOverview";
+import { ImageGallary } from "./SubProjectGallary";
 
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
@@ -115,7 +116,7 @@ class SubProject extends Component {
                       <h4> Comming Soon</h4>
                     </TabPane>
                     <TabPane tab="Photo Gallary" key="4">
-                      <h4> Comming Soon</h4>
+                      <ImageGallary />
                     </TabPane>
                   </Tabs>
                 </div>

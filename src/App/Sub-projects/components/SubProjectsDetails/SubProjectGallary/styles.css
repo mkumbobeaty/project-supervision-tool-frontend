@@ -1,0 +1,10 @@
+.ImageGallary .ant-image{
+    margin: 10px 20px 10px 0;
+}
+
+@media screen and (max-width: 426px) {
+    .ImageGallary .Toolbar{
+        margin-bottom: 50px;
+    }
+    
+}
