@@ -6,12 +6,11 @@ import L from 'leaflet';
 import BaseMap from "./BaseMap";
 import { bindActionCreators } from "redux";
 import { mapActions, mapSelectors } from "../../redux/modules/map";
-import { projectSelectors } from '../../redux/modules/projects'
 import SideNav from "./components/SideNav";
 import ProjectPoints from "./components/ProjectPoints";
-import { mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
+import { mapProjectSelectors } from "../../redux/modules/map/projects";
+import {  mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
 import "./styles.css";
-import {mapProjectSelectors} from "../../redux/modules/map/projects";
 
 class MapDashboard extends Component {
     state = {

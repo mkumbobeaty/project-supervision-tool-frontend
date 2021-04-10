@@ -1,5 +1,5 @@
 import { withLeaflet, Popup, Marker } from "react-leaflet";
-import L, { divIcon } from 'leaflet';
+import { divIcon } from 'leaflet';
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Spiderfy from "./Spiderfy";
@@ -29,13 +29,6 @@ class ProjectPoints extends Component {
     render() {
         const { projects } = this.props;
 
-        const getCommitmentAmount = (data) => {
-            const { amount, currency } = data
-            const { iso } = currency;
-            const money = moneyFormat(amount);
-            return `${iso} ${money}`;
-        }
-
         return (
             <Spiderfy
                 onClick={this.handleSpiderfyClick}
@@ -59,7 +52,7 @@ class ProjectPoints extends Component {
                                 <Popup>
                                     <section className="mapPopup">
                                         <div>                                        <h3>{region?.name}</h3>
-</div>
+                                        </div>
                                         <hr />
                                         <div className="projectDetail">
                                             <span>

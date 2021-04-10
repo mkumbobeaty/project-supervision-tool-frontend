@@ -6,7 +6,6 @@ import { projectOperation, projectSelectors } from "../../../../redux/modules/pr
 import BaseMap from "../../../Map/BaseMap";
 import FullscreenControl from 'react-leaflet-fullscreen';
 import { mapSelectors } from "../../../../redux/modules/map";
-import ProjectLocations from "../../../Map/components/ProjectLocations";
 import ProjectsProgress from "./Progress";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
 import "./styles.css";
@@ -57,10 +56,10 @@ class Project extends Component {
                 <KeyDetailSection project={project} commitmentAmount={commitmentAmount} totalProjectCost={totalProjectCost} />
               </div>
               <Content className="project_contents container">
-              <div className="card-container">
-                <Tabs type="card">
-                  <TabPane tab="Project Overview" key="1">
-                      <Row>
+                <div className="card-container">
+                  <Tabs type="card">
+                    <TabPane tab="Project Overview" key="1">
+                      <Row className="Progress-overview">
                         <Col {...firstSpan} className="sector_chat">
                           <ProjectsProgress
                             title="Financial Progress"
@@ -92,17 +91,17 @@ class Project extends Component {
                           </Spin>
                         </Col>
                       </Row>
-                      <DetailsSection />
+                        <DetailsSection />
                   </TabPane>
-                  <TabPane tab="Projects Dashbord" key="2">
-                    <h4> Comming Soon</h4>
-                  </TabPane>
-                  <TabPane tab="Agreed Actions" key="3">
-                    <h4> Comming Soon</h4>
-                  </TabPane>
-                  <TabPane tab="Monitoring and Evaluation" key="4">
-                    <h4> Comming Soon</h4>
-                  </TabPane>
+                      <TabPane tab="Projects Dashbord" key="2">
+                        <h4> Comming Soon</h4>
+                      </TabPane>
+                      <TabPane tab="Agreed Actions" key="3">
+                        <h4> Comming Soon</h4>
+                      </TabPane>
+                      <TabPane tab="Monitoring and Evaluation" key="4">
+                        <h4> Comming Soon</h4>
+                      </TabPane>
                 </Tabs>
               </div>
               </Content>
@@ -115,14 +114,14 @@ class Project extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    project: projectSelectors.getProjectSelector(state),
+          project: projectSelectors.getProjectSelector(state),
     loading: projectSelectors.getProjectLoadingSelector(state),
     mapLoading: mapSelectors.getMapLoadingSelector(state),
   };
 };
 
 const mapDispatchToProps = {
-  getProject: projectOperation.getProjectStart,
+          getProject: projectOperation.getProjectStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Project);

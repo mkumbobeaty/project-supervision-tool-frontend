@@ -18,6 +18,7 @@ export const getSubProjectMapEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_SUB_PROJECT_START),
         switchMap(({payload}) => {
+            debugger
             return from(API.getSubProject(payload)).pipe(
                 switchMap(res => {
                     return from([
