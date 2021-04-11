@@ -51,8 +51,6 @@ class SubProject extends Component {
 
   render() {
     const { sub_project, loading, mapLoading } = this.props;
-    // const commitmentAmount = sub_project?.details?.commitment_amount ? this.getCommitmentAmount(sub_project?.details?.commitment_amount) : 'N/A';
-    // const totalSubProjectCost = sub_project?.details.total_sub_project_cost ? this.getCommitmentAmount(sub_project?.details?.total_sub_project_cost) : 'N/A';
     const approval_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.approval_date) : 'N/A';
     const closing_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.closing_date) : 'N/A'
     const survey_id = sub_project?.surveys[0].survey_id;

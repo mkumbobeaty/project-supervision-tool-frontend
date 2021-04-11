@@ -35,17 +35,38 @@ const getAsset = (id) =>
 const getAssetData = (id) =>
     axiosKobotoolbox.get(`${kfBaseurl}/assets/${id}/data/`).then((response) => response.data);
 
+
 /**
  * @function
- * @name createSurvey
+ * @name createAssetDeployment
+ * @description Creates a new deployment, but only if a deployment does not exist already.
+ */
+const createAssetDeployment = (id) =>
+    axiosKobotoolbox.post(`${kfBaseurl}/assets/${id}/deployment/`).then((response) => response.data);
+
+
+
+/**
+ * @function
+ * @name activateDeployedAsset
+ * @description Creates a new deployment, but only if a deployment does not exist already.
+ */
+const activateDeployedAsset = (id) =>
+    axiosKobotoolbox.patch(`${kfBaseurl}/assets/${id}/deployment/`, {active: true}).then((response) => response.data);
+
+/**
+ * @function
+ * @name createAsset
  * @description create new survey
  */
-const createSurvey = (survey) =>
+const createAsset = (survey) =>
     axiosKobotoolbox.post(`${kfBaseurl}/assets/`, survey).then((response) => response.data);
 
 export default {
     getAssets,
     getAsset,
     getAssetData,
-    createSurvey,
+    createAsset,
+    activateDeployedAsset,
+    createAssetDeployment,
 }
