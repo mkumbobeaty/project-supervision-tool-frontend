@@ -1,7 +1,5 @@
 import {makeActionCreator} from "../../../../Util";
 import * as types from "./types";
-
-
 // retrieve a single sub project
 
 /**
@@ -264,3 +262,93 @@ export const getDistrictsSubProjectsOverviewStart = makeActionCreator(types.GET_
       payload: error,
     };
   }
+
+
+/**
+ * @function
+ * @name getSubProjectTypesStart
+ */
+export const getSubProjectTypesStart = makeActionCreator(types.GET_SUB_PROJECT_TYPES_START);
+
+/**
+ * @function
+ * @name getSubProjectTypesSuccess
+ * @param {Array} payload fetched sub-projects types
+ */
+ export const getSubProjectTypesSuccess = makeActionCreator(types.GET_SUB_PROJECT_TYPES_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectTypesFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getSubProjectTypesFailure = makeActionCreator(types.GET_SUB_PROJECT_TYPES_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectStatusStart
+ */
+export const getSubProjectStatusStart = makeActionCreator(types.GET_SUB_PROJECT_STATUS_START);
+
+/**
+ * @function
+ * @name getSubProjectStatusSuccess
+ * @param {Array} payload fetched projects
+ */
+ export const getSubProjectStatusSuccess = makeActionCreator(types.GET_SUB_PROJECT_STATUS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getSubProjectStatusFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getSubProjectStatusFailure = makeActionCreator(types.GET_SUB_PROJECT_STATUS_FAILURE, 'payload');
+
+ /**
+ * @function
+ * @name setSubProjectTypesFilter
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const setSubProjectTypesFilter = makeActionCreator(types.SET_SUB_PROJECT_TYPES_FILTER, 'payload');
+
+/**
+ * @function
+ * @name setSubProjectStatusFilter
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const setSubProjectStatusFilter = makeActionCreator(types.SET_SUB_PROJECT_STATUS_FILTER, 'payload');
+
+/**
+ * @function
+ * @name setSubProjectDistrictFilter
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const setSubProjectDistrictFilter = makeActionCreator(types.SET_SUB_PROJECT_DISTRICT_FILTER, 'payload');
+
+/**
+ * @function
+ * @name setProjectRegionsFilter
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const setSubProjectRegionsFilter = makeActionCreator(types.SET_SUB_PROJECT_REGIONS_FILTER, 'payload');
+
+/**
+ * @function
+ * @name setSubProjectComponentFilter
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const setSubProjectComponentFilter = makeActionCreator(types.SET_SUB_PROJECT_COMPONENT_FILTER, 'payload');
+
+/**
+ * @function
+ * @name setSubProjectContractorFilter
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const setSubProjectContractorFilter = makeActionCreator(types.SET_SUB_PROJECT_CONTRACTOR_FILTER, 'payload');
+

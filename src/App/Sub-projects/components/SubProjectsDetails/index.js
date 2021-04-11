@@ -11,6 +11,7 @@ import ProjectsProgress from "../../../Projects/components/ProjectsDetails/Progr
 import { isoDateToHumanReadableDate } from "../../../../Util";
 import ReportOverview from "./ReportOverview";
 import { ImageGallary } from "./SubProjectGallary";
+import SurveyResults from "../../../components/SurveyResults";
 
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
@@ -54,6 +55,7 @@ class SubProject extends Component {
     // const totalSubProjectCost = sub_project?.details.total_sub_project_cost ? this.getCommitmentAmount(sub_project?.details?.total_sub_project_cost) : 'N/A';
     const approval_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.approval_date) : 'N/A';
     const closing_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.closing_date) : 'N/A'
+    const survey_id = sub_project?.surveys[0].survey_id;
 
     return (
       <Layout className="sub-project-layout">
@@ -109,14 +111,14 @@ class SubProject extends Component {
                         </Col>
                       </Row>
                     </TabPane>
-                    <TabPane tab="Surveys" key="2">
-                      <h4> Comming Soon</h4>
+                    <TabPane tab="Field Notes" key="2">
+                      {survey_id ? <SurveyResults survey_id={survey_id}/> : ''}
                     </TabPane>
                     <TabPane tab="Construction and E & S Reporting" key="3">
                       <h4> Comming Soon</h4>
                     </TabPane>
                     <TabPane tab="Photo Gallary" key="4">
-                      <ImageGallary />
+                      <ImageGallary subProject={sub_project}/>
                     </TabPane>
                   </Tabs>
                 </div>

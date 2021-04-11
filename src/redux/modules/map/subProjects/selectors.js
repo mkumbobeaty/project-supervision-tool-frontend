@@ -99,3 +99,17 @@ export const getDistrictsSubProjectsSelector = (state) => state?.map?.subProject
 export const getDistrictsSubProjectsLoader = (state) => state?.map?.subProjects?.districtsSubProjects?.loading;
 
 export const getDistrictsMapSelector = (state) => state?.subProjects?.districts.data;
+
+/**
+ * @function
+ * @name getSubProjectTypesSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectTypesSelector = (state) => state?.map?.subProjects?.subProjectTypes?.data;
+
+/**
+ * @function
+ * @name getSubProjectStatusSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectStatusSelector = (state) => state?.map?.subProjects?.subProjectStatus?.data;

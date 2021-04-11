@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Spin } from 'antd';
 import PropTypes from "prop-types";
+import { ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
 import L from 'leaflet';
 import BaseMap from "./BaseMap";
@@ -36,45 +37,6 @@ class MapDashboard extends Component {
         this.map = React.createRef();
     }
 
-    displayRemoteLayers() {
-        const leafletMap = this.map.current.leafletElement;
-        const Dar_es_Salaam_Office_Points = L.tileLayer.wms("https://geonode.resilienceacademy.ac.tz/geoserver/ows", {
-            layers: 'geonode:Dar_es_Salaam_Office_Points',
-            format: 'image/png',
-            transparent: true,
-        });
-        const Dar_es_Salaam_Hospital_Points = L.tileLayer.wms("https://geonode.resilienceacademy.ac.tz/geoserver/ows", {
-            layers: 'geonode:Dar_es_Salaam_Hospital_Points',
-            format: 'image/png',
-            transparent: true,
-        });
-        const Dar_es_Salaam_Highway = L.tileLayer.wms("https://geonode.resilienceacademy.ac.tz/geoserver/ows", {
-            layers: 'geonode:Dar_es_Salaam_Highway',
-            format: 'image/png',
-            transparent: true,
-        });
-        const dar_es_salaam_drain_segments = L.tileLayer.wms("https://geonode.resilienceacademy.ac.tz/geoserver/ows", {
-            layers: 'geonode:dar_es_salaam_drain_segments',
-            format: 'image/png',
-            transparent: true,
-        });
-
-        L.control.layers({}, {
-            "Dar_es_Salaam_Government_Offices": Dar_es_Salaam_Office_Points,
-            "Dar_es_Salaam_Hospitals": Dar_es_Salaam_Hospital_Points,
-            "Dar_es_Salaam_Roads": Dar_es_Salaam_Highway,
-            "Dar_es_salaam_drain_segments": dar_es_salaam_drain_segments,
-        }).addTo(leafletMap);
-
-        //add zoom control with your options
-        L.control.zoom({
-            position: 'topright'
-        }).addTo(leafletMap);
-    }
-
-    componentDidMount() {
-        this.displayRemoteLayers();
-    }
 
     render() {
         const {
@@ -85,7 +47,8 @@ class MapDashboard extends Component {
             <div className="MapDashboard">
                 <Spin spinning={mapLoading} tip="Loading data...">
                     <SideNav />
-                    <BaseMap ref={this.map} zoomControl={false} >
+                    <BaseMap ref={this.map} zoomControl={false}>
+                        <ZoomControl position="bottomright" />
                         {projects.length > 0 ? <ProjectPoints projects={projects} /> : ''}
                     </BaseMap>
                 </Spin>
