@@ -59,7 +59,7 @@ function SurveyForm(
                 sub_project_id: selected.id,
             })
                 .then(() => API.createAssetDeployment(asset.uid)
-                    .then(() => API.activateDeployedAsset(asset.uid)
+        .then(() => API.activateDeployedAsset(asset.uid)
                         .then(() => {
                             setShowMessage(true);
                             setLoading(false);

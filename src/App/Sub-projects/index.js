@@ -17,6 +17,7 @@ import { bindActionCreators } from "redux";
 import { mapActions } from "../../redux/modules/map";
 import PreviewOnMap from "./PreviewOnMap";
 import SurveyForm from "./SurveyForm";
+import DisplaySurveyForm from "../components/DisplaySurveyForm";
 
 
 /* constants */
@@ -126,9 +127,9 @@ class SubProjects extends Component {
   * @since 0.1.0
   */
   fillSurvey = (subProject) => {
-    const { openSubProjectSurveyForm, selectSubProject } = this.props;
+    const { openSurveyForm, selectSubProject } = this.props;
     selectSubProject(subProject)
-    openSubProjectSurveyForm();
+    openSurveyForm();
   };
 
   /**
@@ -262,9 +263,12 @@ class SubProjects extends Component {
       page,
       total,
       paginateSubProject,
-      getWfsLayerData,
+      closeCreateSurveyForm,
+      closeSurveyForm,
       selected
     } = this.props;
+
+    const survey_id = selected?.surveys[0]?.survey_id;
 
     const { isEditForm, previewOnMap } = this.state;
     return previewOnMap ? <PreviewOnMap data={selected} /> : (
@@ -423,17 +427,28 @@ class SubProjects extends Component {
           <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} closeSubProjectForm={this.closeSubProjectForm} selected={selected} />
         </Drawer>
 
-        {/* Survey form */}
+        {/* Create Survey form */}
         <Drawer
-          title={"Fill field notes in the form below"}
           width={550}
-          onClose={this.closeSubProjectSurveyForm}
+          onClose={closeCreateSurveyForm}
           footer={null}
           visible={showSurveyForm}
           destroyOnClose
           maskClosable={false}
         >
-          <SurveyForm onCancel={this.closeSubProjectSurveyForm} closeSubProjectSurveyForm={this.closeSubProjectSurveyForm} selected={selected} />
+          <SurveyForm onCancel={closeCreateSurveyForm} closeSubProjectSurveyForm={closeCreateSurveyForm} selected={selected} />
+        </Drawer>
+
+        {/* Survey form */}
+        <Drawer
+          width={550}
+          onClose={closeSurveyForm}
+          footer={null}
+          visible={showSurveyForm}
+          destroyOnClose
+          maskClosable={false}
+        >
+          <DisplaySurveyForm survey_id={survey_id} />
         </Drawer>
       </div>
     );
@@ -460,7 +475,8 @@ const mapStateToProps = (state) => {
     subProjects: subProjectsSelectors.getSubProjectsSelector(state),
     loading: subProjectsSelectors.getSubProjectsLoadingSelector(state),
     showForm: projectSelectors.getSubProjectShowFormSelector(state),
-    showSurveyForm: projectSelectors.getSubProjectShowSurveyFormSelector(state),
+    showSurveyForm: projectSelectors.getShowSurveyFormSelector(state),
+    showCreateSurveyForm: projectSelectors.getShowCreateSurveyFormSelector(state),
     page: subProjectsSelectors.getSubProjectsPageSelector(state),
     total: subProjectsSelectors.getSubProjectsTotalSelector(state),
     selected: subProjectsSelectors.selectedSubProject(state)
@@ -479,9 +495,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getSubProject: bindActionCreators(projectActions.getSubProjectStart, dispatch),
   openSubProjectForm: bindActionCreators(projectActions.openSubProjectForm, dispatch),
-  openSubProjectSurveyForm: bindActionCreators(projectActions.openSubProjectSurveyForm, dispatch),
+  openCreateSurveyForm: bindActionCreators(projectActions.openSubProjectSurveyForm, dispatch),
+  closeCreateSurveyForm: bindActionCreators(projectActions.closeSubProjectSurveyForm, dispatch),
+  openSurveyForm: bindActionCreators(projectActions.openSurveyForm, dispatch),
+  closeSurveyForm: bindActionCreators(projectActions.closeSurveyForm, dispatch),
   closeSubProjectForm: bindActionCreators(projectActions.closeSubProjectForm, dispatch),
-  closeSubProjectSurveyForm: bindActionCreators(projectActions.closeSubProjectSurveyForm, dispatch),
   selectSubProject: bindActionCreators(subProjectsActions.selectedSubProject, dispatch),
   getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
 });
