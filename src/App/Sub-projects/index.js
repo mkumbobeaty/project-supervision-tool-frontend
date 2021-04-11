@@ -176,9 +176,9 @@ class SubProjects extends Component {
    * @since 0.1.0
    */
   openSubProjectSurveyForm = (subProject) => {
-    const { openSubProjectSurveyForm, selectSubProject } = this.props;
+    const { openCreateSurveyForm, selectSubProject } = this.props;
     selectSubProject(subProject)
-    openSubProjectSurveyForm();
+    openCreateSurveyForm();
   };
 
   /**
@@ -264,6 +264,7 @@ class SubProjects extends Component {
       total,
       paginateSubProject,
       closeCreateSurveyForm,
+      showCreateSurveyForm,
       closeSurveyForm,
       selected
     } = this.props;
@@ -432,7 +433,7 @@ class SubProjects extends Component {
           width={550}
           onClose={closeCreateSurveyForm}
           footer={null}
-          visible={showSurveyForm}
+          visible={showCreateSurveyForm}
           destroyOnClose
           maskClosable={false}
         >
