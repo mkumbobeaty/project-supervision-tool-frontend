@@ -208,6 +208,45 @@ const getContractorEpic = action$ => {
     );
 }
 
+/**
+ *
+ * @function
+ * @name getProcuringEntityPackageEpic
+ * @param action$ stream of actions
+ */
+const getProcuringEntityPackageEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_PROCURING_ENTITY_PACKAGE_START),
+        switchMap(() => {
+            return from(API.getProcuringEntity()).pipe(
+                switchMap(res => of(actions.getProcuringEntityPackageSuccess(res.data))),
+                catchError(error => of(actions.getRegionSubProjectStatisticsFailure(error)))
+            );
+        }),
+    );
+}
+
+/**
+ *
+ * @function
+ * @name filterByProcuringEntityPackageEpic
+ * @param action$ stream of actions
+ */
+const filterByProcuringEntityPackageEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.SET_SUB_PROJECT_TYPES_FILTER),
+        switchMap(() => {
+            return of(mapSubProjectActions.getSubProjectsStart(state$.value.map.subProjects.filters))
+        }),
+    )
+};
+
+/**
+ *
+ * @function
+ * @name filterSubProjectTypesEpic
+ * @param action$ stream of actions
+ */
 const filterSubProjectTypesEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_SUB_PROJECT_TYPES_FILTER),
@@ -217,6 +256,12 @@ const filterSubProjectTypesEpic = (action$, state$) => {
     )
 };
 
+/**
+ *
+ * @function
+ * @name filterSubProjectStatusEpic
+ * @param action$ stream of actions
+ */
 const filterSubProjectStatusEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_SUB_PROJECT_STATUS_FILTER),
@@ -226,6 +271,12 @@ const filterSubProjectStatusEpic = (action$, state$) => {
     )
 };
 
+/**
+ *
+ * @function
+ * @name filterSubProjectByDistrictsEpic
+ * @param action$ stream of actions
+ */
 const filterSubProjectByDistrictsEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_SUB_PROJECT_DISTRICT_FILTER),
@@ -235,6 +286,12 @@ const filterSubProjectByDistrictsEpic = (action$, state$) => {
     )
 };
 
+/**
+ *
+ * @function
+ * @name filterSubProjectByRegionEpic
+ * @param action$ stream of actions
+ */
 const filterSubProjectByRegionEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_SUB_PROJECT_REGIONS_FILTER),
@@ -244,6 +301,12 @@ const filterSubProjectByRegionEpic = (action$, state$) => {
     )
 };
 
+/**
+ *
+ * @function
+ * @name filterSubProjectContractorEpic
+ * @param action$ stream of actions
+ */
 const filterSubProjectContractorEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_SUB_PROJECT_CONTRACTOR_FILTER),
@@ -253,6 +316,12 @@ const filterSubProjectContractorEpic = (action$, state$) => {
     )
 };
 
+/**
+ *
+ * @function
+ * @name filterSubProjectComponentEpic
+ * @param action$ stream of actions
+ */
 const filterSubProjectComponentEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_SUB_PROJECT_COMPONENT_FILTER),
@@ -278,5 +347,7 @@ export const mapSubProjectEpics = combineEpics(
     filterSubProjectTypesEpic,
     filterSubProjectStatusEpic,
     filterSubProjectComponentEpic,
-    getContractorEpic
+    getContractorEpic,
+    getProcuringEntityPackageEpic,
+    filterByProcuringEntityPackageEpic,
 );

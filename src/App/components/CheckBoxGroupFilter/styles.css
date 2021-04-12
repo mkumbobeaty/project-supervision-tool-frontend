@@ -14,3 +14,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.checkboxItem{
+    padding-left: 8px;
+    cursor: pointer;
+}

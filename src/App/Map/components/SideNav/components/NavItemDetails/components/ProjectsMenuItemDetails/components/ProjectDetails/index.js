@@ -12,6 +12,7 @@ import RegionsFilter from "../RegionsFilter";
 import DistrictsFilter from "../DistrictsFilter";
 import { setSubProjectDistrictFilter } from "../../../../../../../../../../redux/modules/map/subProjects/actions";
 import ContractorsFilter from "../ContractorsFilter";
+import ProcuringEntityPackageFilter from "../ProcuringEntityFilter";
 
 function ProjectDetails({ 
     subProjectTypes,
@@ -28,7 +29,10 @@ function ProjectDetails({
       setSubProjectDistrictsFilter,
       getContractors,
       contractors,
-      setSubProjectContractorsFilter
+      setSubProjectContractorsFilter,
+      procuringEntityPackage,
+      setProcuringEntityFilter,
+      getProcuringEntity,
     }) {
     useEffect(() => {
         getSubProjectTypes();
@@ -36,6 +40,7 @@ function ProjectDetails({
         getRegions();
         getDistricts('TZ07');
         getContractors();
+        getProcuringEntity();
         }, []);
 
 
@@ -46,6 +51,7 @@ function ProjectDetails({
             <SubProjectStatusFilter subProjectStatus={subProjectStatus} setSubProjectStatusFilter={setSubProjectStatusFilter} />
             <RegionsFilter regions={regions} setProjectRegionsFilter={setSubProjectRegionsFilter} /> 
             <DistrictsFilter districts={districts} setSubProjectDistrictsFilter={setSubProjectDistrictsFilter} />
+            <ProcuringEntityPackageFilter procuringEntityPackage={procuringEntityPackage} setProcuringEntityFilter={setProcuringEntityFilter} />
             <ContractorsFilter contractors={contractors} setSubProjectContractorsFilter={setSubProjectContractorsFilter} />
        </div>
     );
@@ -57,7 +63,8 @@ const mapStateToProps = state => ({
     subProjectStatus: mapSubProjectSelectors.getSubProjectStatusSelector(state),
     regions: projectSelectors.getRegionsSelector(state),
     districts:projectSelectors.getDistrictsSelector(state),
-    contractors:mapSubProjectSelectors.getContractorsSelector(state)
+    contractors:mapSubProjectSelectors.getContractorsSelector(state),
+    procuringEntityPackage: mapSubProjectSelectors.getProcuringEntityPackageSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -71,7 +78,9 @@ const mapDispatchToProps = (dispatch) => ({
     getDistricts: bindActionCreators(projectActions.getDistrictsStart, dispatch),
     setSubProjectDistrictsFilter: bindActionCreators(mapSubProjectActions.setSubProjectDistrictFilter, dispatch),
     setSubProjectContractorsFilter:bindActionCreators(mapSubProjectActions.setSubProjectContractorFilter, dispatch),
-    getContractors:bindActionCreators(mapSubProjectActions.getContractorsStart, dispatch)
+    getContractors:bindActionCreators(mapSubProjectActions.getContractorsStart, dispatch),
+    setProcuringEntityFilter:bindActionCreators(mapSubProjectActions.setSubProjectProcuringEntityFilter, dispatch),
+    getProcuringEntity:bindActionCreators(mapSubProjectActions.getProcuringEntityPackageStart, dispatch)
 
 });
 
