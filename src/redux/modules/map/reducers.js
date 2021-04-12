@@ -46,10 +46,10 @@ const mapLoading = (state = false, action) => {
             return false;
         case types.GET_REGION_FAILURE:
             return false;
-        case mapProjectTypes.GET_PROJECT_START:
-            return true;
-        case mapProjectTypes.GET_PROJECT_SUCCESS:
-            return false;
+        // case mapProjectTypes.GET_PROJECT_START:
+        //     return true;
+        // case mapProjectTypes.GET_PROJECT_SUCCESS:
+        //     return false;
         case mapProjectTypes.GET_PROJECT_FAILURE:
             return false;
             case mapProjectTypes.GET_PROJECTS_START:

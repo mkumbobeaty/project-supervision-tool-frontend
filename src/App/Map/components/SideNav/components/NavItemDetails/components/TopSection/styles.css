@@ -13,4 +13,6 @@
 
 .TopSection section h3 {
     color: #0f6788;
+    text-transform: uppercase;
+    font-size: 13px;
 }

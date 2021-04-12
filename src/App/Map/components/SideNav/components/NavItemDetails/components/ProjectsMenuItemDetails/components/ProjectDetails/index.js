@@ -13,6 +13,7 @@ import DistrictsFilter from "../DistrictsFilter";
 import ContractorsFilter from "../ContractorsFilter";
 import ProcuringEntityPackageFilter from "../ProcuringEntityFilter";
 import CustomSearch from "../../../CustomSearch";
+import TopSection from "../../../TopSection";
 
 function ProjectDetails({
     subProjectTypes,
@@ -33,7 +34,7 @@ function ProjectDetails({
     procuringEntityPackage,
     setProcuringEntityFilter,
     getProcuringEntity,
-    getSubprojects,
+    project
 }) {
     useEffect(() => {
         getSubProjectTypes();
@@ -42,13 +43,14 @@ function ProjectDetails({
         getDistricts('TZ07');
         getContractors();
         getProcuringEntity();
-        getSubprojects();
     }, []);
 
 
     return (
         <div className="ProjectInfo">
-            <CustomSearch title="Search Sub projects"/>
+            <TopSection title={project.name} />
+            <hr />
+            <CustomSearch placeholder='Search Sub projects' />
             <hr />
             <SubProjectTypesFilter subProjectTypes={subProjectTypes} setSubProjectTypesFilter={setSubProjectTypesFilter}
             />
@@ -85,8 +87,8 @@ const mapDispatchToProps = (dispatch) => ({
     getContractors: bindActionCreators(mapSubProjectActions.getContractorsStart, dispatch),
     setProcuringEntityFilter: bindActionCreators(mapSubProjectActions.setSubProjectProcuringEntityFilter, dispatch),
     getProcuringEntity: bindActionCreators(mapSubProjectActions.getProcuringEntityPackageStart, dispatch),
-    getMapSubProjects:bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
-    getSubprojects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch )
+    getMapSubProjects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
+    getSubprojects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch)
 
 });
 
