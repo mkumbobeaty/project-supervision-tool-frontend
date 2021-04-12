@@ -11,6 +11,7 @@ import { projectActions, projectSelectors } from "../../../../../../../../../../
 import RegionsFilter from "../RegionsFilter";
 import DistrictsFilter from "../DistrictsFilter";
 import { setSubProjectDistrictFilter } from "../../../../../../../../../../redux/modules/map/subProjects/actions";
+import ContractorsFilter from "../ContractorsFilter";
 
 function ProjectDetails({ 
     subProjectTypes,
@@ -24,14 +25,18 @@ function ProjectDetails({
       setSubProjectRegionsFilter,
       districts,
       getDistricts,
-      setSubProjectDistrictsFilter
+      setSubProjectDistrictsFilter,
+      getContractors,
+      contractors,
+      setSubProjectContractorsFilter
     }) {
     useEffect(() => {
         getSubProjectTypes();
         getSubProjectStatus();
         getRegions();
         getDistricts('TZ07');
-    }, []);
+        getContractors();
+        }, []);
 
 
     return (
@@ -41,6 +46,7 @@ function ProjectDetails({
             <SubProjectStatusFilter subProjectStatus={subProjectStatus} setSubProjectStatusFilter={setSubProjectStatusFilter} />
             <RegionsFilter regions={regions} setProjectRegionsFilter={setSubProjectRegionsFilter} /> 
             <DistrictsFilter districts={districts} setSubProjectDistrictsFilter={setSubProjectDistrictsFilter} />
+            <ContractorsFilter contractors={contractors} setSubProjectContractorsFilter={setSubProjectContractorsFilter} />
        </div>
     );
 }
@@ -50,7 +56,8 @@ const mapStateToProps = state => ({
     subProjectTypes: mapSubProjectSelectors.getSubProjectTypesSelector(state),
     subProjectStatus: mapSubProjectSelectors.getSubProjectStatusSelector(state),
     regions: projectSelectors.getRegionsSelector(state),
-    districts:projectSelectors.getDistrictsSelector(state)
+    districts:projectSelectors.getDistrictsSelector(state),
+    contractors:mapSubProjectSelectors.getContractorsSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -63,6 +70,8 @@ const mapDispatchToProps = (dispatch) => ({
     setSubProjectRegionsFilter: bindActionCreators(mapSubProjectActions.setSubProjectRegionsFilter, dispatch),
     getDistricts: bindActionCreators(projectActions.getDistrictsStart, dispatch),
     setSubProjectDistrictsFilter: bindActionCreators(mapSubProjectActions.setSubProjectDistrictFilter, dispatch),
+    setSubProjectContractorsFilter:bindActionCreators(mapSubProjectActions.setSubProjectContractorFilter, dispatch),
+    getContractors:bindActionCreators(mapSubProjectActions.getContractorsStart, dispatch)
 
 });
 

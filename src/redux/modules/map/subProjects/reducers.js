@@ -189,6 +189,19 @@ const subProjectTypes = (state = { data: [], error: null }, action) => {
     }
 };
 
+const contractors = (state = { data: [], error: null }, action) => {
+    switch (action.type) {
+        case types.GET_CONTRACTORS_START:
+            return { ...state };
+        case types.GET_CONTRACTORS_SUCCESS:
+            return { ...state, data: action.payload };
+        case types.GET_CONTRACTORS_FAILURE:
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+};
+
 const subProjectFilter = {
     'filter[sub_project_status_id]': '',
     'filter[sub_project_type_id]': '',
@@ -234,7 +247,8 @@ export const subProjects = combineReducers({
     all,
     subProjectStatus,
     subProjectTypes,
-    filters
+    filters,
+    contractors
 })
 
 

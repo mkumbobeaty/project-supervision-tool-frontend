@@ -190,6 +190,24 @@ const getSubProjectStatusEpic = action$ => {
     );
 }
 
+/**
+ *
+ * @function
+ * @name getContractorEpic
+ * @param action$ stream of actions
+ */
+const getContractorEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_CONTRACTORS_START),
+        switchMap(() => {
+            return from(API.getContractors()).pipe(
+                switchMap(res => of(actions.getContractorsSuccess(res.data))),
+                catchError(error => of(actions.getContractorsFailure(error)))
+            );
+        }),
+    );
+}
+
 const filterSubProjectTypesEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SET_SUB_PROJECT_TYPES_FILTER),
@@ -259,5 +277,6 @@ export const mapSubProjectEpics = combineEpics(
     filterSubProjectContractorEpic,
     filterSubProjectTypesEpic,
     filterSubProjectStatusEpic,
-    filterSubProjectComponentEpic
+    filterSubProjectComponentEpic,
+    getContractorEpic
 );
