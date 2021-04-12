@@ -51,8 +51,7 @@ class ProjectPoints extends Component {
                             >
                                 <Popup>
                                     <section className="mapPopup">
-                                        <div>                                        <h3>{region?.name}</h3>
-                                        </div>
+                                        <div><h3>{region?.name}</h3></div>
                                         <hr />
                                         <div className="projectDetail">
                                             <span>

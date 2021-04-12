@@ -12,6 +12,7 @@ import RegionsFilter from "../RegionsFilter";
 import DistrictsFilter from "../DistrictsFilter";
 import ContractorsFilter from "../ContractorsFilter";
 import ProcuringEntityPackageFilter from "../ProcuringEntityFilter";
+import CustomSearch from "../../../CustomSearch";
 
 function ProjectDetails({
     subProjectTypes,
@@ -32,7 +33,7 @@ function ProjectDetails({
     procuringEntityPackage,
     setProcuringEntityFilter,
     getProcuringEntity,
-    getSubProjects,
+    getSubprojects,
 }) {
     useEffect(() => {
         getSubProjectTypes();
@@ -41,12 +42,14 @@ function ProjectDetails({
         getDistricts('TZ07');
         getContractors();
         getProcuringEntity();
-        getSubProjects()
+        getSubprojects();
     }, []);
 
 
     return (
         <div className="ProjectInfo">
+            <CustomSearch title="Search Sub projects"/>
+            <hr />
             <SubProjectTypesFilter subProjectTypes={subProjectTypes} setSubProjectTypesFilter={setSubProjectTypesFilter}
             />
             <SubProjectStatusFilter subProjectStatus={subProjectStatus} setSubProjectStatusFilter={setSubProjectStatusFilter} />
@@ -65,7 +68,7 @@ const mapStateToProps = state => ({
     regions: projectSelectors.getRegionsSelector(state),
     districts: projectSelectors.getDistrictsSelector(state),
     contractors: mapSubProjectSelectors.getContractorsSelector(state),
-    procuringEntityPackage: mapSubProjectSelectors.getProcuringEntityPackageSelector(state)
+    procuringEntityPackage: mapSubProjectSelectors.getProcuringEntityPackageSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -82,7 +85,9 @@ const mapDispatchToProps = (dispatch) => ({
     getContractors: bindActionCreators(mapSubProjectActions.getContractorsStart, dispatch),
     setProcuringEntityFilter: bindActionCreators(mapSubProjectActions.setSubProjectProcuringEntityFilter, dispatch),
     getProcuringEntity: bindActionCreators(mapSubProjectActions.getProcuringEntityPackageStart, dispatch),
-    getSubProjects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch)
+    getMapSubProjects:bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
+    getSubprojects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch )
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);
@@ -90,7 +95,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);
 ProjectDetails.propTypes = {
     project: PropTypes.object,
     getSubProject: PropTypes.func.isRequired,
-    getSubProjects:PropTypes.func.isRequired,
 }
 
 ProjectDetails.defaultPropTypes = {

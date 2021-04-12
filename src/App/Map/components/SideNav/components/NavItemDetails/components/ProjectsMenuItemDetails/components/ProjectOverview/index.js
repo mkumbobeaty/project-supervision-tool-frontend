@@ -35,11 +35,7 @@ function ProjectsOverview(
         getProjectsFilters,
         getProject,
         setProjectRegionsFilter,
-        getSubProjectTypes,
-        getSubProjectStatus,
-        subProjectTypes,
-        subProjectStatus,
-        setSubProjectTypesFilter
+    
     }
 ) {
 

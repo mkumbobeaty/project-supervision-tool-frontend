@@ -38,27 +38,23 @@ export const projectsListMapEpic = action$ => {
     )
 };
 
-export const showProjectDetailsEpic = action$ => {
-    return action$.pipe(
-        ofType(mapSubProjectTypes.GET_SUB_PROJECTS_START),
-        switchMap(({ payload }) => {
-            return from(API.getSubProjects(payload)).pipe(
-                switchMap(res => {
-                    return from([
-                        subProjectsActions.getSubProjectsSuccess(res.data),
-                        mapActions.showProjectsOverview(false),
-                        mapActions.showProjectDetails(true),
-                    ])
-                }),
-                catchError(error => of(subProjectsActions.getSubProjectsFailure(error)))
-            );
-        }),
-    );
-}
+// export const showProjectDetailsEpic = action$ => {
+//     return action$.pipe(
+//         ofType(mapSubProjectTypes.GET_SUB_PROJECTS_START),
+//                 switchMap(() => {
+//                     return from([
+//                         mapActions.showProjectsOverview(true),
+//                         mapActions.showProjectDetails(false),
+//                         actions.clearProjects(true),
+
+//                     ])
+//                 }),
+//             );
+// }
 
 
 export const mapProjectEpics = combineEpics(
     getProjectMapEpic,
-    showProjectDetailsEpic,
+    // showProjectDetailsEpic,
     projectsListMapEpic,
 );

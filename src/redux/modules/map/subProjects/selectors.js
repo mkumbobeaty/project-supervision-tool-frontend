@@ -5,6 +5,12 @@
  */
 export const getSubProjectSelector = (state) => state.map.subProjects.selected?.data;
 
+/**
+ * @function
+ * @name getSubProjectsSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectsSelector = (state) => state.map.subProjects.all?.data?.data || [];
 
 /**
  * @function

@@ -21,7 +21,6 @@ const ProcuringEntityPackageFilter = ({ procuringEntityPackage, setProcuringEnti
         if (procuringEntitiesIds.includes(package_id)) {
             const filterUncheckedItem = procuringEntitiesIds.filter((i) => i !== package_id);
             setProcuringEntitiesId(filterUncheckedItem);
-            console.log('clicked', package_id)
         }
         else {
             setProcuringEntitiesId([...procuringEntitiesIds, package_id]);

@@ -52,9 +52,19 @@ const mapLoading = (state = false, action) => {
             return false;
         case mapProjectTypes.GET_PROJECT_FAILURE:
             return false;
+            case mapProjectTypes.GET_PROJECTS_START:
+                return true;
+            case mapProjectTypes.GET_PROJECTS_SUCCESS:
+                return false;
+            case mapProjectTypes.GET_PROJECTS_FAILURE:
+                return false;
         case mapProjectTypes.GET_SUB_PROJECT_START:
             return true;
         case mapProjectTypes.GET_SUB_PROJECT_SUCCESS:
+            return false;
+        case mapSubProjectTypes.GET_SUB_PROJECTS_START:
+            return true;
+        case mapSubProjectTypes.GET_SUB_PROJECTS_SUCCESS:
             return false;
         case mapProjectTypes.GET_SUB_PROJECT_FAILURE:
             return false;
