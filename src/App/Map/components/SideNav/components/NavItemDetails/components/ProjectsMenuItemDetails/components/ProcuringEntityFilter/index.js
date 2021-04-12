@@ -17,13 +17,14 @@ const ProcuringEntityPackageFilter = ({ procuringEntityPackage, setProcuringEnti
         setProcuringEntityFilter(procuringEntitiesIds.join(','));
     }, [procuringEntitiesIds]);
 
-    const handleOnclickFilterItem = (status_id) => {
-        if (procuringEntitiesIds.includes(status_id)) {
-            const filterUncheckedItem = procuringEntitiesIds.filter((i) => i !== status_id);
+    const handleOnclickFilterItem = (package_id) => {
+        if (procuringEntitiesIds.includes(package_id)) {
+            const filterUncheckedItem = procuringEntitiesIds.filter((i) => i !== package_id);
             setProcuringEntitiesId(filterUncheckedItem);
+            console.log('clicked', package_id)
         }
         else {
-            setProcuringEntitiesId([...procuringEntitiesIds, status_id]);
+            setProcuringEntitiesId([...procuringEntitiesIds, package_id]);
         }
 
     }
