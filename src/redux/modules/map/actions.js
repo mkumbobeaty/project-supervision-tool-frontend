@@ -20,10 +20,10 @@ export const showSubProjectElementDetails = makeActionCreator(types.SHOW_SUB_PRO
 
 /**
  * @function
- * @name backFromSubProjectToProjectDetails
+ * @name backFromSubProjectsToProjects
  * @param {String} payload this is the project id
  */
-export const backFromSubProjectToProjectDetails = makeActionCreator(types.BACK_SUB_PROJECT_TO_PROJECT_DETAILS, 'payload');
+export const backFromSubProjectsToProjects = makeActionCreator(types.BACK_SUB_PROJECTS_TO_PROJECTS, 'payload');
 
 /**
  * @function

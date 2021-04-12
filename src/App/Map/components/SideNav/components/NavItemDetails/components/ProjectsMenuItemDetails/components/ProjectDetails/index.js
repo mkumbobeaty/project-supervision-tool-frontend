@@ -14,6 +14,8 @@ import ContractorsFilter from "../ContractorsFilter";
 import ProcuringEntityPackageFilter from "../ProcuringEntityFilter";
 import CustomSearch from "../../../CustomSearch";
 import TopSection from "../../../TopSection";
+import { mapActions } from "../../../../../../../../../../redux/modules/map";
+import BackLink from "../BackLink";
 
 function ProjectDetails({
     subProjectTypes,
@@ -34,8 +36,10 @@ function ProjectDetails({
     procuringEntityPackage,
     setProcuringEntityFilter,
     getProcuringEntity,
-    project
+    project,
+    goBackToProjects
 }) {
+
     useEffect(() => {
         getSubProjectTypes();
         getSubProjectStatus();
@@ -45,10 +49,14 @@ function ProjectDetails({
         getProcuringEntity();
     }, []);
 
+    const handleGoBack = () => goBackToProjects(project?.project_id);
 
     return (
         <div className="ProjectInfo">
-            <TopSection title={project.name} />
+            <div style={{ display: 'flex' }}>
+                <BackLink goBack={handleGoBack} />
+                <TopSection title={project.name} />
+            </div>
             <hr />
             <CustomSearch placeholder='Search Sub projects' />
             <hr />
@@ -88,7 +96,8 @@ const mapDispatchToProps = (dispatch) => ({
     setProcuringEntityFilter: bindActionCreators(mapSubProjectActions.setSubProjectProcuringEntityFilter, dispatch),
     getProcuringEntity: bindActionCreators(mapSubProjectActions.getProcuringEntityPackageStart, dispatch),
     getMapSubProjects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
-    getSubprojects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch)
+    getSubprojects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
+    goBackToProjects: bindActionCreators(mapActions.backFromSubProjectsToProjects, dispatch)
 
 });
 

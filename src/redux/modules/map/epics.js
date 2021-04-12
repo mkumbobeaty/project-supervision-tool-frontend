@@ -168,14 +168,13 @@ const handleMapLoaderEpic = actions$ => actions$.pipe(
 
 
 // SIDE NAV MENU EPICS
-const backFromSubProjectToProjectDetailsEpics = actions$ => actions$.pipe(
-    ofType(types.BACK_SUB_PROJECT_TO_PROJECT_DETAILS),
+const backFromSubProjectsToProjectsEpics = actions$ => actions$.pipe(
+    ofType(types.BACK_SUB_PROJECTS_TO_PROJECTS),
     switchMap(({payload}) => from([
-        mapProjectActions.getProjectStart(payload),
-        actions.showSubProjectDetails(false),
-        actions.showProjectDetails(true),
-        actions.clearWfsLayerData(),
-        mapSubProjectActions.clearSubProject()
+        mapProjectActions.getProjectsStart(payload),
+        actions.showProjectDetails(false),
+        actions.showProjectsOverview(true),
+        mapSubProjectActions.clearSubProjects()
     ]))
 );
 
@@ -202,7 +201,7 @@ export const mapRootEpic = combineEpics(
     getProjectsStatistics,
     getProjectStatistics,
     getRegionProjectStatisticsEpic,
-    backFromSubProjectToProjectDetailsEpics,
+    backFromSubProjectsToProjectsEpics,
     backFromSubProjectElementToSubProjectDetailsEpics,
     getWfsLayerDataEpic,
 );
