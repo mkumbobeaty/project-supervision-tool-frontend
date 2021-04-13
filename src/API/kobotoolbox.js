@@ -52,7 +52,20 @@ const createAssetDeployment = (id) =>
  * @description Creates a new deployment, but only if a deployment does not exist already.
  */
 const activateDeployedAsset = (id) =>
-    axiosKobotoolbox.patch(`${kfBaseurl}/assets/${id}/deployment/`, {active: true}).then((response) => response.data);
+    axiosKobotoolbox.patch(`${kfBaseurl}/assets/${id}/deployment/`, {active: true, status: 'public'}).then((response) => response.data);
+
+
+
+/**
+ * @function
+ * @name assignViewSubmissionsPermissions
+ * @description assign view submissions permissions
+ */
+const assignViewSubmissionsPermissions = (id) =>
+    axiosKobotoolbox.post(`${kfBaseurl}/assets/${id}/permission-assignments/`, {
+        "user":`${kfBaseurl}/AnonymousUser/`,
+        "permission":`${kfBaseurl}/permissions/view_submissions/`
+    }).then((response) => response.data);
 
 /**
  * @function
@@ -69,4 +82,5 @@ export default {
     createAsset,
     activateDeployedAsset,
     createAssetDeployment,
+    assignViewSubmissionsPermissions,
 }

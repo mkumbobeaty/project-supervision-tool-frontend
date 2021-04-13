@@ -18,6 +18,7 @@ import { mapActions } from "../../redux/modules/map";
 import PreviewOnMap from "./PreviewOnMap";
 import SurveyForm from "./SurveyForm";
 import DisplaySurveyForm from "../components/DisplaySurveyForm";
+import API from "../../API";
 
 
 /* constants */
@@ -66,6 +67,8 @@ class SubProjects extends Component {
   componentDidMount() {
     const { fetchSubProjects } = this.props;
     fetchSubProjects();
+    API.activateDeployedAsset('ajCHN7SuxQ3Pc4RY7dUb92')
+        .then(res => console.log(res));
   }
 
 

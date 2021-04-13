@@ -10,11 +10,16 @@ import KeyDetailSection from "./KeyDetails";
 import ProjectsProgress from "../../../Projects/components/ProjectsDetails/Progress";
 import { isoDateToHumanReadableDate } from "../../../../Util";
 import ReportOverview from "./ReportOverview";
-import { ImageGallary } from "./SubProjectGallary";
+import ImageGallary from "./SubProjectGallary";
 import SurveyResults from "../../../components/SurveyResults";
 
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
+
+const getSurveyIdByCategory = (categoryName, surveys = []) => {
+  const filteredSurveys = surveys.filter(({category_name}) => categoryName === category_name);
+  return filteredSurveys.length > 0 ? filteredSurveys[0].survey_id : null
+}
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -52,8 +57,9 @@ class SubProject extends Component {
   render() {
     const { sub_project, loading, mapLoading } = this.props;
     const approval_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.approval_date) : 'N/A';
-    const closing_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.closing_date) : 'N/A'
-    const survey_id = sub_project?.surveys[0].survey_id;
+    const closing_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.closing_date) : 'N/A';
+    const fieldNotesSurveyId = sub_project?.surveys ? getSurveyIdByCategory('field_notes', sub_project?.surveys) : null;
+    const imageUploadSurveyId = sub_project?.surveys ? getSurveyIdByCategory('image_upload', sub_project?.surveys) : null;
 
     return (
       <Layout className="sub-project-layout">
@@ -110,13 +116,13 @@ class SubProject extends Component {
                       </Row>
                     </TabPane>
                     <TabPane tab="Field Notes" key="2">
-                      {survey_id ? <SurveyResults survey_id={survey_id}/> : ''}
+                      {fieldNotesSurveyId ? <SurveyResults survey_id={fieldNotesSurveyId}/> : ''}
                     </TabPane>
                     <TabPane tab="Construction and E & S Reporting" key="3">
                       <h4> Comming Soon</h4>
                     </TabPane>
                     <TabPane tab="Photo Gallary" key="4">
-                      <ImageGallary subProject={sub_project}/>
+                      {imageUploadSurveyId ? <ImageGallary survey_id={imageUploadSurveyId}/> : ''}
                     </TabPane>
                   </Tabs>
                 </div>
