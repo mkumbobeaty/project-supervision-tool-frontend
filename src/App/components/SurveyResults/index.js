@@ -5,8 +5,7 @@ import API from "../../../API";
 import {isoDateToHumanReadableDate} from "../../../Util";
 
 const getAttachMentUrl = (attachments, name) => {
-    const attachment = attachments.filter((a) => a.download_url.includes(name))[0];
-    return attachment.download_url;
+    return attachments.length > 0 ? attachments[0].download_url : '';
 }
 
 function SurveyResults({survey_id}) {

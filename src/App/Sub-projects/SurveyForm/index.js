@@ -55,15 +55,18 @@ function SurveyForm(
         API.createAsset(payload)
             .then(asset => API.createSubProjectSurvey({
                 survey_id: asset.uid,
-                category_name: 'sub_project_survey',
+                category_name: values.survey_category,
                 sub_project_id: selected.id,
             })
                 .then(() => API.createAssetDeployment(asset.uid)
-        .then(() => API.activateDeployedAsset(asset.uid)
-                        .then(() => {
-                            setShowMessage(true);
-                            setLoading(false);
-                        })
+                    .then(() => API.activateDeployedAsset(asset.uid)
+                        .then(() =>
+                            API.assignViewSubmissionsPermissions(asset.uid)
+                                .then(() => {
+                                    setShowMessage(true);
+                                    setLoading(false);
+                                })
+                        )
                     )));
     };
 

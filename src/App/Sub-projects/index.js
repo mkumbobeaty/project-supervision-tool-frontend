@@ -9,6 +9,7 @@ import SubProjectsList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
+import {getSurveyIdByCategory, isoDateToHumanReadableDate} from "../../Util";
 import SubProjectForm from "./Form";
 import "./styles.css";
 import { subProjectsActions, subProjectsSelectors } from "../../redux/modules/subProjects"
@@ -269,7 +270,8 @@ class SubProjects extends Component {
       selected
     } = this.props;
 
-    const survey_id = selected?.surveys[0]?.survey_id;
+    const survey_id = selected?.surveys ? getSurveyIdByCategory('field_notes', selected?.surveys) : null;
+
 
     const { isEditForm, previewOnMap } = this.state;
     return previewOnMap ? <PreviewOnMap data={selected} /> : (

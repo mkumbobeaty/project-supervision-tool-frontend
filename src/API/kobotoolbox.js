@@ -54,6 +54,19 @@ const createAssetDeployment = (id) =>
 const activateDeployedAsset = (id) =>
     axiosKobotoolbox.patch(`${kfBaseurl}/assets/${id}/deployment/`, {active: true}).then((response) => response.data);
 
+
+
+/**
+ * @function
+ * @name assignViewSubmissionsPermissions
+ * @description assign view submissions permissions
+ */
+const assignViewSubmissionsPermissions = (id) =>
+    axiosKobotoolbox.post(`${kfBaseurl}/assets/${id}/permission-assignments/`, {
+        "user":`${kfBaseurl}/users/AnonymousUser/`,
+        "permission":`${kfBaseurl}/permissions/view_submissions/`
+    }).then((response) => response.data);
+
 /**
  * @function
  * @name createAsset
@@ -69,4 +82,5 @@ export default {
     createAsset,
     activateDeployedAsset,
     createAssetDeployment,
+    assignViewSubmissionsPermissions,
 }
