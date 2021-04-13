@@ -43,7 +43,7 @@ function SurveyResults({survey_id}) {
                     })));
             });
     }, []);
-    return (<Table dataSource={dataSource} columns={columns}/>);
+    return (<Table dataSource={dataSource} columns={columns} className="container" />);
 }
 
 export default SurveyResults;

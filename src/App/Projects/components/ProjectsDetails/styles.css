@@ -53,6 +53,7 @@ h2#sider-title {
 .description h4 {
     color: #0f6788;
     font-size: 15px;
+    padding-top: 10px;
 }
 
 .chartDetails {
@@ -133,13 +134,19 @@ h2#sider-title {
         padding: 0;
     }
     .contents {
-        padding: 0 20px;
+        padding: 0px;
     }
     .project-layout h3, .sub-project-layout h3 {
         padding: 15px;
     }
     .container {
         margin: 0;
+    }
+    .sub-project-contents{
+        padding: 0 24px;
+    }
+    .contentEllipse > a, .Projects{
+        padding: 0 16px;
     }
 }
 

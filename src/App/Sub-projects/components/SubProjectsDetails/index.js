@@ -12,6 +12,7 @@ import { isoDateToHumanReadableDate } from "../../../../Util";
 import ReportOverview from "./ReportOverview";
 import { ImageGallary } from "./SubProjectGallary";
 import SurveyResults from "../../../components/SurveyResults";
+import SubProjectPoints from "../../../Map/components/SubProjectPoints";
 
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
@@ -61,15 +62,15 @@ class SubProject extends Component {
           <Content className="contents">
             <h3>{sub_project?.name}</h3>
             <Layout className="sub-project-inner-layout" >
-              <div className="keyDetails ">
-                <h2 id="sider-title">Key Details</h2>
-                <KeyDetailSection sub_project={sub_project} />
-              </div>
-              <Content className="sub-project-contents container">
+              <Content className="sub-project-contents">
                 <div className="card-container">
                   <Tabs type="card">
                     <TabPane tab="Sub-Project Overview" key="1">
-                      <Row className="Progress-overview">
+                      <div className="keyDetails ">
+                        <h2 id="sider-title">Key Details</h2>
+                        <KeyDetailSection sub_project={sub_project} />
+                      </div>
+                      <Row className="Progress-overview container" >
                         <Col {...firstSpan} >
                           <ProjectsProgress
                             title="Financial Progress"
@@ -98,25 +99,25 @@ class SubProject extends Component {
                             <div className="project_map">
                               <BaseMap ref={this.map} zoomControl={true}  >
                                 <FullscreenControl position="topright" />
-                                {/* <ProjectPoints project={project} /> */}
+                                {sub_project ? <SubProjectPoints subProjects={[sub_project]} /> : ''}
                               </BaseMap>
                             </div>
 
                           </Spin>
                         </Col>
                         <Col {...firstSpan} className="reportOverview">
-                            <ReportOverview />
+                          <ReportOverview />
                         </Col>
                       </Row>
                     </TabPane>
                     <TabPane tab="Field Notes" key="2">
-                      {survey_id ? <SurveyResults survey_id={survey_id}/> : ''}
+                      {survey_id ? <SurveyResults survey_id={survey_id} /> : ''}
                     </TabPane>
-                    <TabPane tab="Construction and E & S Reporting" key="3">
+                    <TabPane tab="Construction and E & S Reporting" key="3" className="container">
                       <h4> Comming Soon</h4>
                     </TabPane>
                     <TabPane tab="Photo Gallary" key="4">
-                      <ImageGallary subProject={sub_project}/>
+                      <ImageGallary subProject={sub_project} />
                     </TabPane>
                   </Tabs>
                 </div>

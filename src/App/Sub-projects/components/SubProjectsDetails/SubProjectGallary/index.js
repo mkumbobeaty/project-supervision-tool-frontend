@@ -15,7 +15,7 @@ const imgUrls = [
 
 export const ImageGallary = () => {
   return (
-    <section className="ImageGallary">
+    <section className="ImageGallary container">
       <Toolbar
         total={imgUrls.length}
         itemName="PhotoGallary"
