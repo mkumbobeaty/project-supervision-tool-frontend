@@ -53,7 +53,6 @@ class SubProjectPoints extends Component {
                                     <section className="mapPopup">
                                         <div><h3>{name}</h3></div>
                                         </section>
-                                    <Link to="/app/map">View project</Link>
                                 </Popup>
                             </Marker>
                         );

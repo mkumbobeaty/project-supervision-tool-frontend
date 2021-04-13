@@ -1,6 +1,7 @@
 import React from "react";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../Util";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { Spin } from "antd";
 
 const MapPopupDetail = ({ project, loading }) => {
@@ -45,6 +46,10 @@ const MapPopupDetail = ({ project, loading }) => {
                         <p>{commitmentAmount}</p>
                     </span>
                 </div>
+                <span style={{ margin: 15, textDecoration:"underline" }}>
+                    <Link to={{
+                        pathname: `/app/projects/${project?.id}`,
+                    }}>More details</Link> </span>
             </section>
         </Spin>
     )

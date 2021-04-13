@@ -3,7 +3,6 @@ import { divIcon } from 'leaflet';
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Spiderfy from "./Spiderfy";
-import { Link } from "react-router-dom";
 import * as turf from '@turf/turf';
 import MapPopupDetail from "./PopupDetails";
 
@@ -27,14 +26,14 @@ class ProjectPoints extends Component {
         console.log(markers);
     };
 
-     handleProjectPopup = (project_id) => {
-       const { getProject } = this.props;
-       getProject(project_id);
+    handleProjectPopup = (project_id) => {
+        const { getProject } = this.props;
+        getProject(project_id);
     };
 
     render() {
-        
-        const { projects, project ,loading} = this.props;
+
+        const { projects, project, loading } = this.props;
 
         return (
             <Spiderfy
@@ -42,13 +41,12 @@ class ProjectPoints extends Component {
                 onSpiderfy={this.handleSpiderfy}
                 onUnspiderfy={this.handleUnspiderfy}
             >
-                { projects.map(({ regions,id }) => {
+                { projects.map(({ regions, id }) => {
                     return regions.length > 0 ? regions.map((region) => {
                         const polygon = JSON.parse(region.geom);
                         const { geometry } = turf.pointOnFeature(polygon);
 
-                        var customizedIcon = divIcon({ className: 'customizedIcon' });
-
+                        const customizedIcon = divIcon({ className: 'customizedIcon' });
 
                         return (
                             <Marker
@@ -60,7 +58,7 @@ class ProjectPoints extends Component {
                             >
                                 <Popup>
                                     <MapPopupDetail project={project} loading={loading} />
-                                    <Link to="/app/map">View project</Link>
+                                    
                                 </Popup>
                             </Marker>
                         );
