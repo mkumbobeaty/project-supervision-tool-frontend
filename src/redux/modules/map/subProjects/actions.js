@@ -352,3 +352,50 @@ export const setSubProjectComponentFilter = makeActionCreator(types.SET_SUB_PROJ
  * */
 export const setSubProjectContractorFilter = makeActionCreator(types.SET_SUB_PROJECT_CONTRACTOR_FILTER, 'payload');
 
+/**
+ * @function
+ * @name setSubProjectProcuringEntityFilter
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const setSubProjectProcuringEntityFilter = makeActionCreator(types.SET_PROCURING_ENTITY_PACKAGE_FILTER, 'payload');
+
+/**
+ * @function
+ * @name getContractorsStart
+ */
+export const getContractorsStart = makeActionCreator(types.GET_CONTRACTORS_START);
+
+/**
+ * @function
+ * @name getContractorsSuccess
+ * @param {Array} payload fetched contractors
+ */
+ export const getContractorsSuccess = makeActionCreator(types.GET_CONTRACTORS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getContractorsFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getContractorsFailure = makeActionCreator(types.GET_CONTRACTORS_FAILURE, 'payload');
+
+ /**
+ * @function
+ * @name getProcuringEntityPackageStart
+ */
+export const getProcuringEntityPackageStart = makeActionCreator(types.GET_PROCURING_ENTITY_PACKAGE_START);
+
+/**
+ * @function
+ * @name getProcuringEntityPackageSuccess
+ * @param {Array} payload fetched Procuring Entity Package
+ */
+ export const getProcuringEntityPackageSuccess = makeActionCreator(types.GET_PROCURING_ENTITY_PACKAGE_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getProcuringEntityPackageFailure
+ * @param {Object} payload error object returned by server
+ */
+ export const getProcuringEntityPackageFailure = makeActionCreator(types.GET_PROCURING_ENTITY_PACKAGE_FAILURE, 'payload');

@@ -49,5 +49,10 @@
     justify-content: center;
 }
 
+.BackLink .anticon.anticon-arrow-left{
+    margin-top: 25px;
+    color: #0f6788;
+    font-size: 16px;
+}
 
 

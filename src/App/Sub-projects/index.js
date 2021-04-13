@@ -21,26 +21,27 @@ import DisplaySurveyForm from "../components/DisplaySurveyForm";
 
 
 /* constants */
-const subProjectNameSpan = { xxl: 3, xl: 4, lg: 4, md: 5, sm: 0, xs: 0 };
-const contractorSpan = { xxl: 3, xl: 3, lg: 5, md: 3, sm: 0, xs: 0 };
-const endDataSpan = { xxl: 4, xl: 3, lg: 4, md: 5, sm: 5, xs: 5 };
-const agencySpan = { xxl: 4, xl: 4, lg: 4, md: 3, sm: 0, xs: 0 };
+const subProjectNameSpan = { xxl: 3, xl: 4, lg: 4, md: 5, sm: 20, xs: 20 };
+const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 0, xs: 0 };
+const itemsSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
 const locationSpan = { xxl: 3, xl: 3, lg: 0, md: 0, sm: 0, xs: 0 };
-const startDateSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 5, xs: 5 };
-const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 5, xs: 5 };
-const codeSpan = { xxl: 0, xl: 0, lg: 0, md: 0, sm: 5, xs: 5 };
+const statusSpan = { xxl: 3, xl: 3, lg: 4, md: 3, sm: 0, xs: 0 };
+const physicalProgressSpan = { xxl: 3, xl: 2, lg: 3, md: 3, sm: 0, xs: 0 };
+const financialSpan = { xxl: 2, xl: 2, lg: 4, md: 2, sm: 0, xs: 0 };
+const contractorSpan = { xxl: 3, xl: 3, lg: 3, md: 2, sm: 0, xs: 0 };
 
 const { confirm } = Modal;
 
 const headerLayout = [
-  { ...codeSpan, header: "Code" },
   { ...subProjectNameSpan, header: "Name" },
   { ...projectIdSpan, header: "Project" },
+  { ...itemsSpan, header: "Items" },
   { ...locationSpan, header: "Location" },
-  { ...startDateSpan, header: "Start Date" },
-  { ...endDataSpan, header: "End date" },
-  { ...contractorSpan, header: "Contractor" },
-  { ...agencySpan, header: "Supervision Agency" },
+  { ...statusSpan, header: "Status" },
+  { ...physicalProgressSpan, header: "Physical Progress" },
+  { ...financialSpan, header: "Financial Progress" },
+  { ...contractorSpan, header: "Contractors" },
+
 ];
 
 
@@ -341,20 +342,6 @@ class SubProjects extends Component {
                         onClick: () => this.handleViewDetails(item.id)
                       }
                     }
-                    // fillSurvey={
-                    //   {
-                    //     name: "Fill field notes",
-                    //     title: "Fill field notes to provide status update",
-                    //     onClick: () => this.fillSurvey(item)
-                    //   }
-                    // }
-                    onMapPreview={
-                      {
-                        name: "Preview on Map",
-                        title: "View Sub project on map",
-                        onClick: () => this.handleMapPreview(item)
-                      }
-                    }
                     createSurvey={
                       {
                         name: "Create Survey",
@@ -383,30 +370,30 @@ class SubProjects extends Component {
                   </Link>
 
                 </Col>
-                <Col {...codeSpan} >
 
-                  {item ? item?.code : "N/A"}
-                </Col>
                 <Col {...projectIdSpan} className="contentEllipse">
 
-                  {item ? item?.project_id : "N/A"}
+                  {item?.project_id  ? item?.project_id : "N/A"}
                 </Col>
 
+                <Col {...itemsSpan} className="contentEllipse">
+                  {item?.type ? item?.type?.name : 'N/A'}
+                </Col>
                 <Col {...locationSpan} className="contentEllipse">
                   {item.districts.length === 0 ? "N/A" : item.districts.map(({ name }, index) => {
                     return (index ? ", " : "") + name;
                   })}
                 </Col>
-                <Col {...startDateSpan}>
-                  {isoDateToHumanReadableDate(item.details ? item.details.start_date : 'N/A')}
+                <Col {...statusSpan}>
+                  {item?.status ? item?.status.name : 'N/A'}
                 </Col>
-                <Col {...endDataSpan}>
-                  {isoDateToHumanReadableDate(item.details ? item.details.end_date : 'N/A')}
+                <Col {...physicalProgressSpan} className="contentEllipse">{item.details ? item.details.contractor.name : "N/A"}</Col>
+
+                <Col {...financialSpan} className="contentEllipse" title={item?.details?.supervising_agency.name}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
+                <Col {...contractorSpan} >
+
+                  {item.details ? item.details.contractor.name : "N/A"}
                 </Col>
-                <Col {...contractorSpan} className="contentEllipse">{item.details ? item.details.contractor.name : "N/A"}</Col>
-
-                <Col {...agencySpan} className="contentEllipse" title={item?.details?.supervising_agency.name}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
-
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
             )}

@@ -14,3 +14,35 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+
+.checkboxItem {
+    padding: 0 8px;
+    cursor: pointer;
+}
+
+.projectFilter {
+    padding-top: 10px;
+}
+
+.projectFilter:last-child {
+    margin-bottom: 20px;
+}
+
+.projectFilter span {
+    text-decoration: underline;
+}
+
+.projectFilter .checkboxItem {
+    text-overflow: ellipsis;
+    display: inline-block;
+    overflow: hidden;
+    width: 350px;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.LoadMore {
+    color: #0f6788;
+    font-size: 15px;
+    text-decoration: underline;
+    cursor: pointer;
+}

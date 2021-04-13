@@ -3,15 +3,15 @@ import { divIcon } from 'leaflet';
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import Spiderfy from "./Spiderfy";
+import { Link } from "react-router-dom";
 import * as turf from '@turf/turf';
-import MapPopupDetail from "./PopupDetails";
 
-class ProjectPoints extends Component {
+import { isoDateToHumanReadableDate, moneyFormat } from "../../../Util";
+
+class SubProjectPoints extends Component {
 
     static propTypes = {
-        projects: PropTypes.array.isRequired,
-        projects: PropTypes.object.isRequired,
-
+        subProjects: PropTypes.array.isRequired,
     }
 
     handleSpiderfyClick = marker => {
@@ -26,14 +26,8 @@ class ProjectPoints extends Component {
         console.log(markers);
     };
 
-    handleProjectPopup = (project_id) => {
-        const { getProject } = this.props;
-        getProject(project_id);
-    };
-
     render() {
-
-        const { projects, project, loading } = this.props;
+        const { subProjects } = this.props;
 
         return (
             <Spiderfy
@@ -41,24 +35,24 @@ class ProjectPoints extends Component {
                 onSpiderfy={this.handleSpiderfy}
                 onUnspiderfy={this.handleUnspiderfy}
             >
-                { projects.map(({ regions, id }) => {
-                    return regions.length > 0 ? regions.map((region) => {
-                        const polygon = JSON.parse(region.geom);
+                { subProjects.map(({ districts,name,id }) => {
+                    return districts.length > 0 ? districts.map((district) => {
+                        const polygon = JSON.parse(district.geom);
                         const { geometry } = turf.pointOnFeature(polygon);
 
-                        const customizedIcon = divIcon({ className: 'customizedIcon' });
+                        var customizedIcon = divIcon({ className: 'customizedIcon' });
 
                         return (
                             <Marker
                                 position={[geometry.coordinates[1], geometry.coordinates[0]]}
-                                title={region.name}
-                                key={region.id}
+                                title={name}
+                                key={id}
                                 icon={customizedIcon}
-                                onClick={() => this.handleProjectPopup(id)}
                             >
                                 <Popup>
-                                    <MapPopupDetail project={project} loading={loading} />
-                                    
+                                    <section className="mapPopup">
+                                        <div><h3>{name}</h3></div>
+                                        </section>
                                 </Popup>
                             </Marker>
                         );
@@ -70,4 +64,4 @@ class ProjectPoints extends Component {
 }
 
 
-export default withLeaflet(ProjectPoints);
+export default withLeaflet(SubProjectPoints);

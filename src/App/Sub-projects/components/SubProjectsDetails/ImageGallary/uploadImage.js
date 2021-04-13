@@ -53,7 +53,6 @@ function UploadPhotoForm({ uploadPhoto, dummyRequest, onChange, selectedFileList
 
     const onFinish = (values) => {
         const id = sub_project.id;
-        debugger
         const data = new FormData ();
         data.append("photo", selectedFileList.name)
         const payload = { description: values.description, id, photo: data }
@@ -178,7 +177,6 @@ UploadPhotoForm.defaultProps = {
 //         const data = new FormData() 
 //         data.append('file', this.state.selectedFile, this.state.selectedFile.name)
 //         const payload = { description : values.description, id, photo:this.state.selectedFile.name }
-//         debugger
 //         uploadPhoto(payload);
 //     };
 

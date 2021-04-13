@@ -63,7 +63,7 @@ function SurveyResults({survey_id}) {
         getData(survey_id)
     }, []);
     return (
-        <>
+        <section className="container">
             <Toolbar
                 total={dataSource.length}
                 onRefresh={() => getData(survey_id)}
@@ -78,7 +78,7 @@ function SurveyResults({survey_id}) {
                     },
                 ]}
             />
-            <Table dataSource={dataSource} columns={columns}/>
+            <Table dataSource={dataSource} columns={columns} className="container"/>
             <Drawer
                 width={550}
                 footer={null}
@@ -89,7 +89,7 @@ function SurveyResults({survey_id}) {
             >
                 <DisplaySurveyForm survey_id={survey_id} />
             </Drawer>
-        </>
+        </section>
         );
 }
 

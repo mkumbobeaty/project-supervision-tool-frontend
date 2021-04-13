@@ -15,7 +15,7 @@ function CustomSearch({placeholder}) {
             onSelect={()=> {}}
             onSearch={() => {}}
         >
-            <Input.Search size="large" placeholder={placeholder} enterButton />
+            <Input.Search size="large" placeholder={placeholder}  />
         </AutoComplete>
     );
 }

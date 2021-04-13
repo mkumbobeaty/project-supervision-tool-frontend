@@ -28,7 +28,6 @@
     margin-bottom: 0!important;
 }
 
-
 .chartDetails, .chartProgress {
     border: 1px solid #e0ddddfa;
     padding: 15px 15px 15px 0;
@@ -104,14 +103,22 @@
 .sub-project-contents .ant-tabs-card.ant-tabs-top>.ant-tabs-nav .ant-tabs-tab, .ant-tabs-card.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-tab {
     padding: 10px 70px;
 }
-.card-container{
-border-top: 0.5px solid #e8e8e8;
-}
-.Progress-overview{
+
+/* .card-container {
+    border-top: 0.5px solid #e8e8e8;
+} */
+
+.Progress-overview {
     margin-top: 20px;
 }
-.reportOverview{
+
+.reportOverview {
     margin: 45px 0;
     border: 1px solid #e0ddddfa;
+}
 
+.card-container .ant-tabs-nav {
+    width: 1300px;
+    margin: auto;
+    padding-bottom: 25px;
 }

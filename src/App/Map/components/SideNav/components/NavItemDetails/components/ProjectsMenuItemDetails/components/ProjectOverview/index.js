@@ -35,11 +35,7 @@ function ProjectsOverview(
         getProjectsFilters,
         getProject,
         setProjectRegionsFilter,
-        getSubProjectTypes,
-        getSubProjectStatus,
-        subProjectTypes,
-        subProjectStatus,
-        setSubProjectTypesFilter
+    
     }
 ) {
 
@@ -120,6 +116,8 @@ ProjectsOverview.propTypes = {
     getProject: PropTypes.func.isRequired,
     getSubProjects: PropTypes.func.isRequired,
     setProjectStatusFilter: PropTypes.array.isRequired,
+    getSubProjects:PropTypes.func.isRequired,
+    project:PropTypes.object.isRequired,
 }
 
 ProjectsOverview.defaultProps = {
