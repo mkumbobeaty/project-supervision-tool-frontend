@@ -53,7 +53,7 @@ const filters = (state = projectFilter, action) => {
  * @name regions
  * @description reducer that manages regions state
  */
-const regions = (state = projectFilter, action) => {
+const regions = (state = [], action) => {
     switch (action.type) {
         case types.GET_REGIONS_START:
             return state;

@@ -1,7 +1,7 @@
 import { Form, InputNumber, Modal, Select } from "antd";
 import PropTypes from 'prop-types';
 import React, { useEffect, useRef, useState } from "react";
-import API from '../../../../API';
+import API from '../../../../../API';
 
 
 // reset form fields when modal is form, closed

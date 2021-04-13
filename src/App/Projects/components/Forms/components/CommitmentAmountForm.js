@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from "react";
-import MoneyForm from "../../../components/MoneyForm";
+import MoneyForm from "../../../../components/MoneyForm";
 
 const CommitmentAmountForm = ({ visible, onCancel, currency,  setCommitmentAmountId }) => {
 

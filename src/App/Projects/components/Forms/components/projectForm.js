@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Typography } from 'antd';
-import RegionLocationForm from "../../../components/RegionLocationForm";
-import { projectActions, projectSelectors } from "../../../../redux/modules/projects";
+import RegionLocationForm from "../../../../components/RegionLocationForm";
+import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
 import { bindActionCreators } from "redux";
 
 /* ui */

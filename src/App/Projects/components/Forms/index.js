@@ -2,11 +2,11 @@
 import React, { Component } from "react";
 import { Steps } from 'antd';
 import { connect } from "react-redux";
-import ProjectForm from './projectForm';
+import ProjectForm from './components/projectForm';
 import { projectSectorsOperator, } from "../ProjectsSectors/duck";
 import { projectOperation, projectSelectors } from '../../../../redux/modules/projects';
 import { projectDetailsOperator, } from "../ProjectsDetails/duck";
-import ProjectDetailsForm from "./projectDetailsForm";
+import ProjectDetailsForm from "./components/projectDetailsForm";
 
 
 const { Step } = Steps;
