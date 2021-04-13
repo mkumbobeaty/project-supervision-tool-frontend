@@ -42,7 +42,7 @@ const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects, getProject
             filterTitle={`Projects`}
             handleOnClickFilterValue={handleOnClickFilterValue}
             handleFilter={handleOnclickFilterItem}
-            // filterClass="projectFilter"
+            filterClass="projectFilter"
         />
     )
 }

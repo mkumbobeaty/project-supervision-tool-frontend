@@ -14,8 +14,6 @@ function TopSection({title}) {
              <section>
                 <h3>{title}</h3>
             </section>
-            {/* <section>
-            </section> */}
            </div>
     );
 

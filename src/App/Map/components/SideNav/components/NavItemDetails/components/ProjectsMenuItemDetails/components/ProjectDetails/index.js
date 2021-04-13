@@ -10,38 +10,64 @@ import SubProjectStatusFilter from "../SuProjectStatusFilter";
 import { projectActions, projectSelectors } from "../../../../../../../../../../redux/modules/projects";
 import RegionsFilter from "../RegionsFilter";
 import DistrictsFilter from "../DistrictsFilter";
-import { setSubProjectDistrictFilter } from "../../../../../../../../../../redux/modules/map/subProjects/actions";
+import ContractorsFilter from "../ContractorsFilter";
+import ProcuringEntityPackageFilter from "../ProcuringEntityFilter";
+import CustomSearch from "../../../CustomSearch";
+import TopSection from "../../../TopSection";
+import { mapActions } from "../../../../../../../../../../redux/modules/map";
+import BackLink from "../BackLink";
 
-function ProjectDetails({ 
+function ProjectDetails({
     subProjectTypes,
     subProjectStatus,
-     setSubProjectTypesFilter, 
-     getSubProjectTypes,
-      getSubProjectStatus,
-      setSubProjectStatusFilter, 
-      regions,
-      getRegions,
-      setSubProjectRegionsFilter,
-      districts,
-      getDistricts,
-      setSubProjectDistrictsFilter
-    }) {
+    setSubProjectTypesFilter,
+    getSubProjectTypes,
+    getSubProjectStatus,
+    setSubProjectStatusFilter,
+    regions,
+    getRegions,
+    setSubProjectRegionsFilter,
+    districts,
+    getDistricts,
+    setSubProjectDistrictsFilter,
+    getContractors,
+    contractors,
+    setSubProjectContractorsFilter,
+    procuringEntityPackage,
+    setProcuringEntityFilter,
+    getProcuringEntity,
+    project,
+    goBackToProjects
+}) {
+
     useEffect(() => {
         getSubProjectTypes();
         getSubProjectStatus();
         getRegions();
         getDistricts('TZ07');
+        getContractors();
+        getProcuringEntity();
     }, []);
 
+    const handleGoBack = () => goBackToProjects(project?.project_id);
 
     return (
         <div className="ProjectInfo">
+            <div style={{ display: 'flex' }}>
+                <BackLink goBack={handleGoBack} />
+                <TopSection title={project.name} />
+            </div>
+            <hr />
+            <CustomSearch placeholder='Search Sub projects' />
+            <hr />
             <SubProjectTypesFilter subProjectTypes={subProjectTypes} setSubProjectTypesFilter={setSubProjectTypesFilter}
             />
             <SubProjectStatusFilter subProjectStatus={subProjectStatus} setSubProjectStatusFilter={setSubProjectStatusFilter} />
-            <RegionsFilter regions={regions} setProjectRegionsFilter={setSubProjectRegionsFilter} /> 
+            <RegionsFilter regions={regions} setProjectRegionsFilter={setSubProjectRegionsFilter} />
             <DistrictsFilter districts={districts} setSubProjectDistrictsFilter={setSubProjectDistrictsFilter} />
-       </div>
+            <ProcuringEntityPackageFilter procuringEntityPackage={procuringEntityPackage} setProcuringEntityFilter={setProcuringEntityFilter} />
+            <ContractorsFilter contractors={contractors} setSubProjectContractorsFilter={setSubProjectContractorsFilter} />
+        </div>
     );
 }
 
@@ -50,7 +76,9 @@ const mapStateToProps = state => ({
     subProjectTypes: mapSubProjectSelectors.getSubProjectTypesSelector(state),
     subProjectStatus: mapSubProjectSelectors.getSubProjectStatusSelector(state),
     regions: projectSelectors.getRegionsSelector(state),
-    districts:projectSelectors.getDistrictsSelector(state)
+    districts: projectSelectors.getDistrictsSelector(state),
+    contractors: mapSubProjectSelectors.getContractorsSelector(state),
+    procuringEntityPackage: mapSubProjectSelectors.getProcuringEntityPackageSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -63,6 +91,13 @@ const mapDispatchToProps = (dispatch) => ({
     setSubProjectRegionsFilter: bindActionCreators(mapSubProjectActions.setSubProjectRegionsFilter, dispatch),
     getDistricts: bindActionCreators(projectActions.getDistrictsStart, dispatch),
     setSubProjectDistrictsFilter: bindActionCreators(mapSubProjectActions.setSubProjectDistrictFilter, dispatch),
+    setSubProjectContractorsFilter: bindActionCreators(mapSubProjectActions.setSubProjectContractorFilter, dispatch),
+    getContractors: bindActionCreators(mapSubProjectActions.getContractorsStart, dispatch),
+    setProcuringEntityFilter: bindActionCreators(mapSubProjectActions.setSubProjectProcuringEntityFilter, dispatch),
+    getProcuringEntity: bindActionCreators(mapSubProjectActions.getProcuringEntityPackageStart, dispatch),
+    getMapSubProjects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
+    getSubprojects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
+    goBackToProjects: bindActionCreators(mapActions.backFromSubProjectsToProjects, dispatch)
 
 });
 

@@ -12,8 +12,8 @@ import axios from "./config";
  * @version 0.1.0
  * @since 0.1.0
  */
-const getSubProjects = (params = {}) => {
-    return axios.get(`/sub_projects/`, { params: { page: params.page, per_page: 10, searchField:'name', searchQuery:params.searchQuery } }).then((response) => response.data);
+const getSubProjects = (filter = {}) => {
+    return axios.get(`/sub_projects/`, {params: filter}).then((response) => response.data);
 }
 
 
@@ -149,6 +149,19 @@ const getSubProjectTypes = () => axios.get(`/sub_project_types`).then((response)
  */
 const getSubProjectStatus = () => axios.get(`/sub_project_status`).then((response) => response.data);
 
+/**
+ * 
+ * Get a sub project procuring entity packages from the API
+ * @function
+ * @name getProcuringEntity
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const getProcuringEntity = () => axios.get(`/procuring_entity_packages`).then((response) => response.data);
+
+
 
 export default {
     getSubProjects,
@@ -163,5 +176,6 @@ export default {
     getSubProjectsStatistics,
     uploadPhotos,
     getSubProjectStatus,
-    getSubProjectTypes
+    getSubProjectTypes,
+    getProcuringEntity
 }

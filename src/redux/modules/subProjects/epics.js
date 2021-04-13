@@ -118,7 +118,6 @@ const uploadPhotoEpic = action$ => {
     return action$.pipe(
         ofType(types.UPLOAD_PHOTO_START),
         switchMap(({payload}) => {
-            debugger
             return from(API.uploadPhotos(payload, payload.sub_project_id))
         }),
         switchMap(res => { return of(actions.uploadPhotoSuccess(res)) }),

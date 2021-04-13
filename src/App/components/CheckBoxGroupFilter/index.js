@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
-import {Checkbox} from 'antd';
+import { Checkbox } from 'antd';
 import './styles.css';
 
 
@@ -9,7 +9,7 @@ import './styles.css';
  * @name CheckBoxGroupFilter
  * @description renders checkbox filters
  */
-function CheckBoxGroupFilter({handleFilter, filterTitle, itemsPerPage, items, filterClass, handleOnClickFilterValue}) {
+function CheckBoxGroupFilter({ handleFilter, filterTitle, itemsPerPage, items, filterClass, handleOnClickFilterValue }) {
     const [itemsToShow, setItemsToShow] = useState([]);
     const [next, setNext] = useState(itemsPerPage);
 
@@ -19,10 +19,10 @@ function CheckBoxGroupFilter({handleFilter, filterTitle, itemsPerPage, items, fi
     };
 
 
-    const renderFilterItems = items => items.map(({title, value, id, total_count}, i) => {
+    const renderFilterItems = items => items.map(({ title, value, id, total_count }, i) => {
         return (
             <div className={filterClass}>
-                <div><Checkbox onClick={() => handleFilter(id)} title={title} key={i} /> <span onClick={() => handleOnClickFilterValue(id)}>{value}</span> </div>
+                <div><Checkbox onClick={() => handleFilter(id)} title={title} key={i} /> <span onClick={() => handleOnClickFilterValue(id)} className="checkboxItem" title={value}>{value}</span> </div>
                 <span>{total_count}</span>
             </div>
         )
@@ -55,7 +55,7 @@ function CheckBoxGroupFilter({handleFilter, filterTitle, itemsPerPage, items, fi
 export default CheckBoxGroupFilter;
 
 CheckBoxGroupFilter.propTypes = {
-    config: PropTypes.shape({filterRightTitle: PropTypes.string, filterLeftTitle: PropTypes.string}),
+    config: PropTypes.shape({ filterRightTitle: PropTypes.string, filterLeftTitle: PropTypes.string }),
     items: PropTypes.array.isRequired,
     itemsPerPage: PropTypes.number.isRequired,
     filterTitle: PropTypes.string.isRequired,
@@ -69,5 +69,5 @@ CheckBoxGroupFilter.defaultProps = {
     },
     config: null,
     filterClass: '',
-    handleOnClickFilterValue: () => {},
+    handleOnClickFilterValue: () => { },
 }

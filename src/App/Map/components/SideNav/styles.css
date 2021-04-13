@@ -17,6 +17,11 @@ hr {
     border-top: 1px solid #dee3e8
 }
 
+.statusFilter {
+    display: inline-block;
+}
+
+
 @media screen and (max-width: 2560px) {
     .SideNavItem:not(:first-child) {
         border-top: 1px solid #dcd9d954;
@@ -27,10 +32,10 @@ hr {
 
 @media screen and (max-width: 1440px) {
     .CheckBoxGroupFilter label {
-        width: 320px;
+        /* width: 320px; */
     }
     .CheckBoxGroupFilter .statusFilter label {
-        width: 80px;
+        /* width: 80px; */
     }
     .NavItemDetails {
         width: 24vw !important;
@@ -43,12 +48,12 @@ hr {
 }
 
 @media screen and (max-width: 1024px) {
-    .CheckBoxGroupFilter label {
+    /* .CheckBoxGroupFilter label {
         width: 280px;
     }
     .CheckBoxGroupFilter .statusFilter label {
         width: 74px;
-    }
+    } */
     .NavItemDetails {
         width: 30vw !important;
     }
@@ -91,16 +96,16 @@ hr {
         width: 100% !important;
         height: 34vh;
     }
-    .CheckBoxGroupFilter .statusFilter label {
+    /* .CheckBoxGroupFilter .statusFilter label {
         width: 180px;
-    }
+    } */
     .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .regionFilter label {
         width: 100%;
     }
 }
 
 @media screen and (max-width: 426px) {
-    .BaseLayoutContent .MapDashboard{
+    .BaseLayoutContent .MapDashboard {
         overflow: hidden;
     }
     .SideNav {
@@ -126,9 +131,9 @@ hr {
         width: 100% !important;
         height: 34vh;
     }
-    .CheckBoxGroupFilter .statusFilter label {
+    /* .CheckBoxGroupFilter .statusFilter label {
         width: 98px;
-    }
+    } */
     .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .regionFilter label {
         width: 100%;
     }
