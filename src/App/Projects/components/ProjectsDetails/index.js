@@ -53,7 +53,7 @@ class Project extends Component {
                 <div className="card-container">
                   <Tabs type="card">
                     <TabPane tab="Project Overview" key="1">
-                      <div className="description" >
+                      <div className="container description" >
                         <h4>Project Development Objective</h4>
                         <p>{project ? project?.description : 'N/A'}</p>
 
@@ -62,7 +62,7 @@ class Project extends Component {
                         <h2 id="sider-title">Key Details</h2>
                         <KeyDetailSection project={project} commitmentAmount={commitmentAmount} totalProjectCost={totalProjectCost} />
                       </div>
-                      <Row className="Progress-overview" container>
+                      <Row className="Progress-overview container" >
                         <Col {...firstSpan} className="sector_chat">
                           <ProjectsProgress
                             title="Financial Progress"
@@ -93,8 +93,8 @@ class Project extends Component {
                             </BaseMap>
                           </Spin>
                         </Col>
+                        <DetailsSection />
                       </Row>
-                      <DetailsSection />
                     </TabPane>
                     <TabPane tab="Projects Dashbord" key="2" className="container">
                       <h4> Comming Soon</h4>

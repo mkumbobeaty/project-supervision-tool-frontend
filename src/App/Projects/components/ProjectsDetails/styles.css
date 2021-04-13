@@ -2,9 +2,9 @@
     background-color: #ffffff !important;
 }
 
-.project-inner_layout {
+/* .project-inner_layout {
     margin: 16px 0;
-}
+} */
 
 .project-layout h3, .sub-project-layout h3 {
     text-align: center;
@@ -41,7 +41,8 @@ h2#sider-title {
 .key-details>.ant-col {
     padding-top: 15px;
 }
-.key-details{
+
+.key-details {
     padding-bottom: 15px;
 }
 
@@ -142,11 +143,17 @@ h2#sider-title {
     .container {
         margin: 0;
     }
-    .sub-project-contents{
+    .sub-project-contents {
         padding: 0 24px;
     }
-    .contentEllipse > a, .Projects{
+    .contentEllipse>a, .Projects {
         padding: 0 16px;
+    }
+    .container {
+        padding: 0 !important;
+    }
+    .key-details {
+        padding: 0 10px 15px 15px;
     }
 }
 
@@ -179,7 +186,9 @@ h2#sider-title {
         width: 1320px;
     }
     .project-layout h3 {
-        padding: 20px 250px;
+        /* padding: 20px 250px; */
         font-size: 22px;
+        margin: 0;
     }
+   
 }
