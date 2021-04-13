@@ -116,6 +116,8 @@ ProjectsOverview.propTypes = {
     getProject: PropTypes.func.isRequired,
     getSubProjects: PropTypes.func.isRequired,
     setProjectStatusFilter: PropTypes.array.isRequired,
+    getSubProjects:PropTypes.func.isRequired,
+    project:PropTypes.object.isRequired,
 }
 
 ProjectsOverview.defaultProps = {

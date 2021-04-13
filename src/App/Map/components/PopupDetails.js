@@ -1,7 +1,8 @@
 import React from "react";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../Util";
+import PropTypes from "prop-types";
 
-const mapDetailsPopup = ({ project }) => {
+const MapPopupDetail = ({ project }) => {
     const getCommitmentAmount = (data) => {
         const { amount, currency } = data
         const { iso } = currency;
@@ -10,11 +11,10 @@ const mapDetailsPopup = ({ project }) => {
     }
 
     const commitmentAmount = project?.details?.commitment_amount ? getCommitmentAmount(project?.details?.commitment_amount) : 'N/A';
-    const totalProjectCost = project?.details.total_project_cost ? getCommitmentAmount(project.details.total_project_cost) : 'N/A';
+    const totalProjectCost = project?.details?.total_project_cost ? getCommitmentAmount(project.details?.total_project_cost) : 'N/A';
     return (
         <section className="mapPopup">
-            <h4>{project?.name}</h4>
-            <hr />
+            <div className="popupHeader"><h2>{project?.name}</h2></div>
             <div className="projectDetail">
                 <span >
                     <h4>World Bank Project ID</h4>
@@ -32,7 +32,7 @@ const mapDetailsPopup = ({ project }) => {
                 </div>
                 <span>
                     <h4>Implementing Agency</h4>
-                    <p>{project?.details ? project?.details.implementing_agency.name : 'N/A'}</p>
+                    <p>{project?.details ? project?.details?.implementing_agency?.name : 'N/A'}</p>
                 </span>
                 <span>
                     <h4>Project Total Cost</h4>
@@ -45,4 +45,10 @@ const mapDetailsPopup = ({ project }) => {
             </div>
         </section>
     )
+}
+
+export default MapPopupDetail;
+
+MapPopupDetail.propTypes = {
+    project: PropTypes.string.isRequired
 }

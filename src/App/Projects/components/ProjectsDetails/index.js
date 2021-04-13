@@ -93,10 +93,10 @@ class Project extends Component {
                             </BaseMap>
                           </Spin>
                         </Col>
-                        <DetailsSection />
+                        <DetailsSection project={project} />
                       </Row>
                     </TabPane>
-                    <TabPane tab="Projects Dashbord" key="2" className="container">
+                    <TabPane tab="Projects Dashb  ord" key="2" className="container">
                       <h4> Comming Soon</h4>
                     </TabPane>
                     <TabPane tab="Agreed Actions" key="3" className="container" >

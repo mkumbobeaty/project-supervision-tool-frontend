@@ -2,7 +2,7 @@ import React from "react";
 import { Table } from "antd";
 import "./styles.css";
 
-const DetailsSection = () => {
+const DetailsSection = ({project}) => {
     let sameKey;
     const columns = [
         {

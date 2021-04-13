@@ -50,3 +50,9 @@
 .leaflet-popup-content .projectDetail p{
     margin-top: 0 !important;
 }
+.popupHeader {
+    background-color: #0f6788;
+}
+.popupHeader h2 {
+    padding: 12px;
+}

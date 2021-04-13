@@ -9,7 +9,7 @@ import { bindActionCreators } from "redux";
 import { mapActions, mapSelectors } from "../../redux/modules/map";
 import SideNav from "./components/SideNav";
 import ProjectPoints from "./components/ProjectPoints";
-import { mapProjectSelectors } from "../../redux/modules/map/projects";
+import { mapProjectActions, mapProjectSelectors } from "../../redux/modules/map/projects";
 import { mapSubProjectActions, mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
 import "./styles.css";
 import SubProjectPoints from './components/SubProjectPoints';
@@ -45,7 +45,9 @@ class MapDashboard extends Component {
             mapLoading,
             projects,
             subProjects,
-            isShowProjectOverview
+            isShowProjectOverview,
+            getProject,
+            project
         } = this.props;
         return (
             <div className="MapDashboard">
@@ -53,7 +55,7 @@ class MapDashboard extends Component {
                     <SideNav />
                     <BaseMap ref={this.map} zoomControl={false}>
                         <ZoomControl position="bottomright" />
-                        {isShowProjectOverview === true ? projects.length > 0 ? <ProjectPoints projects={projects} /> : '' : subProjects.length > 0 ? <SubProjectPoints subProjects={subProjects} /> : ''}
+                        {isShowProjectOverview === true ? projects.length > 0 ? <ProjectPoints projects={projects} getProject={getProject} project={project} /> : '' : subProjects.length > 0 ? <SubProjectPoints subProjects={subProjects} /> : ''}
                     </BaseMap>
                 </Spin>
             </div>
@@ -70,12 +72,14 @@ const mapStateToProps = (state) => ({
     wfsLayerData: mapSelectors.getWfsLayerDataSelector(state),
     loading: mapSubProjectSelectors.getSubProjectMapLoadingSelector(state),
     isShowProjectOverview: mapSelectors.showProjectsOverviewSelector(state),
-
+    project: mapProjectSelectors.getProjectSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
     getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
-    getSubprojects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch)
+    getSubprojects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
+    getProject: bindActionCreators(mapProjectActions.getProjectStart, dispatch),
+
 });
 
 
