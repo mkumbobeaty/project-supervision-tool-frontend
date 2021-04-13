@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import Spiderfy from "./Spiderfy";
 import { Link } from "react-router-dom";
 import * as turf from '@turf/turf';
-
-import { isoDateToHumanReadableDate, } from "../../../Util";
 import MapPopupDetail from "./PopupDetails";
 
 class ProjectPoints extends Component {
@@ -35,8 +33,9 @@ class ProjectPoints extends Component {
     };
 
     render() {
-        const { projects, project } = this.props;
-debugger
+        
+        const { projects, project ,loading} = this.props;
+
         return (
             <Spiderfy
                 onClick={this.handleSpiderfyClick}
@@ -60,7 +59,7 @@ debugger
                                 onClick={() => this.handleProjectPopup(id)}
                             >
                                 <Popup>
-                                    <MapPopupDetail project={project} />
+                                    <MapPopupDetail project={project} loading={loading} />
                                     <Link to="/app/map">View project</Link>
                                 </Popup>
                             </Marker>

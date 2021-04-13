@@ -119,7 +119,7 @@ const mapStateToProps = (state) => {
   return {
     project: projectSelectors.getProjectSelector(state),
     projects: projectSelectors.getProjectsSelector(state),
-    loading: projectSelectors.getProjectLoadingSelector(state),
+    loading: projectSelectors.getProjectsLoadingSelector(state),
     mapLoading: mapSelectors.getMapLoadingSelector(state),
   };
 };
