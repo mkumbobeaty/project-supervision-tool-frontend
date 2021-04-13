@@ -114,7 +114,6 @@ ProjectsOverview.propTypes = {
     setShowNationalOverview: PropTypes.func.isRequired,
     setShowRegionalOverview: PropTypes.func.isRequired,
     getProject: PropTypes.func.isRequired,
-    getSubProjects: PropTypes.func.isRequired,
     setProjectStatusFilter: PropTypes.array.isRequired,
     getSubProjects:PropTypes.func.isRequired,
     project:PropTypes.object.isRequired,

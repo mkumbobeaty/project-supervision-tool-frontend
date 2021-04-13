@@ -49,13 +49,14 @@ function ProjectDetails({
         getProcuringEntity();
     }, []);
 
+
     const handleGoBack = () => goBackToProjects(project?.project_id);
 
     return (
         <div className="ProjectInfo">
             <div style={{ display: 'flex' }}>
                 <BackLink goBack={handleGoBack} />
-                <TopSection title={project.name} />
+                <TopSection title={project?.name} />
             </div>
             <hr />
             <CustomSearch placeholder='Search Sub projects' />
