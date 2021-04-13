@@ -10,7 +10,6 @@ const getsubProjectsEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_SUB_PROJECTS_START),
         switchMap(({payload}) => {
-            debugger
             return from(API.getSubProjects(payload)).pipe(
                 switchMap(res => {
                     return from([actions.getSubProjectsSuccess(res.data), mapActions.clearRegionDetails()])
@@ -119,7 +118,6 @@ const uploadPhotoEpic = action$ => {
     return action$.pipe(
         ofType(types.UPLOAD_PHOTO_START),
         switchMap(({payload}) => {
-            debugger
             return from(API.uploadPhotos(payload, payload.sub_project_id))
         }),
         switchMap(res => { return of(actions.uploadPhotoSuccess(res)) }),

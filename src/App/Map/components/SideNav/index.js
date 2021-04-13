@@ -9,6 +9,9 @@ import NavItemDetails from "./components/NavItemDetails";
 import {mapActions, mapSelectors} from "../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
 import { Link } from 'react-router-dom';
+// import projectsImg from '../../../../assets/icons/projects.svg'
+// import layersIcon from "../../../../assets/icons/geo-node-layers.svg"
+// import homeIcon from "../../../../assets/icons/home.svg"
 import './styles.css';
 
 class SideNav extends Component {
@@ -33,7 +36,6 @@ class SideNav extends Component {
                 <div className='nav-items-list'>
                 <Link to='/app' className="SideNavItem">
                 <SideNavItem
-                title="Home"
                         activeThumbnail={humanResourceImg}
                         inactiveThumbnail={whiteIcon}
                         itemId='projects'
