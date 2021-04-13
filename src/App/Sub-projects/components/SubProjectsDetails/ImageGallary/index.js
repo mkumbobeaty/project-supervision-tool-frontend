@@ -1,15 +1,9 @@
 import React from 'react';
 import { Row, Col, Modal, Button } from 'antd';
 import { LeftOutlined, RightOutlined, } from '@ant-design/icons';
-import UploadPhotoForm from './uploadImage';
 import "./styles.css";
 import FileUpload from "../../../../components/FileUpload";
 
-const dummyRequest = ({ file, onSuccess }) => {
-    setTimeout(() => {
-      onSuccess("ok");
-    }, 0);
-  };  
 
 class ImageList extends React.Component {
     constructor(props) {

@@ -341,13 +341,13 @@ class SubProjects extends Component {
                         onClick: () => this.handleViewDetails(item.id)
                       }
                     }
-                    fillSurvey={
-                      {
-                        name: "Fill field notes",
-                        title: "Fill field notes to provide status update",
-                        onClick: () => this.fillSurvey(item)
-                      }
-                    }
+                    // fillSurvey={
+                    //   {
+                    //     name: "Fill field notes",
+                    //     title: "Fill field notes to provide status update",
+                    //     onClick: () => this.fillSurvey(item)
+                    //   }
+                    // }
                     onMapPreview={
                       {
                         name: "Preview on Map",
