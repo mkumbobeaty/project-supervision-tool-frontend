@@ -325,13 +325,13 @@ class Projects extends Component {
                           onClick: () => this.handleViewDetails(item.id)
                         }
                       }
-                      onMapPreview={
-                        {
-                          name: "Preview on Map",
-                          title: "View Project on map",
-                          onClick: () => this.handleMapPreview(item)
-                        }
-                      }
+                      // onMapPreview={
+                      //   {
+                      //     name: "Preview on Map",
+                      //     title: "View Project on map",
+                      //     onClick: () => this.handleMapPreview(item)
+                      //   }
+                      // }
                     />
 
                   )}
@@ -379,6 +379,7 @@ class Projects extends Component {
             destroyOnClose
             maskClosable={false}
             afterClose={this.handleAfterCloseForm}
+            className="projectForm"
           >
             <CommonProjectForm
               selected={selected}

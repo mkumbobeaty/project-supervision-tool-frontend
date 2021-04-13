@@ -135,6 +135,6 @@ hr {
         width: 98px;
     } */
     .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .regionFilter label {
-        width: 100%;
+        width: 6%;
     }
 }

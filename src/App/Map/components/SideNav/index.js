@@ -2,16 +2,13 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import SideNavItem from "./components/SideNavItem";
-import humanResourceImg from '../../../../assets/icons/human-resources-zero-opacity.svg'
-import whiteHhumanResourceImg from '../../../../assets/icons/white-human-resources.svg'
-import whiteIcon from "../../../../assets/icons/white-initiative.svg"
 import NavItemDetails from "./components/NavItemDetails";
 import {mapActions, mapSelectors} from "../../../../redux/modules/map";
 import {bindActionCreators} from "redux";
 import { Link } from 'react-router-dom';
-// import projectsImg from '../../../../assets/icons/projects.svg'
-// import layersIcon from "../../../../assets/icons/geo-node-layers.svg"
-// import homeIcon from "../../../../assets/icons/home.svg"
+import projectsIcon from '../../../../assets/icons/projects-white.svg';
+import layersIcon from "../../../../assets/icons/geo-node-layers-white.svg";
+import homeIcon from '../../../../assets/icons/home-white.svg';
 import './styles.css';
 
 class SideNav extends Component {
@@ -36,8 +33,8 @@ class SideNav extends Component {
                 <div className='nav-items-list'>
                 <Link to='/app' className="SideNavItem">
                 <SideNavItem
-                        activeThumbnail={humanResourceImg}
-                        inactiveThumbnail={whiteIcon}
+                        activeThumbnail={homeIcon}
+                        inactiveThumbnail={homeIcon}
                         itemId='projects'
                         activeItem='home'
                         setActiveItem={setActiveMapSideMenuItem}
@@ -46,8 +43,8 @@ class SideNav extends Component {
                 
                     <SideNavItem
                         title="Projects"
-                        activeThumbnail={humanResourceImg}
-                        inactiveThumbnail={whiteHhumanResourceImg}
+                        activeThumbnail={projectsIcon}
+                        inactiveThumbnail={projectsIcon}
                         itemId='projects'
                         activeItem={activeItem}
                         setActiveItem={setActiveMapSideMenuItem}
@@ -55,8 +52,8 @@ class SideNav extends Component {
 
                     <SideNavItem
                         title="Map Layers"
-                        activeThumbnail={humanResourceImg}
-                        inactiveThumbnail={whiteHhumanResourceImg}
+                        activeThumbnail={layersIcon}
+                        inactiveThumbnail={layersIcon}
                         itemId='map-layers'
                         activeItem={activeItem}
                         setActiveItem={setActiveMapSideMenuItem}

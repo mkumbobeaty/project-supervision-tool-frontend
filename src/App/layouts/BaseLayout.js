@@ -195,16 +195,19 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/admin-panel`}
             component={AdminPanel}
+            disabled
           />
            <PrivateRoute
             exact
             path={`${baseUrl}/admin-panel/permission`}
             component={Permission}
+            disabled
           />
           <PrivateRoute
             exact
             path={`${baseUrl}/contracts`}
             component={Contracts}
+            disabled
           />
           <PrivateRoute component={PageNotFound} />
         </Switch>

@@ -1,9 +1,6 @@
 import React from 'react';
 import NavigationMenu from '../components/NavigationMenu';
-import humanResourcesIcons from '../../assets/icons/human-resources.svg';
-import equipmentsIcons from '../../assets/icons/production-capacity.svg';
-import settingsIcons from '../../assets/icons/admin-settings.svg';
-import contractsIcons from '../../assets/icons/financial-resources.svg';
+import settingsIcons from '../../assets/icons/admin-panel.svg';
 import modules from '../../modules.json';
 import PropTypes from 'prop-types';
 
