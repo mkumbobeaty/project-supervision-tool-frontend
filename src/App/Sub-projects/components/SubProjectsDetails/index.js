@@ -8,18 +8,16 @@ import FullscreenControl from 'react-leaflet-fullscreen';
 import "./styles.css";
 import KeyDetailSection from "./KeyDetails";
 import ProjectsProgress from "../../../Projects/components/ProjectsDetails/Progress";
-import { isoDateToHumanReadableDate } from "../../../../Util";
+import { isoDateToHumanReadableDate, getSurveyIdByCategory } from "../../../../Util";
 import ReportOverview from "./ReportOverview";
+
 import ImageGallary from "./SubProjectGallary";
 import SurveyResults from "../../../components/SurveyResults";
 
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
 
-const getSurveyIdByCategory = (categoryName, surveys = []) => {
-  const filteredSurveys = surveys.filter(({category_name}) => categoryName === category_name);
-  return filteredSurveys.length > 0 ? filteredSurveys[0].survey_id : null
-}
+
 
 const { Content } = Layout;
 const { TabPane } = Tabs;

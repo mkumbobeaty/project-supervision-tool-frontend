@@ -9,7 +9,7 @@ import SubProjectsList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
-import { isoDateToHumanReadableDate } from "../../Util";
+import {getSurveyIdByCategory, isoDateToHumanReadableDate} from "../../Util";
 import SubProjectForm from "./Form";
 import "./styles.css";
 import { subProjectsActions, subProjectsSelectors } from "../../redux/modules/subProjects"
@@ -18,7 +18,6 @@ import { mapActions } from "../../redux/modules/map";
 import PreviewOnMap from "./PreviewOnMap";
 import SurveyForm from "./SurveyForm";
 import DisplaySurveyForm from "../components/DisplaySurveyForm";
-import API from "../../API";
 
 
 /* constants */
@@ -67,8 +66,6 @@ class SubProjects extends Component {
   componentDidMount() {
     const { fetchSubProjects } = this.props;
     fetchSubProjects();
-    API.activateDeployedAsset('ajCHN7SuxQ3Pc4RY7dUb92')
-        .then(res => console.log(res));
   }
 
 
@@ -272,7 +269,8 @@ class SubProjects extends Component {
       selected
     } = this.props;
 
-    const survey_id = selected?.surveys[0]?.survey_id;
+    const survey_id = selected?.surveys ? getSurveyIdByCategory('field_notes', selected?.surveys) : null;
+
 
     const { isEditForm, previewOnMap } = this.state;
     return previewOnMap ? <PreviewOnMap data={selected} /> : (

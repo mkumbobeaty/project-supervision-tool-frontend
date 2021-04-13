@@ -225,3 +225,17 @@ export const chunkIntoSmallerArrays = (arr, size) =>
     Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
         arr.slice(i * size, i * size + size)
     );
+
+
+/**
+ * @function
+ * @name getSurveyIdByCategory
+ * @description gets  kobotoolbox  survey id based  on category name
+ * @param {String} categoryName survey category name
+ * @param {Array} surveys list of surveys
+ * @returns {String} survey id
+ */
+export const getSurveyIdByCategory = (categoryName, surveys = []) => {
+    const filteredSurveys = surveys.filter(({category_name}) => categoryName === category_name);
+    return filteredSurveys.length > 0 ? filteredSurveys[0].survey_id : null;
+}
