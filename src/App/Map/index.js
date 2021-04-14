@@ -13,6 +13,7 @@ import { mapProjectActions, mapProjectSelectors } from "../../redux/modules/map/
 import { mapSubProjectActions, mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
 import "./styles.css";
 import SubProjectPoints from './components/SubProjectPoints';
+import ShowDataSets from "./components/ShowDataSets";
 
 class MapDashboard extends Component {
     state = {
@@ -64,6 +65,7 @@ class MapDashboard extends Component {
                                 projects.length > 0 ? <ProjectPoints projects={projects} getProject={getProject} project={project} loading={loading} /> : '' :
                                 subProjects.length > 0 ? <SubProjectPoints subProjects={subProjects} /> : ''
                         }
+                        <ShowDataSets />
                     </BaseMap>
                 </Spin>
             </div>

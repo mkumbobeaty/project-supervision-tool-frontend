@@ -99,7 +99,7 @@ class SubProject extends Component {
                         </Col>
                         <Col {...secondSpan} offset={1} >
                           <Spin spinning={mapLoading} tip="Loading data...">
-                            <h5>Sub Project Locations</h5>
+                            <h5>Sub Project Location</h5>
                             <div className="project_map">
                               <BaseMap ref={this.map} zoomControl={true}  >
                                 <FullscreenControl position="topright" />
@@ -118,7 +118,7 @@ class SubProject extends Component {
                       {fieldNotesSurveyId ? <SurveyResults survey_id={fieldNotesSurveyId}/> : ''}
                     </TabPane>
                     <TabPane tab="Construction and E & S Reporting" key="3" className="container">
-                      <h4> Comming Soon</h4>
+                      <h4> Construction and E & S Reporting is under development,Comming Soon!</h4>
                     </TabPane>
                     <TabPane tab="Photo Gallary" key="4">
                       {imageUploadSurveyId ? <ImageGallary survey_id={imageUploadSurveyId}/> : ''}

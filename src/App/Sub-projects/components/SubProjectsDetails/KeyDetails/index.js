@@ -12,7 +12,7 @@ const KeyDetailSection = ({ sub_project }) => {
                     <p>{sub_project ? sub_project?.project_id : 'N/A'}</p>
                 </Col>
                 <Col {...keyDetailSpan}>
-                    <h4>Sub Project Item</h4>
+                    <h4>Sub Project Type</h4>
                     <p>{sub_project ? sub_project?.type.name : 'N/A'}</p>
                 </Col>
                 <Col {...keyDetailSpan}>

@@ -107,6 +107,87 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
       >
         <h4>Please Fill the form correctly</h4>
 
+
+          {/*start: project id */}
+          <Form.Item
+              label="Project"
+              name="project_id"
+              rules={[
+                  {
+                      required: true,
+                      message: "Project is required",
+                  },
+              ]}
+          >
+              <Select onChange={handleOnProjectChange}>
+                  {projects.map((project) => (
+                      <Select.Option
+                          value={project.id}
+                      >
+                          {project.name}
+                      </Select.Option>
+                  ))}
+              </Select>
+          </Form.Item>
+          {/*end: project id */}
+
+          {/*start: geo_json id */}
+          <Form.Item
+              label="Select SubProject from project shapefile"
+              name="sub_project_geo_data_id"
+              rules={[
+                  {
+                      required: true,
+                      message: "Sub project geo data is required is required",
+                  },
+              ]}
+          >
+              <Select>
+                  {features.map(({ properties }) => (
+                      <Select.Option value={properties.fid}>{properties.unique_id}</Select.Option>
+                  ))}
+              </Select>
+          </Form.Item>
+          {/*end: geo_json id */}
+
+          <Row>
+              <Col lg={14}>
+                  {/*start: type id */}
+                  <Form.Item
+                      label="Subproject Type"
+                      name="sub_project_type_id"
+                      rules={[
+                          {
+                              required: true,
+                              message: "Sub project type is required",
+                          },
+                      ]}
+                  >
+                      <Select>
+                          {types.map(({id, name}) => (
+                              <Select.Option value={id}>{name}</Select.Option>
+                          ))}
+                      </Select>
+                  </Form.Item>
+                  {/*end: type id */}
+              </Col>
+              <Col lg={8} offset={2}>
+                  {/*start: quantity id */}
+                  <Form.Item
+                      label="Quantity"
+                      name="quantity"
+                      rules={[
+                          {
+                              required: false,
+                          },
+                      ]}
+                  >
+                      <InputNumber style={{width: 180}}/>
+                  </Form.Item>
+                  {/*end: quantity id */}
+              </Col>
+          </Row>
+
         {/* start:sub project name */}
         <Form.Item
             label="Sub project Name"
@@ -122,14 +203,29 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
         </Form.Item>
         {/* end:sub project name */}
 
+        {/* start:sub project code */}
+        <Form.Item
+            label="Sub project code"
+            name="code"
+            rules={[
+              {
+                required: true,
+                message: "Sub Project code is required",
+              },
+            ]}
+        >
+          <Input/>
+        </Form.Item>
+        {/* end:sub project code */}
+
         {/* start:Description */}
         <Form.Item
             label="Description"
             name="description"
             rules={[
               {
-                required: true,
-                message: "Project description is required",
+                required: false,
+                message: "SubProject description is required",
               },
             ]}
         >
@@ -137,59 +233,45 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
         </Form.Item>
         {/* end:Description */}
 
-        {/*start: sub project code */}
-        <Form.Item
-            label="SubProject Code"
-            name="code"
-            rules={[
-              {
-                required: true,
-                message: "SubProject code is required",
-              },
-            ]}
-        >
-          <Input/>
-        </Form.Item>
-        {/*end: sub project code */}
 
-
-        <Row>
-          <Col lg={14}>
-            {/*start: type id */}
-            <Form.Item
-                label="Subproject Type"
-                name="sub_project_type_id"
-                rules={[
+          {/*start: region id */}
+          <Form.Item
+              label="Region"
+              name="region_id"
+              rules={[
                   {
-                    required: true,
-                    message: "Sub project type is required",
+                      required: true,
+                      message: "Region is required",
                   },
-                ]}
-            >
-              <Select>
-                {types.map(({id, name}) => (
-                    <Select.Option value={id}>{name}</Select.Option>
-                ))}
+              ]}
+          >
+              <Select onChange={handleOnRegionChange}>
+                  {regions.map(({id, name}) => (
+                      <Select.Option value={id}>{name}</Select.Option>
+                  ))}
               </Select>
-            </Form.Item>
-            {/*end: type id */}
-          </Col>
-          <Col lg={8} offset={2}>
-            {/*start: quantity id */}
-            <Form.Item
-                label="Quantity"
-                name="quantity"
-                rules={[
+          </Form.Item>
+          {/*end: region id */}
+
+
+          {/*start: district id */}
+          <Form.Item
+              label="District"
+              name="district_id"
+              rules={[
                   {
-                    required: false,
+                      required: true,
+                      message: "District is required",
                   },
-                ]}
-            >
-              <InputNumber style={{width: 180}}/>
-            </Form.Item>
-            {/*end: quantity id */}
-          </Col>
-        </Row>
+              ]}
+          >
+              <Select onChange={handleOnRegionChange}>
+                  {districts.map(({id, name}) => (
+                      <Select.Option value={id}>{name}</Select.Option>
+                  ))}
+              </Select>
+          </Form.Item>
+          {/*end: district id */}
 
         {/*start: status id */}
 
@@ -209,31 +291,7 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
             ))}
           </Select>
         </Form.Item>
-        {/*start: project id */}
-
-
-        {/*start: project id */}
-        <Form.Item
-            label="Project"
-            name="project_id"
-            rules={[
-              {
-                required: true,
-                message: "Project is required",
-              },
-            ]}
-        >
-          <Select onChange={handleOnProjectChange}>
-            {projects.map((project) => (
-                <Select.Option
-                    value={project.id}
-                >
-                  {project.name}
-                </Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        {/*end: project id */}
+        {/*end: sub project status id */}
 
 
         {/*start: project component id */}
@@ -314,66 +372,6 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
           </Select>
         </Form.Item>
         {/*end: package id */}
-
-
-        {/*start: region id */}
-        <Form.Item
-            label="Region"
-            name="region_id"
-            rules={[
-              {
-                required: true,
-                message: "Region is required",
-              },
-            ]}
-        >
-          <Select onChange={handleOnRegionChange}>
-            {regions.map(({id, name}) => (
-                <Select.Option value={id}>{name}</Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        {/*end: region id */}
-
-
-        {/*start: district id */}
-        <Form.Item
-            label="District"
-            name="district_id"
-            rules={[
-              {
-                required: true,
-                message: "District is required",
-              },
-            ]}
-        >
-          <Select onChange={handleOnRegionChange}>
-            {districts.map(({id, name}) => (
-                <Select.Option value={id}>{name}</Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        {/*end: district id */}
-
-
-        {/*start: geo_json id */}
-        <Form.Item
-            label="Sub Project Geo Data"
-            name="sub_project_geo_data_id"
-            rules={[
-              {
-                required: true,
-                message: "Sub project geo data is required is required",
-              },
-            ]}
-        >
-          <Select>
-            {features.map(({ properties }) => (
-                <Select.Option value={properties.fid}>{properties.unique_id}</Select.Option>
-            ))}
-          </Select>
-        </Form.Item>
-        {/*end: geo_json id */}
 
         {/* start:form actions */}
         <Form.Item wrapperCol={{span: 24}} style={{textAlign: "right"}}>

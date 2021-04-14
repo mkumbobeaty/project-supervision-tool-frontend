@@ -42,7 +42,6 @@ export const getSubProjectEpic = action$ => {
 };
 
 
-
 /**
  * @function
  * @name createProjectPic
@@ -55,7 +54,9 @@ const createProjectPic = action$ => {
         switchMap(({payload}) => {
             return from(API.createProjects(payload))
         }),
-        switchMap(res => { return of(actions.createProjectSuccess(res)) }),
+        switchMap(res => {
+            return of(actions.createProjectSuccess(res))
+        }),
         catchError(error => of(actions.createProjectFailure(error)))
     )
 }
@@ -68,13 +69,18 @@ const createProjectPic = action$ => {
  * @return action$
  */
 const createSubProjectEpic = action$ => {
+    console.log('inside createSubProjectEpic');
     return action$.pipe(
         ofType(types.CREATE_SUB_PROJECT_START),
         switchMap(({payload}) => {
             return from(API.createSubProject(payload))
+                .pipe(
+                    switchMap(res => {
+                        return of(actions.createSubProjectSuccess(res))
+                    }),
+                    catchError(error => of(actions.createSubProjectFailure(error)))
+                )
         }),
-        switchMap(res => { return of(actions.createSubProjectSuccess(res)) }),
-        catchError(error => of(actions.createSubProjectFailure(error)))
     )
 }
 
@@ -83,7 +89,9 @@ const deleteProjectEpic = action$ => {
         ofType(types.DELETE_PROJECT_START),
         switchMap(({payload}) => {
             return from(API.deleteProject(payload)).pipe(
-                switchMap(res => { return of(actions.deleteProjectSuccess(res), actions.getProjectsStart()) }),
+                switchMap(res => {
+                    return of(actions.deleteProjectSuccess(res), actions.getProjectsStart())
+                }),
             )
         }),
         catchError(error => of(actions.deleteProjectFailure(error)))
@@ -96,14 +104,13 @@ export const getProjectEpic = action$ => {
         switchMap(({payload}) => {
             return from(API.getProject(payload)).pipe(
                 switchMap(res => {
-                    return of( actions.getProjectSuccess(res.data))
+                    return of(actions.getProjectSuccess(res.data))
                 }),
                 catchError(error => of(actions.getProjectFailure(error)))
             );
         }),
     );
 }
-
 
 
 /**
@@ -117,7 +124,9 @@ const regionsEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_REGIONS_START),
         switchMap(() => from(API.getRegions()).pipe(
-            switchMap(res => { return of(actions.getRegionsSuccess(res.data)) }),
+            switchMap(res => {
+                return of(actions.getRegionsSuccess(res.data))
+            }),
             catchError(error => of(actions.getRegionsFailure(error)))
         )),
     )
@@ -135,7 +144,9 @@ const getEnvironmentalCategoriesEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_ENVIRONMENTAL_CATEGORIES_START),
         switchMap(() => from(API.getEnvironmentalCategories()).pipe(
-            switchMap(res => { return of(actions.getEnvironmentalCategoriesSuccess(res.data)) }),
+            switchMap(res => {
+                return of(actions.getEnvironmentalCategoriesSuccess(res.data))
+            }),
             catchError(error => of(actions.getEnvironmentalCategoriesFailure(error)))
         )),
     )
@@ -144,26 +155,32 @@ const getEnvironmentalCategoriesEpic = action$ => {
 const districtsEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_DISTRICTS_START),
-        switchMap(({payload}) =>  {
-            return from(API.getDistricts(payload)).pipe(
-            switchMap(res => { return of(actions.getDistrictsSuccess(res.data)) }),
-            catchError(error => of(actions.getDistrictsFailure(error)))
-        )}
+        switchMap(({payload}) => {
+                return from(API.getDistricts(payload)).pipe(
+                    switchMap(res => {
+                        return of(actions.getDistrictsSuccess(res.data))
+                    }),
+                    catchError(error => of(actions.getDistrictsFailure(error)))
+                )
+            }
         ),
-    )                                                                                                                                                                                                       
+    )
 }
 
 
 const locationsEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_LOCATIONS_START),
-        switchMap(() =>  {
-            return from(API.getLocations()).pipe(
-            switchMap(res => { return of(actions.getLocationsSuccess(res.data)) }),
-            catchError(error => of(actions.getLocationsFailure(error)))
-        )}
+        switchMap(() => {
+                return from(API.getLocations()).pipe(
+                    switchMap(res => {
+                        return of(actions.getLocationsSuccess(res.data))
+                    }),
+                    catchError(error => of(actions.getLocationsFailure(error)))
+                )
+            }
         ),
-    )                                                                                                                                                                                                       
+    )
 }
 
 
@@ -173,7 +190,9 @@ const createProjectLocationPic = action$ => {
         switchMap(({payload}) => {
             return from(API.createProjectLocation(payload))
         }),
-        switchMap(res => { return of(actions.createProjectLocationSuccess(res)) }),
+        switchMap(res => {
+            return of(actions.createProjectLocationSuccess(res))
+        }),
         catchError(error => of(actions.createProjectLocationFailure(error)))
     )
 }
@@ -183,7 +202,9 @@ const deleteSubProjectEpic = action$ => {
         ofType(types.DELETE_SUB_PROJECT_START),
         switchMap(({payload}) => {
             return from(API.deleteSubProject(payload)).pipe(
-                switchMap(res => { return of(actions.deleteSubProjectSuccess(res)) }),
+                switchMap(res => {
+                    return of(actions.deleteSubProjectSuccess(res))
+                }),
             )
         }),
         catchError(error => of(actions.deleteSubProjectFailure(error)))
@@ -193,21 +214,23 @@ const deleteSubProjectEpic = action$ => {
 /**
  * @function
  * @name getItemsEpic
- * @description gets all sub projects items 
+ * @description gets all sub projects items
  * @param action$
  * @return actions
  */
 const getItemsEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_ITEMS_START),
-        switchMap(() =>  {
-            return from(API.getItems()).pipe(
-            switchMap(res => { 
-                return of(actions.getItemsSuccess(res.data)) }),
-            catchError(error => of(actions.getItemsFailure(error)))
-        )}
+        switchMap(() => {
+                return from(API.getItems()).pipe(
+                    switchMap(res => {
+                        return of(actions.getItemsSuccess(res.data))
+                    }),
+                    catchError(error => of(actions.getItemsFailure(error)))
+                )
+            }
         ),
-    )                                                                                                                                                                                                       
+    )
 }
 
 /**
@@ -220,14 +243,16 @@ const getItemsEpic = action$ => {
 const getProgressEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_PROGRESS_START),
-        switchMap(() =>  {
-            return from(API.getProgress()).pipe(
-            switchMap(res => { 
-                return of(actions.getProgressSuccess(res.data)) }),
-            catchError(error => of(actions.getProgressFailure(error)))
-        )}
+        switchMap(() => {
+                return from(API.getProgress()).pipe(
+                    switchMap(res => {
+                        return of(actions.getProgressSuccess(res.data))
+                    }),
+                    catchError(error => of(actions.getProgressFailure(error)))
+                )
+            }
         ),
-    )                                                                                                                                                                                                       
+    )
 }
 
 const projectStatusEpic = action$ => {
@@ -306,6 +331,6 @@ export const projectsRootEpic = combineEpics(
     filterProjectsEpic,
     filterProjectByIdEpic,
     filterProjectByRegionEpic
-    );
+);
 
 

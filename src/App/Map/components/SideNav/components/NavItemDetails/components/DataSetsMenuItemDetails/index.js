@@ -25,7 +25,7 @@ function DataSetsMenuItemDetails({getLayers, layers, addDataSet, removeDataSet, 
     return (
         <Spin spinning={loading}>
             <div className='DataSetsMenuItemDetails'>
-                <TopSection searchPlaceHolder="Search Data " title={`DATA SETS (${total})`}/>
+                <TopSection searchPlaceHolder="Search Data " title={`MAP LAYERS (${total})`}/>
                 <div className='data-set-items'>
                     {layers.length > 0 ? layers.map(layer => (
                         <DataSet layer={layer} addDataSet={addDataSet} removeDataSet={removeDataSet}/>)) : ''}
