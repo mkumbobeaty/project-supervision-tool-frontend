@@ -25,6 +25,26 @@
     .FormModal {
       width: 90% !important;
     }
+    .SurveyFormDrawer .ant-drawer-content-wrapper{
+      width: 100% !important;
+      height: 100vh;
+    }
+    .SurveyFormDrawer .ant-drawer-body{
+      padding: 0 !important;
+    }
+    #form-title {
+      padding: 0 !important;
+    }
+    .SurveyTable thead > tr,  .SurveyTable tbody > tr > th, .SurveyTable td {
+          display: block;
+          width: auto !important;
+          border: none;
+    }
+    .card-container .ant-tabs-nav {
+      width: inherit !important;
+      margin: 0;
+      padding-bottom: 25px;
+  }
   }
 
   .HumanResourceForm .ant-input-number,

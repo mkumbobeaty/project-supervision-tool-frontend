@@ -30,9 +30,10 @@ function SurveyResults({ survey_id }) {
         setIsModalVisible(false);
     };
 
+    
+
     const getData = value => API.getAsset(value)
         .then(res => {
-            console.log('asset', res);
             const meta = res.content.survey.map(s => ({
                 title: s.label ? s.label[0] : s.name,
                 dataIndex: s.$autoname,
@@ -83,7 +84,7 @@ function SurveyResults({ survey_id }) {
                     },
                 ]}
             />
-            <Table dataSource={dataSource} columns={columns} className="container" />
+            <Table dataSource={dataSource} columns={columns} className="SurveyTable" />
             <Drawer
                 width={550}
                 footer={null}
@@ -91,6 +92,7 @@ function SurveyResults({ survey_id }) {
                 visible={isModalVisible}
                 destroyOnClose
                 maskClosable={false}
+                className="SurveyFormDrawer"
             >
                 <DisplaySurveyForm survey_id={survey_id} />
             </Drawer>

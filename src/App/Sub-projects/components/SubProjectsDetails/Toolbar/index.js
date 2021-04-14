@@ -41,7 +41,7 @@ const Toolbar = ({
     <div className="Toolbar">
       <Row>
         {/* action bar */}
-        <Col xxl={19} xl={19} lg={19} md={19} sm={24} xs={24}>
+        <Col xxl={19} xl={19} lg={19} md={19} sm={12} xs={12}>
           <Row>
             {/* refresh  action */}
             {onRefresh && (
@@ -105,14 +105,14 @@ const Toolbar = ({
         </Col>
         {/* end action bar */}
         {/* filter bar */}
-        <Col xxl={5} xl={5} lg={5} md={5} sm={24} xs={24}>
+        <Col xxl={5} xl={5} lg={5} md={5} sm={12} xs={12}>
           <Row type="flex" justify="center">
             {/* selected and  number summary */}
             {actions.map((action) => {
           const { label, ...props } = action;
 
           return (
-              <Button {...props} type="primary" style={{background:"#0f6788", display:"flex"}}>
+              <Button {...props} type="primary" style={{background:"#0f6788", display:"flex", border:"#0f6788"}}>
                 {label}
               </Button>
           );
