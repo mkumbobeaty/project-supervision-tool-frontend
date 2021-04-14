@@ -412,6 +412,7 @@ class SubProjects extends Component {
           destroyOnClose
           maskClosable={false}
           afterClose={() => { }}
+          className="subProjectForm"
         >
           <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} closeSubProjectForm={this.closeSubProjectForm} selected={selected} />
         </Drawer>
@@ -424,6 +425,7 @@ class SubProjects extends Component {
           visible={showCreateSurveyForm}
           destroyOnClose
           maskClosable={false}
+          className="surveyForm"
         >
           <SurveyForm onCancel={closeCreateSurveyForm} closeSubProjectSurveyForm={closeCreateSurveyForm} selected={selected} />
         </Drawer>

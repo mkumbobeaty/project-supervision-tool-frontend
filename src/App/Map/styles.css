@@ -60,3 +60,12 @@
     padding: 12px;
     color: #fff;
 }
+
+@media screen and (max-width: 426px) {
+    .popupHeader h2 {
+        font-size: 14px;
+    }
+    .leaflet-popup-content{
+        width: 200px !important;
+    }
+}
