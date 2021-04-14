@@ -13,7 +13,7 @@ const KeyDetailSection = ({ sub_project }) => {
                 </Col>
                 <Col {...keyDetailSpan}>
                     <h4>Sub Project Type</h4>
-                    <p>{sub_project ? sub_project?.type.name : 'N/A'}</p>
+                    <p>{sub_project ? sub_project?.type?.name : 'N/A'}</p>
                 </Col>
                 <Col {...keyDetailSpan}>
                     <h4>Component</h4>
@@ -21,7 +21,7 @@ const KeyDetailSection = ({ sub_project }) => {
                 </Col>
                 <Col {...keyDetailSpan}>
                     <h4>Sub-Component</h4>
-                    <p>{sub_project ? sub_project?.type.name : 'N/A'}</p>
+                    <p>{sub_project ? sub_project?.type?.name : 'N/A'}</p>
                 </Col>
                 <Col {...keyDetailSpan}>
                     <h4>Procuring Entity</h4>

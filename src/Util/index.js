@@ -222,7 +222,7 @@ export const moneyFormat = (labelValue) => {
  * @returns {Array} array of chunked arrays
  */
 export const chunkIntoSmallerArrays = (arr, size) =>
-    Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
+    Array.from({length: Math.ceil(arr.length / size)}, (v, i) =>
         arr.slice(i * size, i * size + size)
     );
 
@@ -238,4 +238,60 @@ export const chunkIntoSmallerArrays = (arr, size) =>
 export const getSurveyIdByCategory = (categoryName, surveys = []) => {
     const filteredSurveys = surveys.filter(({category_name}) => categoryName === category_name);
     return filteredSurveys.length > 0 ? filteredSurveys[0].survey_id : null;
+}
+
+
+/**
+ * @function
+ * @name stringToGeoJson
+ * @description converts string to geojson
+ * @param {String} str survey category name
+ * @returns {Object} Geojson
+ */
+export const stringToGeoJson = (str) => {
+    const words = str.split(';');
+
+    if (words.includes("")) {
+
+        const data = words.splice(0, words.length - 1);
+
+        const coordinates = data.map((c) => c.split(' '));
+
+        const stringToInts = coordinates.map((arr) => {
+            const latLongArrString = arr.slice(0, 2).reverse();
+
+            return latLongArrString.map((v) => parseFloat(v));
+        });
+
+        return {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "LineString",
+                "coordinates": stringToInts
+            }
+        }
+
+
+    } else {
+        const data = words.splice(0, words.length);
+
+        const coordinates = data.map((c) => c.split(' '));
+
+        const strintToInts = coordinates.map((arr) => {
+            const latLongArrString = arr.slice(0, 2).reverse();
+
+            return latLongArrString.map((v) => parseFloat(v));
+        });
+
+        return {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "LineString",
+                "coordinates": strintToInts
+            }
+        }
+    }
+
 }

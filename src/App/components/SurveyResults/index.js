@@ -1,10 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { Drawer, Table, Image } from "antd";
+import {Drawer, Table, Image, Button} from "antd";
 import PropTypes from 'prop-types';
 import API from "../../../API";
-import { isoDateToHumanReadableDate } from "../../../Util";
+import {isoDateToHumanReadableDate, stringToGeoJson} from "../../../Util";
 import Toolbar from "../../Sub-projects/components/SubProjectsDetails/Toolbar";
 import DisplaySurveyForm from "../DisplaySurveyForm";
+import BaseMap from "../../Map/BaseMap";
+import {GeoJSON, withLeaflet} from "react-leaflet";
+
+function ViewOnMap({data})
+{
+    const [showMApModal, setShowMapModal] = useState(false);
+
+
+    const geoJson = stringToGeoJson(data);
+    return (
+        <>
+            <Button onClick={() => setShowMapModal(true)}>View on Map</Button>
+            <Drawer
+                width='100%'
+                footer={null}
+                onClose={() => setShowMapModal(false)}
+                visible={showMApModal}
+                destroyOnClose
+                maskClosable={false}
+            >
+                <BaseMap>
+                    <GeoJSON data={geoJson}/>
+                </BaseMap>
+            </Drawer>
+        </>
+    )
+
+}
+withLeaflet(ViewOnMap);
+
 
 const getAttachMentUrl = (attachments, name) => {
     return attachments.length > 0 ? attachments[0].download_url : '';
@@ -30,7 +60,7 @@ function SurveyResults({ survey_id }) {
         setIsModalVisible(false);
     };
 
-    
+
 
     const getData = value => API.getAsset(value)
         .then(res => {
@@ -41,7 +71,11 @@ function SurveyResults({ survey_id }) {
                 render: text => {
                     if (s.type === 'image')
                         return <Image width={200} src={text} />
-                    //  <a href={text} target='_blank' rel="noopener noreferrer"> </a>
+
+                    if (s.type === 'geoshape')
+                    {
+                        return <ViewOnMap data={text}/>
+                    }
 
                     return text;
                 },
