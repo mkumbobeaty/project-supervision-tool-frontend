@@ -84,7 +84,7 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
 
   const onFinish = (values) => {
       const geo_json = features.find(({properties}) => properties.fid === values.sub_project_geo_data_id)
-    createSubProject({...values, geo_json});
+    createSubProject({...values, geo_json, code: values.name});
     closeSubProjectForm();
   };
 
@@ -144,7 +144,7 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
           >
               <Select>
                   {features.map(({ properties }) => (
-                      <Select.Option value={properties.fid}>{properties.unique_id}</Select.Option>
+                      <Select.Option value={properties.fid}>{properties.road_name}</Select.Option>
                   ))}
               </Select>
           </Form.Item>
@@ -182,7 +182,7 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
                           },
                       ]}
                   >
-                      <InputNumber style={{width: 180}}/>
+                      <InputNumber style={{width: 180}}/> <span>KM</span>
                   </Form.Item>
                   {/*end: quantity id */}
               </Col>
@@ -202,21 +202,6 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
           <Input/>
         </Form.Item>
         {/* end:sub project name */}
-
-        {/* start:sub project code */}
-        <Form.Item
-            label="Sub project code"
-            name="code"
-            rules={[
-              {
-                required: true,
-                message: "Sub Project code is required",
-              },
-            ]}
-        >
-          <Input/>
-        </Form.Item>
-        {/* end:sub project code */}
 
         {/* start:Description */}
         <Form.Item

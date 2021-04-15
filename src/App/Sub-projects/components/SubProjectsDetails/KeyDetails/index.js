@@ -4,7 +4,7 @@ import React from "react";
 const keyDetailSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
 
 const KeyDetailSection = ({ sub_project }) => {
-    return (
+    return sub_project?.project_id ? (
         <section className="container">
             <Row className="key-details">
                 <Col {...keyDetailSpan}>
@@ -17,7 +17,7 @@ const KeyDetailSection = ({ sub_project }) => {
                 </Col>
                 <Col {...keyDetailSpan}>
                     <h4>Component</h4>
-                    <p>{sub_project ? sub_project?.status.name : 'N/A'}</p>
+                    <p>{sub_project ? sub_project?.status?.name : 'N/A'}</p>
                 </Col>
                 <Col {...keyDetailSpan}>
                     <h4>Sub-Component</h4>
@@ -71,7 +71,7 @@ const KeyDetailSection = ({ sub_project }) => {
             </Row>
         </section>
 
-    )
+    ): ''
 }
 
 export default KeyDetailSection;
