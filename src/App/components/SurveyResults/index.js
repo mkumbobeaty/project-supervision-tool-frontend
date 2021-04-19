@@ -1,12 +1,29 @@
 import React, { useEffect, useState } from "react";
-import {Drawer, Table, Image, Button} from "antd";
+import {Drawer, Table, Image, Button, Modal} from "antd";
 import PropTypes from 'prop-types';
+import L from 'leaflet';
 import API from "../../../API";
 import {isoDateToHumanReadableDate, stringToGeoJson} from "../../../Util";
 import Toolbar from "../../Sub-projects/components/SubProjectsDetails/Toolbar";
 import DisplaySurveyForm from "../DisplaySurveyForm";
 import BaseMap from "../../Map/BaseMap";
+import './styles.css';
 import {GeoJSON, withLeaflet} from "react-leaflet";
+
+function ShowFeature({ geoJson, leaflet}) {
+
+    const onEachFeature = (feature, layer) => {
+        if (feature.geometry.type === 'Point') {
+            const  latLng = L.GeoJSON.coordsToLatLng(feature.geometry.coordinates)
+            return leaflet.map.setView(latLng, 18);
+        }
+
+        return  leaflet.map.fitBounds(layer.getBounds());
+    }
+
+    return (<GeoJSON data={geoJson} onEachFeature={onEachFeature}/>)
+}
+const WrappedInMap = withLeaflet(ShowFeature);
 
 function ViewOnMap({data, spatialType })
 {
@@ -14,28 +31,28 @@ function ViewOnMap({data, spatialType })
 
 
     const geoJson = stringToGeoJson(data, spatialType);
-    debugger;
     return  data ? (
-        <>
+        <div>
             <Button onClick={() => setShowMapModal(true)}>View on Map</Button>
-            <Drawer
+            <Modal
+                style={{'top': 0 }}
+                bodyStyle={{padding: 0, margin: 0}}
+                wrapClassName='map-modal-survey-results'
                 width='100%'
+                mask={false}
                 footer={null}
-                onClose={() => setShowMapModal(false)}
+                onCancel={() => setShowMapModal(false)}
                 visible={showMApModal}
-                destroyOnClose
-                maskClosable={false}
             >
                 <BaseMap>
-                    <GeoJSON data={geoJson}/>
+                    <WrappedInMap geoJson={geoJson} />
                 </BaseMap>
-            </Drawer>
-        </>
+            </Modal>
+        </div>
     ): '';
 
 }
 withLeaflet(ViewOnMap);
-
 
 const getAttachMentUrl = (attachments, name) => {
     return attachments.length > 0 ? attachments[0].download_url : '';
