@@ -245,13 +245,15 @@ export const getSurveyIdByCategory = (categoryName, surveys = []) => {
  * @function
  * @name stringToGeoJson
  * @description converts string to geojson
- * @param {String} str survey category name
+ * @param {String} str spatial data
+ * @param {String} spatialType spatial data type
  * @returns {Object} Geojson
  */
-export const stringToGeoJson = (str) => {
+export const stringToGeoJson = (str,spatialType) => {
+    if (!str) return ;
     const words = str.split(';');
 
-    if (words.includes("")) {
+    if (spatialType === 'geoshape') {
 
         const data = words.splice(0, words.length - 1);
 
@@ -273,10 +275,9 @@ export const stringToGeoJson = (str) => {
         }
 
 
-    } else {
-        const data = words.splice(0, words.length);
+    } else if (spatialType === 'geotrace') {
 
-        const coordinates = data.map((c) => c.split(' '));
+        const coordinates = words.map((c) => c.split(' '));
 
         const strintToInts = coordinates.map((arr) => {
             const latLongArrString = arr.slice(0, 2).reverse();
@@ -290,6 +291,26 @@ export const stringToGeoJson = (str) => {
             "geometry": {
                 "type": "LineString",
                 "coordinates": strintToInts
+            }
+        }
+    }
+
+    else {
+
+        const coordinates = words.map((c) => c.split(' '));
+
+        const strintToInts = coordinates.map((arr) => {
+            const latLongArrString = arr.slice(0, 2).reverse();
+
+            return latLongArrString.map((v) => parseFloat(v));
+        });
+
+        return {
+            "type": "Feature",
+            "properties": {},
+            "geometry": {
+                "type": "Point",
+                "coordinates": strintToInts.flat()
             }
         }
     }

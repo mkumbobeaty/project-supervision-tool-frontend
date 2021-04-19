@@ -8,13 +8,14 @@ import DisplaySurveyForm from "../DisplaySurveyForm";
 import BaseMap from "../../Map/BaseMap";
 import {GeoJSON, withLeaflet} from "react-leaflet";
 
-function ViewOnMap({data})
+function ViewOnMap({data, spatialType })
 {
     const [showMApModal, setShowMapModal] = useState(false);
 
 
-    const geoJson = stringToGeoJson(data);
-    return (
+    const geoJson = stringToGeoJson(data, spatialType);
+    debugger;
+    return  data ? (
         <>
             <Button onClick={() => setShowMapModal(true)}>View on Map</Button>
             <Drawer
@@ -30,7 +31,7 @@ function ViewOnMap({data})
                 </BaseMap>
             </Drawer>
         </>
-    )
+    ): '';
 
 }
 withLeaflet(ViewOnMap);
@@ -72,9 +73,9 @@ function SurveyResults({ survey_id }) {
                     if (s.type === 'image')
                         return <Image width={200} src={text} />
 
-                    if (s.type === 'geoshape')
+                    if (s.type === 'geoshape' || s.type === 'geotrace' || s.type === 'geopoint')
                     {
-                        return <ViewOnMap data={text}/>
+                        return <ViewOnMap data={text} spatialType={s.type}/>
                     }
 
                     return text;

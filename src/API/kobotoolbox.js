@@ -2,12 +2,11 @@
 import Axios from 'axios';
 
 const kfBaseurl = 'https://kf.survey-project-supervision-tool.ga/api/v2';
-const kcBaseurl = 'https://kc.survey-project-supervision-tool.ga/api/v1';
-
+const API_KEY = process.env.REACT_APP_KOBOTOOL_BOX_API_KEY || '713b0f15b7c73782206b0c1d2c3778bcb0b74de7';
 const axiosKobotoolbox = Axios.create({
     headers: {
         Accept: "application/json",
-        Authorization: 'Token 2c58bb5e7530d75231d196efe52af6560640ab8e'
+        Authorization: `Token ${API_KEY}`
     },
 });
 
