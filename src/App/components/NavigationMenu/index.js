@@ -101,13 +101,21 @@ const NavigationMenu = ({ routes, match }) => {
         {routes.map((route) => (
           // eslint-disable-next-line react/jsx-props-no-spreading
           <Col key={route.path} {...colSpan}>
-            <NavigationMenuItem
-              name={route.name}
-              icon={route.icon}
-              path={route.disabled ? '#' : url + route.path}
-              disabled={route.disabled}
-              description={route.description}
-            />
+            {
+              route.path === '/map' ? <NavigationMenuItem
+                  name={route.name}
+                  icon={route.icon}
+                  path={route.disabled ? '#' : route.path}
+                  disabled={route.disabled}
+                  description={route.description}
+              /> : <NavigationMenuItem
+                  name={route.name}
+                  icon={route.icon}
+                  path={route.disabled ? '#' : url + route.path}
+                  disabled={route.disabled}
+                  description={route.description}
+              />
+            }
           </Col>
         ))}
       </Row>

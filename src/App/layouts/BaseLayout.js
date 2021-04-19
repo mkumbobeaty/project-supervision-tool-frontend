@@ -5,14 +5,11 @@ import { Link, Switch, Route } from "react-router-dom";
 import UserMenu from "../navigation/UserMenu";
 import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
-// import Dashboards from "../Dashboards";
 import Permission from "../Permission";
-import MapDashboard from "../Map";
 import Projects from "../Projects";
 import SubProjects from "../Sub-projects/";
 import Project from "../Projects/components/ProjectsDetails";
 import SubProject from "../Sub-projects/components/SubProjectsDetails/"
-// import Settings from "../Settings";
 import GeoNode from "../GeoNode";
 import Agencies from "../Agencies";
 import AdminPanel from "../AdminPanel";
@@ -170,7 +167,6 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             render={({ match }, props ) => <SubProject match={match} {...props}/>}
           />
       
-          <PrivateRoute path={`${baseUrl}/map`} component={MapDashboard} />
           <PrivateRoute
             exact
             path={`${baseUrl}/geo-node`}
