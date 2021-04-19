@@ -1,58 +1,15 @@
 import React, { useEffect, useState } from "react";
 import {Drawer, Table, Image, Button, Modal} from "antd";
 import PropTypes from 'prop-types';
-import L from 'leaflet';
 import API from "../../../API";
 import {isoDateToHumanReadableDate, stringToGeoJson} from "../../../Util";
 import Toolbar from "../../Sub-projects/components/SubProjectsDetails/Toolbar";
 import DisplaySurveyForm from "../DisplaySurveyForm";
-import BaseMap from "../../Map/BaseMap";
+import ViewOnMap from "../../components/ViewOnMap";
 import './styles.css';
-import {GeoJSON, withLeaflet} from "react-leaflet";
 
-function ShowFeature({ geoJson, leaflet}) {
+const ViewSubmissionOnMap = ({data, showMApModal, handleOnCancel}) => <ViewOnMap showMApModal={showMApModal} handleOnCancel={handleOnCancel} data={data} />
 
-    const onEachFeature = (feature, layer) => {
-        if (feature.geometry.type === 'Point') {
-            const  latLng = L.GeoJSON.coordsToLatLng(feature.geometry.coordinates)
-            return leaflet.map.setView(latLng, 18);
-        }
-
-        return  leaflet.map.fitBounds(layer.getBounds());
-    }
-
-    return (<GeoJSON data={geoJson} onEachFeature={onEachFeature}/>)
-}
-const WrappedInMap = withLeaflet(ShowFeature);
-
-function ViewOnMap({data, spatialType })
-{
-    const [showMApModal, setShowMapModal] = useState(false);
-
-
-    const geoJson = stringToGeoJson(data, spatialType);
-    return  data ? (
-        <div>
-            <Button onClick={() => setShowMapModal(true)}>View on Map</Button>
-            <Modal
-                style={{'top': 0 }}
-                bodyStyle={{padding: 0, margin: 0}}
-                wrapClassName='map-modal-survey-results'
-                width='100%'
-                mask={false}
-                footer={null}
-                onCancel={() => setShowMapModal(false)}
-                visible={showMApModal}
-            >
-                <BaseMap>
-                    <WrappedInMap geoJson={geoJson} />
-                </BaseMap>
-            </Modal>
-        </div>
-    ): '';
-
-}
-withLeaflet(ViewOnMap);
 
 const getAttachMentUrl = (attachments, name) => {
     return attachments.length > 0 ? attachments[0].download_url : '';
@@ -60,28 +17,47 @@ const getAttachMentUrl = (attachments, name) => {
 
 function SurveyResults({ survey_id }) {
     const [columns, setColumns] = useState([]);
+    const [features, setFeatures] = useState([]);
+    const [feature, setFeature] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [dataSource, setDataSource] = useState([]);
+    const [showMapModel, setShowMapModal] = useState(false);
+    const [dataExportUrl, setExportDataUrl] = useState('');
+
+    useEffect(() => {
+        const spatialColumn = columns.filter((c) => c.type === 'geoshape' || c.type === 'geotrace' || c.type === 'geopoint' )[0];
+        const data = dataSource.map((d) => stringToGeoJson(d[spatialColumn.key], spatialColumn.type));
+        setFeatures(data);
+    }, [dataSource]);
 
 
     const showModal = () => {
         setIsModalVisible(true);
     };
 
-    const handleOk = () => {
-        getData(survey_id)
+    const handleCancel = () => {
+        getData(survey_id);
         setIsModalVisible(false);
     };
 
-    const handleCancel = () => {
-        getData(survey_id)
-        setIsModalVisible(false);
-    };
+    const handleOnMapCancel = () => setShowMapModal(false);
+    const handleOnSubmissionMapCancel = () => {
+        setShowMapModal(false);
+        setFeature(null);
+        getData(survey_id);
+    }
+
+    const  handleOnPreviewSubmissionOnMap = (spatialData) => {
+        setFeature(spatialData);
+        setShowMapModal(true);
+    }
 
 
 
     const getData = value => API.getAsset(value)
         .then(res => {
+            // kml_legacy
+            setExportDataUrl(res?.deployment__data_download_links?.kml_legacy)
             const meta = res.content.survey.map(s => ({
                 title: s.label ? s.label[0] : s.name,
                 dataIndex: s.$autoname,
@@ -92,7 +68,9 @@ function SurveyResults({ survey_id }) {
 
                     if (s.type === 'geoshape' || s.type === 'geotrace' || s.type === 'geopoint')
                     {
-                        return <ViewOnMap data={text} spatialType={s.type}/>
+                        const geoJson = stringToGeoJson(text, s.type);
+                        return text ? <Button onClick={() => { handleOnPreviewSubmissionOnMap(geoJson)}}>View on Map</Button> : 'N/A';
+
                     }
 
                     return text;
@@ -125,6 +103,8 @@ function SurveyResults({ survey_id }) {
             <Toolbar
                 total={dataSource.length}
                 onRefresh={() => getData(survey_id)}
+                showOnMap={() => setShowMapModal(true)}
+                exportUrl={dataExportUrl}
                 itemName="PhotoGallary"
                 filterTo="To"
                 actions={[
@@ -148,6 +128,8 @@ function SurveyResults({ survey_id }) {
             >
                 <DisplaySurveyForm survey_id={survey_id} />
             </Drawer>
+            <ViewOnMap data={features} showMApModal={showMapModel} handleOnCancel={handleOnMapCancel} />
+            { feature ?  <ViewSubmissionOnMap data={[feature]} showMApModal={showMapModel} handleOnCancel={handleOnSubmissionMapCancel} /> : ''}
         </section>
     );
 }

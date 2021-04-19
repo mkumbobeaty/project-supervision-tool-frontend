@@ -83,7 +83,6 @@ function SurveyForm(
             name="surveyForm"
             onFinish={onFinish}
             autoComplete="off"
-            // className="surveyForm"
         >
             <h4>Please Fill the form correctly</h4>
 

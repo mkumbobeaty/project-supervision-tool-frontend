@@ -1,13 +1,1 @@
-.map-modal-survey-results .base-map {
-    height: 100vh;
-}
 
-.map-modal-survey-results .ant-modal-close {
-    z-index: 800;
-}
-
-.map-modal-survey-results .ant-modal {
-    margin: 0;
-    padding: 0;
-    max-width: 100%;
-}
