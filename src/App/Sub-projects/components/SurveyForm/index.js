@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Form, Input, Button, Select} from 'antd';
-import API from '../../../API'
+import API from '../../../../API'
 
 /* ui */
 const labelCol = {

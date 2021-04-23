@@ -2,7 +2,7 @@ import React from 'react';
 import { Row, Col, Modal, Button } from 'antd';
 import { LeftOutlined, RightOutlined, } from '@ant-design/icons';
 import "./styles.css";
-import FileUpload from "../../../../components/FileUpload";
+import FileUpload from "../../../../../components/FileUpload";
 
 
 class ImageList extends React.Component {

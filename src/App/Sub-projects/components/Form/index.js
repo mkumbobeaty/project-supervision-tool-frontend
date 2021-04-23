@@ -3,10 +3,10 @@ import React, {useEffect, useState} from "react";
 import Proptypes from 'prop-types';
 import { connect } from "react-redux";
 import {Button, Col, Form, Input, InputNumber, Row, Select} from "antd";
-import {projectActions, projectSelectors} from "../../../redux/modules/projects";
-import { subProjectsActions } from "../../../redux/modules/subProjects";
+import {projectActions, projectSelectors} from "../../../../redux/modules/projects";
+import { subProjectsActions } from "../../../../redux/modules/subProjects";
 import PropTypes from "prop-types";
-import API from "../../../API";
+import API from "../../../../API";
 
 /* ui */
 const labelCol = {

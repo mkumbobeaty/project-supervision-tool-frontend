@@ -6,14 +6,14 @@ import BaseMap from "../../../Map/BaseMap";
 import { mapActions, mapSelectors } from "../../../../redux/modules/map";
 import FullscreenControl from 'react-leaflet-fullscreen';
 import "./styles.css";
-import KeyDetailSection from "./KeyDetails";
+import KeyDetailSection from "./components/KeyDetails";
 import ProjectsProgress from "../../../Projects/components/ProjectsDetails/Progress";
 import { isoDateToHumanReadableDate } from "../../../../Util";
-import ReportOverview from "./ReportOverview";
+import ReportOverview from "./components/ReportOverview";
 
-import FieldNotes from "./FieldNotes";
+import FieldNotes from "./components/FieldNotes";
 import SubProjectPoints from "../../../Map/components/SubProjectPoints";
-import FieldImages from "./FieldImages";
+import FieldImages from "./components/FieldImages";
 
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
@@ -111,10 +111,10 @@ class SubProject extends Component {
                     <TabPane tab="Field Notes" key="2">
                       <FieldNotes subProject={sub_project} getSubProject={getSubProject}/>
                     </TabPane>
-                    <TabPane tab="Field Images" key="4">
+                    <TabPane tab="Field Images" key="3">
                       <FieldImages subProject={sub_project} getSubProject={getSubProject}/>
                     </TabPane>
-                    <TabPane tab="Construction and E & S Reporting" key="3" className="container">
+                    <TabPane tab="Construction and E & S Reporting" key="4" className="container">
                       <h4> Construction and E & S Reporting is under development,Comming Soon!</h4>
                     </TabPane>
                   </Tabs>

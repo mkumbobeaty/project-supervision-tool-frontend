@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
 import { Row, Col, Layout, } from "antd";
-import { isoDateToHumanReadableDate } from "../../../../../Util";
+import { isoDateToHumanReadableDate } from "../../../../../../Util";
 
 const { Content } = Layout;
 

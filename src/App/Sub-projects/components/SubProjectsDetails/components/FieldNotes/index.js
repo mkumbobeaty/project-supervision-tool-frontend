@@ -1,13 +1,18 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
+import {projectActions, projectOperation, projectSelectors} from '../../../../../../redux/modules/projects';
 import {Col, Drawer, Modal} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import PropTypes from "prop-types";
-import Topbar from "../../../../components/Topbar";
-import FieldImagesList from "../../../../components/List";
-import ListItem from "../../../../components/ListItem";
-import ListItemActions from "../../../../components/ListItemActions";
+import Topbar from "../../../../../components/Topbar";
+import FieldNotesList from "../../../../../components/List";
+import ListItem from "../../../../../components/ListItem";
+import ListItemActions from "../../../../../components/ListItemActions";
 import "./styles.css";
-import API from '../../../../../API';
+import {subProjectsActions, subProjectsSelectors} from "../../../../../../redux/modules/subProjects"
+import {bindActionCreators} from "redux";
+import {mapActions} from "../../../../../../redux/modules/map";
+import API from '../../../../../../API';
 import SurveyForm from "../../../SurveyForm";
 
 
@@ -27,12 +32,12 @@ const headerLayout = [
 
 /**
  * @class
- * @name Field Images
- * @description Render actions list which have search box, actions and List of field images
+ * @name Field Notes
+ * @description Render actions list which have search box, actions and List of field notes
  * @version 0.1.0
  * @since 0.1.0
  */
-class FieldImages extends Component {
+class FieldNotes extends Component {
 
     state = {
         showShare: false,
@@ -48,7 +53,7 @@ class FieldImages extends Component {
     };
 
     componentDidMount() {
-        this.handleGetFieldImages();
+        this.handleGetFieldNotes();
     }
 
     /**
@@ -131,7 +136,7 @@ class FieldImages extends Component {
     /**
      * @function
      * @name showArchiveConfirm
-     * @description show confirm modal before archiving a field image
+     * @description show confirm modal before archiving a subproject
      * @param {object} item Resource item to be archived
      *
      * @version 0.1.0
@@ -149,25 +154,25 @@ class FieldImages extends Component {
 
     /**
      * @function
-     * @name handleGetFieldImages
+     * @name handleGetFieldNotes
      * @description Handle list refresh action
      * @version 0.1.0
      * @since 0.1.0
      */
-    handleGetFieldImages = () => {
+    handleGetFieldNotes = () => {
         const {surveys} = this.props.subProject || [];
-        const fieldImages = surveys.filter(({category_name}) => category_name === 'field_images');
+        const fieldNotes = surveys.filter(({category_name}) => category_name === 'field_notes');
         this.setState({loading: true});
         API.getAssets()
             .then(res => {
-                const data = this.filterSurveys(fieldImages, res.results);
+                const data = this.filterSurveys(fieldNotes, res.results);
                 this.setState({surveys: data, loading: false, total: data.length})
             });
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.subProject !== this.props.subProject) {
-            this.handleGetFieldImages();
+            this.handleGetFieldNotes();
         }
     }
 
@@ -182,17 +187,17 @@ class FieldImages extends Component {
                 <Topbar
                     search={{
                         size: "large",
-                        placeholder: "Search for field images here...",
+                        placeholder: "Search for field notes here...",
                         onSearch: () => {
                         },
                         value: ''
                     }}
                     actions={[
                         {
-                            label: "New Field Image",
+                            label: "New Field Note",
                             icon: <PlusOutlined/>,
                             size: "large",
-                            title: "Add New Field Image",
+                            title: "Add New Field Note",
                             onClick: this.openCreateSurveyForm,
                         },
                     ]}
@@ -200,13 +205,13 @@ class FieldImages extends Component {
                 {/* end Topbar */}
 
                 {/* list starts */}
-                <FieldImagesList
-                    itemName="Field-Images"
+                <FieldNotesList
+                    itemName="Field-Notes"
                     items={surveys}
                     page={1}
                     itemCount={total}
                     loading={loading}
-                    onRefresh={this.handleGetFieldImages}
+                    onRefresh={this.handleGetFieldNotes}
                     headerLayout={headerLayout}
                     renderListItem={({
                                          item,
@@ -224,13 +229,13 @@ class FieldImages extends Component {
                             renderActions={() => (
                                 <ListItemActions
                                     archive={{
-                                        name: "Archive Field Image",
-                                        title: "Remove Field Image from list of Field Images",
+                                        name: "Archive Field Note",
+                                        title: "Remove Field Note from list of Field Notes",
                                         onClick: () => this.showArchiveConfirm(item),
                                     }}
                                     view={{
                                         name: "View Details",
-                                        title: "View more details of a selected Field Image",
+                                        title: "View more details of a selected Field Note",
                                         onClick: () => this.handleViewDetails(item.id)
                                     }
                                     }
@@ -279,12 +284,12 @@ class FieldImages extends Component {
     }
 }
 
-FieldImages.propTypes = {
+FieldNotes.propTypes = {
     loading: PropTypes.bool.isRequired,
     subProject: PropTypes.object.isRequired,
     getSubject: PropTypes.func.isRequired,
 };
-export default FieldImages;
+export default FieldNotes;
 
 
 

@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import L from 'leaflet';
 import {GeoJSON} from 'react-leaflet';
 import "./styles.css";
-import BaseMap from "../../Map/BaseMap";
-import {getGeoJsonFromLocation} from '../../../Util';
+import BaseMap from "../../../Map/BaseMap";
+import {getGeoJsonFromLocation} from '../../../../Util';
 
 class PreviewOnMap extends  Component {
     state = {

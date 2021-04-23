@@ -2,11 +2,11 @@
 import {Drawer, Image} from 'antd';
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types';
-import API from '../../../../../API';
+import API from '../../../../../../API';
 
 import Toolbar from '../Toolbar';
 import './styles.css';
-import DisplaySurveyForm from "../../../../components/DisplaySurveyForm";
+import DisplaySurveyForm from "../../../../../components/DisplaySurveyForm";
 
  const ImageGallary = ({ survey_id }) => {
 

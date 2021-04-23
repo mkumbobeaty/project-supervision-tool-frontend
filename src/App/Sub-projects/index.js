@@ -10,13 +10,13 @@ import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import {getSurveyIdByCategory, isoDateToHumanReadableDate} from "../../Util";
-import SubProjectForm from "./Form";
+import SubProjectForm from "./components/Form";
 import "./styles.css";
 import { subProjectsActions, subProjectsSelectors } from "../../redux/modules/subProjects"
 import { bindActionCreators } from "redux";
 import { mapActions } from "../../redux/modules/map";
-import PreviewOnMap from "./PreviewOnMap";
-import SurveyForm from "./SurveyForm";
+import PreviewOnMap from "./components/PreviewOnMap";
+import SurveyForm from "./components/SurveyForm";
 import DisplaySurveyForm from "../components/DisplaySurveyForm";
 
 

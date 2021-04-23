@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Form, Input, Button, Upload, message } from 'antd';
 import { bindActionCreators } from "redux";
-import { subProjectsActions, subProjectsSelectors } from '../../../../../redux/modules/subProjects';
+import { subProjectsActions, subProjectsSelectors } from '../../../../../../redux/modules/subProjects';
 import { InboxOutlined,UploadOutlined } from '@ant-design/icons';
 
 /* ui */
