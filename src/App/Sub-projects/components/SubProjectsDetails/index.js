@@ -8,12 +8,12 @@ import FullscreenControl from 'react-leaflet-fullscreen';
 import "./styles.css";
 import KeyDetailSection from "./KeyDetails";
 import ProjectsProgress from "../../../Projects/components/ProjectsDetails/Progress";
-import { isoDateToHumanReadableDate, getSurveyIdByCategory } from "../../../../Util";
+import { isoDateToHumanReadableDate } from "../../../../Util";
 import ReportOverview from "./ReportOverview";
 
-import ImageGallary from "./SubProjectGallary";
-import SurveyResults from "../../../components/SurveyResults";
+import FieldNotes from "./FieldNotes";
 import SubProjectPoints from "../../../Map/components/SubProjectPoints";
+import FieldImages from "./FieldImages";
 
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
@@ -49,18 +49,12 @@ class SubProject extends Component {
     this.setState({ showImage: false, selectedImage: {} })
   }
 
-  handleClick = () => {
-    this.setState({ showMilestone: true })
-  }
-
   render() {
-    const { sub_project, loading, mapLoading } = this.props;
+    const { sub_project, loading, mapLoading,getSubProject } = this.props;
     const approval_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.approval_date) : 'N/A';
     const closing_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.closing_date) : 'N/A';
-    const fieldNotesSurveyId = sub_project?.surveys ? getSurveyIdByCategory('field_notes', sub_project?.surveys) : null;
-    const imageUploadSurveyId = sub_project?.surveys ? getSurveyIdByCategory('image_upload', sub_project?.surveys) : null;
 
-    return (
+    return  sub_project ? (
       <Layout className="sub-project-layout">
         <Spin spinning={loading} tip="Loading..." >
           <Content className="contents">
@@ -103,7 +97,7 @@ class SubProject extends Component {
                             <div className="project_map">
                               <BaseMap ref={this.map} zoomControl={true}  >
                                 <FullscreenControl position="topright" />
-                                {sub_project ? <SubProjectPoints subProjects={[sub_project]} /> : ''}
+                                <SubProjectPoints subProjects={[sub_project]} />
                               </BaseMap>
                             </div>
 
@@ -115,13 +109,13 @@ class SubProject extends Component {
                       </Row>
                     </TabPane>
                     <TabPane tab="Field Notes" key="2">
-                      {fieldNotesSurveyId ? <SurveyResults survey_id={fieldNotesSurveyId}/> : ''}
+                      <FieldNotes subProject={sub_project} getSubProject={getSubProject}/>
+                    </TabPane>
+                    <TabPane tab="Field Images" key="4">
+                      <FieldImages subProject={sub_project} getSubProject={getSubProject}/>
                     </TabPane>
                     <TabPane tab="Construction and E & S Reporting" key="3" className="container">
                       <h4> Construction and E & S Reporting is under development,Comming Soon!</h4>
-                    </TabPane>
-                    <TabPane tab="Photo Gallary" key="4">
-                      {imageUploadSurveyId ? <ImageGallary survey_id={imageUploadSurveyId}/> : ''}
                     </TabPane>
                   </Tabs>
                 </div>
@@ -130,7 +124,7 @@ class SubProject extends Component {
           </Content>
         </Spin>
       </Layout>
-    )
+    ) : '';
   }
 }
 const mapStateToProps = (state) => {

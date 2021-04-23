@@ -116,7 +116,7 @@ function SurveyForm(
             >
                 <Select>
                     <Select.Option value='field_notes'>Field Notes</Select.Option>
-                    <Select.Option value='image_upload'>Image Upload</Select.Option>
+                    <Select.Option value='field_images'>Field Images</Select.Option>
                 </Select>
             </Form.Item>
             {/* end: Survey Category */}

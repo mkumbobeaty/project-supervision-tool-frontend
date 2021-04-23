@@ -48,10 +48,18 @@ const createAssetDeployment = (id) =>
 /**
  * @function
  * @name activateDeployedAsset
- * @description Creates a new deployment, but only if a deployment does not exist already.
+ * @description deploys an existing survey
  */
 const activateDeployedAsset = (id) =>
     axiosKobotoolbox.patch(`${kfBaseurl}/assets/${id}/deployment/`, {active: true}).then((response) => response.data);
+
+/**
+ * @function
+ * @name archiveDeployedAsset
+ * @description archives a deployed survey
+ */
+const archiveDeployedAsset = (id) =>
+    axiosKobotoolbox.patch(`${kfBaseurl}/assets/${id}/deployment/`, {active: false}).then((response) => response.data);
 
 
 
@@ -81,5 +89,6 @@ export default {
     createAsset,
     activateDeployedAsset,
     createAssetDeployment,
+    archiveDeployedAsset,
     assignViewSubmissionsPermissions,
 }
