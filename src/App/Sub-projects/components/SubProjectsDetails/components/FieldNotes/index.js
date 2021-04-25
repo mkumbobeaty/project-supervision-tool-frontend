@@ -9,8 +9,7 @@ function FieldNotes ({subProject, getSubProject}) {
         subProject={subProject}
         getSubProject={getSubProject}
     />
-    :
-        <ViewFieldNotes subProject={subProject} />;
+    : <ViewFieldNotes subProject={subProject} />;
 }
 
 export default FieldNotes;

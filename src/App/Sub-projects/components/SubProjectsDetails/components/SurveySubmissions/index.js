@@ -17,7 +17,7 @@ const getAttachMentUrl = (attachments, name) => {
     return attachments.length > 0 ? attachments[0].download_url : '';
 }
 
-function SurveySubmissions({surveys}) {
+function SurveySubmissions({surveys, handleGoBack, showBackButton}) {
     const [columns, setColumns] = useState([]);
     const [survey_id, setSurveyId] = useState('');
     const [features, setFeatures] = useState([]);
@@ -107,19 +107,20 @@ function SurveySubmissions({surveys}) {
 
     return survey_id ? (
         <section className="container">
-            <Form initialValues={{ survey_id }}
-                  style={{paddingTop: '20px'}}
-            >
-                <Form.Item
-                    label="Displaying Submissions From"
-                    name="survey_id"
-                    rules={[{required: false }]}
+            {showBackButton ? <Button onClick={handleGoBack} style={{marginTop: '20px'}} type="primary" >Go Back</Button> :
+                <Form initialValues={{survey_id}}
+                      style={{paddingTop: '20px'}}
                 >
-                    <Select  style={{ width: '40%' }} size='medium'>
-                        {surveys.map(({name, uid}) => <option value={uid}>{name}</option>)}
-                    </Select>
-                </Form.Item>
-            </Form>
+                    <Form.Item
+                        label="Displaying Submissions From"
+                        name="survey_id"
+                        rules={[{required: false}]}
+                    >
+                        <Select style={{width: '40%'}} size='medium' onChange={(v) => setSurveyId(v)}>
+                            {surveys.map(({name, uid}) => <option value={uid}>{name}</option>)}
+                        </Select>
+                    </Form.Item>
+                </Form>}
             <Toolbar
                 total={dataSource.length}
                 changeDataSource={() => console.log('data source changed')}
@@ -153,10 +154,20 @@ function SurveySubmissions({surveys}) {
             {feature ? <ViewSubmissionOnMap data={[feature]} showMApModal={showMapModel}
                                             handleOnCancel={handleOnSubmissionMapCancel}/> : ''}
         </section>
-    ): '';
+    ) : '';
 }
 
 export default SurveySubmissions;
 SurveySubmissions.propTypes = {
-    surveys: PropTypes.array.isRequired
+    surveys: PropTypes.array.isRequired,
+    showBackButton: PropTypes.bool,
+    handleGoBack: PropTypes.func,
 }
+
+SurveySubmissions.defaultProps = {
+    showBackButton: false,
+    handleGoBack: () => {
+    },
+}
+
+

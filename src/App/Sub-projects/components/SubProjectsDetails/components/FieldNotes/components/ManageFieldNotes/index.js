@@ -9,6 +9,7 @@ import ListItemActions from "../../../../../../../components/ListItemActions";
 import "./styles.css";
 import API from '../../../../../../../../API';
 import SurveyForm from "../../../../../SurveyForm";
+import SurveySubmissions from "../../../SurveySubmissions";
 
 
 /* constants */
@@ -37,6 +38,7 @@ function ManageFieldNotes({ subProject, getSubProject }){
     const [loading, setLoading] = useState(false);
     const [total, setTotal] = useState(0);
     const [surveys, setSurveys] = useState([]);
+    const [selectedSurvey, setSelectedSurvey] = useState(null);
 
     useEffect(() => {
         handleGetFieldNotes();
@@ -116,8 +118,10 @@ function ManageFieldNotes({ subProject, getSubProject }){
         });
     };
 
+    const handleGoBack = () => setSelectedSurvey(null);
 
-    return (
+
+    return selectedSurvey ? <SurveySubmissions surveys={[selectedSurvey]} showBackButton={true} handleGoBack={handleGoBack}/> : (
         <div>
             {/* Topbar */}
             <Topbar
@@ -168,6 +172,11 @@ function ManageFieldNotes({ subProject, getSubProject }){
                                     name: "Archive Field Note",
                                     title: "Remove Field Note from list of Field Notes",
                                     onClick: () => showArchiveConfirm(item),
+                                }}
+                                view={{
+                                    name: "View Field Note Submissions",
+                                    title: "Click to View Field Note Submissions",
+                                    onClick: () => setSelectedSurvey(item),
                                 }}
                             />
                         )}
