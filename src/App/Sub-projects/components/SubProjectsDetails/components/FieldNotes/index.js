@@ -285,9 +285,8 @@ class FieldNotes extends Component {
 }
 
 FieldNotes.propTypes = {
-    loading: PropTypes.bool.isRequired,
     subProject: PropTypes.object.isRequired,
-    getSubject: PropTypes.func.isRequired,
+    getSubProject: PropTypes.func.isRequired,
 };
 export default FieldNotes;
 
