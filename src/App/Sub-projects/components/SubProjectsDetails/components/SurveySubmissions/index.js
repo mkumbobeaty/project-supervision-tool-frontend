@@ -115,7 +115,7 @@ function SurveySubmissions({surveys}) {
                     name="survey_id"
                     rules={[{required: false }]}
                 >
-                    <Select  style={{ width: '40%' }}>
+                    <Select  style={{ width: '40%' }} size='medium'>
                         {surveys.map(({name, uid}) => <option value={uid}>{name}</option>)}
                     </Select>
                 </Form.Item>
