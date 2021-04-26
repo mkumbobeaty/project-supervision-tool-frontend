@@ -1,9 +1,9 @@
-import {ofType} from 'redux-observable';
+import {combineEpics, ofType} from 'redux-observable';
 import {catchError, switchMap} from 'rxjs/operators';
 import * as Rx from 'rxjs';
 import API from '../../../API';
 import * as actions from './actions';
-import * as types from './types'
+import * as types from './types';
 
 
 /**
@@ -14,16 +14,38 @@ import * as types from './types'
  * @version 0.1.0
  * @since 0.1.0
  */
-export const loginEpic = action$ => {
+const loginEpic = action$ => {
     return action$.pipe(
         ofType(types.LOGIN_START),
         switchMap(({payload}) => {
             return Rx.from(API.login(payload)).pipe(
                 switchMap(({data}) => {
                     saveAccessToken(data?.access_token);
-                    return Rx.of(actions.loginSuccess(data?.access_token));
+                    return Rx.from([actions.loginSuccess(data?.access_token), actions.getAuthUserStart()]);
                 }),
                 catchError(error => Rx.of(actions.loginFailure(error?.message)))
+            )
+        }),
+    );
+}
+
+/**
+ * @function getAuthUserEpic
+ * @description gets authenticated user
+ * @param   action$ stream of actions
+ * @returns  returns stream of GET_AUTH_USER_SUCCESS or GET_USER_FAILURE actions
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const getAuthUserEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_AUTH_USER_START),
+        switchMap(() => {
+            return Rx.from(API.getAuthUser()).pipe(
+                switchMap(({data}) => {
+                    return Rx.of(actions.getAuthUserSuccess(data));
+                }),
+                catchError(error => Rx.of(actions.getAuthUserFailure(error)))
             )
         }),
     );
@@ -37,4 +59,10 @@ export const loginEpic = action$ => {
  * @param {String} accessToken
  * */
 const saveAccessToken = accessToken => localStorage.setItem('accessToken', accessToken);
+
+
+export const authRootEpic = combineEpics(
+    getAuthUserEpic,
+    loginEpic,
+);
 

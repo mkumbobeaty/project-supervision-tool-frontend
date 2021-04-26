@@ -41,6 +41,18 @@ const createUsers = (user) => axios.post(`/users`, user ).then((response) => res
 };
 
 /**
+ * @function
+ * @name getAuthUser
+ * @description gets authenticated user
+ * @returns {Promise}
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+ const getAuthUser = () => axios.get(`/users/auth_user`).then((response) => response.data);
+
+
+/**
  * detaches a User from list
  *
  * @function
@@ -57,6 +69,7 @@ const deleteUser = (User) => {
 
 export default {
     getUsers,
+    getAuthUser,
     createUsers,
     editUser,
     deleteUser,
