@@ -43,7 +43,9 @@ const getAuthUserEpic = action$ => {
         switchMap(() => {
             return Rx.from(API.getAuthUser()).pipe(
                 switchMap(({data}) => {
-                    return Rx.of(actions.getAuthUserSuccess(data));
+                    const { roles } = data;
+                    const authUserPermissions = roles.map(({ permissions}) => permissions ).flat();
+                    return Rx.from([actions.getAuthUserSuccess(data), actions.setAuthUserPermissions(authUserPermissions)]);
                 }),
                 catchError(error => Rx.of(actions.getAuthUserFailure(error)))
             )

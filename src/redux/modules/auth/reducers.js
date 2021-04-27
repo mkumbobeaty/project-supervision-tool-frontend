@@ -38,9 +38,19 @@ const authUser = (state = { data: null, error: null,loading: false }, action) =>
     }
 };
 
+const authUserPermissions = (state = [], action) => {
+    switch (action.type) {
+        case types.SET_AUTH_USER_PERMISSIONS:
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
 
 export const auth = combineReducers({
     login,
+    authUserPermissions,
     authUser,
 });
 

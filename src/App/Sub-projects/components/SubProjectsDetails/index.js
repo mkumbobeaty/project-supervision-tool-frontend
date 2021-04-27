@@ -8,6 +8,7 @@ import KeyDetailSection from "./components/KeyDetails";
 
 import FieldNotes from "./components/FieldNotes";
 import FieldImages from "./components/FieldImages";
+import {authSelectors} from "../../../../redux/modules/auth";
 
 
 
@@ -16,7 +17,7 @@ import FieldImages from "./components/FieldImages";
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
-function SubProject ({getSubProject, match: { params }, sub_project, loading, mapLoading}) {
+function SubProject ({getSubProject, match: { params }, sub_project, loading, mapLoading, permissions}) {
 
   useEffect( () => {
     getSubProject(params.id);
@@ -35,7 +36,7 @@ function SubProject ({getSubProject, match: { params }, sub_project, loading, ma
                       <KeyDetailSection sub_project={sub_project} mapLoading={mapLoading} />
                     </TabPane>
                     <TabPane tab="Field Notes" key="2">
-                      <FieldNotes subProject={sub_project} getSubProject={getSubProject}/>
+                      <FieldNotes subProject={sub_project} getSubProject={getSubProject} permissions={permissions} permission={`can create survey`}/>
                     </TabPane>
                     <TabPane tab="Field Images" key="3">
                       <FieldImages subProject={sub_project} getSubProject={getSubProject}/>
@@ -57,6 +58,7 @@ const mapStateToProps = (state) => {
     sub_project: projectSelectors.getSubProjectSelector(state),
     loading: projectSelectors.getSubProjectLoadingSelector(state),
     mapLoading: mapSelectors.getMapLoadingSelector(state),
+    permissions: authSelectors.authUserPermissionsSelector(state),
 
   };
 };

@@ -18,6 +18,14 @@ export const isLoginSelector = ({auth}) => auth.login?.isLogin;
 
 /**
  * @function
+ * @name authUserPermissionsSelector
+ * @param {Object} state redux state
+ * @return {boolean} isLogin
+ * */
+export const authUserPermissionsSelector = ({auth}) => auth.authUserPermissions;
+
+/**
+ * @function
  * @name loginErrorMessageSelector
  * @param {Object} state redux state
  * @return {Object} errorMessage
