@@ -1,5 +1,5 @@
 
-import {Drawer, Image} from 'antd';
+import {Button, Drawer, Form, Image, Select} from 'antd';
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import API from '../../../../../../API';
@@ -8,10 +8,15 @@ import Toolbar from '../Toolbar';
 import './styles.css';
 import DisplaySurveyForm from "../../../../../components/DisplaySurveyForm";
 
- const ImageGallary = ({ survey_id }) => {
+ const ImageGallary = ({ surveys, handleGoBack, showBackButton }) => {
 
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [imgUrls, setImgUrls] = useState([]);
+     const [survey_id, setSurveyId] = useState('');
+     const [imgUrls, setImgUrls] = useState([]);
+
+     useEffect(() => {
+         setSurveyId(surveys[0].uid);
+     }, []);
 
     const getData = value => API.getAssetData(value)
         .then(res => {
@@ -21,15 +26,10 @@ import DisplaySurveyForm from "../../../../../components/DisplaySurveyForm";
 
     useEffect(() => {
         getData(survey_id)
-    }, [])
+    }, [survey_id]);
 
     const showModal = () => {
         setIsModalVisible(true);
-    };
-
-    const handleOk = () => {
-        getData(survey_id)
-        setIsModalVisible(false);
     };
 
     const handleCancel = () => {
@@ -37,8 +37,22 @@ import DisplaySurveyForm from "../../../../../components/DisplaySurveyForm";
         setIsModalVisible(false);
     };
 
-  return (
+  return survey_id ? (
     <section className="ImageGallary container">
+        {showBackButton ? <Button onClick={handleGoBack} style={{marginTop: '20px'}} type="primary" >Go Back</Button> :
+            <Form initialValues={{survey_id}}
+                  style={{paddingTop: '20px'}}
+            >
+                <Form.Item
+                    label="Displaying Submissions From"
+                    name="survey_id"
+                    rules={[{required: false}]}
+                >
+                    <Select style={{width: '40%'}} size='medium' onChange={(v) => setSurveyId(v)}>
+                        {surveys.map(({name, uid}) => <option value={uid}>{name}</option>)}
+                    </Select>
+                </Form.Item>
+            </Form>}
       <Toolbar
         total={imgUrls.length}
         itemName="PhotoGallary"
@@ -81,12 +95,19 @@ import DisplaySurveyForm from "../../../../../components/DisplaySurveyForm";
             <DisplaySurveyForm survey_id={survey_id} />
         </Drawer>
     </section>
-  );
+  ): '';
 }
 
 export default ImageGallary;
 
  ImageGallary.propTypes = {
-     survey_id: PropTypes.string.isRequired
+     surveys: PropTypes.string.isRequired,
+     handleGoBack: PropTypes.func,
+     showBackButton: PropTypes.bool,
+ }
+
+ ImageGallary.defaultProps = {
+     showBackButton: false,
+     handleGoBack: () => {},
  }
 

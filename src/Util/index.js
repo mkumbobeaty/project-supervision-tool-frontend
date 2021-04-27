@@ -243,6 +243,25 @@ export const getSurveyIdByCategory = (categoryName, surveys = []) => {
 
 /**
  * @function
+ * @name checkForPermission
+ * @description checks if a permission is included in the array of permissions
+ * @param {String} permission a permission to be checked
+ * @param {Array} permissions list of permissions
+ * @returns {Boolean}
+ */
+export const checkForPermission = (permissions, permission) => {
+    if (permissions.length > 0) {
+        const permissionName = permissions.map(({name}) => name);
+        return permissionName.includes(permission);
+    }
+    else {
+        return false;
+    }
+}
+
+
+/**
+ * @function
  * @name stringToGeoJson
  * @description converts string to geojson
  * @param {String} str spatial data

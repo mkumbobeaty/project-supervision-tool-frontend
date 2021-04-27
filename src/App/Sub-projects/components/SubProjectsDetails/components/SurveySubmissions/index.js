@@ -112,7 +112,7 @@ function SurveySubmissions({surveys, handleGoBack, showBackButton}) {
                       style={{paddingTop: '20px'}}
                 >
                     <Form.Item
-                        label="Displaying Submissions From"
+                        label="Displaying Images From"
                         name="survey_id"
                         rules={[{required: false}]}
                     >

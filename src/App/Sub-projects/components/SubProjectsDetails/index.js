@@ -5,14 +5,11 @@ import { projectOperation, projectSelectors } from "../../../../redux/modules/pr
 import { mapActions, mapSelectors } from "../../../../redux/modules/map";
 import "./styles.css";
 import KeyDetailSection from "./components/KeyDetails";
+import * as appPermissions from '../../../../Util/permissions';
 
 import FieldNotes from "./components/FieldNotes";
 import FieldImages from "./components/FieldImages";
 import {authSelectors} from "../../../../redux/modules/auth";
-
-
-
-
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -36,10 +33,10 @@ function SubProject ({getSubProject, match: { params }, sub_project, loading, ma
                       <KeyDetailSection sub_project={sub_project} mapLoading={mapLoading} />
                     </TabPane>
                     <TabPane tab="Field Notes" key="2">
-                      <FieldNotes subProject={sub_project} getSubProject={getSubProject} permissions={permissions} permission={`can create survey`}/>
+                      <FieldNotes subProject={sub_project} getSubProject={getSubProject} permissions={permissions} permission={appPermissions.CAN_CREATE_SURVEY}/>
                     </TabPane>
                     <TabPane tab="Field Images" key="3">
-                      <FieldImages subProject={sub_project} getSubProject={getSubProject}/>
+                      <FieldImages subProject={sub_project} getSubProject={getSubProject} permissions={permissions} permission={appPermissions.CAN_CREATE_SURVEY}/>
                     </TabPane>
                     <TabPane tab="Construction and E & S Reporting" key="4" className="container">
                       <h4> Construction and E & S Reporting is under development,Coming Soon!</h4>
