@@ -2,11 +2,10 @@ import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import './styles.css';
 import { mapProjectSelectors } from "../../../../../../../../../../redux/modules/map/projects";
 import { mapSubProjectActions, mapSubProjectSelectors } from "../../../../../../../../../../redux/modules/map/subProjects";
-import SubProjectTypesFilter from "../SuProjectTypesFilter";
-import SubProjectStatusFilter from "../SuProjectStatusFilter";
+import SubProjectTypesFilter from "../SubProjectTypesFilter";
+import SubProjectStatusFilter from "../SubProjectStatusFilter";
 import { projectActions, projectSelectors } from "../../../../../../../../../../redux/modules/projects";
 import RegionsFilter from "../RegionsFilter";
 import DistrictsFilter from "../DistrictsFilter";
@@ -16,6 +15,11 @@ import CustomSearch from "../../../CustomSearch";
 import TopSection from "../../../TopSection";
 import { mapActions } from "../../../../../../../../../../redux/modules/map";
 import BackLink from "../BackLink";
+import { Collapse } from 'antd';
+import './styles.css';
+
+const { Panel } = Collapse;
+
 
 function ProjectDetails({
     subProjectTypes,
@@ -61,13 +65,32 @@ function ProjectDetails({
             <hr />
             <CustomSearch placeholder='Search Sub projects' />
             <hr />
-            <SubProjectTypesFilter subProjectTypes={subProjectTypes} setSubProjectTypesFilter={setSubProjectTypesFilter}
-            />
-            <SubProjectStatusFilter subProjectStatus={subProjectStatus} setSubProjectStatusFilter={setSubProjectStatusFilter} />
-            <RegionsFilter regions={regions} setProjectRegionsFilter={setSubProjectRegionsFilter} />
-            <DistrictsFilter districts={districts} setSubProjectDistrictsFilter={setSubProjectDistrictsFilter} />
-            <ProcuringEntityPackageFilter procuringEntityPackage={procuringEntityPackage} setProcuringEntityFilter={setProcuringEntityFilter} />
-            <ContractorsFilter contractors={contractors} setSubProjectContractorsFilter={setSubProjectContractorsFilter} />
+            <Collapse
+                defaultActiveKey={['1']}
+                expandIconPosition={'right'}
+                bordered={false}
+            >
+                <Panel header="Subproject Types" key="1" >
+                    <SubProjectTypesFilter subProjectTypes={subProjectTypes} setSubProjectTypesFilter={setSubProjectTypesFilter}
+                    />
+                </Panel>
+                <Panel header="Subproject Status" key="2" >
+                    <SubProjectStatusFilter subProjectStatus={subProjectStatus} setSubProjectStatusFilter={setSubProjectStatusFilter} />
+                </Panel>
+                <Panel header="Regions" key="3" >
+
+                    <RegionsFilter regions={regions} setProjectRegionsFilter={setSubProjectRegionsFilter} />
+                </Panel>
+                <Panel header="Districts" key="4" >
+                    <DistrictsFilter districts={districts} setSubProjectDistrictsFilter={setSubProjectDistrictsFilter} />
+                </Panel>
+                <Panel header="Procuring Entity Package" key="5" >
+                    <ProcuringEntityPackageFilter procuringEntityPackage={procuringEntityPackage} setProcuringEntityFilter={setProcuringEntityFilter} />
+                </Panel>
+                <Panel header="Contractors" key="6" >
+                    <ContractorsFilter contractors={contractors} setSubProjectContractorsFilter={setSubProjectContractorsFilter} />
+                </Panel>
+            </Collapse>
         </div>
     );
 }

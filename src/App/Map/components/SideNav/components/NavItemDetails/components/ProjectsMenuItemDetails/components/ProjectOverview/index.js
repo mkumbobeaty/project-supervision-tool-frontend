@@ -10,8 +10,7 @@ import SideNavItemOverview from "../SideNavItemOverview";
 import ProjectStatusFilter from "../ProjectStatusFilter";
 import ProjectsFilter from "../ProjectsFilter";
 import RegionsFilter from "../RegionsFilter";
-import { mapSubProjectActions, mapSubProjectSelectors } from "../../../../../../../../../../redux/modules/map/subProjects";
-import SubProjectTypesFilter from "../SuProjectTypesFilter";
+import { mapSubProjectActions } from "../../../../../../../../../../redux/modules/map/subProjects";
 
 /**
  * @function

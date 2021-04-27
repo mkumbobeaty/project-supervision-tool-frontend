@@ -34,7 +34,7 @@ const ProcuringEntityPackageFilter = ({ procuringEntityPackage, setProcuringEnti
         <CheckBoxGroupFilter
             items={procuringEntitiesData}
             itemsPerPage={5}
-            filterTitle={`Procuring Entity Package`}
+            // filterTitle={`Procuring Entity Package`}
             // filterClass={`projectFilter`}
             handleFilter={handleOnclickFilterItem}
             projectFilterClass="regionFilter"
