@@ -6,41 +6,73 @@ const prepareFilterItems = (items, districts) => items.map(({ name, id }) => ({
     title: name,
     id,
     children: districts,
-}));
+})
+);
 
-const SubProjectRegionsFilter = ({ project, setProjectRegionsFilter,getDistricts,districts }) => {
+const SubProjectRegionsFilter = ({ project, setProjectRegionsFilter,getDistricts,districts,setSubProjectDistrictsFilter }) => {
 
     const { regions } = project;
     const regionsFilterData = regions?.length > 0 ? prepareFilterItems(regions, districts) : [];
+    
+    // const [regionsIds, setDistrictId] = useState([]);
+    // useEffect(() => {
+    //     setProjectRegionsFilter(regionsIds.join(','));
+    // }, [regionsIds]);
 
-    const [regionsIds, setRegionId] = useState([]);
+    // const handleOnclickFilterItem = (status_id) => {
+    //     if (regionsIds.includes(status_id)) {
+    //         const filterUncheckedItem = regionsIds.filter((i) => i !== status_id);
+    //         setDistrictId(filterUncheckedItem);
+    //     }
+    //     else {
+    //         setDistrictId([...regionsIds, status_id]);
+    //     }
+
+    // }
+
+  const [checkedKeys, setCheckedKeys] = useState([]);
+  const [selectedKeys, setSelectedKeys] = useState([]);
+    const [districtsIds, setDistrictId] = useState([]);
+
     useEffect(() => {
         getDistricts(regionsFilterData[0].id);
-        setProjectRegionsFilter(regionsIds.join(','));
-    }, [regionsIds]);
+        setSubProjectDistrictsFilter(districtsIds.join(','));
+    }, [districtsIds]);
 
     const handleOnclickFilterItem = (status_id) => {
-        if (regionsIds.includes(status_id)) {
-            const filterUncheckedItem = regionsIds.filter((i) => i !== status_id);
-            setRegionId(filterUncheckedItem);
+        if (districtsIds.includes(status_id)) {
+            const filterUncheckedItem = districtsIds.filter((i) => i !== status_id);
+            setDistrictId(filterUncheckedItem);
         }
         else {
-            setRegionId([...regionsIds, status_id]);
+            setDistrictId([...districtsIds, status_id]);
         }
 
     }
 
+
+    const onCheck = (checkedKeysValue) => {
+        console.log('onCheck', checkedKeysValue);
+        setCheckedKeys(checkedKeysValue);
+        handleOnclickFilterItem(checkedKeysValue)
+      };
+    
+      const onSelect = (selectedKeysValue, info) => {
+        console.log('onSelect', info);
+        setSelectedKeys(selectedKeysValue);
+      };
+
+      
+    
     return (
-        // <CheckBoxGroupFilter
-        //     items={regionsFilterData}
-        //     itemsPerPage={5}
-        //     filterTitle={`Regions`}
-        //     // filterClass={`projectFilter`}
-        //     handleFilter={handleOnclickFilterItem}
-        //     projectFilterClass="regionFilter"
-        // />
+
         <MultlevelFilter
             items={regionsFilterData}
+            // handleFilter={handleOnclickFilterItem}
+            onCheck={onCheck}
+            onSelect={onSelect}
+            checkedKeys={checkedKeys}
+            selectedKeys={selectedKeys}
         />
     )
 }

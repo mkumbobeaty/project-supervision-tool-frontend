@@ -3,7 +3,6 @@ import { Spin } from 'antd';
 import PropTypes from "prop-types";
 import { ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
-import L from 'leaflet';
 import BaseMap from "./BaseMap";
 import { bindActionCreators } from "redux";
 import { mapActions, mapSelectors } from "../../redux/modules/map";
@@ -54,6 +53,7 @@ class MapDashboard extends Component {
             loading
         } = this.props;
 
+        debugger
         return (
             <div className="MapDashboard">
                 <Spin spinning={mapLoading} tip="Loading data...">
@@ -61,8 +61,7 @@ class MapDashboard extends Component {
                     <BaseMap ref={this.map} zoomControl={false}>
                         <ZoomControl position="bottomright" />
                         {
-                            isShowProjectOverview === true ?
-                                projects.length > 0 ? <ProjectPoints projects={projects} getProject={getProject} project={project} loading={loading} /> : '' :
+                            isShowProjectOverview === true ? projects.length > 0 ? <ProjectPoints projects={projects} getProject={getProject} project={project} loading={loading} /> : '' :
                                 subProjects.length > 0 ? <SubProjectPoints subProjects={subProjects} /> : ''
                         }
                         <ShowDataSets />

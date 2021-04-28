@@ -84,15 +84,16 @@ function ProjectDetails({
 
                 </Panel>
                 <Panel header="Regions" key="4" >
-                    <SubProjectRegionsFilter project={project} setProjectRegionsFilter={setSubProjectRegionsFilter}  getDistricts={getDistricts} districts={districts} />
+                    <SubProjectRegionsFilter project={project}
+                        setProjectRegionsFilter={setSubProjectRegionsFilter}
+                        getDistricts={getDistricts}
+                        districts={districts}
+                        setSubProjectDistrictsFilter={setSubProjectDistrictsFilter} />
                 </Panel>
-                <Panel header="Districts" key="5" >
-                    <DistrictsFilter districts={districts} setSubProjectDistrictsFilter={setSubProjectDistrictsFilter} />
-                </Panel>
-                <Panel header="Procuring Entity Package" key="6" >
+                <Panel header="Procuring Entity Package" key="5" >
                     <ProcuringEntityPackageFilter procuringEntityPackage={procuringEntityPackage} setProcuringEntityFilter={setProcuringEntityFilter} />
                 </Panel>
-                <Panel header="Contractors" key="7" >
+                <Panel header="Contractors" key="6" >
                     <ContractorsFilter contractors={contractors} setSubProjectContractorsFilter={setSubProjectContractorsFilter} />
                 </Panel>
             </Collapse>

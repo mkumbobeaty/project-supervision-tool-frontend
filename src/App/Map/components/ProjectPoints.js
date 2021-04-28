@@ -57,8 +57,7 @@ class ProjectPoints extends Component {
                                 onClick={() => this.handleProjectPopup(id)}
                             >
                                 <Popup>
-                                    <MapPopupDetail project={project} loading={loading} />
-                                    
+                                    <MapPopupDetail project={project} loading={loading} />  
                                 </Popup>
                             </Marker>
                         );
