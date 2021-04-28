@@ -18,6 +18,7 @@ import BackLink from "../BackLink";
 import { Collapse } from 'antd';
 import './styles.css';
 import ComponentSubComponentFilter from "../Component&SubComponentFilter ";
+import SubProjectRegionsFilter from "../SubProjectRegionsFilter";
 
 const { Panel } = Collapse;
 
@@ -50,7 +51,6 @@ function ProjectDetails({
         getSubProjectTypes();
         getSubProjectStatus();
         getRegions();
-        getDistricts('TZ07');
         getContractors();
         getProcuringEntity();
     }, []);
@@ -84,12 +84,10 @@ function ProjectDetails({
 
                 </Panel>
                 <Panel header="Regions" key="4" >
-                    <RegionsFilter regions={regions} setProjectRegionsFilter={setSubProjectRegionsFilter} />
-
+                    <SubProjectRegionsFilter project={project} setProjectRegionsFilter={setSubProjectRegionsFilter}  getDistricts={getDistricts} districts={districts} />
                 </Panel>
                 <Panel header="Districts" key="5" >
                     <DistrictsFilter districts={districts} setSubProjectDistrictsFilter={setSubProjectDistrictsFilter} />
-
                 </Panel>
                 <Panel header="Procuring Entity Package" key="6" >
                     <ProcuringEntityPackageFilter procuringEntityPackage={procuringEntityPackage} setProcuringEntityFilter={setProcuringEntityFilter} />
