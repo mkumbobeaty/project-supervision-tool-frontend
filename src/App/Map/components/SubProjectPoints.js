@@ -30,7 +30,6 @@ class SubProjectPoints extends Component {
     render() {
         const { subProjects } = this.props;
         console.log(subProjects)
-        debugger
         return (
             <Spiderfy
                 onClick={this.handleSpiderfyClick}

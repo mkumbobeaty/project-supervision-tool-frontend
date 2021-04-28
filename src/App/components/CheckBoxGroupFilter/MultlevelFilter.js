@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { Tree } from 'antd';
 
-const MultlevelFilter = ({ items, onCheck, onSelect, selectedKeys, checkedKeys }) => {
+const MultlevelFilter = ({ items, handleFilter }) => {
+
+  const [checkedKeys, setCheckedKeys] = useState('');
+  const [selectedKeys, setSelectedKeys] = useState([]);
 
   const data = items.map(({ title, id, children }) => {
     return (
@@ -12,6 +15,18 @@ const MultlevelFilter = ({ items, onCheck, onSelect, selectedKeys, checkedKeys }
       }
     )
   })
+
+  const onCheck = (checkedKeysValue) => {
+    setCheckedKeys(checkedKeysValue);
+    handleFilter(checkedKeysValue.map(id => id).toString())
+  };
+
+  const onSelect = (selectedKeysValue, info) => {
+    console.log('onSelect', info);
+    setSelectedKeys(selectedKeysValue);
+  };
+
+
 
   return (
     data.length > 0 ? <Tree treeData={data} checkable onCheck={onCheck}

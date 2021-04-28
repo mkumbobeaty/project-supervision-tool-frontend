@@ -53,7 +53,6 @@ class MapDashboard extends Component {
             loading
         } = this.props;
 
-        debugger
         return (
             <div className="MapDashboard">
                 <Spin spinning={mapLoading} tip="Loading data...">
