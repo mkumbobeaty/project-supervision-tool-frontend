@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import {Map, TileLayer} from 'react-leaflet';
-import "./styles.css";
+import { Map } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'react-leaflet-fullscreen/dist/styles.css'
-
 import L from 'leaflet';
+import LayerControl from '../components/LayerControl';
+import "./styles.css";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -16,23 +16,19 @@ L.Icon.Default.mergeOptions({
 });
 
 const state = {
-    lat: -6.161184,
-    lng: 35.745426,
-    zoom: 6,
+    lat: -5.856,
+    lng: 34.074,
+    zoom: 7,
 }
 const position = [state.lat, state.lng]
 
-
-const BaseMap = ({children, zoomControl}) => {
+const BaseMap = ({ children, zoomControl }) => {
 
     return (
-        <Map center={position} zoom={state.zoom} className="base-map"  zoomControl={zoomControl}>
-            <TileLayer
-                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+        <Map center={position} zoom={state.zoom} className="base-map" zoomControl={zoomControl}>
+            <LayerControl />
             {children}
-    </Map>)
+        </Map>)
 }
 
 export default BaseMap;

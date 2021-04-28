@@ -34,7 +34,6 @@ const SubProjectStatusFilter = ({ subProjectStatus,setSubProjectStatusFilter }) 
             <CheckBoxGroupFilter
             items={subProjectStatusFilterData}
             itemsPerPage={5}
-            // filterTitle={`Subproject Status`}
             handleFilter={handleOnclickFilterItem}
             // filterClass="projectFilter"
         />         
