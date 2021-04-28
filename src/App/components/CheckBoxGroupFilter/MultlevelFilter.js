@@ -10,7 +10,7 @@ const MultlevelFilter = ({ items, handleFilter }) => {
     return (
       {
         'title': title,
-        "key": id,
+        "key": `${id}-0`,
         'children': children.map(({ name, id, }) => ({ 'title': name, 'key': `${id}` }))
       }
     )
