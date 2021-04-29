@@ -12,14 +12,45 @@
     overflow-x: hidden;
 }
 
-.customizedIcon {
-    border-radius: 50%;
-    background-color: #0f6788;
-    width: 30px !important;
-    height: 30px !important;
+.map-label {
     margin: 0 !important;
     opacity: 0.8;
 }
+
+.marker-pin {
+    /* background: #c30b82; */
+    position: absolute;
+    transform: rotate(-45deg);
+    border-radius: 50% 50% 50% 50%;
+    /* left: 50%;
+    top: 50%;
+    margin: -15px 0 0 -15px; */
+}
+
+.marker-pin::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin: 3px 0 0 3px;
+    /* background: #fff; */
+    position: absolute;
+    border-radius: 50%;
+}
+
+.customizedIcon h4 {
+    position: absolute;
+    width: 22px;
+    font-size: 22px;
+    left: 0;
+    right: 0;
+    margin: 10px auto;
+    text-align: center;
+ }
+ 
+ .customizedIcon h4 {
+    margin: 12px auto;
+    font-size: 17px;
+ }
 
 .leaflet-popup.leaflet-zoom-animated {
     left: -135px !important
@@ -65,7 +96,7 @@
     .popupHeader h2 {
         font-size: 14px;
     }
-    .leaflet-popup-content{
+    .leaflet-popup-content {
         width: 200px !important;
     }
 }
