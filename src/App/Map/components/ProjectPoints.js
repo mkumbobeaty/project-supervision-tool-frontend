@@ -61,18 +61,9 @@ class ProjectPoints extends Component {
 
                         const customizedIcon = divIcon({
                             className: 'customizedIcon',
-                            html: `<div 
-                            style='background-color:${color}; 
-                            width: ${dimension}px ;
-                            height: ${dimension}px;' 
-                            class='marker-pin'>
+                            html: `<div  style='background-color:${color}; width: ${dimension}px ;height: ${dimension}px;' class='marker-pin'>
                             </div>
-                            <h4
-                            style='color: ${invertedColor};
-                            top: ${dimension / 2}px;
-                            left: ${dimension / 2}px;
-                            font-size: ${dimension / 4}px'
-                            > 
+                            <h4 style='color: ${invertedColor}; top: ${dimension / 2}px; left: ${dimension / 2}px; font-size: ${dimension / 4}px'> 
                             ${commitment_money}
                             </h4>`,
                             iconSize: [dimension, 42],

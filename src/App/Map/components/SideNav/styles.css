@@ -18,6 +18,7 @@ hr {
 
 .statusFilter {
     display: inline-block;
+    padding-bottom: 10px;
 }
 
 
@@ -94,7 +95,10 @@ hr {
     /* .CheckBoxGroupFilter .statusFilter label {
         width: 180px;
     } */
-    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .regionFilter label {
+    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .regionFilter label
+    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .districtFilter label
+    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .contractorFilter label
+    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .procuringFilter label {
         width: 100%;
     }
 }

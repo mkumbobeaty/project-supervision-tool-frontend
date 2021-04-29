@@ -37,7 +37,7 @@ const ContractorsFilter = ({ contractors, setSubProjectContractorsFilter }) => {
             // filterTitle={`Contractors`}
             // filterClass={`projectFilter`}
             handleFilter={handleOnclickFilterItem}
-            projectFilterClass="regionFilter"
+            projectFilterClass="contractorFilter"
         />
     )
 }

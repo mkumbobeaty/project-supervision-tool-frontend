@@ -37,7 +37,7 @@ const ProcuringEntityPackageFilter = ({ procuringEntityPackage, setProcuringEnti
             // filterTitle={`Procuring Entity Package`}
             // filterClass={`projectFilter`}
             handleFilter={handleOnclickFilterItem}
-            projectFilterClass="regionFilter"
+            projectFilterClass="procuringFilter"
         />
     )
 }

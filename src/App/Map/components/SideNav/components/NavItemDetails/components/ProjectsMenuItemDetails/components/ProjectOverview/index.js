@@ -50,7 +50,7 @@ function ProjectsOverview(
 
     const overViewData = projectsStatistics ? [
         { title: 'Projects', value: projectsStatistics.projects, },
-        { title: 'Sub Projects', value: projectsStatistics.sub_projects },
+        // { title: 'Sub Projects', value: projectsStatistics.sub_projects },
         { title: 'Regions', value: projectsStatistics.regions },
     ] : [];
 
