@@ -1,6 +1,5 @@
 
 import React, {useEffect, useState} from "react";
-import SurveySubmissions from "../../../SurveySubmissions";
 import API from '../../../../../../../../API';
 import ImageGallary from "../../../SubProjectGallary";
 

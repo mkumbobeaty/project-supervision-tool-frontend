@@ -9,7 +9,7 @@ import ListItemActions from "../../../../../../../components/ListItemActions";
 import "./styles.css";
 import API from '../../../../../../../../API';
 import SurveyForm from "../../../../../SurveyForm";
-import SurveySubmissions from "../../../SurveySubmissions";
+import ImageGallary from "../../../SubProjectGallary";
 
 
 /* constants */
@@ -121,7 +121,7 @@ function ManageFieldImages({ subProject, getSubProject }){
     const handleGoBack = () => setSelectedSurvey(null);
 
 
-    return selectedSurvey ? <SurveySubmissions surveys={[selectedSurvey]} showBackButton={true} handleGoBack={handleGoBack}/> : (
+    return selectedSurvey ? <ImageGallary surveys={[selectedSurvey]} showBackButton={true} handleGoBack={handleGoBack}/> : (
         <div>
             {/* Topbar */}
             <Topbar
