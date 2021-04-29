@@ -26,7 +26,7 @@ class ProjectPoints extends Component {
 
     getMarkerDiameter = (amount, maxAmount, maxDiameter = 80, minDiameter = 40) => {
         const diameter = amount * maxDiameter / maxAmount;
-        if (diameter > minDiameter ) return diameter;
+        if (diameter > minDiameter) return diameter;
         return minDiameter;
     }
 
@@ -44,19 +44,20 @@ class ProjectPoints extends Component {
             >
                 { projects.map(({ regions, id, details }) => {
 
+                    // color generated for projects
+                    const color = randomColor();
+                    const invertedColor = invertColor(color);
+
+                    // dimesion required for displaying markers 
                     const { commitment_amount } = details;
                     const { amount } = commitment_amount;
                     const commitment_money = moneyFormatWithApproximation(amount)
-                    // const total_money = moneyFormat(total_project_cost.amount)
                     const maxAmount = this.getMaxAmount(projects);
-                    console.log("maximum value", maxAmount)
                     const dimension = this.getMarkerDiameter(amount, maxAmount);
 
                     return regions.length > 0 ? regions.map((region) => {
                         const polygon = JSON.parse(region.geom);
                         const { geometry } = turf.pointOnFeature(polygon);
-                        const color = randomColor();
-                        const invertedColor = invertColor(color);
 
                         const customizedIcon = divIcon({
                             className: 'customizedIcon',
@@ -66,11 +67,11 @@ class ProjectPoints extends Component {
                             height: ${dimension}px;' 
                             class='marker-pin'>
                             </div>
-                            <h4 style='color: ${invertedColor};
+                            <h4
+                            style='color: ${invertedColor};
                             top: ${dimension / 2}px;
                             left: ${dimension / 2}px;
-                            font-size: ${dimension/4}px
-                            '
+                            font-size: ${dimension / 4}px'
                             > 
                             ${commitment_money}
                             </h4>`,
