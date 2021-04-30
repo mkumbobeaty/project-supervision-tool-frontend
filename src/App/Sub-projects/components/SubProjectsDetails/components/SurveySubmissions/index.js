@@ -59,6 +59,21 @@ function SurveySubmissions({surveys, handleGoBack, showBackButton}) {
         setShowMapModal(true);
     }
 
+    const downloadSubmissions = () => {
+        API.getAssetData(survey_id, 'geojson')
+            .then(res => downloadObjectAsJson(res, 'kobotoolbox_data'));
+    }
+
+    function downloadObjectAsJson(exportObj, exportName){
+        var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+        var downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href",     dataStr);
+        downloadAnchorNode.setAttribute("download", exportName + ".json");
+        document.body.appendChild(downloadAnchorNode); // required for firefox
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+    }
+
 
     const getData = value => API.getAsset(value)
         .then(res => {
@@ -126,7 +141,7 @@ function SurveySubmissions({surveys, handleGoBack, showBackButton}) {
                 changeDataSource={() => console.log('data source changed')}
                 onRefresh={() => getData(survey_id)}
                 showOnMap={() => setShowMapModal(true)}
-                exportUrl={dataExportUrl}
+                download={() => downloadSubmissions()}
                 itemName="Field Notes"
                 filterTo="To"
                 actions={[

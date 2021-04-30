@@ -37,6 +37,7 @@ const Toolbar = ({
                      onRefresh,
                      showOnMap,
                      filterData,
+                     download,
                      filterTo
                  }) => (
     <div className="Toolbar">
@@ -67,6 +68,7 @@ const Toolbar = ({
                                     title="Export Data"
                                     className="actionButton"
                                     size="large"
+                                    onClick={onRefresh}
                                 >
                                     Export
                                 </Button>
@@ -74,6 +76,21 @@ const Toolbar = ({
                         </Col>
                     )}
                     {/* end export action */}
+
+                    {/* download action */}
+                    {download && (
+                        <Col xxl={3} xl={3} lg={3} md={4} sm={12} xs={12}>
+                                <Button
+                                    title="Download Data"
+                                    className="actionButton"
+                                    size="large"
+                                    onClick={download}
+                                >
+                                    Download
+                                </Button>
+                        </Col>
+                    )}
+                    {/* end download action */}
 
                   {/* showOnMap  action */}
                   {showOnMap && (

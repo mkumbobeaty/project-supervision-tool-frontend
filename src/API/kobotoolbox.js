@@ -31,8 +31,8 @@ const getAsset = (id) =>
  * @name getAssetData
  * @description get assets data from kobotoolbox
  */
-const getAssetData = (id) =>
-    axiosKobotoolbox.get(`${kfBaseurl}/assets/${id}/data/`).then((response) => response.data);
+const getAssetData = (id, format='json') =>
+    axiosKobotoolbox.get(`${kfBaseurl}/assets/${id}/data/`, {params: { format }}).then((response) => response.data);
 
 
 /**
