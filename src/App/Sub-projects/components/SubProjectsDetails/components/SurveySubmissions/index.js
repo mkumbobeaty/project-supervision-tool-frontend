@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Drawer, Table, Image, Button, Select, Form} from "antd";
+import {Drawer, Table, Image, Button, Select, Form, Alert,notification} from "antd";
 import PropTypes from 'prop-types';
 import API from "../../../../../../API";
 import {isoDateToHumanReadableDate, stringToGeoJson} from "../../../../../../Util";
@@ -11,6 +11,8 @@ import './styles.css';
 const ViewSubmissionOnMap = ({data, showMApModal, handleOnCancel}) => <ViewOnMap showMApModal={showMApModal}
                                                                                  handleOnCancel={handleOnCancel}
                                                                                  data={data}/>
+
+
 
 
 const getAttachMentUrl = (attachments, name) => {
@@ -26,6 +28,21 @@ function SurveySubmissions({surveys, handleGoBack, showBackButton}) {
     const [dataSource, setDataSource] = useState([]);
     const [showMapModel, setShowMapModal] = useState(false);
     const [dataExportUrl, setExportDataUrl] = useState('');
+
+    const startDownloadNotification = () => {
+        notification.open({
+            message: 'Data Download has Started',
+            duration: 4
+        });
+    };
+
+    const endDownloadNotification = () => {
+        notification.open({
+            message: 'Data has been downloaded successfully',
+            duration: 4
+        });
+    };
+
 
     useEffect(() => {
         const spatialColumn = columns.filter((c) => c.type === 'geoshape' || c.type === 'geotrace' || c.type === 'geopoint')[0];
@@ -60,18 +77,21 @@ function SurveySubmissions({surveys, handleGoBack, showBackButton}) {
     }
 
     const downloadSubmissions = () => {
+        startDownloadNotification();
         API.getAssetData(survey_id, 'geojson')
-            .then(res => downloadObjectAsJson(res, 'kobotoolbox_data'));
+            .then(res => downloadObjectAsJson(res, `kobotoolbox_data_${survey_id}`));
     }
 
     function downloadObjectAsJson(exportObj, exportName){
         var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
         var downloadAnchorNode = document.createElement('a');
         downloadAnchorNode.setAttribute("href",     dataStr);
-        downloadAnchorNode.setAttribute("download", exportName + ".json");
+        downloadAnchorNode.setAttribute("download", exportName + ".geojson");
         document.body.appendChild(downloadAnchorNode); // required for firefox
         downloadAnchorNode.click();
         downloadAnchorNode.remove();
+        endDownloadNotification();
+
     }
 
 
