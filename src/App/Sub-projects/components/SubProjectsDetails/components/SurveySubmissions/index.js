@@ -63,7 +63,7 @@ function SurveySubmissions({surveys, handleGoBack, showBackButton}) {
     const getData = value => API.getAsset(value)
         .then(res => {
             // kml_legacy
-            setExportDataUrl(res?.deployment__data_download_links?.kml_legacy)
+            setExportDataUrl(`https://kf.survey-project-supervision-tool.ga/api/v2/assets/${res.uid}/data.geojson`)
             const meta = res.content.survey.map(s => ({
                 title: s.label ? s.label[0] : s.name,
                 dataIndex: s.$autoname,
