@@ -5,31 +5,35 @@ import PropTypes from 'prop-types';
 import Spiderfy from "./Spiderfy";
 import * as turf from '@turf/turf';
 import MapPopupDetail from "./PopupDetails";
+import randomColor from 'randomcolor';
+import { invertColor, moneyFormatWithApproximation } from "../../../Util";
+
 
 class ProjectPoints extends Component {
 
     static propTypes = {
         projects: PropTypes.array.isRequired,
-        projects: PropTypes.object.isRequired,
-
+        project: PropTypes.object.isRequired,
+        loading: PropTypes.bool.isRequired,
+        getProject: PropTypes.func,
     }
 
-    handleSpiderfyClick = marker => {
-        console.log(marker);
-    };
-
-    handleSpiderfy = markers => {
-        console.log(markers);
-    };
-
-    handleUnspiderfy = markers => {
-        console.log(markers);
-    };
 
     handleProjectPopup = (project_id) => {
         const { getProject } = this.props;
         getProject(project_id);
     };
+
+    getMarkerDiameter = (amount, maxAmount, maxDiameter = 80, minDiameter = 40) => {
+        const diameter = amount * maxDiameter / maxAmount;
+        if (diameter > minDiameter) return diameter;
+        return minDiameter;
+    }
+
+    getMaxAmount = (projects) => {
+        const commitment_amounts = projects.map(({ details: { commitment_amount } }) => commitment_amount.amount);
+        return Math.max(...commitment_amounts);
+    }
 
     render() {
 
@@ -37,16 +41,34 @@ class ProjectPoints extends Component {
 
         return (
             <Spiderfy
-                onClick={this.handleSpiderfyClick}
-                onSpiderfy={this.handleSpiderfy}
-                onUnspiderfy={this.handleUnspiderfy}
             >
-                { projects.map(({ regions, id }) => {
+                { projects.map(({ regions, id, details }) => {
+
+                    // color generated for projects
+                    const color = randomColor();
+                    const invertedColor = invertColor(color);
+
+                    // dimesion required for displaying markers 
+                    const { commitment_amount } = details;
+                    const { amount } = commitment_amount;
+                    const commitment_money = moneyFormatWithApproximation(amount)
+                    const maxAmount = this.getMaxAmount(projects);
+                    const dimension = this.getMarkerDiameter(amount, maxAmount);
+
                     return regions.length > 0 ? regions.map((region) => {
                         const polygon = JSON.parse(region.geom);
                         const { geometry } = turf.pointOnFeature(polygon);
 
-                        const customizedIcon = divIcon({ className: 'customizedIcon' });
+                        const customizedIcon = divIcon({
+                            className: 'customizedIcon',
+                            html: `<div  style='background-color:${color}; width: ${dimension}px ;height: ${dimension}px;' class='marker-pin'>
+                            </div>
+                            <h4 style='color: ${invertedColor}; top: ${dimension / 2}px; left: ${dimension / 2}px; font-size: ${dimension / 4}px'> 
+                            ${commitment_money}
+                            </h4>`,
+                            iconSize: [dimension, 42],
+                            iconAnchor: [0, 0]
+                        });
 
                         return (
                             <Marker
@@ -58,7 +80,6 @@ class ProjectPoints extends Component {
                             >
                                 <Popup>
                                     <MapPopupDetail project={project} loading={loading} />
-                                    
                                 </Popup>
                             </Marker>
                         );

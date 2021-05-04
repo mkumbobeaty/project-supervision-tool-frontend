@@ -2,11 +2,10 @@ import React, { useEffect } from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import './styles.css';
 import { mapProjectSelectors } from "../../../../../../../../../../redux/modules/map/projects";
 import { mapSubProjectActions, mapSubProjectSelectors } from "../../../../../../../../../../redux/modules/map/subProjects";
-import SubProjectTypesFilter from "../SuProjectTypesFilter";
-import SubProjectStatusFilter from "../SuProjectStatusFilter";
+import SubProjectTypesFilter from "../SubProjectTypesFilter";
+import SubProjectStatusFilter from "../SubProjectStatusFilter";
 import { projectActions, projectSelectors } from "../../../../../../../../../../redux/modules/projects";
 import RegionsFilter from "../RegionsFilter";
 import DistrictsFilter from "../DistrictsFilter";
@@ -16,6 +15,13 @@ import CustomSearch from "../../../CustomSearch";
 import TopSection from "../../../TopSection";
 import { mapActions } from "../../../../../../../../../../redux/modules/map";
 import BackLink from "../BackLink";
+import { Collapse } from 'antd';
+import './styles.css';
+import ComponentSubComponentFilter from "../Component&SubComponentFilter ";
+import SubProjectRegionsFilter from "../SubProjectRegionsFilter";
+
+const { Panel } = Collapse;
+
 
 function ProjectDetails({
     subProjectTypes,
@@ -37,6 +43,7 @@ function ProjectDetails({
     setProcuringEntityFilter,
     getProcuringEntity,
     project,
+    setComponentsSubComponentFilter,
     goBackToProjects
 }) {
 
@@ -44,7 +51,6 @@ function ProjectDetails({
         getSubProjectTypes();
         getSubProjectStatus();
         getRegions();
-        getDistricts('TZ07');
         getContractors();
         getProcuringEntity();
     }, []);
@@ -61,13 +67,36 @@ function ProjectDetails({
             <hr />
             <CustomSearch placeholder='Search Sub projects' />
             <hr />
-            <SubProjectTypesFilter subProjectTypes={subProjectTypes} setSubProjectTypesFilter={setSubProjectTypesFilter}
-            />
-            <SubProjectStatusFilter subProjectStatus={subProjectStatus} setSubProjectStatusFilter={setSubProjectStatusFilter} />
-            <RegionsFilter regions={regions} setProjectRegionsFilter={setSubProjectRegionsFilter} />
-            <DistrictsFilter districts={districts} setSubProjectDistrictsFilter={setSubProjectDistrictsFilter} />
-            <ProcuringEntityPackageFilter procuringEntityPackage={procuringEntityPackage} setProcuringEntityFilter={setProcuringEntityFilter} />
-            <ContractorsFilter contractors={contractors} setSubProjectContractorsFilter={setSubProjectContractorsFilter} />
+            <Collapse
+                defaultActiveKey={['1']}
+                expandIconPosition={'right'}
+                bordered={false}
+            >
+                <Panel header="Subproject Types" key="1" >
+                    <SubProjectTypesFilter subProjectTypes={subProjectTypes} setSubProjectTypesFilter={setSubProjectTypesFilter}
+                    />
+                </Panel>
+                <Panel header="Subproject Status" key="2" >
+                    <SubProjectStatusFilter subProjectStatus={subProjectStatus} setSubProjectStatusFilter={setSubProjectStatusFilter} />
+                </Panel>
+                <Panel header="Components & Sub-components" key="3" >
+                    <ComponentSubComponentFilter project={project} setComponentsSubComponentFilter={setComponentsSubComponentFilter} />
+
+                </Panel>
+                <Panel header="Regions" key="4" >
+                    <SubProjectRegionsFilter project={project}
+                        setProjectRegionsFilter={setSubProjectRegionsFilter}
+                        getDistricts={getDistricts}
+                        districts={districts}
+                        setSubProjectDistrictsFilter={setSubProjectDistrictsFilter} />
+                </Panel>
+                <Panel header="Procuring Entity Package" key="5" >
+                    <ProcuringEntityPackageFilter procuringEntityPackage={procuringEntityPackage} setProcuringEntityFilter={setProcuringEntityFilter} />
+                </Panel>
+                <Panel header="Contractors" key="6" >
+                    <ContractorsFilter contractors={contractors} setSubProjectContractorsFilter={setSubProjectContractorsFilter} />
+                </Panel>
+            </Collapse>
         </div>
     );
 }
@@ -86,18 +115,19 @@ const mapDispatchToProps = (dispatch) => ({
     getSubProject: bindActionCreators(mapSubProjectActions.getSubProjectStart, dispatch),
     getSubProjectTypes: bindActionCreators(mapSubProjectActions.getSubProjectTypesStart, dispatch),
     getSubProjectStatus: bindActionCreators(mapSubProjectActions.getSubProjectStatusStart, dispatch),
-    setSubProjectTypesFilter: bindActionCreators(mapSubProjectActions.setSubProjectTypesFilter, dispatch),
-    setSubProjectStatusFilter: bindActionCreators(mapSubProjectActions.setSubProjectStatusFilter, dispatch),
     getRegions: bindActionCreators(projectActions.getRegionsStart, dispatch),
-    setSubProjectRegionsFilter: bindActionCreators(mapSubProjectActions.setSubProjectRegionsFilter, dispatch),
     getDistricts: bindActionCreators(projectActions.getDistrictsStart, dispatch),
-    setSubProjectDistrictsFilter: bindActionCreators(mapSubProjectActions.setSubProjectDistrictFilter, dispatch),
-    setSubProjectContractorsFilter: bindActionCreators(mapSubProjectActions.setSubProjectContractorFilter, dispatch),
     getContractors: bindActionCreators(mapSubProjectActions.getContractorsStart, dispatch),
-    setProcuringEntityFilter: bindActionCreators(mapSubProjectActions.setSubProjectProcuringEntityFilter, dispatch),
     getProcuringEntity: bindActionCreators(mapSubProjectActions.getProcuringEntityPackageStart, dispatch),
     getMapSubProjects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
     getSubprojects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
+    setSubProjectTypesFilter: bindActionCreators(mapSubProjectActions.setSubProjectTypesFilter, dispatch),
+    setSubProjectStatusFilter: bindActionCreators(mapSubProjectActions.setSubProjectStatusFilter, dispatch),
+    setSubProjectRegionsFilter: bindActionCreators(mapSubProjectActions.setSubProjectRegionsFilter, dispatch),
+    setSubProjectDistrictsFilter: bindActionCreators(mapSubProjectActions.setSubProjectDistrictFilter, dispatch),
+    setSubProjectContractorsFilter: bindActionCreators(mapSubProjectActions.setSubProjectContractorFilter, dispatch),
+    setProcuringEntityFilter: bindActionCreators(mapSubProjectActions.setSubProjectProcuringEntityFilter, dispatch),
+    setComponentsSubComponentFilter: bindActionCreators(mapSubProjectActions.setSubProjectComponentFilter, dispatch),
     goBackToProjects: bindActionCreators(mapActions.backFromSubProjectsToProjects, dispatch)
 
 });
