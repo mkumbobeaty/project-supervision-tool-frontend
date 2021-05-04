@@ -1,15 +1,44 @@
 .info {
-    padding: 6px 8px;
+    padding: 10px 8px 6px 18px;
     font: 14px/16px Arial, Helvetica, sans-serif;
-    background: white;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    border-radius: 5px;
+    width: 130px;
+    border: 0.8px solid #b6b3b3;
+    border-radius: 0px;
+}
+
+.info .project_legend {
+    display: flex;
+}
+
+.info h3 {
+    font-size: 14px;
+}
+
+.info h4, .info h3 {
+    text-decoration: underline;
+    text-transform: uppercase;
 }
 
 .info h4 {
-    margin: 0 0 5px;
-    color: #777;
+    font-size: 12px;
+}
+
+.info p {
+    margin-bottom: 0px !important;
+    height: 15px;
+    width: 15px;
+    border-radius: 50%
+}
+
+.info h5 {
+    padding-left: 10px;
+    font-size: 11px;
+}
+
+#text ::after {
+    display: none;
 }
 
 .legend {

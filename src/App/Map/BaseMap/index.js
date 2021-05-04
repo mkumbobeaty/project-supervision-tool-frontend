@@ -6,6 +6,7 @@ import 'react-leaflet-fullscreen/dist/styles.css'
 import L from 'leaflet';
 import LayerControl from '../components/LayerControl';
 import "./styles.css";
+import Legend from '../components/Legend';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -27,6 +28,7 @@ const BaseMap = ({ children, zoomControl }) => {
     return (
         <Map center={position} zoom={state.zoom} className="base-map" zoomControl={zoomControl}>
             <LayerControl />
+            <Legend />
             {children}
         </Map>)
 }

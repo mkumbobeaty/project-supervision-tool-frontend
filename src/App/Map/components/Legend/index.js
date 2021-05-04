@@ -6,30 +6,29 @@ import './styles.css';
 class Legend extends MapControl {
     createLeafletElement(props) {
 
+        const data = [
+            { title: 'DMDP', color: '#FEB24C' },
+            { title: 'BIGZ', color: '#03e24C' },
+            { title: 'TACTICS', color: '#067ac3' },
+            { title: 'BRT', color: '#12ffee' },
+            { title: 'SHARETE', color: '#6b8cac' }
+
+        ]
 
         const legend = L.control({ position: "bottomright" });
 
         legend.onAdd = () => {
             const div = L.DomUtil.create("div", "info legend");
-            const grades = generateNumberRange(9);
-            let labels = [];
-            let from;
-            let to;
 
-            for (let i = 0; i < grades.length; i++) {
-                from = grades[i];
-                to = grades[i + 1];
-
-                labels.push(
-                    '<i style="background:' +
-                    generateColor(i) +
-                    '"></i> ' +
-                    from +
-                    (to ? "&ndash;" + to : "+")
+            let labels = ['<h3>Key</h3>', '<h4>Projects</h4>'];
+            data.map(({ title, color }) => {
+                return labels.push(
+                    `<div class="project_legend"
+                  '><p style='background-color: ${color};'> </p><h5>${title}</h5></div>`
                 );
-            }
+            })
 
-            div.innerHTML = labels.join("<br>");
+            div.innerHTML = labels.join(" ");
             return div;
         };
 
