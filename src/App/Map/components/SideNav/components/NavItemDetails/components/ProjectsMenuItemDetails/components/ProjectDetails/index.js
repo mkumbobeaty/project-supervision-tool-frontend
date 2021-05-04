@@ -71,6 +71,7 @@ function ProjectDetails({
                 defaultActiveKey={['1']}
                 expandIconPosition={'right'}
                 bordered={false}
+                className="FilterCollapse"
             >
                 <Panel header="Subproject Types" key="1" >
                     <SubProjectTypesFilter subProjectTypes={subProjectTypes} setSubProjectTypesFilter={setSubProjectTypesFilter}

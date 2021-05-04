@@ -1,11 +1,15 @@
+.mapSideNav .ant-drawer-body {
+    padding: 0;
+}
+
+.mapSideNav .ant-drawer-content {
+    overflow: hidden;
+}
+
 .SideNav {
     display: flex;
-    position: fixed;
     left: 0;
     height: 100vh;
-    z-index: 1000;
-    background: #ffffff;
-    border-top: 2px solid #0f6788;
 }
 
 .SideNav .nav-items-list {
@@ -21,6 +25,10 @@ hr {
     padding-bottom: 10px;
 }
 
+.NavItemDetails {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
 
 @media screen and (max-width: 2560px) {
     .SideNavItem:not(:first-child) {
@@ -31,15 +39,6 @@ hr {
 }
 
 @media screen and (max-width: 1440px) {
-    .CheckBoxGroupFilter label {
-        /* width: 320px; */
-    }
-    .CheckBoxGroupFilter .statusFilter label {
-        /* width: 80px; */
-    }
-    .NavItemDetails {
-        width: 24vw !important;
-    }
     .SideNavItem:not(:first-child) {
         border-top: 1px solid #dcd9d954;
         ;
@@ -48,15 +47,6 @@ hr {
 }
 
 @media screen and (max-width: 1024px) {
-    /* .CheckBoxGroupFilter label {
-        width: 280px;
-    }
-    .CheckBoxGroupFilter .statusFilter label {
-        width: 74px;
-    } */
-    .NavItemDetails {
-        width: 30vw !important;
-    }
     .SideNavItem:not(:first-child) {
         border-top: 1px solid #dcd9d954;
         ;
@@ -92,13 +82,7 @@ hr {
         width: 100% !important;
         height: 100vh;
     }
-    /* .CheckBoxGroupFilter .statusFilter label {
-        width: 180px;
-    } */
-    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .regionFilter label
-    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .districtFilter label
-    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .contractorFilter label
-    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .procuringFilter label {
+    .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .regionFilter label .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .districtFilter label .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .contractorFilter label .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .procuringFilter label {
         width: 100%;
     }
 }
@@ -129,9 +113,6 @@ hr {
         width: 100% !important;
         height: 100vh;
     }
-    /* .CheckBoxGroupFilter .statusFilter label {
-        width: 98px;
-    } */
     .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .regionFilter label {
         width: 6%;
     }

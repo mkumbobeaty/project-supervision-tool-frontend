@@ -7,10 +7,7 @@
     color: #fff;
 }
 
-.NavItemDetails {
-    overflow-y: auto;
-    overflow-x: hidden;
-}
+
 
 .marker-pin {
     position: absolute;
