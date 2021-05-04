@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { Map } from 'react-leaflet';
+import { MapContainer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import 'react-leaflet-fullscreen/dist/styles.css'
 import L from 'leaflet';
-import LayerControl from '../components/LayerControl';
 import "./styles.css";
-import Legend from '../components/Legend';
+import Legend from '../Legend';
+import BaseMapSwitcher from "./components/BaseMapSwitcher";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -25,12 +25,14 @@ const position = [state.lat, state.lng]
 
 const BaseMap = ({ children, zoomControl }) => {
 
+
+
     return (
-        <Map center={position} zoom={state.zoom} className="base-map" zoomControl={zoomControl}>
-            <LayerControl />
+        <MapContainer center={position} zoom={state.zoom} className="base-map" zoomControl={zoomControl}>
             <Legend />
+            <BaseMapSwitcher />
             {children}
-        </Map>)
+        </MapContainer>)
 }
 
 export default BaseMap;

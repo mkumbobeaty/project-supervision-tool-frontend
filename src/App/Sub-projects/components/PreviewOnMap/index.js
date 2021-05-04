@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import L from 'leaflet';
 import {GeoJSON} from 'react-leaflet';
 import "./styles.css";
-import BaseMap from "../../../Map/BaseMap";
+import BaseMap from "../../../Map/components/BaseMap";
 import {getGeoJsonFromLocation} from '../../../../Util';
 
 class PreviewOnMap extends  Component {

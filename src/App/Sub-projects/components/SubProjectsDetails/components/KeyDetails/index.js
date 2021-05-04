@@ -1,8 +1,7 @@
 import {Col, Row, Spin} from "antd";
 import React from "react";
 import ProjectsProgress from "../../../../../Projects/components/ProjectsDetails/Progress";
-import BaseMap from "../../../../../Map/BaseMap";
-import FullscreenControl from "react-leaflet-fullscreen";
+import BaseMap from "../../../../../Map/components/BaseMap";
 import SubProjectPoints from "../../../../../Map/components/SubProjectPoints";
 import ReportOverview from "../ReportOverview";
 import {isoDateToHumanReadableDate} from "../../../../../../Util";
@@ -110,7 +109,6 @@ const KeyDetailSection = ({sub_project, mapLoading }) => {
                         <h5>Sub Project Location</h5>
                         <div className="project_map">
                             <BaseMap zoomControl={true}>
-                                <FullscreenControl position="topright"/>
                                 <SubProjectPoints subProjects={[sub_project]}/>
                             </BaseMap>
                         </div>

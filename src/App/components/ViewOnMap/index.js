@@ -1,17 +1,18 @@
 import L from "leaflet";
-import {GeoJSON, withLeaflet} from "react-leaflet";
+import {GeoJSON, useMap} from "react-leaflet";
 import React from "react";
 import PropTypes from 'prop-types';
 import {Modal} from "antd";
-import BaseMap from "../../Map/BaseMap";
+import BaseMap from "../../Map/components/BaseMap";
 import './styles.css';
 
 function ShowFeature({data, leaflet}) {
+    const map = useMap();
 
     const onEachFeature = (feature, layer) => {
         if (feature.geometry.type === 'Point') {
             const latLng = L.GeoJSON.coordsToLatLng(feature.geometry.coordinates)
-            return leaflet.map.setView(latLng, 18);
+            return map.setView(latLng, 18);
         }
 
         return leaflet.map.fitBounds(layer.getBounds());
@@ -22,7 +23,6 @@ function ShowFeature({data, leaflet}) {
     return data.length === 1 ? (<GeoJSON data={data[0]} onEachFeature={onEachFeature}/>) : randerGeoJson(data);
 }
 
-const WrappedInMap = withLeaflet(ShowFeature);
 
 function ViewOnMap({data, showMApModal, handleOnCancel}) {
 
@@ -40,7 +40,7 @@ function ViewOnMap({data, showMApModal, handleOnCancel}) {
                 visible={showMApModal}
             >
                 <BaseMap>
-                    <WrappedInMap data={data}/>
+                    <ShowFeature data={data}/>
                 </BaseMap>
             </Modal>
         </div>

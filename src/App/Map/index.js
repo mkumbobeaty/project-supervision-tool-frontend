@@ -3,7 +3,7 @@ import { Spin } from 'antd';
 import PropTypes from "prop-types";
 import { ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
-import BaseMap from "./BaseMap";
+import BaseMap from "./components/BaseMap";
 import { bindActionCreators } from "redux";
 import { mapActions, mapSelectors } from "../../redux/modules/map";
 import SideNav from "./components/SideNav";

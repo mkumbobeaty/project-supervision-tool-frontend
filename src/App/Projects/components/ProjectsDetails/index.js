@@ -3,8 +3,7 @@ import { Col, Layout, Row, Spin, Tabs } from 'antd';
 import KeyDetailSection from "./KeyDetails";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../../redux/modules/projects";
-import BaseMap from "../../../Map/BaseMap";
-import FullscreenControl from 'react-leaflet-fullscreen';
+import BaseMap from "../../../Map/components/BaseMap";
 import { mapSelectors } from "../../../../redux/modules/map";
 import ProjectsProgress from "./Progress";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
@@ -88,7 +87,6 @@ class Project extends Component {
                         <Col {...secondSpan} className="project_map" offset={1} >
                           <Spin spinning={mapLoading} tip="Loading data...">
                             <BaseMap ref={this.map} zoomControl={true}>
-                              <FullscreenControl position="topright" />
                               { project ? <ProjectPoints projects={[project]} /> : ''}
                             </BaseMap>
                           </Spin>

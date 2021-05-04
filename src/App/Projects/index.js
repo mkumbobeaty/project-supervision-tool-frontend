@@ -14,7 +14,7 @@ import CommonProjectForm from "./components/Forms";
 import { focalPeopleOperation, focalPeopleSelectors } from "../FocalPeople/duck";
 import { projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
 import ProjectLocations from "../Map/components/ProjectLocations";
-import BaseMap from "../Map/BaseMap";
+import BaseMap from "../Map/components/BaseMap";
 import SideNav from "../Map/components/SideNav";
 import { mapSelectors } from "../../redux/modules/map";
 import "./styles.css";
