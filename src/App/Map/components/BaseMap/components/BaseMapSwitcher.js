@@ -29,6 +29,7 @@ function BaseMapSwitcher() {
         console.log('map', map);
         map.addControl(L.control.basemaps({
             basemaps: BASE_MAPS,
+            position: "bottomleft",
             tileX: 0,  // tile X coordinate
             tileY: 0,  // tile Y coordinate
             tileZ: 1   // tile zoom level
