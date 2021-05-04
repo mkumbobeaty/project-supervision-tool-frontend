@@ -66,7 +66,7 @@ const UserMenu = ({ history: { push } }) => {
   );
 
   return (
-    <div>
+    <div className='UserMenu'>
       <Dropdown overlay={menu}>
         <Button className="UserButton" icon={<UserOutlined />} />
       </Dropdown>

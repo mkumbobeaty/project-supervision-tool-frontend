@@ -37,7 +37,14 @@ class SubProjectPoints extends Component {
                         const polygon = JSON.parse(district.geom);
                         const { geometry } = turf.pointOnFeature(polygon);
 
-                        var customizedIcon = divIcon({ className: 'customizedIcon' });
+                        var customizedIcon = divIcon({ 
+                    	className: 'custom-div-icon',
+                        html: `<div style='background-color:#4838cc;' 
+                        class='marker-pin-sub'></div>
+                        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhpFe34FzuAgeiZEVm5lnKddZYQ5HLF9StdA&usqp=CAU'
+                         class='awesome'>`,
+                        iconSize: [30, 42],
+                        iconAnchor: [15, 42] });
 
                         return (
                             <Marker

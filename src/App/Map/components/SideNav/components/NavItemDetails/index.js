@@ -9,7 +9,6 @@ import './styles.css'
 function NavItemDetails({ activeItem }) {
     return (
         <div
-            style={activeItem === '' ? { display: 'none' } : { width: '20vw' }}
             className='NavItemDetails'
         >
             {activeItem === 'projects' ? <ProjectsMenuItemDetails /> : ''}
