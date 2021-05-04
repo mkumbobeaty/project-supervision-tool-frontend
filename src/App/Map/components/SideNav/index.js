@@ -9,7 +9,11 @@ import { Link } from 'react-router-dom';
 import projectsIcon from '../../../../assets/icons/projects-white.svg';
 import layersIcon from "../../../../assets/icons/geo-node-layers-white.svg";
 import homeIcon from '../../../../assets/icons/home-white.svg';
-import { Drawer, Button } from 'antd';
+import { Drawer } from 'antd';
+import {
+    MenuUnfoldOutlined,
+    CaretLeftOutlined
+} from '@ant-design/icons';
 import './styles.css';
 
 class SideNav extends Component {
@@ -59,16 +63,18 @@ class SideNav extends Component {
         const { showSideNav } = this.state;
         return (
             <section >
-                <Button type="primary" onClick={this.handleShowSideNav}>
-                    Open
-                </Button>
+                <div className="openDrawer">
+                    <MenuUnfoldOutlined onClick={this.handleShowSideNav} style={{ fontSize: '150%', padding: '12px 16px' }} />
+                </div>
+
                 <Drawer
                     placement="left"
                     mask={false}
                     onClose={this.handleCloseSideNav}
                     visible={showSideNav}
                     className="mapSideNav"
-                    width={455}
+                    width={450}
+                    closeIcon={<CaretLeftOutlined />}
                 >
                     <div className='SideNav'>
                         <div className='nav-items-list'>

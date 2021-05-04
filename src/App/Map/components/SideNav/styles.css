@@ -6,6 +6,17 @@
     overflow: hidden;
 }
 
+.openDrawer {
+    display: flex;
+    position: fixed;
+    z-index: 1000;
+    background: #fff;
+    left: 10px;
+    top: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+
+}
+
 .SideNav {
     display: flex;
     left: 0;
