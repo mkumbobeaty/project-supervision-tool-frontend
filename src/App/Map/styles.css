@@ -12,13 +12,17 @@
     overflow-x: hidden;
 }
 
-.customizedIcon {
-    border-radius: 50%;
-    background-color: #0f6788;
-    width: 30px !important;
-    height: 30px !important;
-    margin: 0 !important;
-    opacity: 0.8;
+.marker-pin {
+    position: absolute;
+    transform: rotate(-45deg);
+    border-radius: 50% 50% 50% 50%;
+}
+
+.customizedIcon h4 {
+    position: absolute;
+    font-weight: 500;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 .leaflet-popup.leaflet-zoom-animated {
@@ -65,7 +69,7 @@
     .popupHeader h2 {
         font-size: 14px;
     }
-    .leaflet-popup-content{
+    .leaflet-popup-content {
         width: 200px !important;
     }
 }

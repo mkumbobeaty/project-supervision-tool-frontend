@@ -10,8 +10,7 @@ import SideNavItemOverview from "../SideNavItemOverview";
 import ProjectStatusFilter from "../ProjectStatusFilter";
 import ProjectsFilter from "../ProjectsFilter";
 import RegionsFilter from "../RegionsFilter";
-import { mapSubProjectActions, mapSubProjectSelectors } from "../../../../../../../../../../redux/modules/map/subProjects";
-import SubProjectTypesFilter from "../SuProjectTypesFilter";
+import { mapSubProjectActions } from "../../../../../../../../../../redux/modules/map/subProjects";
 
 /**
  * @function
@@ -51,7 +50,7 @@ function ProjectsOverview(
 
     const overViewData = projectsStatistics ? [
         { title: 'Projects', value: projectsStatistics.projects, },
-        { title: 'Sub Projects', value: projectsStatistics.sub_projects },
+        // { title: 'Sub Projects', value: projectsStatistics.sub_projects },
         { title: 'Regions', value: projectsStatistics.regions },
     ] : [];
 

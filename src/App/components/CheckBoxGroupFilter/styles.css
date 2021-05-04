@@ -20,7 +20,7 @@
     cursor: pointer;
 }
 
-.projectFilter {
+.projectFilter, .statusFilter, .regionFilter {
     padding-top: 10px;
 }
 

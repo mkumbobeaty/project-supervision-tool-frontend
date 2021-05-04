@@ -34,10 +34,10 @@ const ContractorsFilter = ({ contractors, setSubProjectContractorsFilter }) => {
         <CheckBoxGroupFilter
             items={contractorsFilterData}
             itemsPerPage={5}
-            filterTitle={`Contractors`}
+            // filterTitle={`Contractors`}
             // filterClass={`projectFilter`}
             handleFilter={handleOnclickFilterItem}
-            projectFilterClass="regionFilter"
+            projectFilterClass="contractorFilter"
         />
     )
 }
