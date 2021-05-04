@@ -11,6 +11,9 @@ import ProjectStatusFilter from "../ProjectStatusFilter";
 import ProjectsFilter from "../ProjectsFilter";
 import RegionsFilter from "../RegionsFilter";
 import { mapSubProjectActions } from "../../../../../../../../../../redux/modules/map/subProjects";
+import { Collapse } from 'antd';
+
+const { Panel } = Collapse;
 
 /**
  * @function
@@ -34,7 +37,7 @@ function ProjectsOverview(
         getProjectsFilters,
         getProject,
         setProjectRegionsFilter,
-    
+
     }
 ) {
 
@@ -50,32 +53,46 @@ function ProjectsOverview(
 
     const overViewData = projectsStatistics ? [
         { title: 'Projects', value: projectsStatistics.projects, },
-        // { title: 'Sub Projects', value: projectsStatistics.sub_projects },
         { title: 'Regions', value: projectsStatistics.regions },
     ] : [];
 
     return (
         <>
-            <TopSection title="OVERVIEWS" />
-            <SideNavItemOverview
-                overViewData={overViewData}
-                loadingStatistics={loadingStatistics}
-            />
-            <ProjectStatusFilter
-                statuses={statuses}
-                setProjectStatusFilter={setProjectStatusFilter}
-            />
-            <ProjectsFilter
-                projects={projects}
-                getSubProjects={getSubProjects}
-                getProject={getProject}
-                setProjectIdFilter={setProjectIdFilter}
-            />
-            <RegionsFilter
-                regions={regions}
-                setProjectRegionsFilter={setProjectRegionsFilter}
-            />
-    
+            <div className="ProjectInfo">
+                <TopSection title="OVERVIEWS" />
+                <SideNavItemOverview
+                    overViewData={overViewData}
+                    loadingStatistics={loadingStatistics}
+                />
+
+                <Collapse
+                    defaultActiveKey={['1', '2', '3']}
+                    expandIconPosition={'right'}
+                    bordered={false}
+                    className="FilterCollapse"
+                >
+                    <Panel header="Project Status" key="1" >
+                        <ProjectStatusFilter
+                            statuses={statuses}
+                            setProjectStatusFilter={setProjectStatusFilter}
+                        />
+                    </Panel>
+                    <Panel header="Projects" key="2" >
+                        <ProjectsFilter
+                            projects={projects}
+                            getSubProjects={getSubProjects}
+                            getProject={getProject}
+                            setProjectIdFilter={setProjectIdFilter}
+                        />
+                    </Panel>
+                    <Panel header="Regions" key="3" >
+                        <RegionsFilter
+                            regions={regions}
+                            setProjectRegionsFilter={setProjectRegionsFilter}
+                        />
+                    </Panel>
+                </Collapse>
+            </div>
 
         </>
     );
@@ -100,7 +117,7 @@ const mapDispatchToProps = (dispatch) => ({
     setProjectIdFilter: bindActionCreators(projectActions.setProjectIdFilter, dispatch),
     setProjectRegionsFilter: bindActionCreators(projectActions.setProjectRegionsFilter, dispatch),
     getSubProjects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
-   
+
 });
 
 
@@ -114,8 +131,8 @@ ProjectsOverview.propTypes = {
     setShowRegionalOverview: PropTypes.func.isRequired,
     getProject: PropTypes.func.isRequired,
     setProjectStatusFilter: PropTypes.array.isRequired,
-    getSubProjects:PropTypes.func.isRequired,
-    project:PropTypes.object.isRequired,
+    getSubProjects: PropTypes.func.isRequired,
+    project: PropTypes.object.isRequired,
 }
 
 ProjectsOverview.defaultProps = {

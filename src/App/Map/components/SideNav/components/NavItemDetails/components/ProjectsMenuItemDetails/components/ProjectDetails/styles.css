@@ -1,5 +1,5 @@
 .ProjectInfo {
-    padding: 5px 10px 10px 10px;
+    padding: 5px 5px 10px 10px;
 }
 
 .ProjectInfo .top-section {
@@ -68,4 +68,8 @@
 .ProjectInfo .CheckBoxGroupFilter h4 {
     display: none;
     border-bottom: 0px;
+}
+
+.FilterCollapse.ant-collapse-borderless{
+    background-color: #ffffff;
 }

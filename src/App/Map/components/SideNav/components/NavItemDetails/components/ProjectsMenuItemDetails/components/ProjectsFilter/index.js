@@ -39,7 +39,7 @@ const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects, getProject
         <CheckBoxGroupFilter
             items={projectsFilterData}
             itemsPerPage={5}
-            filterTitle={`Projects`}
+            // filterTitle={`Projects`}
             handleOnClickFilterValue={handleOnClickFilterValue}
             handleFilter={handleOnclickFilterItem}
             filterClass="projectFilter"

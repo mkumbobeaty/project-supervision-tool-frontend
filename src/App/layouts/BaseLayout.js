@@ -16,8 +16,8 @@ import AdminPanel from "../AdminPanel";
 import PrivateRoute from '../Auth/PrivateRoute';
 import Users from "../Users";
 import Contracts from "../Contracts";
-import "./styles.css";
 import Roles from "../Roles";
+import "./styles.css";
 
 /* constants */
 const { Header, Content } = Layout;
