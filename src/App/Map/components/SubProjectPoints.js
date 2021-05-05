@@ -1,13 +1,11 @@
 
-import { withLeaflet, Popup, Marker } from "react-leaflet";
+import { Popup, Marker } from "react-leaflet";
 import { divIcon } from 'leaflet';
 import React, { Component } from "react";
 import PropTypes from 'prop-types';
-import Spiderfy from "./Spiderfy";
 import { Link } from "react-router-dom";
 import * as turf from '@turf/turf';
-
-import { isoDateToHumanReadableDate, moneyFormat } from "../../../Util";
+import FieldNotePoints from "./FieldNotePoints";
 
 class SubProjectPoints extends Component {
 
@@ -29,7 +27,7 @@ class SubProjectPoints extends Component {
 
     render() {
         const { subProjects } = this.props;
-        console.log(subProjects)
+       
         return (
             <>
                 { subProjects.map(({ districts,name,id }) => {
@@ -41,12 +39,12 @@ class SubProjectPoints extends Component {
                     	className: 'custom-div-icon',
                         html: `<div style='background-color:#4838cc;' 
                         class='marker-pin-sub'></div>
-                        <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhpFe34FzuAgeiZEVm5lnKddZYQ5HLF9StdA&usqp=CAU'
-                         class='awesome'>`,
-                        iconSize: [30, 42],
-                        iconAnchor: [15, 42] });
+                        `,
+                        iconSize: [30, 42]
+                     });
 
                         return (
+                            <div>
                             <Marker
                                 position={[geometry.coordinates[1], geometry.coordinates[0]]}
                                 title={name}
@@ -60,6 +58,8 @@ class SubProjectPoints extends Component {
                                     <Link to="/app/map">View project</Link>
                                 </Popup>
                             </Marker>
+                            <FieldNotePoints />
+                           </div>
                         );
                     }) : '';
 
