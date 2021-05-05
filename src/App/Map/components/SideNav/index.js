@@ -15,6 +15,7 @@ import {
     CaretLeftOutlined
 } from '@ant-design/icons';
 import './styles.css';
+import UserMenu from '../../../navigation/UserMenu';
 
 class SideNav extends Component {
 
@@ -109,7 +110,7 @@ class SideNav extends Component {
                                 clearOverview={() => {
                                 }}
                             />
-
+                            <UserMenu />
                         </div>
                         <NavItemDetails activeItem={activeItem} />
                     </div>

@@ -41,7 +41,24 @@ hr {
     overflow-x: hidden;
     width: 450px;
 }
+.nav-items-list .UserMenu{
+    justify-content: space-between;
+    position: relative;
+    top: 650px;
+    left: 10px;
+}
+.nav-items-list .UserMenu > button{
+    background-color: #0f6788;
 
+}
+.nav-items-list .UserMenu .anticon svg{
+    color: #fff;
+}
+/* .nav-items-list .ant-dropdown.ant-dropdown-placement-topLeft{
+    min-width: 32px; 
+    left: 75px !important;
+    top: 860px !important;
+} */
 @media screen and (max-width: 2560px) {
     .SideNavItem:not(:first-child) {
         border-top: 1px solid #dcd9d954;
