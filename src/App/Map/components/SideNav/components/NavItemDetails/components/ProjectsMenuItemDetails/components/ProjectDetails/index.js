@@ -7,8 +7,6 @@ import { mapSubProjectActions, mapSubProjectSelectors } from "../../../../../../
 import SubProjectTypesFilter from "../SubProjectTypesFilter";
 import SubProjectStatusFilter from "../SubProjectStatusFilter";
 import { projectActions, projectSelectors } from "../../../../../../../../../../redux/modules/projects";
-import RegionsFilter from "../RegionsFilter";
-import DistrictsFilter from "../DistrictsFilter";
 import ContractorsFilter from "../ContractorsFilter";
 import ProcuringEntityPackageFilter from "../ProcuringEntityFilter";
 import CustomSearch from "../../../CustomSearch";
@@ -16,9 +14,9 @@ import TopSection from "../../../TopSection";
 import { mapActions } from "../../../../../../../../../../redux/modules/map";
 import BackLink from "../BackLink";
 import { Collapse } from 'antd';
-import './styles.css';
 import ComponentSubComponentFilter from "../Component&SubComponentFilter ";
 import SubProjectRegionsFilter from "../SubProjectRegionsFilter";
+import './styles.css';
 
 const { Panel } = Collapse;
 
@@ -71,6 +69,7 @@ function ProjectDetails({
                 defaultActiveKey={['1']}
                 expandIconPosition={'right'}
                 bordered={false}
+                className="FilterCollapse"
             >
                 <Panel header="Subproject Types" key="1" >
                     <SubProjectTypesFilter subProjectTypes={subProjectTypes} setSubProjectTypesFilter={setSubProjectTypesFilter}

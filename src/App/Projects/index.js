@@ -249,8 +249,7 @@ class Projects extends Component {
 
     const { isEditForm, previewOnMap } = this.state;
     return previewOnMap ? <div className="MapDashboard">
-      <SideNav>
-      </SideNav>
+      <SideNav />
       <Spin spinning={mapLoading} tip="Loading data...">
         <BaseMap ref={this.map} zoomControl={true}>
           <ProjectLocations project={project} />
