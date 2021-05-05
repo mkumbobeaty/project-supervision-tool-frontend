@@ -26,7 +26,7 @@ function Legend({position}) {
 
     const positionClass = (position && POSITION_CLASSES[position]) || POSITION_CLASSES.bottomright
     return (
-        <div className={`${positionClass} info legend`} style={{ margin: '10px'}}>
+        <div className={`${positionClass} info legend`} style={{ marginRight: '10px', marginBottom: '20px'}}>
             <h4>Projects</h4>
                 {
                     data.map(({color, title}) =>

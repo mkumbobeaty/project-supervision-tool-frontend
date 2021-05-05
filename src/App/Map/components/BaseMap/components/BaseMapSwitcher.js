@@ -1,7 +1,6 @@
 
 import React, {useEffect} from 'react';
-import 'leaflet-basemaps';
-import 'leaflet-basemaps/L.Control.Basemaps.css';
+
 import L from "leaflet";
 import {useMap} from "react-leaflet";
 
@@ -26,17 +25,24 @@ function BaseMapSwitcher() {
 
     const map = useMap();
     const renderBaseMapSwitcher = () => {
-        console.log('map', map);
         map.addControl(L.control.basemaps({
             basemaps: BASE_MAPS,
             position: "bottomleft",
             tileX: 0,  // tile X coordinate
             tileY: 0,  // tile Y coordinate
-            tileZ: 1   // tile zoom level
+            tileZ: 1 ,  // tile zoom level,
+            basemap: [2]
         }));
     }
     useEffect(() => {
         renderBaseMapSwitcher();
+
+        return () => {
+            map.eachLayer(function (layer) {
+                map.removeLayer(layer);
+            });
+        }
+
     }, []);
 
     return '';
