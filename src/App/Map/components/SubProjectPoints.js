@@ -31,11 +31,7 @@ class SubProjectPoints extends Component {
         const { subProjects } = this.props;
         console.log(subProjects)
         return (
-            <Spiderfy
-                onClick={this.handleSpiderfyClick}
-                onSpiderfy={this.handleSpiderfy}
-                onUnspiderfy={this.handleUnspiderfy}
-            >
+            <>
                 { subProjects.map(({ districts,name,id }) => {
                     return districts.length > 0 ? districts.map((district) => {
                         const polygon = JSON.parse(district.geom);
@@ -68,9 +64,9 @@ class SubProjectPoints extends Component {
                     }) : '';
 
                 })}
-            </Spiderfy>);
+            </>);
     }
 }
 
 
-export default withLeaflet(SubProjectPoints);
+export default SubProjectPoints;
