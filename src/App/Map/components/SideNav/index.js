@@ -74,7 +74,7 @@ class SideNav extends Component {
                     visible={showSideNav}
                     className="mapSideNav"
                     width={450}
-                    closeIcon={<CaretLeftOutlined />}
+                    // closeIcon={<CaretLeftOutlined />}
                 >
                     <div className='SideNav'>
                         <div className='nav-items-list'>

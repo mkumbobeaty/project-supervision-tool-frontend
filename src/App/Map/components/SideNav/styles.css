@@ -39,6 +39,7 @@ hr {
 .NavItemDetails {
     overflow-y: auto;
     overflow-x: hidden;
+    width: 450px;
 }
 
 @media screen and (max-width: 2560px) {
