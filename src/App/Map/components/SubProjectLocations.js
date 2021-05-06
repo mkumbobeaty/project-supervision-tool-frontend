@@ -1,88 +1,22 @@
-import React, {Component} from 'react';
-import {GeoJSON, Marker, Popup, withLeaflet} from "react-leaflet";
-import L from "leaflet";
-import Spiderfy from "./Spiderfy";
-import {Button} from "antd";
+import React from "react";
+import PropTypes from 'prop-types';
+import {GeoJSON} from 'react-leaflet';
 
-/**
- * @function
- * @name mapSubProjectElementsToLocationPoints
- * @description generate points from su project elements
- */
-const mapSubProjectElementsToLocationPoints = ({name, sub_project_locations}) => {
-        return sub_project_locations.map(
-            ({point, id, layer_name }) => ({coordinates: point.coordinates, id, name, layer_name }))
+function SubProjectLocations({ subProjects, getSubproject }) {
+
+    return (
+        <>
+            {
+                subProjects.map(({geo_json}) => <GeoJSON data={geo_json}/>)
+            }
+        </>
+
+    );
 }
 
-/**
- * @class
- * @name SubProjectLocations
- * @description component that renders sub project locations as polygons on map with
- *  sub project elements as marker points on top of those polygons
- */
-class SubProjectLocations extends Component {
+export default SubProjectLocations;
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (((prevProps.subProject !== this.props.subProject) && this.props.subProject)) {
-            // const {map} = this.props.leaflet;
-            // map.setView(L.latLng(-6.161184, 35.745426), 6);
-        }
-    }
-
-    onEachFeature = (feature, layer) => {
-        const { map } = this.props.leaflet;
-        map.fitBounds(layer.getBounds());
-    }
-
-    handleShowLayer = layer_name => {
-        this.props.getWfsLayerData(layer_name);
-        localStorage.setItem('subProjectLayerName', layer_name);
-    }
-
-
-    renderSubProjectElements = (subProjectElements) => {
-        const data = mapSubProjectElementsToLocationPoints(subProjectElements);
-        return data.map(({coordinates, id, name, layer_name }) => (
-                <Marker position={[coordinates[1], coordinates[0]]} key={id} onEachFeature={this.onEachFeature}>
-                    <Popup>
-                        <h3>Sub Project</h3>
-                        <div> { name }</div>
-                        {
-                            layer_name ? <Button
-                                type="primary"
-                                onClick={() => this.handleShowLayer(layer_name)}
-                            >
-                                Show Sub project Layer
-                            </Button> : ''
-                        }
-                    </Popup>
-                </Marker>
-        ));
-    }
-
-    renderDistricts = (subProject) => subProject?.sub_project_locations.map(({district, id}) => {
-
-        return (
-            <GeoJSON key={id} data={district.geom} onEachFeature={this.onEachFeature}>
-                <Popup>
-                    <div><b>SubProject :</b> {subProject.name}</div>
-                    <div><b>District :</b> {district.name}</div>
-                </Popup>
-            </GeoJSON>
-        );
-    })
-
-    render() {
-        const {subProject} = this.props;
-        return subProject ? (
-            <>
-                {this.renderDistricts(subProject)}
-                <Spiderfy>
-                    {this.renderSubProjectElements(subProject)}
-                </Spiderfy>
-                </>
-        ) : '';
-    }
+SubProjectLocations.propTypes = {
+    subProjects: PropTypes.array.isRequired,
+    getSubproject: PropTypes.func.isRequired,
 }
-
-export default withLeaflet(SubProjectLocations);

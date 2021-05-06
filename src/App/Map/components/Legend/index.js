@@ -1,6 +1,4 @@
 import React from "react";
-import { useMap } from 'react-leaflet';
-import L from "leaflet";
 import './styles.css';
 
 // Classes used by Leaflet to position controls
@@ -13,7 +11,6 @@ const POSITION_CLASSES = {
 
 function Legend({ position, projects }) {
 
-    // const map = useMap();
     const positionClass = (position && POSITION_CLASSES[position]) || POSITION_CLASSES.bottomright
     return (
         <div>

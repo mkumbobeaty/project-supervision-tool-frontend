@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 import {MapContainer, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -6,9 +6,7 @@ import 'leaflet-basemaps';
 import 'leaflet-basemaps/L.Control.Basemaps.css';
 import L from 'leaflet';
 import "./styles.css";
-import Legend from '../Legend';
 import BaseMapSwitcher from "./components/BaseMapSwitcher";
-import { projects } from '../../../../redux/modules/map/projects/reducers';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -32,7 +30,6 @@ const BaseMap = ({children, projects}) => {
 
     return (
         <MapContainer center={position} zoom={state.zoom} className="base-map" zoomControl={false}>
-            <Legend projects={projects} />
             <BaseMapSwitcher />
             <ZoomControl position="topright"/>
             {children}

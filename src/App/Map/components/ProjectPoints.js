@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import * as turf from '@turf/turf';
 import ProjectPopupDetail from "./ProjectPopup";
 import { invertColor, moneyFormatWithApproximation } from "../../../Util";
+import Legend from "./Legend";
 
 
 function ProjectPoints({ projects, project, loading, getProject }) {
@@ -53,7 +54,7 @@ function ProjectPoints({ projects, project, loading, getProject }) {
                     });
 
                     return (
-                        <div>
+                        <>
                             <Marker
                                 position={[geometry.coordinates[1], geometry.coordinates[0]]}
                                 title={region.name}
@@ -65,7 +66,8 @@ function ProjectPoints({ projects, project, loading, getProject }) {
                                     <ProjectPopupDetail project={project} loading={loading} />
                                 </Popup>
                             </Marker>
-                        </div>
+                            <Legend projects={projects} />
+                        </>
 
                     );
                 }) : '';
