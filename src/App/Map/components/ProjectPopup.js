@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Spin } from "antd";
 
-const MapPopupDetail = ({ project, loading }) => {
+const ProjectPopupDetail = ({ project, loading }) => {
     const getCommitmentAmount = (data) => {
         const { amount, currency } = data
         const { iso } = currency;
@@ -21,7 +21,7 @@ const MapPopupDetail = ({ project, loading }) => {
                 <div className="projectDetail">
                     <span >
                         <h4>World Bank Project ID</h4>
-                        <p>{project ? project?.id : 'N/A'}</p>
+                        <p>{project ? project?.wb_project_id : 'N/A'}</p>
                     </span>
                     <div className="timeFrame">
                         <span>
@@ -55,9 +55,9 @@ const MapPopupDetail = ({ project, loading }) => {
     )
 }
 
-export default MapPopupDetail;
+export default ProjectPopupDetail;
 
-MapPopupDetail.propTypes = {
+ProjectPopupDetail.propTypes = {
     project: PropTypes.string.isRequired,
     loading: PropTypes.bool.isRequired
 }

@@ -7,8 +7,6 @@
     color: #fff;
 }
 
-
-
 .marker-pin {
     position: absolute;
     transform: rotate(-45deg);
@@ -36,7 +34,7 @@
     border: 1px solid #3b3a3a94;
 }
 
-.mapPopup h3, .projectDetail {
+ .projectDetail {
     margin: 15px;
 }
 
@@ -57,6 +55,10 @@
     background-color: #0f6788;
 }
 
+.mapPopup h4 {
+    color: #0f6788;
+}
+
 .popupHeader h2 {
     padding: 12px;
     color: #fff;
@@ -71,40 +73,47 @@
     }
 }
 
-.marker-pin-sub {
+.marker-pin-sub, .fieldMarker {
     width: 30px;
     height: 30px;
-    border-radius: 50% 50% 50% 0;
     background: #c30b82;
     position: absolute;
     transform: rotate(-45deg);
     left: 50%;
     top: 50%;
     margin: -15px 0 0 -15px;
-  }
-  
-  .marker-pin-sub::after {
-      content: '';
-      width: 24px;
-      height: 24px;
-      margin: 3px 0 0 3px;
-      background: #fff;
-      position: absolute;
-      border-radius: 50%;
-   }
-  
-  .custom-div-icon img {
-     position: absolute;
-     width: 22px;
-     font-size: 22px;
-     left: 0;
-     right: 0;
-     margin: 10px auto;
-     text-align: center;
-  }
-  
-  .custom-div-icon .awesome {
+}
+
+.marker-pin-sub {
     border-radius: 50%;
-    width: 2vw;
-    height: 2.4vh;
-  }
+}
+
+.fieldMarker {
+    border-radius: 50% 50% 50% 0;
+}
+
+.marker-pin-sub::after, .fieldMarker::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin: 3px 0 0 3px;
+    /* background: #fff; */
+    position: absolute;
+    border-radius: 50%;
+}
+
+.fieldNoteIcon img {
+    position: absolute;
+    width: 22px;
+    font-size: 22px;
+    left: 0;
+    right: 0;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.fieldNoteIcon .awesome {
+    border-radius: 50%;
+    width: 78%;
+    height: 55%
+}

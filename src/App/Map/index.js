@@ -50,17 +50,18 @@ class MapDashboard extends Component {
             isShowProjectOverview,
             getProject,
             project,
-            loading
+            loading,
+            getSubproject
         } = this.props;
 
         return (
             <div className="MapDashboard">
                 <Spin spinning={mapLoading} tip="Loading data...">
                     <SideNav />
-                    <BaseMap>
+                    <BaseMap projects={projects}>
                         {
                             isShowProjectOverview === true ? projects.length > 0 ? <ProjectPoints projects={projects} getProject={getProject} project={project} loading={loading} /> : '' :
-                                subProjects.length > 0 ? <SubProjectPoints subProjects={subProjects} /> : ''
+                                subProjects.length > 0 ? <SubProjectPoints subProjects={subProjects} getSubproject={getSubproject} /> : ''
                         }
                         <ShowDataSets />
                     </BaseMap>
@@ -86,6 +87,7 @@ const mapDispatchToProps = (dispatch) => ({
     getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
     getSubprojects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
     getProject: bindActionCreators(mapProjectActions.getProjectStart, dispatch),
+    getSubproject:bindActionCreators(mapSubProjectActions.getSubProjectStart, dispatch)
 
 });
 
