@@ -8,6 +8,7 @@ import L from 'leaflet';
 import "./styles.css";
 import Legend from '../Legend';
 import BaseMapSwitcher from "./components/BaseMapSwitcher";
+import { projects } from '../../../../redux/modules/map/projects/reducers';
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -27,11 +28,11 @@ const state = {
 
 const position = [state.lat, state.lng]
 
-const BaseMap = ({children}) => {
+const BaseMap = ({children, projects}) => {
 
     return (
         <MapContainer center={position} zoom={state.zoom} className="base-map" zoomControl={false}>
-            <Legend/>
+            <Legend projects={projects} />
             <BaseMapSwitcher />
             <ZoomControl position="topright"/>
             {children}
@@ -42,7 +43,8 @@ const BaseMap = ({children}) => {
 export default BaseMap;
 
 BaseMap.propTypes = {
-    zoomControl: PropTypes.bool
+    zoomControl: PropTypes.bool,
+    projects: PropTypes.array.isRequired
 }
 
 BaseMap.defaultProps = {
