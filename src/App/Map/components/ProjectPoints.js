@@ -3,12 +3,11 @@ import { divIcon } from 'leaflet';
 import React from "react";
 import PropTypes from 'prop-types';
 import * as turf from '@turf/turf';
-import MapPopupDetail from "./PopupDetails";
-import randomColor from 'randomcolor';
+import ProjectPopupDetail from "./ProjectPopup";
 import { invertColor, moneyFormatWithApproximation } from "../../../Util";
 
 
-function ProjectPoints ({ projects, project, loading, getProject }) {
+function ProjectPoints({ projects, project, loading, getProject }) {
 
     const handleProjectPopup = (project_id) => {
         getProject(project_id);
@@ -27,10 +26,8 @@ function ProjectPoints ({ projects, project, loading, getProject }) {
 
     return (
         <>
-            { projects.map(({ regions, id, details }) => {
+            { projects.map(({ regions, id, details, color }) => {
 
-                // color generated for projects
-                const color = randomColor();
                 const invertedColor = invertColor(color);
 
                 // dimesion required for displaying markers
@@ -56,17 +53,20 @@ function ProjectPoints ({ projects, project, loading, getProject }) {
                     });
 
                     return (
-                        <Marker
-                            position={[geometry.coordinates[1], geometry.coordinates[0]]}
-                            title={region.name}
-                            key={region.id}
-                            icon={customizedIcon}
-                            onClick={() => handleProjectPopup(id)}
-                        >
-                            <Popup>
-                                <MapPopupDetail project={project} loading={loading} />
-                            </Popup>
-                        </Marker>
+                        <div>
+                            <Marker
+                                position={[geometry.coordinates[1], geometry.coordinates[0]]}
+                                title={region.name}
+                                key={region.id}
+                                icon={customizedIcon}
+                                eventHandlers={{click: () => handleProjectPopup(id)}}
+                            >   
+                                <Popup >
+                                    <ProjectPopupDetail project={project} loading={loading} />
+                                </Popup>
+                            </Marker>
+                        </div>
+
                     );
                 }) : '';
 

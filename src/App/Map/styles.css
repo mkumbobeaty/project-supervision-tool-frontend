@@ -34,7 +34,7 @@
     border: 1px solid #3b3a3a94;
 }
 
-.mapPopup h3, .projectDetail {
+ .projectDetail {
     margin: 15px;
 }
 
@@ -53,6 +53,10 @@
 
 .popupHeader {
     background-color: #0f6788;
+}
+
+.mapPopup h4 {
+    color: #0f6788;
 }
 
 .popupHeader h2 {
