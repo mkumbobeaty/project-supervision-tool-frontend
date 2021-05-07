@@ -14,10 +14,9 @@ class SubProjectPoints extends Component {
     }
 
     render() {
-        const { subProjects, getSubproject } = this.props;
+        const { subProjects, getSubproject, project, subProject } = this.props;
 
         const handlePopup = (id) => {
-            console.log(id)
             getSubproject(id);
         };
 
@@ -47,7 +46,7 @@ class SubProjectPoints extends Component {
 
                                 >
                                     <Popup>
-                                        <SubProjectPopupDetail subProjects={subProjects} />
+                                        <SubProjectPopupDetail subProject={subProject} project={project}/>
                                     </Popup>
                                 </Marker>
                                 <FieldNotePoints />

@@ -51,7 +51,8 @@ class MapDashboard extends Component {
             getProject,
             project,
             loading,
-            getSubproject
+            getSubproject,
+            subProject,
         } = this.props;
 
         return (
@@ -61,7 +62,7 @@ class MapDashboard extends Component {
                     <BaseMap projects={projects}>
                         {
                             isShowProjectOverview === true ? projects.length > 0 ? <ProjectPoints projects={projects} getProject={getProject} project={project} loading={loading} /> : '' :
-                                subProjects.length > 0 ? <SubProjectPoints subProjects={subProjects} getSubproject={getSubproject} /> : ''
+                                subProjects.length > 0 ? <SubProjectPoints subProjects={subProjects} project={project} getSubproject={getSubproject} subProject={subProject} /> : ''
                         }
                         <ShowDataSets />
                     </BaseMap>
@@ -80,7 +81,8 @@ const mapStateToProps = (state) => ({
     wfsLayerData: mapSelectors.getWfsLayerDataSelector(state),
     loading: mapProjectSelectors.getProjectLoadingSelector(state),
     isShowProjectOverview: mapSelectors.showProjectsOverviewSelector(state),
-    project: mapProjectSelectors.getProjectSelector(state)
+    project: mapProjectSelectors.getProjectSelector(state),
+    subProject: mapSubProjectSelectors.getSubProjectSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

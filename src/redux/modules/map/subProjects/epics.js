@@ -23,7 +23,6 @@ export const getSubProjectMapEpic = action$ => {
                 switchMap(res => {
                     return from([
                         actions.getSubProjectSuccess(res.data),
-                        mapProjectActions.clearProject(),
                     ])
                 }),
                 catchError(error => of(actions.getSubProjectFailure(error)))
