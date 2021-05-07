@@ -222,7 +222,8 @@ const subProjectFilter = {
     'filter[districts.region_id]': '',
     'filter[procuringEntityPackage.procuringEntity.project_sub_component_id]': '',
     'filter[procuringEntityPackage.contract.contractor_id]': '',
-    'filter[procuring_entity_package_id]': ''
+    'filter[procuring_entity_package_id]': '',
+    'filter[procuringEntityPackage.procuringEntity.projectSubComponent.projectComponent.project_id]': ''
 };
 
 /**
@@ -245,7 +246,9 @@ const filters = (state = subProjectFilter, action) => {
         case types.SET_SUB_PROJECT_CONTRACTOR_FILTER:
             return { ...state, 'filter[procuringEntityPackage.contract.contractor_id]': action.payload };
         case types.SET_PROCURING_ENTITY_PACKAGE_FILTER:
-                return { ...state, 'filter[procuring_entity_package_id]': action.payload };
+            return { ...state, 'filter[procuring_entity_package_id]': action.payload };
+        case types.GET_SUB_PROJECTS_BY_PROJECT_ID:
+            return { ...state, 'filter[procuringEntityPackage.procuringEntity.projectSubComponent.projectComponent.project_id]': action.payload };
         default:
             return state;
     }

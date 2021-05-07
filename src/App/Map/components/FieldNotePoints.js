@@ -5,6 +5,7 @@ import React, { Component } from "react";
 import PropTypes from 'prop-types';
 import * as turf from '@turf/turf';
 import randomColor from 'randomcolor';
+import FieldNotePopupDetail from "./FieldNotePopupDetail";
 
 
 const fieldNoteData = {
@@ -157,8 +158,8 @@ class FieldNotePoints extends Component {
                 position={[geoRef.coordinates[1], geoRef.coordinates[0]]}
                 icon={customizedFieldNoteIcon}
               >
-                <Popup>
-                  A pretty CSS3 popup. <br /> Easily customizable.
+                <Popup  >
+                  <FieldNotePopupDetail features={features} />
                   </Popup>
               </Marker>
             );

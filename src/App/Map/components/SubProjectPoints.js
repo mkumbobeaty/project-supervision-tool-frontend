@@ -11,13 +11,16 @@ class SubProjectPoints extends Component {
 
     static propTypes = {
         subProjects: PropTypes.array.isRequired,
+        subProjectLoading: PropTypes.bool.isRequired,
+        project:PropTypes.object.isRequired,
+        subProject: PropTypes.object.isRequired,
+        getSubproject:PropTypes.func.isRequired
     }
 
     render() {
-        const { subProjects, getSubproject } = this.props;
+        const { subProjects, getSubproject, project, subProject, subProjectLoading } = this.props;
 
         const handlePopup = (id) => {
-            console.log(id)
             getSubproject(id);
         };
 
@@ -47,7 +50,7 @@ class SubProjectPoints extends Component {
 
                                 >
                                     <Popup>
-                                        <SubProjectPopupDetail subProjects={subProjects} />
+                                        <SubProjectPopupDetail subProject={subProject} project={project} subProjectLoading={subProjectLoading} />
                                     </Popup>
                                 </Marker>
                                 <FieldNotePoints />
