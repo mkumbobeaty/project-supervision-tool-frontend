@@ -1,13 +1,21 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import {GeoJSON} from 'react-leaflet';
+import {GeoJSON, Popup} from 'react-leaflet';
+import SubProjectPopupDetail from "./SubProjectPopup";
 
-function SubProjectLocations({ subProjects, getSubproject }) {
+function SubProjectLocations({subProjects, getSubproject}) {
+
 
     return (
         <>
             {
-                subProjects.map(({geo_json}) => <GeoJSON data={geo_json}/>)
+                subProjects.map((subProject) =>
+                    <GeoJSON data={subProject.geo_json}>
+                        <Popup>
+                            <SubProjectPopupDetail subProject={subProject}/>
+                        </Popup>
+                    </GeoJSON>
+                )
             }
         </>
 

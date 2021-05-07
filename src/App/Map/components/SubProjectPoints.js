@@ -1,64 +1,50 @@
 
-import { Popup, Marker } from "react-leaflet";
-import { divIcon } from 'leaflet';
-import React, { Component } from "react";
+import {Marker, useMapEvents, GeoJSON} from "react-leaflet";
+import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import * as turf from '@turf/turf';
-import FieldNotePoints from "./FieldNotePoints";
-import SubProjectPopupDetail from "./SubProjectPopup";
 
-class SubProjectPoints extends Component {
+function SubProjectPoints({ subProjects }) {
+    const [zoomLevel, setZoomLevel ] = useState(0);
 
-    static propTypes = {
-        subProjects: PropTypes.array.isRequired,
-    }
+    const  map = useMapEvents({
+        zoom(){
+            setZoomLevel(map.getZoom());
+        }
+    });
+    map.on('')
 
-    render() {
-        const { subProjects, getSubproject } = this.props;
 
-        const handlePopup = (id) => {
-            console.log(id)
-            getSubproject(id);
-        };
+    return (
+        <>
+            { subProjects.map(({ geo_json, name, id }) =>  {
+                const polygon = geo_json.geometry;
+                const { geometry } = turf.pointOnFeature(polygon);
 
-        return (
-            <>
-                { subProjects.map(({ districts, name, id }) => {
-                    return districts.length > 0 ? districts.map((district) => {
-                        const polygon = JSON.parse(district.geom);
-                        const { geometry } = turf.pointOnFeature(polygon);
+                return (
+                    <div>
+                        {
+                            zoomLevel < 15 ? <Marker
+                                position={[geometry.coordinates[1], geometry.coordinates[0]]}
+                                title={name}
+                                key={`${id}-point`}
+                                eventHandlers={{
+                                    click: () => {
+                                        map.setView([geometry.coordinates[1], geometry.coordinates[0]], 16);
+                                    },
+                                }}
+                            /> : <GeoJSON key={`${id}-polygon`} style={{ weight: 10}} data={geo_json} />
+                        }
+                    </div>
+                );
 
-                        var customizedIcon = divIcon({
-                            className: 'custom-div-icon',
-                            html: `<div style='background-color:#4838cc;' 
-                        class='marker-pin-sub'></div>
-                        `,
-                            iconSize: [30, 42]
-                        });
-
-                        return (
-                            <div>
-                                <Marker
-                                    position={[geometry.coordinates[1], geometry.coordinates[0]]}
-                                    title={name}
-                                    key={id}
-                                    icon={customizedIcon}
-                                    eventHandlers={{ click: () => handlePopup(id) }}
-
-                                >
-                                    <Popup>
-                                        <SubProjectPopupDetail subProjects={subProjects} />
-                                    </Popup>
-                                </Marker>
-                                <FieldNotePoints />
-                            </div>
-                        );
-                    }) : '';
-
-                })}
-            </>);
-    }
+            })}
+        </>);
 }
 
 
 export default SubProjectPoints;
+
+SubProjectPoints.propTypes = {
+    subProjects: PropTypes.array.isRequired,
+}

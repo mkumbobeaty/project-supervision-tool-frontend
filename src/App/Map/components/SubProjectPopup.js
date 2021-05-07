@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { Col, Row, Spin } from "antd";
 import { PictureOutlined, FileOutlined } from "@ant-design/icons";
 
-const SubProjectPopupDetail = ({ subProject, loading, project }) => {
+    const SubProjectPopupDetail = ({ subProject, loading, project }) => {
     const getCommitmentAmount = (data) => {
         const { amount, currency } = data
         const { iso } = currency;
@@ -87,6 +87,5 @@ const SubProjectPopupDetail = ({ subProject, loading, project }) => {
 export default SubProjectPopupDetail;
 
 SubProjectPopupDetail.propTypes = {
-    project: PropTypes.string.isRequired,
-    loading: PropTypes.bool.isRequired
+    subProject: PropTypes.string.isRequired,
 }

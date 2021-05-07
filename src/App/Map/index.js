@@ -62,7 +62,7 @@ class MapDashboard extends Component {
                     <BaseMap projects={projects}>
                         {
                             isShowProjectOverview === true ? projects.length > 0 ? <ProjectPoints projects={projects} getProject={getProject} project={project} loading={loading} /> : '' :
-                                subProjects.length > 0 ? <SubProjectLocations subProjects={subProjects} getSubproject={getSubproject} /> : ''
+                                subProjects.length > 0 ? <SubProjectPoints subProjects={subProjects} getSubproject={getSubproject} /> : ''
                         }
                         <ShowDataSets />
                     </BaseMap>
