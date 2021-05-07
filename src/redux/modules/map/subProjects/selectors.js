@@ -7,6 +7,14 @@ export const getSubProjectSelector = (state) => state.map.subProjects.selected?.
 
 /**
  * @function
+ * @name getSubProjectLoadingSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectLoadingSelector = (state) => state.map.subProjects.selected?.loading;
+
+
+/**
+ * @function
  * @name getSubProjectsSelector
  * @param {Object} state redux state
  */
@@ -133,3 +141,4 @@ export const getContractorsSelector = (state) => state?.map?.subProjects?.contra
  * @param {Object} state redux state
  */
 export const getProcuringEntityPackageSelector = (state) => state?.map?.subProjects?.procuringEntityPackage?.data;
+

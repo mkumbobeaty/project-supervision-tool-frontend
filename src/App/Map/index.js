@@ -53,6 +53,7 @@ class MapDashboard extends Component {
             loading,
             getSubproject,
             subProject,
+            subProjectLoading,
         } = this.props;
 
         return (
@@ -62,7 +63,14 @@ class MapDashboard extends Component {
                     <BaseMap projects={projects}>
                         {
                             isShowProjectOverview === true ? projects.length > 0 ? <ProjectPoints projects={projects} getProject={getProject} project={project} loading={loading} /> : '' :
-                                subProjects.length > 0 ? <SubProjectPoints subProjects={subProjects} project={project} getSubproject={getSubproject} subProject={subProject} /> : ''
+                                subProjects.length > 0 ? 
+                                <SubProjectPoints 
+                                subProjects={subProjects} 
+                                project={project}
+                                getSubproject={getSubproject}
+                                subProject={subProject} 
+                                subProjectLoading={subProjectLoading} 
+                                 /> : ''
                         }
                         <ShowDataSets />
                     </BaseMap>
@@ -82,7 +90,8 @@ const mapStateToProps = (state) => ({
     loading: mapProjectSelectors.getProjectLoadingSelector(state),
     isShowProjectOverview: mapSelectors.showProjectsOverviewSelector(state),
     project: mapProjectSelectors.getProjectSelector(state),
-    subProject: mapSubProjectSelectors.getSubProjectSelector(state)
+    subProject: mapSubProjectSelectors.getSubProjectSelector(state),
+    subProjectLoading: mapSubProjectSelectors.getSubProjectLoadingSelector(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

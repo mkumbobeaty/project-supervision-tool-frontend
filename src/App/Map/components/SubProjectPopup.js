@@ -5,13 +5,10 @@ import { Link } from "react-router-dom";
 import { Col, Row, Spin } from "antd";
 import { PictureOutlined, FileOutlined } from "@ant-design/icons";
 
-const SubProjectPopupDetail = ({ subProject, loading, project }) => {
-
-    console.log(subProject);
-    console.log('project', project)
+const SubProjectPopupDetail = ({ subProject, subProjectLoading, project }) => {
     
     return (
-        // <Spin spinning={loading}>
+        <Spin spinning={subProjectLoading}>
         <section className="mapPopup">
             <div className="popupHeader"><h2>{subProject?.name}</h2></div>
             <div className="projectDetail">
@@ -75,7 +72,7 @@ const SubProjectPopupDetail = ({ subProject, loading, project }) => {
                 </Row>
             </div>
         </section>
-        // </Spin>
+        </Spin>
     )
 }
 
@@ -83,5 +80,6 @@ export default SubProjectPopupDetail;
 
 SubProjectPopupDetail.propTypes = {
     project: PropTypes.string.isRequired,
-    loading: PropTypes.bool.isRequired
+    subProjectLoading: PropTypes.bool.isRequired,
+    subProject:PropTypes.string.isRequired,
 }
