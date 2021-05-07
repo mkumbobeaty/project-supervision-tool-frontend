@@ -1,10 +1,11 @@
 
-import {Marker, useMapEvents, GeoJSON} from "react-leaflet";
+import {Marker, useMapEvents, GeoJSON, Popup} from "react-leaflet";
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import * as turf from '@turf/turf';
+import SubProjectPopupDetail from "./SubProjectPopup";
 
-function SubProjectPoints({ subProjects }) {
+function SubProjectPoints({ subProjects, getSubproject, subProjectLoading, subProject, project }) {
     const [zoomLevel, setZoomLevel ] = useState(0);
 
     const  map = useMapEvents({
@@ -12,7 +13,9 @@ function SubProjectPoints({ subProjects }) {
             setZoomLevel(map.getZoom());
         }
     });
-    map.on('')
+const handlePopup = (id) => {
+getSubproject(id);
+};
 
 
     return (
@@ -24,7 +27,7 @@ function SubProjectPoints({ subProjects }) {
                 return (
                     <div>
                         {
-                            zoomLevel < 15 ? <Marker
+                            zoomLevel < 12 ? <Marker
                                 position={[geometry.coordinates[1], geometry.coordinates[0]]}
                                 title={name}
                                 key={`${id}-point`}
@@ -33,13 +36,23 @@ function SubProjectPoints({ subProjects }) {
                                         map.setView([geometry.coordinates[1], geometry.coordinates[0]], 16);
                                     },
                                 }}
-                            /> : <GeoJSON key={`${id}-polygon`} style={{ weight: 10}} data={geo_json} />
+                            /> : <GeoJSON
+                                key={`${id}-polygon`}
+                                style={{ weight: 10}}
+                                data={geo_json}
+                                eventHandlers={{ click: () => handlePopup(id) }}
+                            >
+                                <Popup>
+                                    <SubProjectPopupDetail subProject={subProject} project={project} subProjectLoading={subProjectLoading} />
+                                </Popup>
+                            </GeoJSON>
                         }
                     </div>
                 );
 
             })}
         </>);
+
 }
 
 

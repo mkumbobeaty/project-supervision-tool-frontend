@@ -9,7 +9,7 @@ import './styles.css';
  * @name CheckBoxGroupFilter
  * @description renders checkbox filters
  */
-function CheckBoxGroupFilter({ handleFilter, filterTitle, itemsPerPage, items, filterClass, handleOnClickFilterValue }) {
+function CheckBoxGroupFilter({ handleFilter, itemsPerPage, items, filterClass, handleOnClickFilterValue }) {
     const [itemsToShow, setItemsToShow] = useState([]);
     const [next, setNext] = useState(itemsPerPage);
 
@@ -41,7 +41,6 @@ function CheckBoxGroupFilter({ handleFilter, filterTitle, itemsPerPage, items, f
 
     return items.length > 0 ? (
         <div className='CheckBoxGroupFilter'>
-            <h4>{filterTitle}</h4>
             <section className="CheckBoxFilter">
                 {renderFilterItems(itemsToShow)}
                 {showLoadMore(itemsToShow, items) ? '' :

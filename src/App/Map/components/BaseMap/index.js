@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from "prop-types";
 import {MapContainer, ZoomControl } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import 'leaflet-basemaps';
+import 'leaflet-fullscreen/dist/Leaflet.fullscreen.min';
+import 'leaflet-fullscreen/dist/leaflet.fullscreen.css';
+import 'leaflet-basemaps/L.Control.Basemaps-min';
 import 'leaflet-basemaps/L.Control.Basemaps.css';
 import L from 'leaflet';
 import "./styles.css";
@@ -26,10 +28,13 @@ const state = {
 
 const position = [state.lat, state.lng]
 
-const BaseMap = ({children, projects}) => {
+const BaseMap = ({children}) => {
+    const handleWhenCreated = (map) => {
+
+    }
 
     return (
-        <MapContainer center={position} zoom={state.zoom} className="base-map" zoomControl={false}>
+        <MapContainer center={position} fullscreenControl={{ position: 'topright'}} zoom={state.zoom} className="base-map" zoomControl={false} whenCreated={handleWhenCreated}>
             <BaseMapSwitcher />
             <ZoomControl position="topright"/>
             {children}

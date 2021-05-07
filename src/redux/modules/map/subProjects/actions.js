@@ -399,3 +399,10 @@ export const getProcuringEntityPackageStart = makeActionCreator(types.GET_PROCUR
  * @param {Object} payload error object returned by server
  */
  export const getProcuringEntityPackageFailure = makeActionCreator(types.GET_PROCURING_ENTITY_PACKAGE_FAILURE, 'payload');
+
+ /**
+ * @function
+ * @name getSubProjectByProjectId
+ * @param {Object} payload error object returned by server
+ */
+export const getSubProjectByProjectId = makeActionCreator(types.GET_SUB_PROJECTS_BY_PROJECT_ID, 'payload');
