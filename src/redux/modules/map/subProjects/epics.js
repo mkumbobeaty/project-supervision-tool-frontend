@@ -352,6 +352,22 @@ const filterSubProjectComponentEpic = (action$, state$) => {
     )
 };
 
+/**
+ *
+ * @function
+ * @name getSubProjectByProjectIdEpic
+ * @param action$ stream of actions
+ */
+const getSubProjectByProjectIdEpic = (action$, state$) => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECTS_BY_PROJECT_ID),
+        switchMap(() => {
+            return of(mapSubProjectActions.getSubProjectsStart(state$.value.map.subProjects.filters))
+        }),
+    )
+};
+
+
 export const mapSubProjectEpics = combineEpics(
     getSubProjectMapEpic,
     getsubProjectsMapEpic,
@@ -372,5 +388,5 @@ export const mapSubProjectEpics = combineEpics(
     getContractorEpic,
     getProcuringEntityPackageEpic,
     filterByProcuringEntityPackageEpic,
-
+    getSubProjectByProjectIdEpic
 );

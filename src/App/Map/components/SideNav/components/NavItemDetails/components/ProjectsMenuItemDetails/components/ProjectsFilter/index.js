@@ -8,7 +8,7 @@ const prepareFilterItems = (items) => items.map(({ name, id, }) => ({
     id
 }));
 
-const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects, getProject }) => {
+const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects, getProject,getSubProjectsByProjectId }) => {
 
     const projectsFilterData = projects.length > 0 ? prepareFilterItems(projects) : [];
    
@@ -19,7 +19,7 @@ const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects, getProject
     }, [projectsIds]);
 
     const handleOnClickFilterValue = (value) => {
-        getSubProjects();
+        getSubProjectsByProjectId(value);
         getProject(value);
     };
 
@@ -39,7 +39,6 @@ const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects, getProject
         <CheckBoxGroupFilter
             items={projectsFilterData}
             itemsPerPage={5}
-            // filterTitle={`Projects`}
             handleOnClickFilterValue={handleOnClickFilterValue}
             handleFilter={handleOnclickFilterItem}
             filterClass="projectFilter"
@@ -53,7 +52,7 @@ ProjectsFilter.propTypes = {
     projects: PropTypes.array.isRequired,
     handleOnclickFilterItem:PropTypes.func.isRequired,
     getProject:PropTypes.func.isRequired,
-
+    getSubProjectsByProjectId: PropTypes.func.isRequired,
 }
 ProjectsFilter.defaultProps = {
     handleOnclickFilterItem: () => {

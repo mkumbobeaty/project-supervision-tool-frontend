@@ -37,7 +37,7 @@ function ProjectsOverview(
         getProjectsFilters,
         getProject,
         setProjectRegionsFilter,
-
+        getSubProjectsByProjectId
     }
 ) {
 
@@ -83,6 +83,7 @@ function ProjectsOverview(
                             getSubProjects={getSubProjects}
                             getProject={getProject}
                             setProjectIdFilter={setProjectIdFilter}
+                            getSubProjectsByProjectId={getSubProjectsByProjectId}
                         />
                     </Panel>
                     <Panel header="Regions" key="3" >
@@ -117,7 +118,7 @@ const mapDispatchToProps = (dispatch) => ({
     setProjectIdFilter: bindActionCreators(projectActions.setProjectIdFilter, dispatch),
     setProjectRegionsFilter: bindActionCreators(projectActions.setProjectRegionsFilter, dispatch),
     getSubProjects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
-
+    getSubProjectsByProjectId: bindActionCreators(mapSubProjectActions.getSubProjectByProjectId, dispatch)
 });
 
 
