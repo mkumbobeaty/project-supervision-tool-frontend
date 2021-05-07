@@ -34,7 +34,7 @@
     border: 1px solid #3b3a3a94;
 }
 
- .projectDetail {
+.projectDetail {
     margin: 15px;
 }
 
@@ -116,4 +116,18 @@
     border-radius: 50%;
     width: 78%;
     height: 55%
+}
+
+.fieldNote {
+    margin-top: -10px;
+}
+.fieldNoteHeader h2 {
+    padding: 12px;
+    font-size: 13px;
+    color: #0f6788;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.leaflet-popup-content p{
+    margin-top: 0 !important;
 }
