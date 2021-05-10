@@ -158,6 +158,7 @@ function DataSet({ layer, addDataSet, removeDataSet }) {
                     </div>
                 )}
             </section>
+            
         </div>
 
     )

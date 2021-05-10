@@ -10,6 +10,7 @@ import './styles.css'
 import { mapDataSetsActions, mapDataSetsSelectors } from "../../../../../../../../redux/modules/map/dataSets";
 import { Pagination } from "antd";
 import CustomSearch from "../CustomSearch";
+import { Link } from "react-router-dom";
 
 function DataSetsMenuItemDetails({ getLayers, layers, addDataSet, removeDataSet, total, loading }) {
     const [currentPage, setCurrentPage] = useState(1);
@@ -27,11 +28,11 @@ function DataSetsMenuItemDetails({ getLayers, layers, addDataSet, removeDataSet,
         { 'title': 'Administratrive_Boundaries', 'name': 'Dar es Salaam boundary for all regions', },
         { 'title': 'Land_use', 'name': 'Dar es Salaam land us', },
         { 'title': 'Administratrive_Boundaries', 'name': 'Dar es Salaam boundary', },
-        { 'title': 'Land_use', 'name': 'Kimara mwisho land', },
+        // { 'title':'Land use', 'name': 'Kimara mwisho land', },
         { 'title': 'Elevation', 'name': 'Msimbazi digital elevation modal ', },
         { 'title': 'Elevation', 'name': 'Msimbazi reference elevation', },
-        { 'title': 'Infastructure', 'name': 'Dar es Salaam boundary', },
-        { 'title': 'Infastructure', 'name': 'Dar es Salaam boundary', },
+        { 'title': 'Drainage_sanitation', 'name': 'Dar es Salaam boundary', },
+        { 'title': 'InLand_water', 'name': 'Dar es Salaam boundary', },
         { 'title': 'Infastructure', 'name': 'Dar es Salaam boundary', }
 
     ]
@@ -56,12 +57,17 @@ function DataSetsMenuItemDetails({ getLayers, layers, addDataSet, removeDataSet,
                 </div> */}
 
                 <div className='data-set-items'>
-                    <DataSet layer={group} addDataSet={addDataSet} removeDataSet={removeDataSet}  />
+                    <DataSet layer={group} addDataSet={addDataSet} removeDataSet={removeDataSet} />
                 </div>
-
-                <div className='paginate-datasets'>
+                <div className="dataset-load_more">
+                    <p>Load More</p>
+                    <a href={'https://geonode.project-supervision-tool.ga/'} target="_blank" >  
+                          <p>Open Geonode</p>
+                    </a>
+                </div>
+                {/* <div className='paginate-datasets'>
                     <Pagination current={currentPage} size='small' onChange={onChange} total={total} />
-                </div>
+                </div> */}
 
             </div>
         </Spin>

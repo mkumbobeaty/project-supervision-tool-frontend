@@ -16,3 +16,15 @@
 .data-set-search {
     padding: 0 10px;
 }
+.dataset-load_more{
+    display: flex;
+    justify-content: space-between;
+     padding: 10px;
+    top:40px;
+    position:relative;
+
+}
+.dataset-load_more p{
+    text-decoration: underline;
+    color: #0f6788;
+}
