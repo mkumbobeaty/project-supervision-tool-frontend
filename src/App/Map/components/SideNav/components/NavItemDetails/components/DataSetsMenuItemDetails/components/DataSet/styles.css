@@ -30,8 +30,8 @@
 .DataSet .add {
     color: #0f6788;;
 }
-.DataSetTitleHoverInfo{
-    left: 441px;
+.ant-popover.ant-popover-placement-right {
+    left: 441px !important;
 
 }
 
