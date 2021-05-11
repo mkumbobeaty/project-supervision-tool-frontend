@@ -14,6 +14,7 @@ import "./styles.css";
 import SubProjectPoints from './components/SubProjectPoints';
 import ShowDataSets from "./components/ShowDataSets";
 import SubProjectLocations from "./components/SubProjectLocations";
+import Legend from "./components/Legend";
 
 class MapDashboard extends Component {
     state = {
@@ -62,6 +63,7 @@ class MapDashboard extends Component {
                 <Spin spinning={mapLoading} tip="Loading data...">
                     <SideNav />
                     <BaseMap projects={projects}>
+                        <Legend />
                         {
                             isShowProjectOverview === true ? projects.length > 0 ? <ProjectPoints projects={projects} getProject={getProject} project={project} loading={loading} /> : '' :
                                 subProjects.length > 0 ? 
