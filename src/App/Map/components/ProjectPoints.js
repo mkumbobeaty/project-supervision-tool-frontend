@@ -1,4 +1,4 @@
-import { Popup, Marker } from "react-leaflet";
+import { Popup, CircleMarker } from "react-leaflet";
 import { divIcon } from 'leaflet';
 import React from "react";
 import PropTypes from 'prop-types';
@@ -14,7 +14,7 @@ function ProjectPoints({ projects, project, loading, getProject }) {
         getProject(project_id);
     };
 
-    const getMarkerDiameter = (amount, maxAmount, maxDiameter = 80, minDiameter = 40) => {
+    const getMarkerDiameter = (amount, maxAmount, maxDiameter = 40, minDiameter = 20) => {
         const diameter = amount * maxDiameter / maxAmount;
         if (diameter > minDiameter) return diameter;
         return minDiameter;
@@ -55,7 +55,21 @@ function ProjectPoints({ projects, project, loading, getProject }) {
 
                     return (
                         <>
-                            <Marker
+                            <CircleMarker
+                                key={id}
+                                center={[geometry.coordinates[1], geometry.coordinates[0]]}
+                                radius={dimension}
+                                fillOpacity={0.9}
+                                stroke={false}
+                                color={color}
+                                children={20}
+                                eventHandlers={{click: () => handleProjectPopup(id)}}
+                            >
+                                <Popup >
+                                    <ProjectPopupDetail project={project} loading={loading} />
+                                </Popup>
+                            </CircleMarker>
+                            {/* <Marker
                                 position={[geometry.coordinates[1], geometry.coordinates[0]]}
                                 title={region.name}
                                 key={region.id}
@@ -65,7 +79,7 @@ function ProjectPoints({ projects, project, loading, getProject }) {
                                 <Popup >
                                     <ProjectPopupDetail project={project} loading={loading} />
                                 </Popup>
-                            </Marker>
+                            </Marker> */}
                             <Legend projects={projects} />
                         </>
 
