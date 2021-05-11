@@ -202,7 +202,7 @@ const regionProjectsStatistics = (state = { data: null, loading: false, error: n
 // initial state for
 // sideNavMenu
 const sideNavMenuInitialState = {
-    activeSideNavMenuItem: 'projects',
+    activeSideNavMenuItem: null,
     showProjectsOverview: true,
     showProjectDetails: false,
     showNationalOverview: true,

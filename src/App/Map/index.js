@@ -61,8 +61,8 @@ class MapDashboard extends Component {
         return (
             <div className="MapDashboard">
                 <Spin spinning={mapLoading} tip="Loading data...">
-                    <SideNav />
                     <BaseMap projects={projects}>
+                        <SideNav />
                         <Legend />
                         {
                             isShowProjectOverview === true ? projects.length > 0 ? <ProjectPoints projects={projects} getProject={getProject} project={project} loading={loading} /> : '' :

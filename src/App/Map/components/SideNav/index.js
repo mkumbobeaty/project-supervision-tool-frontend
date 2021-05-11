@@ -1,123 +1,105 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from "prop-types";
 import SideNavItem from "./components/SideNavItem";
 import NavItemDetails from "./components/NavItemDetails";
-import { mapActions, mapSelectors } from "../../../../redux/modules/map";
-import { bindActionCreators } from "redux";
-import { Link } from 'react-router-dom';
+import {mapActions, mapSelectors} from "../../../../redux/modules/map";
+import {bindActionCreators} from "redux";
+import {Link} from 'react-router-dom';
 import projectsIcon from '../../../../assets/icons/projects-white.svg';
 import layersIcon from "../../../../assets/icons/geo-node-layers-white.svg";
 import homeIcon from '../../../../assets/icons/home-white.svg';
-import { Drawer } from 'antd';
-import {
-    MenuUnfoldOutlined,
-    CaretLeftOutlined
-} from '@ant-design/icons';
+import {Drawer} from 'antd';
+import { MenuUnfoldOutlined } from '@ant-design/icons';
 import './styles.css';
 import UserMenu from '../../../navigation/UserMenu';
 
-class SideNav extends Component {
+function SideNav({setActiveMapSideMenuItem, activeItem}) {
 
-    static propTypes = {
-        setActiveMapSideMenuItem: PropTypes.func,
-        activeItem: PropTypes.string.isRequired,
-    }
+    const [showSideNav, setShowSideNav] = useState(false);
+    const ref = React.createRef();
 
-    static defaultProps = {
-        setActiveMapSideMenuItem: () => { },
-        regionProjects: [],
-    }
-
-    state = {
-        showSideNav: false,
-    };
     /**
-       * @function
-       * @name handleClearCachedValues
-       * @description open drawer
-       *
-       * @version 0.1.0
-       * @since 0.1.0
-       */
-    handleShowSideNav = () => {
-        this.setState({ showSideNav: true });
+     * @function
+     * @name handleClearCachedValues
+     * @description open drawer
+     *
+     * @version 0.1.0
+     * @since 0.1.0
+     */
+    const handleShowSideNav = () => {
+        if (activeItem === null) setActiveMapSideMenuItem('projects');
+        setShowSideNav(true);
     };
 
     /**
- * @function
- * @name handleClearCachedValues
- * @description close drawer
- *
- * @version 0.1.0
- * @since 0.1.0
- */
-    handleCloseSideNav = () => {
-        this.setState({ showSideNav: false });
-    };
-    render() {
-        const {
-            setActiveMapSideMenuItem,
-            activeItem,
-        } = this.props;
+     * @function
+     * @name handleClearCachedValues
+     * @description close drawer
+     *
+     * @version 0.1.0
+     * @since 0.1.0
+     */
+    const handleCloseSideNav = () => setShowSideNav(false);
 
-        const { showSideNav } = this.state;
-        return (
-            <section >
-                <div className="openDrawer">
-                    <MenuUnfoldOutlined onClick={this.handleShowSideNav} style={{ fontSize: '150%', padding: '12px 16px' }} />
-                </div>
+    return (
+        <section>
+            <div className="openDrawer">
+                <MenuUnfoldOutlined onClick={handleShowSideNav} style={{fontSize: '150%', padding: '12px 16px'}}/>
+            </div>
 
-                <Drawer
-                    placement="left"
-                    mask={false}
-                    onClose={this.handleCloseSideNav}
-                    visible={showSideNav}
-                    className="mapSideNav"
-                    width={450}
-                    // closeIcon={<CaretLeftOutlined />}
-                >
-                    <div className='SideNav'>
-                        <div className='nav-items-list'>
-                            <Link to='/app' className="SideNavItem">
-                                <SideNavItem
-                                    activeThumbnail={homeIcon}
-                                    inactiveThumbnail={homeIcon}
-                                    itemId='projects'
-                                    activeItem='home'
-                                    setActiveItem={setActiveMapSideMenuItem}
-                                />
-                            </Link>
+            <div ref={ref}/>
 
+            <Drawer
+                placement="left"
+                mask={false}
+                onClose={handleCloseSideNav}
+                visible={showSideNav}
+                className="mapSideNav"
+                getContainer={ref.current}
+                width={450}
+                // closeIcon={<CaretLeftOutlined />}
+            >
+                <div className='SideNav'>
+                    <div className='nav-items-list'>
+                        <Link to='/app' className="SideNavItem">
                             <SideNavItem
-                                title="Projects"
-                                activeThumbnail={projectsIcon}
-                                inactiveThumbnail={projectsIcon}
+                                activeThumbnail={homeIcon}
+                                inactiveThumbnail={homeIcon}
                                 itemId='projects'
-                                activeItem={activeItem}
+                                activeItem='home'
                                 setActiveItem={setActiveMapSideMenuItem}
                             />
+                        </Link>
 
-                            <SideNavItem
-                                title="Map Layers"
-                                activeThumbnail={layersIcon}
-                                inactiveThumbnail={layersIcon}
-                                itemId='map-layers'
-                                activeItem={activeItem}
-                                setActiveItem={setActiveMapSideMenuItem}
-                                getOverview={() => {
-                                }}
-                                clearOverview={() => {
-                                }}
-                            />
-                            <UserMenu />
-                        </div>
-                        <NavItemDetails activeItem={activeItem} />
+                        <SideNavItem
+                            title="Projects"
+                            activeThumbnail={projectsIcon}
+                            inactiveThumbnail={projectsIcon}
+                            itemId='projects'
+                            activeItem={activeItem}
+                            setActiveItem={setActiveMapSideMenuItem}
+                        />
+
+                        <SideNavItem
+                            title="Map Layers"
+                            activeThumbnail={layersIcon}
+                            inactiveThumbnail={layersIcon}
+                            itemId='map-layers'
+                            activeItem={activeItem}
+                            setActiveItem={setActiveMapSideMenuItem}
+                            getOverview={() => {
+                            }}
+                            clearOverview={() => {
+                            }}
+                        />
+                        <UserMenu/>
                     </div>
-                </Drawer>
-            </section>
-        );
-    }
+                    <NavItemDetails activeItem={activeItem}/>
+                </div>
+            </Drawer>
+        </section>
+    );
 }
 
 
@@ -130,4 +112,15 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SideNav);
+
+SideNav.propTypes = {
+    setActiveMapSideMenuItem: PropTypes.func,
+    activeItem: PropTypes.string.isRequired,
+}
+
+SideNav.defaultProps = {
+    setActiveMapSideMenuItem: () => {
+    },
+    regionProjects: [],
+}
 
