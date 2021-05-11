@@ -1,11 +1,30 @@
-
-
-.DataSetsMenuItemDetails .data-set-items {
-    padding: 0 10px 0 10px;
-}
+/* .DataSetsMenuItemDetails {
+    padding: 0 10px;
+} */
 
 .DataSetsMenuItemDetails .paginate-datasets {
     display: flex;
     justify-content: center;
     padding-top: 20px;
+}
+
+.DataSetsMenuItemDetails h4 {
+    border-bottom: 0.8px solid #d9d9d9;
+    padding: 10px;
+}
+
+.data-set-search {
+    padding: 0 10px;
+}
+.dataset-load_more{
+    display: flex;
+    justify-content: space-between;
+     padding: 10px;
+    top:40px;
+    position:relative;
+
+}
+.dataset-load_more p{
+    text-decoration: underline;
+    color: #0f6788;
 }
