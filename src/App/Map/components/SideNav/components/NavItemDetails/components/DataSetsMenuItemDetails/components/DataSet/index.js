@@ -60,30 +60,41 @@ DataSetInfo.propTypes = {
 
 function LayerCategory({category, addDataSet, removeDataSet}) {
 
-    useEffect(() => {}, []);
+    const [layers, setLayers] = useState([]);
+
+    useEffect(() => {
+        console.log('inside useEffect');
+        API.getLayers({category: 6, offset: 0})
+            .then(({objects}) => setLayers(objects));
+    }, []);
 
     return (
         <div>
             <section className='data-set-section'>
-                <h4> Boundaries <span>(10)</span></h4>
-                <div className='DataSet'>
-                    <Popover
-                        className='data-set-info'
-                        content={<DataSetInfo/>}
-                        title={<b>Data Set Details</b>}
-                        placement="right"
-                        trigger="click"
-                    >
-                        <InfoCircleTwoTone twoToneColor="#0f6788"/>
-                    </Popover>
-                    <div className='data-set-name-source'>
-                        <div title={'test'}>{'test'}</div>
-                    </div>
-                    <DataSetAction
-                        addDataSet={addDataSet}
-                        removeDataSet={removeDataSet}
-                    />
-                </div>
+                <h4> Boundaries <span>({category.count})</span></h4>
+                {
+                    layers.map(layer => (
+                            <div className='DataSet'>
+                                <Popover
+                                    className='data-set-info'
+                                    content={<DataSetInfo/>}
+                                    title={<b>Data Set Details</b>}
+                                    placement="right"
+                                    trigger="click"
+                                >
+                                    <InfoCircleTwoTone twoToneColor="#0f6788"/>
+                                </Popover>
+                                <div className='data-set-name-source'>
+                                    <div title={layer.name}>{layer.name}</div>
+                                </div>
+                                <DataSetAction
+                                    addDataSet={addDataSet}
+                                    removeDataSet={removeDataSet}
+                                />
+                            </div>
+                        )
+                    )
+                }
             </section>
         </div>
 
