@@ -3,6 +3,7 @@ import { Spin } from 'antd';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from 'prop-types';
+import API from '../../../../../../../../API';
 import TopSection from "../TopSection";
 import DataSet from "./components/DataSet";
 
@@ -11,36 +12,40 @@ import { mapDataSetsActions, mapDataSetsSelectors } from "../../../../../../../.
 import { Pagination } from "antd";
 import CustomSearch from "../CustomSearch";
 import { Link } from "react-router-dom";
+import LayerCategory from "./components/DataSet";
 
 function DataSetsMenuItemDetails({ getLayers, layers, addDataSet, removeDataSet, total, loading }) {
     const [currentPage, setCurrentPage] = useState(1);
+    const [layerCategories, setLayerCategories] = useState([]);
     useEffect(() => {
-        getLayers(0);
+        // getLayers(0);
+       API.getLayersCategories()
+           .then(({objects}) => {
+               const data = objects.filter(({count}) => count > 0);
+               setLayerCategories(data);
+           });
     }, []);
 
     const onChange = (page) => {
-        const offset = 10 * (page - 1);
-        getLayers(offset);
-        setCurrentPage(page)
+        // const offset = 10 * (page - 1);
+        // getLayers(offset);
+        // setCurrentPage(page)
     }
 
-    const layerData = [
-        { 'title': 'Administratrive_Boundaries', 'name': 'Dar es Salaam boundary for all regions', },
-        { 'title': 'Land_use', 'name': 'Dar es Salaam land us', },
-        { 'title': 'Administratrive_Boundaries', 'name': 'Dar es Salaam boundary', },
-        // { 'title':'Land use', 'name': 'Kimara mwisho land', },
-        { 'title': 'Elevation', 'name': 'Msimbazi digital elevation modal ', },
-        { 'title': 'Elevation', 'name': 'Msimbazi reference elevation', },
-        { 'title': 'Drainage_sanitation', 'name': 'Dar es Salaam boundary', },
-        { 'title': 'InLand_water', 'name': 'Dar es Salaam boundary', },
-        { 'title': 'Infastructure', 'name': 'Dar es Salaam boundary', }
 
-    ]
+    // const layerData = [
+    //     { 'title': 'Administratrive_Boundaries', 'name': 'Dar es Salaam boundary for all regions', },
+    //     { 'title': 'Land_use', 'name': 'Dar es Salaam land us', },
+    //     { 'title': 'Administratrive_Boundaries', 'name': 'Dar es Salaam boundary', },
+    //     { 'title': 'Elevation', 'name': 'Msimbazi digital elevation modal ', },
+    //     { 'title': 'Elevation', 'name': 'Msimbazi reference elevation', },
+    //     { 'title': 'Drainage_sanitation', 'name': 'Dar es Salaam boundary', },
+    //     { 'title': 'InLand_water', 'name': 'Dar es Salaam boundary', },
+    //     { 'title': 'Infastructure', 'name': 'Dar es Salaam boundary', }
+    //
+    // ]
 
-    let group = layerData.reduce((r, a) => {
-        r[a.title] = [...r[a.title] || [], a];
-        return r;
-    }, {});
+
 
     return (
         <Spin spinning={loading}>
@@ -51,13 +56,10 @@ function DataSetsMenuItemDetails({ getLayers, layers, addDataSet, removeDataSet,
                     <CustomSearch placeholder='Search map layers' />
                 </div>
                 <hr />
-                {/* <div className='data-set-items'>
-                    {layers.length > 0 ? layers.map(layer => (
-                        <DataSet layer={layer} addDataSet={addDataSet} removeDataSet={removeDataSet} />)) : ''}
-                </div> */}
-
                 <div className='data-set-items'>
-                    <DataSet layer={group} addDataSet={addDataSet} removeDataSet={removeDataSet} />
+                    {
+                        layerCategories.map((category) => <LayerCategory  category={category} />)
+                    }
                 </div>
                 <div className="dataset-load_more">
                     <p>Load More</p>
@@ -65,10 +67,6 @@ function DataSetsMenuItemDetails({ getLayers, layers, addDataSet, removeDataSet,
                           <p>Open Geonode</p>
                     </a>
                 </div>
-                {/* <div className='paginate-datasets'>
-                    <Pagination current={currentPage} size='small' onChange={onChange} total={total} />
-                </div> */}
-
             </div>
         </Spin>
 

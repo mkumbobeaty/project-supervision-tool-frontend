@@ -80,19 +80,6 @@ function SideNav({setActiveMapSideMenuItem, activeItem}) {
                             activeItem={activeItem}
                             setActiveItem={setActiveMapSideMenuItem}
                         />
-
-                        <SideNavItem
-                            title="Map Layers"
-                            activeThumbnail={layersIcon}
-                            inactiveThumbnail={layersIcon}
-                            itemId='map-layers'
-                            activeItem={activeItem}
-                            setActiveItem={setActiveMapSideMenuItem}
-                            getOverview={() => {
-                            }}
-                            clearOverview={() => {
-                            }}
-                        />
                         <UserMenu/>
                     </div>
                     <NavItemDetails activeItem={activeItem}/>

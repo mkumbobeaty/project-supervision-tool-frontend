@@ -4,8 +4,9 @@
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     width: 130px;
-    border: 0.8px solid #b6b3b3;
-    border-radius: 0px;
+    border: 1px solid #b6b3b3;
+    border-radius: 0;
+    z-index: 800;
 }
 
 .info .project_legend {
