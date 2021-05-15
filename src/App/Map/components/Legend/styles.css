@@ -1,15 +1,18 @@
 .info {
-    padding: 10px 8px 6px 18px;
+    padding: 10px 8px 6px 12px;
     font: 14px/16px Arial, Helvetica, sans-serif;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    width: 130px;
+    width: 150px;
     border: 0.8px solid #b6b3b3;
     border-radius: 0px;
 }
 
-.info .project_legend {
+.info .project-legend {
     display: flex;
+}
+.projects-info{
+    padding-top: 25px;
 }
 
 
@@ -57,36 +60,54 @@
 }
 
 .Legend .bubble-large {
-    display: flex;
-    height: 80px;
-    width: 80px;
-    border-radius: 50%;
-    border: 1px solid red;
+    height: 60px;
+    width: 60px;
 }
-
+.Legend .bubble-large, .Legend .bubble-medium, .Legend .bubble-small{
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    border: 1px solid #555;
+    background-color: #d2d1d1;
+}
 
 .Legend hr {
     background: black;
 }
 
 .Legend .bubble-medium {
-    position: relative;
-    left: 10px;
-    bottom: 65px;
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    border: 1px solid red;
-    display: inline-block;
+    right: 50px;
+    top: 20px;
+    height: 40px;
+    width: 40px;
+
+
 }
 
 .Legend .bubble-small {
-    position: relative;
-    bottom: 65px;
-    right: 40px;
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    border: 1px solid red;
-    display: inline-block;
+    right: 80px;
+    top: 40px;
+    height: 20px;
+    width: 20px;
+   
+
+}
+
+.bubble-contents, .bubble-contents-medium, .bubble-contents-small {
+    display: flex;
+}
+.bubble-contents p, .bubble-contents-medium p, .bubble-contents-small p{
+   margin-top: 5px; 
+}
+.bubble-contents {
+    margin-left: 44px;
+
+}
+.bubble-contents-medium{
+    margin-left: 28px;
+
+}
+.bubble-contents-small{
+    margin-left: 14px;
+
 }
