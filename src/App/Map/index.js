@@ -73,7 +73,6 @@ class MapDashboard extends Component {
                                 subProjectLoading={subProjectLoading} 
                                  /> : ''
                         }
-                        <ShowDataSets />
                     </BaseMap>
                 </Spin>
             </div>

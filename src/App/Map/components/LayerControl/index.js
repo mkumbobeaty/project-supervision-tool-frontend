@@ -40,6 +40,7 @@ const LayerControl = ({}) => {
                 getContainer={false}
                 width={450}
                 closeIcon={<CloseOutlined/>}
+                style={{ position: 'absolute' }}
             >
                 <Spin spinning={false}>
                     <div className='DataSetsMenuItemDetails'>

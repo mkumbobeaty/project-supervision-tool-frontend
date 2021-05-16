@@ -1,7 +1,8 @@
 
 import Axios from 'axios';
 
-const baseUrl = 'https://geonode.project-supervision-tool.ga/api';
+const geonodeUrl = 'https://geonode.project-supervision-tool.ga';
+const baseUrl = `${geonodeUrl}/api`;
 
 const axiosGeonode = Axios.create({
     headers: {
@@ -19,7 +20,15 @@ const getLayers = ( params = {}) =>
 
 /**
  * @function
- * @name getLayers
+ * @name getCapabilities
+ * @description get layers  fr  om Geonode
+ */
+const getCapabilities = ( params = {}) =>
+    axiosGeonode.get(`${geonodeUrl}/geoserver/wms?service=wms&version=1.1.1&request=GetCapabilities`).then((response) => response.data);
+
+/**
+ * @function
+ * @name getLayersCategories
  * @description get layers  from Geonode
  */
 const getLayersCategories = (offset) =>
@@ -28,5 +37,6 @@ const getLayersCategories = (offset) =>
 
 export default {
     getLayers,
+    getCapabilities,
     getLayersCategories,
 }

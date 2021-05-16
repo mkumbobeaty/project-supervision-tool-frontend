@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import WMSCapabilities from 'wms-capabilities';
 import PropTypes from 'prop-types';
 import { useMap } from "react-leaflet";
-import {mapDataSetsSelectors} from "../../../redux/modules/map/dataSets";
+import {mapDataSetsActions, mapDataSetsSelectors} from "../../../redux/modules/map/dataSets";
+import API from '../../../API';
 import L from "leaflet";
-import Axios from "axios";
+import {bindActionCreators} from "redux";
 
 
 /**
@@ -13,32 +14,41 @@ import Axios from "axios";
  * @name SubProjectLocations
  * @description component that renders sub project element on map
  */
-function ShowDataSets({ addedDataSet, removedDataSet }) {
+function ShowDataSets({ addedDataSet, removedDataSet, removeDataLayer, addDataLayer }) {
     const [mapLayers, setMapLayers] = useState({});
+    const [capabilities, setCapabilities] = useState({});
     const map = useMap();
 
+    useEffect(() => {
+        API.getCapabilities()
+            .then( res => setCapabilities(new WMSCapabilities().parse(res)))
+
+        return () => {
+            removeDataLayer(null);
+            addDataLayer(null);
+        }
+
+    }, []);
+
     const addDataSet = (dataSet) => {
-        Axios.get(`https://geonode.project-supervision-tool.ga/geoserver/wms?service=wms&version=1.1.1&request=GetCapabilities`)
-            .then(res => {
-                const capabilities = new WMSCapabilities().parse(res.data);
-                const myLayer = capabilities.Capability.Layer.Layer.find(l => l.Name === dataSet.typename );
-                const {LatLonBoundingBox} = myLayer;
-                console.log(myLayer);
+        console.log('capabilities', capabilities);
+        const myLayer = capabilities.Capability.Layer.Layer.find(l => l.Name === dataSet.typename );
+        const {LatLonBoundingBox} = myLayer;
+        console.log(myLayer);
 
-                const geonodeLayer = L.tileLayer.wms("https://geonode.project-supervision-tool.ga/geoserver/ows", {
-                    layers: dataSet.typename,
-                    format: 'image/png',
-                    transparent: true,
-                });
+        const geonodeLayer = L.tileLayer.wms("https://geonode.project-supervision-tool.ga/geoserver/ows", {
+            layers: dataSet.typename,
+            format: 'image/png',
+            transparent: true,
+        });
 
-                mapLayers[dataSet.typename] = geonodeLayer;
-                setMapLayers(mapLayers);
-                map.addLayer(geonodeLayer);
-                const corner1 = L.latLng(LatLonBoundingBox[1],LatLonBoundingBox[0]);
-                const corner2 = L.latLng(LatLonBoundingBox[3],LatLonBoundingBox[2]);
-                const bounds = L.latLngBounds(corner1, corner2);
-                map.fitBounds(bounds);
-            });
+        mapLayers[dataSet.typename] = geonodeLayer;
+        setMapLayers(mapLayers);
+        map.addLayer(geonodeLayer);
+        const corner1 = L.latLng(LatLonBoundingBox[1],LatLonBoundingBox[0]);
+        const corner2 = L.latLng(LatLonBoundingBox[3],LatLonBoundingBox[2]);
+        const bounds = L.latLngBounds(corner1, corner2);
+        map.fitBounds(bounds);
     }
 
 
@@ -64,14 +74,21 @@ const mapStateToProps = (state) => ({
     removedDataSet: mapDataSetsSelectors.getRemovedDataSetSelector(state)
 });
 
+const mapDispatchToProps = (dispatch) => ({
+    removeDataLayer: bindActionCreators(mapDataSetsActions.removeSelectedLayer, dispatch),
+    addDataLayer: bindActionCreators(mapDataSetsActions.setSelectedLayer, dispatch),
+});
 
 
 
-export default connect(mapStateToProps)(ShowDataSets);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShowDataSets);
 
 ShowDataSets.propTypes = {
     addedDataSet: PropTypes.object,
     removedDataSet: PropTypes.object,
+    addDataLayer: PropTypes.func.isRequired,
+    removeDataLayer: PropTypes.func.isRequired,
 }
 ShowDataSets.defaultProps = {
     addedDataSet: null,
