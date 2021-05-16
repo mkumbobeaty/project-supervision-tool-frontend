@@ -18,23 +18,7 @@
     border-bottom: 1px solid #e5e5e5;
 }
 
-.DataSet .DataSetAction {
-    font-size: 1em;
-    line-height: 16px;
-    font-weight: 700;
-    margin-left: 5px;
-    cursor: pointer;
-    text-align: right;
-}
-
-.DataSet .add {
-    color: #0f6788;;
-}
 .ant-popover.ant-popover-placement-right {
     left: 441px !important;
 
-}
-
-.DataSet .close {
-    color: #dd4f48;
 }

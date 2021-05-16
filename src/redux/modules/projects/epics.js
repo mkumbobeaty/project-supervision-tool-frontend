@@ -69,7 +69,6 @@ const createProjectPic = action$ => {
  * @return action$
  */
 const createSubProjectEpic = action$ => {
-    console.log('inside createSubProjectEpic');
     return action$.pipe(
         ofType(types.CREATE_SUB_PROJECT_START),
         switchMap(({payload}) => {

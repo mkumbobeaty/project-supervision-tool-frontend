@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProjectsMenuItemDetails from './components/ProjectsMenuItemDetails';
-import SubProjectsMenuItemDetails from './components/SubProjectsMenuItemDetails';
-import DataSetsMenuItemDetails from "./components/DataSetsMenuItemDetails";
 import './styles.css'
 
 

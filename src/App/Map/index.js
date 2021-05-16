@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Spin } from 'antd';
 import PropTypes from "prop-types";
-import { ZoomControl } from 'react-leaflet';
 import { connect } from 'react-redux';
 import BaseMap from "./components/BaseMap";
 import { bindActionCreators } from "redux";
@@ -13,7 +12,6 @@ import { mapSubProjectActions, mapSubProjectSelectors } from "../../redux/module
 import "./styles.css";
 import SubProjectPoints from './components/SubProjectPoints';
 import ShowDataSets from "./components/ShowDataSets";
-import SubProjectLocations from "./components/SubProjectLocations";
 import Legend from "./components/Legend";
 
 class MapDashboard extends Component {
