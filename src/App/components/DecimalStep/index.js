@@ -1,10 +1,10 @@
 import React from 'react';
-import { Slider, InputNumber, Row, Col } from 'antd';
+import { Slider, InputNumber } from 'antd';
 
 
 class DecimalStep extends React.Component {
     state = {
-        inputValue: 0,
+        inputValue: 1,
     };
 
     onChange = value => {
@@ -12,6 +12,7 @@ class DecimalStep extends React.Component {
         if (isNaN(value)) {
             return;
         }
+        this.props.onStepChange(value);
         this.setState({
             inputValue: value,
         });
@@ -20,27 +21,30 @@ class DecimalStep extends React.Component {
     render() {
         const { inputValue } = this.state;
         return (
-            <Row>
-                <Col span={12}>
+            <div style={{display: 'flex', flexDirection: 'column'}}>
+                <div><b>Transparency:</b></div>
+                <div style={{display: 'flex'}}>
                     <Slider
+                        style={{width: '100%'}}
+                        reverse={true}
+                        disabled={this.props.disabled}
                         min={0}
                         max={1}
                         onChange={this.onChange}
                         value={typeof inputValue === 'number' ? inputValue : 0}
                         step={0.1}
                     />
-                </Col>
-                <Col span={4}>
                     <InputNumber
+                        style={{margin: '0 0 0 16px'}}
                         min={0}
                         max={1}
-                        style={{ margin: '0 16px' }}
                         step={0.1}
                         value={inputValue}
                         onChange={this.onChange}
                     />
-                </Col>
-            </Row>
+                </div>
+            </div>
+
         );
     }
 }

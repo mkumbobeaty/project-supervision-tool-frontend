@@ -10,7 +10,6 @@ import L from 'leaflet';
 import "./styles.css";
 import BaseMapSwitcher from "./components/BaseMapSwitcher";
 import LayerControl from "../LayerControl";
-import ShowDataSets from "../ShowDataSets";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -35,7 +34,6 @@ const BaseMap = ({children}) => {
     return (
         <MapContainer center={position} fullscreenControl={{ position: 'topright'}} zoom={state.zoom} className="base-map" zoomControl={false} >
             <LayerControl />
-            <ShowDataSets />
             <BaseMapSwitcher />
             <ZoomControl position="topright"/>
             {children}

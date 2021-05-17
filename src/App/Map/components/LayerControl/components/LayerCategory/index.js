@@ -8,7 +8,14 @@ import DecimalStep from "../../../../../components/DecimalStep";
 
 const { Panel } = Collapse;
 
-function LayerCategory({category}) {
+function PanelContents ({ layer, changeOpacity}) {
+
+    const handleOnStepChange = (value) =>  changeOpacity(value, layer);
+
+    return <DecimalStep onStepChange={handleOnStepChange}/>
+}
+
+function LayerCategory({category, changeOpacity}) {
 
     const [layers, setLayers] = useState([]);
 
@@ -16,6 +23,7 @@ function LayerCategory({category}) {
         API.getLayers({category: category.id, offset: 0})
             .then(({objects}) => setLayers(objects));
     }, []);
+
 
     return (
             <Collapse bordered={false} expandIconPosition='right' ghost>
@@ -26,7 +34,7 @@ function LayerCategory({category}) {
                                 header={<LayerItem layer={layer}/>}
                                 className="LayerCategories"
                             >
-                                <DecimalStep />
+                                <PanelContents layer={layer} changeOpacity={changeOpacity} />
                             </Panel>
                         )
                     )
@@ -41,4 +49,5 @@ export default LayerCategory;
 
 LayerCategory.propTypes = {
     category: PropTypes.object.isRequired,
+    changeOpacity: PropTypes.func.isRequired,
 }

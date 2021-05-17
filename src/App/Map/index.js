@@ -11,7 +11,6 @@ import { mapProjectActions, mapProjectSelectors } from "../../redux/modules/map/
 import { mapSubProjectActions, mapSubProjectSelectors } from "../../redux/modules/map/subProjects";
 import "./styles.css";
 import SubProjectPoints from './components/SubProjectPoints';
-import ShowDataSets from "./components/ShowDataSets";
 import Legend from "./components/Legend";
 
 class MapDashboard extends Component {
