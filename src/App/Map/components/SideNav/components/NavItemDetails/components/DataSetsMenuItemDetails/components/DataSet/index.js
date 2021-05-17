@@ -3,10 +3,7 @@ import PropTypes from 'prop-types';
 import {InfoCircleTwoTone, CloseOutlined} from '@ant-design/icons';
 import {Popover} from "antd";
 import API from "../../../../../../../../../../API";
-import { Collapse } from 'antd';
 import './styles.css';
-
-const { Panel } = Collapse;
 
 function DataSetAction({addDataSet, removeDataSet, dataSet}) {
     const [close, setClose] = useState(false);
@@ -65,7 +62,6 @@ function LayerCategory({category, addDataSet, removeDataSet}) {
     const [layers, setLayers] = useState([]);
 
     useEffect(() => {
-        console.log('inside useEffect');
         API.getLayers({category: 6, offset: 0})
             .then(({objects}) => setLayers(objects));
     }, []);
@@ -73,17 +69,11 @@ function LayerCategory({category, addDataSet, removeDataSet}) {
     return (
         <div>
             <section className='data-set-section'>
-            <Collapse
-                defaultActiveKey={['1']}
-                expandIconPosition={'right'}
-                bordered={false}
-                className="FilterCollapse"
-            >
-                 <Panel header={`Boundaries (${category.count})`} key="1" >
+           
                 {
                     layers.map(layer => (
                             <div className='DataSet'>
-                                <Popover
+                                {/* <Popover
                                     className='data-set-info'
                                     content={<DataSetInfo/>}
                                     title={<b>Data Set Details</b>}
@@ -98,13 +88,11 @@ function LayerCategory({category, addDataSet, removeDataSet}) {
                                 <DataSetAction
                                     addDataSet={addDataSet}
                                     removeDataSet={removeDataSet}
-                                />
+                                /> */}
                             </div>
                         )
                     )
                 }
-                </Panel>
-                </Collapse>
             </section>
         </div>
 
