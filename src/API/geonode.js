@@ -16,7 +16,7 @@ const axiosGeonode = Axios.create({
  * @description get layers  fr  om Geonode
  */
 const getLayers = ( params = {}) =>
-    axiosGeonode.get(`${baseUrl}/layers`, { params: { ...params, limit: 10 } }).then((response) => response.data);
+    axiosGeonode.get(`${baseUrl}/layers`, { params: { ...params } }).then((response) => response.data);
 
 /**
  * @function
@@ -32,7 +32,7 @@ const getCapabilities = ( params = {}) =>
  * @description get layers  from Geonode
  */
 const getLayersCategories = (offset) =>
-    axiosGeonode.get(`${baseUrl}/categories`, {params: { limit: 10, offset }}).then((response) => response.data);
+    axiosGeonode.get(`${baseUrl}/categories`, {params: { offset }}).then((response) => response.data);
 
 
 export default {

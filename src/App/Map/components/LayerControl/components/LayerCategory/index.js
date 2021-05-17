@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types';
+import { Collapse} from 'antd';
 import './styles.css';
 import API from "../../../../../../API";
 import LayerItem from "./componets/LayerItem";
 
+const { Panel } = Collapse;
 
 function LayerCategory({category}) {
 
@@ -15,18 +17,20 @@ function LayerCategory({category}) {
     }, []);
 
     return (
-        <div>
-            <section className='data-set-section'>
-                <h4> Boundaries <span>({category.count})</span></h4>
+            <Collapse bordered={false} expandIconPosition='right' ghost>
                 {
                     layers.map(layer => (
-                            <LayerItem layer={layer}/>
+                            <Panel
+                                key={layer.id}
+                                header={<LayerItem layer={layer}/>}
+                                styles={{ padding: '0 0 0 16px'}}
+                            >
+                                Hello there
+                            </Panel>
                         )
                     )
                 }
-            </section>
-        </div>
-
+            </Collapse>
     )
 
 }

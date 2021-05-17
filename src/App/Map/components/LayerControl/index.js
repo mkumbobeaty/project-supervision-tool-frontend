@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import LayerControlIcon from '../../../../assets/icons/geo-node-layers.svg';
 import './styles.css';
-import {Drawer, Spin} from "antd";
+import {Collapse, Drawer, Spin} from "antd";
 import {CloseOutlined} from '@ant-design/icons';
 import TopSection from "../SideNav/components/NavItemDetails/components/TopSection";
 import CustomSearch from "../SideNav/components/NavItemDetails/components/CustomSearch";
 import LayerCategory from "./components/LayerCategory";
 import API from "../../../../API";
-import {useMap} from "react-leaflet";
+
+const {Panel} = Collapse;
 
 
-const LayerControl = ({}) => {
+const LayerControl = () => {
     const [showSideNav, setShowSideNav] = useState(false);
     const [layerCategories, setLayerCategories] = useState([]);
     useEffect(() => {
@@ -21,8 +22,11 @@ const LayerControl = ({}) => {
             });
     }, []);
 
-    const map = useMap();
-
+    const text = `
+  A dog is a type of domesticated animal.
+  Known for its loyalty and faithfulness,
+  it can be found as a welcome guest in many households across the world.
+`;
 
     return (
         <>
@@ -40,7 +44,7 @@ const LayerControl = ({}) => {
                 getContainer={false}
                 width={450}
                 closeIcon={<CloseOutlined/>}
-                style={{ position: 'absolute' }}
+                style={{position: 'absolute'}}
             >
                 <Spin spinning={false}>
                     <div className='DataSetsMenuItemDetails'>
@@ -50,11 +54,20 @@ const LayerControl = ({}) => {
                             <CustomSearch placeholder='Search map layers'/>
                         </div>
                         <hr/>
-                        <div className='data-set-items'>
+                        {/*<Collapse  defaultActiveKey={['6']}>*/}
+                        {/*    {*/}
+                        {/*        layerCategories.map((category) => <LayerCategory category={category}/>)*/}
+                        {/*    }*/}
+                        {/*</Collapse>*/}
+                        <Collapse defaultActiveKey={['1']}>
                             {
-                                layerCategories.map((category) => <LayerCategory category={category} map={map} />)
+                                layerCategories.map((category) =>
+                                    <Panel header={`${category.gn_description} (${category.count})`} key={category.id}>
+                                        <LayerCategory category={category}/>
+                                    </Panel>
+                                )
                             }
-                        </div>
+                        </Collapse>,
                         <div className="dataset-load_more">
                             <p>Load More</p>
                             <a href='https://geonode.project-supervision-tool.ga/' target="_blank"

@@ -1,5 +1,5 @@
 import {Popover} from "antd";
-import {InfoCircleTwoTone} from "@ant-design/icons";
+import {CloseOutlined, InfoCircleTwoTone} from "@ant-design/icons";
 import React from "react";
 import LayerItemActions from "./components/LayerItemActions";
 import LayerItemDetails from "./LayerItemDetails";
