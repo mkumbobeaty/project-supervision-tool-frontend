@@ -22,11 +22,6 @@ const LayerControl = () => {
             });
     }, []);
 
-    const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
 
     return (
         <>
@@ -53,7 +48,7 @@ const LayerControl = () => {
                         <div className="data-set-search">
                             <CustomSearch placeholder='Search map layers'/>
                         </div>
-                        <hr/>
+                        {/* <hr/> */}
                         {/*<Collapse  defaultActiveKey={['6']}>*/}
                         {/*    {*/}
                         {/*        layerCategories.map((category) => <LayerCategory category={category}/>)*/}
@@ -62,7 +57,7 @@ const LayerControl = () => {
                         <Collapse defaultActiveKey={['1']}>
                             {
                                 layerCategories.map((category) =>
-                                    <Panel header={`${category.gn_description} (${category.count})`} key={category.id}>
+                                    <Panel header={`${category.gn_description} (${category.count})`} key={category.id} >
                                         <LayerCategory category={category}/>
                                     </Panel>
                                 )
