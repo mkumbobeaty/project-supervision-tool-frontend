@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types';
 import {InfoCircleTwoTone, CloseOutlined} from '@ant-design/icons';
-
-import './styles.css';
 import {Popover} from "antd";
 import API from "../../../../../../../../../../API";
+import { Collapse } from 'antd';
+import './styles.css';
+
+const { Panel } = Collapse;
 
 function DataSetAction({addDataSet, removeDataSet, dataSet}) {
     const [close, setClose] = useState(false);
@@ -71,7 +73,13 @@ function LayerCategory({category, addDataSet, removeDataSet}) {
     return (
         <div>
             <section className='data-set-section'>
-                <h4> Boundaries <span>({category.count})</span></h4>
+            <Collapse
+                defaultActiveKey={['1']}
+                expandIconPosition={'right'}
+                bordered={false}
+                className="FilterCollapse"
+            >
+                 <Panel header={`Boundaries (${category.count})`} key="1" >
                 {
                     layers.map(layer => (
                             <div className='DataSet'>
@@ -95,6 +103,8 @@ function LayerCategory({category, addDataSet, removeDataSet}) {
                         )
                     )
                 }
+                </Panel>
+                </Collapse>
             </section>
         </div>
 

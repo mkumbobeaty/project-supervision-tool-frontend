@@ -57,7 +57,8 @@
     color: #0f6788;
 }
 
-.ProjectInfo .ant-collapse-borderless>.ant-collapse-item>.ant-collapse-content {
+.ProjectInfo .ant-collapse-borderless>.ant-collapse-item>.ant-collapse-content,
+.data-set-section .ant-collapse-borderless>.ant-collapse-item>.ant-collapse-content {
     border-top: 0.8px solid #d9d9d9
 }
 
