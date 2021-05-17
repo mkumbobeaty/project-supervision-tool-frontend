@@ -12,7 +12,6 @@ function NavItemDetails({ activeItem }) {
             className='NavItemDetails'
         >
             {activeItem === 'projects' ? <ProjectsMenuItemDetails /> : ''}
-            {activeItem === 'map-layers' ? <DataSetsMenuItemDetails /> : ''}
         </div>
     );
 }

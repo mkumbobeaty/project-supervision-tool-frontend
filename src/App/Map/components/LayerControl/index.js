@@ -1,31 +1,34 @@
-import React from 'react';
-import { TileLayer,LayersControl } from 'react-leaflet';
+import React, {useState} from 'react';
+import LayerControlIcon from '../../../../assets/icons/geo-node-layers.svg';
+import './styles.css';
+import {Drawer} from "antd";
+import { CloseOutlined } from '@ant-design/icons';
+import DataSetsMenuItemDetails from "../SideNav/components/NavItemDetails/components/DataSetsMenuItemDetails";
+
 
 const LayerControl = () => {
+    const [showSideNav, setShowSideNav] = useState(false);
     return (
-        <LayersControl position="topright">
-            <LayersControl.BaseLayer name="OpenStreetMap Standard" checked>
-                <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-            </LayersControl.BaseLayer>
-            <LayersControl.BaseLayer name="OpenStreetMap Black and White">
-                <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-                />
-            </LayersControl.BaseLayer>
-
-            <LayersControl.BaseLayer name="Humanitarian">
-                <TileLayer
-                    attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                    url="http://b.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png	"
-                />
-            </LayersControl.BaseLayer>
-            
-        </LayersControl>
-    )
+        <>
+            <img
+                src={LayerControlIcon}
+                alt='layers control'
+                className='geonode-layers-control leaflet-touch leaflet-bar'
+                onClick={() => setShowSideNav(true)}
+            />
+            <Drawer
+                mask={false}
+                onClose={() => setShowSideNav(false)}
+                visible={showSideNav}
+                className="mapSideNav"
+                getContainer={false}
+                width={450}
+                closeIcon={<CloseOutlined />}
+            >
+                <DataSetsMenuItemDetails />
+            </Drawer>
+        </>
+    );
 }
 
-export default LayerControl
+export default LayerControl;
