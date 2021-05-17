@@ -22,12 +22,6 @@ const LayerControl = () => {
             });
     }, []);
 
-    const text = `
-  A dog is a type of domesticated animal.
-  Known for its loyalty and faithfulness,
-  it can be found as a welcome guest in many households across the world.
-`;
-
     return (
         <>
             <img
@@ -53,21 +47,18 @@ const LayerControl = () => {
                         <div className="data-set-search">
                             <CustomSearch placeholder='Search map layers'/>
                         </div>
-                        <hr/>
-                        {/*<Collapse  defaultActiveKey={['6']}>*/}
-                        {/*    {*/}
-                        {/*        layerCategories.map((category) => <LayerCategory category={category}/>)*/}
-                        {/*    }*/}
-                        {/*</Collapse>*/}
-                        <Collapse defaultActiveKey={['1']}>
-                            {
-                                layerCategories.map((category) =>
-                                    <Panel header={`${category.gn_description} (${category.count})`} key={category.id}>
-                                        <LayerCategory category={category}/>
-                                    </Panel>
-                                )
-                            }
-                        </Collapse>,
+                        {
+                            layerCategories.length > 0 ? <Collapse defaultActiveKey={[layerCategories[0].id]}>
+                                {
+                                    layerCategories.map((category) =>
+                                        <Panel header={`${category.gn_description} (${category.count})`}
+                                               key={category.id}>
+                                            <LayerCategory category={category}/>
+                                        </Panel>
+                                    )
+                                }
+                            </Collapse> : ''
+                        }
                         <div className="dataset-load_more">
                             <p>Load More</p>
                             <a href='https://geonode.project-supervision-tool.ga/' target="_blank"

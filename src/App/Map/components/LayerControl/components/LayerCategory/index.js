@@ -23,7 +23,6 @@ function LayerCategory({category}) {
                             <Panel
                                 key={layer.id}
                                 header={<LayerItem layer={layer}/>}
-                                styles={{ padding: '0 0 0 16px'}}
                             >
                                 Hello there
                             </Panel>

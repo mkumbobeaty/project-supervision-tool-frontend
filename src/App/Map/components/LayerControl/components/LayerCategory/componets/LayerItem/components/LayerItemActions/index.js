@@ -13,6 +13,7 @@ function LayerItemActions({remove, add, layer}) {
         <div className='LayerItemActions'>
             <div
                 className='add'
+                title='Add layer on map'
                 style={{'display': close ? 'none' : 'block'}}
                 onClick={() => {
                     setClose(true);
@@ -22,7 +23,7 @@ function LayerItemActions({remove, add, layer}) {
             >
                 Add
             </div>
-            <CloseOutlined
+            <div
                 className='close'
                 style={{'display': close ? 'block' : 'none'}}
                 onClick={() => {
@@ -30,7 +31,10 @@ function LayerItemActions({remove, add, layer}) {
                     remove(layer)
                     add(null)
                 }}
-            />
+            >
+                <CloseOutlined/>
+            </div>
+
         </div>
     )
 }

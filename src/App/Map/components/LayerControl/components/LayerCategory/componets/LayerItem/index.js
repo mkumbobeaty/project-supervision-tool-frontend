@@ -1,19 +1,20 @@
 import {Popover} from "antd";
-import {CloseOutlined, InfoCircleTwoTone} from "@ant-design/icons";
-import React from "react";
+import { InfoCircleTwoTone} from "@ant-design/icons";
+import React, {useRef} from "react";
 import LayerItemActions from "./components/LayerItemActions";
 import LayerItemDetails from "./LayerItemDetails";
 
 function LayerItem ({ layer}) {
 
+    const ref = useRef();
     return (
-        <div className='DataSet'>
+        <div className='DataSet' ref={ref}>
             <Popover
                 className='data-set-info'
                 content={<LayerItemDetails layer={layer}/>}
                 title={<b>Data Set Details</b>}
-                placement="right"
-                trigger="click"
+                getPopupContainer={() => ref.current}
+                placement="top"
             >
                 <InfoCircleTwoTone twoToneColor="#0f6788"/>
             </Popover>
