@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
 import PropTypes from 'prop-types';
-import { Collapse} from 'antd';
+import {Collapse} from 'antd';
 import './styles.css';
 import API from "../../../../../../API";
 import LayerItem from "./componets/LayerItem";
+import DecimalStep from "../../../../../components/DecimalStep";
 
 const { Panel } = Collapse;
 
@@ -23,8 +24,9 @@ function LayerCategory({category}) {
                             <Panel
                                 key={layer.id}
                                 header={<LayerItem layer={layer}/>}
+                                className="LayerCategories"
                             >
-                                Hello there
+                                <DecimalStep />
                             </Panel>
                         )
                     )
