@@ -3,7 +3,6 @@
     font: 14px/16px Arial, Helvetica, sans-serif;
     background: rgba(255, 255, 255, 0.8);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    width: 150px;
     z-index: 800;
     border: 0.8px solid #b6b3b3;
     border-radius: 0px;
@@ -12,9 +11,7 @@
 .info .project-legend {
     display: flex;
 }
-.projects-info{
-    padding-top: 25px;
-}
+
 
 
 .info h3 {
@@ -26,9 +23,6 @@
     text-transform: uppercase;
 }
 
-.info h4 {
-    font-size: 12px;
-}
 
 .info p {
     margin-bottom: 0px !important;
@@ -39,7 +33,6 @@
 
 .info h5 {
     padding-left: 10px;
-    font-size: 11px;
 }
 
 #text ::after {
