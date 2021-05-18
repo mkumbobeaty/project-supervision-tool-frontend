@@ -5,6 +5,20 @@
  */
 export const getSubProjectSelector = (state) => state.map.subProjects.selected?.data;
 
+/**
+ * @function
+ * @name getSubProjectLoadingSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectLoadingSelector = (state) => state.map.subProjects.selected?.loading;
+
+
+/**
+ * @function
+ * @name getSubProjectsSelector
+ * @param {Object} state redux state
+ */
+export const getSubProjectsSelector = (state) => state.map.subProjects.all?.data?.data || [];
 
 /**
  * @function
@@ -113,3 +127,18 @@ export const getSubProjectTypesSelector = (state) => state?.map?.subProjects?.su
  * @param {Object} state redux state
  */
 export const getSubProjectStatusSelector = (state) => state?.map?.subProjects?.subProjectStatus?.data;
+
+/**
+ * @function
+ * @name getContractorsSelector
+ * @param {Object} state redux state
+ */
+export const getContractorsSelector = (state) => state?.map?.subProjects?.contractors?.data;
+
+/**
+ * @function
+ * @name getProcuringEntityPackageSelector
+ * @param {Object} state redux state
+ */
+export const getProcuringEntityPackageSelector = (state) => state?.map?.subProjects?.procuringEntityPackage?.data;
+

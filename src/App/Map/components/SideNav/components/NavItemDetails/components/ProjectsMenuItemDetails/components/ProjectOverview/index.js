@@ -10,8 +10,10 @@ import SideNavItemOverview from "../SideNavItemOverview";
 import ProjectStatusFilter from "../ProjectStatusFilter";
 import ProjectsFilter from "../ProjectsFilter";
 import RegionsFilter from "../RegionsFilter";
-import { mapSubProjectActions, mapSubProjectSelectors } from "../../../../../../../../../../redux/modules/map/subProjects";
-import SubProjectTypesFilter from "../SuProjectTypesFilter";
+import { mapSubProjectActions } from "../../../../../../../../../../redux/modules/map/subProjects";
+import { Collapse } from 'antd';
+
+const { Panel } = Collapse;
 
 /**
  * @function
@@ -35,11 +37,7 @@ function ProjectsOverview(
         getProjectsFilters,
         getProject,
         setProjectRegionsFilter,
-        getSubProjectTypes,
-        getSubProjectStatus,
-        subProjectTypes,
-        subProjectStatus,
-        setSubProjectTypesFilter
+        getSubProjectsByProjectId
     }
 ) {
 
@@ -55,32 +53,47 @@ function ProjectsOverview(
 
     const overViewData = projectsStatistics ? [
         { title: 'Projects', value: projectsStatistics.projects, },
-        { title: 'Sub Projects', value: projectsStatistics.sub_projects },
         { title: 'Regions', value: projectsStatistics.regions },
     ] : [];
 
     return (
         <>
-            <TopSection title="OVERVIEWS" />
-            <SideNavItemOverview
-                overViewData={overViewData}
-                loadingStatistics={loadingStatistics}
-            />
-            <ProjectStatusFilter
-                statuses={statuses}
-                setProjectStatusFilter={setProjectStatusFilter}
-            />
-            <ProjectsFilter
-                projects={projects}
-                getSubProjects={getSubProjects}
-                getProject={getProject}
-                setProjectIdFilter={setProjectIdFilter}
-            />
-            <RegionsFilter
-                regions={regions}
-                setProjectRegionsFilter={setProjectRegionsFilter}
-            />
-    
+            <div className="ProjectInfo">
+                <TopSection title="OVERVIEWS" />
+                <SideNavItemOverview
+                    overViewData={overViewData}
+                    loadingStatistics={loadingStatistics}
+                />
+
+                <Collapse
+                    defaultActiveKey={['1', '2', '3']}
+                    expandIconPosition={'right'}
+                    bordered={false}
+                    className="FilterCollapse"
+                >
+                    <Panel header="Project Status" key="1" >
+                        <ProjectStatusFilter
+                            statuses={statuses}
+                            setProjectStatusFilter={setProjectStatusFilter}
+                        />
+                    </Panel>
+                    <Panel header="Projects" key="2" >
+                        <ProjectsFilter
+                            projects={projects}
+                            getSubProjects={getSubProjects}
+                            getProject={getProject}
+                            setProjectIdFilter={setProjectIdFilter}
+                            getSubProjectsByProjectId={getSubProjectsByProjectId}
+                        />
+                    </Panel>
+                    <Panel header="Regions" key="3" >
+                        <RegionsFilter
+                            regions={regions}
+                            setProjectRegionsFilter={setProjectRegionsFilter}
+                        />
+                    </Panel>
+                </Collapse>
+            </div>
 
         </>
     );
@@ -105,7 +118,7 @@ const mapDispatchToProps = (dispatch) => ({
     setProjectIdFilter: bindActionCreators(projectActions.setProjectIdFilter, dispatch),
     setProjectRegionsFilter: bindActionCreators(projectActions.setProjectRegionsFilter, dispatch),
     getSubProjects: bindActionCreators(mapSubProjectActions.getSubProjectsStart, dispatch),
-   
+    getSubProjectsByProjectId: bindActionCreators(mapSubProjectActions.getSubProjectByProjectId, dispatch)
 });
 
 
@@ -118,8 +131,9 @@ ProjectsOverview.propTypes = {
     setShowNationalOverview: PropTypes.func.isRequired,
     setShowRegionalOverview: PropTypes.func.isRequired,
     getProject: PropTypes.func.isRequired,
-    getSubProjects: PropTypes.func.isRequired,
     setProjectStatusFilter: PropTypes.array.isRequired,
+    getSubProjects: PropTypes.func.isRequired,
+    project: PropTypes.object.isRequired,
 }
 
 ProjectsOverview.defaultProps = {

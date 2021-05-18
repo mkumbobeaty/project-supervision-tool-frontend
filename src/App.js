@@ -8,6 +8,8 @@ import SignIn from './App/Auth/components/SignIn';
 import BaseLayout from './App/layouts/BaseLayout';
 import {bindActionCreators} from "redux";
 import {appActions} from './redux/modules/app';
+import PrivateRoute from "./App/Auth/PrivateRoute";
+import MapDashboard from "./App/Map";
 
 Spin.setDefaultIndicator(<LoadingOutlined style={{ fontSize: 24 }} spin />);
 class App extends Component{
@@ -21,6 +23,7 @@ class App extends Component{
                 <HashRouter hashType="hashbang">
                     <Switch>
                         <Route path="/app" component={BaseLayout} />
+                        <PrivateRoute path="/map" component={MapDashboard} />
                         <Route path="/signin" component={SignIn} />
                         <Redirect to="/signin" />
                     </Switch>

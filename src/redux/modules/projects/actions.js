@@ -211,6 +211,20 @@ export const openSubProjectSurveyForm = makeActionCreator(types.OPEN_SUB_PROJECT
 
 /**
  * @function
+ * @name openSurveyForm
+ * @return {Object} action
+ * */
+export const openSurveyForm = makeActionCreator(types.OPEN_SURVEY_FORM);
+
+/**
+ * @function
+ * @name closeSurveyForm
+ * @return {Object} action
+ * */
+export const closeSurveyForm = makeActionCreator(types.CLOSE_SURVEY_FORM);
+
+/**
+ * @function
  * @name closeSubProjectForm
  * @return {Object} action
  * */

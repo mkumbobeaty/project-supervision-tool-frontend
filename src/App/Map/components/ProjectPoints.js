@@ -1,98 +1,101 @@
-import { withLeaflet, Popup, Marker } from "react-leaflet";
+import { Popup, CircleMarker } from "react-leaflet";
 import { divIcon } from 'leaflet';
-import React, { Component } from "react";
+import React from "react";
 import PropTypes from 'prop-types';
-import Spiderfy from "./Spiderfy";
-import { Link } from "react-router-dom";
 import * as turf from '@turf/turf';
+import ProjectPopupDetail from "./ProjectPopup";
+import { invertColor, moneyFormatWithApproximation } from "../../../Util";
+import Legend from "./Legend";
 
-import { isoDateToHumanReadableDate, moneyFormat } from "../../../Util";
 
-class ProjectPoints extends Component {
+function ProjectPoints({ projects, project, loading, getProject }) {
 
-    static propTypes = {
-        projects: PropTypes.array.isRequired,
+    const handleProjectPopup = (project_id) => {
+        getProject(project_id);
+    };
+
+    const getMarkerDiameter = (amount, maxAmount, maxDiameter = 40, minDiameter = 20) => {
+        const diameter = amount * maxDiameter / maxAmount;
+        if (diameter > minDiameter) return diameter;
+        return minDiameter;
     }
 
-    handleSpiderfyClick = marker => {
-        console.log(marker);
-    };
+    const getMaxAmount = (projects) => {
+        const commitment_amounts = projects.map(({ details: { commitment_amount } }) => commitment_amount.amount);
+        return Math.max(...commitment_amounts);
+    }
 
-    handleSpiderfy = markers => {
-        console.log(markers);
-    };
+    return (
+        <>
+            { projects.map(({ regions, id, details, color }) => {
 
-    handleUnspiderfy = markers => {
-        console.log(markers);
-    };
+                const invertedColor = invertColor(color);
 
-    render() {
-        const { projects } = this.props;
+                // dimesion required for displaying markers
+                const { commitment_amount } = details;
+                const { amount } = commitment_amount;
+                const commitment_money = moneyFormatWithApproximation(amount)
+                const maxAmount = getMaxAmount(projects);
+                const dimension = getMarkerDiameter(amount, maxAmount);
 
-        return (
-            <Spiderfy
-                onClick={this.handleSpiderfyClick}
-                onSpiderfy={this.handleSpiderfy}
-                onUnspiderfy={this.handleUnspiderfy}
-            >
-                { projects.map(({ regions }) => {
-                    return regions.length > 0 ? regions.map((region) => {
-                        const polygon = JSON.parse(region.geom);
-                        const { geometry } = turf.pointOnFeature(polygon);
+                return regions.length > 0 ? regions.map((region) => {
+                    const polygon = JSON.parse(region.geom);
+                    const { geometry } = turf.pointOnFeature(polygon);
 
-                        var customizedIcon = divIcon({ className: 'customizedIcon' });
+                    const customizedIcon = divIcon({
+                        className: 'customizedIcon',
+                        html: `<div  style='background-color:${color}; width: ${dimension}px ;height: ${dimension}px;' class='marker-pin'>
+                            </div>
+                            <h4 style='color: ${invertedColor}; top: ${dimension / 2}px; left: ${dimension / 2}px; font-size: ${dimension / 4}px'> 
+                            ${commitment_money}
+                            </h4>`,
+                        iconSize: [dimension, 42],
+                        iconAnchor: [0, 0]
+                    });
 
-                        return (
-                            <Marker
+                    return (
+                        <>
+                            <CircleMarker
+                                key={id}
+                                center={[geometry.coordinates[1], geometry.coordinates[0]]}
+                                radius={dimension}
+                                fillOpacity={0.9}
+                                stroke={false}
+                                color={color}
+                                children={20}
+                                eventHandlers={{click: () => handleProjectPopup(id)}}
+                            >
+                                <Popup >
+                                    <ProjectPopupDetail project={project} loading={loading} />
+                                </Popup>
+                            </CircleMarker>
+                            {/* <Marker
                                 position={[geometry.coordinates[1], geometry.coordinates[0]]}
                                 title={region.name}
                                 key={region.id}
                                 icon={customizedIcon}
-                            >
-                                <Popup>
-                                    <section className="mapPopup">
-                                        <div>                                        <h3>{region?.name}</h3>
-                                        </div>
-                                        <hr />
-                                        <div className="projectDetail">
-                                            <span>
-                                                <h4>World Bank Project ID</h4>
-                                                <p>{region ? region?.id : 'N/A'}</p>
-                                            </span>
-                                            <div className="timeFrame">
-                                                <span>
-                                                    <h4>Start Date</h4>
-                                                    <p>{region?.details ? isoDateToHumanReadableDate(region?.details?.approval_date) : 'N/A'}</p>
-                                                </span>
-                                                <span>
-                                                    <h4>Last updated</h4>
-                                                    <p>{region?.details ? isoDateToHumanReadableDate(region?.details?.closing_date) : 'N/A'}</p>
-                                                </span>
-                                            </div>
-                                            <span>
-                                                <h4>Implementing Agency</h4>
-                                                <p>{region?.details ? region?.details.implementing_agency.name : 'N/A'}</p>
-                                            </span>
-                                            {/* <span>
-                                            <h4>region Total Cost</h4>
-                                            <p>{totalProjectCost}</p>
-                                        </span>
-                                        <span>
-                                            <h4>Commitment Amount</h4>
-                                            <p>{commitmentAmount}</p>
-                                        </span> */}
-                                        </div>
-                                    </section>
-                                    <Link to="/app/map">View project</Link>
+                                eventHandlers={{click: () => handleProjectPopup(id)}}
+                            >   
+                                <Popup >
+                                    <ProjectPopupDetail project={project} loading={loading} />
                                 </Popup>
-                            </Marker>
-                        );
-                    }) : '';
+                            </Marker> */}
+                            <Legend projects={projects} />
+                        </>
 
-                })}
-            </Spiderfy>);
-    }
+                    );
+                }) : '';
+
+            })}
+        </>);
 }
 
 
-export default withLeaflet(ProjectPoints);
+export default ProjectPoints;
+
+ProjectPoints.propTypes = {
+    projects: PropTypes.array.isRequired,
+    project: PropTypes.object.isRequired,
+    loading: PropTypes.bool.isRequired,
+    getProject: PropTypes.func,
+}

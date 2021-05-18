@@ -53,7 +53,7 @@ const filters = (state = projectFilter, action) => {
  * @name regions
  * @description reducer that manages regions state
  */
-const regions = (state = projectFilter, action) => {
+const regions = (state = [], action) => {
     switch (action.type) {
         case types.GET_REGIONS_START:
             return state;
@@ -232,6 +232,7 @@ const subProjectState = {
     error: null,
     loading: false,
     showForm: false,
+    showCreateSurveyForm: false,
     showSurveyForm: false,
     posting: false
 };
@@ -250,10 +251,14 @@ const subProject = (state = subProjectState, action) => {
         case types.OPEN_SUB_PROJECT_FORM:
             return { ...state, showForm: true };
         case types.OPEN_SUB_PROJECT_SURVEY_FORM:
+            return { ...state, showCreateSurveyForm: true };
+        case types.OPEN_SURVEY_FORM:
             return { ...state, showSurveyForm: true };
         case types.CLOSE_SUB_PROJECT_FORM:
             return { ...state, showForm: false };
         case types.CLOSE_SUB_PROJECT_SURVEY_FORM:
+            return { ...state, showCreateSurveyForm: false };
+        case types.CLOSE_SURVEY_FORM:
             return { ...state, showSurveyForm: false };
         case types.GET_SUB_PROJECT_SUCCESS:
             return { ...state, data: action.payload, loading: false };

@@ -34,7 +34,7 @@ const statusFilter = statuses.length > 0 ? getFilterData(statuses) : []
         <CheckBoxGroupFilter
             items={statusFilter}
             itemsPerPage={5}
-            filterTitle={`Status`}
+            // filterTitle={`Project Status`}
             handleFilter={handleOnclickFilterItem}
             filterClass="statusFilter"
         />

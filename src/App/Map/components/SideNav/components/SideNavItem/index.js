@@ -9,27 +9,22 @@ const styles = {
 }
 
 function SideNavItem({
-                         title,
-                         activeThumbnail,
-                         inactiveThumbnail,
-                         itemId,
-                         activeItem,
-                         setActiveItem,
-                     }) {
-    const handleClick = () => {
+    title,
+    activeThumbnail,
+    inactiveThumbnail,
+    itemId,
+    activeItem,
+    setActiveItem,
+}) {
 
-        // if same item is clicked twice
-        // set active item to null
-        if (itemId === activeItem) {
-            return setActiveItem('');
-        }
+    const handleClick = () => {
         return setActiveItem(itemId);
     }
     const isActive = itemId === activeItem
 
     return (
-        <div className='SideNavItem' style={isActive ? styles : {}} onClick={handleClick}>
-            <img src={isActive ? activeThumbnail : inactiveThumbnail} width={50} alt='logo'/>
+        <div className='SideNavItem' style={isActive ? styles : {}} onClick={handleClick}   >
+            <img src={isActive ? activeThumbnail : inactiveThumbnail} width={50} alt='logo' />
             <div className="side-nav-item-title">{title}</div>
         </div>
     );

@@ -1,16 +1,17 @@
-import {combineEpics, ofType} from "redux-observable";
+import { combineEpics, ofType } from "redux-observable";
 import * as types from "./types";
-import {catchError, switchMap} from "rxjs/operators";
-import {from, of} from "rxjs";
+import { catchError, switchMap } from "rxjs/operators";
+import { from, of } from "rxjs";
 import API from "../../../../API";
 import * as actions from "./actions";
-import {mapActions} from '../index'
-import {mapSubProjectTypes} from "../subProjects";
+import { mapActions } from '../index'
+import { mapSubProjectTypes } from "../subProjects";
+import { subProjectsActions } from "../../subProjects";
 
 export const getProjectMapEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_PROJECT_START),
-        switchMap(({payload}) => {
+        switchMap(({ payload }) => {
             return from(API.getProject(payload)).pipe(
                 switchMap(res => {
                     return from([
@@ -37,22 +38,23 @@ export const projectsListMapEpic = action$ => {
     )
 };
 
-export const showProjectDetailsEpic = action$ => {
-    return action$.pipe(
-        ofType(mapSubProjectTypes.GET_SUB_PROJECTS_START),
-        switchMap(() => from([
-            mapActions.showProjectsOverview(false),
-            mapActions.showProjectDetails(true),
-            actions.clearProjects(true),
-        ])),
-    );
-}
+// export const showProjectDetailsEpic = action$ => {
+//     return action$.pipe(
+//         ofType(mapSubProjectTypes.GET_SUB_PROJECTS_START),
+//                 switchMap(() => {
+//                     return from([
+//                         mapActions.showProjectsOverview(true),
+//                         mapActions.showProjectDetails(false),
+//                         actions.clearProjects(true),
 
-
+//                     ])
+//                 }),
+//             );
+// }
 
 
 export const mapProjectEpics = combineEpics(
     getProjectMapEpic,
-    showProjectDetailsEpic,
+    // showProjectDetailsEpic,
     projectsListMapEpic,
 );

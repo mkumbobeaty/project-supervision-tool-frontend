@@ -177,9 +177,9 @@ CustomList.propTypes = {
   itemCount: PropTypes.number.isRequired,
   onFilter: PropTypes.func,
   onNotify: PropTypes.func,
-  onPaginate: PropTypes.func.isRequired,
+  onPaginate: PropTypes.func,
   onRefresh: PropTypes.func.isRequired,
-  onShare: PropTypes.func.isRequired,
+  onShare: PropTypes.func,
   generateExportUrl: PropTypes.func,
   renderListItem: PropTypes.func.isRequired,
 };
@@ -188,7 +188,8 @@ CustomList.defaultProps = {
   onFilter: null,
   onNotify: null,
   generateExportUrl: null,
-  onShare: () => {},
+  onShare: null,
+  onPaginate: null,
 };
 
 export default CustomList;

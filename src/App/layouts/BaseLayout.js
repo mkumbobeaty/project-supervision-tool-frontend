@@ -5,22 +5,19 @@ import { Link, Switch, Route } from "react-router-dom";
 import UserMenu from "../navigation/UserMenu";
 import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
-// import Dashboards from "../Dashboards";
 import Permission from "../Permission";
-import MapDashboard from "../Map";
 import Projects from "../Projects";
 import SubProjects from "../Sub-projects/";
 import Project from "../Projects/components/ProjectsDetails";
 import SubProject from "../Sub-projects/components/SubProjectsDetails/"
-// import Settings from "../Settings";
 import GeoNode from "../GeoNode";
 import Agencies from "../Agencies";
 import AdminPanel from "../AdminPanel";
 import PrivateRoute from '../Auth/PrivateRoute';
 import Users from "../Users";
 import Contracts from "../Contracts";
-import "./styles.css";
 import Roles from "../Roles";
+import "./styles.css";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -170,7 +167,6 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             render={({ match }, props ) => <SubProject match={match} {...props}/>}
           />
       
-          <PrivateRoute path={`${baseUrl}/map`} component={MapDashboard} />
           <PrivateRoute
             exact
             path={`${baseUrl}/geo-node`}
@@ -195,16 +191,19 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/admin-panel`}
             component={AdminPanel}
+            disabled
           />
            <PrivateRoute
             exact
             path={`${baseUrl}/admin-panel/permission`}
             component={Permission}
+            disabled
           />
           <PrivateRoute
             exact
             path={`${baseUrl}/contracts`}
             component={Contracts}
+            disabled
           />
           <PrivateRoute component={PageNotFound} />
         </Switch>

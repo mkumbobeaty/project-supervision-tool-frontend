@@ -1,9 +1,6 @@
 
 import React, {Component} from 'react';
-import {GeoJSON, Marker, Popup, withLeaflet} from "react-leaflet";
-import L from "leaflet";
-import Spiderfy from "./Spiderfy";
-
+import {GeoJSON, Marker, Popup} from "react-leaflet";
 
 /**
  * @function
@@ -25,15 +22,8 @@ const mapSubProjectsToLocationPoints = subProjects => {
  */
 class ProjectLocations extends Component{
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (((prevProps.project !== this.props.project) && this.props.project)){
-            // const { map } = this.props.leaflet;
-            // map.setView(L.latLng(-6.161184, 35.745426), 6);
-        }
-    }
     onEachFeature = (feature, layer) => {
-        const { map } = this.props.leaflet;
-        map.fitBounds(layer.getBounds());
+
     }
 
     renderSubProjects = (subProjects) => {
@@ -73,12 +63,10 @@ const { project } = this.props;
     return project ? (
         <>
             {this.renderRegions(project)}
-            <Spiderfy>
                 { this.renderSubProjects(project.sub_projects)}
-            </Spiderfy>
         </>
     ) : '';
 }
 }
 
-export default withLeaflet(ProjectLocations);
+export default ProjectLocations;

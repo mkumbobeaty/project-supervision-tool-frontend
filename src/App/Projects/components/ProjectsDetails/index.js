@@ -3,8 +3,7 @@ import { Col, Layout, Row, Spin, Tabs } from 'antd';
 import KeyDetailSection from "./KeyDetails";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../../redux/modules/projects";
-import BaseMap from "../../../Map/BaseMap";
-import FullscreenControl from 'react-leaflet-fullscreen';
+import BaseMap from "../../../Map/components/BaseMap";
 import { mapSelectors } from "../../../../redux/modules/map";
 import ProjectsProgress from "./Progress";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
@@ -34,7 +33,7 @@ class Project extends Component {
     return `${iso} ${money}`;
   }
   render() {
-    const { project, loading, mapLoading } = this.props;
+    const { project, loading, mapLoading, projects } = this.props;
 
     const commitmentAmount = project?.details?.commitment_amount ? this.getCommitmentAmount(project?.details?.commitment_amount) : 'N/A';
     const totalProjectCost = project?.details.total_project_cost ? this.getCommitmentAmount(project.details.total_project_cost) : 'N/A';
@@ -46,20 +45,23 @@ class Project extends Component {
         <Spin spinning={loading} tip="Loading..." >
           <Content className="contents">
             <h3>{project?.name}</h3>
-            <div className="container description" >
-              <h4>Project Development Objective</h4>
-              <p>{project ? project?.description : 'N/A'}</p>
-            </div>
+
             <Layout className="project-inner_layout" >
-              <div className="keyDetails ">
-                <h2 id="sider-title">Key Details</h2>
-                <KeyDetailSection project={project} commitmentAmount={commitmentAmount} totalProjectCost={totalProjectCost} />
-              </div>
-              <Content className="project_contents container">
+
+              <Content className="project_contents">
                 <div className="card-container">
                   <Tabs type="card">
                     <TabPane tab="Project Overview" key="1">
-                      <Row className="Progress-overview">
+                      <div className="container description" >
+                        <h4>Project Development Objective</h4>
+                        <p>{project ? project?.description : 'N/A'}</p>
+
+                      </div>
+                      <div className="keyDetails ">
+                        <h2 id="sider-title">Key Details</h2>
+                        <KeyDetailSection project={project} commitmentAmount={commitmentAmount} totalProjectCost={totalProjectCost} />
+                      </div>
+                      <Row className="Progress-overview container" >
                         <Col {...firstSpan} className="sector_chat">
                           <ProjectsProgress
                             title="Financial Progress"
@@ -85,25 +87,24 @@ class Project extends Component {
                         <Col {...secondSpan} className="project_map" offset={1} >
                           <Spin spinning={mapLoading} tip="Loading data...">
                             <BaseMap ref={this.map} zoomControl={true}>
-                              <FullscreenControl position="topright" />
-                              {/* <ProjectPoints project={project} /> */}
+                              { project ? <ProjectPoints projects={[project]} /> : ''}
                             </BaseMap>
                           </Spin>
                         </Col>
+                        <DetailsSection project={project} />
                       </Row>
-                        <DetailsSection />
-                  </TabPane>
-                      <TabPane tab="Projects Dashbord" key="2">
-                        <h4> Comming Soon</h4>
-                      </TabPane>
-                      <TabPane tab="Agreed Actions" key="3">
-                        <h4> Comming Soon</h4>
-                      </TabPane>
-                      <TabPane tab="Monitoring and Evaluation" key="4">
-                        <h4> Comming Soon</h4>
-                      </TabPane>
-                </Tabs>
-              </div>
+                    </TabPane>
+                    <TabPane tab="Projects Dashb  ord" key="2" className="container">
+                      <h4> Comming Soon</h4>
+                    </TabPane>
+                    <TabPane tab="Agreed Actions" key="3" className="container" >
+                      <h4> Comming Soon</h4>
+                    </TabPane>
+                    <TabPane tab="Monitoring and Evaluation" key="4" className="container" >
+                      <h4> Comming Soon</h4>
+                    </TabPane>
+                  </Tabs>
+                </div>
               </Content>
             </Layout>
           </Content>
@@ -114,14 +115,15 @@ class Project extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-          project: projectSelectors.getProjectSelector(state),
+    project: projectSelectors.getProjectSelector(state),
+    projects: projectSelectors.getProjectsSelector(state),
     loading: projectSelectors.getProjectLoadingSelector(state),
     mapLoading: mapSelectors.getMapLoadingSelector(state),
   };
 };
 
 const mapDispatchToProps = {
-          getProject: projectOperation.getProjectStart,
+  getProject: projectOperation.getProjectStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Project);

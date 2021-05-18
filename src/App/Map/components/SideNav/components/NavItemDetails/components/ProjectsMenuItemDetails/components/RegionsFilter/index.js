@@ -34,7 +34,8 @@ const RegionsFilter = ({ regions, setProjectRegionsFilter }) => {
         <CheckBoxGroupFilter
             items={regionsFilterData}
             itemsPerPage={5}
-            filterTitle={`Regions`}
+            // filterTitle={`Regions`}
+            // filterClass={`projectFilter`}
             handleFilter={handleOnclickFilterItem}
             projectFilterClass="regionFilter"
         />

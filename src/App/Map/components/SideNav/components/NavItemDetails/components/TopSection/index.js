@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from 'prop-types';
-import CustomSearch from "../CustomSearch";
 import './styles.css';
 
 
@@ -9,14 +8,13 @@ import './styles.css';
  * @name TopSection
  * @description renders top section which has search bar, item title and filter button
  */
-function TopSection({title, searchPlaceHolder}) {
+function TopSection({title}) {
     return (
         <div className='TopSection'>
              <section>
                 <h3>{title}</h3>
             </section>
             {/* <section>
-            <CustomSearch placeholder={searchPlaceHolder}/>
             </section> */}
            </div>
     );

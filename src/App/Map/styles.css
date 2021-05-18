@@ -1,7 +1,3 @@
-.project-title {
-    /*background-color: #525a68;*/
-}
-
 .project-title h4 {
     padding: 0px;
     margin-bottom: 10px;
@@ -11,26 +7,25 @@
     color: #fff;
 }
 
-.NavItemDetails {
-    overflow-y: auto;
-    overflow-x: hidden;
+.marker-pin {
+    position: absolute;
+    transform: rotate(-45deg);
+    border-radius: 50% 50% 50% 50%;
 }
 
-.customizedIcon {
-    border-radius: 50%;
-    background-color: #0f6788;
-    width: 30px !important;
-    height: 30px !important;
-    margin: 0 !important;
-    opacity: 0.8;
+.customizedIcon h4 {
+    position: absolute;
+    font-weight: 500;
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
 .leaflet-popup.leaflet-zoom-animated {
     left: -135px !important
 }
 
-.leaflet-popup-content{
-    width: 265px !important;
+.leaflet-popup-content {
+    width: 270px !important;
     margin: 0 !important;
 }
 
@@ -39,14 +34,100 @@
     border: 1px solid #3b3a3a94;
 }
 
-.mapPopup h3, .projectDetail {
-    margin: 13px 19px;
+.projectDetail {
+    margin: 15px;
+}
+
+.mapPopup {
+    padding-bottom: 10px;
 }
 
 .timeFrame {
     display: flex;
     justify-content: space-between;
 }
-.leaflet-popup-content .projectDetail p{
+
+.leaflet-popup-content .projectDetail p {
+    margin-top: 0 !important;
+}
+
+.popupHeader {
+    background-color: #0f6788;
+}
+
+.mapPopup h4 {
+    color: #0f6788;
+}
+
+.popupHeader h2 {
+    padding: 12px;
+    color: #fff;
+}
+
+@media screen and (max-width: 426px) {
+    .popupHeader h2 {
+        font-size: 14px;
+    }
+    .leaflet-popup-content {
+        width: 200px !important;
+    }
+}
+
+.marker-pin-sub, .fieldMarker {
+    width: 30px;
+    height: 30px;
+    background: #c30b82;
+    position: absolute;
+    transform: rotate(-45deg);
+    left: 50%;
+    top: 50%;
+    margin: -15px 0 0 -15px;
+}
+
+.marker-pin-sub {
+    border-radius: 50%;
+}
+
+.fieldMarker {
+    border-radius: 50% 50% 50% 0;
+}
+
+.marker-pin-sub::after, .fieldMarker::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    margin: 3px 0 0 3px;
+    /* background: #fff; */
+    position: absolute;
+    border-radius: 50%;
+}
+
+.fieldNoteIcon img {
+    position: absolute;
+    width: 22px;
+    font-size: 22px;
+    left: 0;
+    right: 0;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.fieldNoteIcon .awesome {
+    border-radius: 50%;
+    width: 78%;
+    height: 55%
+}
+
+.fieldNote {
+    margin-top: -10px;
+}
+.fieldNoteHeader h2 {
+    padding: 12px;
+    font-size: 13px;
+    color: #0f6788;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+.leaflet-popup-content p{
     margin-top: 0 !important;
 }

@@ -3,14 +3,14 @@ import {  switchMap } from 'rxjs/operators';
 import * as Rx from 'rxjs';
 import * as actions from './actions';
 import * as types from './types'
+import {authActions} from "../auth";
 
 
 export const restoreAccessTokenEpic = action$ => {
     return action$.pipe(
         ofType(types.RELOAD_PAGE),
         switchMap(() => {
-            const accessToken = localStorage.getItem('accessToken');
-            return Rx.of(actions.restoreAccessToken(accessToken));
+            return Rx.of(authActions.getAuthUserStart());
         }),
     );
 }

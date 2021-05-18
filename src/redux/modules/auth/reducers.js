@@ -25,8 +25,32 @@ const login = (state = initialState, action) => {
     }
 };
 
+const authUser = (state = { data: null, error: null,loading: false }, action) => {
+    switch (action.type) {
+        case types.GET_AUTH_USER_START:
+            return {...state, loading: true };
+        case types.GET_AUTH_USER_SUCCESS:
+            return {...state, data: action.payload, loading: false};
+        case types.GET_AUTH_USER_FAILURE:
+            return {...state, error: action.payload, loading: false};
+        default:
+            return state;
+    }
+};
+
+const authUserPermissions = (state = [], action) => {
+    switch (action.type) {
+        case types.SET_AUTH_USER_PERMISSIONS:
+            return action.payload;
+        default:
+            return state;
+    }
+};
+
 
 export const auth = combineReducers({
     login,
+    authUserPermissions,
+    authUser,
 });
 

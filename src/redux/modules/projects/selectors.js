@@ -158,11 +158,19 @@ export const getSubProjectShowFormSelector = (state) => state?.resources?.subPro
 
 /**
  * @function
- * @name getSubProjectShowSurveyFormSelector
+ * @name getShowSurveyFormSelector
  * @param {Object} state redux state
  * @return {Object} sub project
  */
-export const getSubProjectShowSurveyFormSelector = (state) => state?.resources?.subProject?.showSurveyForm;
+export const getShowSurveyFormSelector = (state) => state?.resources?.subProject?.showSurveyForm;
+
+/**
+ * @function
+ * @name getShowCreateSurveyFormSelector
+ * @param {Object} state redux state
+ * @return {Object} sub project
+ */
+export const getShowCreateSurveyFormSelector = (state) => state?.resources?.subProject?.showCreateSurveyForm;
 
 /**
  * @function

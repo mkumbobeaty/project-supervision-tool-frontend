@@ -14,7 +14,7 @@ import CommonProjectForm from "./components/Forms";
 import { focalPeopleOperation, focalPeopleSelectors } from "../FocalPeople/duck";
 import { projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
 import ProjectLocations from "../Map/components/ProjectLocations";
-import BaseMap from "../Map/BaseMap";
+import BaseMap from "../Map/components/BaseMap";
 import SideNav from "../Map/components/SideNav";
 import { mapSelectors } from "../../redux/modules/map";
 import "./styles.css";
@@ -249,8 +249,7 @@ class Projects extends Component {
 
     const { isEditForm, previewOnMap } = this.state;
     return previewOnMap ? <div className="MapDashboard">
-      <SideNav>
-      </SideNav>
+      <SideNav />
       <Spin spinning={mapLoading} tip="Loading data...">
         <BaseMap ref={this.map} zoomControl={true}>
           <ProjectLocations project={project} />
@@ -325,13 +324,13 @@ class Projects extends Component {
                           onClick: () => this.handleViewDetails(item.id)
                         }
                       }
-                      onMapPreview={
-                        {
-                          name: "Preview on Map",
-                          title: "View Project on map",
-                          onClick: () => this.handleMapPreview(item)
-                        }
-                      }
+                      // onMapPreview={
+                      //   {
+                      //     name: "Preview on Map",
+                      //     title: "View Project on map",
+                      //     onClick: () => this.handleMapPreview(item)
+                      //   }
+                      // }
                     />
 
                   )}
@@ -379,6 +378,7 @@ class Projects extends Component {
             destroyOnClose
             maskClosable={false}
             afterClose={this.handleAfterCloseForm}
+            className="projectForm"
           >
             <CommonProjectForm
               selected={selected}

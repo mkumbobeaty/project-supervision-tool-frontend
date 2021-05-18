@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import resourcesIcon from '../../assets/icons/resources.svg';
-import settingsIcons from '../../assets/icons/admin-settings.svg';
+import projectIcon from '../../assets/icons/projects.svg';
+import adminPanelIcons from '../../assets/icons/admin-panel-grey.svg';
 import NavigationMenu from '../components/NavigationMenu';
-import initiativesIcon from '../../assets/icons/initiatives.svg';
+import subProjectsIcon from '../../assets/icons/sub-projects.svg';
 import mapsIcon from "../../assets/icons/maps.svg";
-import contractsIcons from '../../assets/icons/financial-resources.svg';
-
+import contractsIcons from '../../assets/icons/contract-management-grey.svg';
+import documentIcons from '../../assets/icons/shared-documents-grey.svg';
 import modules from '../../modules.json';
+
+// import adminPanelIcons from '../../assets/icons/admin-pane-greyl.svg';
 
 /* constants */
 const routes = [
@@ -15,13 +17,13 @@ const routes = [
   {
     name: 'Projects',
     path: '/projects',
-    icon: resourcesIcon,
+    icon: projectIcon,
     description: modules.humanResource,
   },
   {
     name: 'Sub Projects',
     path: '/sub_projects',
-    icon: initiativesIcon,
+    icon: subProjectsIcon,
     description: modules.initiatives,
   },
   {
@@ -33,20 +35,26 @@ const routes = [
   {
     name: 'Admin Panel',
     path: '/admin-panel',
-    icon: settingsIcons,
+    icon: adminPanelIcons,
     description: modules.adimin_panel,
+    disabled: true,
+
   },
   {
     name: 'CONTRACT MANAGEMENT',
     path: '/contracts',
     icon: contractsIcons,
     description: modules.contract_management,
+    disabled: true,
+
   },
   {
     name: 'Documents',
     path: '/documents',
-    icon: contractsIcons,
+    icon: documentIcons,
     description: modules.documents,
+    disabled: true,
+
   }
 ];
 
