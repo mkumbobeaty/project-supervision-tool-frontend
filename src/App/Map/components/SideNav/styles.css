@@ -89,7 +89,6 @@ hr {
         width: 100%;
         display: inline;
         border: 0;
-        height: inherit !important;
     }
     .SideNav .nav-items-list {
         display: flex;
@@ -107,6 +106,7 @@ hr {
     }
     .SideNavItem img {
         height: 30px;
+        padding-top: 10px;
     }
     .NavItemDetails {
         width: 100% !important;
@@ -121,11 +121,14 @@ hr {
     .BaseLayoutContent .MapDashboard {
         overflow: hidden;
     }
+    .ant-drawer.ant-drawer-left.ant-drawer-open.no-mask.mapSideNav.no-mask{
+        width: 375px !important;
+    }
     .SideNav {
         width: 100%;
-        display: inline;
-        border: 0;
-        height: inherit !important;
+        display: flex;
+        flex-direction: column-reverse;
+         border: 0;
     }
     .SideNav .nav-items-list {
         display: flex;
@@ -138,12 +141,17 @@ hr {
     }
     .SideNavItem img {
         height: 30px;
+        padding-top: 6px;
     }
+
     .NavItemDetails {
         width: 100% !important;
         height: 100vh;
     }
     .CheckBoxGroupFilter .projectFilter label, .CheckBoxGroupFilter .regionFilter label {
         width: 6%;
+    }
+    .projectFilter .checkboxItem {
+        width: 318px;
     }
 }
