@@ -44,7 +44,7 @@ function CheckBoxGroupFilter({ handleFilter, itemsPerPage, items, filterClass, h
             <section className="CheckBoxFilter">
                 {renderFilterItems(itemsToShow)}
                 {showLoadMore(itemsToShow, items) ? '' :
-                    <span className="LoadMore" onClick={handleShowMoreItems}>Load more</span>}
+                 <span className="LoadMore" onClick={handleShowMoreItems}>Load more</span>}
             </section>
         </div>
     ) : '';

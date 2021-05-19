@@ -58,7 +58,6 @@ function SideNav({setActiveMapSideMenuItem, activeItem}) {
                 className="mapSideNav"
                 getContainer={ref.current}
                 width={450}
-                // closeIcon={<CaretLeftOutlined />}
             >
                 <div className='SideNav'>
                     <div className='nav-items-list'>
