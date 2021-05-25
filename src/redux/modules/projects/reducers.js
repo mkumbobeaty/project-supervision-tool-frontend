@@ -348,6 +348,21 @@ const projectsFilter = (state = { data: [], error: null, loading: false }, actio
             return state;
     }
 };
+
+const searchProjects = {
+    'filter[name]': '',
+    loading: false 
+};
+
+const search = (state = searchProjects, action) => {
+    switch (action.type) {
+        case types.SEARCH_PROJECTS:
+            return { ...state, 'filter[name]': action.payload , loading: false, }
+        default:
+            return state;
+    }
+};
+
 export const resources = combineReducers({
     selectedProject,
     Projects,
@@ -364,5 +379,6 @@ export const resources = combineReducers({
     progress,
     filters,
     projectStatus,
-    projectsFilter
+    projectsFilter,
+    search
 })

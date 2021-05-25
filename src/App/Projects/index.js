@@ -187,8 +187,7 @@ class Projects extends Component {
    * @since 0.1.0
    */
   handleSearch = (searchData) => {
-    console.log(searchData)
-    this.props.searchProject({ searchQuery: searchData })
+    this.props.searchProject(searchData)
   };
 
   /**   
@@ -253,7 +252,6 @@ class Projects extends Component {
       page,
       total,
       paginateProject,
-      searchQuery,
       showForm,
       selected,
       focalPeoples,
@@ -280,7 +278,6 @@ class Projects extends Component {
               placeholder: "Search for Projects here ...",
               onSearch: this.handleSearch,
               onChange: this.searchInitiative,
-              value: searchQuery,
             }}
             actions={[
               {
@@ -422,13 +419,11 @@ Projects.propTypes = {
   projects: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
     .isRequired,
   page: PropTypes.number.isRequired,
-  searchQuery: PropTypes.string,
   total: PropTypes.number.isRequired,
 };
 
 Projects.defaultProps = {
   projects: null,
-  searchQuery: undefined,
 };
 
 const mapStateToProps = (state) => {
@@ -454,8 +449,9 @@ const mapDispatchToProps = {
   openProjectForm: projectSectorsOperator.openForm,
   closeProjectForm: projectSectorsOperator.closeForm,
   paginateProject: projectActions.getProjectsStart,
-  searchProject: projectActions.getProjectsStart,
+  searchProject: projectActions.searchProjects,
   getProject: projectActions.getProjectStart,
+  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
