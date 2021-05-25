@@ -44,6 +44,7 @@ const CustomList = ({
   onPaginate,
   onRefresh,
   onShare,
+  onMapView,
   generateExportUrl,
   renderListItem,
 }) => {
@@ -135,6 +136,7 @@ const CustomList = ({
         onNotify={onNotify ? () => onNotify(selectedItems) : null}
         onPaginate={(nextPage) => onPaginate(nextPage)}
         onRefresh={() => onRefresh()}
+        onMapView = {() => onMapView() }
         onShare={() => onShare(selectedItems)}
         exportUrl={
           generateExportUrl
@@ -179,6 +181,7 @@ CustomList.propTypes = {
   onNotify: PropTypes.func,
   onPaginate: PropTypes.func,
   onRefresh: PropTypes.func.isRequired,
+  onMapView: PropTypes.func.isRequired,
   onShare: PropTypes.func,
   generateExportUrl: PropTypes.func,
   renderListItem: PropTypes.func.isRequired,
@@ -190,6 +193,7 @@ CustomList.defaultProps = {
   generateExportUrl: null,
   onShare: null,
   onPaginate: null,
+  onMapView: null,
 };
 
 export default CustomList;

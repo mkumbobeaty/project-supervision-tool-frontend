@@ -41,6 +41,7 @@ const Toolbar = ({
   onPaginate,
   onRefresh,
   onShare,
+  onMapView
 }) => (
     <div className="Toolbar">
       <Row>
@@ -49,7 +50,7 @@ const Toolbar = ({
           <Row>
             {/* refresh  action */}
             {onRefresh && (
-              <Col xxl={2} xl={3} lg={6} md={6} sm={6} xs={6}>
+              <Col xxl={3} xl={3} lg={6} md={6} sm={6} xs={6}>
                 <Button
                   title="Refresh "
                   className="actionButton"
@@ -57,6 +58,21 @@ const Toolbar = ({
                   onClick={onRefresh}
                 >
                   Refresh
+              </Button>
+              </Col>
+            )}
+            {/* end refresh  action */}
+
+             {/* refresh  action */}
+             {onMapView && (
+              <Col xxl={3} xl={3} lg={4} md={4} sm={0} xs={0} >
+              <Button
+                  title="View on Map"
+                  className="actionButton"
+                  size="large"
+                  onClick={onMapView}
+                >
+                  View on Map
               </Button>
               </Col>
             )}
@@ -79,7 +95,7 @@ const Toolbar = ({
             {/* end export action */}
 
             {/* filter action */}
-            {onFilter && (
+            {/* {onFilter && (
               <Col xxl={3} xl={3} lg={4} md={4} sm={0} xs={0} >
                 <Button
                   title="Filter"
@@ -90,7 +106,7 @@ const Toolbar = ({
                   Filter
               </Button>
               </Col>
-            )}
+            )} */}
             {/* end filter action */}
 
             {/* notify action */}
@@ -111,7 +127,7 @@ const Toolbar = ({
             {/* end notify action  */}
 
             {/* bulk share action */}
-            {selectedItemsCount > 0 && onShare && (
+            {/* {selectedItemsCount > 0 && onShare && (
               <Col xxl={2} xl={2} lg={3} md={4} sm={6} xs={6}>
                 <Button
                   title="Share selected "
@@ -122,11 +138,11 @@ const Toolbar = ({
                   Share
               </Button>
               </Col>
-            )}
+            )} */}
             {/* end bulk share action */}
 
             {/* bulk archive action */}
-            {selectedItemsCount > 0 && onArchive && (
+            {/* {selectedItemsCount > 0 && onArchive && (
               <Col xxl={1} xl={1} lg={1} md={4} sm={6} xs={6}>
                 <Button
                   title="Archive selected "
@@ -137,7 +153,7 @@ const Toolbar = ({
                   Archive
               </Button>
               </Col>
-            )}
+            )} */}
             {/* end bulk archive action */}
           </Row>
         </Col>
