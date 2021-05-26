@@ -89,7 +89,7 @@ const ListItemActions = ({
                         onClick={onMapPreview.onClick}
                         title={onMapPreview.title}
                     >
-                        <GlobalOutlined /> {onMapPreview.name}
+                       <EyeOutlined />{onMapPreview.name}
                     </Menu.Item>
                 )}
 

@@ -18,6 +18,7 @@ import BaseMap from "../Map/components/BaseMap";
 import SideNav from "../Map/components/SideNav";
 import { mapSelectors } from "../../redux/modules/map";
 import "./styles.css";
+import { mapProjectActions } from "../../redux/modules/map/projects";
 
 
 /* constants */
@@ -239,9 +240,11 @@ class Projects extends Component {
    * @since 0.1.0
    */
   handleMapPreview = (item) => {
-    const { getProject,} = this.props;
-    this.setState({ previewOnMap: true })
-    getProject(item.id);
+    const { getProjectOnMap,} = this.props;
+    let path = `/map`;
+    this.props.history.push(path);
+    console.log('preview on map', item.id)
+    getProjectOnMap(item.id);
   };
 
 
@@ -341,13 +344,13 @@ class Projects extends Component {
                           onClick: () => this.handleViewDetails(item.id)
                         }
                       }
-                      // onMapPreview={
-                      //   {
-                      //     name: "Preview on Map",
-                      //     title: "View Project on map",
-                      //     onClick: () => this.handleMapPreview(item)
-                      //   }
-                      // }
+                      onMapPreview={
+                        {
+                          name: "Preview on Map",
+                          title: "View Project on map",
+                          onClick: () => this.handleMapPreview(item)
+                        }
+                      }
                     />
 
                   )}
@@ -457,6 +460,8 @@ const mapDispatchToProps = {
   paginateProject: projectActions.getProjectsStart,
   searchProject: projectActions.searchProjects,
   getProject: projectActions.getProjectStart,
+  getProjectOnMap: mapProjectActions.getProjectStart,
+
   
 };
 
