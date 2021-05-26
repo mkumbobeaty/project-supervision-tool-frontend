@@ -186,8 +186,8 @@ class Projects extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  handleSearch = (searchData) => {
-    this.props.searchProject(searchData)
+  handleSearch = (event) => {
+    this.props.searchProject(event.target.value)
   };
 
   /**   
@@ -252,6 +252,7 @@ class Projects extends Component {
       page,
       total,
       paginateProject,
+      searchQuery,
       showForm,
       selected,
       focalPeoples,
@@ -261,7 +262,9 @@ class Projects extends Component {
       project
     } = this.props;
 
+
     const { isEditForm, previewOnMap } = this.state;
+
     return previewOnMap ? <div className="MapDashboard">
       <SideNav />
       <Spin spinning={mapLoading} tip="Loading data...">
@@ -276,8 +279,8 @@ class Projects extends Component {
             search={{
               size: "large",
               placeholder: "Search for Projects here ...",
-              onSearch: this.handleSearch,
-              onChange: this.searchInitiative,
+              onChange: this.handleSearch,
+              value: searchQuery,
             }}
             actions={[
               {
@@ -419,11 +422,13 @@ Projects.propTypes = {
   projects: PropTypes.arrayOf(PropTypes.shape({ name: PropTypes.string }))
     .isRequired,
   page: PropTypes.number.isRequired,
+  searchQuery: PropTypes.string,
   total: PropTypes.number.isRequired,
 };
 
 Projects.defaultProps = {
   projects: null,
+  searchQuery: undefined,
 };
 
 const mapStateToProps = (state) => {
@@ -436,7 +441,8 @@ const mapStateToProps = (state) => {
     showForm: projectSectorsSelectors.getShowFormSelector(state),
     selected: state.projects?.selectedProjects,
     mapLoading: mapSelectors.getMapLoadingSelector(state),
-    project: projectSelectors.getProjectSelector(state)
+    project: projectSelectors.getProjectSelector(state),
+    searchQuery: projectSelectors.searchQuery(state)
   };
 };
 

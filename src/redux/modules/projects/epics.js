@@ -313,7 +313,10 @@ const searchProjectsEpic = (action$, state$) => {
     return action$.pipe(
         ofType(types.SEARCH_PROJECTS),
         switchMap(() => {
-            return of(actions.getProjectsStart(state$.value.resources.search))
+            const searchQuery  = {
+                'filter[name]' : state$.value.resources.search.data
+            }   
+            return of(actions.getProjectsStart(searchQuery ))
         }),
     )
 };

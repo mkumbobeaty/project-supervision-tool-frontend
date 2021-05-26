@@ -350,14 +350,13 @@ const projectsFilter = (state = { data: [], error: null, loading: false }, actio
 };
 
 const searchProjects = {
-    'filter[name]': '',
-    loading: false 
+    data : '',
 };
 
 const search = (state = searchProjects, action) => {
     switch (action.type) {
         case types.SEARCH_PROJECTS:
-            return { ...state, 'filter[name]': action.payload , loading: false, }
+            return { ...state, data: action.payload}    
         default:
             return state;
     }
