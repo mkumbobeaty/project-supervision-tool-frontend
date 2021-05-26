@@ -18,27 +18,30 @@ import BaseMap from "../Map/components/BaseMap";
 import SideNav from "../Map/components/SideNav";
 import { mapSelectors } from "../../redux/modules/map";
 import "./styles.css";
+import { mapProjectActions } from "../../redux/modules/map/projects";
 
 
 /* constants */
 const codeSpan = { xxl: 2, xl: 3, lg: 3, md: 4, sm: 0, xs: 0 };
 const projectIdSpan = { xxl: 3, xl: 2, lg: 2, md: 3, sm: 0, xs: 0 };
 const nameSpan = { xxl: 5, xl: 5, lg: 5, md: 7, sm: 20, xs: 20 };
-const subProjectsSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
-const projectLeadSpan = { xxl: 3, xl: 3, lg: 4, md: 0, sm: 0, xs: 0 };
-const statusSpan = { xxl: 3, xl: 3, lg: 3, md: 4, sm: 0, xs: 0 };
-const projectCoordinatorSpan = { xxl: 3, xl: 3, lg: 2, md: 0, sm: 0, xs: 0 };
+const approvalSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
+const projectLeadSpan = { xxl: 3, xl: 3, lg: 3, md: 0, sm: 0, xs: 0 };
+const statusSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
+const projectCoordinatorSpan = { xxl: 2, xl: 2, lg: 2, md: 0, sm: 0, xs: 0 };
+const closingSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
 
 const { confirm } = Modal;
 
 const headerLayout = [
   { ...codeSpan, header: "Code" },
-  { ...projectIdSpan, header: "Project ID" },
+  { ...projectIdSpan, header: "WB Project ID" },
   { ...nameSpan, header: "Name" },
-  { ...subProjectsSpan, header: "Sub-projects" },
   { ...statusSpan, header: "Status" },
-  { ...projectLeadSpan, header: "Project Lead" },
-  { ...projectCoordinatorSpan, header: "Project Coordinator" },
+  { ...approvalSpan, header: "Approve Date" },
+  { ...closingSpan, header: "Closing Date" },
+  { ...projectCoordinatorSpan, header: "Impelementing Agency" },
+  { ...projectLeadSpan, header: "LGA(s)" },
 ];
 
 
@@ -184,9 +187,8 @@ class Projects extends Component {
    * @version 0.1.0
    * @since 0.1.0
    */
-  handleSearch = (searchData) => {
-    console.log(searchData)
-    this.props.searchProject({ searchQuery: searchData })
+  handleSearch = (event) => {
+    this.props.searchProject(event.target.value)
   };
 
   /**   
@@ -215,6 +217,20 @@ class Projects extends Component {
     let path = `/app/projects/${item_id}`;
     this.props.history.push(path);
   };
+
+  /**
+  * @function
+  * @name handleViewMap
+  * @description Handle detail preview
+  *
+  * @version 0.1.0
+  * @since 0.1.0
+  */
+ handleViewMap = () => {
+  let path = `/map`;
+  this.props.history.push(path);
+};
+
   /**
    * @function
    * @name handleMapPreview
@@ -224,9 +240,11 @@ class Projects extends Component {
    * @since 0.1.0
    */
   handleMapPreview = (item) => {
-    const { getProject,} = this.props;
-    this.setState({ previewOnMap: true })
-    getProject(item.id);
+    const { getProjectOnMap,} = this.props;
+    let path = `/map`;
+    this.props.history.push(path);
+    console.log('preview on map', item.id)
+    getProjectOnMap(item.id);
   };
 
 
@@ -247,7 +265,9 @@ class Projects extends Component {
       project
     } = this.props;
 
+
     const { isEditForm, previewOnMap } = this.state;
+
     return previewOnMap ? <div className="MapDashboard">
       <SideNav />
       <Spin spinning={mapLoading} tip="Loading data...">
@@ -262,8 +282,7 @@ class Projects extends Component {
             search={{
               size: "large",
               placeholder: "Search for Projects here ...",
-              onSearch: this.handleSearch,
-              onChange: this.searchInitiative,
+              onChange: this.handleSearch,
               value: searchQuery,
             }}
             actions={[
@@ -287,6 +306,7 @@ class Projects extends Component {
             itemCount={total}
             onFilter={this.openFiltersModal}
             onRefresh={this.handleRefresh}
+            onMapView = {this.handleViewMap}
             onPaginate={(nextPage) => {
               paginateProject({ page: nextPage });
             }}
@@ -324,13 +344,13 @@ class Projects extends Component {
                           onClick: () => this.handleViewDetails(item.id)
                         }
                       }
-                      // onMapPreview={
-                      //   {
-                      //     name: "Preview on Map",
-                      //     title: "View Project on map",
-                      //     onClick: () => this.handleMapPreview(item)
-                      //   }
-                      // }
+                      onMapPreview={
+                        {
+                          name: "Preview on Map",
+                          title: "View Project on map",
+                          onClick: () => this.handleMapPreview(item)
+                        }
+                      }
                     />
 
                   )}
@@ -340,7 +360,7 @@ class Projects extends Component {
                   <Col {...projectIdSpan} className="contentEllipse">
                     {" "}
 
-                    {item.id ? item.id : "All"}
+                    {item ? item.wb_project_id : "All"}
                   </Col>
                   <Col
                     {...nameSpan}
@@ -356,12 +376,17 @@ class Projects extends Component {
                       {item.name}
                     </Link>
                   </Col>
-                  <Col {...subProjectsSpan}>{item.sub_projects ? item.sub_projects.length : 'N/A'}</Col>
-                  <Col {...statusSpan}>{item?.details ? item?.details.status : 'N/A'}</Col>
-                  <Col {...projectLeadSpan} title={item?.leaders.map(({ first_name, last_name }) => { return " " + first_name + " " + last_name })} >
-                    {item.leaders ? item?.leaders.map(({ first_name, last_name }, index) => { return (index ? ", " : "") + first_name + " " + last_name }).slice(0, 2) : 'N/A'}</Col>
+                  <Col {...statusSpan}>{item?.details ? item?.status.name : 'N/A'}</Col>
+                  <Col {...approvalSpan}>
+                  {item?.details ? new Date(item?.details.approval_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
+                  </Col>
+                  <Col {...closingSpan}>
+                  {item?.details ? new Date(item?.details.closing_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
+                  </Col>
+                  
                   <Col {...projectCoordinatorSpan}>{item.details.implementing_agency ? item.details.implementing_agency.focalPerson.first_name + ' ' + item.details.implementing_agency.focalPerson.last_name : 'N/A'}</Col>
-
+                  <Col {...projectLeadSpan} title={item?.leaders.map(({ first_name, last_name }) => { return " " + first_name + " " + last_name })} >
+                    {item.leaders ? item.leaders : 'N/A'}</Col>
                   {/* eslint-enable react/jsx-props-no-spreading */}
                 </ListItem>
               )}
@@ -419,7 +444,8 @@ const mapStateToProps = (state) => {
     showForm: projectSectorsSelectors.getShowFormSelector(state),
     selected: state.projects?.selectedProjects,
     mapLoading: mapSelectors.getMapLoadingSelector(state),
-    project: projectSelectors.getProjectSelector(state)
+    project: projectSelectors.getProjectSelector(state),
+    searchQuery: projectSelectors.searchQuery(state)
   };
 };
 
@@ -432,8 +458,11 @@ const mapDispatchToProps = {
   openProjectForm: projectSectorsOperator.openForm,
   closeProjectForm: projectSectorsOperator.closeForm,
   paginateProject: projectActions.getProjectsStart,
-  searchProject: projectActions.getProjectsStart,
+  searchProject: projectActions.searchProjects,
   getProject: projectActions.getProjectStart,
+  getProjectOnMap: mapProjectActions.getProjectStart,
+
+  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

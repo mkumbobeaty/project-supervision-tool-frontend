@@ -4,9 +4,7 @@ import { catchError, switchMap } from "rxjs/operators";
 import { from, of } from "rxjs";
 import API from "../../../../API";
 import * as actions from "./actions";
-import { mapActions } from '../index'
-import { mapSubProjectTypes } from "../subProjects";
-import { subProjectsActions } from "../../subProjects";
+import { mapActions } from '../index';
 
 export const getProjectMapEpic = action$ => {
     return action$.pipe(
@@ -15,6 +13,9 @@ export const getProjectMapEpic = action$ => {
             return from(API.getProject(payload)).pipe(
                 switchMap(res => {
                     return from([
+                        mapActions.showProjectsOverview(false),
+                        mapActions.showProjectDetails(true),
+                        actions.clearProjects(true),
                         actions.getProjectSuccess(res.data),
                     ])
                 }),

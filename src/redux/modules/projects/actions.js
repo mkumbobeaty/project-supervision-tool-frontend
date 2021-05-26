@@ -571,3 +571,11 @@ export const getProjectFilterSuccess = makeActionCreator(types.GET_PROJECTS_FILT
  * @return {Object} action
  * */
 export const getProjectFilterFailure = makeActionCreator(types.GET_PROJECTS_FILTER_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name searchProjects
+ * @param {Object} payload project response
+ * @return {Object} action
+ * */
+export const searchProjects = makeActionCreator(types.SEARCH_PROJECTS, 'payload');
