@@ -142,7 +142,7 @@ ListItem.propTypes = {
   name: PropTypes.string,
   avatarBackgroundColor: PropTypes.string,
   isSelected: PropTypes.bool.isRequired,
-  onSelectItem: PropTypes.func.isRequired,
+  onSelectItem: PropTypes.func,
   onDeselectItem: PropTypes.func.isRequired,
   renderActions: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
