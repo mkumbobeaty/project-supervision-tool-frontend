@@ -1,3 +1,5 @@
+
+
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
@@ -6,6 +8,7 @@ import {
   Row,
   Col,
   Typography,
+  Select,
 
 } from "antd";
 import { generateDateString, generateYearString } from "../../../../../Util";
@@ -150,6 +153,7 @@ class ProjectDetailsForm extends Component {
       currency,
       sectors,
       project,
+      regions
     } = this.props;
 
     const { visibleCommitmentAmount, visibleTotalProjectCost, visibleProjectSectors } = this.state;
@@ -201,7 +205,7 @@ class ProjectDetailsForm extends Component {
             className="ProjectDetailsForm"
             name="projectDetailsForm"
         >
-          <h4>Please provide project details</h4>         
+      <h4>Please provide project details</h4>
 
           <Row justify="space-between">
             <Col span={11}>
@@ -365,6 +369,7 @@ class ProjectDetailsForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    regions: projectSelectors.getRegionsSelector(state),
     agencies: projectDetailsSelectors.getAgenciesSelector(state),
     project: projectSelectors.getProjectSelector(state),
     sectors: projectSectorsSelectors.getSectorsSelector(state),
@@ -379,6 +384,7 @@ const mapDispatchToProps = {
   getFundingOrgs: projectDetailsOperator.getFundingOrgStart,
   createProjectDetails: projectDetailsOperator.createProjectDetailsStart,
   getCurrency: projectDetailsOperator.getCurrenciesStart,
+  getRegions: projectActions.getRegionsStart,
 
 }
 

@@ -28,11 +28,7 @@ const wrapperCol = {
     xl: { span: 24 },
     xxl: { span: 24 },
 };
-// get regions name  for displaying  on form
-const getRegionsNameFromRegions = (regionsId, regions) => {
-    const region = regions.find(({ id }) => id === regionsId);
-    return region.name;
-}
+
 
 /**
  * @function
@@ -40,6 +36,7 @@ const getRegionsNameFromRegions = (regionsId, regions) => {
  * @description renders form for creating project
  */
 function ProjectForm({
+    getRegions,
     regions,
     createProject,
     next,
@@ -53,6 +50,7 @@ function ProjectForm({
     partiners,
     agencies,
     environmentalCategories,
+
 }) {
     const [visible, setVisible] = useState(false);
     const [locations, setLocations] = useState([]);
@@ -62,48 +60,22 @@ function ProjectForm({
         getBorrowers();
         getFundingOrgs();
         getAgencies();
-
+        getRegions()
         getEnvironmentalCategories();
     }, []);
-
-    const showUserModal = () => {
-        setVisible(true);
-    };
 
     const hideUserModal = () => {
         setVisible(false);
     };
 
     const onFinish = (values) => {
-        const { wb_project_id, code,
-            name, country,
-            description,
-            project_status_id,
-            environmental_category_id,
-            approval_fy,
-            approval_date,
-            closing_date,
-            borrower_id,
-            implementing_agency_id,
-            funding_organisation_id,
-        } = values;
-
-        const payload = { wb_project_id, code, name, country, description, project_status_id }
-        const detailsPayload = {
-            environmental_category_id,
-            approval_fy,
-            approval_date,
-            closing_date,
-            borrower_id,
-            implementing_agency_id,
-            funding_organisation_id,
-        }
-        localStorage.setItem("detailsPayload", JSON.stringify(detailsPayload));
-        createProject(payload);
+        createProject({ ...values });
         next();
     };
 
     const selected = null;
+
+    const countries = ['Tanzania', 'Kenya', 'Uganda']
 
     return (
         <>
@@ -191,6 +163,22 @@ function ProjectForm({
                     </Form.Item>
                     {/* end:project name */}
 
+                    {/* start:shapefile */}
+                    <Form.Item
+                        label="Projects ShapeFIle"
+                        name="country"
+                        title="Shapefile"
+                        rules={[
+                            {
+                                required: false,
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    {/* end:Shapefile */}
+
+
                     {/* start:Description */}
                     <Form.Item
                         label="Description"
@@ -220,10 +208,33 @@ function ProjectForm({
                                     },
                                 ]}
                             >
-                                <Input />
-                            </Form.Item>
+                                <Select showSearch>
+                                    {countries.map(counrty => (
+                                        <Select.Option value={counrty}>{counrty}</Select.Option>
+                                    ))}
+                                </Select>                            </Form.Item>
                         </Col>
                         <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
+                            <Form.Item
+                                label="Region"
+                                name="region"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Region is required",
+                                    },
+                                ]}
+                            >
+                                <Select mode='multiple'>
+                                    {regions.map(({ id, name }) => (
+                                        <Select.Option value={id}>{name}</Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+                    <Row type="flex" justify="space-between">
+                        <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
                             <Form.Item
                                 label="Project Status"
                                 name="project_status_id"
@@ -246,24 +257,24 @@ function ProjectForm({
                                     ))}
                                 </Select>
                             </Form.Item>
+
+                        </Col>
+                        <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
+                            {/* start:environmental category  */}
+                            <Form.Item
+                                label="Environmental Category"
+                                name="environmental_category_id"
+                                title="Environmental category i.e A"
+                            >
+                                <Select showSearch>
+                                    {environmentalCategories.map((environmentalCategory) => (
+                                        <Select.Option value={environmentalCategory.id}>{environmentalCategory.name}</Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            {/* end:environmental category */}
                         </Col>
                     </Row>
-                    <Form.Item
-                        label="Borrowers"
-                        name="borrower_id"
-                        title="Borrower e.g Ministry of Finance"
-                    >
-                        <Select
-                            mode="multiple"
-
-                        >
-                            {borrowers.map((borrower) => (
-                                <Select.Option value={borrower.id}>{borrower.name}</Select.Option>
-                            ))}
-                        </Select>
-                    </Form.Item>
-                    {/* end:borrower */}
-
                     {/* start:agencies */}
                     <Form.Item
                         label="Implementing Agency"
@@ -294,63 +305,22 @@ function ProjectForm({
                     </Form.Item>
                     {/* end:funding organisation */}
 
-                    {/* start:environmental category  */}
+                    {/* start:borrower */}
                     <Form.Item
-                        label="Environmental Category"
-                        name="environmental_category_id"
-                        title="Environmental category i.e A"
+                        label="Borrowers"
+                        name="borrower_id"
+                        title="Borrower e.g Ministry of Finance"
                     >
-                        <Select showSearch>
-                            {environmentalCategories.map((environmentalCategory) => (
-                                <Select.Option value={environmentalCategory.id}>{environmentalCategory.name}</Select.Option>
+                        <Select
+                            mode="multiple"
+
+                        >
+                            {borrowers.map((borrower) => (
+                                <Select.Option value={borrower.id}>{borrower.name}</Select.Option>
                             ))}
                         </Select>
                     </Form.Item>
-                    {/* end:environmental category */}
-
-                    {/* start: locations list */}
-                    {/* <Form.Item
-                        label="Project Locations"
-                        shouldUpdate={(prevValues, curValues) => prevValues.users !== curValues.users}
-                    >
-                        {({ getFieldValue }) => {
-                            const users = getFieldValue('users') || [];
-                            return (
-                                <div style={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'flex-start'
-                                }}>
-                                    {users.length ? (
-                                        <ul>
-                                            {users.map((user, index) => (
-                                                <li key={index} className="user">
-                                                    {getRegionsNameFromRegions(user.region, regions)}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    ) : (
-                                            <div>
-                                                <Typography.Text className="ant-form-text" type="secondary">
-                                                    No location(s) yet, please add location(s)
-                                        </Typography.Text>
-                                            </div>
-                                        )}
-                                    <Button
-                                        size="small"
-                                        htmlType="button"
-                                        style={{
-                                            fontSize: '0.9em'
-                                        }}
-                                        onClick={showUserModal}
-                                    >
-                                        Add Location
-                                </Button>
-                                </div>
-                            );
-                        }}
-                    </Form.Item> */}
-                    {/* end: locations list */}
+                    {/* end:borrower */}
 
 
                     <Row justify="space-between">
@@ -369,6 +339,7 @@ function ProjectForm({
                                 <DatePicker picker="year" />
                             </Form.Item>
                         </Col>
+
                         {/* end:project approval fiscal year */}
                         <Col span={8}>
                             <Form.Item
@@ -386,6 +357,7 @@ function ProjectForm({
                             </Form.Item>
                         </Col>
                         {/* end:project approval date */}
+
                         {/* start:end date */}
                         <Col span={8}>
                             <Form.Item
@@ -405,9 +377,8 @@ function ProjectForm({
                         {/* end:end date */}
                     </Row>
 
-
                     {/* start:form actions */}
-                    <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
+                    <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right", marginTop: "10px" }}>
                         <Button
                             type="primary"
                             htmlType="submit"
@@ -417,7 +388,6 @@ function ProjectForm({
                     </Button>
                     </Form.Item>
                     {/* end:form actions */}
-
                 </Form>
                 <RegionLocationForm
                     visible={visible}
