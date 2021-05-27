@@ -55,3 +55,7 @@
   text-transform: uppercase;
   padding-top: 5%;
 }
+
+.ProjectForm  .ant-form-item{
+  margin-bottom: 5px !important;
+}

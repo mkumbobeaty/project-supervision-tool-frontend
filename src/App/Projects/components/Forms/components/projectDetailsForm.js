@@ -5,8 +5,6 @@ import {
   Form,
   Row,
   Col,
-  Select,
-  DatePicker,
   Typography,
 
 } from "antd";
@@ -74,19 +72,11 @@ class ProjectDetailsForm extends Component {
 
   componentDidMount() {
     const {
-      getBorrowers,
-      getAgencies,
       getCurrency,
       getSectors,
-      getFundingOrgs,
-      getEnvironmentalCategories
     } = this.props;
-    getBorrowers();
-    getAgencies();
     getSectors();
-    getFundingOrgs();
     getCurrency();
-    getEnvironmentalCategories();
   }
 
 
@@ -133,6 +123,7 @@ class ProjectDetailsForm extends Component {
     const approval_fy = generateYearString(values.approval_fy);
     const closing_date = generateDateString(values.closing_date);
     const project_id = project.id;
+    const detailsPayload = JSON.parse(localStorage.getItem('detailsPayload'))
     const payload = {
       ...values,
       approval_date,
@@ -140,11 +131,15 @@ class ProjectDetailsForm extends Component {
       project_id,
       closing_date,
       commitment_amount_id,
-      total_project_cost_id
+      total_project_cost_id,
+      detailsPayload
     };
 
+    console.log(payload);
     createProjectDetails(payload);
     handleConfirmButton();
+    localStorage.removeItem('detailsPayload');
+
   };
 
 
@@ -152,18 +147,13 @@ class ProjectDetailsForm extends Component {
     const {
       selected,
       handleBackButton,
-      partiners,
-      agencies,
       currency,
-      borrowers,
       sectors,
       project,
-      environmentalCategories,
     } = this.props;
 
     const { visibleCommitmentAmount, visibleTotalProjectCost, visibleProjectSectors } = this.state;
 
-    const projectStatus = ['active', 'closed', 'dropped', 'pipeline'];
     return (
       <Form.Provider
           onFormFinish={(name, { values, forms }) => {
@@ -211,83 +201,7 @@ class ProjectDetailsForm extends Component {
             className="ProjectDetailsForm"
             name="projectDetailsForm"
         >
-          <h4>Please provide project details</h4>
-
-          <Form.Item
-              label="Project Status"
-              name="status"
-              title="Project status e.g Active"
-              type="boolean"
-              rules={[
-                {
-                  required: true,
-                  message: "Project status is required",
-                },
-              ]}
-          >
-            <Select>
-              {projectStatus.map((status) => (
-                  <Select.Option value={status} style={{ textTransform: 'Capitalize'}}>{status}</Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-          {/* end:project status */}
-
-          {/* start:borrower */}
-          <Form.Item
-              label="Borrowers"
-              name="borrower_id"
-              title="Borrower e.g Ministry of Finance"
-          >
-            <Select >
-              {borrowers.map((borrower) => (
-                  <Select.Option value={borrower.id}>{borrower.name}</Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-          {/* end:borrower */}
-
-          {/* start:agencies */}
-          <Form.Item
-              label="Implementing Agency"
-              name="implementing_agency_id"
-              title="implementing agency e.g PO-LARG"
-          >
-            <Select >
-              {agencies.map((agency) => (
-                  <Select.Option value={agency.id}>{agency.name}</Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-          {/* end:agencies */}
-
-          {/* start:funding organisation  */}
-          <Form.Item
-              label="Funding Organizations"
-              name="funding_organisation_id"
-              title="funding organisation i.e The World Bank"
-          >
-            <Select>
-              {partiners.map((partiner) => (
-                  <Select.Option value={partiner.id}>{partiner.name}</Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-          {/* end:funding organisation */}
-
-          {/* start:environmental category  */}
-          <Form.Item
-              label="Environmental Category"
-              name="environmental_category_id"
-              title="Environmental category i.e A"
-          >
-            <Select>
-              {environmentalCategories.map((environmentalCategory) => (
-                  <Select.Option value={environmentalCategory.id}>{environmentalCategory.name}</Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-          {/* end:environmental category */}
+          <h4>Please provide project details</h4>         
 
           <Row justify="space-between">
             <Col span={11}>
@@ -407,59 +321,6 @@ class ProjectDetailsForm extends Component {
           </Form.Item>
           {/* end: project sectors list */}
 
-
-          <Row justify="space-between">
-            <Col span={8}>
-              <Form.Item
-                  label="Approval FY"
-                  name="approval_fy"
-                  title="project approval fiscal year date e.g 06-20-2020"
-                  rules={[
-                    {
-                      required: true,
-                      message: "project approval fiscal year date is required",
-                    },
-                  ]}
-              >
-                <DatePicker picker="year" />
-              </Form.Item>
-            </Col>
-            {/* end:project approval fiscal year */}
-            <Col span={8}>
-              <Form.Item
-                  label="Approval Date"
-                  name="approval_date"
-                  title="project approval date e.g 06-20-2020"
-                  rules={[
-                    {
-                      required: true,
-                      message: "project approval  date is required",
-                    },
-                  ]}
-              >
-                <DatePicker />
-              </Form.Item>
-            </Col>
-            {/* end:project approval date */}
-            {/* start:end date */}
-            <Col span={8}>
-              <Form.Item
-                  label="Closing Date"
-                  title="project closing end date e.g 07-30-2020"
-                  name="closing_date"
-                  rules={[
-                    {
-                      required: true,
-                      message: "projects end date is required",
-                    },
-                  ]}
-              >
-                <DatePicker />
-              </Form.Item>
-            </Col>
-            {/* end:end date */}
-          </Row>
-
           {/* start:form actions */}
           <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>
             <Button type="default" onClick={handleBackButton} >
@@ -508,22 +369,16 @@ const mapStateToProps = (state) => {
     project: projectSelectors.getProjectSelector(state),
     sectors: projectSectorsSelectors.getSectorsSelector(state),
     currency: projectDetailsSelectors.getCurrenciesSelector(state),
-    borrowers: projectDetailsSelectors.getBorrowersSelector(state),
-    environmentalCategories: projectSelectors.getEnvironmentalCategoriesSelector(state),
-    partiners: projectDetailsSelectors.getFundingOrgsSelector(state),
     amount_cost: projectDetailsSelectors.getCreatedAmountCostSelector(state),
     commitment_cost: projectDetailsSelectors.getCreatedCommitmentCostSelector(state),
   };
 };
 
 const mapDispatchToProps = {
-  getBorrowers: projectDetailsOperator.getBorrowersStart,
   getSectors: projectSectorsActions.getSectorsStart,
   getFundingOrgs: projectDetailsOperator.getFundingOrgStart,
-  getAgencies: projectDetailsOperator.getAgenciesStart,
   createProjectDetails: projectDetailsOperator.createProjectDetailsStart,
   getCurrency: projectDetailsOperator.getCurrenciesStart,
-  getEnvironmentalCategories: projectActions.getEnvironmentalCategoriesStart,
 
 }
 
