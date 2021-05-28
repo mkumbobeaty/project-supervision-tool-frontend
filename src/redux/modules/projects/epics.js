@@ -321,6 +321,21 @@ const searchProjectsEpic = (action$, state$) => {
     )
 };
 
+const getLayersEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_LAYERS_START),
+        switchMap(() => {
+            return from(API.getLayers()).pipe(
+                switchMap(res => {
+                    debugger
+                    return of(actions.getLayersSuccess(res.objects))
+                }),
+                catchError(error => of(actions.getLayersFailure(error)))
+            );
+        }),
+    )
+};
+
 
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
@@ -342,7 +357,8 @@ export const projectsRootEpic = combineEpics(
     filterProjectsEpic,
     filterProjectByIdEpic,
     filterProjectByRegionEpic,
-    searchProjectsEpic
+    searchProjectsEpic,
+    getLayersEpic
 );
 
 

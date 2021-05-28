@@ -224,6 +224,14 @@ export const getProjectsFilterSelector = (state) => state?.resources?.projectsFi
  * @function
  * @name searchQuery
  * @param {Object} state redux state
- * @return {Object} progress
+ * @return {Object} 
  */
 export const searchQuery = (state) => state?.resources?.search.data;
+
+/**
+ * @function
+ * @name getLayers
+ * @param {Object} state redux state
+ * @return {Object} 
+ */
+export const getLayers = (state) => state?.resources?.geonodeLayers?.data || [];

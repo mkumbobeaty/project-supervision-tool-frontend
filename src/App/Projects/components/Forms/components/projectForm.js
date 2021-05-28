@@ -50,6 +50,8 @@ function ProjectForm({
     partiners,
     agencies,
     environmentalCategories,
+    getLayers,
+    layers
 
 }) {
     const [visible, setVisible] = useState(false);
@@ -62,6 +64,7 @@ function ProjectForm({
         getAgencies();
         getRegions()
         getEnvironmentalCategories();
+        getLayers()
     }, []);
 
     const hideUserModal = () => {
@@ -174,7 +177,15 @@ function ProjectForm({
                             },
                         ]}
                     >
-                        <Input />
+                        <Select showSearch
+                         optionFilterProp="children"
+
+                        >
+                            {layers.map(({title, id}) => (
+                                <Select.Option value={id}>{title}</Select.Option>
+                            ))}
+                        </Select>                     
+                        
                     </Form.Item>
                     {/* end:Shapefile */}
 
@@ -208,7 +219,9 @@ function ProjectForm({
                                     },
                                 ]}
                             >
-                                <Select showSearch>
+                                <Select
+                                 showSearch  
+                                 optionFilterProp="children">
                                     {countries.map(counrty => (
                                         <Select.Option value={counrty}>{counrty}</Select.Option>
                                     ))}
@@ -266,7 +279,10 @@ function ProjectForm({
                                 name="environmental_category_id"
                                 title="Environmental category i.e A"
                             >
-                                <Select showSearch>
+                                <Select showSearch
+                                 optionFilterProp="children"
+
+                                >
                                     {environmentalCategories.map((environmentalCategory) => (
                                         <Select.Option value={environmentalCategory.id}>{environmentalCategory.name}</Select.Option>
                                     ))}
@@ -297,7 +313,7 @@ function ProjectForm({
                         name="funding_organisation_id"
                         title="funding organisation i.e The World Bank"
                     >
-                        <Select showSearch>
+                        <Select showSearch  optionFilterProp="children">
                             {partiners.map((partiner) => (
                                 <Select.Option value={partiner.id}>{partiner.name}</Select.Option>
                             ))}
@@ -408,6 +424,7 @@ const mapStateToProps = state => ({
     environmentalCategories: projectSelectors.getEnvironmentalCategoriesSelector(state),
     partiners: projectDetailsSelectors.getFundingOrgsSelector(state),
     agencies: projectDetailsSelectors.getAgenciesSelector(state),
+    layers: projectSelectors.getLayers(state)
 
 });
 
@@ -419,7 +436,9 @@ const mapDispatchToProps = (dispatch) => ({
     getBorrowers: bindActionCreators(projectDetailsActions.getBorrowersStart, dispatch),
     getFundingOrgs: bindActionCreators(projectDetailsActions.getFundingOrgStart, dispatch),
     getAgencies: bindActionCreators(projectDetailsActions.getAgenciesStart, dispatch),
-    getEnvironmentalCategories: bindActionCreators(projectActions.getEnvironmentalCategoriesStart, dispatch)
+    getEnvironmentalCategories: bindActionCreators(projectActions.getEnvironmentalCategoriesStart, dispatch),
+    getLayers: bindActionCreators(projectActions.getLayersStart, dispatch)
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
