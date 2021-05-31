@@ -33,12 +33,12 @@ class Project extends Component {
     return `${iso} ${money}`;
   }
   render() {
-    const { project, loading, mapLoading, projects } = this.props;
+    const { project, loading, mapLoading } = this.props;
 
-    const commitmentAmount = project?.details?.commitment_amount ? this.getCommitmentAmount(project?.details?.commitment_amount) : 'N/A';
-    const totalProjectCost = project?.details.total_project_cost ? this.getCommitmentAmount(project.details.total_project_cost) : 'N/A';
-    const approval_date = project?.details ? isoDateToHumanReadableDate(project?.details?.approval_date) : 'N/A';
-    const closing_date = project?.details ? isoDateToHumanReadableDate(project?.details?.closing_date) : 'N/A'
+    const commitmentAmount = project?.commitment_amount ? this.getCommitmentAmount(project?.commitment_amount) : 'N/A';
+    const totalProjectCost = project?.total_project_cost ? this.getCommitmentAmount(project.total_project_cost) : 'N/A';
+    const approval_date = project?.approval_date ? isoDateToHumanReadableDate(project?.approval_date) : 'N/A';
+    const closing_date = project?.closing_date ? isoDateToHumanReadableDate(project?.closing_date) : 'N/A'
 
     return (
       <Layout className="project-layout">
@@ -46,9 +46,9 @@ class Project extends Component {
           <Content className="contents">
             <h3>{project?.name}</h3>
 
-            <Layout className="project-inner_layout" >
+            <Layout className="project-inner-layout" >
 
-              <Content className="project_contents">
+              <Content className="project-contents">
                 <div className="card-container">
                   <Tabs type="card">
                     <TabPane tab="Project Overview" key="1">
@@ -87,7 +87,7 @@ class Project extends Component {
                         <Col {...secondSpan} className="project_map" offset={1} >
                           <Spin spinning={mapLoading} tip="Loading data...">
                             <BaseMap ref={this.map} zoomControl={true}>
-                              { project ? <ProjectPoints projects={[project]} /> : ''}
+                              {project ? <ProjectPoints projects={[project]} /> : ''}
                             </BaseMap>
                           </Spin>
                         </Col>
