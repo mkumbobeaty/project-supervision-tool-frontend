@@ -14,11 +14,14 @@ import SubProjectPoints from './components/SubProjectPoints';
 import Legend from "./components/Legend";
 
 class MapDashboard extends Component {
-    state = {
-        lat: -6.161184,
-        lng: 35.745426,
-        zoom: 6,
+ state = {
+        lat: -5.856,
+        lng: 34.074,
+        zoom: 7,
     }
+    
+    
+    
 
     static propTypes = {
         mapLoading: PropTypes.bool.isRequired,
@@ -55,10 +58,12 @@ class MapDashboard extends Component {
             subProjectLoading,
         } = this.props;
 
+       const position = [this.state.lat, this.state.lng]
+
         return (
             <div className="MapDashboard">
                 <Spin spinning={mapLoading} tip="Loading data...">
-                    <BaseMap projects={projects}>
+                    <BaseMap projects={projects} position={position}>
                         <SideNav />
                         <Legend />
                         {

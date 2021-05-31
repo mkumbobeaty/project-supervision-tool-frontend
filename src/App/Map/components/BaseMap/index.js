@@ -28,9 +28,9 @@ const state = {
 
 
 
-const position = [state.lat, state.lng]
+// const position = [state.lat, state.lng]
 
-const BaseMap = ({children}) => {
+const BaseMap = ({children, position}) => {
 
     return (
         <MapContainer center={position} fullscreenControl={{ position: 'topright'}} zoom={state.zoom} className="base-map" zoomControl={false} >

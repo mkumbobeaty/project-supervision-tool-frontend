@@ -8,7 +8,6 @@
     padding-left: 250px;
     font-weight: 500;
     border-bottom: 1px solid #8f8c8c42;
-
 }
 
 .contents {
@@ -53,30 +52,27 @@
     margin: 0 !important;
 }
 
-
 .project-subproject>.Toolbar {
     display: none;
 }
 
-.project_map {
+.project-map {
     padding: 1px;
     height: 50vh;
     border: 2px solid #e0ddddfa;
 }
 
-.project_map .base-map {
+.project-map .base-map {
     height: 49vh;
 }
 
-.sector_chat {
-    padding-right: 5px;
+.project-map .legend {
+    display: none;
 }
 
-.sector_title {
-    color: #0f6788;
-    margin: -10px 0 -10px 10px;
+.card-container h5{
+    margin-top: 15px;
 }
-
 .container {
     padding-right: 15px;
     padding-left: 15px;
