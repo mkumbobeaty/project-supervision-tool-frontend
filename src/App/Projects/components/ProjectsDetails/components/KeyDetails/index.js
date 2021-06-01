@@ -25,7 +25,7 @@ const KeyDetailSection = ({ project, commitmentAmount, totalProjectCost }) => {
                 </Col>
                 <Col {...statusSpan}>
                     <h4>Status</h4>
-                    <p>{project?.status ? project?.status : 'N/A'}</p>
+                    <p>{project?.status?.name ? project?.status?.name : 'N/A'}</p>
                 </Col>
                 <Col {...totalCostSpan}>
                     <h4>Project Total Cost</h4>

@@ -242,30 +242,6 @@ function ProjectForm({
                     </Form.Item>
                     {/* end:project name */}
 
-                    {/* start:shapefile */}
-                    <Form.Item
-                        label="Projects ShapeFIle"
-                        name="shapefiles"
-                        title="Shapefile"
-                        rules={[
-                            {
-                                required: false,
-                            },
-                        ]}
-                    >
-                        <Select showSearch
-                            optionFilterProp="children"
-
-                        >
-                            {layers.map(({ title, id }) => (
-                                <Select.Option value={id}>{title}</Select.Option>
-                            ))}
-                        </Select>
-
-                    </Form.Item>
-                    {/* end:Shapefile */}
-
-
                     {/* start:Description */}
                     <Form.Item
                         label="Description"
@@ -281,7 +257,27 @@ function ProjectForm({
                         <Input.TextArea />
                     </Form.Item>
                     {/* end:Description */}
-                    {/* start:agencies */}
+
+                    {/* start:shapefile */}
+                    <Form.Item
+                        label="Projects ShapeFIle"
+                        name="shapefiles"
+                        title="Shapefile"
+                        rules={[
+                            {
+                                required: false,
+                            },
+                        ]}
+                    >
+                        <Select mode="multiple">
+                            {layers.map(({ title, typename }) => (
+                                <Select.Option value={typename}>{title}</Select.Option>
+                            ))}
+                        </Select>
+
+                    </Form.Item>
+                    {/* end:Shapefile */}
+
 
                     {/* start:funding organisation  */}
                     <Form.Item

@@ -327,7 +327,6 @@ const getLayersEpic = action$ => {
         switchMap(() => {
             return from(API.getLayers()).pipe(
                 switchMap(res => {
-                    debugger
                     return of(actions.getLayersSuccess(res.objects))
                 }),
                 catchError(error => of(actions.getLayersFailure(error)))

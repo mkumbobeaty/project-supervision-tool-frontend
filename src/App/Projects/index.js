@@ -376,7 +376,7 @@ class Projects extends Component {
                       {item.name}
                     </Link>
                   </Col>
-                  <Col {...statusSpan}>{item?.status  ? item?.status : 'N/A'}</Col>
+                  <Col {...statusSpan}>{item?.status?.name  ? item?.status?.name : 'N/A'}</Col>
                   <Col {...approvalSpan}>
                   {item ? new Date(item?.approval_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
                   </Col>

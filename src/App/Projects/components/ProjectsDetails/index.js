@@ -1,12 +1,12 @@
 import React, { Component, useEffect } from "react";
 import { Col, Layout, Row, Spin, Tabs } from 'antd';
-import KeyDetailSection from "./KeyDetails";
+import KeyDetailSection from "./components/KeyDetails";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../../redux/modules/projects";
 import BaseMap from "../../../Map/components/BaseMap";
 import { mapSelectors } from "../../../../redux/modules/map";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
-import DetailsSection from "./ComponentSubComponent";
+import DetailsSection from "./components/ComponentSubComponent";
 import ProjectPoints from "../../../Map/components/ProjectPoints";
 import ProgressBar from "../../../components/Progress";
 import * as turf from '@turf/turf';
