@@ -6,7 +6,7 @@ import { projectOperation, projectSelectors } from "../../../../redux/modules/pr
 import BaseMap from "../../../Map/components/BaseMap";
 import { mapSelectors } from "../../../../redux/modules/map";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
-import DetailsSection from "./DetailsSection";
+import DetailsSection from "./ComponentSubComponent";
 import ProjectPoints from "../../../Map/components/ProjectPoints";
 import ProgressBar from "../../../components/Progress";
 import * as turf from '@turf/turf';
