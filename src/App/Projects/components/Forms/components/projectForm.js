@@ -245,7 +245,7 @@ function ProjectForm({
                     {/* start:shapefile */}
                     <Form.Item
                         label="Projects ShapeFIle"
-                        name="country"
+                        name="shapefiles"
                         title="Shapefile"
                         rules={[
                             {
@@ -343,7 +343,7 @@ function ProjectForm({
 
                             <Form.Item
                                 label="Region"
-                                name="region"
+                                name="region_id"
                                 rules={[
                                     {
                                         required: true,
@@ -351,7 +351,7 @@ function ProjectForm({
                                     },
                                 ]}
                             >
-                                <Select mode='multiple'>
+                                <Select>
                                     {regions.map(({ id, name }) => (
                                         <Select.Option value={id}>{name}</Select.Option>
                                     ))}
