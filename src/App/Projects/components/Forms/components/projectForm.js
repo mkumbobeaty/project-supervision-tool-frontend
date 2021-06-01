@@ -5,12 +5,15 @@ import PropTypes from 'prop-types';
 import {
     Form, Input, Button, Row, Col, Select,
     DatePicker,
+    Typography
 } from 'antd';
 import RegionLocationForm from "../../../../components/RegionLocationForm";
 import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
 import { bindActionCreators } from "redux";
 import { projectDetailsActions, projectDetailsSelectors } from '../../ProjectsDetails/duck';
-
+import { generateDateString, generateYearString } from "../../../../../Util";
+import CommitmentAmountForm from "./CommitmentAmountForm";
+import TotalProjectCostForm from "./TotalProjectCostForm";
 /* ui */
 const labelCol = {
     xs: { span: 24 },
@@ -32,6 +35,16 @@ const wrapperCol = {
 
 /**
  * @function
+ * @name getCurrencyIsoFromCurrencies
+ * @description gets currrency  iso from array of currencies
+ */
+const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
+    const currency = currencies.find(({ id }) => id === currency_id);
+    return currency.iso;
+};
+
+/**
+ * @function
  * @name ProjectForm
  * @description renders form for creating project
  */
@@ -39,7 +52,7 @@ function ProjectForm({
     getRegions,
     regions,
     createProject,
-    next,
+    handleConfirmButton,
     getProjectStatus,
     statuses,
     getAgencies,
@@ -51,11 +64,18 @@ function ProjectForm({
     agencies,
     environmentalCategories,
     getLayers,
-    layers
+    layers,
+    getCurrency,
+    currency,
 
 }) {
     const [visible, setVisible] = useState(false);
     const [locations, setLocations] = useState([]);
+    const [visibleTotalProjectCost, setVisibleTotalProjectCost] = useState(false);
+    const [VisibleCommitmentAmount, setVisibleCommitmentAmount] = useState(false);
+    const [commitment_amount_id, setCommitmentAmount] = useState(null);
+    const [total_project_cost_id, setTotalProjetCost] = useState(false);
+
 
     useEffect(() => {
         getProjectStatus();
@@ -64,21 +84,58 @@ function ProjectForm({
         getAgencies();
         getRegions()
         getEnvironmentalCategories();
-        getLayers()
+        getLayers();
+        getCurrency();
     }, []);
 
     const hideUserModal = () => {
         setVisible(false);
     };
 
+    const showTotalProjectCostModal = () => {
+        setVisibleTotalProjectCost(true);
+    };
+
+    const hideTotalProjectCostModal = () => {
+        setVisibleTotalProjectCost(false);
+    };
+
+
+    const showCommitmentAmountModal = () => {
+        setVisibleCommitmentAmount(true)
+    };
+
+    const hideCommitmentAmountModal = () => {
+        setVisibleCommitmentAmount(false)
+    };
+
+    const setCommitmentAmountId = (id) => {
+        setCommitmentAmount(id);
+      };
+    
+    const  setTotalProjectCostId = (id) => {
+        setTotalProjetCost(id)
+      };
+
     const onFinish = (values) => {
-        createProject({ ...values });
-        next();
+        const approval_date = generateDateString(values.approval_date);
+        const approval_fy = generateYearString(values.approval_fy);
+        const closing_date = generateDateString(values.closing_date);
+        const payload = {
+            ...values,
+            approval_date,
+            approval_fy,
+            closing_date,
+            commitment_amount_id: commitment_amount_id,
+            total_project_cost_id: total_project_cost_id,
+        };
+
+        createProject(payload);
+            handleConfirmButton();
+
     };
 
     const selected = null;
-
-    const countries = ['Tanzania', 'Kenya', 'Uganda']
 
     return (
         <>
@@ -92,6 +149,25 @@ function ProjectForm({
                         });
                         setVisible(false);
                     }
+                    // handling commitment amount form
+                    if (name === 'commitmentAmountForm') {
+                        const { basicForm } = forms;
+                        basicForm.setFieldsValue({
+                            commitmentAmountValue: values
+                        });
+                        setVisibleCommitmentAmount(false);
+                    }
+
+                    // handling total project cost form
+                    if (name === 'totalProjectCostForm') {
+                        const { basicForm } = forms;
+                        basicForm.setFieldsValue({
+                            totalProjectCostValue: values
+                        });
+                        setVisibleTotalProjectCost(false);
+                    }
+
+
                 }}
             >
 
@@ -178,14 +254,14 @@ function ProjectForm({
                         ]}
                     >
                         <Select showSearch
-                         optionFilterProp="children"
+                            optionFilterProp="children"
 
                         >
-                            {layers.map(({title, id}) => (
+                            {layers.map(({ title, id }) => (
                                 <Select.Option value={id}>{title}</Select.Option>
                             ))}
-                        </Select>                     
-                        
+                        </Select>
+
                     </Form.Item>
                     {/* end:Shapefile */}
 
@@ -205,47 +281,38 @@ function ProjectForm({
                         <Input.TextArea />
                     </Form.Item>
                     {/* end:Description */}
+                    {/* start:agencies */}
 
-                    {/* start:type */}
-                    <Row type="flex" justify="space-between">
-                        <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
-                            <Form.Item
-                                label="Country"
-                                name="country"
-                                title="Country i.e Tanzania"
-                                rules={[
-                                    {
-                                        required: false,
-                                    },
-                                ]}
-                            >
-                                <Select
-                                 showSearch  
-                                 optionFilterProp="children">
-                                    {countries.map(counrty => (
-                                        <Select.Option value={counrty}>{counrty}</Select.Option>
-                                    ))}
-                                </Select>                            </Form.Item>
-                        </Col>
-                        <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
-                            <Form.Item
-                                label="Region"
-                                name="region"
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: "Region is required",
-                                    },
-                                ]}
-                            >
-                                <Select mode='multiple'>
-                                    {regions.map(({ id, name }) => (
-                                        <Select.Option value={id}>{name}</Select.Option>
-                                    ))}
-                                </Select>
-                            </Form.Item>
-                        </Col>
-                    </Row>
+                    {/* start:funding organisation  */}
+                    <Form.Item
+                        label="Funding Organizations"
+                        name="funding_organisation_id"
+                        title="funding organisation i.e The World Bank"
+                    >
+                        <Select showSearch optionFilterProp="children">
+                            {partiners.map((partiner) => (
+                                <Select.Option value={partiner.id}>{partiner.name}</Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    {/* end:funding organisation */}
+                    <Form.Item
+                        label="Implementing Agency"
+                        name="implementing_agency_id"
+                        title="implementing agency e.g PO-LARG"
+                    >
+                        <Select
+                            showSearch
+                            optionFilterProp="children"
+
+                        >
+                            {agencies.map((agency) => (
+                                <Select.Option value={agency.id}>{agency.name}</Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    {/* end:agencies */}
+
                     <Row type="flex" justify="space-between">
                         <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
                             <Form.Item
@@ -273,6 +340,119 @@ function ProjectForm({
 
                         </Col>
                         <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
+
+                            <Form.Item
+                                label="Region"
+                                name="region"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Region is required",
+                                    },
+                                ]}
+                            >
+                                <Select mode='multiple'>
+                                    {regions.map(({ id, name }) => (
+                                        <Select.Option value={id}>{name}</Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                        </Col>
+                    </Row>
+
+                    <Row justify="space-between">
+                        <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
+                            {/* start: commitment amount */}
+                            <Form.Item
+                                label="Total Project Cost"
+                                shouldUpdate={(prevValues, curValues) => prevValues.totalProjectCostValue !== curValues.totalProjectCostValue}
+                            >
+                                {({ getFieldValue }) => {
+                                    const totalProjectCostValue = getFieldValue('totalProjectCostValue') || null;
+                                    return (
+                                        <div>
+                                            {totalProjectCostValue ? (
+                                                <Typography.Text className="ant-form-text" type="success" strong={true}>
+                                                    {`${totalProjectCostValue.amount} ${getCurrencyIsoFromCurrencies(totalProjectCostValue.currency_id, currency)}`}
+                                                </Typography.Text>
+                                            ) : (
+                                                    <Typography.Text className="ant-form-text" type="secondary">
+                                                        Click Add to fill total project cost
+                                                    </Typography.Text>
+                                                )}
+                                            <Button
+                                                size="small"
+                                                htmlType="button"
+                                                style={{
+                                                    fontSize: '0.9em'
+                                                }}
+                                                onClick={showTotalProjectCostModal}
+                                            >
+                                                Add
+                                        </Button>
+                                        </div>
+                                    );
+                                }}
+                            </Form.Item>
+                            {/* end: commitment amount */}
+                        </Col>
+
+                        <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
+                            {/* start: commitment amount */}
+                            <Form.Item
+                                label="Commitment Amount"
+                                shouldUpdate={(prevValues, curValues) => prevValues.commitmentAmountValue !== curValues.commitmentAmountValue}
+                            >
+                                {({ getFieldValue }) => {
+                                    const commitmentAmountValue = getFieldValue('commitmentAmountValue') || null;
+                                    return (
+                                        <div>
+                                            {commitmentAmountValue ? (
+                                                <Typography.Text className="ant-form-text" type="success" strong={true}>
+                                                    {`${commitmentAmountValue.amount} ${getCurrencyIsoFromCurrencies(commitmentAmountValue.currency_id, currency)}`}
+                                                </Typography.Text>
+                                            ) : (
+                                                    <Typography.Text className="ant-form-text" type="secondary">
+                                                        Click Add to fill commitment amount
+                                                    </Typography.Text>
+                                                )}
+                                            <Button
+                                                size="small"
+                                                htmlType="button"
+                                                style={{
+                                                    fontSize: '0.9em'
+                                                }}
+                                                onClick={showCommitmentAmountModal}
+                                            >
+                                                Add
+                                            </Button>
+                                        </div>
+                                    );
+                                }}
+                            </Form.Item>
+                            {/* end: commitment amount */}
+                        </Col>
+                    </Row>
+
+                    {/* start:type */}
+                    <Row type="flex" justify="space-between">
+                        <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
+                            {/* start:borrower */}
+                            <Form.Item
+                                label="Borrowers"
+                                name="borrower_id"
+                                title="Borrower e.g Ministry of Finance"
+                            >
+                                <Select>
+                                    {borrowers.map((borrower) => (
+                                        <Select.Option value={borrower.id}>{borrower.name}</Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            {/* end:borrower */}
+                        </Col>
+
+                        <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
                             {/* start:environmental category  */}
                             <Form.Item
                                 label="Environmental Category"
@@ -280,7 +460,7 @@ function ProjectForm({
                                 title="Environmental category i.e A"
                             >
                                 <Select showSearch
-                                 optionFilterProp="children"
+                                    optionFilterProp="children"
 
                                 >
                                     {environmentalCategories.map((environmentalCategory) => (
@@ -291,53 +471,6 @@ function ProjectForm({
                             {/* end:environmental category */}
                         </Col>
                     </Row>
-                    {/* start:agencies */}
-                    <Form.Item
-                        label="Implementing Agency"
-                        name="implementing_agency_id"
-                        title="implementing agency e.g PO-LARG"
-                    >
-                        <Select
-                            mode="multiple"
-                        >
-                            {agencies.map((agency) => (
-                                <Select.Option value={agency.id}>{agency.name}</Select.Option>
-                            ))}
-                        </Select>
-                    </Form.Item>
-                    {/* end:agencies */}
-
-                    {/* start:funding organisation  */}
-                    <Form.Item
-                        label="Funding Organizations"
-                        name="funding_organisation_id"
-                        title="funding organisation i.e The World Bank"
-                    >
-                        <Select showSearch  optionFilterProp="children">
-                            {partiners.map((partiner) => (
-                                <Select.Option value={partiner.id}>{partiner.name}</Select.Option>
-                            ))}
-                        </Select>
-                    </Form.Item>
-                    {/* end:funding organisation */}
-
-                    {/* start:borrower */}
-                    <Form.Item
-                        label="Borrowers"
-                        name="borrower_id"
-                        title="Borrower e.g Ministry of Finance"
-                    >
-                        <Select
-                            mode="multiple"
-
-                        >
-                            {borrowers.map((borrower) => (
-                                <Select.Option value={borrower.id}>{borrower.name}</Select.Option>
-                            ))}
-                        </Select>
-                    </Form.Item>
-                    {/* end:borrower */}
-
 
                     <Row justify="space-between">
                         <Col span={8}>
@@ -405,6 +538,19 @@ function ProjectForm({
                     </Form.Item>
                     {/* end:form actions */}
                 </Form>
+
+                <CommitmentAmountForm
+                    visible={VisibleCommitmentAmount}
+                    onCancel={hideCommitmentAmountModal}
+                    setCommitmentAmountId={setCommitmentAmountId}
+                    currency={currency}
+                />
+                <TotalProjectCostForm
+                    visible={visibleTotalProjectCost}
+                    onCancel={hideTotalProjectCostModal}
+                    setTotalProjectCostId={setTotalProjectCostId}
+                    currency={currency}
+                />
                 <RegionLocationForm
                     visible={visible}
                     onCancel={hideUserModal}
@@ -424,7 +570,8 @@ const mapStateToProps = state => ({
     environmentalCategories: projectSelectors.getEnvironmentalCategoriesSelector(state),
     partiners: projectDetailsSelectors.getFundingOrgsSelector(state),
     agencies: projectDetailsSelectors.getAgenciesSelector(state),
-    layers: projectSelectors.getLayers(state)
+    layers: projectSelectors.getLayers(state),
+    currency: projectDetailsSelectors.getCurrenciesSelector(state),
 
 });
 
@@ -437,7 +584,9 @@ const mapDispatchToProps = (dispatch) => ({
     getFundingOrgs: bindActionCreators(projectDetailsActions.getFundingOrgStart, dispatch),
     getAgencies: bindActionCreators(projectDetailsActions.getAgenciesStart, dispatch),
     getEnvironmentalCategories: bindActionCreators(projectActions.getEnvironmentalCategoriesStart, dispatch),
-    getLayers: bindActionCreators(projectActions.getLayersStart, dispatch)
+    getLayers: bindActionCreators(projectActions.getLayersStart, dispatch),
+    getCurrency: bindActionCreators(projectDetailsActions.getCurrenciesStart, dispatch),
+
 
 });
 

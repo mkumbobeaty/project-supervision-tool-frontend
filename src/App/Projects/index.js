@@ -384,7 +384,7 @@ class Projects extends Component {
                   {item? new Date(item?.closing_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
                   </Col>
                   
-                  <Col {...projectCoordinatorSpan}>{item?.implementing_agency ? item?.implementing_agency?.focalPerson.first_name + ' ' + item?.implementing_agency?.focalPerson.last_name : 'N/A'}</Col>
+                  <Col {...projectCoordinatorSpan } className="contentEllipse">{item?.implementing_agency ? item?.implementing_agency?.name :'N/A'}</Col>
                   <Col {...projectLeadSpan}> {item?.leaders ? item?.leaders.length : 'N/A'}</Col>
                   {/* eslint-enable react/jsx-props-no-spreading */}
                 </ListItem>

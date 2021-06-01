@@ -48,13 +48,13 @@ const KeyDetailSection = ({ project, commitmentAmount, totalProjectCost }) => {
                 </Col>
                 <Col {...projectCoordinatorSpan}>
                     <h4>Funding organisation</h4>
-                    <p>{project?.funding_organisation ? project?.funding_organisation?.first_name : 'N/A'}</p>
+                    <p>{project?.funding_organisation ? project?.funding_organisation?.name : 'N/A'}</p>
 
                 </Col>
 
                 <Col {...implementingAgencySpan}>
                     <h4>Implementing Agency</h4>
-                    <p>{project?.implementing_agency ? project?.implementing_agency?.focalPerson?.first_name + " " + project?.implementing_agency?.focalPerson?.last_name : 'N/A'}</p>
+                    <p>{project?.implementing_agency ? project?.implementing_agency?.name : 'N/A'}</p>
                 </Col>
                 <Col {...subProjectsSpan}>
                     <h4>Sub Projects</h4>
