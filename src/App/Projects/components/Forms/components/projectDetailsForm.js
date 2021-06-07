@@ -13,7 +13,7 @@ import {
 } from "antd";
 import { generateDateString, generateYearString } from "../../../../../Util";
 import { connect } from "react-redux";
-import { projectDetailsOperator, projectDetailsSelectors } from "../../ProjectsDetails/duck";
+import { projectDetailsActions, projectDetailsSelectors } from "../../../../../redux/modules/projectDetails";
 import {projectActions, projectSelectors} from "../../../../../redux/modules/projects";
 import CommitmentAmountForm from "./CommitmentAmountForm";
 import TotalProjectCostForm from "./TotalProjectCostForm";
@@ -381,9 +381,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   getSectors: projectSectorsActions.getSectorsStart,
-  getFundingOrgs: projectDetailsOperator.getFundingOrgStart,
-  createProjectDetails: projectDetailsOperator.createProjectDetailsStart,
-  getCurrency: projectDetailsOperator.getCurrenciesStart,
+  getFundingOrgs: projectDetailsActions.getFundingOrgStart,
+  createProjectDetails: projectDetailsActions.createProjectDetailsStart,
+  getCurrency: projectDetailsActions.getCurrenciesStart,
   getRegions: projectActions.getRegionsStart,
 
 }

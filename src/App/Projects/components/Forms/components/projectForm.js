@@ -10,10 +10,11 @@ import {
 import RegionLocationForm from "../../../../components/RegionLocationForm";
 import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
 import { bindActionCreators } from "redux";
-import { projectDetailsActions, projectDetailsSelectors } from '../../ProjectsDetails/duck';
+import { projectDetailsActions, projectDetailsSelectors } from '../../../../../redux/modules/projectDetails';
 import { generateDateString, generateYearString } from "../../../../../Util";
 import CommitmentAmountForm from "./CommitmentAmountForm";
 import TotalProjectCostForm from "./TotalProjectCostForm";
+import { usersActions, usersSelectors } from '../../../../../redux/modules/users';
 /* ui */
 const labelCol = {
     xs: { span: 24 },
@@ -67,7 +68,8 @@ function ProjectForm({
     layers,
     getCurrency,
     currency,
-
+    users,
+    getUsers
 }) {
     const [visible, setVisible] = useState(false);
     const [locations, setLocations] = useState([]);
@@ -86,6 +88,7 @@ function ProjectForm({
         getEnvironmentalCategories();
         getLayers();
         getCurrency();
+        getUsers();
     }, []);
 
     const hideUserModal = () => {
@@ -129,10 +132,9 @@ function ProjectForm({
             commitment_amount_id: commitment_amount_id,
             total_project_cost_id: total_project_cost_id,
         };
-
+   
         createProject(payload);
-            handleConfirmButton();
-
+        handleConfirmButton();
     };
 
     const selected = null;
@@ -309,6 +311,20 @@ function ProjectForm({
                     </Form.Item>
                     {/* end:agencies */}
 
+                    {/* start:users */}
+                    <Form.Item
+                        label="WB Leaders"
+                        name="leaders"
+                        title="WB team Leaders e.g Elis Adam"
+                    >
+                        <Select mode="multiple"  >
+                            {users.map((user) => (
+                                <Select.Option value={user.id}>{user.first_name} {user.last_name}</Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    {/* end:agencies */}
+
                     <Row type="flex" justify="space-between">
                         <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
                             <Form.Item
@@ -339,7 +355,7 @@ function ProjectForm({
 
                             <Form.Item
                                 label="Region"
-                                name="region_id"
+                                name="regions"
                                 rules={[
                                     {
                                         required: true,
@@ -347,7 +363,7 @@ function ProjectForm({
                                     },
                                 ]}
                             >
-                                <Select>
+                                <Select mode="multiple">
                                     {regions.map(({ id, name }) => (
                                         <Select.Option value={id}>{name}</Select.Option>
                                     ))}
@@ -529,7 +545,7 @@ function ProjectForm({
                             htmlType="submit"
                             style={{ marginLeft: 8 }}
                         >
-                            Next
+                            Submit
                     </Button>
                     </Form.Item>
                     {/* end:form actions */}
@@ -568,7 +584,7 @@ const mapStateToProps = state => ({
     agencies: projectDetailsSelectors.getAgenciesSelector(state),
     layers: projectSelectors.getLayers(state),
     currency: projectDetailsSelectors.getCurrenciesSelector(state),
-
+    users: usersSelectors.getUsersSelector(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -582,7 +598,7 @@ const mapDispatchToProps = (dispatch) => ({
     getEnvironmentalCategories: bindActionCreators(projectActions.getEnvironmentalCategoriesStart, dispatch),
     getLayers: bindActionCreators(projectActions.getLayersStart, dispatch),
     getCurrency: bindActionCreators(projectDetailsActions.getCurrenciesStart, dispatch),
-
+    getUsers: bindActionCreators(usersActions.getUsersStart, dispatch),
 
 });
 

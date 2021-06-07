@@ -5,8 +5,8 @@ import { connect } from "react-redux";
 import ProjectForm from './components/projectForm';
 import { projectSectorsOperator, } from "../ProjectsSectors/duck";
 import { projectOperation, projectSelectors } from '../../../../redux/modules/projects';
-import { projectDetailsOperator, } from "../ProjectsDetails/duck";
 import ProjectDetailsForm from "./components/projectDetailsForm";
+import { projectDetailsActions } from "../../../../redux/modules/projectDetails";
 
 
 const { Step } = Steps;
@@ -97,12 +97,18 @@ class CommonProjectForm extends Component {
         ];
         return (
             <>
-                <Steps current={current} key={steps.map(title => title)} onChange={this.onChange}>
+                {/* <Steps current={current} key={steps.map(title => title)} onChange={this.onChange}>
                     {steps.map(item => (
                         <Step title={item.title} />
                     ))}
-                </Steps>
-                <div className="steps-content">{steps[current].content}</div>
+                </Steps> */}
+                {/* <div className="steps-content">{steps[current].content}</div> */}
+                <ProjectForm
+                    submittedValues={this.getProjectFormValue}
+                    focalPeoples={focalPeoples}
+                    handleConfirmButton={this.handleConfirmButton}
+                    next={this.next}
+                />
                 
             </>
         );
@@ -121,7 +127,7 @@ const mapDispatchToProps = {
     createProject: projectOperation.createProjectStart,
     createProjectLocation: projectOperation.createProjectLocationStart,
     createProjectSector: projectSectorsOperator.createProjectSectorsStart,
-    createProjectDetail: projectDetailsOperator.createProjectDetailsStart,
+    createProjectDetail: projectDetailsActions.createProjectDetailsStart,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(CommonProjectForm);
