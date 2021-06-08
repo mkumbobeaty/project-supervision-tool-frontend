@@ -64,6 +64,27 @@ const createProjectPic = action$ => {
 
 /**
  * @function
+ * @name updateProjectPic
+ * @param action$
+ * @return action$
+ */
+const updateProjectPic = action$ => {
+    return action$.pipe(
+        ofType(types.UPDATE_PROJECT_START),
+        switchMap(({payload}) => {
+            return from(API.updateProject(payload.project, payload.id)).pipe(
+                switchMap(res => {
+                    return of(
+                        actions.updateProjectSuccess(res))
+                }),
+            )
+        }),
+        catchError(error => of(actions.updateSubProjectFailure(error)))
+    )
+}
+
+/**
+ * @function
  * @name createSubProjectEpic
  * @param action$
  * @return action$
@@ -341,6 +362,7 @@ export const projectsRootEpic = combineEpics(
     getProjectEpic,
     deleteProjectEpic,
     createProjectPic,
+    updateProjectPic,
     deleteSubProjectEpic,
     regionsEpic,
     districtsEpic,

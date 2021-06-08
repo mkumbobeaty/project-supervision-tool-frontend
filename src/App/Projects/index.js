@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { projectActions, projectOperation, projectSelectors } from '../../redux/modules/projects';
+import { projectActions, projectSelectors } from '../../redux/modules/projects';
 import { Col, Drawer, Modal, Spin } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -11,8 +11,8 @@ import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import CommonProjectForm from "./components/Forms";
-import { focalPeopleOperation, focalPeopleSelectors } from "../FocalPeople/duck";
-import { projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
+import { focalPeopleActions, focalPeopleOperation, focalPeopleSelectors } from "../FocalPeople/duck";
+import { projectSectorsActions, projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
 import ProjectLocations from "../Map/components/ProjectLocations";
 import BaseMap from "../Map/components/BaseMap";
 import SideNav from "../Map/components/SideNav";
@@ -80,7 +80,6 @@ class Projects extends Component {
    */
   handleEdit = (project) => {
     const { selectProject, openProjectForm } = this.props;
-
     selectProject(project);
     this.setState({ isEditForm: true });
     openProjectForm();
@@ -441,7 +440,7 @@ const mapStateToProps = (state) => {
     page: projectSelectors.getProjectsPageSelector(state),
     total: projectSelectors.getProjectsTotalSelector(state),
     showForm: projectSectorsSelectors.getShowFormSelector(state),
-    selected: state.projects?.selectedProjects,
+    selected: projectSelectors.selectedProject(state),
     mapLoading: mapSelectors.getMapLoadingSelector(state),
     project: projectSelectors.getProjectSelector(state),
     searchQuery: projectSelectors.searchQuery(state)
@@ -449,18 +448,17 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  fetchProjects: projectOperation.getProjectsStart,
-  deleteProject: projectOperation.deleteProjectStart,
-  selectProject: projectOperation.selectProject,
-  focalPeople: focalPeopleOperation.getFocalPeopleStart,
-  createProject: projectOperation.createProjectStart,
-  openProjectForm: projectSectorsOperator.openForm,
-  closeProjectForm: projectSectorsOperator.closeForm,
+  fetchProjects: projectActions.getProjectsStart,
+  deleteProject: projectActions.deleteProjectStart,
+  selectProject: projectActions.selectProject,
+  focalPeople: focalPeopleActions.getFocalPeopleStart,
+  createProject: projectActions.createProjectStart,
+  openProjectForm: projectSectorsActions.openForm,
+  closeProjectForm: projectSectorsActions.closeForm,
   paginateProject: projectActions.getProjectsStart,
   searchProject: projectActions.searchProjects,
   getProject: projectActions.getProjectStart,
   getProjectOnMap: mapProjectActions.getProjectStart,
-
 
 };
 

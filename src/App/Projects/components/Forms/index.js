@@ -72,8 +72,8 @@ class CommonProjectForm extends Component {
 
     render() {
         const { current } = this.state
-        const { focalPeoples, project, } = this.props
-
+        const { focalPeoples, project, selected, isEditForm } = this.props
+        console.log('selected', selected);
         const steps = [
             {
                 title: 'Step 1',
@@ -108,6 +108,9 @@ class CommonProjectForm extends Component {
                     focalPeoples={focalPeoples}
                     handleConfirmButton={this.handleConfirmButton}
                     next={this.next}
+                    selected={selected}
+                    isEditForm={isEditForm}
+
                 />
                 
             </>

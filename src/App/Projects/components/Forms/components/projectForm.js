@@ -11,7 +11,7 @@ import RegionLocationForm from "../../../../components/RegionLocationForm";
 import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
 import { bindActionCreators } from "redux";
 import { projectDetailsActions, projectDetailsSelectors } from '../../../../../redux/modules/projectDetails';
-import { generateDateString, generateYearString } from "../../../../../Util";
+import { createDateFromString, generateDateString, generateYearString } from "../../../../../Util";
 import CommitmentAmountForm from "./CommitmentAmountForm";
 import TotalProjectCostForm from "./TotalProjectCostForm";
 import { usersActions, usersSelectors } from '../../../../../redux/modules/users';
@@ -50,6 +50,7 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
  * @description renders form for creating project
  */
 function ProjectForm({
+    selected,
     getRegions,
     regions,
     createProject,
@@ -69,7 +70,9 @@ function ProjectForm({
     getCurrency,
     currency,
     users,
-    getUsers
+    getUsers,
+    isEditForm,
+    updateProject,
 }) {
     const [visible, setVisible] = useState(false);
     const [locations, setLocations] = useState([]);
@@ -77,7 +80,6 @@ function ProjectForm({
     const [VisibleCommitmentAmount, setVisibleCommitmentAmount] = useState(false);
     const [commitment_amount_id, setCommitmentAmount] = useState(null);
     const [total_project_cost_id, setTotalProjetCost] = useState(false);
-
 
     useEffect(() => {
         getProjectStatus();
@@ -114,11 +116,11 @@ function ProjectForm({
 
     const setCommitmentAmountId = (id) => {
         setCommitmentAmount(id);
-      };
-    
-    const  setTotalProjectCostId = (id) => {
+    };
+
+    const setTotalProjectCostId = (id) => {
         setTotalProjetCost(id)
-      };
+    };
 
     const onFinish = (values) => {
         const approval_date = generateDateString(values.approval_date);
@@ -132,12 +134,15 @@ function ProjectForm({
             commitment_amount_id: commitment_amount_id,
             total_project_cost_id: total_project_cost_id,
         };
-   
-        createProject(payload);
+        if (isEditForm ) {
+            updateProject(payload, selected.id);
+        }
+        else {
+            createProject(payload);
+        }
         handleConfirmButton();
-    };
 
-    const selected = null;
+    };
 
     return (
         <>
@@ -178,11 +183,21 @@ function ProjectForm({
                     wrapperCol={wrapperCol}
                     name="basicForm"
                     onFinish={onFinish}
-                    projectsValues={{
-                        projects_id: selected?.projects_id,
+                    initialValues={{
+                        wb_project_id: selected?.wb_project_id,
+                        code: selected?.code,
                         name: selected?.name,
-                        leaders: selected?.leaders,
+                        leaders: selected?.leaders.map(leader => leader.first_name),
                         description: selected?.description,
+                        // shapefiles: selected.shapefiles.map(shapefile => shapefile),
+                        funding_organisation_id: selected?.funding_organisation?.id,
+                        implementing_agency_id: selected?.implementing_agency?.id,
+                        project_status_id: selected?.status?.id,
+                        approval_date: createDateFromString(selected?.approval_date),
+                        closing_date: createDateFromString(selected?.closing_date,),
+                        approval_fy: createDateFromString(selected?.approval_fy,),
+                        borrower_id: selected?.borrower?.id,
+                        environmental_category_id: selected?.environmental_category?.id
                     }}
                     autoComplete="off"
                     className="ProjectForm"
@@ -556,12 +571,19 @@ function ProjectForm({
                     onCancel={hideCommitmentAmountModal}
                     setCommitmentAmountId={setCommitmentAmountId}
                     currency={currency}
+                    isEditForm={isEditForm}
+                    selected={selected}
+
                 />
                 <TotalProjectCostForm
                     visible={visibleTotalProjectCost}
                     onCancel={hideTotalProjectCostModal}
                     setTotalProjectCostId={setTotalProjectCostId}
                     currency={currency}
+                    isEditForm={isEditForm}
+                    selected={selected}
+
+
                 />
                 <RegionLocationForm
                     visible={visible}
@@ -585,6 +607,7 @@ const mapStateToProps = state => ({
     layers: projectSelectors.getLayers(state),
     currency: projectDetailsSelectors.getCurrenciesSelector(state),
     users: usersSelectors.getUsersSelector(state),
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -599,6 +622,7 @@ const mapDispatchToProps = (dispatch) => ({
     getLayers: bindActionCreators(projectActions.getLayersStart, dispatch),
     getCurrency: bindActionCreators(projectDetailsActions.getCurrenciesStart, dispatch),
     getUsers: bindActionCreators(usersActions.getUsersStart, dispatch),
+    updateProject: bindActionCreators(projectActions.updateProjectStart, dispatch),
 
 });
 

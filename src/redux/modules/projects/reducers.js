@@ -172,7 +172,7 @@ const project = (state = { data: null, error: null, loading: false }, action) =>
     }
 }
 
-// selected human resource
+// selected project
 const selectedProject = (state = null, action) => {
     switch (action.type) {
         case types.SELECT_PROJECT:
