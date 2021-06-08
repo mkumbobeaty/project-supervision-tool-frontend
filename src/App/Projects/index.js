@@ -376,17 +376,16 @@ class Projects extends Component {
                       {item.name}
                     </Link>
                   </Col>
-                  <Col {...statusSpan}>{item?.status ? item?.status.name : 'N/A'}</Col>
+                  <Col {...statusSpan}>{item?.status?.name  ? item?.status?.name : 'N/A'}</Col>
                   <Col {...approvalSpan}>
-                  {item?.details ? new Date(item?.details.approval_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
+                  {item ? new Date(item?.approval_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
                   </Col>
                   <Col {...closingSpan}>
-                  {item?.details ? new Date(item?.details.closing_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
+                  {item? new Date(item?.closing_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
                   </Col>
                   
-                  <Col {...projectCoordinatorSpan}>{item?.details?.implementing_agency ? item?.details?.implementing_agency?.focalPerson.first_name + ' ' + item.details.implementing_agency.focalPerson.last_name : 'N/A'}</Col>
-                  <Col {...projectLeadSpan} title={item?.leaders.map(({ first_name, last_name }) => { return " " + first_name + " " + last_name })} >
-                    {item.leaders ? item.leaders : 'N/A'}</Col>
+                  <Col {...projectCoordinatorSpan } className="contentEllipse">{item?.implementing_agency ? item?.implementing_agency?.name :'N/A'}</Col>
+                  <Col {...projectLeadSpan}> {item?.leaders ? item?.leaders.length : 'N/A'}</Col>
                   {/* eslint-enable react/jsx-props-no-spreading */}
                 </ListItem>
               )}

@@ -1,6 +1,5 @@
 import {Col, Row, Spin} from "antd";
 import React from "react";
-import ProjectsProgress from "../../../../../Projects/components/ProjectsDetails/Progress";
 import BaseMap from "../../../../../Map/components/BaseMap";
 import SubProjectPoints from "../../../../../Map/components/SubProjectPoints";
 import ReportOverview from "../ReportOverview";
@@ -85,24 +84,7 @@ const KeyDetailSection = ({sub_project, mapLoading }) => {
             </div>
             <Row className="Progress-overview container">
                 <Col {...firstSpan} >
-                    <ProjectsProgress
-                        title="Financial Progress"
-                        percentage={75}
-                        trailColor="#888b8d"
-                        start_value="0%"
-                        progress_final_title="Disbursment gap"
-                        progress_initial_title="Total Disbursed"
-                        progress_final_value="36%"
-                    />
-                    <ProjectsProgress
-                        title="Physical Progress"
-                        percentage={45}
-                        trailColor="#888b8d"
-                        progress_final_title="Closing date"
-                        progress_initial_title="Approval Date"
-                        progress__initial_value={approval_date}
-                        progress_final_value={closing_date}
-                    />
+                
                 </Col>
                 <Col {...secondSpan} offset={1}>
                     <Spin spinning={mapLoading} tip="Loading data...">

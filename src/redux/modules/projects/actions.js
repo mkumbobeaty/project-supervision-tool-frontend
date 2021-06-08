@@ -579,3 +579,26 @@ export const getProjectFilterFailure = makeActionCreator(types.GET_PROJECTS_FILT
  * @return {Object} action
  * */
 export const searchProjects = makeActionCreator(types.SEARCH_PROJECTS, 'payload');
+
+/**
+ * @function
+ * @name getLayersStart
+ * @return {Object} action
+ * */
+export const getLayersStart = makeActionCreator(types.GET_LAYERS_START);
+
+/**
+ * @function
+ * @name getLayersSuccess
+ * @param {Object} payload layers
+ * @return {Object} action
+ * */
+export const getLayersSuccess = makeActionCreator(types.GET_LAYERS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getLayersFailure
+ * @param {Object} payload layers failure response
+ * @return {Object} action
+ * */
+export const getLayersFailure = makeActionCreator(types.GET_LAYERS_FAILURE, 'payload');

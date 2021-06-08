@@ -121,3 +121,8 @@ export const GET_PROJECTS_FILTER_FAILURE = "GET_PROJECTS_FILTER_FAILURE";
 
 // search projects
 export const SEARCH_PROJECTS = "SEARCH_PROJECTS";
+
+// Getting project
+export const GET_LAYERS_START = "GET_LAYERS_START";
+export const GET_LAYERS_SUCCESS = "GET_LAYERS_SUCCESS";
+export const GET_LAYERS_FAILURE = "GET_LAYERS_FAILURE";

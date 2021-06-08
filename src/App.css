@@ -1,13 +1,9 @@
 @import '~antd/dist/antd.css';
 @font-face {
   font-family: 'Lato';
-  src: url('./assets/fonts/Lato/Lato-Regular.ttf') format('truetype'),
-    url('./assets/fonts/Lato/Lato-Bold.ttf') format('truetype'),
-    url('./assets/fonts/Lato/Lato-BoldItalic.ttf') format('truetype'),
-    url('./assets/fonts/Lato/Lato-BlackItalic.ttf') format('truetype'),
-    url('./assets/fonts/Lato/Lato-Black.ttf') format('truetype'),
-    url('./assets/fonts/Lato/Lato-Italic.ttf') format('truetype');
+  src: url('./assets/fonts/Lato/Lato-Regular.ttf') format('truetype'), url('./assets/fonts/Lato/Lato-Bold.ttf') format('truetype'), url('./assets/fonts/Lato/Lato-BoldItalic.ttf') format('truetype'), url('./assets/fonts/Lato/Lato-BlackItalic.ttf') format('truetype'), url('./assets/fonts/Lato/Lato-Black.ttf') format('truetype'), url('./assets/fonts/Lato/Lato-Italic.ttf') format('truetype');
 }
+
 .App {
   padding: 0 60px;
 }
@@ -17,94 +13,9 @@ hr {
 }
 
 /* Utils styles*/
-html,
-body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-b,
-i,
-u,
-center,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td,
-article,
-aside,
-canvas,
-details,
-embed,
-fieldset,
-figure,
-figcaption,
-footer,
-header,
-hgroup,
-menu,
-nav,
-output,
-ruby,
-section,
-summary,
-time,
-mark,
-audio,
-video,
-input,
-button,
-select,
-textarea .normal {
-  font-family: Lato, 'Helvetica Neue', 'HelveticaNeue-Light', Helvetica, Arial,
-    sans-serif;
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, i, u, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, fieldset, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, button, select, textarea .normal {
+  font-family: Lato, 'Helvetica Neue', 'HelveticaNeue-Light', Helvetica, Arial, sans-serif;
 }
 
 textarea {
@@ -123,8 +34,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 .actionButton {
@@ -133,9 +43,7 @@ code {
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
 }
 
-.actionButton:hover,
-.actionButton:active,
-.actionButton:focus {
+.actionButton:hover, .actionButton:active, .actionButton:focus {
   /* background-color: #e8e8e8; */
   /* color: #949494; */
   background-color: #1890ff20;
@@ -147,11 +55,20 @@ code {
   display: none;
 }
 
-@media print {
+.flex-constant {
+  display: flex;
+  justify-content: space-between;
+}
+
+.text-blue, a{
+  color: #0f6788;
+
+}
+
+ @media print {
   .print-only {
     display: block;
   }
-
   .not-printable {
     display: none;
   }
@@ -168,43 +85,39 @@ code {
 @media screen and (max-width: 1024px) {
   .FormModal {
     width: 80% !important;
-  }@media screen and (max-width: 768px) {
-  .FormModal {
-    width: 80% !important;
   }
-
-  .FormModal-80 {
-    width: 80% !important;
+  @media screen and (max-width: 768px) {
+    .FormModal {
+      width: 80% !important;
+    }
+    .FormModal-80 {
+      width: 80% !important;
+    }
   }
-}
-
-@media screen and (max-width: 426px) {
-  .FormModal {
-    width: 90% !important;
+  @media screen and (max-width: 426px) {
+    .FormModal {
+      width: 90% !important;
+    }
+    .FormModal-80 {
+      width: 90% !important;
+    }
+    .Toolbar {
+      margin-top: 0 !important;
+    }
   }
-
-  .FormModal-80 {
-    width: 90% !important;
+  @media screen and (min-width: 375px) {
+    .SignIn .ant-form {
+      width: 350px !important;
+    }
+    .SignIn h5 {
+      padding-top: 20px !important;
+      font-size: 12px !important;
+    }
+    .Logo h2 {
+      font-size: 15px;
+    }
   }
-  .Toolbar{
-    margin-top: 0 !important;
-  }
-}
-@media screen and (min-width: 375px){
-  .SignIn .ant-form {
-    width: 350px !important;
-}
-.SignIn h5 {
-  padding-top: 20px !important;
-  font-size: 12px !important;
-}
-.Logo h2 {
-  font-size: 15px;
-}
-}
-
   .FormModal-80 {
     width: 70% !important;
   }
 }
-

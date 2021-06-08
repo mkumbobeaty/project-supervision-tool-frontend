@@ -80,6 +80,7 @@ class CommonProjectForm extends Component {
                 content: <ProjectForm
                     submittedValues={this.getProjectFormValue}
                     focalPeoples={focalPeoples}
+                    handleConfirmButton={this.handleConfirmButton}
                     next={this.next}
                 />
             },
