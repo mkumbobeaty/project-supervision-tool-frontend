@@ -17,7 +17,6 @@ const createMoney =(payload) =>
  * */
 
 const updateMoney = (payload, id) => {
-    debugger
     return axios
         .patch(`/money/${id}`, payload)
         .then((response) => response.data);

@@ -36,16 +36,6 @@ const wrapperCol = {
 
 /**
  * @function
- * @name getCurrencyIsoFromCurrencies
- * @description gets currrency  iso from array of currencies
- */
-const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
-    const currency = currencies.find(({ id }) => id === currency_id);
-    return currency.iso;
-};
-
-/**
- * @function
  * @name ProjectForm
  * @description renders form for creating project
  */
@@ -122,6 +112,16 @@ function ProjectForm({
         setTotalProjetCost(id)
     };
 
+/**
+ * @function
+ * @name getCurrencyIsoFromCurrencies
+ * @description gets currrency  iso from array of currencies
+ */
+const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
+    const currency =  currencies.find(({ id }) => id === currency_id)  ;
+    return currency ? currency ?.iso : ''
+};
+
     const onFinish = (values) => {
         const approval_date = generateDateString(values.approval_date);
         const approval_fy = generateYearString(values.approval_fy);
@@ -131,10 +131,11 @@ function ProjectForm({
             approval_date,
             approval_fy,
             closing_date,
-            commitment_amount_id: commitment_amount_id,
-            total_project_cost_id: total_project_cost_id,
+            commitment_amount_id: commitment_amount_id ? commitment_amount_id : selected?.commitment_amount.id,
+            total_project_cost_id: total_project_cost_id ? total_project_cost_id : selected?.total_project_cost.id
         };
         if (isEditForm ) {
+            debugger
             updateProject(payload, selected.id);
         }
         else {
@@ -189,7 +190,7 @@ function ProjectForm({
                         name: selected?.name,
                         leaders: selected?.leaders.map(leader => leader.first_name),
                         description: selected?.description,
-                        // shapefiles: selected.shapefiles.map(shapefile => shapefile),
+                        shapefiles: selected?.shapefiles.map(shapefile => shapefile),
                         funding_organisation_id: selected?.funding_organisation?.id,
                         implementing_agency_id: selected?.implementing_agency?.id,
                         project_status_id: selected?.status?.id,
@@ -395,16 +396,19 @@ function ProjectForm({
                                 shouldUpdate={(prevValues, curValues) => prevValues.totalProjectCostValue !== curValues.totalProjectCostValue}
                             >
                                 {({ getFieldValue }) => {
-                                    const totalProjectCostValue = getFieldValue('totalProjectCostValue') || null;
+                                    const selectedTotalProjectCost = { amount:selected?.total_project_cost.amount, currency_id:selected?.total_project_cost.currency.id }
+                                    const totalProjectCostValue = getFieldValue('totalProjectCostValue') || selectedTotalProjectCost;
+
                                     return (
                                         <div>
-                                            {totalProjectCostValue ? (
+                                            {
+                                            totalProjectCostValue ? (
                                                 <Typography.Text className="ant-form-text" type="success" strong={true}>
                                                     {`${totalProjectCostValue.amount} ${getCurrencyIsoFromCurrencies(totalProjectCostValue.currency_id, currency)}`}
                                                 </Typography.Text>
                                             ) : (
                                                     <Typography.Text className="ant-form-text" type="secondary">
-                                                        Click Add to fill total project cost
+                                                        {isEditForm ? 'Click edit to fill total project cost' : 'Click Add to fill total project cost'}
                                                     </Typography.Text>
                                                 )}
                                             <Button
@@ -415,7 +419,7 @@ function ProjectForm({
                                                 }}
                                                 onClick={showTotalProjectCostModal}
                                             >
-                                                Add
+                                                {isEditForm ? 'Edit' : 'Add'}
                                         </Button>
                                         </div>
                                     );
@@ -431,7 +435,9 @@ function ProjectForm({
                                 shouldUpdate={(prevValues, curValues) => prevValues.commitmentAmountValue !== curValues.commitmentAmountValue}
                             >
                                 {({ getFieldValue }) => {
-                                    const commitmentAmountValue = getFieldValue('commitmentAmountValue') || null;
+                                    const selectedCommitmentAmount = { amount:selected?.commitment_amount?.amount, currency_id:selected?.commitment_amount.currency.id }
+                                    const commitmentAmountValue = getFieldValue('commitmentAmountValue') || selectedCommitmentAmount;
+
                                     return (
                                         <div>
                                             {commitmentAmountValue ? (
@@ -440,7 +446,7 @@ function ProjectForm({
                                                 </Typography.Text>
                                             ) : (
                                                     <Typography.Text className="ant-form-text" type="secondary">
-                                                        Click Add to fill commitment amount
+                                                        {isEditForm ? 'Click Edit to fill commitment amount' : 'Click Add to fill commitment amount'}
                                                     </Typography.Text>
                                                 )}
                                             <Button
@@ -451,7 +457,7 @@ function ProjectForm({
                                                 }}
                                                 onClick={showCommitmentAmountModal}
                                             >
-                                                Add
+                                                {isEditForm ? 'Edit' : 'Add'}
                                             </Button>
                                         </div>
                                     );

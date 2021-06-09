@@ -37,7 +37,6 @@ const MoneyForm = ({ visible, onCancel, currency, handleSetMoneyId, formName, fo
         
             API.updateMoney(payload, money_id)
                 .then(({ data }) => {
-                    debugger
                     handleSetMoneyId(data.id);
                     form.submit();
                 });
