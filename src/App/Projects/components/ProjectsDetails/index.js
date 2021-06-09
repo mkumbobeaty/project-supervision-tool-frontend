@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Col, Layout, Row, Spin, Tabs } from 'antd';
 import KeyDetailSection from "./components/KeyDetails";
 import { connect } from "react-redux";
@@ -14,6 +14,8 @@ import MapIcon from '../../../../assets/icons/map.svg'
 
 import "./styles.css";
 import { Link } from "react-router-dom";
+import { mapSubProjectActions } from "../../../../redux/modules/map/subProjects";
+import ViewOnMap from "../../../components/ViewOnMap";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -21,11 +23,24 @@ const { TabPane } = Tabs;
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
 
-const Project = ({ project, loading, mapLoading, getProject, match: { params } }) => {
+const Project = ({ project, loading, mapLoading, getProject, getSubProjectsByProjectId, match: { params } }) => {
+
+  const [viewOnMap, setViewOnMap] = useState(false);
 
   useEffect(() => {
     getProject(params.id)
   }, [])
+
+  const handleShowModel = () => {
+    setViewOnMap(true)
+  }
+  
+  const handleOnCancel = () => {
+  setViewOnMap(false)
+  }
+
+  
+
 
   const getCommitmentAmount = (data) => {
     const { amount, currency } = data
@@ -69,7 +84,6 @@ const Project = ({ project, loading, mapLoading, getProject, match: { params } }
                           <div>
                             <ProgressBar
                               title="Financial Progress"
-
                               key={idx}
                               bgcolor={item.bgcolor}
                               completed={item.completed}
@@ -101,15 +115,14 @@ const Project = ({ project, loading, mapLoading, getProject, match: { params } }
                       <Col {...secondSpan} offset={1} >
                         <div className="flex-constant">
                           <h5 className="text-blue">Project Location </h5>
-                          <span className="text-blue">
+                          <span className="text-blue" onClick={handleShowModel}>
                             <img
                               src={MapIcon}
                               alt='Map'
                               width={70}
                               height={60}
-                            /><Link to='/map'>
+                            />
                               View on map
-                            </Link>
                           </span>
 
                         </div>
@@ -121,7 +134,7 @@ const Project = ({ project, loading, mapLoading, getProject, match: { params } }
                               return (
                                 <Spin spinning={mapLoading} tip="Loading data...">
                                   <BaseMap zoomControl={true} position={[geometry.coordinates[1], geometry.coordinates[0]]}>
-                                    {project ? <ProjectPoints projects={[project]} /> : ''}
+                                    {project ? <ProjectPoints projects={[project]} getProject={getProject} loading={false} project={project} /> : ''}
                                   </BaseMap>
                                 </Spin>
                               )
@@ -150,6 +163,8 @@ const Project = ({ project, loading, mapLoading, getProject, match: { params } }
           </Layout>
         </Content>
       </Spin>
+      <ViewOnMap data={[project]} showMApModal={viewOnMap} handleOnCancel={handleOnCancel} />
+
     </Layout>
   )
 
@@ -165,6 +180,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   getProject: projectOperation.getProjectStart,
+  getSubProjectsByProjectId: mapSubProjectActions.getSubProjectByProjectId,
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Project);
