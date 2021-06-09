@@ -65,9 +65,8 @@ class CommonProjectForm extends Component {
     }
 
     handleConfirmButton = () => {
-        const {  handleAfterSubmit, getProjects } = this.props;
+        const {  handleAfterSubmit } = this.props;
         handleAfterSubmit();
-        getProjects()
     }
 
     render() {

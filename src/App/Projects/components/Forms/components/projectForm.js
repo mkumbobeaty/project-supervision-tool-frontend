@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import {
     Form, Input, Button, Row, Col, Select,
     DatePicker,
-    Typography
 } from 'antd';
 import RegionLocationForm from "../../../../components/RegionLocationForm";
 import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
@@ -15,6 +14,7 @@ import { createDateFromString, generateDateString, generateYearString } from "..
 import CommitmentAmountForm from "./CommitmentAmountForm";
 import TotalProjectCostForm from "./TotalProjectCostForm";
 import { usersActions, usersSelectors } from '../../../../../redux/modules/users';
+import TypographyComponent from '../../../../components/Typography';
 /* ui */
 const labelCol = {
     xs: { span: 24 },
@@ -112,15 +112,6 @@ function ProjectForm({
         setTotalProjetCost(id)
     };
 
-/**
- * @function
- * @name getCurrencyIsoFromCurrencies
- * @description gets currrency  iso from array of currencies
- */
-const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
-    const currency =  currencies.find(({ id }) => id === currency_id)  ;
-    return currency ? currency ?.iso : ''
-};
 
     const onFinish = (values) => {
         const approval_date = generateDateString(values.approval_date);
@@ -134,8 +125,7 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
             commitment_amount_id: commitment_amount_id ? commitment_amount_id : selected?.commitment_amount.id,
             total_project_cost_id: total_project_cost_id ? total_project_cost_id : selected?.total_project_cost.id
         };
-        if (isEditForm ) {
-            debugger
+        if (isEditForm) {
             updateProject(payload, selected.id);
         }
         else {
@@ -144,6 +134,8 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
         handleConfirmButton();
 
     };
+    const selectedCommitmentAmount = { amount: selected?.commitment_amount?.amount, currency_id: selected?.commitment_amount.currency.id };
+    const selectedTotalProjectCost = { amount: selected?.total_project_cost.amount, currency_id: selected?.total_project_cost.currency.id }
 
     return (
         <>
@@ -190,7 +182,7 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                         name: selected?.name,
                         leaders: selected?.leaders.map(leader => leader.first_name),
                         description: selected?.description,
-                        shapefiles: selected?.shapefiles.map(shapefile => shapefile),
+                        shapefiles: selected?.shapefiles?.map(shapefile => shapefile),
                         funding_organisation_id: selected?.funding_organisation?.id,
                         implementing_agency_id: selected?.implementing_agency?.id,
                         project_status_id: selected?.status?.id,
@@ -296,7 +288,6 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                     </Form.Item>
                     {/* end:Shapefile */}
 
-
                     {/* start:funding organisation  */}
                     <Form.Item
                         label="Funding Organizations"
@@ -310,6 +301,8 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                         </Select>
                     </Form.Item>
                     {/* end:funding organisation */}
+
+                     {/* start:Implementing Agency */}
                     <Form.Item
                         label="Implementing Agency"
                         name="implementing_agency_id"
@@ -325,9 +318,9 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                             ))}
                         </Select>
                     </Form.Item>
-                    {/* end:agencies */}
+                    {/* end:Implementing Agency */}
 
-                    {/* start:users */}
+                    {/* start:Leaders */}
                     <Form.Item
                         label="WB Leaders"
                         name="leaders"
@@ -339,10 +332,11 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                             ))}
                         </Select>
                     </Form.Item>
-                    {/* end:agencies */}
+                    {/* end:leaders */}
 
                     <Row type="flex" justify="space-between">
                         <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
+                           {/* start:Project Status */}
                             <Form.Item
                                 label="Project Status"
                                 name="project_status_id"
@@ -365,10 +359,10 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                                     ))}
                                 </Select>
                             </Form.Item>
-
+                           {/* end:Project Status */}
                         </Col>
                         <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
-
+                           {/* start:Project Regions */}
                             <Form.Item
                                 label="Region"
                                 name="regions"
@@ -385,47 +379,33 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                                     ))}
                                 </Select>
                             </Form.Item>
+                            {/* end:Project Regions */}
+
                         </Col>
                     </Row>
 
                     <Row justify="space-between">
                         <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
-                            {/* start: commitment amount */}
+                            {/* start: total projects cost */}
                             <Form.Item
                                 label="Total Project Cost"
                                 shouldUpdate={(prevValues, curValues) => prevValues.totalProjectCostValue !== curValues.totalProjectCostValue}
                             >
                                 {({ getFieldValue }) => {
-                                    const selectedTotalProjectCost = { amount:selected?.total_project_cost.amount, currency_id:selected?.total_project_cost.currency.id }
-                                    const totalProjectCostValue = getFieldValue('totalProjectCostValue') || selectedTotalProjectCost;
-
+                                    const totalProjectCostValue = getFieldValue('totalProjectCostValue');
+                                    const totalProjectCostValueEdited = totalProjectCostValue || selectedTotalProjectCost;
                                     return (
-                                        <div>
-                                            {
-                                            totalProjectCostValue ? (
-                                                <Typography.Text className="ant-form-text" type="success" strong={true}>
-                                                    {`${totalProjectCostValue.amount} ${getCurrencyIsoFromCurrencies(totalProjectCostValue.currency_id, currency)}`}
-                                                </Typography.Text>
-                                            ) : (
-                                                    <Typography.Text className="ant-form-text" type="secondary">
-                                                        {isEditForm ? 'Click edit to fill total project cost' : 'Click Add to fill total project cost'}
-                                                    </Typography.Text>
-                                                )}
-                                            <Button
-                                                size="small"
-                                                htmlType="button"
-                                                style={{
-                                                    fontSize: '0.9em'
-                                                }}
-                                                onClick={showTotalProjectCostModal}
-                                            >
-                                                {isEditForm ? 'Edit' : 'Add'}
-                                        </Button>
-                                        </div>
-                                    );
+                                        <TypographyComponent 
+                                        isEditForm={isEditForm}
+                                        amountValue={totalProjectCostValue}
+                                        editedAmountValue={totalProjectCostValueEdited}
+                                        showModal={showTotalProjectCostModal}
+                                        currency={currency}
+                                        />
+                                       )
                                 }}
                             </Form.Item>
-                            {/* end: commitment amount */}
+                            {/* end: total projects cost */}
                         </Col>
 
                         <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
@@ -435,39 +415,24 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                                 shouldUpdate={(prevValues, curValues) => prevValues.commitmentAmountValue !== curValues.commitmentAmountValue}
                             >
                                 {({ getFieldValue }) => {
-                                    const selectedCommitmentAmount = { amount:selected?.commitment_amount?.amount, currency_id:selected?.commitment_amount.currency.id }
-                                    const commitmentAmountValue = getFieldValue('commitmentAmountValue') || selectedCommitmentAmount;
+                                    const commitmentAmountValue = getFieldValue('commitmentAmountValue');
+                                    const commitmentAmountValueEdited = commitmentAmountValue || selectedCommitmentAmount;
 
-                                    return (
-                                        <div>
-                                            {commitmentAmountValue ? (
-                                                <Typography.Text className="ant-form-text" type="success" strong={true}>
-                                                    {`${commitmentAmountValue.amount} ${getCurrencyIsoFromCurrencies(commitmentAmountValue.currency_id, currency)}`}
-                                                </Typography.Text>
-                                            ) : (
-                                                    <Typography.Text className="ant-form-text" type="secondary">
-                                                        {isEditForm ? 'Click Edit to fill commitment amount' : 'Click Add to fill commitment amount'}
-                                                    </Typography.Text>
-                                                )}
-                                            <Button
-                                                size="small"
-                                                htmlType="button"
-                                                style={{
-                                                    fontSize: '0.9em'
-                                                }}
-                                                onClick={showCommitmentAmountModal}
-                                            >
-                                                {isEditForm ? 'Edit' : 'Add'}
-                                            </Button>
-                                        </div>
-                                    );
+                                   return (
+                                    <TypographyComponent 
+                                    isEditForm={isEditForm}
+                                    amountValue={commitmentAmountValue}
+                                    editedAmountValue={commitmentAmountValueEdited}
+                                    showModal={showCommitmentAmountModal}
+                                    currency={currency}
+                                    />
+                                   )
                                 }}
                             </Form.Item>
                             {/* end: commitment amount */}
                         </Col>
                     </Row>
 
-                    {/* start:type */}
                     <Row type="flex" justify="space-between">
                         <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
                             {/* start:borrower */}
@@ -492,10 +457,7 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                                 name="environmental_category_id"
                                 title="Environmental category i.e A"
                             >
-                                <Select showSearch
-                                    optionFilterProp="children"
-
-                                >
+                                <Select showSearch optionFilterProp="children" >
                                     {environmentalCategories.map((environmentalCategory) => (
                                         <Select.Option value={environmentalCategory.id}>{environmentalCategory.name}</Select.Option>
                                     ))}
@@ -507,6 +469,7 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
 
                     <Row justify="space-between">
                         <Col span={8}>
+                           {/* start:project approval fiscal year */}
                             <Form.Item
                                 label="Approval FY"
                                 name="approval_fy"
@@ -520,10 +483,11 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                             >
                                 <DatePicker picker="year" />
                             </Form.Item>
+                          {/* end:project approval fiscal year */}
                         </Col>
 
-                        {/* end:project approval fiscal year */}
                         <Col span={8}>
+                          {/* start:project approval date */}
                             <Form.Item
                                 label="Approval Date"
                                 name="approval_date"
@@ -537,11 +501,11 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                             >
                                 <DatePicker />
                             </Form.Item>
+                            {/* end:project approval date */}
                         </Col>
-                        {/* end:project approval date */}
-
-                        {/* start:end date */}
+                        
                         <Col span={8}>
+                            {/* start:closing date */}
                             <Form.Item
                                 label="Closing Date"
                                 title="project closing end date e.g 07-30-2020"
@@ -555,8 +519,9 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                             >
                                 <DatePicker />
                             </Form.Item>
+                            {/* end:closing date */}
                         </Col>
-                        {/* end:end date */}
+                        
                     </Row>
 
                     {/* start:form actions */}
@@ -588,7 +553,6 @@ const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
                     currency={currency}
                     isEditForm={isEditForm}
                     selected={selected}
-
 
                 />
                 <RegionLocationForm

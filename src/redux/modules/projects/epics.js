@@ -55,7 +55,7 @@ const createProjectPic = action$ => {
             return from(API.createProjects(payload))
         }),
         switchMap(res => {
-            return of(actions.createProjectSuccess(res))
+            return of(actions.createProjectSuccess(res), actions.getProjectsStart())
         }),
         catchError(error => of(actions.createProjectFailure(error)))
     )
@@ -74,8 +74,7 @@ const updateProjectPic = action$ => {
         switchMap(({payload}) => {
             return from(API.updateProject(payload.project, payload.id)).pipe(
                 switchMap(res => {
-                    return of(
-                        actions.updateProjectSuccess(res))
+                    return of(actions.updateProjectSuccess(res), actions.getProjectsStart())
                 }),
             )
         }),

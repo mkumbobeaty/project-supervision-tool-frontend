@@ -409,7 +409,6 @@ class Projects extends Component {
               createProject={createProject}
               focalPeoples={focalPeoples}
               Projects={projects}
-              getProjects={fetchProjects}
               handleAfterCloseForm={this.handleAfterCloseForm}
               handleAfterSubmit={this.closeProjectForm} />
           </Drawer>
