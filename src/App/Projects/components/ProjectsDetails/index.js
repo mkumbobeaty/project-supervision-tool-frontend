@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Col, Layout, Row, Spin, Tabs } from 'antd';
 import KeyDetailSection from "./components/KeyDetails";
 import { connect } from "react-redux";
@@ -14,6 +14,7 @@ import MapIcon from '../../../../assets/icons/map.svg'
 
 import "./styles.css";
 import { Link } from "react-router-dom";
+import SubProjectDashboard from "./components/SubProjectsDashboard";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -21,7 +22,7 @@ const { TabPane } = Tabs;
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
 
-const Project = ({ project, loading, mapLoading, getProject, match: { params } }) => {
+const Project = ({ project, loading, mapLoading, getProject, projects, match: { params } }) => {
 
   useEffect(() => {
     getProject(params.id)
@@ -56,7 +57,6 @@ const Project = ({ project, loading, mapLoading, getProject, match: { params } }
                     <div className="container description" >
                       <h4 className="text-blue">Project Development Objective</h4>
                       <p>{project ? project?.description : 'N/A'}</p>
-
                     </div>
                     <div className="keyDetails ">
                       <h2 id="sider-title">Key Details</h2>
@@ -66,33 +66,38 @@ const Project = ({ project, loading, mapLoading, getProject, match: { params } }
                       <Col {...firstSpan} className="sector_chat">
 
                         {testData.map((item, idx) => (
-                          <div>
-                            <ProgressBar
-                              title="Financial Progress"
+                          <section>
+                            <div>
+                              <h5 className="text-blue">Financial Progress</h5>
 
-                              key={idx}
-                              bgcolor={item.bgcolor}
-                              completed={item.completed}
-                              remain={item.remain}
-                              start_value="0%"
-                              end_value={commitmentAmount}
-                              progress_final_title="Disbursment gap"
-                              progress_initial_title="Total Disbursed"
-                              progress__initial_value={totalProjectCost}
-                              progress_final_value={`${item.remain}%`}
-                            />
-                            <ProgressBar
-                              key={idx}
-                              bgcolor={item.bgcolor}
-                              completed={item.completed}
-                              remain={item.remain}
-                              title="Elapsed Time"
-                              progress_final_title="Closing date"
-                              progress_initial_title="Approval Date"
-                              progress__initial_value={approval_date}
-                              progress_final_value={closing_date}
-                            />
-                          </div>
+                              <ProgressBar
+                                key={idx}
+                                bgcolor={item.bgcolor}
+                                completed={item.completed}
+                                remain={item.remain}
+                                start_value="0%"
+                                end_value={commitmentAmount}
+                                progress_final_title="Disbursment gap"
+                                progress_initial_title="Total Disbursed"
+                                progress__initial_value={totalProjectCost}
+                                progress_final_value={`${item.remain}%`}
+                              />
+                            </div>
+                            <div>
+                              <h5 className="text-blue">Financial Progress</h5>
+                              <ProgressBar
+                                key={idx}
+                                bgcolor={item.bgcolor}
+                                completed={item.completed}
+                                remain={item.remain}
+                                title="Elapsed Time"
+                                progress_final_title="Closing date"
+                                progress_initial_title="Approval Date"
+                                progress__initial_value={approval_date}
+                                progress_final_value={closing_date}
+                              />
+                            </div>
+                          </section>
 
                         ))}
 
@@ -135,8 +140,9 @@ const Project = ({ project, loading, mapLoading, getProject, match: { params } }
                       <DetailsSection project={project} />
                     </Row>
                   </TabPane>
-                  <TabPane tab="Projects Dashb  ord" key="2" className="container">
-                    <h4> Comming Soon</h4>
+                  <TabPane tab="Sub-Projects Dashboard" key="2" className="container">
+                    <SubProjectDashboard />
+                    
                   </TabPane>
                   <TabPane tab="Agreed Actions" key="3" className="container" >
                     <h4> Comming Soon</h4>
