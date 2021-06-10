@@ -34,20 +34,18 @@ const ProgressBar = (
   }
   const labelStyles = {
     padding: 5,
-    color: 'white',
-    fontWeight: 'bold'
+    color: '#ffffffab',
   }
 
   return (
     <section className="projectsProgress ">
-      <h5 className="text-blue">{title}</h5>
       <div className="progress">
         <div style={containerStyles} >
           <div style={fillerStyles}>
-            <span style={labelStyles}>{`${completed}%`}</span>
+            <span style={labelStyles}>{completed ? `${completed}%` : '0%'}</span>
           </div>
           <div style={remainStyles}>
-            <span style={labelStyles}>{`${remain}%`}</span>
+            <span style={labelStyles}>{remain ? `${remain}%` : ''}</span>
           </div>
         </div>
       </div>

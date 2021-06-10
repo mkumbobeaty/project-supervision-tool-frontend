@@ -136,7 +136,7 @@ const CustomList = ({
         onNotify={onNotify ? () => onNotify(selectedItems) : null}
         onPaginate={(nextPage) => onPaginate(nextPage)}
         onRefresh={() => onRefresh()}
-        onMapView = {() => onMapView() }
+        onMapView={() => onMapView()}
         onShare={() => onShare(selectedItems)}
         exportUrl={
           generateExportUrl
