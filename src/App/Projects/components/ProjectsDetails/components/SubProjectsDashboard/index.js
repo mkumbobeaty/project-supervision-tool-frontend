@@ -906,9 +906,8 @@ const SubProjectDashboard = () => {
 
             {/* list starts */}
             { components ? components?.map(({ name, sub_components }) => {
-                debugger
                 return <div>
-                    <h4 className="text-blue">Components: {name} </h4>
+                    <h4 className="component text-blue">Components: {name} </h4>
                     <SubProjectsList
                         items={sub_components}
                         // loading={loading}

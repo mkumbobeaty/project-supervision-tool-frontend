@@ -45,11 +45,17 @@ export function getProjectsStart(params={}) {
       payload: error,
     };
   }
+
   
-//   action creator for updating project
-  export function updateProjectStart() {
+  // export const updateProjectStart = makeActionCreator(types.UPDATE_PROJECT_START, 'payload');
+
+  export function updateProjectStart(project,id) {
     return {
       type: types.UPDATE_PROJECT_START,
+      payload: {
+        project,
+        id
+      },
     };
   }
   

@@ -10,6 +10,19 @@ import axios from "./config";
 const createMoney =(payload) =>
     axios.post(`/money`, payload).then((response) => response.data);
 
+  /**
+ * @function
+ * @name updateMoney
+ * @description creates an instance of money
+ * */
+
+const updateMoney = (payload, id) => {
+    return axios
+        .patch(`/money/${id}`, payload)
+        .then((response) => response.data);
+};
+
 export default {
-    createMoney
+    createMoney,
+    updateMoney
 }

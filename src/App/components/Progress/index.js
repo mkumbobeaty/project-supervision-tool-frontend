@@ -53,12 +53,12 @@ const ProgressBar = (
       <div className="flex-constant">
         <span>
           <p>{start_value}</p>
-          <h4>{progress_initial_title}</h4>
+          <h4 className="text-blue">{progress_initial_title}</h4>
           <p>{progress__initial_value}</p>
         </span>
         <span>
           <p>{end_value}</p>
-          <h4>{progress_final_title}</h4>
+          <h4 className="text-blue">{progress_final_title}</h4>
           <p>{progress_final_value}</p>
         </span>
       </div>

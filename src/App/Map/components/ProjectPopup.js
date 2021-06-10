@@ -12,8 +12,9 @@ const ProjectPopupDetail = ({ project, loading }) => {
         return `${iso} ${money}`;
     }
 
-    const commitmentAmount = project?.details?.commitment_amount ? getCommitmentAmount(project?.details?.commitment_amount) : 'N/A';
-    const totalProjectCost = project?.details?.total_project_cost ? getCommitmentAmount(project.details?.total_project_cost) : 'N/A';
+    debugger
+    const commitmentAmount = project?.commitment_amount ? getCommitmentAmount(project?.commitment_amount) : 'N/A';
+    const totalProjectCost = project?.total_project_cost ? getCommitmentAmount(project.total_project_cost) : 'N/A';
     return (
         <Spin spinning={loading}>
             <section className="mapPopup">
@@ -26,16 +27,16 @@ const ProjectPopupDetail = ({ project, loading }) => {
                     <div className="timeFrame">
                         <span>
                             <h4>Start Date</h4>
-                            <p>{project?.details ? isoDateToHumanReadableDate(project?.details?.approval_date) : 'N/A'}</p>
+                            <p>{project ? isoDateToHumanReadableDate(project?.approval_date) : 'N/A'}</p>
                         </span>
                         <span>
                             <h4>Last updated</h4>
-                            <p>{project?.details ? isoDateToHumanReadableDate(project?.details?.closing_date) : 'N/A'}</p>
+                            <p>{project ? isoDateToHumanReadableDate(project?.closing_date) : 'N/A'}</p>
                         </span>
                     </div>
                     <span>
                         <h4>Implementing Agency</h4>
-                        <p>{project?.details ? project?.details?.implementing_agency?.name : 'N/A'}</p>
+                        <p>{project?.implementing_agency ? project?.implementing_agency?.name : 'N/A'}</p>
                     </span>
                     <span>
                         <h4>Project Total Cost</h4>
