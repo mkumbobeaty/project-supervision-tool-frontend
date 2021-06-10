@@ -125,6 +125,7 @@ function ProjectForm({
             commitment_amount_id: commitment_amount_id ? commitment_amount_id : selected?.commitment_amount.id,
             total_project_cost_id: total_project_cost_id ? total_project_cost_id : selected?.total_project_cost.id
         };
+        
         if (isEditForm) {
             updateProject(payload, selected.id);
         }
@@ -180,7 +181,8 @@ function ProjectForm({
                         wb_project_id: selected?.wb_project_id,
                         code: selected?.code,
                         name: selected?.name,
-                        leaders: selected?.leaders.map(leader => leader.first_name),
+                        leaders: selected?.leaders.map(leader => leader.id),
+                        regions: selected?.regions.map(region => region.id),
                         description: selected?.description,
                         shapefiles: selected?.shapefiles?.map(shapefile => shapefile),
                         funding_organisation_id: selected?.funding_organisation?.id,

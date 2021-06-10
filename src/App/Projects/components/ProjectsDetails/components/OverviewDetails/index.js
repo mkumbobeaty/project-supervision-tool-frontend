@@ -80,7 +80,7 @@ const OverviewDetails = ({
             </Col>
             <Col {...projectsLocationSpan}>
               <h4>Project locations</h4>
-              {project?.regions ? project?.regions.map(({ name }) => <p>{name}</p>) : 'N/A'}
+              {project?.regions ? project?.regions.map(({ name }, index) => { return (index ? ", " : "") + name }) : 'N/A'}
             </Col>
             <Col {...lastUpdateSpan} >
               <h4>Last updated</h4>

@@ -1,17 +1,19 @@
-import {Col, Row, Spin} from "antd";
+import { Col, Row, Spin } from "antd";
 import React from "react";
 import BaseMap from "../../../../../Map/components/BaseMap";
 import SubProjectPoints from "../../../../../Map/components/SubProjectPoints";
 import ReportOverview from "../ReportOverview";
-import {isoDateToHumanReadableDate} from "../../../../../../Util";
+import { isoDateToHumanReadableDate } from "../../../../../../Util";
 import GeneralProgress from "../../../../../components/GeneralProgress";
 import * as turf from '@turf/turf';
+import './styles.css';
 
-const keyDetailSpan = {xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12};
+
+const keyDetailSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
 
-const OverviewDetails = ({sub_project, mapLoading }) => {
+const OverviewDetails = ({ sub_project, mapLoading }) => {
     const approval_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.approval_date) : 'N/A';
     const closing_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.closing_date) : 'N/A';
 
@@ -63,7 +65,7 @@ const OverviewDetails = ({sub_project, mapLoading }) => {
                         </Col>
                         <Col {...keyDetailSpan}>
                             <h4>Locations</h4>
-                            {sub_project?.districts ? sub_project?.districts.map(({name}) => <p>{name}</p>) : 'N/A'}
+                            {sub_project?.districts ? sub_project?.districts.map(({ name }) => <p>{name}</p>) : 'N/A'}
                         </Col>
                         <Col {...keyDetailSpan}>
                             <h4>Stage</h4>
@@ -87,40 +89,44 @@ const OverviewDetails = ({sub_project, mapLoading }) => {
             </div>
             <Row className="Progress-overview container">
                 <Col {...firstSpan} >
-                <GeneralProgress 
+                    <GeneralProgress
                         approval_date={approval_date}
                         closing_date={closing_date}
                         progress_initial_title="Planned Progress"
                         progress_final_title="Closing Date"
                         progress_title="Physical Progress"
-                      />
+                    />
                 </Col>
                 <Col {...secondSpan} offset={1}>
                     <Spin spinning={mapLoading} tip="Loading data...">
                         <h5>Sub Project Location</h5>
-                        <div  className="project-map">
-                             {
-                            sub_project?.districts.length > 0 ? sub_project?.districts?.map((district) => {
-                              const polygon = JSON.parse(district.geom);
-                              const { geometry } = turf.pointOnFeature(polygon);
-                              return (
-                                <Spin spinning={mapLoading} tip="Loading data...">
-                                  <BaseMap zoomControl={true} position={[geometry.coordinates[1], geometry.coordinates[0]]}>
-                                    { sub_project ?  <SubProjectPoints subProjects={[sub_project]}/> : ''}
-                                  </BaseMap>
-                                </Spin>
-                              )
-                            }) : 'No Locatios on map'
+                        <div className="project-map">
+                            {
+                                sub_project?.districts.length > 0 ? sub_project?.districts?.map((district) => {
+                                    const polygon = JSON.parse(district.geom);
+                                    const { geometry } = turf.pointOnFeature(polygon);
+                                    return (
+                                        <Spin spinning={mapLoading} tip="Loading data...">
+                                            <BaseMap zoomControl={true} position={[geometry.coordinates[1], geometry.coordinates[0]]}>
+                                                {sub_project ? <SubProjectPoints subProjects={[sub_project]} /> : ''}
+                                            </BaseMap>
+                                        </Spin>
+                                    )
+                                }) : 'No Locatios on map'
 
-                          }
+                            }
                         </div>
 
                     </Spin>
                 </Col>
-                <Col {...firstSpan} className="reportOverview">
-                    <ReportOverview/>
-                </Col>
             </Row>
+            <section style={{marginBottom:'40px'}}>
+                <div className="container issueOverview">
+                    <h4 className="text-blue">Issues</h4>
+                    <ReportOverview />
+                    <p className="text-blue">View All issue</p>
+                </div>
+            </section>
         </>
 
     )
