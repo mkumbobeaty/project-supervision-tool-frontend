@@ -1,0 +1,9 @@
+.CustomListItem .ListHeader {
+    border-top: 1px solid #e8e8e8;
+}
+
+.CustomListItem .progress {
+    /* text-align: center; */
+    border: none;
+    height: 0;
+}
