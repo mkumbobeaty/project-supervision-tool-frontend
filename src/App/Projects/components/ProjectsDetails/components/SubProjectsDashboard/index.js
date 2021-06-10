@@ -973,7 +973,7 @@ const SubProjectDashboard = () => {
 
             }
 
-            ) : 'This Projects has no components'
+            ) : <h2 style={{paddingTop:'20px', color:'#0f6788', fontSize: '18px'}}>This Project has no components</h2>
             }
 
             {/* end list */}
