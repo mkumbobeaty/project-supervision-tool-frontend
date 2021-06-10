@@ -12,7 +12,6 @@ const ProjectPopupDetail = ({ project, loading }) => {
         return `${iso} ${money}`;
     }
 
-    debugger
     const commitmentAmount = project?.commitment_amount ? getCommitmentAmount(project?.commitment_amount) : 'N/A';
     const totalProjectCost = project?.total_project_cost ? getCommitmentAmount(project.total_project_cost) : 'N/A';
     return (
