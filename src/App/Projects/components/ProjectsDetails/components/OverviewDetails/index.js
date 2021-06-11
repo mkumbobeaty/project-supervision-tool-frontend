@@ -1,4 +1,4 @@
-import { Col, Row, Spin } from "antd";
+import { Col, Row, } from "antd";
 import React from "react";
 import DetailsSection from "../ComponentSubComponent";
 import ProjectPoints from "../../../../../Map/components/ProjectPoints";
@@ -31,6 +31,13 @@ const OverviewDetails = ({
 
 }) => {
 
+  const commitment_amount = project?.commitment_amount?.amount;
+  const total_project_cost =  project?.total_project_cost?.amount;
+  const amount =  100 * ( total_project_cost - commitment_amount ) / total_project_cost;
+  const disbursed_gap = Math.round(amount);
+  const completed = 100 - disbursed_gap;
+
+  
   return (
     <>
       <div className="keyDetails ">
@@ -94,11 +101,15 @@ const OverviewDetails = ({
           <GeneralProgress
             commitmentAmount={commitmentAmount}
             totalProjectCost={totalProjectCost}
+            completed={completed}
+            remained={disbursed_gap}
+            bgcolor={"#0f6788"}
             approval_date={approval_date}
             closing_date={closing_date}
             progress_initial_title="Approval Date"
             progress_final_title="Closing Date"
             progress_title="Elapsed Time"
+            item={project}
           />
         </Col>
         <Col {...secondSpan} offset={1} >
