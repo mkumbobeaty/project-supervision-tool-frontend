@@ -35,8 +35,8 @@ const OverviewDetails = ({
   const total_project_cost =  project?.total_project_cost?.amount;
   const amount =  100 * ( total_project_cost - commitment_amount ) / total_project_cost;
   const disbursed_gap = Math.round(amount);
-  const completed = 100 - disbursed_gap;
-
+  const percent_completed = 100 - disbursed_gap;
+ const completed = percent_completed < 100 ? percent_completed : 100;
   
   return (
     <>
@@ -113,23 +113,10 @@ const OverviewDetails = ({
           />
         </Col>
         <Col {...secondSpan} offset={1} >
-          <div className="flex-constant">
-            <h5>Project Location </h5>
-            <span className="text-blue">
-              <img
-                src={MapIcon}
-                alt='Map'
-                width={70}
-                height={60}
-              /><Link to='/map'>
-                View on map
-                            </Link>
-            </span>
-
-          </div>
+            <h5>Project Location </h5>  
           <div className="project-map">
             {
-              project?.regions.length > 0 ? project?.regions.map((region) => {
+              project?.regions.length > 0 ? project?.regions?.map((region) => {
                 const polygon = JSON.parse(region.geom);
                 const { geometry } = turf.pointOnFeature(polygon);
                 return (

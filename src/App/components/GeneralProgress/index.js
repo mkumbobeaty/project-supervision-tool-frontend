@@ -20,14 +20,15 @@ const GeneralProgress = ({
     // calculating elapsed time in a item
 const approvalDate = new Date(item?.approval_date);
 const closingDate = new Date(item?.closing_date);
-const total_time = parseInt((closingDate - approvalDate) / (1000 * 60 * 60 * 24), 10); 
+const totalTime = parseInt((closingDate - approvalDate) / (1000 * 60 * 60 * 24), 10); 
 
-let today_date = new Date().toLocaleDateString();
-const convertedTodayDate = new Date(today_date);
-const time_used = parseInt(( closingDate - convertedTodayDate) / (1000 * 60 * 60 * 24), 10);
+let todayDate = new Date().toLocaleDateString();
+const convertedTodayDate = new Date(todayDate);
+const timeUsed = parseInt(( convertedTodayDate - approvalDate ) / (1000 * 60 * 60 * 24), 10);
 
-const elapsedTime = (100 * time_used / total_time).toFixed(1);
-const usedTime = (100 - elapsedTime).toFixed(1);
+const elapsedPercent = (100 * timeUsed / totalTime).toFixed(1);
+const timeRemain = (100 - elapsedPercent).toFixed(1);
+const usedTime = elapsedPercent < 100 ? elapsedPercent : 100;
   
     return (
                 <section>
@@ -52,7 +53,7 @@ const usedTime = (100 - elapsedTime).toFixed(1);
                             key={i}
                             bgcolor={bgcolor}
                             completed={usedTime}
-                            remain={elapsedTime}
+                            remain={timeRemain}
                             progress_final_title={progress_final_title}
                             progress_initial_title={progress_initial_title}
                             progress__initial_value={approval_date}
