@@ -3,17 +3,17 @@ import { Layout, Spin, Tabs } from 'antd';
 import OverviewDetails from "./components/OverviewDetails";
 import { connect } from "react-redux";
 import { projectOperation, projectSelectors } from "../../../../redux/modules/projects";
-import { mapSelectors } from "../../../../redux/modules/map";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
 import SubProjectDashboard from "./components/SubProjectsDashboard";
 
 import "./styles.css";
+import { mapSubProjectSelectors } from "../../../../redux/modules/map/subProjects";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
 
-const Project = ({ project, loading, getProject, match: { params } }) => {
+const Project = ({ project, loading, getProject,subProjects, match: { params } }) => {
 
   useEffect(() => {
     getProject(params.id)
@@ -51,6 +51,7 @@ const Project = ({ project, loading, getProject, match: { params } }) => {
                       totalProjectCost={totalProjectCost}
                       approval_date={approval_date}
                       closing_date={closing_date}
+                      subProjects={subProjects}
                     />
                   </TabPane>
                   <TabPane tab="Sub-Projects Dashboard" key="2" className="container">
@@ -77,12 +78,13 @@ const mapStateToProps = (state) => {
     project: projectSelectors.getProjectSelector(state),
     projects: projectSelectors.getProjectsSelector(state),
     loading: projectSelectors.getProjectLoadingSelector(state),
-
+    subProjects:mapSubProjectSelectors.getSubProjectsSelector(state)
   };
 };
 
 const mapDispatchToProps = {
   getProject: projectOperation.getProjectStart,
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Project);

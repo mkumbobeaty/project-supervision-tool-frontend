@@ -19,6 +19,7 @@ import SideNav from "../Map/components/SideNav";
 import { mapSelectors } from "../../redux/modules/map";
 import "./styles.css";
 import { mapProjectActions } from "../../redux/modules/map/projects";
+import { mapSubProjectActions } from "../../redux/modules/map/subProjects";
 
 
 /* constants */
@@ -211,7 +212,8 @@ class Projects extends Component {
   * @since 0.1.0
   */
   handleViewDetails = (item_id) => {
-    const { getProject } = this.props;
+    const { getProject, getSubProjectsByProjectId } = this.props;
+    getSubProjectsByProjectId(item_id)
     getProject(item_id);
     let path = `/app/projects/${item_id}`;
     this.props.history.push(path);
@@ -313,16 +315,12 @@ class Projects extends Component {
             renderListItem={({
               item,
               isSelected,
-              onSelectItem,
-              onDeselectItem,
             }) => (
                 <ListItem
                   key={item.id} // eslint-disable-line
                   name={item.name}
                   item={item}
                   isSelected={isSelected}
-                  // onSelectItem={onSelectItem}
-                  onDeselectItem={onDeselectItem}
                   renderActions={() => (
                     <ListItemActions
                       edit={{
@@ -359,15 +357,10 @@ class Projects extends Component {
                     {...nameSpan}
                     className="contentEllipse"
                     title={item.descrition}
+                    onClick =  {() => this.handleViewDetails(item.id)}
+                    style={{cursor:'pointer'}}
                   >
-                    <Link
-                      to={{
-                        pathname: `/app/projects/${item.id}`,
-                      }}
-                      className="Projects"
-                    >
                       {item.name}
-                    </Link>
                   </Col>
                   <Col {...projectIdSpan} className="contentEllipse">
                     {" "}
@@ -458,6 +451,7 @@ const mapDispatchToProps = {
   searchProject: projectActions.searchProjects,
   getProject: projectActions.getProjectStart,
   getProjectOnMap: mapProjectActions.getProjectStart,
+  getSubProjectsByProjectId: mapSubProjectActions.getSubProjectByProjectId,
 
 };
 

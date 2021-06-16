@@ -1,10 +1,8 @@
 import { Col, Row, } from "antd";
 import React from "react";
 import DetailsSection from "../ComponentSubComponent";
-import ProjectPoints from "../../../../../Map/components/ProjectPoints";
+import SubProjectPoints from "../../../../../Map/components/SubProjectPoints";
 import * as turf from '@turf/turf';
-import MapIcon from '../../../../../../assets/icons/map.svg'
-import { Link } from "react-router-dom";
 import BaseMap from "../../../../../Map/components/BaseMap";
 import GeneralProgress from "../../../../../components/GeneralProgress";
 
@@ -28,7 +26,7 @@ const OverviewDetails = ({
   totalProjectCost,
   approval_date,
   closing_date,
-
+  subProjects
 }) => {
 
   const commitment_amount = project?.commitment_amount?.amount;
@@ -121,7 +119,7 @@ const OverviewDetails = ({
                 const { geometry } = turf.pointOnFeature(polygon);
                 return (
                   <BaseMap zoomControl={true} position={[geometry.coordinates[1], geometry.coordinates[0]]}>
-                    {project ? <ProjectPoints projects={[project]} /> : ''}
+                    {subProjects ? <SubProjectPoints subProjects={subProjects} /> : ''}
                   </BaseMap>
                 )
               }) : 'No Locatios on map'
