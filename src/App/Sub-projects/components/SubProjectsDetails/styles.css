@@ -16,52 +16,6 @@
     padding-left: 25px;
 }
 
-.sider {
-    background-color: rgb(246, 246, 246) !important;
-    height: 100vh;
-    padding: 20px 10px 0 40px;
-    position: static;
-}
-
-.sider h4, .details h4 {
-    color: #0f6788;
-    margin-bottom: 0!important;
-}
-
-.chartDetails, .chartProgress {
-    border: 1px solid #e0ddddfa;
-    padding: 15px 15px 15px 0;
-}
-
-.canvasjs-chart-credit {
-    display: none;
-}
-
-.chartDetails>canvas, .chartProgress>canvas {
-    padding: 0 25px;
-}
-
-.chartDetails {
-    padding-left: 15px;
-}
-
-.details {
-    padding: 20px;
-    border: 1px solid #e0ddddfa;
-    margin: 0 !important;
-}
-
-.detail-header {
-    padding: 10px 16px;
-    background-color: #545454
-}
-
-.detail-header h2 {
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 18px;
-}
-
 .project-subproject>.Toolbar {
     display: none;
 }
@@ -120,5 +74,4 @@
 .card-container .ant-tabs-nav {
     width: 1300px;
     margin: auto;
-    padding-bottom: 25px;
 }

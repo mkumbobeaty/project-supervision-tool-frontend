@@ -362,6 +362,19 @@ const search = (state = searchProjects, action) => {
     }
 };
 
+const geonodeLayers = (state = { data: [], error: null, loading: false }, action) => {
+    switch (action.type) {
+        case types.GET_LAYERS_START:
+            return { ...state, loading: true }
+        case types.GET_LAYERS_SUCCESS:
+            return { ...state, data: action.payload, loading: false, }
+        case types.GET_LAYERS_FAILURE:
+            return { ...state, error: action.message, loading: false };
+        default:
+            return state;
+    }
+};
+
 export const resources = combineReducers({
     selectedProject,
     Projects,
@@ -379,5 +392,6 @@ export const resources = combineReducers({
     filters,
     projectStatus,
     projectsFilter,
-    search
+    search,
+    geonodeLayers
 })

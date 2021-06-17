@@ -82,9 +82,11 @@ class PreviewOnMap extends  Component {
     render() {
         const { data } = this.props;
         const geo_json = getGeoJsonFromLocation(data);
+        const position = [this.state.lat, this.state.lng]
+
 
         return (
-            <BaseMap ref={this.map} zoomControl={false}>
+            <BaseMap ref={this.map} zoomControl={false} position={position}>
                 <GeoJSON ref={this.geoJson} data={geo_json} onEachFeature={this.onEachFeature.bind(this)}/>
             </BaseMap>
         )
