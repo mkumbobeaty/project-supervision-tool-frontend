@@ -127,15 +127,15 @@ const Projects = (state = defaultProjects, action) => {
         case types.GET_PROJECTS_FAILURE:
             return { ...state, error: action.message, loading: false, page: 1, total: 0 };
         case types.CREATE_PROJECT_START:
-            return { ...state, posting: true };
+            return { ...state, posting: true, loading: true  };
         case types.CREATE_PROJECT_SUCCESS:
             return { ...state, project: action.payload, posting: false, loading: false };
         case types.CREATE_PROJECT_FAILURE:
             return { error: action.payload.error };
         case types.UPDATE_PROJECT_START:
-            return { ...state, posting: true };
+            return { ...state, posting: true, loading: true  };
         case types.UPDATE_PROJECT_SUCCESS:
-            return { ...state, showForm: false, posting: false };
+            return { ...state, showForm: false, posting: false, loading: false, };
         case types.UPDATE_PROJECT_FAILURE:
             return action.payload;
         case types.DELETE_PROJECT_START:
@@ -172,7 +172,7 @@ const project = (state = { data: null, error: null, loading: false }, action) =>
     }
 }
 
-// selected human resource
+// selected project
 const selectedProject = (state = null, action) => {
     switch (action.type) {
         case types.SELECT_PROJECT:

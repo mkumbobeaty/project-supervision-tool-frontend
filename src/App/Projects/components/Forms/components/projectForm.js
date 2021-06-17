@@ -5,15 +5,16 @@ import PropTypes from 'prop-types';
 import {
     Form, Input, Button, Row, Col, Select,
     DatePicker,
-    Typography
 } from 'antd';
 import RegionLocationForm from "../../../../components/RegionLocationForm";
 import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
 import { bindActionCreators } from "redux";
-import { projectDetailsActions, projectDetailsSelectors } from '../../ProjectsDetails/duck';
-import { generateDateString, generateYearString } from "../../../../../Util";
+import { projectDetailsActions, projectDetailsSelectors } from '../../../../../redux/modules/projectDetails';
+import { createDateFromString, generateDateString, generateYearString } from "../../../../../Util";
 import CommitmentAmountForm from "./CommitmentAmountForm";
 import TotalProjectCostForm from "./TotalProjectCostForm";
+import { usersActions, usersSelectors } from '../../../../../redux/modules/users';
+import TypographyComponent from '../../../../components/Typography';
 /* ui */
 const labelCol = {
     xs: { span: 24 },
@@ -35,20 +36,11 @@ const wrapperCol = {
 
 /**
  * @function
- * @name getCurrencyIsoFromCurrencies
- * @description gets currrency  iso from array of currencies
- */
-const getCurrencyIsoFromCurrencies = (currency_id, currencies) => {
-    const currency = currencies.find(({ id }) => id === currency_id);
-    return currency.iso;
-};
-
-/**
- * @function
  * @name ProjectForm
  * @description renders form for creating project
  */
 function ProjectForm({
+    selected,
     getRegions,
     regions,
     createProject,
@@ -67,7 +59,10 @@ function ProjectForm({
     layers,
     getCurrency,
     currency,
-
+    users,
+    getUsers,
+    isEditForm,
+    updateProject,
 }) {
     const [visible, setVisible] = useState(false);
     const [locations, setLocations] = useState([]);
@@ -75,7 +70,6 @@ function ProjectForm({
     const [VisibleCommitmentAmount, setVisibleCommitmentAmount] = useState(false);
     const [commitment_amount_id, setCommitmentAmount] = useState(null);
     const [total_project_cost_id, setTotalProjetCost] = useState(false);
-
 
     useEffect(() => {
         getProjectStatus();
@@ -86,6 +80,7 @@ function ProjectForm({
         getEnvironmentalCategories();
         getLayers();
         getCurrency();
+        getUsers();
     }, []);
 
     const hideUserModal = () => {
@@ -111,11 +106,12 @@ function ProjectForm({
 
     const setCommitmentAmountId = (id) => {
         setCommitmentAmount(id);
-      };
-    
-    const  setTotalProjectCostId = (id) => {
+    };
+
+    const setTotalProjectCostId = (id) => {
         setTotalProjetCost(id)
-      };
+    };
+
 
     const onFinish = (values) => {
         const approval_date = generateDateString(values.approval_date);
@@ -126,16 +122,21 @@ function ProjectForm({
             approval_date,
             approval_fy,
             closing_date,
-            commitment_amount_id: commitment_amount_id,
-            total_project_cost_id: total_project_cost_id,
+            commitment_amount_id: commitment_amount_id ? commitment_amount_id : selected?.commitment_amount.id,
+            total_project_cost_id: total_project_cost_id ? total_project_cost_id : selected?.total_project_cost.id
         };
-
-        createProject(payload);
-            handleConfirmButton();
+        
+        if (isEditForm) {
+            updateProject(payload, selected.id);
+        }
+        else {
+            createProject(payload);
+        }
+        handleConfirmButton();
 
     };
-
-    const selected = null;
+    const selectedCommitmentAmount = { amount: selected?.commitment_amount?.amount, currency_id: selected?.commitment_amount.currency.id };
+    const selectedTotalProjectCost = { amount: selected?.total_project_cost.amount, currency_id: selected?.total_project_cost.currency.id }
 
     return (
         <>
@@ -176,11 +177,22 @@ function ProjectForm({
                     wrapperCol={wrapperCol}
                     name="basicForm"
                     onFinish={onFinish}
-                    projectsValues={{
-                        projects_id: selected?.projects_id,
+                    initialValues={{
+                        wb_project_id: selected?.wb_project_id,
+                        code: selected?.code,
                         name: selected?.name,
-                        leaders: selected?.leaders,
+                        leaders: selected?.leaders.map(leader => leader.id),
+                        regions: selected?.regions.map(region => region.id),
                         description: selected?.description,
+                        shapefiles: selected?.shapefiles?.map(shapefile => shapefile),
+                        funding_organisation_id: selected?.funding_organisation?.id,
+                        implementing_agency_id: selected?.implementing_agency?.id,
+                        project_status_id: selected?.status?.id,
+                        approval_date: createDateFromString(selected?.approval_date),
+                        closing_date: createDateFromString(selected?.closing_date,),
+                        approval_fy: createDateFromString(selected?.approval_fy,),
+                        borrower_id: selected?.borrower?.id,
+                        environmental_category_id: selected?.environmental_category?.id
                     }}
                     autoComplete="off"
                     className="ProjectForm"
@@ -278,7 +290,6 @@ function ProjectForm({
                     </Form.Item>
                     {/* end:Shapefile */}
 
-
                     {/* start:funding organisation  */}
                     <Form.Item
                         label="Funding Organizations"
@@ -292,6 +303,8 @@ function ProjectForm({
                         </Select>
                     </Form.Item>
                     {/* end:funding organisation */}
+
+                     {/* start:Implementing Agency */}
                     <Form.Item
                         label="Implementing Agency"
                         name="implementing_agency_id"
@@ -307,10 +320,25 @@ function ProjectForm({
                             ))}
                         </Select>
                     </Form.Item>
-                    {/* end:agencies */}
+                    {/* end:Implementing Agency */}
+
+                    {/* start:Leaders */}
+                    <Form.Item
+                        label="WB Leaders"
+                        name="leaders"
+                        title="WB team Leaders e.g Elis Adam"
+                    >
+                        <Select mode="multiple"  >
+                            {users.map((user) => (
+                                <Select.Option value={user.id}>{user.first_name} {user.last_name}</Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    {/* end:leaders */}
 
                     <Row type="flex" justify="space-between">
                         <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
+                           {/* start:Project Status */}
                             <Form.Item
                                 label="Project Status"
                                 name="project_status_id"
@@ -333,13 +361,13 @@ function ProjectForm({
                                     ))}
                                 </Select>
                             </Form.Item>
-
+                           {/* end:Project Status */}
                         </Col>
                         <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
-
+                           {/* start:Project Regions */}
                             <Form.Item
                                 label="Region"
-                                name="region_id"
+                                name="regions"
                                 rules={[
                                     {
                                         required: true,
@@ -347,50 +375,39 @@ function ProjectForm({
                                     },
                                 ]}
                             >
-                                <Select>
+                                <Select mode="multiple">
                                     {regions.map(({ id, name }) => (
                                         <Select.Option value={id}>{name}</Select.Option>
                                     ))}
                                 </Select>
                             </Form.Item>
+                            {/* end:Project Regions */}
+
                         </Col>
                     </Row>
 
                     <Row justify="space-between">
                         <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
-                            {/* start: commitment amount */}
+                            {/* start: total projects cost */}
                             <Form.Item
                                 label="Total Project Cost"
                                 shouldUpdate={(prevValues, curValues) => prevValues.totalProjectCostValue !== curValues.totalProjectCostValue}
                             >
                                 {({ getFieldValue }) => {
-                                    const totalProjectCostValue = getFieldValue('totalProjectCostValue') || null;
+                                    const totalProjectCostValue = getFieldValue('totalProjectCostValue');
+                                    const totalProjectCostValueEdited = totalProjectCostValue || selectedTotalProjectCost;
                                     return (
-                                        <div>
-                                            {totalProjectCostValue ? (
-                                                <Typography.Text className="ant-form-text" type="success" strong={true}>
-                                                    {`${totalProjectCostValue.amount} ${getCurrencyIsoFromCurrencies(totalProjectCostValue.currency_id, currency)}`}
-                                                </Typography.Text>
-                                            ) : (
-                                                    <Typography.Text className="ant-form-text" type="secondary">
-                                                        Click Add to fill total project cost
-                                                    </Typography.Text>
-                                                )}
-                                            <Button
-                                                size="small"
-                                                htmlType="button"
-                                                style={{
-                                                    fontSize: '0.9em'
-                                                }}
-                                                onClick={showTotalProjectCostModal}
-                                            >
-                                                Add
-                                        </Button>
-                                        </div>
-                                    );
+                                        <TypographyComponent 
+                                        isEditForm={isEditForm}
+                                        amountValue={totalProjectCostValue}
+                                        editedAmountValue={totalProjectCostValueEdited}
+                                        showModal={showTotalProjectCostModal}
+                                        currency={currency}
+                                        />
+                                       )
                                 }}
                             </Form.Item>
-                            {/* end: commitment amount */}
+                            {/* end: total projects cost */}
                         </Col>
 
                         <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
@@ -400,37 +417,24 @@ function ProjectForm({
                                 shouldUpdate={(prevValues, curValues) => prevValues.commitmentAmountValue !== curValues.commitmentAmountValue}
                             >
                                 {({ getFieldValue }) => {
-                                    const commitmentAmountValue = getFieldValue('commitmentAmountValue') || null;
-                                    return (
-                                        <div>
-                                            {commitmentAmountValue ? (
-                                                <Typography.Text className="ant-form-text" type="success" strong={true}>
-                                                    {`${commitmentAmountValue.amount} ${getCurrencyIsoFromCurrencies(commitmentAmountValue.currency_id, currency)}`}
-                                                </Typography.Text>
-                                            ) : (
-                                                    <Typography.Text className="ant-form-text" type="secondary">
-                                                        Click Add to fill commitment amount
-                                                    </Typography.Text>
-                                                )}
-                                            <Button
-                                                size="small"
-                                                htmlType="button"
-                                                style={{
-                                                    fontSize: '0.9em'
-                                                }}
-                                                onClick={showCommitmentAmountModal}
-                                            >
-                                                Add
-                                            </Button>
-                                        </div>
-                                    );
+                                    const commitmentAmountValue = getFieldValue('commitmentAmountValue');
+                                    const commitmentAmountValueEdited = commitmentAmountValue || selectedCommitmentAmount;
+
+                                   return (
+                                    <TypographyComponent 
+                                    isEditForm={isEditForm}
+                                    amountValue={commitmentAmountValue}
+                                    editedAmountValue={commitmentAmountValueEdited}
+                                    showModal={showCommitmentAmountModal}
+                                    currency={currency}
+                                    />
+                                   )
                                 }}
                             </Form.Item>
                             {/* end: commitment amount */}
                         </Col>
                     </Row>
 
-                    {/* start:type */}
                     <Row type="flex" justify="space-between">
                         <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
                             {/* start:borrower */}
@@ -455,10 +459,7 @@ function ProjectForm({
                                 name="environmental_category_id"
                                 title="Environmental category i.e A"
                             >
-                                <Select showSearch
-                                    optionFilterProp="children"
-
-                                >
+                                <Select showSearch optionFilterProp="children" >
                                     {environmentalCategories.map((environmentalCategory) => (
                                         <Select.Option value={environmentalCategory.id}>{environmentalCategory.name}</Select.Option>
                                     ))}
@@ -470,6 +471,7 @@ function ProjectForm({
 
                     <Row justify="space-between">
                         <Col span={8}>
+                           {/* start:project approval fiscal year */}
                             <Form.Item
                                 label="Approval FY"
                                 name="approval_fy"
@@ -483,10 +485,11 @@ function ProjectForm({
                             >
                                 <DatePicker picker="year" />
                             </Form.Item>
+                          {/* end:project approval fiscal year */}
                         </Col>
 
-                        {/* end:project approval fiscal year */}
                         <Col span={8}>
+                          {/* start:project approval date */}
                             <Form.Item
                                 label="Approval Date"
                                 name="approval_date"
@@ -500,11 +503,11 @@ function ProjectForm({
                             >
                                 <DatePicker />
                             </Form.Item>
+                            {/* end:project approval date */}
                         </Col>
-                        {/* end:project approval date */}
-
-                        {/* start:end date */}
+                        
                         <Col span={8}>
+                            {/* start:closing date */}
                             <Form.Item
                                 label="Closing Date"
                                 title="project closing end date e.g 07-30-2020"
@@ -518,8 +521,9 @@ function ProjectForm({
                             >
                                 <DatePicker />
                             </Form.Item>
+                            {/* end:closing date */}
                         </Col>
-                        {/* end:end date */}
+                        
                     </Row>
 
                     {/* start:form actions */}
@@ -529,7 +533,7 @@ function ProjectForm({
                             htmlType="submit"
                             style={{ marginLeft: 8 }}
                         >
-                            Next
+                            Submit
                     </Button>
                     </Form.Item>
                     {/* end:form actions */}
@@ -540,12 +544,18 @@ function ProjectForm({
                     onCancel={hideCommitmentAmountModal}
                     setCommitmentAmountId={setCommitmentAmountId}
                     currency={currency}
+                    isEditForm={isEditForm}
+                    selected={selected}
+
                 />
                 <TotalProjectCostForm
                     visible={visibleTotalProjectCost}
                     onCancel={hideTotalProjectCostModal}
                     setTotalProjectCostId={setTotalProjectCostId}
                     currency={currency}
+                    isEditForm={isEditForm}
+                    selected={selected}
+
                 />
                 <RegionLocationForm
                     visible={visible}
@@ -568,6 +578,7 @@ const mapStateToProps = state => ({
     agencies: projectDetailsSelectors.getAgenciesSelector(state),
     layers: projectSelectors.getLayers(state),
     currency: projectDetailsSelectors.getCurrenciesSelector(state),
+    users: usersSelectors.getUsersSelector(state),
 
 });
 
@@ -582,7 +593,8 @@ const mapDispatchToProps = (dispatch) => ({
     getEnvironmentalCategories: bindActionCreators(projectActions.getEnvironmentalCategoriesStart, dispatch),
     getLayers: bindActionCreators(projectActions.getLayersStart, dispatch),
     getCurrency: bindActionCreators(projectDetailsActions.getCurrenciesStart, dispatch),
-
+    getUsers: bindActionCreators(usersActions.getUsersStart, dispatch),
+    updateProject: bindActionCreators(projectActions.updateProjectStart, dispatch),
 
 });
 

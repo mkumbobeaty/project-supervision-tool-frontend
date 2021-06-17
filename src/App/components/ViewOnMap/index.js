@@ -1,12 +1,12 @@
 import L from "leaflet";
-import {GeoJSON, useMap} from "react-leaflet";
+import { GeoJSON, useMap } from "react-leaflet";
 import React from "react";
 import PropTypes from 'prop-types';
-import {Modal} from "antd";
+import { Modal } from "antd";
 import BaseMap from "../../Map/components/BaseMap";
 import './styles.css';
 
-function ShowFeature({data, leaflet}) {
+function ShowFeature({ data, leaflet }) {
     const map = useMap();
 
     const onEachFeature = (feature, layer) => {
@@ -18,20 +18,27 @@ function ShowFeature({data, leaflet}) {
         return leaflet.map.fitBounds(layer.getBounds());
     }
 
-    const randerGeoJson = (geoJsons) => geoJsons.map((geoJson) => <GeoJSON data={geoJson}/>);
+    const randerGeoJson = (geoJsons) => geoJsons.map(({ regions }) => {
+        return <GeoJSON data={regions.geom} />
 
-    return data.length === 1 ? (<GeoJSON data={data[0]} onEachFeature={onEachFeature}/>) : randerGeoJson(data);
+    });
+
+
+    return data.length > 1 ? (<GeoJSON data={data[0]} onEachFeature={onEachFeature} />) : randerGeoJson(data);
 }
 
 
-function ViewOnMap({data, showMApModal, handleOnCancel}) {
-
-
-    return  (
+function ViewOnMap({ data, showMApModal, handleOnCancel }) {
+    const state = {
+        lat: -5.856,
+        lng: 34.074,
+        zoom: 7,
+    }
+    return (
         <div>
             <Modal
-                style={{'top': 0}}
-                bodyStyle={{padding: 0, margin: 0}}
+                style={{ 'top': 0 }}
+                bodyStyle={{ padding: 0, margin: 0 }}
                 wrapClassName='map-modal-survey-results'
                 width='100%'
                 mask={false}
@@ -39,9 +46,12 @@ function ViewOnMap({data, showMApModal, handleOnCancel}) {
                 onCancel={() => handleOnCancel()}
                 visible={showMApModal}
             >
-                <BaseMap>
-                    <ShowFeature data={data}/>
-                </BaseMap>
+
+            <BaseMap zoomControl={true} position={[state.lat, state.lng]}>
+             <ShowFeature data={data} />
+            </BaseMap>
+
+            
             </Modal>
         </div>
     );

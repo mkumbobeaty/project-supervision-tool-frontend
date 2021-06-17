@@ -3,11 +3,11 @@
 }
 
 .project-layout h3, .sub-project-layout h3 {
-    /* text-align: center; */
     padding: 15px;
     padding-left: 250px;
     font-weight: 500;
     border-bottom: 1px solid #8f8c8c42;
+    margin-bottom: 0;
 }
 
 .contents {
@@ -66,7 +66,8 @@
     height: 49vh;
 }
 
-.project-map .legend {
+.project-map .legend,
+.project-map .geonode-layers-control {
     display: none;
 }
 
@@ -136,9 +137,7 @@ h2#sider-title {
     .keyDetails {
         padding: 0;
     }
-    .contents {
-        padding: 0 20px;
-    }
+   
 }
 
 @media (min-width: 992px) {

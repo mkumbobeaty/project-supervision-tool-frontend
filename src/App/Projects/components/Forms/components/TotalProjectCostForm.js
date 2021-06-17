@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from "react";
 import MoneyForm from "../../../../components/MoneyForm";
 
-const TotalProjectCostForm = ({ visible, onCancel, currency,  setTotalProjectCostId }) => {
+const TotalProjectCostForm = ({ visible, onCancel, currency,  setTotalProjectCostId, isEditForm, selected }) => {
 
     return (
         <MoneyForm
@@ -12,6 +12,9 @@ const TotalProjectCostForm = ({ visible, onCancel, currency,  setTotalProjectCos
             onCancel={onCancel}
             handleSetMoneyId={setTotalProjectCostId}
             visible={visible}
+            isEditForm={isEditForm}
+            selected={selected}
+
         />)
 };
 

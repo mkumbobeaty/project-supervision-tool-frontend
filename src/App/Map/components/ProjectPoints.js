@@ -1,4 +1,4 @@
-import { Popup, CircleMarker } from "react-leaflet";
+import { Popup, CircleMarker, Marker } from "react-leaflet";
 import { divIcon } from 'leaflet';
 import React from "react";
 import PropTypes from 'prop-types';
@@ -14,51 +14,50 @@ function ProjectPoints({ projects, project, loading, getProject }) {
         getProject(project_id);
     };
 
-    // const getMarkerDiameter = (amount, maxAmount, maxDiameter = 40, minDiameter = 20) => {
-    //     const diameter = amount * maxDiameter / maxAmount;
-    //     if (diameter > minDiameter) return diameter;
-    //     return minDiameter;
-    // }
+    const getMarkerDiameter = (amount, maxAmount, maxDiameter = 40, minDiameter = 20) => {
+        const diameter = amount * maxDiameter / maxAmount;
+        if (diameter > minDiameter) return diameter;
+        return minDiameter;
+    }
 
-    // const getMaxAmount = (projects) => {
-    //     const commitment_amounts = projects.map(({ details: { commitment_amount } }) => commitment_amount.amount);
-    //     return Math.max(...commitment_amounts);
-    // }
+    const getMaxAmount = (projects) => {
+        const commitment_amounts = projects.map(({ commitment_amount  }) => commitment_amount.amount);
+        return Math.max(...commitment_amounts);
+    }
 
     return (
         <>
-            { projects.map(({ regions, id, details, color }) => {
+            { projects.map(({ regions, id, commitment_amount, color }) => {
 
                 const invertedColor = invertColor(color);
 
                 // dimesion required for displaying markers
-                // const { commitment_amount } = details;
-                // const { amount } = commitment_amount;
-                // const commitment_money = moneyFormatWithApproximation(amount)
-                // const maxAmount = getMaxAmount(projects);
-                // const dimension = getMarkerDiameter(amount, maxAmount);
+                const { amount } = commitment_amount;
+                const commitment_money = moneyFormatWithApproximation(amount)
+                const maxAmount = getMaxAmount(projects);
+                const dimension = getMarkerDiameter(amount, maxAmount);
 
                 return regions.length > 0 ? regions.map((region) => {
                     const polygon = JSON.parse(region.geom);
                     const { geometry } = turf.pointOnFeature(polygon);
 
-                    // const customizedIcon = divIcon({
-                    //     className: 'customizedIcon',
-                    //     html: `<div  style='background-color:${color}; width: ${dimension}px ;height: ${dimension}px;' class='marker-pin'>
-                    //         </div>
-                    //         <h4 style='color: ${invertedColor}; top: ${dimension / 2}px; left: ${dimension / 2}px; font-size: ${dimension / 4}px'> 
-                    //         ${commitment_money}
-                    //         </h4>`,
-                    //     iconSize: [dimension, 42],
-                    //     iconAnchor: [0, 0]
-                    // });
+                    const customizedIcon = divIcon({
+                        className: 'customizedIcon',
+                        html: `<div  style='background-color:${color}; width: ${dimension}px ;height: ${dimension}px;' class='marker-pin'>
+                            </div>
+                            <h4 style='color: ${invertedColor}; top: ${dimension / 2}px; left: ${dimension / 2}px; font-size: ${dimension / 4}px'> 
+                            ${commitment_money}
+                            </h4>`,
+                        iconSize: [dimension, 42],
+                        iconAnchor: [0, 0]
+                    });
 
                     return (
                         <>
-                            <CircleMarker
+                            {/* <CircleMarker
                                 key={id}
                                 center={[geometry.coordinates[1], geometry.coordinates[0]]}
-                                radius={20}
+                                radius={dimension}
                                 fillOpacity={0.9}
                                 stroke={false}
                                 color={color}
@@ -68,8 +67,8 @@ function ProjectPoints({ projects, project, loading, getProject }) {
                                 <Popup >
                                     <ProjectPopupDetail project={project} loading={loading} />
                                 </Popup>
-                            </CircleMarker>
-                            {/* <Marker
+                            </CircleMarker> */}
+                            <Marker
                                 position={[geometry.coordinates[1], geometry.coordinates[0]]}
                                 title={region.name}
                                 key={region.id}
@@ -79,7 +78,7 @@ function ProjectPoints({ projects, project, loading, getProject }) {
                                 <Popup >
                                     <ProjectPopupDetail project={project} loading={loading} />
                                 </Popup>
-                            </Marker> */}
+                            </Marker>
                             <Legend projects={projects} />
                         </>
 

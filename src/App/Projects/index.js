@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { projectActions, projectOperation, projectSelectors } from '../../redux/modules/projects';
+import { projectActions, projectSelectors } from '../../redux/modules/projects';
 import { Col, Drawer, Modal, Spin } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -11,14 +11,15 @@ import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
 import CommonProjectForm from "./components/Forms";
-import { focalPeopleOperation, focalPeopleSelectors } from "../FocalPeople/duck";
-import { projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
+import { focalPeopleActions, focalPeopleOperation, focalPeopleSelectors } from "../FocalPeople/duck";
+import { projectSectorsActions, projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
 import ProjectLocations from "../Map/components/ProjectLocations";
 import BaseMap from "../Map/components/BaseMap";
 import SideNav from "../Map/components/SideNav";
 import { mapSelectors } from "../../redux/modules/map";
 import "./styles.css";
 import { mapProjectActions } from "../../redux/modules/map/projects";
+import { mapSubProjectActions } from "../../redux/modules/map/subProjects";
 
 
 /* constants */
@@ -34,9 +35,9 @@ const closingSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
 const { confirm } = Modal;
 
 const headerLayout = [
-  { ...codeSpan, header: "Code" },
-  { ...projectIdSpan, header: "WB Project ID" },
   { ...nameSpan, header: "Name" },
+  { ...projectIdSpan, header: "WB Project ID" },
+  { ...codeSpan, header: "Code" },
   { ...statusSpan, header: "Status" },
   { ...approvalSpan, header: "Approve Date" },
   { ...closingSpan, header: "Closing Date" },
@@ -80,7 +81,6 @@ class Projects extends Component {
    */
   handleEdit = (project) => {
     const { selectProject, openProjectForm } = this.props;
-
     selectProject(project);
     this.setState({ isEditForm: true });
     openProjectForm();
@@ -212,7 +212,8 @@ class Projects extends Component {
   * @since 0.1.0
   */
   handleViewDetails = (item_id) => {
-    const { getProject } = this.props;
+    const { getProject, getSubProjectsByProjectId } = this.props;
+    getSubProjectsByProjectId(item_id)
     getProject(item_id);
     let path = `/app/projects/${item_id}`;
     this.props.history.push(path);
@@ -226,10 +227,10 @@ class Projects extends Component {
   * @version 0.1.0
   * @since 0.1.0
   */
- handleViewMap = () => {
-  let path = `/map`;
-  this.props.history.push(path);
-};
+  handleViewMap = () => {
+    let path = `/map`;
+    this.props.history.push(path);
+  };
 
   /**
    * @function
@@ -240,7 +241,7 @@ class Projects extends Component {
    * @since 0.1.0
    */
   handleMapPreview = (item) => {
-    const { getProjectOnMap,} = this.props;
+    const { getProjectOnMap, } = this.props;
     let path = `/map`;
     this.props.history.push(path);
     console.log('preview on map', item.id)
@@ -306,7 +307,7 @@ class Projects extends Component {
             itemCount={total}
             onFilter={this.openFiltersModal}
             onRefresh={this.handleRefresh}
-            onMapView = {this.handleViewMap}
+            onMapView={this.handleViewMap}
             onPaginate={(nextPage) => {
               paginateProject({ page: nextPage });
             }}
@@ -314,16 +315,12 @@ class Projects extends Component {
             renderListItem={({
               item,
               isSelected,
-              onSelectItem,
-              onDeselectItem,
             }) => (
                 <ListItem
                   key={item.id} // eslint-disable-line
                   name={item.name}
                   item={item}
                   isSelected={isSelected}
-                  // onSelectItem={onSelectItem}
-                  onDeselectItem={onDeselectItem}
                   renderActions={() => (
                     <ListItemActions
                       edit={{
@@ -356,35 +353,30 @@ class Projects extends Component {
                   )}
                 >
                   {/* eslint-disable react/jsx-props-no-spreading */}
-                  <Col {...codeSpan} title={item.name} className="contentEllipse" >{item ? item?.code.toUpperCase() : 'N/A'}</Col>
+                  <Col
+                    {...nameSpan}
+                    className="contentEllipse"
+                    title={item.descrition}
+                    onClick =  {() => this.handleViewDetails(item.id)}
+                    style={{cursor:'pointer'}}
+                  >
+                      {item.name}
+                  </Col>
                   <Col {...projectIdSpan} className="contentEllipse">
                     {" "}
 
                     {item ? item.wb_project_id : "All"}
                   </Col>
-                  <Col
-                    {...nameSpan}
-                    className="contentEllipse"
-                    title={item.descrition}
-                  >
-                    <Link
-                      to={{
-                        pathname: `/app/projects/${item.id}`,
-                      }}
-                      className="Projects"
-                    >
-                      {item.name}
-                    </Link>
-                  </Col>
-                  <Col {...statusSpan}>{item?.status?.name  ? item?.status?.name : 'N/A'}</Col>
+                  <Col {...codeSpan} title={item.name} className="contentEllipse" >{item ? item?.code.toUpperCase() : 'N/A'}</Col>
+                  <Col {...statusSpan}>{item?.status?.name ? item?.status?.name : 'N/A'}</Col>
                   <Col {...approvalSpan}>
-                  {item ? new Date(item?.approval_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
+                    {item ? new Date(item?.approval_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
                   </Col>
                   <Col {...closingSpan}>
-                  {item? new Date(item?.closing_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
+                    {item ? new Date(item?.closing_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
                   </Col>
-                  
-                  <Col {...projectCoordinatorSpan } className="contentEllipse">{item?.implementing_agency ? item?.implementing_agency?.name :'N/A'}</Col>
+
+                  <Col {...projectCoordinatorSpan} className="contentEllipse">{item?.implementing_agency ? item?.implementing_agency?.name : 'N/A'}</Col>
                   <Col {...projectLeadSpan}> {item?.leaders ? item?.leaders.length : 'N/A'}</Col>
                   {/* eslint-enable react/jsx-props-no-spreading */}
                 </ListItem>
@@ -410,7 +402,6 @@ class Projects extends Component {
               createProject={createProject}
               focalPeoples={focalPeoples}
               Projects={projects}
-              getProjects={fetchProjects}
               handleAfterCloseForm={this.handleAfterCloseForm}
               handleAfterSubmit={this.closeProjectForm} />
           </Drawer>
@@ -441,7 +432,7 @@ const mapStateToProps = (state) => {
     page: projectSelectors.getProjectsPageSelector(state),
     total: projectSelectors.getProjectsTotalSelector(state),
     showForm: projectSectorsSelectors.getShowFormSelector(state),
-    selected: state.projects?.selectedProjects,
+    selected: projectSelectors.selectedProject(state),
     mapLoading: mapSelectors.getMapLoadingSelector(state),
     project: projectSelectors.getProjectSelector(state),
     searchQuery: projectSelectors.searchQuery(state)
@@ -449,19 +440,19 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  fetchProjects: projectOperation.getProjectsStart,
-  deleteProject: projectOperation.deleteProjectStart,
-  selectProject: projectOperation.selectProject,
-  focalPeople: focalPeopleOperation.getFocalPeopleStart,
-  createProject: projectOperation.createProjectStart,
-  openProjectForm: projectSectorsOperator.openForm,
-  closeProjectForm: projectSectorsOperator.closeForm,
+  fetchProjects: projectActions.getProjectsStart,
+  deleteProject: projectActions.deleteProjectStart,
+  selectProject: projectActions.selectProject,
+  focalPeople: focalPeopleActions.getFocalPeopleStart,
+  createProject: projectActions.createProjectStart,
+  openProjectForm: projectSectorsActions.openForm,
+  closeProjectForm: projectSectorsActions.closeForm,
   paginateProject: projectActions.getProjectsStart,
   searchProject: projectActions.searchProjects,
   getProject: projectActions.getProjectStart,
   getProjectOnMap: mapProjectActions.getProjectStart,
+  getSubProjectsByProjectId: mapSubProjectActions.getSubProjectByProjectId,
 
-  
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
