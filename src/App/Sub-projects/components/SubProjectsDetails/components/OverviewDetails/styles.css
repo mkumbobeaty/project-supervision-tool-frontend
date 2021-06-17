@@ -1,0 +1,10 @@
+.issueOverview{
+padding-top: 20px;
+border: 1px solid #e8e8e8;
+}
+
+.issueOverview p{
+    padding-top: 15px;
+    text-decoration: underline;
+    font-size: 16px;
+}
