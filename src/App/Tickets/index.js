@@ -10,6 +10,7 @@ import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import "./styles.css";
 import { isoDateToHumanReadableDate } from '../../Util';
+import { get } from 'mongoose';
 
 
 /* constants */
@@ -43,6 +44,19 @@ const Tickets = ({ getTickets, tickets, loading }) => {
         getTickets()
     }, [])
 
+    /**   
+   * @function
+   * @name handleRefresh
+   * @description Handle refresh action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+    const handleRefresh = () => {
+        getTickets();
+    };
+
+
     return (
         <div>
             {/* Topbar */}
@@ -71,7 +85,7 @@ const Tickets = ({ getTickets, tickets, loading }) => {
                 page={1}
                 itemCount={1}
                 loading={loading}
-                // onRefresh={this.handleRefreshSubProjects}
+                onRefresh={handleRefresh}
                 headerLayout={headerLayout}
                 renderListItem={({
                     item,
