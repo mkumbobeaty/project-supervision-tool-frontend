@@ -44,9 +44,10 @@ const ProgressBar = (
           <div style={fillerStyles}>
             <span style={labelStyles}>{completed ? `${completed}%` : '0%'}</span>
           </div>
-          <div style={remainStyles}>
+          {completed < 100 ? <div style={remainStyles}>
             <span style={labelStyles}>{remain ? `${remain}%` : ''}</span>
-          </div>
+          </div> : '' }
+          
         </div>
       </div>
 

@@ -1,26 +1,26 @@
 
-import {Marker, useMapEvents, GeoJSON, Popup} from "react-leaflet";
+import { Marker, useMapEvents, GeoJSON, Popup } from "react-leaflet";
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import * as turf from '@turf/turf';
 import SubProjectPopupDetail from "./SubProjectPopup";
 
 function SubProjectPoints({ subProjects, getSubproject, subProjectLoading, subProject, project }) {
-    const [zoomLevel, setZoomLevel ] = useState(0);
+    const [zoomLevel, setZoomLevel] = useState(0);
 
-    const  map = useMapEvents({
-        zoom(){
+    const map = useMapEvents({
+        zoom() {
             setZoomLevel(map.getZoom());
         }
     });
-const handlePopup = (id) => {
-getSubproject(id);
-};
+    const handlePopup = (id) => {
+        getSubproject(id);
+    };
 
 
     return (
         <>
-            { subProjects.map(({ geo_json, name, id }) =>  {
+            { subProjects.map(({ geo_json, name, id }) => {
                 const polygon = geo_json.geometry;
                 const { geometry } = turf.pointOnFeature(polygon);
 
@@ -38,14 +38,14 @@ getSubproject(id);
                                 }}
                             /> : <GeoJSON
                                 key={`${id}-polygon`}
-                                style={{ weight: 10}}
+                                style={{ weight: 10 }}
                                 data={geo_json}
                                 eventHandlers={{ click: () => handlePopup(id) }}
                             >
-                                <Popup>
-                                    <SubProjectPopupDetail subProject={subProject} project={project} subProjectLoading={subProjectLoading} />
-                                </Popup>
-                            </GeoJSON>
+                                    <Popup>
+                                        <SubProjectPopupDetail subProject={subProject} project={project} subProjectLoading={subProjectLoading} />
+                                    </Popup>
+                                </GeoJSON>
                         }
                     </div>
                 );

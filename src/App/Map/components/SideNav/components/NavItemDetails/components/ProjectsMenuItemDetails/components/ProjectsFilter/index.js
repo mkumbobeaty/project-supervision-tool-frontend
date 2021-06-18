@@ -8,7 +8,7 @@ const prepareFilterItems = (items) => items.map(({ name, id, }) => ({
     id
 }));
 
-const ProjectsFilter = ({ projects,setProjectIdFilter,getSubProjects, getProject,getSubProjectsByProjectId }) => {
+const ProjectsFilter = ({ projects,setProjectIdFilter, getProject,getSubProjectsByProjectId }) => {
 
     const projectsFilterData = projects.length > 0 ? prepareFilterItems(projects) : [];
    
