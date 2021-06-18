@@ -1,0 +1,4 @@
+// Retrieve Tickets
+export const GET_TICKETS_START = "GET_TICKETS_START";
+export const GET_TICKETS_SUCCESS = "GET_TICKETS_SUCCESS";
+export const GET_TICKETS_FAILURE = "GET_TICKETS_FAILURE";

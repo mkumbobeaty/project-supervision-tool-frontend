@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Breadcrumb, Col, Layout, Row } from "antd";
-import { Link, Switch, Route } from "react-router-dom";
+import { Link, Switch } from "react-router-dom";
 import UserMenu from "../navigation/UserMenu";
 import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
