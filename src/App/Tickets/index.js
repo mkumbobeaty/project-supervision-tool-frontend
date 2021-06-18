@@ -11,6 +11,7 @@ import ListItemActions from "../components/ListItemActions";
 import "./styles.css";
 import { isoDateToHumanReadableDate } from '../../Util';
 import { get } from 'mongoose';
+import { useHistory } from 'react-router-dom';
 
 
 /* constants */
@@ -38,7 +39,9 @@ const headerLayout = [
 ];
 
 
-const Tickets = ({ getTickets, tickets, loading }) => {
+const Tickets = ({ getTickets, tickets, loading, getTicket }) => {
+
+    const history = useHistory();
 
     useEffect(() => {
         getTickets()
@@ -56,6 +59,19 @@ const Tickets = ({ getTickets, tickets, loading }) => {
         getTickets();
     };
 
+    /**
+ * @function
+ * @name handleViewDetails
+ * @description Handle detail preview
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+    const handleViewDetails = (item_id) => {
+        getTicket(item_id);
+        let path = `/app/tickets/${item_id}`;
+        history.push(path);
+    };
 
     return (
         <div>
@@ -111,7 +127,7 @@ const Tickets = ({ getTickets, tickets, loading }) => {
                                         {
                                             name: "View Details",
                                             title: "View more detail of selected tickets",
-                                            onClick: () => this.handleViewDetails(item.id)
+                                            onClick: () => handleViewDetails(item.id)
                                         }
                                     }
 
@@ -123,7 +139,7 @@ const Tickets = ({ getTickets, tickets, loading }) => {
                             <Col {...urgencySpan} >
                                 {item?.urgent ? item?.urgent : 'N/A'}
                             </Col>
-                            <Col {...codeSpan} className="contentEllipse">
+                            <Col {...codeSpan} onClick={() => handleViewDetails(item.id)} className="contentEllipse" >
 
                                 {item?.code ? item?.code : "N/A"}
                             </Col>
@@ -166,10 +182,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     getTickets: TicketActions.getTicketsStart,
+    getTicket: TicketActions.getTicketStart,
 }
 
 Tickets.propTypes = {
     getTickets: PropTypes.func.isRequired,
+    getTicket: PropTypes.func.isRequired,
     tickets: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired
 };

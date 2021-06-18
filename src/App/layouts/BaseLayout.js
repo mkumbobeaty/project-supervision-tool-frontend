@@ -18,6 +18,7 @@ import Contracts from "../Contracts";
 import Roles from "../Roles";
 import "./styles.css";
 import Tickets from "../Tickets";
+import TicketDetails from "../Tickets/components/Details";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -52,20 +53,24 @@ const breadcrumbNameMap = {
   },
 
   /* users routes */
-  "/app/users:": {
+  "/app/users": {
     name: "users",
     title: "users Module",
   },
    /* Contracts routes */
-   "/app/contracts:": {
+   "/app/contracts": {
     name: "contracts",
     title: "contracts Module",
   },
 
    /* Tickets routes */
-   "/app/tickets:": {
+   "/app/tickets": {
     name: "tickets",
     title: "Tickets Module",
+  },
+  "/app/tickets:types": {
+    name: "Issue Tracking",
+    title: "Issue tracking Module",
   },
 };
 
@@ -157,6 +162,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/tickets`}
             component={Tickets}
+          />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/tickets/:id`}
+            component={TicketDetails}
           />
           <PrivateRoute
             exact

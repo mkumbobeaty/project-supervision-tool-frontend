@@ -18,7 +18,21 @@ const getTicketsEpic = action$ => {
     )                                                                                                                                                                                                       
 }
 
+const getTicketEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_TICKET_START),
+        switchMap(({payload}) => {
+            return from(API.getTicket(payload)).pipe(
+                switchMap(res => {
+                    return of(actions.getTicketSuccess(res.data))
+                }),
+                catchError(error => of(actions.getTicketFailure(error)))
+            );
+        }),
+    );
+}
+
 export const  ticketsEpic= combineEpics(
     getTicketsEpic,
-
+    getTicketEpic,
 )
