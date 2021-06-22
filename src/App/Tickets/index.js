@@ -8,10 +8,9 @@ import Topbar from "../components/Topbar";
 import TicketsList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
-import "./styles.css";
 import { isoDateToHumanReadableDate } from '../../Util';
-import { get } from 'mongoose';
 import { useHistory } from 'react-router-dom';
+import "./styles.css";
 
 
 /* constants */
@@ -137,7 +136,7 @@ const Tickets = ({ getTickets, tickets, loading, getTicket }) => {
                             {/* eslint-disable react/jsx-props-no-spreading */}
 
                             <Col {...urgencySpan} >
-                                {item?.urgent ? item?.urgent : 'N/A'}
+                                {item?.urgency ? item?.urgency : 'N/A'}
                             </Col>
                             <Col {...codeSpan} onClick={() => handleViewDetails(item.id)} className="contentEllipse" >
 
