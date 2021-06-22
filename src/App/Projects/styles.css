@@ -53,7 +53,7 @@
 .ProjectLocationForm h4, .ProjectForm h4, .ProjectSectorForm h4, .ProjectDetailsForm h4 {
   text-align: center;
   text-transform: uppercase;
-  padding-top: 5%;
+  /* padding-top: 5%; */
 }
 
 .ProjectForm  .ant-form-item{

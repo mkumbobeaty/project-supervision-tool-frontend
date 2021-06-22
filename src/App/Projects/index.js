@@ -320,6 +320,7 @@ class Projects extends Component {
                   key={item.id} // eslint-disable-line
                   name={item.name}
                   item={item}
+                  avatarBackgroundColor={item.color}
                   isSelected={isSelected}
                   renderActions={() => (
                     <ListItemActions
@@ -336,7 +337,7 @@ class Projects extends Component {
                       }}
                       view={
                         {
-                          name: "View Deatail",
+                          name: "View Detail",
                           title: "View more detail of selected project",
                           onClick: () => this.handleViewDetails(item.id)
                         }
@@ -377,7 +378,7 @@ class Projects extends Component {
                   </Col>
 
                   <Col {...projectCoordinatorSpan} className="contentEllipse">{item?.implementing_agency ? item?.implementing_agency?.name : 'N/A'}</Col>
-                  <Col {...projectLeadSpan}> {item?.leaders ? item?.leaders.length : 'N/A'}</Col>
+                  <Col {...projectLeadSpan}> {item?.lga_count ? item?.lga_count : 'N/A'}</Col>
                   {/* eslint-enable react/jsx-props-no-spreading */}
                 </ListItem>
               )}
