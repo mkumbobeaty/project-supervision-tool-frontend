@@ -2,7 +2,7 @@ import { Col, Row, } from "antd";
 import PropTypes from 'prop-types';
 import React from "react";
 import DetailsSection from "../ComponentSubComponent";
-import SubProjectPoints from "../../../../../Map/components/SubProjectPoints";
+import ProjectPoints from "../../../../../Map/components/ProjectPoints";
 import * as turf from '@turf/turf';
 import BaseMap from "../../../../../Map/components/BaseMap";
 import GeneralProgress from "../../../../../components/GeneralProgress";
@@ -10,7 +10,7 @@ import GeneralProgress from "../../../../../components/GeneralProgress";
 const totalCostSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
 const projectIdSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
 const commitmentSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
-const subProjectsSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
+const projectSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
 const projectLeadSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
 const statusSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
 const projectCoordinatorSpan = { xxl: 6, xl: 6, lg: 6, md: 0, sm: 12, xs: 12 };
@@ -27,7 +27,6 @@ const OverviewDetails = ({
   totalProjectCost,
   approval_date,
   closing_date,
-  subProjects
 }) => {
 
   const commitment_amount = project?.commitment_amount?.amount;
@@ -76,7 +75,7 @@ const OverviewDetails = ({
               <h4>Implementing Agency</h4>
               <p>{project?.implementing_agency ? project?.implementing_agency?.name : 'N/A'}</p>
             </Col>
-            <Col {...subProjectsSpan}>
+            <Col {...projectSpan}>
               <h4>Sub Projects</h4>
               <p>{project?.sub_projects ? project.sub_projects.length : 'N/A'}</p>
             </Col>
@@ -120,7 +119,7 @@ const OverviewDetails = ({
                 const { geometry } = turf.pointOnFeature(polygon);
                 return (
                   <BaseMap zoomControl={true} position={[geometry.coordinates[1], geometry.coordinates[0]]}>
-                    {subProjects ? <SubProjectPoints subProjects={subProjects} /> : ''}
+                    {project ? <ProjectPoints projects={[project]} loading={false} /> : ''}
                   </BaseMap>
                 )
               }) : 'No Locatios on map'
