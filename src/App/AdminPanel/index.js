@@ -7,25 +7,6 @@ import PropTypes from 'prop-types';
 /* constants */
 const routes = [
 
-    // {
-    //   name: 'Sub Project Items',
-    //   path: '/sub-project-items',
-    //   icon: itemsIcons,
-    //   description: modules.map,
-    // },
-    // {
-    //   name: 'Dashboards',
-    //   path: '/dashboards',
-    //   icon: dashboardIcon,
-    //   description: modules.dashboards,
-    // },
-   
-    // {
-    //   name: 'Settings',
-    //   path: '/settings',
-    //   icon: settingsIcons,
-    //   description: modules.dashboards,
-    // },
     {
       name: 'Agencies',
       path: '/Agencies',

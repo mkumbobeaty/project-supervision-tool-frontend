@@ -16,6 +16,7 @@ import contracsAPI from './contracts';
 import geonodeAPI from './geonode';
 import kobotoolboxAPI from './kobotoolbox';
 import subProjectSurveyAPI from './sub_project_survey';
+import ticketsAPI from './tickets';
 
 export default {
     ...projectsAPI,
@@ -35,4 +36,5 @@ export default {
     ...geonodeAPI,
     ...kobotoolboxAPI,
     ...subProjectSurveyAPI,
+    ...ticketsAPI
 }

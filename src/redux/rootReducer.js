@@ -8,6 +8,7 @@ import { default as projectDetailReducer } from './modules/projectDetails'
 import { default as subProjectReducer } from './modules/subProjects'
 import { default as usersReducer } from './modules/users';
 import { default as contractsReducer } from './modules/contracts';
+import { default as ticketsReducer } from './modules/Tickets';
 
 const rootReducer = combineReducers({
     ...projectReducer,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     ...subProjectReducer,
     ...usersReducer,
     ...contractsReducer,
+    ...ticketsReducer,
 });
 
 export default rootReducer;
