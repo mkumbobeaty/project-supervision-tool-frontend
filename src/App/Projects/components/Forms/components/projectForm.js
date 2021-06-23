@@ -125,11 +125,12 @@ function ProjectForm({
             commitment_amount_id: commitment_amount_id ? commitment_amount_id : selected?.commitment_amount.id,
             total_project_cost_id: total_project_cost_id ? total_project_cost_id : selected?.total_project_cost.id
         };
-        
+
         if (isEditForm) {
             updateProject(payload, selected.id);
         }
         else {
+            debugger
             createProject(payload);
         }
         handleConfirmButton();
@@ -192,6 +193,7 @@ function ProjectForm({
                         closing_date: createDateFromString(selected?.closing_date,),
                         approval_fy: createDateFromString(selected?.approval_fy,),
                         borrower_id: selected?.borrower?.id,
+                        color:selected?.color,
                         environmental_category_id: selected?.environmental_category?.id
                     }}
                     autoComplete="off"
@@ -199,6 +201,38 @@ function ProjectForm({
                     marginBottom='0px'
                 >
                     <h4>Please Fill the form correctly</h4>
+
+                    {/* start:project name */}
+                    <Form.Item
+                        label="Project Name"
+                        name="name"
+                        title="Project name e.g DMDP"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Project name is required",
+                            },
+                        ]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    {/* end:project name */}
+
+                    {/* start:Description */}
+                    <Form.Item
+                        label="Description"
+                        name="description"
+                        title="Project Description e.g water recyle project"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Project description is required",
+                            },
+                        ]}
+                    >
+                        <Input.TextArea />
+                    </Form.Item>
+                    {/* end:Description */}
 
                     {/* start:type */}
                     <Row type="flex" justify="space-between">
@@ -234,111 +268,91 @@ function ProjectForm({
                             {/* end:code */}
                         </Col>
                     </Row>
-
-
                     {/* end:project id */}
-
-                    {/* start:project name */}
-                    <Form.Item
-                        label="Project Name"
-                        name="name"
-                        title="Project name e.g DMDP"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Project name is required",
-                            },
-                        ]}
-                    >
-                        <Input />
-                    </Form.Item>
-                    {/* end:project name */}
-
-                    {/* start:Description */}
-                    <Form.Item
-                        label="Description"
-                        name="description"
-                        title="Project Description e.g water recyle project"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Project description is required",
-                            },
-                        ]}
-                    >
-                        <Input.TextArea />
-                    </Form.Item>
-                    {/* end:Description */}
-
-                    {/* start:shapefile */}
-                    <Form.Item
-                        label="Projects ShapeFIle"
-                        name="shapefiles"
-                        title="Shapefile"
-                        rules={[
-                            {
-                                required: false,
-                            },
-                        ]}
-                    >
-                        <Select mode="multiple">
-                            {layers.map(({ title, typename }) => (
-                                <Select.Option value={typename}>{title}</Select.Option>
-                            ))}
-                        </Select>
-
-                    </Form.Item>
-                    {/* end:Shapefile */}
-
-                    {/* start:funding organisation  */}
-                    <Form.Item
-                        label="Funding Organizations"
-                        name="funding_organisation_id"
-                        title="funding organisation i.e The World Bank"
-                    >
-                        <Select showSearch optionFilterProp="children">
-                            {partiners.map((partiner) => (
-                                <Select.Option value={partiner.id}>{partiner.name}</Select.Option>
-                            ))}
-                        </Select>
-                    </Form.Item>
-                    {/* end:funding organisation */}
-
-                     {/* start:Implementing Agency */}
-                    <Form.Item
-                        label="Implementing Agency"
-                        name="implementing_agency_id"
-                        title="implementing agency e.g PO-LARG"
-                    >
-                        <Select
-                            showSearch
-                            optionFilterProp="children"
-
-                        >
-                            {agencies.map((agency) => (
-                                <Select.Option value={agency.id}>{agency.name}</Select.Option>
-                            ))}
-                        </Select>
-                    </Form.Item>
-                    {/* end:Implementing Agency */}
-
-                    {/* start:Leaders */}
-                    <Form.Item
-                        label="WB Leaders"
-                        name="leaders"
-                        title="WB team Leaders e.g Elis Adam"
-                    >
-                        <Select mode="multiple"  >
-                            {users.map((user) => (
-                                <Select.Option value={user.id}>{user.first_name} {user.last_name}</Select.Option>
-                            ))}
-                        </Select>
-                    </Form.Item>
-                    {/* end:leaders */}
 
                     <Row type="flex" justify="space-between">
                         <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
-                           {/* start:Project Status */}
+                            {/* start:shapefile */}
+                            <Form.Item
+                                label="Projects ShapeFIle"
+                                name="shapefiles"
+                                title="Shapefile"
+                                rules={[
+                                    {
+                                        required: false,
+                                    },
+                                ]}
+                            >
+                                <Select mode="multiple">
+                                    {layers.map(({ title, typename }) => (
+                                        <Select.Option value={typename}>{title}</Select.Option>
+                                    ))}
+                                </Select>
+
+                            </Form.Item>
+                            {/* end:Shapefile */}
+                        </Col>
+                        <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
+                            {/* start:Leaders */}
+                            <Form.Item
+                                label="WB Leaders"
+                                name="leaders"
+                                title="WB team Leaders e.g Elis Adam"
+                            >
+                                <Select mode="multiple"  >
+                                    {users.map((user) => (
+                                        <Select.Option value={user.id}>{user.first_name} {user.last_name}</Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            {/* end:leaders */}
+                        </Col>
+                    </Row>
+
+                    <Row type="flex" justify="space-between">
+                        <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
+                            {/* start:funding organisation  */}
+                            <Form.Item
+                                label="Funding Organizations"
+                                name="funding_organisation_id"
+                                title="funding organisation i.e The World Bank"
+                            >
+                                <Select showSearch optionFilterProp="children">
+                                    {partiners.map((partiner) => (
+                                        <Select.Option value={partiner.id}>{partiner.name}</Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            {/* end:funding organisation */}
+                        </Col>
+                        <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
+                            {/* start:Leaders */}
+
+                            {/* start:Implementing Agency */}
+                            <Form.Item
+                                label="Implementing Agency"
+                                name="implementing_agency_id"
+                                title="implementing agency e.g PO-LARG"
+                            >
+                                <Select
+                                    showSearch
+                                    optionFilterProp="children"
+
+                                >
+                                    {agencies.map((agency) => (
+                                        <Select.Option value={agency.id}>{agency.name}</Select.Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            {/* end:Implementing Agency */}
+
+                            {/* end:leaders */}
+                        </Col>
+                    </Row>
+
+                    <Row type="flex" justify="space-between">
+                        <Col xxl={11} xl={11} lg={11} md={11} sm={24} xs={24}>
+                            {/* start:Project Status */}
                             <Form.Item
                                 label="Project Status"
                                 name="project_status_id"
@@ -361,10 +375,11 @@ function ProjectForm({
                                     ))}
                                 </Select>
                             </Form.Item>
-                           {/* end:Project Status */}
+                            {/* end:Project Status */}
                         </Col>
+
                         <Col xxl={12} xl={12} lg={12} md={12} sm={24} xs={24} span={12}>
-                           {/* start:Project Regions */}
+                            {/* start:Project Regions */}
                             <Form.Item
                                 label="Region"
                                 name="regions"
@@ -397,14 +412,14 @@ function ProjectForm({
                                     const totalProjectCostValue = getFieldValue('totalProjectCostValue');
                                     const totalProjectCostValueEdited = totalProjectCostValue || selectedTotalProjectCost;
                                     return (
-                                        <TypographyComponent 
-                                        isEditForm={isEditForm}
-                                        amountValue={totalProjectCostValue}
-                                        editedAmountValue={totalProjectCostValueEdited}
-                                        showModal={showTotalProjectCostModal}
-                                        currency={currency}
+                                        <TypographyComponent
+                                            isEditForm={isEditForm}
+                                            amountValue={totalProjectCostValue}
+                                            editedAmountValue={totalProjectCostValueEdited}
+                                            showModal={showTotalProjectCostModal}
+                                            currency={currency}
                                         />
-                                       )
+                                    )
                                 }}
                             </Form.Item>
                             {/* end: total projects cost */}
@@ -420,15 +435,15 @@ function ProjectForm({
                                     const commitmentAmountValue = getFieldValue('commitmentAmountValue');
                                     const commitmentAmountValueEdited = commitmentAmountValue || selectedCommitmentAmount;
 
-                                   return (
-                                    <TypographyComponent 
-                                    isEditForm={isEditForm}
-                                    amountValue={commitmentAmountValue}
-                                    editedAmountValue={commitmentAmountValueEdited}
-                                    showModal={showCommitmentAmountModal}
-                                    currency={currency}
-                                    />
-                                   )
+                                    return (
+                                        <TypographyComponent
+                                            isEditForm={isEditForm}
+                                            amountValue={commitmentAmountValue}
+                                            editedAmountValue={commitmentAmountValueEdited}
+                                            showModal={showCommitmentAmountModal}
+                                            currency={currency}
+                                        />
+                                    )
                                 }}
                             </Form.Item>
                             {/* end: commitment amount */}
@@ -470,8 +485,8 @@ function ProjectForm({
                     </Row>
 
                     <Row justify="space-between">
-                        <Col span={8}>
-                           {/* start:project approval fiscal year */}
+                        <Col xxl={5} xl={5} lg={5} md={5} sm={24} xs={24}>
+                            {/* start:project approval fiscal year */}
                             <Form.Item
                                 label="Approval FY"
                                 name="approval_fy"
@@ -485,11 +500,11 @@ function ProjectForm({
                             >
                                 <DatePicker picker="year" />
                             </Form.Item>
-                          {/* end:project approval fiscal year */}
+                            {/* end:project approval fiscal year */}
                         </Col>
 
-                        <Col span={8}>
-                          {/* start:project approval date */}
+                        <Col xxl={5} xl={5} lg={5} md={5} sm={24} xs={24}>
+                            {/* start:project approval date */}
                             <Form.Item
                                 label="Approval Date"
                                 name="approval_date"
@@ -505,8 +520,8 @@ function ProjectForm({
                             </Form.Item>
                             {/* end:project approval date */}
                         </Col>
-                        
-                        <Col span={8}>
+
+                        <Col xxl={5} xl={5} lg={5} md={5} sm={24} xs={24}>
                             {/* start:closing date */}
                             <Form.Item
                                 label="Closing Date"
@@ -522,12 +537,30 @@ function ProjectForm({
                                 <DatePicker />
                             </Form.Item>
                             {/* end:closing date */}
+
                         </Col>
-                        
+                        <Col xxl={5} xl={5} lg={5} md={5} sm={24} xs={24}>
+
+                            {/* start:color */}
+                            <Form.Item
+                                label="Color"
+                                title="Project Color"
+                                name="color"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "projects color is required",
+                                    },
+                                ]}
+                            >
+                                <input type="color"  value="#000000"/>
+                            </Form.Item>
+                            {/* end:color */}
+                        </Col>
                     </Row>
 
                     {/* start:form actions */}
-                    <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right", marginTop: "10px" }}>
+                    <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right", marginTop: "15px" }}>
                         <Button
                             type="primary"
                             htmlType="submit"
