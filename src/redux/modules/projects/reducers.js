@@ -151,7 +151,7 @@ const Projects = (state = defaultProjects, action) => {
 };
 
 // TODO note: reducer added by EDGAR
-const project = (state = { data: null, error: null, loading: false, showForm: false }, action) => {
+const project = (state = { data: null, error: null, loading: false, showForm: false, component: null }, action) => {
     switch (action.type) {
         case types.GET_PROJECT_START:
             return { ...state, loading: true }
@@ -167,10 +167,28 @@ const project = (state = { data: null, error: null, loading: false, showForm: fa
             return { ...state, error: action.payload, loading: false, showForm: false }
         case types.CLEAR_PROJECT:
             return { ...state, data: null }
-        case appTypes.OPEN_FORM:
+        case types.OPEN_PROJECT_FORM:
             return { ...state, showForm: true };
-        case appTypes.CLOSE_FORM:
+        case types.CLOSE_PROJECT_FORM:
             return { ...state, showForm: false };
+        default:
+            return state;
+
+    }
+}
+
+const projectComponent = (state = { data: null, error: null, loading: false, showForm: false, }, action) => {
+    switch (action.type) {
+        case types.OPEN_PROJECT_COMPONENT_FORM:
+            return { ...state, showForm: true };
+        case types.CLOSE_PROJECT_COMPONENT_FORM:
+            return { ...state, showForm: false };
+        case types.CREATE_PROJECT_COMPONENT_START:
+            return { ...state, loading: true, showForm: true }
+        case types.CREATE_PROJECT_COMPONENT_SUCCESS:
+            return { ...state, data: action.payload, loading: false, showForm: false }
+        case types.CREATE_PROJECT_COMPONENT_FAILURE:
+            return { ...state, error: action.payload, loading: false, showForm: false }
         default:
             return state;
 
@@ -398,5 +416,6 @@ export const resources = combineReducers({
     projectStatus,
     projectsFilter,
     search,
-    geonodeLayers
+    geonodeLayers,
+    projectComponent
 })

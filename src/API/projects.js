@@ -123,7 +123,7 @@ const getProjectStatus = () => {
  * @name createProjectComponents
  * */
 const createProjectComponents =(details) => 
-axios.post(`/project_details`, details).then((response) => response.data);
+axios.post(`/project_components`, details).then((response) => response.data);
 
 export default {
     createProjects,

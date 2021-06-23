@@ -11,7 +11,6 @@ import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import CommonProjectForm from "./components/Forms";
 import { focalPeopleActions, focalPeopleSelectors } from "../FocalPeople/duck";
-import { projectSectorsActions, projectSectorsSelectors } from "../../redux/modules/ProjectsSectors";
 import ProjectLocations from "../Map/components/ProjectLocations";
 import BaseMap from "../Map/components/BaseMap";
 import SideNav from "../Map/components/SideNav";
@@ -58,7 +57,6 @@ const headerLayout = [
 class Projects extends Component {
   // eslint-disable-next-line react/state-in-constructor
   state = {
-    showShare: false,
     isEditForm: false,
     cached: null,
     visible: false,
@@ -81,10 +79,10 @@ class Projects extends Component {
    * @since 0.1.0
    */
   handleEdit = (project) => {
-    const { selectProject, openForm } = this.props;
+    const { selectProject, openProjectForm } = this.props;
     selectProject(project);
     this.setState({ isEditForm: true });
-    openForm();
+    openProjectForm();
   };
 
   /**
@@ -146,8 +144,8 @@ class Projects extends Component {
    * @since 0.1.0
    */
   openProjectForm = () => {
-    const { openForm } = this.props;
-    openForm();
+    const { openProjectForm } = this.props;
+    openProjectForm();
   };
 
   /**
@@ -160,9 +158,37 @@ class Projects extends Component {
    */
   closeProjectForm = () => {
     this.setState({ isEditForm: false, visible: false });
-    const { closeForm, selectProject } = this.props;
+    const { closeProjectForm, selectProject } = this.props;
     selectProject(null);
-    closeForm();
+    closeProjectForm();
+  };
+
+    /**
+   * @function
+   * @name openProjectComponentForm
+   * @description Open form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  openProjectComponentForm = (project) => {
+    const { openProjectComponentForm, selectProject } = this.props;
+    selectProject(project);
+    openProjectComponentForm();
+  };
+
+    /**
+   * @function
+   * @name closeProjectForm
+   * @description close form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  closeProjectComponentForm = () => {
+    this.setState({ isEditForm: false, visible: false });
+    const { closeProjectComponentForm } = this.props;
+    closeProjectComponentForm();
   };
 
   /**
@@ -262,9 +288,9 @@ class Projects extends Component {
       focalPeoples,
       createProject,
       mapLoading,
-      project
+      project,
+      showComponentForm
     } = this.props;
-
 
     const { isEditForm, previewOnMap } = this.state;
 
@@ -338,7 +364,7 @@ class Projects extends Component {
                         name: "Add Compoents",
                         title:
                           "Add compoents to project",
-                        onClick: () => this.showArchiveConfirm(item),
+                        onClick: () => this.openProjectComponentForm(item),
                       }}
                       view={
                         {
@@ -412,13 +438,13 @@ class Projects extends Component {
               handleAfterSubmit={this.closeProjectForm} />
           </Drawer>
 
-          {/* <Drawer
+          <Drawer
             title={
               isEditForm ? "Edit Project Component" : "Add New Project Component"
             } width={550}
-            onClose={this.closeProjectForm}
+            onClose={this.closeProjectComponentForm}
             footer={null}
-            visible={showForm}
+            visible={showComponentForm}
             bodyStyle={{ paddingBottom: 80 }}
             destroyOnClose
             maskClosable={false}
@@ -428,8 +454,8 @@ class Projects extends Component {
             <ProjectComponentForm
               selected={selected}
               handleAfterCloseForm={this.handleAfterCloseForm}
-              handleAfterSubmit={this.closeProjectForm} />
-          </Drawer> */}
+              handleAfterSubmit={this.closeProjectComponentForm} />
+          </Drawer>
         </div>
       );
   }
@@ -460,7 +486,9 @@ const mapStateToProps = (state) => {
     selected: projectSelectors.selectedProject(state),
     mapLoading: mapSelectors.getMapLoadingSelector(state),
     project: projectSelectors.getProjectSelector(state),
-    searchQuery: projectSelectors.searchQuery(state)
+    searchQuery: projectSelectors.searchQuery(state),
+    showComponentForm: projectSelectors.getProjectComponentShowFormSelector(state),   
+
   };
 };
 
@@ -470,14 +498,15 @@ const mapDispatchToProps = {
   selectProject: projectActions.selectProject,
   focalPeople: focalPeopleActions.getFocalPeopleStart,
   createProject: projectActions.createProjectStart,
-  openForm: appActions.openForm,
-  closeForm: appActions.closeForm,
+  openProjectForm: projectActions.openProjectForm,
+  closeProjectForm: projectActions.closeProjectForm,
   paginateProject: projectActions.getProjectsStart,
   searchProject: projectActions.searchProjects,
   getProject: projectActions.getProjectStart,
   getProjectOnMap: mapProjectActions.getProjectStart,
   getSubProjectsByProjectId: mapSubProjectActions.getSubProjectByProjectId,
-
+  openProjectComponentForm: projectActions.openProjectComponentForm,
+  closeProjectComponentForm: projectActions.closeProjectComponentForm,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);

@@ -1,20 +1,11 @@
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-    Form, Input, Button, Row, Col, Select,
-    DatePicker,
+    Form, Input, Button, 
 } from 'antd';
-import RegionLocationForm from "../../../../components/RegionLocationForm";
-import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
-import { bindActionCreators } from "redux";
-import { projectDetailsActions, projectDetailsSelectors } from '../../../../../redux/modules/projectDetails';
-import { createDateFromString, generateDateString, generateYearString } from "../../../../../Util";
-import CommitmentAmountForm from "./CommitmentAmountForm";
-import TotalProjectCostForm from "./TotalProjectCostForm";
-import { usersActions, usersSelectors } from '../../../../../redux/modules/users';
-import TypographyComponent from '../../../../components/Typography';
+import { projectActions } from "../../../../../redux/modules/projects";
 /* ui */
 const labelCol = {
     xs: { span: 24 },
@@ -41,85 +32,19 @@ const wrapperCol = {
  */
 function ProjectComponentForm({
     selected,
-    getRegions,
-    regions,
-    createProject,
+    createProjectComponent,
     handleConfirmButton,
-    getProjectStatus,
-    statuses,
-    getAgencies,
-    getBorrowers,
-    getEnvironmentalCategories,
-    getFundingOrgs,
-    borrowers,
-    partiners,
-    agencies,
-    environmentalCategories,
-    getLayers,
-    layers,
-    getCurrency,
-    currency,
-    users,
-    getUsers,
-    isEditForm,
-    updateProject,
-}) {
-    const [visible, setVisible] = useState(false);
-    const [locations, setLocations] = useState([]);
-    const [visibleTotalProjectCost, setVisibleTotalProjectCost] = useState(false);
-    const [VisibleCommitmentAmount, setVisibleCommitmentAmount] = useState(false);
-    const [commitment_amount_id, setCommitmentAmount] = useState(null);
-    const [total_project_cost_id, setTotalProjetCost] = useState(false);
+    
+}) {;
 
-    useEffect(() => {
-        getProjectStatus();
-        getBorrowers();
-        getFundingOrgs();
-        getAgencies();
-        getRegions()
-        getEnvironmentalCategories();
-        getLayers();
-        getCurrency();
-        getUsers();
-    }, []);
-
-    const hideUserModal = () => {
-        setVisible(false);
-    };
-
-    const showTotalProjectCostModal = () => {
-        setVisibleTotalProjectCost(true);
-    };
-
-    const hideTotalProjectCostModal = () => {
-        setVisibleTotalProjectCost(false);
-    };
-
-
-    const showCommitmentAmountModal = () => {
-        setVisibleCommitmentAmount(true)
-    };
-
-    const hideCommitmentAmountModal = () => {
-        setVisibleCommitmentAmount(false)
-    };
-
-    const setCommitmentAmountId = (id) => {
-        setCommitmentAmount(id);
-    };
-
-    const setTotalProjectCostId = (id) => {
-        setTotalProjetCost(id)
-    };
-
-
+    console.log(selected)
     const onFinish = (values) => {
         const payload = {
             ...values,
-        };
-    
+            project_id: selected?.id
+         };
             debugger
-            createProject(payload);
+            createProjectComponent(payload);
         handleConfirmButton();
 
     };
@@ -135,10 +60,6 @@ function ProjectComponentForm({
                     wrapperCol={wrapperCol}
                     name="basicForm"
                     onFinish={onFinish}
-                    initialValues={{
-                        name: selected?.name,
-                        description: selected?.description,
-                    }}
                     autoComplete="off"
                     className="ProjectComponentForm"
                     marginBottom='0px'
@@ -193,16 +114,12 @@ function ProjectComponentForm({
     );
 }
 
-const mapStateToProps = state => ({
+const mapDispatchToProps = {
+    createProjectComponent: projectActions.createProjectComponentStart,
 
-});
+};
 
-const mapDispatchToProps = (dispatch) => ({
-    createProject: bindActionCreators(projectActions.createProjectStart, dispatch),
-
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectComponentForm);
+export default connect('', mapDispatchToProps)(ProjectComponentForm);
 
 ProjectComponentForm.propTypes = {
     createProject: PropTypes.func.isRequired,  

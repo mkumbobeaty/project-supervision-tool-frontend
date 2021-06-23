@@ -553,7 +553,7 @@ function ProjectForm({
                                     },
                                 ]}
                             >
-                                <input type="color" />
+                                <input type="color"  value="#000000"/>
                             </Form.Item>
                             {/* end:color */}
                         </Col>

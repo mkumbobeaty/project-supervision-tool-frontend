@@ -47,6 +47,17 @@ export function getProjectsStart(params={}) {
   }
 
   
+export function openProjectForm() {
+  return {
+    type: types.OPEN_PROJECT_FORM,
+  };
+}
+
+export function closeProjectForm() {
+  return {
+    type: types.CLOSE_PROJECT_FORM,
+  };
+}
   // export const updateProjectStart = makeActionCreator(types.UPDATE_PROJECT_START, 'payload');
 
   export function updateProjectStart(project,id) {
@@ -631,3 +642,17 @@ export const createProjectComponentSuccess = makeActionCreator(types.CREATE_PROJ
  * @return {Object} action
  * */
 export const createProjectComponentFailure = makeActionCreator(types.CREATE_PROJECT_COMPONENT_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name openProjectComponentForm
+ * @return {Object} action
+ * */
+export const openProjectComponentForm = makeActionCreator(types.OPEN_PROJECT_COMPONENT_FORM);
+
+/**
+ * @function
+ * @name closeProjectComponentForm
+ * @return {Object} action
+ * */
+export const closeProjectComponentForm = makeActionCreator(types.CLOSE_PROJECT_COMPONENT_FORM);

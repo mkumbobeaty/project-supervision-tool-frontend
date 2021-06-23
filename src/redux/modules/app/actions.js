@@ -15,15 +15,3 @@ export const reloadPage = makeActionCreator(types.RELOAD_PAGE);
  */
 export const restoreAccessToken = makeActionCreator(types.RESTORE_ACCESS_TOKEN, 'payload');
 
-
-export function openForm() {
-    return {
-      type: types.OPEN_FORM,
-    };
-  }
-  
-  export function closeForm() {
-    return {
-      type: types.CLOSE_FORM,
-    };
-  }
