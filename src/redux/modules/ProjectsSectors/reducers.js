@@ -1,4 +1,5 @@
 import { combineReducers } from "redux";
+import { appTypes } from "../app";
 import * as types from "./types";
 
 const initialData = {
@@ -24,9 +25,9 @@ const sectors = (state = [], action) => {
 
   const project_sectors = (state = initialData, action) => {
     switch (action.type) {
-      case types.OPEN_FORM:
+      case appTypes.OPEN_FORM:
         return { ...state, showForm: true };
-      case types.CLOSE_FORM:
+      case appTypes.CLOSE_FORM:
         return { ...state, showForm: false };
       case types.CREATE_PROJECT_SECTOR_START:
         return { ...state, posting: true, showForm:true };

@@ -8,7 +8,7 @@ export const getSectorsSelector = (state) => state.sectorsData?.sectors
 
 /**
  * @function
- * @name getProjectsShowFormSelector
+ * @name getShowFormSelector
  * @param {Object} state redux state
  */
 export const getShowFormSelector = (state) => state?.sectorsData?.project_sectors?.showForm;

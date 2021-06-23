@@ -3,10 +3,10 @@ import React, { Component } from "react";
 import { Steps } from 'antd';
 import { connect } from "react-redux";
 import ProjectForm from './components/projectForm';
-import { projectSectorsOperator, } from "../ProjectsSectors/duck";
 import { projectOperation, projectSelectors } from '../../../../redux/modules/projects';
 import ProjectDetailsForm from "./components/projectDetailsForm";
 import { projectDetailsActions } from "../../../../redux/modules/projectDetails";
+import { projectSectorsActions } from "../../../../redux/modules/ProjectsSectors";
 
 
 const { Step } = Steps;
@@ -128,7 +128,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
     createProject: projectOperation.createProjectStart,
     createProjectLocation: projectOperation.createProjectLocationStart,
-    createProjectSector: projectSectorsOperator.createProjectSectorsStart,
+    createProjectSector: projectSectorsActions.createProjectSectorsStart,
     createProjectDetail: projectDetailsActions.createProjectDetailsStart,
 }
 

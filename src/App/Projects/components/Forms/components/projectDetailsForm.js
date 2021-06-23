@@ -17,7 +17,7 @@ import { projectDetailsActions, projectDetailsSelectors } from "../../../../../r
 import {projectActions, projectSelectors} from "../../../../../redux/modules/projects";
 import CommitmentAmountForm from "./CommitmentAmountForm";
 import TotalProjectCostForm from "./TotalProjectCostForm";
-import {projectSectorsActions, projectSectorsSelectors} from "../../ProjectsSectors/duck";
+import {projectSectorsActions, projectSectorsSelectors} from "../../../../../redux/modules/ProjectsSectors";
 import ProjectSectorsForm from "./ProjectSectors";
 
 /* state actions */

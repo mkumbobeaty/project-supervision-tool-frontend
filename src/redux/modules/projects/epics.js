@@ -355,6 +355,19 @@ const getLayersEpic = action$ => {
     )
 };
 
+const createProjectComponentPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_PROJECT_COMPONENT_START),
+        switchMap(({payload}) => {
+            return from(API.createProjectComponents(payload))
+        }),
+        switchMap(res => {
+            return of(actions.createProjectComponentSuccess(res))
+        }),
+        catchError(error => of(actions.createProjectComponentFailure(error)))
+    )
+}
+
 
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
@@ -378,7 +391,8 @@ export const projectsRootEpic = combineEpics(
     filterProjectByIdEpic,
     filterProjectByRegionEpic,
     searchProjectsEpic,
-    getLayersEpic
+    getLayersEpic,
+    createProjectComponentPic
 );
 
 
