@@ -9,6 +9,7 @@ import { default as subProjectReducer } from './modules/subProjects'
 import { default as usersReducer } from './modules/users';
 import { default as contractsReducer } from './modules/contracts';
 import { default as ticketsReducer } from './modules/Tickets';
+import { default as procuringEntitiesReducer } from './modules/ProcuringEntities';
 
 const rootReducer = combineReducers({
     ...projectReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
     ...usersReducer,
     ...contractsReducer,
     ...ticketsReducer,
+    ...procuringEntitiesReducer
 });
 
 export default rootReducer;
