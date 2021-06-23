@@ -608,3 +608,26 @@ export const getLayersSuccess = makeActionCreator(types.GET_LAYERS_SUCCESS, 'pay
  * @return {Object} action
  * */
 export const getLayersFailure = makeActionCreator(types.GET_LAYERS_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name createProjectComponentStart
+ * @return {Object} action
+ * */
+export const createProjectComponentStart = makeActionCreator(types.CREATE_PROJECT_COMPONENT_START, 'payload');
+
+/**
+ * @function
+ * @name createProjectComponentSuccess
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const createProjectComponentSuccess = makeActionCreator(types.CREATE_PROJECT_COMPONENT_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name createProjectComponentFailure
+ * @param {Object} payload failure response
+ * @return {Object} action
+ * */
+export const createProjectComponentFailure = makeActionCreator(types.CREATE_PROJECT_COMPONENT_FAILURE, 'payload');

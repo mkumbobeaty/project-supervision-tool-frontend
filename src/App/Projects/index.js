@@ -9,17 +9,18 @@ import Topbar from "../components/Topbar";
 import ProjectsList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
-import { Link } from "react-router-dom";
 import CommonProjectForm from "./components/Forms";
-import { focalPeopleActions, focalPeopleOperation, focalPeopleSelectors } from "../FocalPeople/duck";
-import { projectSectorsActions, projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
+import { focalPeopleActions, focalPeopleSelectors } from "../FocalPeople/duck";
+import { projectSectorsActions, projectSectorsSelectors } from "../../redux/modules/ProjectsSectors";
 import ProjectLocations from "../Map/components/ProjectLocations";
 import BaseMap from "../Map/components/BaseMap";
 import SideNav from "../Map/components/SideNav";
 import { mapSelectors } from "../../redux/modules/map";
-import "./styles.css";
 import { mapProjectActions } from "../../redux/modules/map/projects";
 import { mapSubProjectActions } from "../../redux/modules/map/subProjects";
+import ProjectComponentForm from "./components/Forms/components/projectComponentForm";
+import "./styles.css";
+import { appActions } from "../../redux/modules/app";
 
 
 /* constants */
@@ -80,10 +81,10 @@ class Projects extends Component {
    * @since 0.1.0
    */
   handleEdit = (project) => {
-    const { selectProject, openProjectForm } = this.props;
+    const { selectProject, openForm } = this.props;
     selectProject(project);
     this.setState({ isEditForm: true });
-    openProjectForm();
+    openForm();
   };
 
   /**
@@ -92,7 +93,6 @@ class Projects extends Component {
    * @description Cached selected values for filters
    *
    * @param {object} cached values to be cached from filter
-   *
    * @version 0.1.0
    * @since 0.1.0
    */
@@ -140,29 +140,29 @@ class Projects extends Component {
   /**
    * @function
    * @name openProjectForm
-   * @description Open Human Resources form
+   * @description Open form
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   openProjectForm = () => {
-    const { openProjectForm } = this.props;
-    openProjectForm();
+    const { openForm } = this.props;
+    openForm();
   };
 
   /**
    * @function
    * @name closeProjectForm
-   * @description close Human Resources form
+   * @description close form
    *
    * @version 0.1.0
    * @since 0.1.0
    */
   closeProjectForm = () => {
     this.setState({ isEditForm: false, visible: false });
-    const { closeProjectForm, selectProject } = this.props;
+    const { closeForm, selectProject } = this.props;
     selectProject(null);
-    closeProjectForm();
+    closeForm();
   };
 
   /**
@@ -261,7 +261,6 @@ class Projects extends Component {
       selected,
       focalPeoples,
       createProject,
-      fetchProjects,
       mapLoading,
       project
     } = this.props;
@@ -335,6 +334,12 @@ class Projects extends Component {
                           "Remove project from list of active Projects",
                         onClick: () => this.showArchiveConfirm(item),
                       }}
+                      components={{
+                        name: "Add Compoents",
+                        title:
+                          "Add compoents to project",
+                        onClick: () => this.showArchiveConfirm(item),
+                      }}
                       view={
                         {
                           name: "View Detail",
@@ -386,7 +391,7 @@ class Projects extends Component {
           {/* end list */}
           <Drawer
             title={
-              isEditForm ? "Edit Projects" : "Add New Projects"
+              isEditForm ? "Edit Project" : "Add New Project"
             } width={550}
             onClose={this.closeProjectForm}
             footer={null}
@@ -406,6 +411,25 @@ class Projects extends Component {
               handleAfterCloseForm={this.handleAfterCloseForm}
               handleAfterSubmit={this.closeProjectForm} />
           </Drawer>
+
+          {/* <Drawer
+            title={
+              isEditForm ? "Edit Project Component" : "Add New Project Component"
+            } width={550}
+            onClose={this.closeProjectForm}
+            footer={null}
+            visible={showForm}
+            bodyStyle={{ paddingBottom: 80 }}
+            destroyOnClose
+            maskClosable={false}
+            afterClose={this.handleAfterCloseForm}
+            className="projectForm"
+          >
+            <ProjectComponentForm
+              selected={selected}
+              handleAfterCloseForm={this.handleAfterCloseForm}
+              handleAfterSubmit={this.closeProjectForm} />
+          </Drawer> */}
         </div>
       );
   }
@@ -432,7 +456,7 @@ const mapStateToProps = (state) => {
     loading: projectSelectors.getProjectsLoadingSelector(state),
     page: projectSelectors.getProjectsPageSelector(state),
     total: projectSelectors.getProjectsTotalSelector(state),
-    showForm: projectSectorsSelectors.getShowFormSelector(state),
+    showForm: projectSelectors.getProjectShowFormSelector(state),
     selected: projectSelectors.selectedProject(state),
     mapLoading: mapSelectors.getMapLoadingSelector(state),
     project: projectSelectors.getProjectSelector(state),
@@ -446,8 +470,8 @@ const mapDispatchToProps = {
   selectProject: projectActions.selectProject,
   focalPeople: focalPeopleActions.getFocalPeopleStart,
   createProject: projectActions.createProjectStart,
-  openProjectForm: projectSectorsActions.openForm,
-  closeProjectForm: projectSectorsActions.closeForm,
+  openForm: appActions.openForm,
+  closeForm: appActions.closeForm,
   paginateProject: projectActions.getProjectsStart,
   searchProject: projectActions.searchProjects,
   getProject: projectActions.getProjectStart,

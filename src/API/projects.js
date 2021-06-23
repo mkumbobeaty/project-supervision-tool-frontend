@@ -118,6 +118,13 @@ const getProjectStatus = () => {
     return axios.get(`/project_status`).then((response) => response.data);
 }
 
+/**
+ * @function
+ * @name createProjectComponents
+ * */
+const createProjectComponents =(details) => 
+axios.post(`/project_details`, details).then((response) => response.data);
+
 export default {
     createProjects,
     getProjects,
@@ -129,4 +136,5 @@ export default {
     postTotalCost,
     createProjectDetails,
     getProjectStatus,
+    createProjectComponents,
 }

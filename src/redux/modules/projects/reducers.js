@@ -1,5 +1,6 @@
 import * as types from "./types";
 import { combineReducers } from "redux";
+import { appTypes } from "../app";
 
 const defaultProjects = {
     data: [],
@@ -37,11 +38,11 @@ const projectFilter = {
 const filters = (state = projectFilter, action) => {
     switch (action.type) {
         case types.SET_PROJECT_STATUS_FILTER:
-            return { ...state, 'filter[project_status_id]': action.payload  };
+            return { ...state, 'filter[project_status_id]': action.payload };
         case types.SET_PROJECT_ID_FILTER:
-            return { ...state, 'filter[id]': action.payload  };
+            return { ...state, 'filter[id]': action.payload };
         case types.SET_PROJECT_REGIONS_FILTER:
-            return { ...state, 'filter[regions.id]': action.payload  };
+            return { ...state, 'filter[regions.id]': action.payload };
         default:
             return state;
     }
@@ -127,13 +128,13 @@ const Projects = (state = defaultProjects, action) => {
         case types.GET_PROJECTS_FAILURE:
             return { ...state, error: action.message, loading: false, page: 1, total: 0 };
         case types.CREATE_PROJECT_START:
-            return { ...state, posting: true, loading: true  };
+            return { ...state, posting: true, loading: true, };
         case types.CREATE_PROJECT_SUCCESS:
             return { ...state, project: action.payload, posting: false, loading: false };
         case types.CREATE_PROJECT_FAILURE:
             return { error: action.payload.error };
         case types.UPDATE_PROJECT_START:
-            return { ...state, posting: true, loading: true  };
+            return { ...state, posting: true, loading: true };
         case types.UPDATE_PROJECT_SUCCESS:
             return { ...state, showForm: false, posting: false, loading: false, };
         case types.UPDATE_PROJECT_FAILURE:
@@ -150,22 +151,26 @@ const Projects = (state = defaultProjects, action) => {
 };
 
 // TODO note: reducer added by EDGAR
-const project = (state = { data: null, error: null, loading: false }, action) => {
+const project = (state = { data: null, error: null, loading: false, showForm: false }, action) => {
     switch (action.type) {
         case types.GET_PROJECT_START:
             return { ...state, loading: true }
         case types.GET_PROJECT_SUCCESS:
             return { ...state, data: action.payload, loading: false }
-        case types.CREATE_PROJECT_START:
-            return { ...state, loading: true }
-        case types.CREATE_PROJECT_SUCCESS:
-            return { ...state, data: action.payload.data, loading: false }
-        case types.CREATE_PROJECT_FAILURE:
-            return { ...state, error: action.payload, loading: false }
-        case types.CLEAR_PROJECT:
-            return { ...state, data: null }
         case types.GET_PROJECT_FAILURE:
             return { ...state, error: action.payload, loading: false }
+        case types.CREATE_PROJECT_START:
+            return { ...state, loading: true, showForm: true }
+        case types.CREATE_PROJECT_SUCCESS:
+            return { ...state, data: action.payload.data, loading: false, showForm: false }
+        case types.CREATE_PROJECT_FAILURE:
+            return { ...state, error: action.payload, loading: false, showForm: false }
+        case types.CLEAR_PROJECT:
+            return { ...state, data: null }
+        case appTypes.OPEN_FORM:
+            return { ...state, showForm: true };
+        case appTypes.CLOSE_FORM:
+            return { ...state, showForm: false };
         default:
             return state;
 
@@ -350,13 +355,13 @@ const projectsFilter = (state = { data: [], error: null, loading: false }, actio
 };
 
 const searchProjects = {
-    data : '',
+    data: '',
 };
 
 const search = (state = searchProjects, action) => {
     switch (action.type) {
         case types.SEARCH_PROJECTS:
-            return { ...state, data: action.payload}    
+            return { ...state, data: action.payload }
         default:
             return state;
     }
