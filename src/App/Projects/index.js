@@ -361,9 +361,9 @@ class Projects extends Component {
                         onClick: () => this.showArchiveConfirm(item),
                       }}
                       components={{
-                        name: "Add Compoents",
+                        name: "Add Components",
                         title:
-                          "Add compoents to project",
+                          "Add components to the project",
                         onClick: () => this.openProjectComponentForm(item),
                       }}
                       view={
@@ -454,7 +454,7 @@ class Projects extends Component {
             <ProjectComponentForm
               selected={selected}
               handleAfterCloseForm={this.handleAfterCloseForm}
-              handleAfterSubmit={this.closeProjectComponentForm} />
+               />
           </Drawer>
         </div>
       );

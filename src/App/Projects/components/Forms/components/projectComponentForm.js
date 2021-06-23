@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {
     Form, Input, Button, 
 } from 'antd';
-import { projectActions } from "../../../../../redux/modules/projects";
+import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
 /* ui */
 const labelCol = {
     xs: { span: 24 },
@@ -33,28 +33,21 @@ const wrapperCol = {
 function ProjectComponentForm({
     selected,
     createProjectComponent,
-    handleConfirmButton,
-    
+    loading    
 }) {;
 
-    console.log(selected)
     const onFinish = (values) => {
         const payload = {
             ...values,
             project_id: selected?.id
          };
-            debugger
-            createProjectComponent(payload);
-        handleConfirmButton();
+        createProjectComponent(payload);
 
     };
  
     return (
         <>
-            <Form.Provider
-                onFormFinish={(name, { values, forms }) => { }}
-            >
-
+            <Form.Provider   onFormFinish={(name, { values, forms }) => { }}>
                 <Form
                     labelCol={labelCol}
                     wrapperCol={wrapperCol}
@@ -102,6 +95,7 @@ function ProjectComponentForm({
                             type="primary"
                             htmlType="submit"
                             style={{ marginLeft: 8 }}
+                            loading={loading}
                         >
                             Submit
                     </Button>
@@ -114,12 +108,18 @@ function ProjectComponentForm({
     );
 }
 
+
+const mapStateToProps = state => ({
+    loading: projectSelectors.getProjectComponentLoading(state)
+});
+
+
 const mapDispatchToProps = {
     createProjectComponent: projectActions.createProjectComponentStart,
 
 };
 
-export default connect('', mapDispatchToProps)(ProjectComponentForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectComponentForm);
 
 ProjectComponentForm.propTypes = {
     createProject: PropTypes.func.isRequired,  

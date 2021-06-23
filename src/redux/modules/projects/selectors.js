@@ -63,6 +63,13 @@ export const getProjectComponentShowFormSelector = (state) => state?.resources?.
 
 /**
  * @function
+ * @name getProjectComponentLoading
+ * @param {Object} state redux state
+ */
+export const getProjectComponentLoading = (state) => state?.resources?.projectComponent?.loading;
+
+/**
+ * @function
  * @name getLocations
  * @param {Object} state redux state
  */
