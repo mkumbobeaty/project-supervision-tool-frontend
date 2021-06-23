@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Breadcrumb, Col, Layout, Row } from "antd";
-import { Link, Switch, Route } from "react-router-dom";
+import { Link, Switch } from "react-router-dom";
 import UserMenu from "../navigation/UserMenu";
 import PageNotFound from "../PageNotFound";
 import Home from "../navigation/Home";
@@ -10,7 +10,6 @@ import Projects from "../Projects";
 import SubProjects from "../Sub-projects/";
 import Project from "../Projects/components/ProjectsDetails";
 import SubProject from "../Sub-projects/components/SubProjectsDetails/"
-import GeoNode from "../GeoNode";
 import Agencies from "../Agencies";
 import AdminPanel from "../AdminPanel";
 import PrivateRoute from '../Auth/PrivateRoute';
@@ -18,6 +17,8 @@ import Users from "../Users";
 import Contracts from "../Contracts";
 import Roles from "../Roles";
 import "./styles.css";
+import Tickets from "../Tickets";
+import TicketDetails from "../Tickets/components/Details";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -45,41 +46,31 @@ const breadcrumbNameMap = {
     name: "Sub Project",
     title: "Detail of single sub project",
   },
-  "/app/sub-project-items": {
-    name: "Sub Project items",
-    title: "List of all sub project items",
-  },
-  "/app/sub-project-equipments": {
-    name: "Sub Project Equipments",
-    title: "List of all sub project equipments",
-  },
-  "/app/human-resources": {
-    name: "Human Resources",
-    title: "List of all human resources",
-  },
-  "/app/sub-projects-contracts": {
-    name: "Sub Project Contracts",
-    title: "List of all Sub Project Contracts",
-  },
+  
   "/app/admin-panel": {
     name: "Admin Panel",
     title: "Admin Panel module",
   },
-  /* dashboards routes */
-  "/app/dashboards": {
-    name: "Dashboards",
-    title: "Dashboards",
-  },
 
   /* users routes */
-  "/app/users:": {
+  "/app/users": {
     name: "users",
     title: "users Module",
   },
    /* Contracts routes */
-   "/app/contracts:": {
+   "/app/contracts": {
     name: "contracts",
     title: "contracts Module",
+  },
+
+   /* Tickets routes */
+   "/app/tickets": {
+    name: "tickets",
+    title: "Tickets Module",
+  },
+  "/app/tickets:types": {
+    name: "Issue Tracking",
+    title: "Issue tracking Module",
   },
 };
 
@@ -169,8 +160,13 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
       
           <PrivateRoute
             exact
-            path={`${baseUrl}/geo-node`}
-            component={GeoNode}
+            path={`${baseUrl}/tickets`}
+            component={Tickets}
+          />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/tickets/:id`}
+            component={TicketDetails}
           />
           <PrivateRoute
             exact

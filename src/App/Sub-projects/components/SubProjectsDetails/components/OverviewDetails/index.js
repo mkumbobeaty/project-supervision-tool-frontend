@@ -19,7 +19,7 @@ const OverviewDetails = ({ sub_project, mapLoading }) => {
 
     return (
         <>
-            <div className="keyDetails ">
+            <div className="keyDetails grey-bgr">
                 <h2 id="sider-title">Key Details</h2>
                 <section className="container">
                     <Row className="key-details">
