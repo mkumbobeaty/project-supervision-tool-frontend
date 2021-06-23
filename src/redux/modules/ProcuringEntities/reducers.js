@@ -7,6 +7,7 @@ const initialData = {
   loading: false,
   error: null,
   page: 1,
+  procuringEntity: {}
 };
 
 
@@ -15,9 +16,15 @@ const procuringEntities = (state = initialData, action) => {
     case types.GET_PROCURING_ENTITIES_START:
       return { ...state, loading: true }
     case types.GET_PROCURING_ENTITIES_SUCCESS:
-      return {  data: action.payload, loading: false, }
+      return { data: action.payload, loading: false, }
     case types.GET_PROCURING_ENTITIES_FAILURE:
       return { ...state, loading: false, error: action.payload }
+    case types.DELETE_PROURING_ENTITY_START:
+      return { ...state };
+    case types.DELETE_PROURING_ENTITY_SUCCESS:
+      return { ...state, procuringEntity: action.payload };
+    case types.DELETE_PROURING_ENTITY_FAILURE:
+      return action.payload;
     default:
       return state;
 

@@ -18,7 +18,21 @@ const getProcuringEntitiesEpic = action$ => {
     )                                                                                                                                                                                                       
 }
 
+const deleteProcuringEntityEpic = action$ => {
+    return action$.pipe(
+        ofType(types.DELETE_PROURING_ENTITY_START),
+        switchMap(({payload}) => {
+            return from(API.deleteProcuringEntity(payload)).pipe(
+                switchMap(res => {
+                    return of(actions.deleteProcuringEntitySuccess(res), actions.getProcuringEntitiesStart())
+                }),
+            )
+        }),
+        catchError(error => of(actions.deleteProcuringEntityFailure(error)))
+    );
+}
 
 export const  procuringEntitiesEpic= combineEpics(
     getProcuringEntitiesEpic,
+    deleteProcuringEntityEpic
 )

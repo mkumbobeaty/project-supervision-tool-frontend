@@ -8,7 +8,7 @@ import Topbar from "../components/Topbar";
 import ProcuringEntitiesList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
-import { isoDateToHumanReadableDate } from '../../Util';
+import { isoDateToHumanReadableDate, showArchiveConfirm } from '../../Util';
 import { useHistory } from 'react-router-dom';
 import "./styles.css";
 
@@ -27,8 +27,7 @@ const headerLayout = [
 
 ];
 
-
-const ProcuringEntities = ({ getProcuringEntities, procuringEntity, loading, }) => {
+const ProcuringEntities = ({ getProcuringEntities, procuringEntity, loading, deleteProcuringEntity}) => {
 
 
     useEffect(() => {
@@ -96,7 +95,7 @@ const ProcuringEntities = ({ getProcuringEntities, procuringEntity, loading, }) 
                                         name: "Archive Procuring Entity",
                                         title:
                                             "Remove Sub project from list of active Procuring Entity",
-                                        onClick: () => this.showArchiveConfirm(item),
+                                        onClick: () => showArchiveConfirm(item, deleteProcuringEntity),
                                     }}
                                     view={
                                         {
@@ -152,6 +151,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
     getProcuringEntities: ProcuringEntityActions.getProcuringEntitiesStart,
+    deleteProcuringEntity: ProcuringEntityActions.deleteProcuringEntityStart
 }
 
 ProcuringEntities.propTypes = {

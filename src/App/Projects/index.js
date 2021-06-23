@@ -9,10 +9,9 @@ import Topbar from "../components/Topbar";
 import ProjectsList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
-import { Link } from "react-router-dom";
 import CommonProjectForm from "./components/Forms";
-import { focalPeopleActions, focalPeopleOperation, focalPeopleSelectors } from "../FocalPeople/duck";
-import { projectSectorsActions, projectSectorsOperator, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
+import { focalPeopleActions, focalPeopleSelectors } from "../FocalPeople/duck";
+import { projectSectorsActions, projectSectorsSelectors } from "./components/ProjectsSectors/duck";
 import ProjectLocations from "../Map/components/ProjectLocations";
 import BaseMap from "../Map/components/BaseMap";
 import SideNav from "../Map/components/SideNav";
@@ -20,6 +19,7 @@ import { mapSelectors } from "../../redux/modules/map";
 import "./styles.css";
 import { mapProjectActions } from "../../redux/modules/map/projects";
 import { mapSubProjectActions } from "../../redux/modules/map/subProjects";
+import { showArchiveConfirm } from "../../Util";
 
 
 /* constants */
@@ -114,27 +114,27 @@ class Projects extends Component {
     this.setState({ cached: null });
   };
 
-  /**
-   * @function
-   * @name showArchiveConfirm
-   * @description show confirm modal before archiving a Event Initiative
-   * @param {object} item Resource item to be archived
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  showArchiveConfirm = (item) => {
-    const { deleteProject } = this.props;
-    confirm({
-      title: `Are you sure you want to archive this record ?`,
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      onOk() {
-        deleteProject(item.id);
-      },
-    });
-  };
+  // /**
+  //  * @function
+  //  * @name showArchiveConfirm
+  //  * @description show confirm modal before archiving a Event Initiative
+  //  * @param {object} item Resource item to be archived
+  //  *
+  //  * @version 0.1.0
+  //  * @since 0.1.0
+  //  */
+  // showArchiveConfirm = (item) => {
+  //   const { deleteProject } = this.props;
+  //   confirm({
+  //     title: `Are you sure you want to archive this record ?`,
+  //     okText: "Yes",
+  //     okType: "danger",
+  //     cancelText: "No",
+  //     onOk() {
+  //       deleteProject(item.id);
+  //     },
+  //   });
+  // };
 
 
   /**
@@ -263,7 +263,8 @@ class Projects extends Component {
       createProject,
       fetchProjects,
       mapLoading,
-      project
+      project,
+      deleteProject
     } = this.props;
 
 
@@ -332,7 +333,7 @@ class Projects extends Component {
                         name: "Archive project",
                         title:
                           "Remove project from list of active Projects",
-                        onClick: () => this.showArchiveConfirm(item),
+                        onClick: () => showArchiveConfirm(item, deleteProject),
                       }}
                       view={
                         {
