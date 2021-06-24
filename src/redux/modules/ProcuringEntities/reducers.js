@@ -20,23 +20,23 @@ const procuringEntities = (state = initialData, action) => {
       return { data: action.payload, loading: false, }
     case types.GET_PROCURING_ENTITIES_FAILURE:
       return { ...state, loading: false, error: action.payload }
-    case types.DELETE_PROURING_ENTITY_START:
+    case types.DELETE_PROCURING_ENTITY_START:
       return { ...state };
-    case types.DELETE_PROURING_ENTITY_SUCCESS:
+    case types.DELETE_PROCURING_ENTITY_SUCCESS:
       return { ...state, procuringEntity: action.payload };
-    case types.DELETE_PROURING_ENTITY_FAILURE:
+    case types.DELETE_PROCURING_ENTITY_FAILURE:
       return action.payload;
-    case types.SELECT_PROURING_ENTITY:
+    case types.SELECT_PROCURING_ENTITY:
       return { ...state, procuringEntity: action.payload };
-    case types.OPEN_PROURING_ENTITY:
+    case types.OPEN_PROCURING_ENTITY:
       return { ...state, showForm: true };
-    case types.CLOSE_PROURING_ENTITY:
+    case types.CLOSE_PROCURING_ENTITY:
       return { ...state, showForm: false };
-      case types.CREATE_PROURING_ENTITY_START:
+      case types.CREATE_PROCURING_ENTITY_START:
         return { ...state, loading: true };
-      case types.CREATE_PROURING_ENTITY_SUCCESS:
+      case types.CREATE_PROCURING_ENTITY_SUCCESS:
         return { ...state, procuringEntity: action.payload, loading: false };
-      case types.CREATE_PROURING_ENTITY_FAILURE:
+      case types.CREATE_PROCURING_ENTITY_FAILURE:
         return { ...state, error: action.payload, loading: false };
     default:
       return state;

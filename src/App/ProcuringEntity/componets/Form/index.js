@@ -37,7 +37,8 @@ function ProcuringEntityForm({
     loading,
     getAgencies,
     projectSubComponents,
-    agencies
+    agencies,
+    updateProcuringEntity
 }) {
     ;
 
@@ -46,13 +47,21 @@ function ProcuringEntityForm({
         getProjectSubComponent();
     }, [])
 
+
     const onFinish = (values) => {
         const payload = {
             ...values,
         };
-        createProcuringEntity(values);
-        handleAfterSubmit()
-    };
+
+        if (isEditForm) {
+            debugger
+            updateProcuringEntity(payload, selected.id);
+        }
+        else {
+            createProcuringEntity(values);
+        }
+        handleAfterSubmit();
+    }
 
     return (
         <>
@@ -70,6 +79,9 @@ function ProcuringEntityForm({
                         label="Agency"
                         name="agency_id"
                         title="agency e.g ilala"
+                        initialValue={
+                            selected?.agency?.id
+                        }
                     >
                         <Select
                             showSearch
@@ -94,6 +106,9 @@ function ProcuringEntityForm({
                                 message: "Project sub-component is required",
                             },
                         ]}
+                        initialValue={
+                            selected?.project_sub_component?.id
+                        }
                     >
                         <Select showSearch optionFilterProp="children"   >
                             {projectSubComponents.map((sub_component) => (
@@ -110,6 +125,7 @@ function ProcuringEntityForm({
                             htmlType="submit"
                             style={{ marginLeft: 8 }}
                             loading={loading}
+
                         >
                             Submit
                     </Button>
@@ -126,6 +142,7 @@ ProcuringEntityForm.propTypes = {
     createProcuringEntity: PropTypes.func.isRequired,
     getAgencies: PropTypes.func.isRequired,
     getProjectSubComponent: PropTypes.func.isRequired,
+    updateProcuringEntity:PropTypes.func.isRequired,
     loading: PropTypes.bool,
     isEditForm: PropTypes.bool.isRequired,
     handleAfterSubmit: PropTypes.func.isRequired,

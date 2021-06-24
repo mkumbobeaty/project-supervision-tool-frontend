@@ -42,7 +42,8 @@ const ProcuringEntities = ({
     getAgencies,
     agencies,
     getProjectSubComponent,
-    projectSubComponents
+    projectSubComponents,
+    updateProcuringEntity
 }) => {
 
     const [ isEditForm, setIsEditForm ] = useState(false);
@@ -91,20 +92,22 @@ const ProcuringEntities = ({
         getProcuringEntities();
     };
 
- /**
-     * @function
-     * @name handleAfterCloseForm
-     * @description Perform post close form cleanups
-     *
-     * @version 0.1.0
-     * @since 0.1.0
-     */
-    const handleAfterCloseForm = () => {
-        selectProcuringEntity(null);
-        setIsEditForm(false);
-      };
-    
 
+    /**
+   * @function
+   * @name handleEdit
+   * @description Handle on Edit action for list item
+   *
+   * @param {object} project Action Catalogue to be edited
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+const  handleEdit = (item) => {
+    selectProcuringEntity(item);
+    setIsEditForm(true)
+    openProcuringEntityForm();
+  };
 
     return (
         <div>
@@ -148,7 +151,7 @@ const ProcuringEntities = ({
                                     edit={{
                                         name: "Edit Procuring Entity",
                                         title: "Update Procuring Entity details",
-                                        onClick: () => (item),
+                                        onClick: () => handleEdit(item),
                                     }}
                                     archive={{
                                         name: "Archive Procuring Entity",
@@ -217,6 +220,7 @@ const ProcuringEntities = ({
                 agencies={agencies}
                 getProjectSubComponent={getProjectSubComponent}
                 projectSubComponents={projectSubComponents}
+                updateProcuringEntity ={updateProcuringEntity}
             />              
 
           </Drawer>
@@ -247,6 +251,7 @@ const mapDispatchToProps = {
     selectProcuringEntity:ProcuringEntityActions.selectProcuringEntity,
     getProjectSubComponent: projectActions.getProjectSubComponentStart,
     createProcuringEntity: ProcuringEntityActions.createProcuringEntityStart,
+    updateProcuringEntity: ProcuringEntityActions.updateProcuringEntityStart,
 }
 
 ProcuringEntities.propTypes = {

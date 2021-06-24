@@ -31,7 +31,7 @@ export const getProcuringEntitiesFailure = makeActionCreator(types.GET_PROCURING
  * @name deleteProcuringEntityStart
  * @return {Object} action
  * */
-export const deleteProcuringEntityStart = makeActionCreator(types.DELETE_PROURING_ENTITY_START, 'payload');
+export const deleteProcuringEntityStart = makeActionCreator(types.DELETE_PROCURING_ENTITY_START, 'payload');
 
 /**
  * @const
@@ -39,7 +39,7 @@ export const deleteProcuringEntityStart = makeActionCreator(types.DELETE_PROURIN
  * @param {Object} payload procuringEntity
  * @return {Object} action
  * */
-export const deleteProcuringEntitySuccess = makeActionCreator(types.DELETE_PROURING_ENTITY_SUCCESS, 'payload');
+export const deleteProcuringEntitySuccess = makeActionCreator(types.DELETE_PROCURING_ENTITY_SUCCESS, 'payload');
 
 /**
  * @const
@@ -47,14 +47,14 @@ export const deleteProcuringEntitySuccess = makeActionCreator(types.DELETE_PROUR
  * @param {Object} payload procuringEntity failure response
  * @return {Object} action
  * */
-export const deleteProcuringEntityFailure = makeActionCreator(types.DELETE_PROURING_ENTITY_FAILURE, 'payload');
+export const deleteProcuringEntityFailure = makeActionCreator(types.DELETE_PROCURING_ENTITY_FAILURE, 'payload');
 
 /**
  * @const
  * @name createProcuringEntityStart
  * @return {Object} action
  * */
-export const createProcuringEntityStart = makeActionCreator(types.CREATE_PROURING_ENTITY_START, 'payload');
+export const createProcuringEntityStart = makeActionCreator(types.CREATE_PROCURING_ENTITY_START, 'payload');
 
 /**
  * @const
@@ -62,7 +62,7 @@ export const createProcuringEntityStart = makeActionCreator(types.CREATE_PROURIN
  * @param {Object} payload 
  * @return {Object} action
  * */
-export const createProcuringEntitySuccess = makeActionCreator(types.CREATE_PROURING_ENTITY_SUCCESS, 'payload');
+export const createProcuringEntitySuccess = makeActionCreator(types.CREATE_PROCURING_ENTITY_SUCCESS, 'payload');
 
 /**
  * @const
@@ -70,7 +70,7 @@ export const createProcuringEntitySuccess = makeActionCreator(types.CREATE_PROUR
  * @param {Object} payload failure response
  * @return {Object} action
  * */
-export const createProcuringEntityFailure = makeActionCreator(types.CREATE_PROURING_ENTITY_FAILURE, 'payload');
+export const createProcuringEntityFailure = makeActionCreator(types.CREATE_PROCURING_ENTITY_FAILURE, 'payload');
 
 /**
  * @const
@@ -78,7 +78,7 @@ export const createProcuringEntityFailure = makeActionCreator(types.CREATE_PROUR
  * @param {Object} payload failure response
  * @return {Object} action
  * */
-export const selectProcuringEntity = makeActionCreator(types.SELECT_PROURING_ENTITY, 'payload');
+export const selectProcuringEntity = makeActionCreator(types.SELECT_PROCURING_ENTITY, 'payload');
 
 /**
  * @const
@@ -86,7 +86,7 @@ export const selectProcuringEntity = makeActionCreator(types.SELECT_PROURING_ENT
  * @param {Object} payload failure response
  * @return {Object} action
  * */
-export const openProcuringEntityForm = makeActionCreator(types.OPEN_PROURING_ENTITY);
+export const openProcuringEntityForm = makeActionCreator(types.OPEN_PROCURING_ENTITY);
 
 /**
  * @const
@@ -94,7 +94,7 @@ export const openProcuringEntityForm = makeActionCreator(types.OPEN_PROURING_ENT
  * @param {Object} payload failure response
  * @return {Object} action
  * */
-export const closeProcuringEntityForm = makeActionCreator(types.CLOSE_PROURING_ENTITY);
+export const closeProcuringEntityForm = makeActionCreator(types.CLOSE_PROCURING_ENTITY);
 /**
  * @const
  * @name updateProcuringEntityStart
@@ -102,15 +102,22 @@ export const closeProcuringEntityForm = makeActionCreator(types.CLOSE_PROURING_E
  * @return {Object} action
  * */
 
-export const updateProcuringEntityStart = makeActionCreator(types.UPDATE_PROURING_ENTITY_START, 'payload')
-
+export function updateProcuringEntityStart(procuringEntity,id) {
+    return {
+      type: types.UPDATE_PROCURING_ENTITY_START,
+      payload: {
+        procuringEntity,
+        id
+      },
+    };
+  }
 /**
  * @const
  * @name updateProcuringEntitySuccess
  * @param {Object} payload failure response
  * @return {Object} action
  * */
-export const updateProcuringEntitySuccess = makeActionCreator(types.UPDATE_PROURING_ENTITY_START, 'payload');
+export const updateProcuringEntitySuccess = makeActionCreator(types.UPDATE_PROCURING_ENTITY_SUCCESS, 'payload');
 
 /**
 * @const
@@ -118,4 +125,4 @@ export const updateProcuringEntitySuccess = makeActionCreator(types.UPDATE_PROUR
 * @param {Object} payload failure response
 * @return {Object} action
 * */
-export const updateProcuringEntityFailure = makeActionCreator(types.UPDATE_PROURING_ENTITY_FAILURE, 'payload');
+export const updateProcuringEntityFailure = makeActionCreator(types.UPDATE_PROCURING_ENTITY_FAILURE, 'payload');

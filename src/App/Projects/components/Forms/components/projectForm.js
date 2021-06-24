@@ -135,6 +135,7 @@ function ProjectForm({
         handleConfirmButton();
 
     };
+    
     const selectedCommitmentAmount = { amount: selected?.commitment_amount?.amount, currency_id: selected?.commitment_amount.currency.id };
     const selectedTotalProjectCost = { amount: selected?.total_project_cost.amount, currency_id: selected?.total_project_cost.currency.id }
 

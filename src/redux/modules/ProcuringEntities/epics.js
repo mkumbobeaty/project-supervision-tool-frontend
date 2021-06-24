@@ -22,7 +22,7 @@ const getProcuringEntitiesEpic = action$ => {
 
 const deleteProcuringEntityEpic = action$ => {
     return action$.pipe(
-        ofType(types.DELETE_PROURING_ENTITY_START),
+        ofType(types.DELETE_PROCURING_ENTITY_START),
         switchMap(({ payload }) => {
             return from(API.deleteProcuringEntity(payload)).pipe(
                 switchMap(res => {
@@ -36,7 +36,7 @@ const deleteProcuringEntityEpic = action$ => {
 
 const createProcuringEntityPic = action$ => {
     return action$.pipe(
-        ofType(types.CREATE_PROURING_ENTITY_START),
+        ofType(types.CREATE_PROCURING_ENTITY_START),
         switchMap(({ payload }) => {
             return from(API.createProcuringEntity(payload))
         }),
@@ -55,9 +55,10 @@ const createProcuringEntityPic = action$ => {
  */
 const updateProcuringEntityPic = action$ => {
     return action$.pipe(
-        ofType(types.UPDATE_PROURING_ENTITY_START),
+        ofType(types.UPDATE_PROCURING_ENTITY_START),
         switchMap(({ payload }) => {
-            return from(API.updateProcuringEntity(payload.project, payload.id)).pipe(
+            debugger
+            return from(API.updateProcuringEntity(payload.procuringEntity, payload.id)).pipe(
                 switchMap(res => {
                     return of(actions.updateProcuringEntitySuccess(res), actions.getProcuringEntitiesStart())
                 }),
