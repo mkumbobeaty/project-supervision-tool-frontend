@@ -235,3 +235,12 @@ export const searchQuery = (state) => state?.resources?.search.data;
  * @return {Object} 
  */
 export const getLayers = (state) => state?.resources?.geonodeLayers?.data || [];
+
+/**
+ * @function
+ * @name getProjectSubComponents
+ * @param {Object} state redux state
+ * @return {Object} 
+ */
+export const getProjectSubComponents = (state) => state?.resources?.subComponents?.data || [];
+

@@ -7,7 +7,8 @@ const initialData = {
   loading: false,
   error: null,
   page: 1,
-  procuringEntity: {}
+  procuringEntity: {},
+  showForm: false,
 };
 
 
@@ -25,6 +26,18 @@ const procuringEntities = (state = initialData, action) => {
       return { ...state, procuringEntity: action.payload };
     case types.DELETE_PROURING_ENTITY_FAILURE:
       return action.payload;
+    case types.SELECT_PROURING_ENTITY:
+      return { ...state, procuringEntity: action.payload };
+    case types.OPEN_PROURING_ENTITY:
+      return { ...state, showForm: true };
+    case types.CLOSE_PROURING_ENTITY:
+      return { ...state, showForm: false };
+      case types.CREATE_PROURING_ENTITY_START:
+        return { ...state, loading: true };
+      case types.CREATE_PROURING_ENTITY_SUCCESS:
+        return { ...state, procuringEntity: action.payload, loading: false };
+      case types.CREATE_PROURING_ENTITY_FAILURE:
+        return { ...state, error: action.payload, loading: false };
     default:
       return state;
 

@@ -9,7 +9,6 @@ import axios from "./config";
 const getProcuringEntities = () =>
     axios.get(`/procuring_entities`).then((response) => response.data);
 
-
 /**
  * detaches a project from list
  *
@@ -24,7 +23,31 @@ const deleteProcuringEntity = (procuring_entity) => {
         .then((response) => response.data);
 };
 
+/**
+ * @function
+ * @name createProcuringEntity
+ * */
+const createProcuringEntity = (details) =>
+    axios.post(`/procuring_entities`, details).then((response) => response.data);
+
+/**
+ * edit existing procuring entity
+ *
+ * @function
+ * @name updateProject
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const updateProcuringEntity = (project, id) => {
+    return axios
+        .patch(`/procuring_entities/${id}`, project)
+        .then((response) => response.data);
+};
+
 export default {
     getProcuringEntities,
-    deleteProcuringEntity
+    deleteProcuringEntity,
+    createProcuringEntity,
+    updateProcuringEntity
 }

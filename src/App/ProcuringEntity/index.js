@@ -1,16 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 import { ProcuringEntityActions, ProcuringEntitySelectors, } from '../../redux/modules/ProcuringEntities';
 import PropTypes from 'prop-types';
-import { Col, } from "antd";
+import { Col, Drawer } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import Topbar from "../components/Topbar";
 import ProcuringEntitiesList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
-import { isoDateToHumanReadableDate, showArchiveConfirm } from '../../Util';
-import { useHistory } from 'react-router-dom';
+import { showArchiveConfirm } from '../../Util';
+import { projectActions, projectSelectors } from "../../redux/modules/projects";
+import { projectDetailsActions,projectDetailsSelectors } from '../../redux/modules/projectDetails';
 import "./styles.css";
+import ProcuringEntityForm from './componets/Form';
 
 
 /* constants */
@@ -22,17 +24,60 @@ const packageSpan = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 0, xs: 0 };
 const headerLayout = [
     { ...nameSpan, header: "Name" },
     { ...websiteSpan, header: "Website" },
-    { ...subComponentSpan, header: "Project Sub-Component" },
+    { ...subComponentSpan, header: "ProcuringEntity Sub-Component" },
     { ...packageSpan, header: "Package" },
-
 ];
 
-const ProcuringEntities = ({ getProcuringEntities, procuringEntity, loading, deleteProcuringEntity}) => {
+const ProcuringEntities = ({ 
+    getProcuringEntities, 
+    procuringEntity, 
+    loading, 
+    deleteProcuringEntity,
+    openProcuringEntityForm,
+    closeProcuringEntityForm,
+    selectProcuringEntity,
+    selected,
+    showForm,
+    createProcuringEntity,
+    getAgencies,
+    agencies,
+    getProjectSubComponent,
+    projectSubComponents
+}) => {
 
+    const [ isEditForm, setIsEditForm ] = useState(false);
+    const [ visible, setVisible ] =  useState(false)
 
     useEffect(() => {
         getProcuringEntities()
     }, [])
+
+    
+  /**
+   * @function
+   * @name openProcuringEntityForm
+   * @description Open form
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  const handleOpenProcuringEntityForm = () => {
+    openProcuringEntityForm();
+  };
+
+  /**
+   * @function
+   * @name handleCloseProcuringEntityForm
+   * @description close form
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+  const handleCloseProcuringEntityForm = () => {
+    setIsEditForm(false);
+    setVisible(false);
+    selectProcuringEntity(null);
+    closeProcuringEntityForm();
+  };
 
     /**   
    * @function
@@ -45,6 +90,20 @@ const ProcuringEntities = ({ getProcuringEntities, procuringEntity, loading, del
     const handleRefresh = () => {
         getProcuringEntities();
     };
+
+ /**
+     * @function
+     * @name handleAfterCloseForm
+     * @description Perform post close form cleanups
+     *
+     * @version 0.1.0
+     * @since 0.1.0
+     */
+    const handleAfterCloseForm = () => {
+        selectProcuringEntity(null);
+        setIsEditForm(false);
+      };
+    
 
 
     return (
@@ -62,7 +121,7 @@ const ProcuringEntities = ({ getProcuringEntities, procuringEntity, loading, del
                         icon: <PlusOutlined />,
                         size: "large",
                         title: "Add New Procuring Entity",
-                        onClick: '',
+                        onClick: handleOpenProcuringEntityForm,
                     },
                 ]}
             />
@@ -135,6 +194,32 @@ const ProcuringEntities = ({ getProcuringEntities, procuringEntity, loading, del
             />
             {/* end list */}
 
+            <Drawer
+            title={
+              isEditForm ? "Edit Procuring Entity" : "Add New Procuring Entity"
+            } width={550}
+            onClose={handleCloseProcuringEntityForm}
+            footer={null}
+            visible={showForm}
+            bodyStyle={{ paddingBottom: 80 }}
+            destroyOnClose
+            maskClosable={false}
+            // afterClose={handleAfterCloseForm}
+            className="projectForm"
+          >
+            <ProcuringEntityForm 
+                isEditForm={isEditForm}
+                selected={selected}
+                handleAfterSubmit={handleCloseProcuringEntityForm}
+                createProcuringEntity={createProcuringEntity}
+                getAgencies={getAgencies}
+                loading={loading}
+                agencies={agencies}
+                getProjectSubComponent={getProjectSubComponent}
+                projectSubComponents={projectSubComponents}
+            />              
+
+          </Drawer>
 
         </div>
 
@@ -146,23 +231,40 @@ const mapStateToProps = (state) => {
     return {
         procuringEntity: ProcuringEntitySelectors.getProcuringEntities(state),
         loading: ProcuringEntitySelectors.loading(state),
+        selected: ProcuringEntitySelectors.selectedProcuringEntity(state),
+        showForm: ProcuringEntitySelectors.getShowFormSelector(state),
+        agencies: projectDetailsSelectors.getAgenciesSelector(state),
+        projectSubComponents: projectSelectors.getProjectSubComponents(state)
     }
 }
 
 const mapDispatchToProps = {
     getProcuringEntities: ProcuringEntityActions.getProcuringEntitiesStart,
-    deleteProcuringEntity: ProcuringEntityActions.deleteProcuringEntityStart
+    deleteProcuringEntity: ProcuringEntityActions.deleteProcuringEntityStart,
+    getAgencies: projectDetailsActions.getAgenciesStart,
+    openProcuringEntityForm:ProcuringEntityActions.openProcuringEntityForm,
+    closeProcuringEntityForm:ProcuringEntityActions.closeProcuringEntityForm,
+    selectProcuringEntity:ProcuringEntityActions.selectProcuringEntity,
+    getProjectSubComponent: projectActions.getProjectSubComponentStart,
+    createProcuringEntity: ProcuringEntityActions.createProcuringEntityStart,
 }
 
 ProcuringEntities.propTypes = {
     getProcuringEntities: PropTypes.func.isRequired,
     procuringEntity: PropTypes.array.isRequired,
-    loading: PropTypes.bool.isRequired
+    loading: PropTypes.bool.isRequired,
+    openProcuringEntityForm:PropTypes.func.isRequired,
+    closeProcuringEntityForm:PropTypes.func.isRequired,
+    selectProcuringEntity:PropTypes.func.isRequired,
+    showForm: PropTypes.bool,
+    isEditForm: PropTypes.bool
 };
 
 ProcuringEntities.defaultProps = {
     procuringEntity: null,
-    loading: null
+    loading: null,
+    isEditForm: null,
+    showForm:null
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProcuringEntities);

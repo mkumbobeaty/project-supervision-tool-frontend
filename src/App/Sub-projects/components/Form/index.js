@@ -56,7 +56,6 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
 
   const handleOnProjectChange = (value) => {
     const project = projects.filter(({id}) => id === value)[0];
-    debugger
       API.getWfsLayerData(project.shapefiles[0] )
           .then(res => setFeatures(res.features))
     setProjectComponents(project.components)

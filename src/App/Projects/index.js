@@ -66,6 +66,7 @@ class Projects extends Component {
     fetchProjects();
     focalPeople();
   }
+  
   /**
    * @function
    * @name handleEdit
@@ -82,34 +83,6 @@ class Projects extends Component {
     this.setState({ isEditForm: true });
     openProjectForm();
   };
-
-  /**
-   * @function
-   * @name handleOnCachedValues
-   * @description Cached selected values for filters
-   *
-   * @param {object} cached values to be cached from filter
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  handleOnCachedValues = (cached) => {
-    const { cached: previousCached } = this.state;
-    const values = { ...previousCached, ...cached };
-    this.setState({ cached: values });
-  };
-
-  /**
-   * @function
-   * @name handleClearCachedValues
-   * @description Clear cached values
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  handleClearCachedValues = () => {
-    this.setState({ cached: null });
-  };
-
 
   /**
    * @function

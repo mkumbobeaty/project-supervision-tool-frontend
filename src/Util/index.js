@@ -408,7 +408,6 @@ function padZero(str, len) {
    * @since 0.1.0
    */
  export const showArchiveConfirm = (item,deleteContent) => {
-     debugger
     confirm({
       title: `Are you sure you want to archive this record ?`,
       okText: "Yes",

@@ -130,7 +130,6 @@ function ProjectForm({
             updateProject(payload, selected.id);
         }
         else {
-            debugger
             createProject(payload);
         }
         handleConfirmButton();
