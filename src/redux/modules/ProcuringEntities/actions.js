@@ -126,3 +126,27 @@ export const updateProcuringEntitySuccess = makeActionCreator(types.UPDATE_PROCU
 * @return {Object} action
 * */
 export const updateProcuringEntityFailure = makeActionCreator(types.UPDATE_PROCURING_ENTITY_FAILURE, 'payload');
+
+
+/**
+ * @const
+ * @name getActorsStart
+ * @return {Object} action
+ * */
+export const getActorsStart = makeActionCreator(types.GET_ACTORS_START, 'payload');
+
+/**
+ * @const
+ * @name getActorsSuccess
+ * @param {Object} payload actor
+ * @return {Object} action
+ * */
+export const getActorsSuccess = makeActionCreator(types.GET_ACTORS_SUCCESS, 'payload');
+
+/**
+ * @const
+ * @name getActorsFailure
+ * @param {Object} payload actor failure response
+ * @return {Object} action
+ * */
+export const getActorsFailure = makeActionCreator(types.GET_ACTORS_FAILURE, 'payload');

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {
     Form, Button, Select
 } from 'antd';
+import agencies from '../../../../API/agencies';
 /* ui */
 const labelCol = {
     xs: { span: 24 },
@@ -35,15 +36,18 @@ function ProcuringEntityForm({
     isEditForm,
     selected,
     loading,
-    getAgencies,
+    getAgenciesActors,
     projectSubComponents,
     agencies,
-    updateProcuringEntity
+    updateProcuringEntity,
+    projects,
+    getProjects
 }) {
     ;
 
     useEffect(() => {
-        getAgencies();
+        getProjects();
+        getAgenciesActors();
         getProjectSubComponent();
     }, [])
 
@@ -54,7 +58,6 @@ function ProcuringEntityForm({
         };
 
         if (isEditForm) {
-            debugger
             updateProcuringEntity(payload, selected.id);
         }
         else {
@@ -74,13 +77,33 @@ function ProcuringEntityForm({
                     autoComplete="off"
                     className="ProcuringEntityForm"
                 >
-                    {/* start:Implementing Agency */}
+                      {/* start: Project */}
+                      <Form.Item
+                        label="Project"
+                        name="project_id"
+                        title="Project e.g Dmdp"
+                        initialValue={
+                            selected?.project?.id ? selected?.project?.id : '' 
+                        }
+                    >
+                        <Select
+                            showSearch
+                            optionFilterProp="children"
+                        >
+                            {projects.map((project) => (
+                                <Select.Option value={project.id}>{project.name}</Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    {/* end of Project */}
+
+                    {/* start: Actor */}
                     <Form.Item
                         label="Agency"
                         name="agency_id"
                         title="agency e.g ilala"
                         initialValue={
-                            selected?.agency?.id
+                            selected?.agency?.id ? selected?.agency?.id : '' 
                         }
                     >
                         <Select
@@ -88,12 +111,13 @@ function ProcuringEntityForm({
                             optionFilterProp="children"
 
                         >
-                            {agencies.map((agency) => (
+                            {
+                            agencies?.map((agency) => (
                                 <Select.Option value={agency.id}>{agency.name}</Select.Option>
                             ))}
                         </Select>
                     </Form.Item>
-                    {/* end:Implementing Agency */}
+                    {/* end: Agency */}
 
                     {/* start:Description */}
                     <Form.Item
@@ -140,20 +164,23 @@ function ProcuringEntityForm({
 
 ProcuringEntityForm.propTypes = {
     createProcuringEntity: PropTypes.func.isRequired,
-    getAgencies: PropTypes.func.isRequired,
+    getAgenciesActors: PropTypes.func.isRequired,
     getProjectSubComponent: PropTypes.func.isRequired,
     updateProcuringEntity:PropTypes.func.isRequired,
+    handleAfterSubmit: PropTypes.func.isRequired,
+    getProjects: PropTypes.func.isRequired,
     loading: PropTypes.bool,
     isEditForm: PropTypes.bool.isRequired,
-    handleAfterSubmit: PropTypes.func.isRequired,
-    selected: PropTypes.object.isRequired,
+    selected: PropTypes.object,
     projectSubComponents: PropTypes.array.isRequired,
+    projects: PropTypes.array.isRequired,
     agencies: PropTypes.array.isRequired,
 }
 
 ProcuringEntityForm.defaultProps = {
     selected: {},
     projectSubComponents: [],
+    projects:[],
     agencies: []
 }
 

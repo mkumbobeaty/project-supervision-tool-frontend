@@ -27,3 +27,12 @@ export const selectedProcuringEntity = (state) => state?.procuringEntityResource
  * @param {Object} state redux state
  */
 export const getShowFormSelector = (state) => state?.procuringEntityResource?.procuringEntities?.showForm;
+
+/**
+ * @function
+ * @name getActors
+ * @param {Object} state redux state
+ * @return {Object} 
+ */
+export const getActorsSelector = (state) => state?.procuringEntityResource?.actors?.data?.data || [];
+

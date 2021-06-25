@@ -44,7 +44,20 @@ const procuringEntities = (state = initialData, action) => {
   }
 }
 
+const actors = (state = { data: [], error: null, loading: false }, action) => {
+  switch (action.type) {
+      case types.GET_ACTORS_START:
+          return { ...state, loading: true }
+      case types.GET_ACTORS_SUCCESS:
+          return { ...state, data: action.payload, loading: false, }
+      case types.GET_ACTORS_FAILURE:
+          return { ...state, error: action.message, loading: false };
+      default:
+          return state;
+  }
+};
 
 export const procuringEntityResource = combineReducers({
-  procuringEntities
+  procuringEntities,
+  actors
 })

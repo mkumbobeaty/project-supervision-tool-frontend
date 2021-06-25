@@ -10,7 +10,6 @@ import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { showArchiveConfirm } from '../../Util';
 import { projectActions, projectSelectors } from "../../redux/modules/projects";
-import { projectDetailsActions,projectDetailsSelectors } from '../../redux/modules/projectDetails';
 import "./styles.css";
 import ProcuringEntityForm from './componets/Form';
 
@@ -39,11 +38,13 @@ const ProcuringEntities = ({
     selected,
     showForm,
     createProcuringEntity,
-    getAgencies,
+    getAgenciesActors,
     agencies,
     getProjectSubComponent,
     projectSubComponents,
-    updateProcuringEntity
+    updateProcuringEntity,
+    projects,
+    getProjects,
 }) => {
 
     const [ isEditForm, setIsEditForm ] = useState(false);
@@ -215,12 +216,14 @@ const  handleEdit = (item) => {
                 selected={selected}
                 handleAfterSubmit={handleCloseProcuringEntityForm}
                 createProcuringEntity={createProcuringEntity}
-                getAgencies={getAgencies}
+                getAgenciesActors={getAgenciesActors}
                 loading={loading}
                 agencies={agencies}
                 getProjectSubComponent={getProjectSubComponent}
                 projectSubComponents={projectSubComponents}
                 updateProcuringEntity ={updateProcuringEntity}
+                projects={projects}
+                getProjects={getProjects}
             />              
 
           </Drawer>
@@ -237,21 +240,23 @@ const mapStateToProps = (state) => {
         loading: ProcuringEntitySelectors.loading(state),
         selected: ProcuringEntitySelectors.selectedProcuringEntity(state),
         showForm: ProcuringEntitySelectors.getShowFormSelector(state),
-        agencies: projectDetailsSelectors.getAgenciesSelector(state),
-        projectSubComponents: projectSelectors.getProjectSubComponents(state)
+        agencies: ProcuringEntitySelectors.getActorsSelector(state),
+        projectSubComponents: projectSelectors.getProjectSubComponents(state),
+        projects: projectSelectors.getProjectsSelector(state),
     }
 }
 
 const mapDispatchToProps = {
     getProcuringEntities: ProcuringEntityActions.getProcuringEntitiesStart,
     deleteProcuringEntity: ProcuringEntityActions.deleteProcuringEntityStart,
-    getAgencies: projectDetailsActions.getAgenciesStart,
+    getAgenciesActors: ProcuringEntityActions.getActorsStart,
     openProcuringEntityForm:ProcuringEntityActions.openProcuringEntityForm,
     closeProcuringEntityForm:ProcuringEntityActions.closeProcuringEntityForm,
     selectProcuringEntity:ProcuringEntityActions.selectProcuringEntity,
     getProjectSubComponent: projectActions.getProjectSubComponentStart,
     createProcuringEntity: ProcuringEntityActions.createProcuringEntityStart,
     updateProcuringEntity: ProcuringEntityActions.updateProcuringEntityStart,
+    getProjects: projectActions.getProjectsStart,
 }
 
 ProcuringEntities.propTypes = {

@@ -68,9 +68,27 @@ const updateProcuringEntityPic = action$ => {
     )
 }
 
+
+const getActorEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_ACTORS_START),
+        switchMap(() => {
+            return from(API.getActors()).pipe(
+                switchMap(res => {
+                    return of(actions.getActorsSuccess(res.data))
+                }),
+                catchError(error => of(actions.getActorsFailure(error)))
+            )
+        }
+        ),
+    )
+}
+
+
 export const procuringEntitiesEpic = combineEpics(
     getProcuringEntitiesEpic,
     deleteProcuringEntityEpic,
     createProcuringEntityPic,
-    updateProcuringEntityPic
+    updateProcuringEntityPic,
+    getActorEpic
 );
