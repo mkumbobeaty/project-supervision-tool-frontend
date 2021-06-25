@@ -72,3 +72,17 @@ export const createProjectTicketSuccess = makeActionCreator(types.CREATE_PROJECT
  * @return {Object} action
  * */
 export const createProjectTicketFailure = makeActionCreator(types.CREATE_PROJECT_TICKET_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name openTicketForm
+ * @return {Object} action
+ * */
+export const openTicketForm = makeActionCreator(types.OPEN_TICKET_FORM);
+
+/**
+ * @function
+ * @name closeTicketForm
+ * @return {Object} action
+ * */
+export const closeTicketForm = makeActionCreator(types.CLOSE_TICKET_FORM);

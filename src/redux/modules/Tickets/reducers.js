@@ -7,7 +7,8 @@ const initialData = {
   loading: false,
   error: null,
   page: 1,
-  ticket: {}
+  ticket: {},
+  showForm: false,
 };
 
 
@@ -16,27 +17,31 @@ const tickets = (state = initialData, action) => {
     case types.GET_TICKETS_START:
       return { ...state, loading: true }
     case types.GET_TICKETS_SUCCESS:
-      return {  data: action.payload, loading: false, }
+      return { data: action.payload, loading: false, }
     case types.GET_TICKETS_FAILURE:
       return { ...state, loading: false, error: action.payload }
     case types.CREATE_PROJECT_TICKET_START:
-      return { ...state, loading:true}
+      return { ...state, loading: true }
     case types.CREATE_PROJECT_TICKET_SUCCESS:
-      return { ...state, loading:false, ticket:action.payload }
+      return { ...state, loading: false, ticket: action.payload }
     case types.CREATE_PROJECT_TICKET_FAILURE:
-      return { ...state, loading:false, error:action.payload }
+      return { ...state, loading: false, error: action.payload }
+    case types.OPEN_TICKET_FORM:
+      return { ...state, showForm: true };
+    case types.CLOSE_TICKET_FORM:
+      return { ...state, showForm: false };
     default:
       return state;
 
   }
 }
 
-const ticket = (state = {data: {}, loading: false, error: null}, action) => {
+const ticket = (state = { data: {}, loading: false, error: null }, action) => {
   switch (action.type) {
     case types.GET_TICKET_START:
       return { ...state, loading: true }
     case types.GET_TICKET_SUCCESS:
-      return {  data: action.payload, loading: false, }
+      return { data: action.payload, loading: false, }
     case types.GET_TICKET_FAILURE:
       return { ...state, loading: false, error: action.payload }
     default:

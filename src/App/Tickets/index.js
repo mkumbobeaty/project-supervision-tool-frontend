@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from "react-redux";
-import { TicketActions, TicketSelectors } from '../../redux/modules/Tickets';
+import { ticketActions, ticketSelectors } from '../../redux/modules/Tickets';
 import PropTypes from 'prop-types';
 import { Col, } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
@@ -174,14 +174,14 @@ const Tickets = ({ getTickets, tickets, loading, getTicket }) => {
 
 const mapStateToProps = (state) => {
     return {
-        tickets: TicketSelectors.getTickets(state),
-        loading: TicketSelectors.loading(state),
+        tickets: ticketSelectors.getTickets(state),
+        loading: ticketSelectors.loading(state),
     }
 }
 
 const mapDispatchToProps = {
-    getTickets: TicketActions.getTicketsStart,
-    getTicket: TicketActions.getTicketStart,
+    getTickets: ticketActions.getTicketsStart,
+    getTicket: ticketActions.getTicketStart,
 }
 
 Tickets.propTypes = {

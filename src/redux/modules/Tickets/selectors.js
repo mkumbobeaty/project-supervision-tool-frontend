@@ -20,3 +20,10 @@ export const loading = (state) => state?.ticketsResource?.tickets?.loading;
  */
 
 export const getTicket = (state) => state?.ticketsResource?.ticket?.data;
+
+/**
+ * @function
+ * @name getProjectShowFormSelector
+ * @param {Object} state redux state
+ */
+export const getTicketShowFormSelector = (state) => state?.ticketsResource?.tickets?.showForm;
