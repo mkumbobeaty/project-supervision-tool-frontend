@@ -53,8 +53,30 @@ const createProjectTicketPic = action$ => {
     )
 }
 
+
+/**
+ *
+ * @function
+ * @name getTicketByProjectEpic
+ * @param action$ stream of actions
+ */
+const getTicketByProjectEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_TICKET_BY_PROJECT_START),
+        switchMap(({payload}) => {
+            return from(API.getTicketsByProject(payload)).pipe(
+                switchMap(res => from([
+                    actions.getTicketByProjectSuccess(res.data),
+                ])),
+                catchError(error => of(actions.getTicketByProjectFailure(error)))
+            );
+        }),
+    );
+}
+
 export const  ticketsEpic= combineEpics(
     getTicketsEpic,
     getTicketEpic,
-    createProjectTicketPic
+    createProjectTicketPic,
+    getTicketByProjectEpic,
 )

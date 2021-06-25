@@ -2,21 +2,23 @@ import React, { useEffect } from "react";
 import { Layout, Spin, Tabs } from 'antd';
 import OverviewDetails from "./components/OverviewDetails";
 import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from "../../../../redux/modules/projects";
+import { projectActions, projectSelectors } from "../../../../redux/modules/projects";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
 import SubProjectDashboard from "./components/SubProjectsDashboard";
-
 import "./styles.css";
 import { mapSubProjectSelectors } from "../../../../redux/modules/map/subProjects";
+import { ticketActions } from "../../../../redux/modules/Tickets";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
 
-const Project = ({ project, loading, getProject,subProjects, match: { params } }) => {
+const Project = ({ project, loading, getProject,subProjects,getTicketByProject, match: { params } }) => {
 
   useEffect(() => {
-    getProject(params.id)
+    getProject(params.id);
+    getTicketByProject(params.id);
+
   }, [])
 
   const getCommitmentAmount = (data) => {
@@ -83,7 +85,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getProject: projectOperation.getProjectStart,
+  getProject: projectActions.getProjectStart,
+  getTicketByProject: ticketActions.getTicketByProjectStart
 
 };
 

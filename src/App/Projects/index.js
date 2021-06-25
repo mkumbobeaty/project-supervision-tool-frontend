@@ -266,11 +266,12 @@ class Projects extends Component {
   * @since 0.1.0
   */
   handleViewDetails = (item_id) => {
-    const { getProject, getSubProjectsByProjectId } = this.props;
+    const { getProject, getSubProjectsByProjectId, getTicketByProject } = this.props;
     getSubProjectsByProjectId(item_id)
     getProject(item_id);
     let path = `/app/projects/${item_id}`;
     this.props.history.push(path);
+
   };
 
   /**

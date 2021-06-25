@@ -27,3 +27,11 @@ export const getTicket = (state) => state?.ticketsResource?.ticket?.data;
  * @param {Object} state redux state
  */
 export const getTicketShowFormSelector = (state) => state?.ticketsResource?.tickets?.showForm;
+
+/**
+ * @function
+ * @name getTicketByProject
+ * @param {Object} state redux state
+ */
+
+export const getTicketByProject = (state) => state?.ticketsResource?.ticket?.ticket;

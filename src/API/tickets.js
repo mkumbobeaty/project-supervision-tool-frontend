@@ -24,7 +24,18 @@ const getTicket = (id) => {
     return axios.get(`/tickets/${id}`).then((response) => response.data);
 }
 
+/**
+ * @function
+ * @name getTicketsByProject
+ * @param {string} id
+ * @description get projects statistics based on region
+ * */
+const getTicketsByProject= (id) =>
+    axios.get(`/projects/${id}/tickets`).then((response) => response.data);
+
+
 export default {
     getTickets,
-    getTicket
+    getTicket,
+    getTicketsByProject
 }

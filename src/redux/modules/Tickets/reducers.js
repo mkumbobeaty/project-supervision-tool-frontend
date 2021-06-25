@@ -30,6 +30,12 @@ const tickets = (state = initialData, action) => {
       return { ...state, showForm: true };
     case types.CLOSE_TICKET_FORM:
       return { ...state, showForm: false };
+    case types.GET_TICKET_BY_PROJECT_START:
+      return { ...state }
+    case types.GET_TICKET_BY_PROJECT_SUCCESS:
+      return { ...state, ticket: action.payload }
+    case types.GET_TICKET_BY_PROJECT_SUCCESS:
+      return { ...state, error: action.payload }
     default:
       return state;
 

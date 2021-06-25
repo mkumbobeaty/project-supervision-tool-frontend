@@ -86,3 +86,26 @@ export const openTicketForm = makeActionCreator(types.OPEN_TICKET_FORM);
  * @return {Object} action
  * */
 export const closeTicketForm = makeActionCreator(types.CLOSE_TICKET_FORM);
+
+/**
+ * @function
+ * @name getTicketByProjectStart
+ * @return {Object} action
+ * */
+export const getTicketByProjectStart = makeActionCreator(types.GET_TICKET_BY_PROJECT_START, 'payload');
+
+/**
+ * @function
+ * @name getTicketByProjectSuccess
+ * @param {Object} payload tickets
+ * @return {Object} action
+ * */
+export const getTicketByProjectSuccess = makeActionCreator(types.GET_TICKET_BY_PROJECT_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getTicketByProjectFailure
+ * @param {Object} payload ticketst failure response
+ * @return {Object} action
+ * */
+export const getTicketByProjectFailure = makeActionCreator(types.GET_TICKET_BY_PROJECT_FAILURE, 'payload');
