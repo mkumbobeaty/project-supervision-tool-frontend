@@ -7,6 +7,7 @@ const initialData = {
   loading: false,
   error: null,
   page: 1,
+  ticket: {}
 };
 
 
@@ -18,6 +19,12 @@ const tickets = (state = initialData, action) => {
       return {  data: action.payload, loading: false, }
     case types.GET_TICKETS_FAILURE:
       return { ...state, loading: false, error: action.payload }
+    case types.CREATE_PROJECT_TICKET_START:
+      return { ...state, loading:true}
+    case types.CREATE_PROJECT_TICKET_SUCCESS:
+      return { ...state, loading:false, ticket:action.payload }
+    case types.CREATE_PROJECT_TICKET_FAILURE:
+      return { ...state, loading:false, error:action.payload }
     default:
       return state;
 

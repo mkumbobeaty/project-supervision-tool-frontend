@@ -41,7 +41,6 @@ export const getSubProjectEpic = action$ => {
     )
 };
 
-
 /**
  * @function
  * @name createProjectPic
@@ -60,7 +59,6 @@ const createProjectPic = action$ => {
         catchError(error => of(actions.createProjectFailure(error)))
     )
 }
-
 
 /**
  * @function

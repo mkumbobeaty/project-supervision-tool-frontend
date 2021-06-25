@@ -48,3 +48,27 @@ export const getTicketSuccess = makeActionCreator(types.GET_TICKET_SUCCESS, 'pay
  * @return {Object} action
  * */
 export const getTicketFailure = makeActionCreator(types.GET_TICKET_FAILURE, 'payload');
+
+
+/**
+ * @function
+ * @name createProjectTicketStart
+ * @return {Object} action
+ * */
+export const createProjectTicketStart = makeActionCreator(types.CREATE_PROJECT_TICKET_START, 'payload');
+
+/**
+ * @function
+ * @name createProjectTicketSuccess
+ * @param {Object} payload tickets
+ * @return {Object} action
+ * */
+export const createProjectTicketSuccess = makeActionCreator(types.CREATE_PROJECT_TICKET_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name createProjectTicketFailure
+ * @param {Object} payload ticketst failure response
+ * @return {Object} action
+ * */
+export const createProjectTicketFailure = makeActionCreator(types.CREATE_PROJECT_TICKET_FAILURE, 'payload');

@@ -4,6 +4,7 @@ import API from '../../../API';
 import { ofType, combineEpics } from 'redux-observable';
 import { of, from } from 'rxjs';
 import { switchMap, catchError, } from "rxjs/operators";
+import * as projectActions from '../projects/actions';
 
 const getTicketsEpic = action$ => {
     return action$.pipe(
@@ -32,7 +33,28 @@ const getTicketEpic = action$ => {
     );
 }
 
+
+/**
+ * @function
+ * @name createProjectTicketPic
+ * @param action$
+ * @return action$
+ */
+const createProjectTicketPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_PROJECT_TICKET_START),
+        switchMap(({payload}) => {
+            return from(API.openProjectTicket(payload))
+        }),
+        switchMap(res => {
+            return of(actions.createProjectTicketSuccess(res), projectActions.getProjectsStart())
+        }),
+        catchError(error => of(actions.createProjectTicketFailure(error)))
+    )
+}
+
 export const  ticketsEpic= combineEpics(
     getTicketsEpic,
     getTicketEpic,
+    createProjectTicketPic
 )
