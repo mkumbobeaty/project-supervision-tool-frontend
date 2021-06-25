@@ -19,6 +19,7 @@ import Roles from "../Roles";
 import "./styles.css";
 import Tickets from "../Tickets";
 import TicketDetails from "../Tickets/components/Details";
+import ProcuringEntity from "../ProcuringEntity";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -72,6 +73,16 @@ const breadcrumbNameMap = {
     name: "Issue Tracking",
     title: "Issue tracking Module",
   },
+
+     /* Procuring entity routes */
+     "/app/procuring-entity": {
+      name: "Procuring Entity",
+      title: "Procuring Entity Module",
+    },
+    "/app/procuring-entity:types": {
+      name: "Single Procuring Entity",
+      title: "Single Procuring Entity Module",
+    },
 };
 
 /**
@@ -166,6 +177,16 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           <PrivateRoute
             exact
             path={`${baseUrl}/tickets/:id`}
+            component={TicketDetails}
+          />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/procuring-entity`}
+            component={ProcuringEntity}
+          />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/procuring-entity/:id`}
             component={TicketDetails}
           />
           <PrivateRoute

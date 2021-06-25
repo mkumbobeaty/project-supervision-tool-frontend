@@ -1,4 +1,7 @@
 import moment from "moment";
+import { Modal } from "antd";
+
+const { confirm } = Modal;
 
 /**
  * converts ISO date string to human readable
@@ -394,3 +397,24 @@ function padZero(str, len) {
     var zeros = new Array(len).join('0');
     return (zeros + str).slice(-len);
 }
+
+/**
+   * @function
+   * @name showArchiveConfirm
+   * @description show confirm modal before archiving a Event Initiative
+   * @param {object} item Resource item to be archived
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+ export const showArchiveConfirm = (item,deleteContent) => {
+    confirm({
+      title: `Are you sure you want to archive this record ?`,
+      okText: "Yes",
+      okType: "danger",
+      cancelText: "No",
+      onOk() {
+        deleteContent(item.id);
+      },
+    });
+  };

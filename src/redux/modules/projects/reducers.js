@@ -398,6 +398,19 @@ const geonodeLayers = (state = { data: [], error: null, loading: false }, action
     }
 };
 
+const subComponents = (state = { data: [], error: null, loading: false }, action) => {
+    switch (action.type) {
+        case types.GET_PROJECT_SUB_COMPONENTS_START:
+            return { ...state, loading: true }
+        case types.GET_PROJECT_SUB_COMPONENTS_SUCCESS:
+            return { ...state, data: action.payload, loading: false, }
+        case types.GET_SUB_PROJECT_ELEMENT_FAILURE:
+            return { ...state, error: action.message, loading: false };
+        default:
+            return state;
+    }
+};
+
 export const resources = combineReducers({
     selectedProject,
     Projects,
@@ -417,5 +430,6 @@ export const resources = combineReducers({
     projectsFilter,
     search,
     geonodeLayers,
-    projectComponent
+    projectComponent,
+    subComponents
 })
