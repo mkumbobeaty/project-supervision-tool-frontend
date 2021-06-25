@@ -4,7 +4,7 @@
 
 .project-layout h3, .sub-project-layout h3 {
     padding: 15px;
-    padding-left: 250px;
+    padding-left: 230px;
     font-weight: 500;
     border-bottom: 1px solid #8f8c8c42;
     margin-bottom: 0;
@@ -15,8 +15,12 @@
 }
 
 .keyDetails {
-    background-color: rgb(246, 246, 246) !important;
     padding: 20px 20px 20px 40px;
+}
+
+.grey-bgr{
+    background-color: rgb(246, 246, 246);
+
 }
 
 .keyDetails h4, .details h4 {
