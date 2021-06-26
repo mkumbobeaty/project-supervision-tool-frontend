@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-    Form, Input, Button, 
+    Form, Input, Button, Select, Col,
 } from 'antd';
 import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
 /* ui */
@@ -30,24 +30,24 @@ const wrapperCol = {
  * @name ProjectComponentForm
  * @description renders form for creating project
  */
-function ProjectSubComponentForm({
-    selected,
-    createProjectComponent,
-    loading
-}) {
+function ProjectComponentForm({
+                                  selected,
+                                  createProjectSubComponent,
+                                  loading
+                              }) {
 
     const onFinish = (values) => {
         const payload = {
             ...values,
             project_id: selected?.id
-         };
-        createProjectComponent(payload);
+        };
+        console.log('inside on finish');
+        createProjectSubComponent(payload);
 
     };
- 
+
     return (
         <>
-            <Form.Provider   onFormFinish={(name, { values, forms }) => { }}>
                 <Form
                     labelCol={labelCol}
                     wrapperCol={wrapperCol}
@@ -57,15 +57,36 @@ function ProjectSubComponentForm({
                     className="ProjectComponentForm"
                     marginBottom='0px'
                 >
-                    {/* start:project sub component name */}
+
+                    {/* start:component  */}
                     <Form.Item
-                        label="Name"
-                        name="name"
-                        title="Project name e.g priorty road"
+                        label="Component"
+                        name="project_component_id"
+                        title="Component i.e Institutional Strengthening"
                         rules={[
                             {
                                 required: true,
-                                message: "Project name is required",
+                                message: "Please select component",
+                            },
+                        ]}
+                    >
+                        <Select showSearch optionFilterProp="children">
+                            {selected.components.map((component) => (
+                                <Select.Option value={component.id}>{component.name}</Select.Option>
+                            ))}
+                        </Select>
+                    </Form.Item>
+                    {/* end:Component */}
+
+                    {/* start:project name */}
+                    <Form.Item
+                        label="SubComponent Name"
+                        name="name"
+                        title="Project component name e.g priorty road"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Project component name is required",
                             },
                         ]}
                     >
@@ -75,13 +96,13 @@ function ProjectSubComponentForm({
 
                     {/* start:Description */}
                     <Form.Item
-                        label="Description"
+                        label="SubComponent Description"
                         name="description"
-                        title="Project sub component Description e.g water recyle project"
+                        title="Project component Description e.g water recyle project"
                         rules={[
                             {
                                 required: true,
-                                message: "Project sub component description is required",
+                                message: "Project description is required",
                             },
                         ]}
                     >
@@ -98,35 +119,33 @@ function ProjectSubComponentForm({
                             loading={loading}
                         >
                             Submit
-                    </Button>
+                        </Button>
                     </Form.Item>
                     {/* end:form actions */}
                 </Form>
-
-            </Form.Provider>
         </>
     );
 }
 
 
 const mapStateToProps = state => ({
-    loading: projectSelectors.getProjectComponentLoading(state)
+    loading: projectSelectors.getProjectSubComponentLoading(state)
 });
 
 
 const mapDispatchToProps = {
-    createProjectComponent: projectActions.createProjectComponentStart,
+    createProjectSubComponent: projectActions.createProjectSubComponentStart,
 
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectSubComponentForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectComponentForm);
 
-ProjectSubComponentForm.propTypes = {
-    createProject: PropTypes.func.isRequired,  
+ProjectComponentForm.propTypes = {
+    createProject: PropTypes.func.isRequired,
     selected:  PropTypes.object.isRequired,
 }
 
-ProjectSubComponentForm.defaultProps = {
+ProjectComponentForm.defaultProps = {
     selected: {},
 }
 

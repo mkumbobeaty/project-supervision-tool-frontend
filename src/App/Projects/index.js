@@ -19,6 +19,7 @@ import { mapProjectActions } from "../../redux/modules/map/projects";
 import { mapSubProjectActions } from "../../redux/modules/map/subProjects";
 import { showArchiveConfirm } from "../../Util";
 import ProjectComponentForm from "./components/Forms/components/projectComponentForm";
+import ProjectSubComponentForm from "./components/Forms/components/projectSubComponentForm";
 import "./styles.css";
 import { ticketActions, ticketSelectors } from "../../redux/modules/Tickets";
 import TicketForm from '../Tickets/components/Form';
@@ -115,6 +116,20 @@ class Projects extends Component {
 
   /**
  * @function
+ * @name openProjectSubComponentForm
+ * @description Open form
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+  openProjectSubComponentForm = (project) => {
+    const { openProjectSubComponentForm, selectProject } = this.props;
+    selectProject(project);
+    openProjectSubComponentForm();
+  };
+
+  /**
+ * @function
  * @name openProjectComponentForm
  * @description Open form
  *
@@ -139,6 +154,20 @@ class Projects extends Component {
     this.setState({ isEditForm: false, visible: false });
     const { closeProjectComponentForm } = this.props;
     closeProjectComponentForm();
+  };
+
+  /**
+ * @function
+ * @name closeProjectSubComponentForm
+ * @description close form
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+  closeProjectSubComponentForm = () => {
+    this.setState({ isEditForm: false, visible: false });
+    const { closeProjectSubComponentForm } = this.props;
+    closeProjectSubComponentForm();
   };
 
   /**
@@ -270,7 +299,8 @@ class Projects extends Component {
       project,
       showTicketForm,
       deleteProject,
-      showComponentForm
+      showComponentForm,
+      showSubComponentForm,
     } = this.props;
 
     const { isEditForm, previewOnMap } = this.state;
@@ -341,11 +371,17 @@ class Projects extends Component {
                           "Remove project from list of active Projects",
                         onClick: () => showArchiveConfirm(item, deleteProject),
                       }}
-                      components={{
-                        name: "Add Components",
+                      component={{
+                        name: "Add Component",
                         title:
-                          "Add components to the project",
+                          "Add component to the project",
                         onClick: () => this.openProjectComponentForm(item),
+                      }}
+                      subComponent={{
+                        name: "Add sub Component",
+                        title:
+                          "Add sub component to the project",
+                        onClick: () => this.openProjectSubComponentForm(item),
                       }}
                       openIssues={{
                         name: "Create New Ticket",
@@ -445,6 +481,24 @@ class Projects extends Component {
 
           <Drawer
             title={
+              isEditForm ? "Edit Project SubComponent" : "Add New Project SubComponent"
+            } width={550}
+            onClose={this.closeProjectSubComponentForm}
+            footer={null}
+            visible={showSubComponentForm}
+            bodyStyle={{ paddingBottom: 80 }}
+            destroyOnClose
+            maskClosable={false}
+            afterClose={this.handleAfterCloseForm}
+            className="projectForm"
+          >
+            <ProjectSubComponentForm
+              selected={selected}
+            />
+          </Drawer>
+
+          <Drawer
+            title={
               isEditForm ? "Edit Ticket" : "Add New Ticket"
             } width={550}
             onClose={this.closeIssueForm}
@@ -492,6 +546,7 @@ const mapStateToProps = (state) => {
     project: projectSelectors.getProjectSelector(state),
     searchQuery: projectSelectors.searchQuery(state),
     showComponentForm: projectSelectors.getProjectComponentShowFormSelector(state),
+    showSubComponentForm: projectSelectors.getProjectSubComponentShowFormSelector(state),
     showTicketForm: ticketSelectors.getTicketShowFormSelector(state),
   };
 };
@@ -510,7 +565,9 @@ const mapDispatchToProps = {
   getProjectOnMap: mapProjectActions.getProjectStart,
   getSubProjectsByProjectId: mapSubProjectActions.getSubProjectByProjectId,
   openProjectComponentForm: projectActions.openProjectComponentForm,
+  openProjectSubComponentForm: projectActions.openProjectSubComponentForm,
   closeProjectComponentForm: projectActions.closeProjectComponentForm,
+  closeProjectSubComponentForm: projectActions.closeProjectSubComponentForm,
   openTicketForm: ticketActions.openTicketForm,
   closeTicketForm: ticketActions.closeTicketForm,
 };

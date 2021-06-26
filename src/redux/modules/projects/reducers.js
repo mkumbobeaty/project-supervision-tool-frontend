@@ -195,6 +195,24 @@ const projectComponent = (state = { data: null, error: null, loading: false, sho
     }
 }
 
+const projectSubComponent = (state = { data: null, error: null, loading: false, showForm: false, }, action) => {
+    switch (action.type) {
+        case types.OPEN_PROJECT_SUB_COMPONENT_FORM:
+            return { ...state, showForm: true };
+        case types.CLOSE_PROJECT_SUB_COMPONENT_FORM:
+            return { ...state, showForm: false };
+        case types.CREATE_PROJECT_SUB_COMPONENT_START:
+            return { ...state, loading: true, showForm: true }
+        case types.CREATE_PROJECT_SUB_COMPONENT_SUCCESS:
+            return { ...state, data: action.payload, loading: false, showForm: false }
+        case types.CREATE_PROJECT_SUB_COMPONENT_FAILURE:
+            return { ...state, error: action.payload, loading: false, showForm: false }
+        default:
+            return state;
+
+    }
+}
+
 // selected project
 const selectedProject = (state = null, action) => {
     switch (action.type) {
@@ -431,5 +449,6 @@ export const resources = combineReducers({
     search,
     geonodeLayers,
     projectComponent,
+    projectSubComponent,
     subComponents
 })

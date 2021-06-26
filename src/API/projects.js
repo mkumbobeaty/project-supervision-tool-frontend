@@ -126,6 +126,14 @@ const createProjectComponents = (details) =>
     axios.post(`/project_components`, details).then((response) => response.data);
 
 /**
+ * @function
+ * @name createProjectSubComponent
+ * */
+const createProjectSubComponent = (details) =>
+    axios.post(`/project_sub_components`, details).then((response) => response.data);
+
+
+/**
  * Fetch all projects sub-componennt from API
  *
  */
@@ -155,5 +163,6 @@ export default {
     getProjectStatus,
     createProjectComponents,
     openProjectTicket,
+    createProjectSubComponent,
     getProjectSubComponent
 }

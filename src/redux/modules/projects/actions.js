@@ -645,6 +645,29 @@ export const createProjectComponentFailure = makeActionCreator(types.CREATE_PROJ
 
 /**
  * @function
+ * @name createProjectSubComponentStart
+ * @return {Object} action
+ * */
+export const createProjectSubComponentStart = makeActionCreator(types.CREATE_PROJECT_SUB_COMPONENT_START, 'payload');
+
+/**
+ * @function
+ * @name createProjectSubComponentSuccess
+ * @param {Object} payload
+ * @return {Object} action
+ * */
+export const createProjectSubComponentSuccess = makeActionCreator(types.CREATE_PROJECT_SUB_COMPONENT_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name createProjectSubComponentFailure
+ * @param {Object} payload failure response
+ * @return {Object} action
+ * */
+export const createProjectSubComponentFailure = makeActionCreator(types.CREATE_PROJECT_SUB_COMPONENT_FAILURE, 'payload');
+
+/**
+ * @function
  * @name openProjectComponentForm
  * @return {Object} action
  * */
@@ -656,6 +679,20 @@ export const openProjectComponentForm = makeActionCreator(types.OPEN_PROJECT_COM
  * @return {Object} action
  * */
 export const closeProjectComponentForm = makeActionCreator(types.CLOSE_PROJECT_COMPONENT_FORM);
+
+/**
+ * @function
+ * @name openProjectSubComponentForm
+ * @return {Object} action
+ * */
+export const openProjectSubComponentForm = makeActionCreator(types.OPEN_PROJECT_SUB_COMPONENT_FORM);
+
+/**
+ * @function
+ * @name closeProjectSubComponentForm
+ * @return {Object} action
+ * */
+export const closeProjectSubComponentForm = makeActionCreator(types.CLOSE_PROJECT_SUB_COMPONENT_FORM);
 
 
 /**
