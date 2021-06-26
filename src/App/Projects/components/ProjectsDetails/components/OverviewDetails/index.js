@@ -77,7 +77,7 @@ const OverviewDetails = ({
             </Col>
             <Col {...projectSpan}>
               <h4>Sub Projects</h4>
-              <p>{project?.sub_projects ? project.sub_projects.length : 'N/A'}</p>
+              <p>{project?.sub_projects_count ? project?.sub_projects_count : 'N/A'}</p>
             </Col>
             <Col {...projectsLocationSpan}>
               <h4>Project locations</h4>

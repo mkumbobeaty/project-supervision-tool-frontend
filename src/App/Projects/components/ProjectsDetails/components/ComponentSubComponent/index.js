@@ -6,8 +6,17 @@ import "./styles.css";
 const ComponentSubComponent = ({components}) => {
 
   const dataSource = components.map(
-    component =>  component.sub_components.map(
-      ({id, name}) => ({ key: id, sub_component: name, component: component.name }))).flat();
+    component => {
+        if (component.sub_components.length > 0) {
+            return component.sub_components.map(
+                ({id, name}) => ({sub_component: name, component: component.name }))
+        }
+
+        else {
+            return [{  sub_component: 'N/A', component: component.name }]
+        }
+
+    }).flat();
     
 
       //Merge array cells
@@ -35,7 +44,6 @@ const ComponentSubComponent = ({components}) => {
     {
       title: 'Components',
       dataIndex: 'component',
-      key: 'component',
       render(_, row) {
           return {
             children: row.component,
@@ -49,7 +57,6 @@ const ComponentSubComponent = ({components}) => {
     {
         title: 'Sub Components',
         dataIndex: `sub_component`,
-        key: 2,  
     }
 ]
 
