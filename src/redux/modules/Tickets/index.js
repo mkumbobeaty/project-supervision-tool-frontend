@@ -1,8 +1,8 @@
 import * as reducer from './reducers';
-import * as TicketTypes from './types';
-import * as TicketActions from './actions';
-import * as TicketSelectors from './selectors';
+import * as ticketTypes from './types';
+import * as ticketActions from './actions';
+import * as ticketSelectors from './selectors';
 
-export { TicketTypes, TicketActions, TicketSelectors };
+export { ticketTypes, ticketActions, ticketSelectors };
 
 export default reducer;

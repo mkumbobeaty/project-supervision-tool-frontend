@@ -4,6 +4,7 @@ import API from '../../../API';
 import { ofType, combineEpics } from 'redux-observable';
 import { of, from } from 'rxjs';
 import { switchMap, catchError, } from "rxjs/operators";
+import * as projectActions from '../projects/actions';
 
 const getTicketsEpic = action$ => {
     return action$.pipe(
@@ -32,7 +33,63 @@ const getTicketEpic = action$ => {
     );
 }
 
+
+/**
+ * @function
+ * @name createProjectTicketPic
+ * @param action$
+ * @return action$
+ */
+const createProjectTicketPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_PROJECT_TICKET_START),
+        switchMap(({payload}) => {
+            return from(API.openProjectTicket(payload))
+        }),
+        switchMap(res => {
+            return of(actions.createProjectTicketSuccess(res), projectActions.getProjectsStart())
+        }),
+        catchError(error => of(actions.createProjectTicketFailure(error)))
+    )
+}
+
+/**
+ *
+ * @function
+ * @name getTicketByProjectEpic
+ * @param action$ stream of actions
+ */
+const getTicketByProjectEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_TICKET_BY_PROJECT_START),
+        switchMap(({payload}) => {
+            return from(API.getTicketsByProject(payload)).pipe(
+                switchMap(res => from([
+                    actions.getTicketByProjectSuccess(res.data),
+                ])),
+                catchError(error => of(actions.getTicketByProjectFailure(error)))
+            );
+        }),
+    );
+}
+
+const fetchAgenciesEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_AGENCY_START),
+        switchMap(() =>  {
+            return from(API.fetchAgencies()).pipe(
+            switchMap(res => { 
+                return of(actions.fetchAgenciesSuccess(res.data)) }),
+            catchError(error => of(actions.fetchAgenciesFailure(error)))
+        )}
+        ),
+    )                                                                                                                                                                                                       
+}
+
 export const  ticketsEpic= combineEpics(
     getTicketsEpic,
     getTicketEpic,
+    createProjectTicketPic,
+    getTicketByProjectEpic,
+    fetchAgenciesEpic
 )

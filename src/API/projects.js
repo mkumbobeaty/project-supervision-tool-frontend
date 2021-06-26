@@ -133,6 +133,15 @@ const getProjectSubComponent = () => {
     return axios.get(`/project_sub_components`).then((response) => response.data);
 }
 
+/**
+ * @function
+ * @name openProjectTicket
+ * */
+const openProjectTicket =(details) => 
+axios.post(`/projects/create_ticket`, details).then((response) => response.data);
+
+
+
 export default {
     createProjects,
     getProjects,
@@ -145,5 +154,6 @@ export default {
     createProjectDetails,
     getProjectStatus,
     createProjectComponents,
+    openProjectTicket,
     getProjectSubComponent
 }

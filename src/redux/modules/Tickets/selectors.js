@@ -20,3 +20,25 @@ export const loading = (state) => state?.ticketsResource?.tickets?.loading;
  */
 
 export const getTicket = (state) => state?.ticketsResource?.ticket?.data;
+
+/**
+ * @function
+ * @name getProjectShowFormSelector
+ * @param {Object} state redux state
+ */
+export const getTicketShowFormSelector = (state) => state?.ticketsResource?.tickets?.showForm;
+
+/**
+ * @function
+ * @name getTicketByProject
+ * @param {Object} state redux state
+ */
+
+export const getTicketByProject = (state) => state?.ticketsResource?.tickets?.ticket;
+
+/**
+ * @function
+ * @name fetchAgenciesSelector
+ * @param {Object} state redux state
+ */
+export const fetchAgenciesSelector = (state) => state?.ticketsResource?.agencies?.data.data || [];

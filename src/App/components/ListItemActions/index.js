@@ -10,7 +10,8 @@ import {
     UserSwitchOutlined,
     BookOutlined,
     FileAddOutlined,
-    FileProtectOutlined
+    FileProtectOutlined,
+    ExclamationCircleOutlined
 } from '@ant-design/icons';
 
 import { Dropdown, Button, Menu } from 'antd';
@@ -42,6 +43,7 @@ const ListItemActions = ({
     assignPermissions,
     components,
     fillSurvey,
+    openIssues
 }) => (
         <Dropdown
             overlay={
@@ -66,6 +68,15 @@ const ListItemActions = ({
                             <FileAddOutlined />{components.name}
                         </Menu.Item>
                     )}
+                     {openIssues && (
+                        <Menu.Item
+                            key="openIssues"
+                            onClick={openIssues.onClick}
+                            title={openIssues.title}
+                        >
+                            <ExclamationCircleOutlined />{openIssues.name}
+                        </Menu.Item>
+                    )}
 
                     {edit && (
                         <Menu.Item key="edit" onClick={edit.onClick} title={edit.title}>
@@ -82,6 +93,7 @@ const ListItemActions = ({
                             <EyeOutlined />{onMapPreview.name}
                         </Menu.Item>
                     )}
+                   
                     {createSurvey && (
                         <Menu.Item key="createSurvey" onClick={createSurvey.onClick} title={createSurvey.title}>
                             <FileProtectOutlined /> {createSurvey.name}

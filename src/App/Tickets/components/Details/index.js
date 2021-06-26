@@ -1,7 +1,7 @@
 import { Col, Layout, Row, } from 'antd';
 import React, { useEffect } from 'react';
 import { connect } from "react-redux";
-import { TicketActions, TicketSelectors } from '../../../../redux/modules/Tickets';
+import { ticketActions, ticketSelectors } from '../../../../redux/modules/Tickets';
 import './styles.css'
 const { Content } = Layout;
 
@@ -67,12 +67,12 @@ const TicketDetails = ({ ticket, getTicket, match: { params } }) => {
 
 const mapStateToProps = (state) => {
     return {
-        ticket: TicketSelectors.getTicket(state),
+        ticket: ticketSelectors.getTicket(state),
     }
 }
 
 const mapDispatchToProps = {
-    getTicket: TicketActions.getTicketStart,
+    getTicket: ticketActions.getTicketStart,
 }
 
 

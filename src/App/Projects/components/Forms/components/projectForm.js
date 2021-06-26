@@ -193,7 +193,7 @@ function ProjectForm({
                         closing_date: createDateFromString(selected?.closing_date,),
                         approval_fy: createDateFromString(selected?.approval_fy,),
                         borrower_id: selected?.borrower?.id,
-                        color:selected?.color,
+                        color: selected?.color,
                         environmental_category_id: selected?.environmental_category?.id
                     }}
                     autoComplete="off"
@@ -346,7 +346,6 @@ function ProjectForm({
                             </Form.Item>
                             {/* end:Implementing Agency */}
 
-                            {/* end:leaders */}
                         </Col>
                     </Row>
 
@@ -553,7 +552,7 @@ function ProjectForm({
                                     },
                                 ]}
                             >
-                                <input type="color"  value="#000000"/>
+                                <input type="color" value="#000000" />
                             </Form.Item>
                             {/* end:color */}
                         </Col>

@@ -48,3 +48,87 @@ export const getTicketSuccess = makeActionCreator(types.GET_TICKET_SUCCESS, 'pay
  * @return {Object} action
  * */
 export const getTicketFailure = makeActionCreator(types.GET_TICKET_FAILURE, 'payload');
+
+
+/**
+ * @function
+ * @name createProjectTicketStart
+ * @return {Object} action
+ * */
+export const createProjectTicketStart = makeActionCreator(types.CREATE_PROJECT_TICKET_START, 'payload');
+
+/**
+ * @function
+ * @name createProjectTicketSuccess
+ * @param {Object} payload tickets
+ * @return {Object} action
+ * */
+export const createProjectTicketSuccess = makeActionCreator(types.CREATE_PROJECT_TICKET_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name createProjectTicketFailure
+ * @param {Object} payload ticketst failure response
+ * @return {Object} action
+ * */
+export const createProjectTicketFailure = makeActionCreator(types.CREATE_PROJECT_TICKET_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name openTicketForm
+ * @return {Object} action
+ * */
+export const openTicketForm = makeActionCreator(types.OPEN_TICKET_FORM);
+
+/**
+ * @function
+ * @name closeTicketForm
+ * @return {Object} action
+ * */
+export const closeTicketForm = makeActionCreator(types.CLOSE_TICKET_FORM);
+
+/**
+ * @function
+ * @name getTicketByProjectStart
+ * @return {Object} action
+ * */
+export const getTicketByProjectStart = makeActionCreator(types.GET_TICKET_BY_PROJECT_START, 'payload');
+
+/**
+ * @function
+ * @name getTicketByProjectSuccess
+ * @param {Object} payload tickets
+ * @return {Object} action
+ * */
+export const getTicketByProjectSuccess = makeActionCreator(types.GET_TICKET_BY_PROJECT_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getTicketByProjectFailure
+ * @param {Object} payload ticketst failure response
+ * @return {Object} action
+ * */
+export const getTicketByProjectFailure = makeActionCreator(types.GET_TICKET_BY_PROJECT_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name fetchAgenciesStart
+ * @return {Object} action
+ * */
+export const fetchAgenciesStart = makeActionCreator(types.GET_AGENCY_START, 'payload');
+
+/**
+ * @function
+ * @name fetchAgenciesSuccess
+ * @param {Object} payload agencies
+ * @return {Object} action
+ * */
+export const fetchAgenciesSuccess = makeActionCreator(types.GET_AGENCY_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name fetchAgenciesFailure
+ * @param {Object} payload agencies failure response
+ * @return {Object} action
+ * */
+export const fetchAgenciesFailure = makeActionCreator(types.GET_AGENCY_FAILURE, 'payload');
