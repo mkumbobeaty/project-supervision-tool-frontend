@@ -21,11 +21,11 @@ const tickets = (state = initialData, action) => {
     case types.GET_TICKETS_FAILURE:
       return { ...state, loading: false, error: action.payload }
     case types.CREATE_PROJECT_TICKET_START:
-      return { ...state, loading: true }
+      return { ...state, loading: true,showForm: true  }
     case types.CREATE_PROJECT_TICKET_SUCCESS:
-      return { ...state, loading: false, ticket: action.payload }
+      return { ...state, loading: false, ticket: action.payload, showForm: false }
     case types.CREATE_PROJECT_TICKET_FAILURE:
-      return { ...state, loading: false, error: action.payload }
+      return { ...state, loading: false, error: action.payload,showForm: false }
     case types.OPEN_TICKET_FORM:
       return { ...state, showForm: true };
     case types.CLOSE_TICKET_FORM:

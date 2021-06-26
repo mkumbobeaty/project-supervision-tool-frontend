@@ -59,9 +59,7 @@ function TicketForm({
                 }
             },
         };
-        debugger
         createTicket(payload);
-
     };
 
     return (
@@ -159,6 +157,27 @@ function TicketForm({
                         >
                             {agencies.map((agency) => (
                                 <Select.Option value={agency.id}>{agency.name}</Select.Option>
+                            ))}
+                        </Select>
+
+                    </Form.Item>
+                    {/* end:agencies */}
+
+
+                    {/* start:agencies */}
+                    <Form.Item
+                        label="Assigned To"
+                        name="assignee_id"
+                        title="Issued assignee e.g Jacob John"
+    
+                    >
+                        <Select
+                            showSearch
+                            optionFilterProp="children"
+
+                        >
+                            {agencies.map(({focalPerson}) => (
+                                <Select.Option value={focalPerson.id}>{focalPerson.first_name} {focalPerson.last_name}</Select.Option>
                             ))}
                         </Select>
 

@@ -489,7 +489,6 @@ class Projects extends Component {
           >
             <ProjectComponentForm
               selected={selected}
-              handleAfterCloseForm={this.handleAfterCloseForm}
             />
           </Drawer>
 
@@ -508,7 +507,6 @@ class Projects extends Component {
           >
             <TicketForm
               selected={selected}
-              handleAfterCloseForm={this.handleAfterCloseForm}
             />
           </Drawer>
         </div>
