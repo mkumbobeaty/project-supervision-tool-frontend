@@ -34,4 +34,4 @@ export const getTicketShowFormSelector = (state) => state?.ticketsResource?.tick
  * @param {Object} state redux state
  */
 
-export const getTicketByProject = (state) => state?.ticketsResource?.ticket?.ticket;
+export const getTicketByProject = (state) => state?.ticketsResource?.tickets?.ticket;
