@@ -9,16 +9,17 @@ import "./styles.css";
 import { mapSubProjectSelectors } from "../../../../redux/modules/map/subProjects";
 import { ticketActions, ticketSelectors } from "../../../../redux/modules/Tickets";
 import Tickets from "../../../components/Tickets";
+import ProjectHome from "../../../navigation/ProjectHome";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
 
-const Project = ({ project, loading, getProject, subProjects, getTicketByProject, tickets, match: { params } }) => {
+const Project = ({ project, loading, getProject, subProjects, getTicketByProject, tickets, match }) => {
 
   useEffect(() => {
-    getProject(params.id);
-    getTicketByProject(params.id);
+    getProject(match.params.id);
+    getTicketByProject(match.params.id);
 
   }, [])
 
@@ -59,19 +60,8 @@ const Project = ({ project, loading, getProject, subProjects, getTicketByProject
                       subProjects={subProjects}
                     />
                   </TabPane>
-                  <TabPane tab="Sub-Projects Dashboard" key="2" className="container">
-                    <SubProjectDashboard />
-                  </TabPane>
-                  <TabPane tab="Tickets" key="3" className="container" >
-
-                    <Tickets tickets={tickets} />
-
-                  </TabPane>
-                  <TabPane tab="Agreed Actions" key="4" className="container" >
-                    <h4> Comming Soon</h4>
-                  </TabPane>
-                  <TabPane tab="Monitoring and Evaluation" key="5" className="container" >
-                    <h4> Comming Soon</h4>
+                  <TabPane tab="Project Home" key="2" className="container" >
+                    <ProjectHome match={match} />
                   </TabPane>
 
 
