@@ -366,6 +366,26 @@ const createProjectComponentPic = action$ => {
     )
 }
 
+/**
+ * @function
+ * @name getProjectSubComponentEpic
+ * @param action$
+ * @return action$
+ */
+const getProjectSubComponentEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_PROJECT_SUB_COMPONENTS_START),
+        switchMap(() => {
+            return from(API.getProjectSubComponent()).pipe(
+                switchMap(res => {
+                    return of(actions.getProjectSubComponentSuccess(res.data))
+                }),
+                catchError(error => of(actions.getProjectSubComponentFailure(error)))
+            );
+        }),
+    )
+};
+
 
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
@@ -390,7 +410,8 @@ export const projectsRootEpic = combineEpics(
     filterProjectByRegionEpic,
     searchProjectsEpic,
     getLayersEpic,
-    createProjectComponentPic
+    createProjectComponentPic,
+    getProjectSubComponentEpic
 );
 
 

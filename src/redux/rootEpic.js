@@ -10,6 +10,7 @@ import {subProjectsEpic} from './modules/subProjects/epics';
 import { getUsersEpic, createUserEPic, editUserEpic, deleteUserEpic } from "./modules/users/epics";
 import { getContractsEpic, createContractEPic, editContractEpic, deleteContractEpic } from "./modules/contracts/epics";
 import { ticketsEpic } from './modules/Tickets/epics';
+import { procuringEntitiesEpic } from './modules/ProcuringEntities/epics';
 
 export const rootEpic = combineEpics(
     authRootEpic,
@@ -30,4 +31,5 @@ export const rootEpic = combineEpics(
     editContractEpic,
     deleteContractEpic,
     ticketsEpic,
+    procuringEntitiesEpic,
 )

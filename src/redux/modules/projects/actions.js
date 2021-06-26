@@ -656,3 +656,27 @@ export const openProjectComponentForm = makeActionCreator(types.OPEN_PROJECT_COM
  * @return {Object} action
  * */
 export const closeProjectComponentForm = makeActionCreator(types.CLOSE_PROJECT_COMPONENT_FORM);
+
+
+/**
+ * @function
+ * @name getProjectSubComponentStart
+ * @return {Object} action
+ * */
+export const getProjectSubComponentStart = makeActionCreator(types.GET_PROJECT_SUB_COMPONENTS_START);
+
+/**
+ * @function
+ * @name getProjectSubComponentSuccess
+ * @param {Object} payload ProjectSubComponent
+ * @return {Object} action
+ * */
+export const getProjectSubComponentSuccess = makeActionCreator(types.GET_PROJECT_SUB_COMPONENTS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getProjectSubComponentFailure
+ * @param {Object} payload  ProjectSubComponent failure response
+ * @return {Object} action
+ * */
+export const getProjectSubComponentFailure = makeActionCreator(types.GET_PROJECT_SUB_COMPONENTS_FAILURE, 'payload');

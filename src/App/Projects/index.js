@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { projectActions, projectSelectors } from '../../redux/modules/projects';
-import { Col, Drawer, Modal, Spin } from "antd";
+import { Col, Drawer, Spin } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import Topbar from "../components/Topbar";
@@ -17,6 +17,7 @@ import SideNav from "../Map/components/SideNav";
 import { mapSelectors } from "../../redux/modules/map";
 import { mapProjectActions } from "../../redux/modules/map/projects";
 import { mapSubProjectActions } from "../../redux/modules/map/subProjects";
+import { showArchiveConfirm } from "../../Util";
 import ProjectComponentForm from "./components/Forms/components/projectComponentForm";
 import "./styles.css";
 import { ticketActions, ticketSelectors } from "../../redux/modules/Tickets";
@@ -31,8 +32,6 @@ const projectLeadSpan = { xxl: 3, xl: 3, lg: 3, md: 0, sm: 0, xs: 0 };
 const statusSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
 const projectCoordinatorSpan = { xxl: 2, xl: 2, lg: 2, md: 0, sm: 0, xs: 0 };
 const closingSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 0, xs: 0 };
-
-const { confirm } = Modal;
 
 const headerLayout = [
   { ...nameSpan, header: "Name" },
@@ -68,6 +67,7 @@ class Projects extends Component {
     fetchProjects();
     focalPeople();
   }
+  
   /**
    * @function
    * @name handleEdit
@@ -84,56 +84,6 @@ class Projects extends Component {
     this.setState({ isEditForm: true });
     openProjectForm();
   };
-
-  /**
-   * @function
-   * @name handleOnCachedValues
-   * @description Cached selected values for filters
-   *
-   * @param {object} cached values to be cached from filter
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  handleOnCachedValues = (cached) => {
-    const { cached: previousCached } = this.state;
-    const values = { ...previousCached, ...cached };
-    this.setState({ cached: values });
-  };
-
-  /**
-   * @function
-   * @name handleClearCachedValues
-   * @description Clear cached values
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  handleClearCachedValues = () => {
-    this.setState({ cached: null });
-  };
-
-  /**
-   * @function
-   * @name showArchiveConfirm
-   * @description show confirm modal before archiving a Event Initiative
-   * @param {object} item Resource item to be archived
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  showArchiveConfirm = (item) => {
-    const { deleteProject } = this.props;
-    confirm({
-      title: `Are you sure you want to archive this record ?`,
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      onOk() {
-        deleteProject(item.id);
-      },
-    });
-  };
-
 
   /**
    * @function
@@ -318,8 +268,9 @@ class Projects extends Component {
       createProject,
       mapLoading,
       project,
-      showComponentForm,
-      showTicketForm
+      showTicketForm,
+      deleteProject,
+      showComponentForm
     } = this.props;
 
     const { isEditForm, previewOnMap } = this.state;
@@ -388,7 +339,7 @@ class Projects extends Component {
                         name: "Archive project",
                         title:
                           "Remove project from list of active Projects",
-                        onClick: () => this.showArchiveConfirm(item),
+                        onClick: () => showArchiveConfirm(item, deleteProject),
                       }}
                       components={{
                         name: "Add Components",
