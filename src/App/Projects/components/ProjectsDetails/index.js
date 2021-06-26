@@ -2,22 +2,27 @@ import React, { useEffect } from "react";
 import { Layout, Spin, Tabs } from 'antd';
 import OverviewDetails from "./components/OverviewDetails";
 import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from "../../../../redux/modules/projects";
+import { projectActions, projectSelectors } from "../../../../redux/modules/projects";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
 import SubProjectDashboard from "./components/SubProjectsDashboard";
-
 import "./styles.css";
 import { mapSubProjectSelectors } from "../../../../redux/modules/map/subProjects";
+import { ticketActions, ticketSelectors } from "../../../../redux/modules/Tickets";
+import Tickets from "../../../components/Tickets";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
 
-const Project = ({ project, loading, getProject,subProjects, match: { params } }) => {
+const Project = ({ project, loading, getProject, subProjects, getTicketByProject, tickets, match: { params } }) => {
 
   useEffect(() => {
-    getProject(params.id)
+    getProject(params.id);
+    getTicketByProject(params.id);
+
   }, [])
+
+  console.log(tickets)
 
   const getCommitmentAmount = (data) => {
     const { amount, currency } = data
@@ -57,12 +62,19 @@ const Project = ({ project, loading, getProject,subProjects, match: { params } }
                   <TabPane tab="Sub-Projects Dashboard" key="2" className="container">
                     <SubProjectDashboard />
                   </TabPane>
-                  <TabPane tab="Agreed Actions" key="3" className="container" >
+                  <TabPane tab="Tickets" key="3" className="container" >
+
+                    <Tickets tickets={tickets} />
+
+                  </TabPane>
+                  <TabPane tab="Agreed Actions" key="4" className="container" >
                     <h4> Comming Soon</h4>
                   </TabPane>
-                  <TabPane tab="Monitoring and Evaluation" key="4" className="container" >
+                  <TabPane tab="Monitoring and Evaluation" key="5" className="container" >
                     <h4> Comming Soon</h4>
                   </TabPane>
+
+
                 </Tabs>
               </div>
             </Content>
@@ -71,19 +83,21 @@ const Project = ({ project, loading, getProject,subProjects, match: { params } }
       </Spin>
     </Layout>
   )
-
 }
+
 const mapStateToProps = (state) => {
   return {
     project: projectSelectors.getProjectSelector(state),
     projects: projectSelectors.getProjectsSelector(state),
     loading: projectSelectors.getProjectLoadingSelector(state),
-    subProjects:mapSubProjectSelectors.getSubProjectsSelector(state)
+    subProjects: mapSubProjectSelectors.getSubProjectsSelector(state),
+    tickets: ticketSelectors.getTicketByProject(state),
   };
 };
 
 const mapDispatchToProps = {
-  getProject: projectOperation.getProjectStart,
+  getProject: projectActions.getProjectStart,
+  getTicketByProject: ticketActions.getTicketByProjectStart
 
 };
 

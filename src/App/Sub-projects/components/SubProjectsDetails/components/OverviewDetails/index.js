@@ -2,7 +2,7 @@ import { Col, Row, Spin } from "antd";
 import React from "react";
 import BaseMap from "../../../../../Map/components/BaseMap";
 import SubProjectPoints from "../../../../../Map/components/SubProjectPoints";
-import ReportOverview from "../ReportOverview";
+import Tickets from "../../../../../components/Tickets";
 import { isoDateToHumanReadableDate } from "../../../../../../Util";
 import GeneralProgress from "../../../../../components/GeneralProgress";
 import * as turf from '@turf/turf';
@@ -19,7 +19,7 @@ const OverviewDetails = ({ sub_project, mapLoading }) => {
 
     return (
         <>
-            <div className="keyDetails ">
+            <div className="keyDetails grey-bgr">
                 <h2 id="sider-title">Key Details</h2>
                 <section className="container">
                     <Row className="key-details">
@@ -123,7 +123,7 @@ const OverviewDetails = ({ sub_project, mapLoading }) => {
             <section style={{marginBottom:'40px'}}>
                 <div className="container issueOverview">
                     <h4 className="text-blue">Issues</h4>
-                    <ReportOverview />
+                    <Tickets />
                     <p className="text-blue">View All issue</p>
                 </div>
             </section>

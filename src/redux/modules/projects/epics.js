@@ -41,7 +41,6 @@ export const getSubProjectEpic = action$ => {
     )
 };
 
-
 /**
  * @function
  * @name createProjectPic
@@ -60,7 +59,6 @@ const createProjectPic = action$ => {
         catchError(error => of(actions.createProjectFailure(error)))
     )
 }
-
 
 /**
  * @function
@@ -355,6 +353,39 @@ const getLayersEpic = action$ => {
     )
 };
 
+const createProjectComponentPic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_PROJECT_COMPONENT_START),
+        switchMap(({payload}) => {
+            return from(API.createProjectComponents(payload))
+        }),
+        switchMap(res => {
+            return of(actions.createProjectComponentSuccess(res))
+        }),
+        catchError(error => of(actions.createProjectComponentFailure(error)))
+    )
+}
+
+/**
+ * @function
+ * @name getProjectSubComponentEpic
+ * @param action$
+ * @return action$
+ */
+const getProjectSubComponentEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_PROJECT_SUB_COMPONENTS_START),
+        switchMap(() => {
+            return from(API.getProjectSubComponent()).pipe(
+                switchMap(res => {
+                    return of(actions.getProjectSubComponentSuccess(res.data))
+                }),
+                catchError(error => of(actions.getProjectSubComponentFailure(error)))
+            );
+        }),
+    )
+};
+
 
 export const projectsRootEpic = combineEpics(
     projectsListEpic,
@@ -378,7 +409,9 @@ export const projectsRootEpic = combineEpics(
     filterProjectByIdEpic,
     filterProjectByRegionEpic,
     searchProjectsEpic,
-    getLayersEpic
+    getLayersEpic,
+    createProjectComponentPic,
+    getProjectSubComponentEpic
 );
 
 

@@ -65,6 +65,11 @@ code {
 
 }
 
+.formAction {
+  text-align: right;
+   margin-top: 15px;
+}
+
  @media print {
   .print-only {
     display: block;

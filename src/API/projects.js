@@ -23,12 +23,12 @@ const createProjects = (project) =>
  *
  */
 const getProjects = (filter = {}) => {
-    return axios.get(`/projects`, {params: filter}).then((response) => response.data);
+    return axios.get(`/projects`, { params: filter }).then((response) => response.data);
 }
 
 
 /**
- * edit existing human resources
+ * edit existing project
  *
  * @function
  * @name updateProject
@@ -83,8 +83,8 @@ const getProject = (id) => {
  * @version 0.1.0
  * @since 0.1.0
  */
-const getProjectsStatistics = (id ='') => {
-    return axios.get(`/projects/statistics${id}`, {params: {id}}).then((response) => response.data);
+const getProjectsStatistics = (id = '') => {
+    return axios.get(`/projects/statistics${id}`, { params: { id } }).then((response) => response.data);
 }
 
 /**
@@ -100,15 +100,15 @@ const getCurrencies = () => {
  * @function
  * @name postTotalCost
  * */
-const postTotalCost =(total_cost) => 
-axios.post(`/money`, total_cost).then((response) => response.data);
+const postTotalCost = (total_cost) =>
+    axios.post(`/money`, total_cost).then((response) => response.data);
 
 /**
  * @function
  * @name createProjectDetails
  * */
-const createProjectDetails =(details) => 
-axios.post(`/project_details`, details).then((response) => response.data);
+const createProjectDetails = (details) =>
+    axios.post(`/project_details`, details).then((response) => response.data);
 
 /**
  * Fetch all projects status from API
@@ -117,6 +117,30 @@ axios.post(`/project_details`, details).then((response) => response.data);
 const getProjectStatus = () => {
     return axios.get(`/project_status`).then((response) => response.data);
 }
+
+/**
+ * @function
+ * @name createProjectComponents
+ * */
+const createProjectComponents = (details) =>
+    axios.post(`/project_components`, details).then((response) => response.data);
+
+/**
+ * Fetch all projects sub-componennt from API
+ *
+ */
+const getProjectSubComponent = () => {
+    return axios.get(`/project_sub_components`).then((response) => response.data);
+}
+
+/**
+ * @function
+ * @name openProjectTicket
+ * */
+const openProjectTicket =(details) => 
+axios.post(`/projects/create_ticket`, details).then((response) => response.data);
+
+
 
 export default {
     createProjects,
@@ -129,4 +153,7 @@ export default {
     postTotalCost,
     createProjectDetails,
     getProjectStatus,
+    createProjectComponents,
+    openProjectTicket,
+    getProjectSubComponent
 }

@@ -57,6 +57,14 @@ const getActors = () =>
 const getPhases = () =>
     axios.get(`/phases`).then((response) => response.data);
 
+/**
+ * @function
+ * @name fetchAgencies
+ * @description get agencies
+ * */
+const fetchAgencies = () =>
+    axios.get(`/agencies`, { params: {per_page: 100 }}).then((response) => response.data);
+ 
 
 export default {
     getBorrowers,
@@ -66,4 +74,5 @@ export default {
     getAgencies,
     getContractors,
     getSupervisingAgencies,
+    fetchAgencies
 }

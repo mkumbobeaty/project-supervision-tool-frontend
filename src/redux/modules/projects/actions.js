@@ -47,6 +47,17 @@ export function getProjectsStart(params={}) {
   }
 
   
+export function openProjectForm() {
+  return {
+    type: types.OPEN_PROJECT_FORM,
+  };
+}
+
+export function closeProjectForm() {
+  return {
+    type: types.CLOSE_PROJECT_FORM,
+  };
+}
   // export const updateProjectStart = makeActionCreator(types.UPDATE_PROJECT_START, 'payload');
 
   export function updateProjectStart(project,id) {
@@ -608,3 +619,64 @@ export const getLayersSuccess = makeActionCreator(types.GET_LAYERS_SUCCESS, 'pay
  * @return {Object} action
  * */
 export const getLayersFailure = makeActionCreator(types.GET_LAYERS_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name createProjectComponentStart
+ * @return {Object} action
+ * */
+export const createProjectComponentStart = makeActionCreator(types.CREATE_PROJECT_COMPONENT_START, 'payload');
+
+/**
+ * @function
+ * @name createProjectComponentSuccess
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const createProjectComponentSuccess = makeActionCreator(types.CREATE_PROJECT_COMPONENT_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name createProjectComponentFailure
+ * @param {Object} payload failure response
+ * @return {Object} action
+ * */
+export const createProjectComponentFailure = makeActionCreator(types.CREATE_PROJECT_COMPONENT_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name openProjectComponentForm
+ * @return {Object} action
+ * */
+export const openProjectComponentForm = makeActionCreator(types.OPEN_PROJECT_COMPONENT_FORM);
+
+/**
+ * @function
+ * @name closeProjectComponentForm
+ * @return {Object} action
+ * */
+export const closeProjectComponentForm = makeActionCreator(types.CLOSE_PROJECT_COMPONENT_FORM);
+
+
+/**
+ * @function
+ * @name getProjectSubComponentStart
+ * @return {Object} action
+ * */
+export const getProjectSubComponentStart = makeActionCreator(types.GET_PROJECT_SUB_COMPONENTS_START);
+
+/**
+ * @function
+ * @name getProjectSubComponentSuccess
+ * @param {Object} payload ProjectSubComponent
+ * @return {Object} action
+ * */
+export const getProjectSubComponentSuccess = makeActionCreator(types.GET_PROJECT_SUB_COMPONENTS_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getProjectSubComponentFailure
+ * @param {Object} payload  ProjectSubComponent failure response
+ * @return {Object} action
+ * */
+export const getProjectSubComponentFailure = makeActionCreator(types.GET_PROJECT_SUB_COMPONENTS_FAILURE, 'payload');

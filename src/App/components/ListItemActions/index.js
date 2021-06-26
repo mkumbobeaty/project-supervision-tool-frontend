@@ -3,23 +3,18 @@ import PropTypes from 'prop-types';
 
 import {
     DeleteOutlined,
-    DiffOutlined,
     EditOutlined,
     EyeOutlined,
     MoreOutlined,
     ShareAltOutlined,
-    SwapOutlined,
-    SyncOutlined,
     UserSwitchOutlined,
-    CloseCircleOutlined,
-    CheckCircleOutlined,
-    CarOutlined,
     BookOutlined,
-    GlobalOutlined,
-    FileProtectOutlined
+    FileAddOutlined,
+    FileProtectOutlined,
+    ExclamationCircleOutlined
 } from '@ant-design/icons';
 
-import {Dropdown, Button, Menu} from 'antd';
+import { Dropdown, Button, Menu } from 'antd';
 
 // TODO refactor this to receive menu items rather than objects
 /**
@@ -28,228 +23,125 @@ import {Dropdown, Button, Menu} from 'antd';
  * @description Render Dropdown component with has actions for list items
  * @param {object} props props object
  * @param {object} props.edit on edit action callback
- * @param {object} props.assignPermissions on assign role permissions
  * @param {object} props.share on share action callback
  * @param {object} props.onMapPreview on map preview action
  * @param {object} props.view on view action
- * @param {object} props.whatsapp on share via whatsapp action
  * @param {object} props.reload on reload action
  * @param {object} props.archive on archive action callback
- * @param {object} props.transfer on transfer action callback
- * @param {object} props.dispatch on Dispatch vehicle action
- * @param {object} props.atPickup when vehicle at pick up point action
- * @param {object} props.fromPickup when vehicle is leaving pickup point action
- * @param {object} props.atDropOff when vehicle is at drop off point action
- * @param {object} props.fromDropOff when vehicle is leaving drop off point action
- * @param {object} props.adjust on adjust action callback
- * @param {object} props.completeDispatch on complete dispatch action
- * @param {object} props.cancelDispatch on cancel dispatch action
+ * @param {object} props.components on add components
  * @returns {object} react element
  * @version 0.1.0
  * @since 0.1.0
  */
 const ListItemActions = ({
-                             onMapPreview,
-                             view,
-                             edit,
-                             share,
-                             createSurvey,
-                             archive,
-                             transfer,
-                             adjust,
-                             whatsapp,
-                             reload,
-                             assignPermissions,
-                             cancelDispatch,
-                             dispatch,
-                             atPickup,
-                             fromPickup,
-                             atDropOff,
-                             fromDropOff,
-                             fillSurvey,
-                             completeDispatch,
-                         }) => (
-    <Dropdown
-        overlay={
-            <Menu>
-                {view && (
-                    <Menu.Item key="view" onClick={view.onClick} title={view.title}>
-                        <EyeOutlined/> {view.name}
-                    </Menu.Item>
-                )}
-                {fillSurvey && (
-                    <Menu.Item key="fillSurvey" onClick={fillSurvey.onClick} title={fillSurvey.title}>
-                        <BookOutlined /> {fillSurvey.name}
-                    </Menu.Item>
-                )}
+    onMapPreview,
+    view,
+    edit,
+    share,
+    createSurvey,
+    archive,
+    assignPermissions,
+    components,
+    fillSurvey,
+    openIssues
+}) => (
+        <Dropdown
+            overlay={
+                <Menu>
+                    {view && (
+                        <Menu.Item key="view" onClick={view.onClick} title={view.title}>
+                            <EyeOutlined /> {view.name}
+                        </Menu.Item>
+                    )}
+                    {fillSurvey && (
+                        <Menu.Item key="fillSurvey" onClick={fillSurvey.onClick} title={fillSurvey.title}>
+                            <BookOutlined /> {fillSurvey.name}
+                        </Menu.Item>
+                    )}
 
-                {onMapPreview && (
-                    <Menu.Item
-                        key="onMapPreview"
-                        onClick={onMapPreview.onClick}
-                        title={onMapPreview.title}
-                    >
-                       <EyeOutlined />{onMapPreview.name}
-                    </Menu.Item>
-                )}
+                    {components && (
+                        <Menu.Item
+                            key="components"
+                            onClick={components.onClick}
+                            title={components.title}
+                        >
+                            <FileAddOutlined />{components.name}
+                        </Menu.Item>
+                    )}
+                     {openIssues && (
+                        <Menu.Item
+                            key="openIssues"
+                            onClick={openIssues.onClick}
+                            title={openIssues.title}
+                        >
+                            <ExclamationCircleOutlined />{openIssues.name}
+                        </Menu.Item>
+                    )}
 
-                {edit && (
-                    <Menu.Item key="edit" onClick={edit.onClick} title={edit.title}>
-                        <EditOutlined/> {edit.name}
-                    </Menu.Item>
-                )}
+                    {edit && (
+                        <Menu.Item key="edit" onClick={edit.onClick} title={edit.title}>
+                            <EditOutlined /> {edit.name}
+                        </Menu.Item>
+                    )}
 
-                {createSurvey && (
-                    <Menu.Item key="createSurvey" onClick={createSurvey.onClick} title={createSurvey.title}>
-                        <FileProtectOutlined /> {createSurvey.name}
-                    </Menu.Item>
-                )}
+                    {onMapPreview && (
+                        <Menu.Item
+                            key="onMapPreview"
+                            onClick={onMapPreview.onClick}
+                            title={onMapPreview.title}
+                        >
+                            <EyeOutlined />{onMapPreview.name}
+                        </Menu.Item>
+                    )}
+                   
+                    {createSurvey && (
+                        <Menu.Item key="createSurvey" onClick={createSurvey.onClick} title={createSurvey.title}>
+                            <FileProtectOutlined /> {createSurvey.name}
+                        </Menu.Item>
+                    )}
+
+                    {assignPermissions && (
+                        <Menu.Item
+                            key="share"
+                            onClick={assignPermissions.onClick}
+                            title={assignPermissions.title}
+                        >
+                            <UserSwitchOutlined /> {assignPermissions.name}
+                        </Menu.Item>
+                    )}
 
 
-                {assignPermissions && (
-                    <Menu.Item
-                        key="share"
-                        onClick={assignPermissions.onClick}
-                        title={assignPermissions.title}
-                    >
-                        <UserSwitchOutlined/> {assignPermissions.name}
-                    </Menu.Item>
-                )}
+                    {share && (
+                        <Menu.Item key="share" onClick={share.onClick} title={share.title}>
+                            <ShareAltOutlined /> {share.name}
+                        </Menu.Item>
+                    )}
 
-                {dispatch && (
-                    <Menu.Item
-                        key="dispatch"
-                        onClick={dispatch.onClick}
-                        title={dispatch.title}
-                    >
-                        <CarOutlined/> {dispatch.name}
-                    </Menu.Item>
-                )}
+                    {archive && (
+                        <Menu.Item
+                            key="archive"
+                            onClick={archive.onClick}
+                            title={archive.title}
+                        >
+                            <DeleteOutlined /> {archive.name}
+                        </Menu.Item>
+                    )}
 
-                {atPickup && (
-                    <Menu.Item
-                        key="atPickup"
-                        onClick={atPickup.onClick}
-                        title={atPickup.title}
-                    >
-                        <CarOutlined/> {atPickup.name}
-                    </Menu.Item>
-                )}
 
-                {fromPickup && (
-                    <Menu.Item
-                        key="fromPickup"
-                        onClick={fromPickup.onClick}
-                        title={fromPickup.title}
-                    >
-                        <CarOutlined/> {fromPickup.name}
-                    </Menu.Item>
-                )}
 
-                {atDropOff && (
-                    <Menu.Item
-                        key="atDropOff"
-                        onClick={atDropOff.onClick}
-                        title={atDropOff.title}
-                    >
-                        <CarOutlined/> {atDropOff.name}
-                    </Menu.Item>
-                )}
-
-                {fromDropOff && (
-                    <Menu.Item
-                        key="fromDropOff"
-                        onClick={fromDropOff.onClick}
-                        title={fromDropOff.title}
-                    >
-                        <CarOutlined/> {fromDropOff.name}
-                    </Menu.Item>
-                )}
-
-                {completeDispatch && (
-                    <Menu.Item
-                        key="completeDispatch"
-                        onClick={completeDispatch.onClick}
-                        title={completeDispatch.title}
-                    >
-                        <CheckCircleOutlined/>
-                        {completeDispatch.name}
-                    </Menu.Item>
-                )}
-
-                {cancelDispatch && (
-                    <Menu.Item
-                        key="cancelDispatch"
-                        onClick={cancelDispatch.onClick}
-                        title={cancelDispatch.title}
-                    >
-                        <CloseCircleOutlined/>
-                        {cancelDispatch.name}
-                    </Menu.Item>
-                )}
-
-                {reload && (
-                    <Menu.Item key="reload" onClick={reload.onClick} title={reload.title}>
-                        <SyncOutlined/> {reload.name}
-                    </Menu.Item>
-                )}
-
-                {share && (
-                    <Menu.Item key="share" onClick={share.onClick} title={share.title}>
-                        <ShareAltOutlined/> {share.name}
-                    </Menu.Item>
-                )}
-
-                {archive && (
-                    <Menu.Item
-                        key="archive"
-                        onClick={archive.onClick}
-                        title={archive.title}
-                    >
-                        <DeleteOutlined/> {archive.name}
-                    </Menu.Item>
-                )}
-
-                {transfer && (
-                    <Menu.Item
-                        key="transfer"
-                        onClick={transfer.onClick}
-                        title={transfer.title}
-                    >
-                        <SwapOutlined/> {transfer.name}
-                    </Menu.Item>
-                )}
-
-                {adjust && (
-                    <Menu.Item
-                        key="transfer"
-                        onClick={adjust.onClick}
-                        title={adjust.title}
-                    >
-                        <DiffOutlined/> {adjust.name}
-                    </Menu.Item>
-                )}
-
-                {whatsapp && (
-                    <Menu.Item key="transfer" title={whatsapp.title}>
-                        <a target="_blank" rel="noopener noreferrer" href={whatsapp.link}>
-                            <DiffOutlined/> {whatsapp.name}
-                        </a>
-                    </Menu.Item>
-                )}
-            </Menu>
-        }
-        trigger={['click']}
-    >
-        <Button
-            shape="circle"
-            size="large"
-            icon={<MoreOutlined/>}
-            className="actionButton"
-            title="More actions"
-        />
-    </Dropdown>
-);
+                </Menu>
+            }
+            trigger={['click']}
+        >
+            <Button
+                shape="circle"
+                size="large"
+                icon={<MoreOutlined />}
+                className="actionButton"
+                title="More actions"
+            />
+        </Dropdown>
+    );
 
 /* props validation */
 const actionShape = {
@@ -264,21 +156,8 @@ ListItemActions.propTypes = {
     reload: PropTypes.shape(actionShape),
     share: PropTypes.shape(actionShape),
     archive: PropTypes.shape(actionShape),
-    transfer: PropTypes.shape(actionShape),
-    adjust: PropTypes.shape(actionShape),
-    assignPermissions: PropTypes.shape(actionShape),
-    whatsapp: PropTypes.shape({
-        name: PropTypes.string,
-        title: PropTypes.string,
-        link: PropTypes.string,
-    }),
-    completeDispatch: PropTypes.shape(actionShape),
-    cancelDispatch: PropTypes.shape(actionShape),
-    dispatch: PropTypes.shape(actionShape),
-    atPickup: PropTypes.shape(actionShape),
-    fromPickup: PropTypes.shape(actionShape),
-    atDropOff: PropTypes.shape(actionShape),
-    fromDropOff: PropTypes.shape(actionShape),
+    components: PropTypes.shape(actionShape),
+    fillSurvey: PropTypes.shape(actionShape),
 };
 
 ListItemActions.defaultProps = {
@@ -288,17 +167,8 @@ ListItemActions.defaultProps = {
     reload: null,
     share: null,
     archive: null,
-    transfer: null,
-    adjust: null,
-    whatsapp: null,
-    assignPermissions: null,
-    completeDispatch: null,
-    cancelDispatch: null,
-    dispatch: null,
-    atPickup: null,
-    fromPickup: null,
-    atDropOff: null,
-    fromDropOff: null,
+    fillSurvey: null,
+    components: null,
 };
 
 export default ListItemActions;

@@ -47,26 +47,26 @@ export const getCreatedProjectSelector = (state) => state?.resources?.Projects?.
  */
 export const getProjectsLoadingSelector = (state) => state?.resources?.Projects?.loading;
 
-// /**
-//  * @function
-//  * @name getProjectsPageSelector
-//  * @param {Object} state redux state
-//  */
-// export const getProjectsPageSelector = (state) => state?.resources?.Projects?.data?.current_page;
-
-// /**
-//  * @function
-//  * @name getProjectsTotalSelector
-//  * @param {Object} state redux state
-//  */
-// export const getProjectsTotalSelector = (state) => state?.resources?.Projects?.data?.total;
+/**
+ * @function
+ * @name getProjectShowFormSelector
+ * @param {Object} state redux state
+ */
+export const getProjectShowFormSelector = (state) => state?.resources?.project?.showForm;
 
 /**
  * @function
- * @name getProjectsShowFormSelector
+ * @name getProjectComponentShowFormSelector
  * @param {Object} state redux state
  */
-export const getProjectsShowFormSelector = (state) => state?.resources?.Projects?.showForm;
+export const getProjectComponentShowFormSelector = (state) => state?.resources?.projectComponent?.showForm;
+
+/**
+ * @function
+ * @name getProjectComponentLoading
+ * @param {Object} state redux state
+ */
+export const getProjectComponentLoading = (state) => state?.resources?.projectComponent?.loading;
 
 /**
  * @function
@@ -235,3 +235,12 @@ export const searchQuery = (state) => state?.resources?.search.data;
  * @return {Object} 
  */
 export const getLayers = (state) => state?.resources?.geonodeLayers?.data || [];
+
+/**
+ * @function
+ * @name getProjectSubComponents
+ * @param {Object} state redux state
+ * @return {Object} 
+ */
+export const getProjectSubComponents = (state) => state?.resources?.subComponents?.data || [];
+
