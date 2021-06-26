@@ -186,7 +186,7 @@ function TicketForm({
 
 
 const mapStateToProps = state => ({
-    agencies: projectDetailsSelectors.getAgenciesSelector(state),
+    agencies: ticketSelectors.fetchAgenciesSelector(state),
     loading: ticketSelectors.loading(state),
 
 });
@@ -194,7 +194,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     createTicket: ticketActions.createProjectTicketStart,
-    getAgencies: projectDetailsActions.getAgenciesStart,
+    getAgencies: ticketActions.fetchAgenciesStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TicketForm);

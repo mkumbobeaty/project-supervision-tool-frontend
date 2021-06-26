@@ -53,7 +53,6 @@ const createProjectTicketPic = action$ => {
     )
 }
 
-
 /**
  *
  * @function
@@ -74,9 +73,23 @@ const getTicketByProjectEpic = action$ => {
     );
 }
 
+const fetchAgenciesEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_AGENCY_START),
+        switchMap(() =>  {
+            return from(API.fetchAgencies()).pipe(
+            switchMap(res => { 
+                return of(actions.fetchAgenciesSuccess(res.data)) }),
+            catchError(error => of(actions.fetchAgenciesFailure(error)))
+        )}
+        ),
+    )                                                                                                                                                                                                       
+}
+
 export const  ticketsEpic= combineEpics(
     getTicketsEpic,
     getTicketEpic,
     createProjectTicketPic,
     getTicketByProjectEpic,
+    fetchAgenciesEpic
 )

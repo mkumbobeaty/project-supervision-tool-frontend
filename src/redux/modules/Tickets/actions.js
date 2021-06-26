@@ -109,3 +109,26 @@ export const getTicketByProjectSuccess = makeActionCreator(types.GET_TICKET_BY_P
  * @return {Object} action
  * */
 export const getTicketByProjectFailure = makeActionCreator(types.GET_TICKET_BY_PROJECT_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name fetchAgenciesStart
+ * @return {Object} action
+ * */
+export const fetchAgenciesStart = makeActionCreator(types.GET_AGENCY_START, 'payload');
+
+/**
+ * @function
+ * @name fetchAgenciesSuccess
+ * @param {Object} payload agencies
+ * @return {Object} action
+ * */
+export const fetchAgenciesSuccess = makeActionCreator(types.GET_AGENCY_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name fetchAgenciesFailure
+ * @param {Object} payload agencies failure response
+ * @return {Object} action
+ * */
+export const fetchAgenciesFailure = makeActionCreator(types.GET_AGENCY_FAILURE, 'payload');

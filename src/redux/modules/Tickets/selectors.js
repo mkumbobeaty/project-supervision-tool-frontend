@@ -35,3 +35,10 @@ export const getTicketShowFormSelector = (state) => state?.ticketsResource?.tick
  */
 
 export const getTicketByProject = (state) => state?.ticketsResource?.tickets?.ticket;
+
+/**
+ * @function
+ * @name fetchAgenciesSelector
+ * @param {Object} state redux state
+ */
+export const fetchAgenciesSelector = (state) => state?.ticketsResource?.agencies?.data.data || [];

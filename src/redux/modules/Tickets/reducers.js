@@ -56,8 +56,23 @@ const ticket = (state = { data: {}, loading: false, error: null }, action) => {
   }
 }
 
+const agencies = (state = { data: {}, loading: false, error: null }, action) => {
+  switch (action.type) {
+    case types.GET_AGENCY_FAILURE:
+      return { ...state, loading: true }
+    case types.GET_AGENCY_SUCCESS:
+      return { data: action.payload, loading: false, }
+    case types.GET_AGENCY_FAILURE:
+      return { ...state, loading: false, error: action.payload }
+    default:
+      return state;
+
+  }
+}
+
 
 export const ticketsResource = combineReducers({
   tickets,
-  ticket
+  ticket,
+  agencies
 })
