@@ -13,7 +13,7 @@ const keyDetailSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
 const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
 
-const OverviewDetails = ({ sub_project, mapLoading }) => {
+const OverviewDetails = ({ sub_project, mapLoading,subProjectTickets }) => {
     const approval_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.approval_date) : 'N/A';
     const closing_date = sub_project?.details ? isoDateToHumanReadableDate(sub_project?.details?.closing_date) : 'N/A';
 
@@ -120,13 +120,8 @@ const OverviewDetails = ({ sub_project, mapLoading }) => {
                     </Spin>
                 </Col>
             </Row>
-            <section style={{marginBottom:'40px'}}>
-                <div className="container issueOverview">
-                    <h4 className="text-blue">Issues</h4>
-                    <Tickets />
-                    <p className="text-blue">View All issue</p>
-                </div>
-            </section>
+          <Tickets tickets={subProjectTickets} />
+                
         </>
 
     )

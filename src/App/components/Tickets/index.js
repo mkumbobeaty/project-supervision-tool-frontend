@@ -31,7 +31,7 @@ const Tickets = ({ tickets }) => {
     }
 
     return (
-        <section style={{ marginTop: '40px' }}>
+        <section style={{ marginTop: '40px', marginBottom: '40px'}}>
             <div className="container issueOverview">
                 <h4 className="text-blue">Issues</h4>
                 <IssueList

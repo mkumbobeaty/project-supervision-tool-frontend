@@ -6,7 +6,6 @@ import {
     Form, Input, Button, Row, Col, Select
 } from 'antd';
 import { ticketActions, ticketSelectors } from '../../../../redux/modules/Tickets';
-import { projectDetailsActions, projectDetailsSelectors } from '../../../../redux/modules/projectDetails/';
 
 /* ui */
 const labelCol = {
@@ -33,10 +32,12 @@ const wrapperCol = {
  */
 function TicketForm({
     selected,
-    createTicket,
+    createProjectTicket,
     agencies,
     loading,
-    getAgencies
+    getAgencies,
+    createSubProjectTicket,
+    isSelected
 }) {
     ;
 
@@ -59,7 +60,20 @@ function TicketForm({
                 }
             },
         };
-        createTicket(payload);
+        if (isSelected) {
+            const subProjectPayload = {
+                ...payload,
+                sub_project_id: selected?.id,
+                project_id: selected?.project_id,
+
+            }
+            debugger
+            createSubProjectTicket(subProjectPayload)
+        }
+        else {
+            debugger
+            createProjectTicket(payload);
+        }
     };
 
     return (
@@ -169,14 +183,14 @@ function TicketForm({
                         label="Assigned To"
                         name="assignee_id"
                         title="Issued assignee e.g Jacob John"
-    
+
                     >
                         <Select
                             showSearch
                             optionFilterProp="children"
 
                         >
-                            {agencies.map(({focalPerson}) => (
+                            {agencies.map(({ focalPerson }) => (
                                 <Select.Option value={focalPerson.id}>{focalPerson.first_name} {focalPerson.last_name}</Select.Option>
                             ))}
                         </Select>
@@ -212,7 +226,8 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = {
-    createTicket: ticketActions.createProjectTicketStart,
+    createProjectTicket: ticketActions.createProjectTicketStart,
+    createSubProjectTicket: ticketActions.createProjectTicketStart,
     getAgencies: ticketActions.fetchAgenciesStart,
 };
 

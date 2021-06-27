@@ -75,6 +75,29 @@ export const createProjectTicketFailure = makeActionCreator(types.CREATE_PROJECT
 
 /**
  * @function
+ * @name createSubProjectTicketStart
+ * @return {Object} action
+ * */
+export const createSubProjectTicketStart = makeActionCreator(types.CREATE_SUB_PROJECT_TICKET_START, 'payload');
+
+/**
+ * @function
+ * @name createSubProjectTicketSuccess
+ * @param {Object} payload tickets
+ * @return {Object} action
+ * */
+export const createSubProjectTicketSuccess = makeActionCreator(types.CREATE_SUB_PROJECT_TICKET_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name createSubProjectTicketFailure
+ * @param {Object} payload ticketst failure response
+ * @return {Object} action
+ * */
+export const createSubProjectTicketFailure = makeActionCreator(types.CREATE_SUB_PROJECT_TICKET_FAILURE, 'payload');
+
+/**
+ * @function
  * @name openTicketForm
  * @return {Object} action
  * */
@@ -132,3 +155,26 @@ export const fetchAgenciesSuccess = makeActionCreator(types.GET_AGENCY_SUCCESS, 
  * @return {Object} action
  * */
 export const fetchAgenciesFailure = makeActionCreator(types.GET_AGENCY_FAILURE, 'payload');
+
+/**
+ * @function
+ * @name getTicketBySubProjectStart
+ * @return {Object} action
+ * */
+export const getTicketBySubProjectStart = makeActionCreator(types.GET_TICKET_BY_SUB_PROJECT_START, 'payload');
+
+/**
+ * @function
+ * @name getTicketBySubProjectSuccess
+ * @param {Object} payload tickets
+ * @return {Object} action
+ * */
+export const getTicketBySubProjectSuccess = makeActionCreator(types.GET_TICKET_BY_SUB_PROJECT_SUCCESS, 'payload');
+
+/**
+ * @function
+ * @name getTicketBySubProjectFailure
+ * @param {Object} payload ticketst failure response
+ * @return {Object} action
+ * */
+export const getTicketBySubProjectFailure = makeActionCreator(types.GET_TICKET_BY_SUB_PROJECT_FAILURE, 'payload');
