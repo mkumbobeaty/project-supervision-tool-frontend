@@ -161,7 +161,7 @@ export const fetchAgenciesFailure = makeActionCreator(types.GET_AGENCY_FAILURE, 
  * @name getTicketBySubProjectStart
  * @return {Object} action
  * */
-export const getTicketBySubProjectStart = makeActionCreator(types.GET_TICKET_BY_PROJECT_START, 'payload');
+export const getTicketBySubProjectStart = makeActionCreator(types.GET_TICKET_BY_SUB_PROJECT_START, 'payload');
 
 /**
  * @function
@@ -169,7 +169,7 @@ export const getTicketBySubProjectStart = makeActionCreator(types.GET_TICKET_BY_
  * @param {Object} payload tickets
  * @return {Object} action
  * */
-export const getTicketBySubProjectSuccess = makeActionCreator(types.GET_TICKET_BY_PROJECT_SUCCESS, 'payload');
+export const getTicketBySubProjectSuccess = makeActionCreator(types.GET_TICKET_BY_SUB_PROJECT_SUCCESS, 'payload');
 
 /**
  * @function
@@ -177,4 +177,4 @@ export const getTicketBySubProjectSuccess = makeActionCreator(types.GET_TICKET_B
  * @param {Object} payload ticketst failure response
  * @return {Object} action
  * */
-export const getTicketBySubProjectFailure = makeActionCreator(types.GET_TICKET_BY_PROJECT_FAILURE, 'payload');
+export const getTicketBySubProjectFailure = makeActionCreator(types.GET_TICKET_BY_SUB_PROJECT_FAILURE, 'payload');
