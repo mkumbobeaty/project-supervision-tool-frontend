@@ -38,6 +38,13 @@ export const getTicketByProject = (state) => state?.ticketsResource?.tickets?.ti
 
 /**
  * @function
+ * @name getTicketBySubProjectSelector
+ * @param {Object} state redux state
+ */
+export const getTicketBySubProjectSelector = (state) => state?.ticketsResource?.tickets?.ticket;
+
+/**
+ * @function
  * @name fetchAgenciesSelector
  * @param {Object} state redux state
  */

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { projectActions, projectOperation, projectSelectors } from '../../redux/modules/projects';
-import { Col, Drawer, Modal } from "antd";
+import { Col, Drawer } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import Topbar from "../components/Topbar";
@@ -9,16 +9,17 @@ import SubProjectsList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
-import {getSurveyIdByCategory, isoDateToHumanReadableDate} from "../../Util";
+import { getSurveyIdByCategory } from "../../Util";
 import SubProjectForm from "./components/Form";
-import "./styles.css";
 import { subProjectsActions, subProjectsSelectors } from "../../redux/modules/subProjects"
 import { bindActionCreators } from "redux";
 import { mapActions } from "../../redux/modules/map";
 import PreviewOnMap from "./components/PreviewOnMap";
 import SurveyForm from "./components/SurveyForm";
 import DisplaySurveyForm from "../components/DisplaySurveyForm";
-
+import { ticketActions, ticketSelectors } from "../../redux/modules/Tickets";
+import TicketForm from '../Tickets/components/Form';
+import "./styles.css";
 
 /* constants */
 const subProjectNameSpan = { xxl: 3, xl: 4, lg: 4, md: 5, sm: 20, xs: 20 };
@@ -30,7 +31,6 @@ const physicalProgressSpan = { xxl: 3, xl: 2, lg: 3, md: 3, sm: 0, xs: 0 };
 const financialSpan = { xxl: 2, xl: 2, lg: 4, md: 2, sm: 0, xs: 0 };
 const contractorSpan = { xxl: 3, xl: 3, lg: 3, md: 2, sm: 0, xs: 0 };
 
-const { confirm } = Modal;
 
 const headerLayout = [
   { ...subProjectNameSpan, header: "Name" },
@@ -61,14 +61,13 @@ class SubProjects extends Component {
     cached: null,
     visible: false,
     previewOnMap: false,
-
+    isSelected: false
   };
 
   componentDidMount() {
     const { fetchSubProjects, match } = this.props;
-    console.log('match', match);
     if (match.params?.id) {
-      const filter = {'filter[procuringEntityPackage.procuringEntity.projectSubComponent.projectComponent.project_id]': match.params.id}
+      const filter = { 'filter[procuringEntityPackage.procuringEntity.projectSubComponent.projectComponent.project_id]': match.params.id }
       fetchSubProjects(filter);
     }
     else {
@@ -120,12 +119,10 @@ class SubProjects extends Component {
   */
   handleViewDetails = (item_id) => {
     const { getSubProject } = this.props;
-    console.log(item_id)
-    getSubProject(item_id);
+     getSubProject(item_id);
     let path = `/app/sub_projects/${item_id}`;
     this.props.history.push(path);
   };
-
 
 
   /**
@@ -141,27 +138,6 @@ class SubProjects extends Component {
     openSurveyForm();
   };
 
-  /**
-   * @function
-   * @name showArchiveConfirm
-   * @description show confirm modal before archiving a subproject
-   * @param {object} item Resource item to be archived
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  showArchiveConfirm = (item) => {
-    const { deleteSubproject } = this.props;
-    confirm({
-      title: `Are you sure you want to archive this record ?`,
-      okText: "Yes",
-      okType: "danger",
-      cancelText: "No",
-      onOk() {
-        deleteSubproject(item.id);
-      },
-    });
-  };
 
   /**
    * @function
@@ -262,6 +238,49 @@ class SubProjects extends Component {
     searchSubProject(searchData);
   };
 
+
+  /**
+ * @function
+ * @name closeProjectSubComponentForm
+ * @description close form
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+  closeProjectSubComponentForm = () => {
+    this.setState({ isEditForm: false, visible: false });
+    const { closeProjectSubComponentForm } = this.props;
+    closeProjectSubComponentForm();
+  };
+
+  /**
+  * @function
+  * @name openIssueForm
+  * @description Open form
+  *
+  * @version 0.1.0
+  * @since 0.1.0
+  */
+  openIssueForm = (sub_project) => {
+    this.setState({ isSelected: true });
+    const { openTicketForm, selectSubProject } = this.props;
+    selectSubProject(sub_project);
+    openTicketForm();
+  };
+
+  /**
+  * @function
+  * @name closeIssueForm
+  * @description close form
+  * @version 0.1.0
+  * @since 0.1.0
+  */
+  closeIssueForm = () => {
+    this.setState({ isEditForm: false, isSelected:false });
+    const { closeTicketForm } = this.props;
+    closeTicketForm();
+  };
+
   render() {
     const {
       subProjects,
@@ -269,19 +288,20 @@ class SubProjects extends Component {
       loading,
       showForm,
       showSurveyForm,
+      showTicketForm,
       page,
       total,
       paginateSubProject,
       closeCreateSurveyForm,
       showCreateSurveyForm,
       closeSurveyForm,
-      selected
+      selected,
+      deleteSubproject
     } = this.props;
 
     const survey_id = selected?.surveys ? getSurveyIdByCategory('field_notes', selected?.surveys) : null;
 
-
-    const { isEditForm, previewOnMap } = this.state;
+    const { isEditForm, previewOnMap, isSelected } = this.state;
     return previewOnMap ? <PreviewOnMap data={selected} /> : (
       <div>
         {/* Topbar */}
@@ -319,17 +339,11 @@ class SubProjects extends Component {
           headerLayout={headerLayout}
           renderListItem={({
             item,
-            isSelected,
-            onSelectItem,
-            onDeselectItem,
           }) => (
               <ListItem
                 key={item.id} // eslint-disable-line
                 name={item.name}
                 item={item}
-                isSelected={isSelected}
-                onSelectItem={onSelectItem}
-                onDeselectItem={onDeselectItem}
                 renderActions={() => (
                   <ListItemActions
                     edit={{
@@ -341,7 +355,7 @@ class SubProjects extends Component {
                       name: "Archive Sub-project",
                       title:
                         "Remove Sub project from list of active Sub Projects",
-                      onClick: () => this.showArchiveConfirm(item),
+                      onClick: () => this.showArchiveConfirm(item, deleteSubproject),
                     }}
                     view={
                       {
@@ -357,6 +371,12 @@ class SubProjects extends Component {
                         onClick: () => this.openSubProjectSurveyForm(item)
                       }
                     }
+                    openIssues={{
+                      name: "Create New Ticket",
+                      title:
+                        "Open Ticket to the this sub project",
+                      onClick: () => this.openIssueForm(item),
+                    }}
                   />
                 )}
               >
@@ -381,7 +401,7 @@ class SubProjects extends Component {
 
                 <Col {...projectIdSpan} className="contentEllipse">
 
-                  {item?.project_id  ? item?.project_id : "N/A"}
+                  {item?.project_id ? item?.project_id : "N/A"}
                 </Col>
 
                 <Col {...itemsSpan} className="contentEllipse">
@@ -449,6 +469,24 @@ class SubProjects extends Component {
         >
           <DisplaySurveyForm survey_id={survey_id} />
         </Drawer>
+        <Drawer
+          title={
+            isEditForm ? "Edit Ticket" : "Add New Ticket"
+          } width={550}
+          onClose={this.closeIssueForm}
+          footer={null}
+          visible={showTicketForm}
+          bodyStyle={{ paddingBottom: 80 }}
+          destroyOnClose
+          maskClosable={false}
+          afterClose={this.handleAfterCloseForm}
+          className="projectForm"
+        >
+          <TicketForm
+            selected={selected}
+            isSelected={isSelected}
+          />
+        </Drawer>
       </div>
     );
   }
@@ -478,7 +516,8 @@ const mapStateToProps = (state) => {
     showCreateSurveyForm: projectSelectors.getShowCreateSurveyFormSelector(state),
     page: subProjectsSelectors.getSubProjectsPageSelector(state),
     total: subProjectsSelectors.getSubProjectsTotalSelector(state),
-    selected: subProjectsSelectors.selectedSubProject(state)
+    selected: subProjectsSelectors.selectedSubProject(state),
+    showTicketForm: ticketSelectors.getTicketShowFormSelector(state),
 
   };
 };
@@ -501,6 +540,8 @@ const mapDispatchToProps = (dispatch) => ({
   closeSubProjectForm: bindActionCreators(projectActions.closeSubProjectForm, dispatch),
   selectSubProject: bindActionCreators(subProjectsActions.selectedSubProject, dispatch),
   getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
+  openTicketForm: bindActionCreators(ticketActions.openTicketForm, dispatch),
+  closeTicketForm: bindActionCreators(ticketActions.closeTicketForm, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjects);

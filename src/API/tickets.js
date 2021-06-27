@@ -33,9 +33,26 @@ const getTicket = (id) => {
 const getTicketsByProject= (id) =>
     axios.get(`/projects/${id}/tickets`).then((response) => response.data);
 
+    /**
+ * @function
+ * @name getTicketsBySubProjectId
+ * @param {string} id
+ * @description get projects statistics based on region
+ * */
+const getTicketsBySubProjectId= (id) =>
+axios.get(`/sub_projects/${id}/tickets`).then((response) => response.data);
+
+/**
+ * @function
+ * @name openSubProjectTicket
+ * */
+const openSubProjectTicket =(details) => 
+axios.post(`/sub_projects/create_ticket`, details).then((response) => response.data);
 
 export default {
     getTickets,
     getTicket,
-    getTicketsByProject
+    getTicketsByProject,
+    getTicketsBySubProjectId,
+    openSubProjectTicket
 }

@@ -8,15 +8,18 @@ import * as appPermissions from '../../../../Util/permissions';
 import FieldNotes from "./components/FieldNotes";
 import FieldImages from "./components/FieldImages";
 import { authSelectors } from "../../../../redux/modules/auth";
+import { ticketActions, ticketSelectors } from "../../../../redux/modules/Tickets";
+
 import "./styles.css";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
-function SubProject({ getSubProject, match: { params }, sub_project, loading, mapLoading, permissions }) {
+function SubProject({ getSubProject, getSubProjectTicket, match: { params }, sub_project, loading, mapLoading, permissions, subProjectTickets }) {
 
   useEffect(() => {
     getSubProject(params.id);
+    getSubProjectTicket(params.id)
   }, []);
 
   return sub_project ? (
@@ -33,7 +36,7 @@ function SubProject({ getSubProject, match: { params }, sub_project, loading, ma
                       <h4 className="text-blue">Sub Project Development Objective</h4>
                       <p>{sub_project ? sub_project?.description : 'N/A'}</p>
                     </div>
-                    <OverviewDetails sub_project={sub_project} mapLoading={mapLoading} />
+                    <OverviewDetails sub_project={sub_project} mapLoading={mapLoading} subProjectTickets={subProjectTickets} />
                   </TabPane>
                   <TabPane tab="Field Notes" key="2">
                     <FieldNotes subProject={sub_project} getSubProject={getSubProject} permissions={permissions} permission={appPermissions.CAN_CREATE_SURVEY} />
@@ -59,6 +62,7 @@ const mapStateToProps = (state) => {
     loading: projectSelectors.getSubProjectLoadingSelector(state),
     mapLoading: mapSelectors.getMapLoadingSelector(state),
     permissions: authSelectors.authUserPermissionsSelector(state),
+    subProjectTickets: ticketSelectors.getTicketBySubProjectSelector(state),
 
   };
 };
@@ -66,7 +70,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = {
   getSubProject: projectOperation.getSubProjectStart,
   getWfsLayerData: mapActions.getWfsLayerDataStart,
-
+  getSubProjectTicket: ticketActions.getTicketBySubProjectStart
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProject);
