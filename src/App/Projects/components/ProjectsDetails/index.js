@@ -4,11 +4,9 @@ import OverviewDetails from "./components/OverviewDetails";
 import { connect } from "react-redux";
 import { projectActions, projectSelectors } from "../../../../redux/modules/projects";
 import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
-import SubProjectDashboard from "./components/SubProjectsDashboard";
 import "./styles.css";
 import { mapSubProjectSelectors } from "../../../../redux/modules/map/subProjects";
 import { ticketActions, ticketSelectors } from "../../../../redux/modules/Tickets";
-import Tickets from "../../../components/Tickets";
 import ProjectHome from "../../../navigation/ProjectHome";
 
 const { Content } = Layout;

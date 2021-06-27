@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { ProcuringEntityActions, ProcuringEntitySelectors, } from '../../redux/modules/ProcuringEntities';
 import PropTypes from 'prop-types';
 import { Col, Drawer } from "antd";
@@ -23,7 +24,7 @@ const packageSpan = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 0, xs: 0 };
 const headerLayout = [
     { ...nameSpan, header: "Name" },
     { ...websiteSpan, header: "Website" },
-    { ...subComponentSpan, header: "ProcuringEntity Sub-Component" },
+    { ...subComponentSpan, header: "ProcuringEntities Sub-Component" },
     { ...packageSpan, header: "Package" },
 ];
 
@@ -51,6 +52,7 @@ const ProcuringEntities = ({
     const [ isEditForm, setIsEditForm ] = useState(false);
     const [ visible, setVisible ] =  useState(false);
     const filter = {'filter[projectSubComponent.projectComponent.project_id]': match.params?.id};
+    const history = useHistory();
 
     useEffect(() => {
         getProcuringEntities(filter)
@@ -93,6 +95,20 @@ const ProcuringEntities = ({
    */
     const handleRefresh = () => {
         getProcuringEntities(filter);
+    };
+
+    /**
+   * @function
+   * @name handleViewDetails
+   * @description Handle handleViewDetails action
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+    const handleViewDetails = (item) => {
+        selectProcuringEntity(item);
+        const path = `/app/procuring_entities/${item.id}`;
+        history.push(path);
     };
 
 
@@ -166,7 +182,7 @@ const  handleEdit = (item) => {
                                         {
                                             name: "View Details",
                                             title: "View more detail of selected Procuring Entity",
-                                            // onClick: () => handleViewDetails(item.id)
+                                            onClick: () => handleViewDetails(item)
                                         }
                                     }
 

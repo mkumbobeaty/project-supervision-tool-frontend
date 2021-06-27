@@ -19,7 +19,8 @@ import Roles from "../Roles";
 import "./styles.css";
 import Tickets from "../Tickets";
 import TicketDetails from "../Tickets/components/Details";
-import ProcuringEntity from "../ProcuringEntity";
+import ProcuringEntity from "../ProcuringEntities";
+import ProcuringEntityDetails from "../ProcuringEntities/componets/Details";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -193,6 +194,12 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/sub_projects/:id`}
             render={({ match }, props ) => <SubProject match={match} {...props}/>}
+          />
+
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/procuring_entities/:id`}
+            render={({ match }, props ) => <ProcuringEntityDetails match={match} {...props}/>}
           />
       
           <PrivateRoute

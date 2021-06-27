@@ -150,3 +150,27 @@ export const getActorsSuccess = makeActionCreator(types.GET_ACTORS_SUCCESS, 'pay
  * @return {Object} action
  * */
 export const getActorsFailure = makeActionCreator(types.GET_ACTORS_FAILURE, 'payload');
+
+
+/**
+ * @const
+ * @name getProcuringEntityStart
+ * @return {Object} action
+ * */
+export const getProcuringEntityStart = makeActionCreator(types.GET_PROCURING_ENTITY_START, 'payload');
+
+/**
+ * @const
+ * @name getProcuringEntitySuccess
+ * @param {Object} payload procuringEntity
+ * @return {Object} action
+ * */
+export const getProcuringEntitySuccess = makeActionCreator(types.GET_PROCURING_ENTITY_SUCCESS, 'payload');
+
+/**
+ * @const
+ * @name getProcuringEntityFailure
+ * @param {Object} payload procuringEntity failure response
+ * @return {Object} action
+ * */
+export const getProcuringEntityFailure = makeActionCreator(types.GET_PROCURING_ENTITY_FAILURE, 'payload');
