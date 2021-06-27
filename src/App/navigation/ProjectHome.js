@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import NavigationMenu from '../components/NavigationMenu';
 import subProjectsIcon from '../../assets/icons/sub-projects.svg';
+import subProjectsDisabledIcon from '../../assets/icons/sub-projects-grey.svg';
 import modules from '../../modules.json';
 
 
@@ -16,27 +17,29 @@ const routes = [
     },
     {
         name: 'Procuring Entities',
-        path: '/sub_projects',
+        path: '/procuring-entities',
         icon: subProjectsIcon,
         description: modules.initiatives,
     },
     {
         name: 'Tickets',
-        path: '/sub_projects',
+        path: '/tickets',
         icon: subProjectsIcon,
         description: modules.initiatives,
     },
     {
         name: 'Agreed Actions',
-        path: '/sub_projects',
-        icon: subProjectsIcon,
+        path: '/agreed-actions',
+        icon: subProjectsDisabledIcon,
         description: modules.initiatives,
+        disabled: true,
     },
     {
         name: 'Monitoring & Evaluation',
-        path: '/sub_projects',
-        icon: subProjectsIcon,
+        path: '/monitoring-and-evaluation',
+        icon: subProjectsDisabledIcon,
         description: modules.initiatives,
+        disabled: true,
     },
 ];
 

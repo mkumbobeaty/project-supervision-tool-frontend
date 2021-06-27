@@ -65,8 +65,16 @@ class SubProjects extends Component {
   };
 
   componentDidMount() {
-    const { fetchSubProjects } = this.props;
-    fetchSubProjects();
+    const { fetchSubProjects, match } = this.props;
+    console.log('match', match);
+    if (match.params?.id) {
+      const filter = {'filter[procuringEntityPackage.procuringEntity.projectSubComponent.projectComponent.project_id]': match.params.id}
+      fetchSubProjects(filter);
+    }
+    else {
+      fetchSubProjects();
+    }
+
   }
 
 

@@ -8,8 +8,8 @@ import { switchMap, catchError, } from "rxjs/operators";
 const getProcuringEntitiesEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_PROCURING_ENTITIES_START),
-        switchMap(() => {
-            return from(API.getProcuringEntities()).pipe(
+        switchMap(({payload}) => {
+            return from(API.getProcuringEntities(payload)).pipe(
                 switchMap(res => {
                     return of(actions.getProcuringEntitiesSuccess(res.data))
                 }),

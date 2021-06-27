@@ -44,6 +44,7 @@ const ProcuringEntities = ({
     projectSubComponents,
     updateProcuringEntity,
     projects,
+    match,
     getProjects,
 }) => {
 
@@ -51,7 +52,8 @@ const ProcuringEntities = ({
     const [ visible, setVisible ] =  useState(false)
 
     useEffect(() => {
-        getProcuringEntities()
+        const filter = {'filter[projectSubComponent.projectComponent.project_id]': match.params?.id};
+        getProcuringEntities(filter)
     }, [])
 
     

@@ -43,6 +43,11 @@ const breadcrumbNameMap = {
     name: "Project",
     title: "Detail of single project",
   },
+
+  "/app/projects/:types/sub_projects": {
+    name: "SubProject",
+    title: "Project SubProjects",
+  },
   "/app/sub_projects/:type": {
     name: "Sub Project",
     title: "Detail of single sub project",
@@ -155,12 +160,33 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/projects`}
             component={Projects}
-          />{" "}
+          />
+
           <PrivateRoute
             exact
             path={`${baseUrl}/projects/:id`}
             render={({ match }, props) => <Project match={match} {...props} />}
           />
+
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/projects/:id/sub_projects`}
+            render={({ match }, props) => <SubProjects match={match} {...props} />}
+          />
+
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/projects/:id/procuring-entities`}
+            render={({ match }, props) => <ProcuringEntity match={match} {...props} />}
+          />
+
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/projects/:id/tickets`}
+            render={({ match }, props) => <Tickets match={match} {...props} />}
+          />
+
+
           <PrivateRoute exact path={`${baseUrl}/sub_projects`} component={SubProjects} />
 
           <PrivateRoute
