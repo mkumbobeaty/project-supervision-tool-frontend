@@ -6,8 +6,8 @@ import axios from "./config";
  * @name getProcuringEntities
  * @description get Procuring Entities
  * */
-const getProcuringEntities = () =>
-    axios.get(`/procuring_entities`).then((response) => response.data);
+const getProcuringEntities = (filter = {}) =>
+    axios.get(`/procuring_entities`, {params: filter}).then((response) => response.data);
 
 /**
  * detaches a project from list

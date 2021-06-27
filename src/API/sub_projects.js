@@ -6,11 +6,11 @@ import axios from "./config";
  * @function
  * @name getSubProjects
  *
- * @param {Object} id - Id of a sub project
  * @returns {Promise}
  *
  * @version 0.1.0
  * @since 0.1.0
+ * @param filter
  */
 const getSubProjects = (filter = {}) => {
     return axios.get(`/sub_projects/`, {params: filter}).then((response) => response.data);
