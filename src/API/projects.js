@@ -149,7 +149,6 @@ const openProjectTicket =(details) =>
 axios.post(`/projects/create_ticket`, details).then((response) => response.data);
 
 
-
 export default {
     createProjects,
     getProjects,
