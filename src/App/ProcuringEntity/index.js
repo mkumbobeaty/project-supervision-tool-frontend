@@ -49,10 +49,10 @@ const ProcuringEntities = ({
 }) => {
 
     const [ isEditForm, setIsEditForm ] = useState(false);
-    const [ visible, setVisible ] =  useState(false)
+    const [ visible, setVisible ] =  useState(false);
+    const filter = {'filter[projectSubComponent.projectComponent.project_id]': match.params?.id};
 
     useEffect(() => {
-        const filter = {'filter[projectSubComponent.projectComponent.project_id]': match.params?.id};
         getProcuringEntities(filter)
     }, [])
 
@@ -92,7 +92,7 @@ const ProcuringEntities = ({
    * @since 0.1.0
    */
     const handleRefresh = () => {
-        getProcuringEntities();
+        getProcuringEntities(filter);
     };
 
 
@@ -225,6 +225,7 @@ const  handleEdit = (item) => {
                 projectSubComponents={projectSubComponents}
                 updateProcuringEntity ={updateProcuringEntity}
                 projects={projects}
+                match={match}
                 getProjects={getProjects}
             />              
 

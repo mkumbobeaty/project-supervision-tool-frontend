@@ -35,6 +35,7 @@ function ProcuringEntityForm({
     isEditForm,
     selected,
     loading,
+    match,
     updateProcuringEntity,
 }) {
 
@@ -44,10 +45,31 @@ function ProcuringEntityForm({
     const [subComponents, setSubComponents] = useState([]);
 
     useEffect(() => {
-        API.getProjects()
-            .then(res => setProjects(res.data.data))
         API.getAllAgencies()
-            .then(res => setAgencies(res.data.data))
+            .then(res => setAgencies(res.data.data));
+        if (match.params?.id) {
+            API.getProject(match.params?.id)
+                .then(res => {
+                    setProjects([res.data]);
+                    if (selected) {
+                        setComponents(res.data.components);
+                        const component = res.data.components.find(({id}) => id === selected.project_component_id);
+                        if(component) setSubComponents(component.sub_components);
+                    }
+                })
+        }
+        else {
+            API.getProjects()
+                .then(res => {
+                    setProjects(res.data.data);
+                    if (selected) {
+                        const project = res.data.data.find(({id}) => selected.project_id === id);
+                        setComponents(project.components);
+                        const component = project.components.find(({id}) => id === selected.project_component_id);
+                        setSubComponents(component.sub_components);
+                    }
+                })
+        }
     }, [])
 
 
@@ -127,7 +149,7 @@ function ProcuringEntityForm({
                             },
                         ]}
                         initialValue={
-                            selected?.project?.id ? selected?.project?.id : '' 
+                            selected?.project_id ? selected?.project_id : ''
                         }
                     >
                         <Select
@@ -150,7 +172,7 @@ function ProcuringEntityForm({
                         name="project_component_id"
                         title="Project component Description e.g water recycle project"
                         initialValue={
-                            selected?.component?.id
+                            selected?.project_component_id
                         }
                     >
                         <Select
@@ -171,7 +193,7 @@ function ProcuringEntityForm({
                         name="project_sub_component_id"
                         title="Project sub-component Description e.g water recyle project"
                         initialValue={
-                            selected?.sub_component?.id
+                            selected?.project_sub_component?.id
                         }
                     >
                         <Select showSearch optionFilterProp="children"   >
