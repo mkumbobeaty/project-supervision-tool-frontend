@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import ProjectHome from "../../../navigation/ProjectHome";
 import { isoDateToHumanReadableDate } from '../../../../Util'
 import './styles.css';
+import ProcuringEntityHomeNavMenu from "../../../navigation/ProcuringEntitiesHome";
 const { Content } = Layout;
 
 const totalCostSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
@@ -82,7 +83,7 @@ const ProcuringEntityDetails = ({match, procuringEntity, getProcuringEntity}) =>
                                     </Row>
                                 </section>
                                 </div>
-                                <ProjectHome match={match} />
+                                <ProcuringEntityHomeNavMenu match={match} />
                             </div>
                         </Content>
                     </Layout>
