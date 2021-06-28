@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
 import { ProcuringEntityActions, ProcuringEntitySelectors, } from '../../redux/modules/ProcuringEntities';
 import PropTypes from 'prop-types';
-import { Col, Drawer } from "antd";
+import { Col, Drawer} from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import Topbar from "../components/Topbar";
 import PackagesList from "../components/List";
@@ -53,13 +53,28 @@ const Packages = ({
 }) => {
 
 
-    const [isEditForm, setIsEditForm] = useState(false);
-    const [visible, setVisible] = useState(false);
     const history = useHistory();
     const filter = {'filter[procuring_entity_id]': match.params?.id}
+    const [isEditForm, setIsEditForm] = useState(false);
+    const [visible, setVisible] = useState(false);
+
     useEffect(() => {
         getPackes(filter)
-    }, [])
+    }, []);
+
+
+    /**
+     * @function
+     * @name handleViewDetails
+     * @description Handle handleViewDetails action
+     *
+     * @version 0.1.0
+     * @since 0.1.0
+     */
+    const handleViewDetails = (item) => {
+        const path = `/app/packages/${item.id}`;
+        history.push(path);
+    };
 
 
     /**
@@ -179,7 +194,7 @@ const Packages = ({
                                         {
                                             name: "View Details",
                                             title: "View more detail of selected Package",
-                                            onClick: ''
+                                            onClick: () => handleViewDetails(item)
                                         }
                                     }
 

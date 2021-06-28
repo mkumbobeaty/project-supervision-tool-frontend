@@ -66,8 +66,17 @@ class SubProjects extends Component {
 
   componentDidMount() {
     const { fetchSubProjects, match } = this.props;
-    if (match.params?.id) {
-      const filter = { 'filter[procuringEntityPackage.procuringEntity.projectSubComponent.projectComponent.project_id]': match.params.id }
+    if (match.path === '/app/packages/:id/sub_projects') {
+      const filter = {
+        // 'filter[procuring_entity_package_id]': match.params?.id,
+        'filter[procuring_entity_package_id]': 1,
+      }
+      fetchSubProjects(filter);
+    }
+    else if (match.path === '/projects/:id/sub_projects') {
+      const filter = {
+        'filter[procuringEntityPackage.procuringEntity.projectSubComponent.projectComponent.project_id]': match.params?.id,
+      }
       fetchSubProjects(filter);
     }
     else {
@@ -401,7 +410,7 @@ class SubProjects extends Component {
 
                 <Col {...projectIdSpan} className="contentEllipse">
 
-                  {item?.project_id ? item?.project_id : "N/A"}
+                  {item?.project.code ? item?.project.code : "N/A"}
                 </Col>
 
                 <Col {...itemsSpan} className="contentEllipse">
@@ -415,9 +424,9 @@ class SubProjects extends Component {
                 <Col {...statusSpan}>
                   {item?.status ? item?.status.name : 'N/A'}
                 </Col>
-                <Col {...physicalProgressSpan} className="contentEllipse">{item.details ? item.details.contractor.name : "N/A"}</Col>
+                <Col {...physicalProgressSpan} className="contentEllipse">{item?.physical_progress ? item?.physical_progress : "N/A"}</Col>
 
-                <Col {...financialSpan} className="contentEllipse" title={item?.details?.supervising_agency.name}>{item.details ? item.details.supervising_agency.name : "N/A"}</Col>
+                <Col {...financialSpan} className="contentEllipse" title={item?.financial_progress ? item?.financial_progress : "N/A"}>{item?.financial_progress ? item?.financial_progress : "N/A"}</Col>
                 <Col {...contractorSpan} >
 
                   {item.details ? item.details.contractor.name : "N/A"}

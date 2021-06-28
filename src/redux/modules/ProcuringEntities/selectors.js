@@ -27,6 +27,13 @@ export const selectedProcuringEntity = (state) => state?.procuringEntityResource
  */
 export const getProcuringEntitySelector = (state) => state?.procuringEntityResource?.procuringEntity.data;
 
+/**
+ * @function
+ * @name getPackageSelector
+ * @param {Object} state redux state
+ */
+export const getPackageSelector = (state) => state?.procuringEntityResource?.packageDetail.data;
+
 
 /**
  * @function
