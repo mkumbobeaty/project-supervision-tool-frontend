@@ -22,6 +22,7 @@ import TicketDetails from "../Tickets/components/Details";
 import ProcuringEntity from "../ProcuringEntities";
 import ProcuringEntityDetails from "../ProcuringEntities/componets/Details";
 import Packages from "../Packages";
+import PackageDetails from "../Packages/componets/Details";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -247,6 +248,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/packages`}
             component={Packages}
+          />
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/packages/:id`}
+            render={({ match }, props) => <PackageDetails match={match} {...props} />}
           />
           <PrivateRoute
             exact

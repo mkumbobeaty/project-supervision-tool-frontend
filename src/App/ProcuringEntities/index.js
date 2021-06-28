@@ -106,7 +106,6 @@ const ProcuringEntities = ({
    * @since 0.1.0
    */
     const handleViewDetails = (item) => {
-        selectProcuringEntity(item);
         const path = `/app/procuring_entities/${item.id}`;
         history.push(path);
     };

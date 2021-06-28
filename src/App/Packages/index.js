@@ -3,13 +3,12 @@ import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ProcuringEntityActions, ProcuringEntitySelectors, } from '../../redux/modules/ProcuringEntities';
 import PropTypes from 'prop-types';
-import { Col, Drawer } from "antd";
+import { Col } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import Topbar from "../components/Topbar";
 import PackagesList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
-import { projectActions, projectSelectors } from "../../redux/modules/projects";
 import { moneyFormat, showArchiveConfirm } from "../../Util";
 
 import "./styles.css";
@@ -49,7 +48,21 @@ const Packages = ({
 
     useEffect(() => {
         getPackes(filter)
-    }, [])
+    }, []);
+
+
+    /**
+     * @function
+     * @name handleViewDetails
+     * @description Handle handleViewDetails action
+     *
+     * @version 0.1.0
+     * @since 0.1.0
+     */
+    const handleViewDetails = (item) => {
+        const path = `/app/packages/${item.id}`;
+        history.push(path);
+    };
 
   
 
@@ -127,7 +140,7 @@ const Packages = ({
                                         {
                                             name: "View Details",
                                             title: "View more detail of selected Package",
-                                            onClick: ''
+                                            onClick: () => handleViewDetails(item)
                                         }
                                     }
 

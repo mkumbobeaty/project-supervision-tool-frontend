@@ -102,11 +102,26 @@ const getPackagesEpic = action$ => {
     return action$.pipe(
         ofType(types.GET_PACKAGES_START),
         switchMap(({payload}) => {
-            return from(API.getPackage(payload)).pipe(
+            return from(API.getPackages(payload)).pipe(
                 switchMap(res => {
                     return of(actions.getPackagesSuccess(res.data))
                 }),
                 catchError(error => of(actions.getPackagesFailure(error)))
+            )
+        }
+        ),
+    )
+}
+
+const getPackageEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_PACKAGE_START),
+        switchMap(({payload}) => {
+            return from(API.getPackage(payload)).pipe(
+                switchMap(res => {
+                    return of(actions.getPackageSuccess(res.data))
+                }),
+                catchError(error => of(actions.getPackageFailure(error)))
             )
         }
         ),
@@ -134,6 +149,7 @@ export const procuringEntitiesEpic = combineEpics(
     updateProcuringEntityPic,
     getProcuringEntityEpic,
     getActorEpic,
+    getPackageEpic,
     getPackagesEpic,
     deletePackageEpic
 );

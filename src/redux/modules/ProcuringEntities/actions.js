@@ -198,6 +198,29 @@ export const getPackagesSuccess = makeActionCreator(types.GET_PACKAGES_SUCCESS, 
  * */
 export const getPackagesFailure = makeActionCreator(types.GET_PACKAGES_FAILURE, 'payload');
 
+/**
+ * @const
+ * @name getPackageStart
+ * @return {Object} action
+ * */
+export const getPackageStart = makeActionCreator(types.GET_PACKAGE_START, 'payload');
+
+/**
+ * @const
+ * @name getPackageSuccess
+ * @param {Object} payload package
+ * @return {Object} action
+ * */
+export const getPackageSuccess = makeActionCreator(types.GET_PACKAGE_SUCCESS, 'payload');
+
+/**
+ * @const
+ * @name getPackageFailure
+ * @param {Object} payload package failure response
+ * @return {Object} action
+ * */
+export const getPackageFailure = makeActionCreator(types.GET_PACKAGE_FAILURE, 'payload');
+
 
 /**
  * @const
