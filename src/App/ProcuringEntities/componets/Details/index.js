@@ -76,6 +76,10 @@ const ProcuringEntityDetails = ({match, procuringEntity, getProcuringEntity}) =>
                                             <h4>Supervising Consultants</h4>
                                             {procuringEntity.supervisingConsultants.length}
                                         </Col>
+                                        <Col {...projectCoordinatorSpan}>
+                                            <h4>SubProjects</h4>
+                                            <p>{procuringEntity.subProjects.length}</p>
+                                        </Col>
                                         <Col {...lastUpdateSpan} >
                                             <h4>Last updated</h4>
                                             <p>{isoDateToHumanReadableDate(procuringEntity.updated_at)}</p>

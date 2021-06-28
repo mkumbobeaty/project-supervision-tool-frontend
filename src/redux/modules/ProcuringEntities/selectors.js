@@ -42,4 +42,3 @@ export const getShowFormSelector = (state) => state?.procuringEntityResource?.pr
  * @return {Object} 
  */
 export const getActorsSelector = (state) => state?.procuringEntityResource?.actors?.data?.data || [];
-
