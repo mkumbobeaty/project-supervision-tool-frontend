@@ -8,19 +8,19 @@ import modules from '../../modules.json';
 
 /* constants */
 const routes = [
-
-    {
-        name: 'Sub Projects',
-        path: '/sub_projects',
-        icon: subProjectsIcon,
-        description: modules.initiatives,
-    },
     {
         name: 'Procuring Entities',
         path: '/procuring-entities',
         icon: subProjectsIcon,
         description: modules.initiatives,
     },
+    {
+        name: 'Sub Projects',
+        path: '/sub_projects',
+        icon: subProjectsIcon,
+        description: modules.initiatives,
+    },
+
     {
         name: 'Tickets',
         path: '/tickets',

@@ -10,18 +10,19 @@ import modules from '../../modules.json';
 const routes = [
 
     {
+        name: 'Packages',
+        path: '/packages',
+        icon: subProjectsIcon,
+        description: modules.initiatives,
+    },
+
+    {
         name: 'SubProjects',
         path: '/sub_projects',
         icon: subProjectsIcon,
         description: modules.initiatives,
     },
 
-    {
-        name: 'Packages',
-        path: '/sub_projects',
-        icon: subProjectsIcon,
-        description: modules.initiatives,
-    },
     {
         name: 'Contracts',
         path: '/procuring-entities',

@@ -90,8 +90,17 @@ const breadcrumbNameMap = {
     name: "Single Procuring Entity",
     title: "Single Procuring Entity Module",
   },
-  /* Contracts routes */
+  "/app/procuring-entities:types": {
+    name: "Single Procuring Entity",
+    title: "Single Procuring Entity Module",
+  },
+  /* Package routes */
   "/app/packages": {
+    name: "Packages",
+    title: "package Module",
+  },
+
+  "/app/packages/:types": {
     name: "Packages",
     title: "package Module",
   },
@@ -206,6 +215,12 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             exact
             path={`${baseUrl}/procuring_entities/:id`}
             render={({ match }, props) => <ProcuringEntityDetails match={match} {...props} />}
+          />
+
+          <PrivateRoute
+            exact
+            path={`${baseUrl}/procuring_entities/:id/packages`}
+            render={({ match }, props) => <Packages match={match} {...props} />}
           />
 
           <PrivateRoute

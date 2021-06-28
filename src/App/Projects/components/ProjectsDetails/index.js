@@ -44,7 +44,7 @@ const Project = ({ project, loading, getProject, subProjects, getTicketByProject
             <Content className="project-contents">
               <div className="card-container">
                 <Tabs type="card">
-                  <TabPane tab="Project Overview" key="1">
+                  <TabPane tab="Overview" key="1">
                     <div className="container description" >
                       <h4 className="text-blue">Project Development Objective</h4>
                       <p>{project ? project?.description : 'N/A'}</p>
@@ -58,7 +58,7 @@ const Project = ({ project, loading, getProject, subProjects, getTicketByProject
                       subProjects={subProjects}
                     />
                   </TabPane>
-                  <TabPane tab="Project Home" key="2" className="container" >
+                  <TabPane tab="Home" key="2" className="container" >
                     <ProjectHome match={match} />
                   </TabPane>
 
