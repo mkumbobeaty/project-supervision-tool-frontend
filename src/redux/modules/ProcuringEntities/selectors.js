@@ -50,3 +50,11 @@ export const getActorsSelector = (state) => state?.procuringEntityResource?.acto
  */
 
 export const getPackagesSelector = (state) => state?.procuringEntityResource?.packages?.data || [];
+
+/**
+ * @function
+ * @name getPackages
+ * @param {Object} state redux state
+ */
+
+export const getPackagesloaderSelector = (state) => state?.procuringEntityResource?.packages?.loading;

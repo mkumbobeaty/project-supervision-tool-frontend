@@ -197,3 +197,27 @@ export const getPackagesSuccess = makeActionCreator(types.GET_PACKAGES_SUCCESS, 
  * @return {Object} action
  * */
 export const getPackagesFailure = makeActionCreator(types.GET_PACKAGES_FAILURE, 'payload');
+
+
+/**
+ * @const
+ * @name deletePackageStart
+ * @return {Object} action
+ * */
+export const deletePackageStart = makeActionCreator(types.DELETE_PACKAGES_START, 'payload');
+
+/**
+ * @const
+ * @name deletePackageSuccess
+ * @param {Object} payload PACKAGE
+ * @return {Object} action
+ * */
+export const deletePackageSuccess = makeActionCreator(types.DELETE_PACKAGES_SUCCESS, 'payload');
+
+/**
+ * @const
+ * @name deletePackageFailure
+ * @param {Object} payload failure response
+ * @return {Object} action
+ * */
+export const deletePackageFailure = makeActionCreator(types.DELETE_PACKAGES_FAILURE, 'payload');

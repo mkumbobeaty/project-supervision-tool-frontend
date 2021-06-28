@@ -52,7 +52,18 @@ const updateProcuringEntity = (project, id) => {
  * */
 const getPackage = (filter = {}) =>
     axios.get(`/procuring_entity_packages`, {params: filter}).then((response) => response.data);
-
+/**
+ * detaches a project from list
+ * @function
+ * @name deletePackage
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const deletePackage = (package_id) => {
+    return axios
+        .delete(`procuring_entity_packages/${package_id}`)
+        .then((response) => response.data);
+};
 
 export default {
     getProcuringEntities,
@@ -60,4 +71,5 @@ export default {
     createProcuringEntity,
     updateProcuringEntity,
     getPackage,
+    deletePackage
 }

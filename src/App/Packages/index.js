@@ -40,14 +40,14 @@ const Packages = ({
     packages, 
     loading,
     match,
+    deletePackage
 }) => {
 
     const [ isEditForm, setIsEditForm ] = useState(false);
-    const filter = {'filter[projectSubComponent.projectComponent.project_id]': match.params?.id};
     const history = useHistory();
 
     useEffect(() => {
-        getPackes(filter)
+        getPackes()
     }, [])
 
   
@@ -61,7 +61,7 @@ const Packages = ({
    * @since 0.1.0
    */
     const handleRefresh = () => {
-        getPackes(filter);
+        getPackes();
     };
 ;
 
@@ -120,7 +120,7 @@ const Packages = ({
                                         name: "Archive Package",
                                         title:
                                             "Remove Sub project from list of active Package",
-                                        onClick: () => showArchiveConfirm(item),
+                                        onClick: () => showArchiveConfirm(item, deletePackage),
                                     }}
                                     view={
                                         {
@@ -173,13 +173,13 @@ const Packages = ({
 const mapStateToProps = (state) => {
     return {
         packages: ProcuringEntitySelectors.getPackagesSelector(state),
-        loading: ProcuringEntitySelectors.loading(state),
+        loading: ProcuringEntitySelectors.getPackagesloaderSelector(state),
     }
 }
 
 const mapDispatchToProps = {
     getPackes: ProcuringEntityActions.getPackagesStart,
-    // deleteProcuringEntity: ProcuringEntityActions.deleteProcuringEntityStart,
+    deletePackage: ProcuringEntityActions.deletePackageStart,
 }
 
 Packages.propTypes = {
