@@ -35,12 +35,12 @@ const contractorSpan = { xxl: 3, xl: 3, lg: 3, md: 2, sm: 0, xs: 0 };
 const headerLayout = [
   { ...subProjectNameSpan, header: "Name" },
   { ...projectIdSpan, header: "Project" },
-  { ...itemsSpan, header: "Items" },
+  { ...itemsSpan, header: "Type" },
   { ...locationSpan, header: "Location" },
   { ...statusSpan, header: "Status" },
   { ...physicalProgressSpan, header: "Physical Progress" },
   { ...financialSpan, header: "Financial Progress" },
-  { ...contractorSpan, header: "Contractors" },
+  { ...contractorSpan, header: "Contractor" },
 
 ];
 
@@ -68,8 +68,7 @@ class SubProjects extends Component {
     const { fetchSubProjects, match } = this.props;
     if (match.path === '/app/packages/:id/sub_projects') {
       const filter = {
-        // 'filter[procuring_entity_package_id]': match.params?.id,
-        'filter[procuring_entity_package_id]': 1,
+        'filter[procuring_entity_package_id]': match.params?.id,
       }
       fetchSubProjects();
     }
@@ -429,7 +428,7 @@ class SubProjects extends Component {
                 <Col {...financialSpan} className="contentEllipse" title={item?.financial_progress ? item?.financial_progress : "N/A"}>{item?.financial_progress ? item?.financial_progress : "N/A"}</Col>
                 <Col {...contractorSpan} >
 
-                  {item.details ? item.details.contractor.name : "N/A"}
+                  {item?.package?.contract?.contractor ? item?.package?.contract?.contractor.name : "N/A"}
                 </Col>
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>
