@@ -45,9 +45,19 @@ const updateProcuringEntity = (project, id) => {
         .then((response) => response.data);
 };
 
+/**
+ * @function
+ * @name getPackage
+ * @description get getPackage
+ * */
+const getPackage = (filter = {}) =>
+    axios.get(`/procuring_entity_packages`, {params: filter}).then((response) => response.data);
+
+
 export default {
     getProcuringEntities,
     deleteProcuringEntity,
     createProcuringEntity,
-    updateProcuringEntity
+    updateProcuringEntity,
+    getPackage,
 }

@@ -70,8 +70,22 @@ const procuringEntity = (state = { data: null, error: null, loading: false }, ac
   }
 };
 
+const packages = (state = { data: null, error: null, loading: false }, action) => {
+  switch (action.type) {
+      case types.GET_PACKAGES_START:
+          return { ...state, loading: true }
+      case types.GET_PACKAGES_SUCCESS:
+          return { ...state, data: action.payload, loading: false, }
+      case types.GET_PACKAGES_FAILURE:
+          return { ...state, error: action.message, loading: false };
+      default:
+          return state;
+  }
+};
+
 export const procuringEntityResource = combineReducers({
   procuringEntities,
   procuringEntity,
-  actors
+  actors,
+  packages
 })

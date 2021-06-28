@@ -21,6 +21,7 @@ import Tickets from "../Tickets";
 import TicketDetails from "../Tickets/components/Details";
 import ProcuringEntity from "../ProcuringEntities";
 import ProcuringEntityDetails from "../ProcuringEntities/componets/Details";
+import Packages from "../Packages";
 
 /* constants */
 const { Header, Content } = Layout;
@@ -40,7 +41,7 @@ const breadcrumbNameMap = {
     title: "List of all Subprojects",
   },
 
-  "/app/projects/:type": {  
+  "/app/projects/:type": {
     name: "Project",
     title: "Detail of single project",
   },
@@ -53,7 +54,7 @@ const breadcrumbNameMap = {
     name: "Sub Project",
     title: "Detail of single sub project",
   },
-  
+
   "/app/admin-panel": {
     name: "Admin Panel",
     title: "Admin Panel module",
@@ -64,14 +65,14 @@ const breadcrumbNameMap = {
     name: "users",
     title: "users Module",
   },
-   /* Contracts routes */
-   "/app/contracts": {
+  /* Contracts routes */
+  "/app/contracts": {
     name: "contracts",
     title: "contracts Module",
   },
 
-   /* Tickets routes */
-   "/app/tickets": {
+  /* Tickets routes */
+  "/app/tickets": {
     name: "tickets",
     title: "Tickets Module",
   },
@@ -80,15 +81,20 @@ const breadcrumbNameMap = {
     title: "Issue tracking Module",
   },
 
-     /* Procuring entity routes */
-     "/app/procuring-entity": {
-      name: "Procuring Entity",
-      title: "Procuring Entity Module",
-    },
-    "/app/procuring-entity:types": {
-      name: "Single Procuring Entity",
-      title: "Single Procuring Entity Module",
-    },
+  /* Procuring entity routes */
+  "/app/procuring-entity": {
+    name: "Procuring Entity",
+    title: "Procuring Entity Module",
+  },
+  "/app/procuring-entity:types": {
+    name: "Single Procuring Entity",
+    title: "Single Procuring Entity Module",
+  },
+  /* Contracts routes */
+  "/app/packages": {
+    name: "Packages",
+    title: "package Module",
+  },
 };
 
 /**
@@ -193,15 +199,15 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           <PrivateRoute
             exact
             path={`${baseUrl}/sub_projects/:id`}
-            render={({ match }, props ) => <SubProject match={match} {...props}/>}
+            render={({ match }, props) => <SubProject match={match} {...props} />}
           />
 
           <PrivateRoute
             exact
             path={`${baseUrl}/procuring_entities/:id`}
-            render={({ match }, props ) => <ProcuringEntityDetails match={match} {...props}/>}
+            render={({ match }, props) => <ProcuringEntityDetails match={match} {...props} />}
           />
-      
+
           <PrivateRoute
             exact
             path={`${baseUrl}/tickets`}
@@ -224,6 +230,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           />
           <PrivateRoute
             exact
+            path={`${baseUrl}/packages`}
+            component={Packages}
+          />
+          <PrivateRoute
+            exact
             path={`${baseUrl}/admin-panel/users`}
             component={Users}
           />
@@ -243,7 +254,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
             component={AdminPanel}
             disabled
           />
-           <PrivateRoute
+          <PrivateRoute
             exact
             path={`${baseUrl}/admin-panel/permission`}
             component={Permission}
