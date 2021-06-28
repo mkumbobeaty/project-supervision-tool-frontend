@@ -102,15 +102,15 @@ export const closeProcuringEntityForm = makeActionCreator(types.CLOSE_PROCURING_
  * @return {Object} action
  * */
 
-export function updateProcuringEntityStart(procuringEntity,id) {
-    return {
-      type: types.UPDATE_PROCURING_ENTITY_START,
-      payload: {
-        procuringEntity,
-        id
-      },
-    };
-  }
+export function updateProcuringEntityStart(procuringEntity, id) {
+  return {
+    type: types.UPDATE_PROCURING_ENTITY_START,
+    payload: {
+      procuringEntity,
+      id
+    },
+  };
+}
 /**
  * @const
  * @name updateProcuringEntitySuccess
@@ -244,3 +244,82 @@ export const deletePackageSuccess = makeActionCreator(types.DELETE_PACKAGES_SUCC
  * @return {Object} action
  * */
 export const deletePackageFailure = makeActionCreator(types.DELETE_PACKAGES_FAILURE, 'payload');
+
+/**
+ * @const
+ * @name createPackageStart
+ * @return {Object} action
+ * */
+export const createPackageStart = makeActionCreator(types.CREATE_PACKAGE_START, 'payload');
+
+/**
+ * @const
+ * @name createPackageSuccess
+ * @param {Object} payload 
+ * @return {Object} action
+ * */
+export const createPackageSuccess = makeActionCreator(types.CREATE_PACKAGE_SUCCESS, 'payload');
+
+/**
+ * @const
+ * @name createPackageFailure
+ * @param {Object} payload failure response
+ * @return {Object} action
+ * */
+export const createPackageFailure = makeActionCreator(types.CREATE_PACKAGE_FAILURE, 'payload');
+
+/**
+ * @const
+ * @name selectPackage
+ * @param {Object} payload failure response
+ * @return {Object} action
+ * */
+export const selectPackage = makeActionCreator(types.SELECT_PACKAGE, 'payload');
+
+/**
+ * @const
+ * @name openPackageForm
+ * @param {Object} payload failure response
+ * @return {Object} action
+ * */
+export const openPackageForm = makeActionCreator(types.OPEN_PACKAGE);
+
+/**
+ * @const
+ * @name closePackageForm
+ * @param {Object} payload failure response
+ * @return {Object} action
+ * */
+export const closePackageForm = makeActionCreator(types.CLOSE_PACKAGE);
+/**
+ * @const
+ * @name updatePackageStart
+ * @param {Object} payload failure response
+ * @return {Object} action
+ * */
+
+export function updatePackageStart(procuringEntity, id) {
+  return {
+    type: types.UPDATE_PACKAGE_START,
+    payload: {
+      procuringEntity,
+      id
+    },
+  };
+}
+/**
+ * @const
+ * @name updatePackageSuccess
+ * @param {Object} payload failure response
+ * @return {Object} action
+ * */
+export const updatePackageSuccess = makeActionCreator(types.UPDATE_PACKAGE_SUCCESS, 'payload');
+
+/**
+* @const
+* @name updatePackageFailure
+* @param {Object} payload failure response
+* @return {Object} action
+* */
+export const updatePackageFailure = makeActionCreator(types.UPDATE_PACKAGE_FAILURE, 'payload');
+

@@ -65,3 +65,25 @@ export const getPackagesSelector = (state) => state?.procuringEntityResource?.pa
  */
 
 export const getPackagesloaderSelector = (state) => state?.procuringEntityResource?.packages?.loading;
+
+/**
+ * @function
+ * @name showPackageFormSelector
+ * @param {Object} state redux state
+ */
+export const showPackageFormSelector = (state) => state?.procuringEntityResource?.packages?.showForm;
+
+/**
+ * @function
+ * @name selectedProcuringEntity
+ * @param {Object} state redux state
+ */
+export const selectedPackageSelector= (state) => state?.procuringEntityResource?.packages?.package;
+
+
+/**
+ * @function
+ * @name loading
+ * @param {Boolean} state redux state
+ */
+export const loadingPackages = (state) => state?.procuringEntityResource?.packages?.loading;

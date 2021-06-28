@@ -73,6 +73,28 @@ const deletePackage = (package_id) => {
         .then((response) => response.data);
 };
 
+/**
+ * @function
+ * @name createPackage
+ * */
+const createPackage = (details) =>
+    axios.post(`/procuring_entity_packages`, details).then((response) => response.data);
+
+/**
+ * edit existing procuring entity
+ *
+ * @function
+ * @name updatePackage
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+const updatePackage = (project, id) => {
+    return axios
+        .patch(`/procuring_entity_packages/${id}`, project)
+        .then((response) => response.data);
+};
+
 export default {
     getProcuringEntities,
     deleteProcuringEntity,
@@ -80,5 +102,7 @@ export default {
     updateProcuringEntity,
     getPackage,
     getPackages,
-    deletePackage
+    deletePackage,
+    createPackage,
+    updatePackage
 }

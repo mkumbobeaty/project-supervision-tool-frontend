@@ -256,6 +256,11 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           />
           <PrivateRoute
             exact
+            path={`${baseUrl}/packages/:id/sub_projects`}
+            render={({ match }, props) => <SubProjects match={match} {...props} />}
+          />
+          <PrivateRoute
+            exact
             path={`${baseUrl}/admin-panel/users`}
             component={Users}
           />
