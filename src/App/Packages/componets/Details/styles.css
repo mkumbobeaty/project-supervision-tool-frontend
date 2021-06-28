@@ -1,0 +1,168 @@
+.project-layout, .project-inner-layout {
+    background-color: #ffffff !important;
+}
+
+.project-layout h3, .sub-project-layout h3 {
+    padding: 15px;
+    padding-left: 230px;
+    font-weight: 500;
+    border-bottom: 1px solid #8f8c8c42;
+    margin-bottom: 0;
+}
+
+.contents {
+    padding: 0 50px;
+}
+
+.keyDetails {
+    padding: 20px 20px 20px 40px;
+}
+
+.grey-bgr{
+    background-color: rgb(246, 246, 246);
+
+}
+
+.keyDetails h4, .details h4 {
+    color: #0f6788;
+    margin-bottom: 0!important;
+}
+
+.key-details>.ant-col {
+    padding-top: 15px;
+}
+
+.key-details {
+    padding-bottom: 15px;
+}
+
+.project-contents {
+    padding: 0 24px;
+}
+
+.description h4 {
+    color: #0f6788;
+    font-size: 15px;
+    padding-top: 15px;
+}
+
+.description p {
+    padding-bottom: 15px;
+}
+
+.details {
+    padding: 20px;
+    border: 1px solid #e0ddddfa;
+    margin: 0 !important;
+}
+
+.project-subproject>.Toolbar {
+    display: none;
+}
+
+.project-map {
+    padding: 1px;
+    height: 50vh;
+    border: 2px solid #e0ddddfa;
+}
+
+.project-map .base-map {
+    height: 49vh;
+}
+
+.project-map .legend,
+.project-map .geonode-layers-control {
+    display: none;
+}
+
+.card-container h5{
+    margin-top: 15px;
+}
+.container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.project-contents .ant-tabs-card>.ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-card>div>.ant-tabs-nav .ant-tabs-tab-active {
+    color: #1890ff;
+    background: #0f6788
+}
+
+.project-contents .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #ffffff;
+}
+
+.project-contents .ant-tabs-card.ant-tabs-top>.ant-tabs-nav .ant-tabs-tab, .ant-tabs-card.ant-tabs-top>div>.ant-tabs-nav .ant-tabs-tab {
+    padding: 10px 70px;
+}
+
+h2#sider-title {
+    color: #0f6788;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 15px;
+    text-align: center;
+    padding-top: 15px;
+}
+
+@media screen and (max-width: 426px) {
+    .keyDetails {
+        padding: 0;
+    }
+    .contents {
+        padding: 0px;
+    }
+    .project-layout h3, .sub-project-layout h3 {
+        padding: 15px;
+    }
+    .container {
+        margin: 0;
+    }
+    .sub-project-contents {
+        padding: 0 24px;
+    }
+    .contentEllipse>a, .Projects {
+        padding: 0 16px;
+    }
+    .container {
+        padding: 0 !important;
+    }
+    .key-details {
+        padding: 0 10px 15px 15px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+    }
+    .keyDetails {
+        padding: 0;
+    }
+
+}
+
+@media (min-width: 992px) {
+    .container {
+        width: 970px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 1170px;
+    }
+}
+
+@media (min-width: 1400px) {
+    .container {
+        width: 1320px;
+    }
+    .project-layout h3 {
+        /* padding: 20px 250px; */
+        font-size: 22px;
+        margin: 0;
+    }
+}

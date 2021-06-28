@@ -98,6 +98,34 @@ const getActorEpic = action$ => {
     )
 }
 
+const getPackagesEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_PACKAGES_START),
+        switchMap(({payload}) => {
+            return from(API.getPackage(payload)).pipe(
+                switchMap(res => {
+                    return of(actions.getPackagesSuccess(res.data))
+                }),
+                catchError(error => of(actions.getPackagesFailure(error)))
+            )
+        }
+        ),
+    )
+}
+
+const deletePackageEpic = action$ => {
+    return action$.pipe(
+        ofType(types.DELETE_PACKAGES_START),
+        switchMap(({ payload }) => {
+            return from(API.deletePackage(payload)).pipe(
+                switchMap(res => {
+                    return of(actions.deletePackageSuccess(res), actions.getPackagesStart())
+                }),
+            )
+        }),
+        catchError(error => of(actions.deletePackageFailure(error)))
+    );
+}
 
 export const procuringEntitiesEpic = combineEpics(
     getProcuringEntitiesEpic,
@@ -105,5 +133,7 @@ export const procuringEntitiesEpic = combineEpics(
     createProcuringEntityPic,
     updateProcuringEntityPic,
     getProcuringEntityEpic,
-    getActorEpic
+    getActorEpic,
+    getPackagesEpic,
+    deletePackageEpic
 );
