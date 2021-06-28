@@ -45,9 +45,10 @@ const Packages = ({
 
     const [ isEditForm, setIsEditForm ] = useState(false);
     const history = useHistory();
+    const filter = {'filter[procuring_entity_id]': match.params?.id}
 
     useEffect(() => {
-        getPackes()
+        getPackes(filter)
     }, [])
 
   
@@ -61,7 +62,7 @@ const Packages = ({
    * @since 0.1.0
    */
     const handleRefresh = () => {
-        getPackes();
+        getPackes(filter);
     };
 ;
 
