@@ -27,7 +27,8 @@ function ProjectPoints({ projects, project, loading, getProject }) {
 
     return (
         <>
-            { projects.map(({ regions, id, commitment_amount, color }) => {
+            { projects.map((project) => {
+                const { regions, id, commitment_amount, color } = project;
 
                 const invertedColor = invertColor(color);
 
@@ -54,26 +55,11 @@ function ProjectPoints({ projects, project, loading, getProject }) {
 
                     return (
                         <>
-                            {/* <CircleMarker
-                                key={id}
-                                center={[geometry.coordinates[1], geometry.coordinates[0]]}
-                                radius={dimension}
-                                fillOpacity={0.9}
-                                stroke={false}
-                                color={color}
-                                children={20}
-                                eventHandlers={{click: () => handleProjectPopup(id)}}
-                            >
-                                <Popup >
-                                    <ProjectPopupDetail project={project} loading={loading} />
-                                </Popup>
-                            </CircleMarker> */}
                             <Marker
                                 position={[geometry.coordinates[1], geometry.coordinates[0]]}
                                 title={region.name}
                                 key={region.id}
                                 icon={customizedIcon}
-                                eventHandlers={{click: () => handleProjectPopup(id)}}
                             >   
                                 <Popup >
                                     <ProjectPopupDetail project={project} loading={loading} />

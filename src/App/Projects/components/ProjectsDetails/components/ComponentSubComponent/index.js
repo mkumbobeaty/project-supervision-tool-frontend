@@ -63,7 +63,7 @@ const ComponentSubComponent = ({components}) => {
 
     return (
         <section className="project_components">
-            <h4>Projects Components</h4>
+            <h4>Project Components</h4>
             <Table columns={columns} dataSource={createNewArr(dataSource)} pagination={false} bordered />
         </section>
 

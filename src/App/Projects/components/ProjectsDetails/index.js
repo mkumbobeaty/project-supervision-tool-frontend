@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Layout, Spin, Tabs } from 'antd';
+import {Layout, Spin, Table, Tabs} from 'antd';
 import OverviewDetails from "./components/OverviewDetails";
 import { connect } from "react-redux";
 import { projectActions, projectSelectors } from "../../../../redux/modules/projects";
@@ -43,27 +43,23 @@ const Project = ({ project, loading, getProject, subProjects, getTicketByProject
           <Layout className="project-inner-layout" >
             <Content className="project-contents">
               <div className="card-container">
-                <Tabs type="card">
-                  <TabPane tab="Overview" key="1">
-                    <div className="container description" >
-                      <h4 className="text-blue">Project Development Objective</h4>
-                      <p>{project ? project?.description : 'N/A'}</p>
-                    </div>
-                    <OverviewDetails
-                      project={project}
-                      commitmentAmount={commitmentAmount}
-                      totalProjectCost={totalProjectCost}
-                      approval_date={approval_date}
-                      closing_date={closing_date}
-                      subProjects={subProjects}
-                    />
-                  </TabPane>
-                  <TabPane tab="Home" key="2" className="container" >
-                    <ProjectHome match={match} />
-                  </TabPane>
+                <div className="container description" >
+                  <h4 className="text-blue">Project Development Objective</h4>
+                  <p>{project ? project?.description : 'N/A'}</p>
+                </div>
+                <OverviewDetails
+                    project={project}
+                    commitmentAmount={commitmentAmount}
+                    totalProjectCost={totalProjectCost}
+                    approval_date={approval_date}
+                    closing_date={closing_date}
+                    subProjects={subProjects}
+                />
+                <section className="project_components">
+                  <h4 style={{ textAlign: 'center', fontSize: '1.5em', margin: 0}}>Project Menu</h4>
+                  <ProjectHome match={match} />
+                </section>
 
-
-                </Tabs>
               </div>
             </Content>
           </Layout>
