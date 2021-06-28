@@ -43,3 +43,18 @@ export const getShowFormSelector = (state) => state?.procuringEntityResource?.pr
  */
 export const getActorsSelector = (state) => state?.procuringEntityResource?.actors?.data?.data || [];
 
+/**
+ * @function
+ * @name getPackages
+ * @param {Object} state redux state
+ */
+
+export const getPackagesSelector = (state) => state?.procuringEntityResource?.packages?.data || [];
+
+/**
+ * @function
+ * @name getPackages
+ * @param {Object} state redux state
+ */
+
+export const getPackagesloaderSelector = (state) => state?.procuringEntityResource?.packages?.loading;
