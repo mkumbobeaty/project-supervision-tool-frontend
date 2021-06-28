@@ -70,7 +70,7 @@ const procuringEntity = (state = { data: null, error: null, loading: false }, ac
   }
 };
 
-const packages = (state = { data: null, error: null, loading: false, package:{} }, action) => {
+const packages = (state = { data: null, error: null, loading: false, package: {} }, action) => {
   switch (action.type) {
     case types.GET_PACKAGES_START:
       return { ...state, loading: true }
@@ -82,11 +82,25 @@ const packages = (state = { data: null, error: null, loading: false, package:{} 
       return { ...state };
     case types.DELETE_PACKAGES_SUCCESS:
       return { ...state, package: action.payload };
-    case types.DELETE_PROCURING_ENTITY_FAILURE:
+    case types.DELETE_PACKAGES_FAILURE:
       return action.payload;
+    case types.SELECT_PACKAGE:
+      return { ...state, package: action.payload };
+    case types.OPEN_PACKAGE:
+      return { ...state, showForm: true };
+    case types.CLOSE_PACKAGE:
+      return { ...state, showForm: false };
+    case types.CREATE_PACKAGE_START:
+      return { ...state, loading: true, showForm: true };
+    case types.CREATE_PACKAGE_SUCCESS:
+      return { ...state, package: action.payload, loading: false, showForm:false };
+    case types.CREATE_PACKAGE_FAILURE:
+      return { ...state, error: action.payload, loading: false };
+      case types.UPDATE_PACKAGE_SUCCESS:
+        return { ...state, loading: false, showForm:false };
     default:
       return state;
-  }
+  } 
 };
 
 export const procuringEntityResource = combineReducers({
