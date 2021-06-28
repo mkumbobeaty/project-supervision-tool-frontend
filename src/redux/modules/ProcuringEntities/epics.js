@@ -127,6 +127,40 @@ const deletePackageEpic = action$ => {
     );
 }
 
+
+const createPackagePic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_PACKAGE_START),
+        switchMap(({ payload }) => {
+            return from(API.createPackage(payload))
+        }),
+        switchMap(res => {
+            return of(actions.createPackageSuccess(res), actions.getPackagesStart())
+        }),
+        catchError(error => of(actions.createPackageFailure(error)))
+    )
+}
+
+/**
+ * @function
+ * @name updatePackagePic
+ * @param action$
+ * @return action$
+ */
+const updatePackagePic = action$ => {
+    return action$.pipe(
+        ofType(types.UPDATE_PACKAGE_START),
+        switchMap(({ payload }) => {
+            return from(API.updatePackage(payload.procuringEntity, payload.id)).pipe(
+                switchMap(res => {
+                    return of(actions.updatePackageSuccess(res), actions.getPackagesStart())
+                }),
+            )
+        }),
+        catchError(error => of(actions.updatePackageFailure(error)))
+    )
+}
+
 export const procuringEntitiesEpic = combineEpics(
     getProcuringEntitiesEpic,
     deleteProcuringEntityEpic,
@@ -135,5 +169,7 @@ export const procuringEntitiesEpic = combineEpics(
     getProcuringEntityEpic,
     getActorEpic,
     getPackagesEpic,
-    deletePackageEpic
+    deletePackageEpic,
+    createPackagePic,
+    updatePackagePic
 );
