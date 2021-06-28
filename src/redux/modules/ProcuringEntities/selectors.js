@@ -20,6 +20,13 @@ export const loading = (state) => state?.procuringEntityResource?.procuringEntit
  */
 export const selectedProcuringEntity = (state) => state?.procuringEntityResource?.procuringEntities?.procuringEntity;
 
+/**
+ * @function
+ * @name getProcuringEntitySelector
+ * @param {Object} state redux state
+ */
+export const getProcuringEntitySelector = (state) => state?.procuringEntityResource?.procuringEntity.data;
+
 
 /**
  * @function

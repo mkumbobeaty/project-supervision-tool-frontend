@@ -20,6 +20,21 @@ const getProcuringEntitiesEpic = action$ => {
     )
 }
 
+const getProcuringEntityEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_PROCURING_ENTITY_START),
+        switchMap(({payload}) => {
+            return from(API.getProcuringEntity(payload)).pipe(
+                switchMap(res => {
+                    return of(actions.getProcuringEntitySuccess(res.data))
+                }),
+                catchError(error => of(actions.getProcuringEntityFailure(error)))
+            )
+        }
+        ),
+    )
+}
+
 const deleteProcuringEntityEpic = action$ => {
     return action$.pipe(
         ofType(types.DELETE_PROCURING_ENTITY_START),
@@ -57,7 +72,6 @@ const updateProcuringEntityPic = action$ => {
     return action$.pipe(
         ofType(types.UPDATE_PROCURING_ENTITY_START),
         switchMap(({ payload }) => {
-            debugger
             return from(API.updateProcuringEntity(payload.procuringEntity, payload.id)).pipe(
                 switchMap(res => {
                     return of(actions.updateProcuringEntitySuccess(res), actions.getProcuringEntitiesStart())
@@ -90,5 +104,6 @@ export const procuringEntitiesEpic = combineEpics(
     deleteProcuringEntityEpic,
     createProcuringEntityPic,
     updateProcuringEntityPic,
+    getProcuringEntityEpic,
     getActorEpic
 );

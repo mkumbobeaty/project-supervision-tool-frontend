@@ -159,9 +159,7 @@ const getSubProjectStatus = () => axios.get(`/sub_project_status`).then((respons
  * @version 0.1.0
  * @since 0.1.0
  */
-const getProcuringEntity = () => axios.get(`/procuring_entity_packages`).then((response) => response.data);
-
-
+const getProcuringEntity = (id) => axios.get(`/procuring_entities/${id}`).then((response) => response.data);
 
 export default {
     getSubProjects,

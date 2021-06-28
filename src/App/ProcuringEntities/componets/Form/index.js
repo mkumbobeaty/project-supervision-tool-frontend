@@ -1,10 +1,10 @@
 
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
+import API from '../../../../API';
 import PropTypes from 'prop-types';
 import {
     Form, Button, Select
 } from 'antd';
-import agencies from '../../../../API/agencies';
 /* ui */
 const labelCol = {
     xs: { span: 24 },
@@ -30,25 +30,46 @@ const wrapperCol = {
  * @description renders form for creating project
  */
 function ProcuringEntityForm({
-    getProjectSubComponent,
     handleAfterSubmit,
     createProcuringEntity,
     isEditForm,
     selected,
     loading,
-    getAgenciesActors,
-    projectSubComponents,
-    agencies,
+    match,
     updateProcuringEntity,
-    projects,
-    getProjects
 }) {
-    ;
+
+    const [projects, setProjects] = useState([]);
+    const [agencies, setAgencies] = useState([]);
+    const [components, setComponents] = useState([]);
+    const [subComponents, setSubComponents] = useState([]);
 
     useEffect(() => {
-        getProjects();
-        getAgenciesActors();
-        getProjectSubComponent();
+        API.getAllAgencies()
+            .then(res => setAgencies(res.data.data));
+        if (match.params?.id) {
+            API.getProject(match.params?.id)
+                .then(res => {
+                    setProjects([res.data]);
+                    if (selected) {
+                        setComponents(res.data.components);
+                        const component = res.data.components.find(({id}) => id === selected.project_component_id);
+                        if(component) setSubComponents(component.sub_components);
+                    }
+                })
+        }
+        else {
+            API.getProjects()
+                .then(res => {
+                    setProjects(res.data.data);
+                    if (selected) {
+                        const project = res.data.data.find(({id}) => selected.project_id === id);
+                        setComponents(project.components);
+                        const component = project.components.find(({id}) => id === selected.project_component_id);
+                        setSubComponents(component.sub_components);
+                    }
+                })
+        }
     }, [])
 
 
@@ -66,6 +87,16 @@ function ProcuringEntityForm({
         handleAfterSubmit();
     }
 
+    const handleOnProjectChange = value => {
+        const project = projects.find(({id}) => value === id);
+        setComponents(project.components);
+    }
+
+    const handleOnComponentChange = value => {
+        const component = components.find(({id}) => value === id);
+        setSubComponents(component.sub_components);
+    }
+
     return (
         <>
             <Form.Provider onFormFinish={(name, { values, forms }) => { }}>
@@ -77,18 +108,54 @@ function ProcuringEntityForm({
                     autoComplete="off"
                     className="ProcuringEntityForm"
                 >
-                      {/* start: Project */}
-                      <Form.Item
-                        label="Project"
-                        name="project_id"
-                        title="Project e.g Dmdp"
+
+                    {/* start: Agency */}
+                    <Form.Item
+                        label="Agency"
+                        name="agency_id"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Agency is required",
+                            },
+                        ]}
+                        title="agency e.g ilala"
                         initialValue={
-                            selected?.project?.id ? selected?.project?.id : '' 
+                            selected?.agency?.id ? selected?.agency?.id : ''
                         }
                     >
                         <Select
                             showSearch
                             optionFilterProp="children"
+
+                        >
+                            {
+                                agencies?.map((agency) => (
+                                    <Select.Option value={agency.id}>{agency.name}</Select.Option>
+                                ))}
+                        </Select>
+                    </Form.Item>
+                    {/* end: Agency */}
+
+                      {/* start: Project */}
+                      <Form.Item
+                        label="Project"
+                        name="project_id"
+                        title="Project e.g DMDP"
+                        rules={[
+                            {
+                                required: true,
+                                message: "Project is required",
+                            },
+                        ]}
+                        initialValue={
+                            selected?.project_id ? selected?.project_id : ''
+                        }
+                    >
+                        <Select
+                            showSearch
+                            optionFilterProp="children"
+                            onChange={handleOnProjectChange}
                         >
                             {projects.map((project) => (
                                 <Select.Option value={project.id}>{project.name}</Select.Option>
@@ -97,50 +164,45 @@ function ProcuringEntityForm({
                     </Form.Item>
                     {/* end of Project */}
 
-                    {/* start: Actor */}
+
+
+                    {/* start:Component */}
                     <Form.Item
-                        label="Agency"
-                        name="agency_id"
-                        title="agency e.g ilala"
+                        label="Project Component"
+                        name="project_component_id"
+                        title="Project component Description e.g water recycle project"
                         initialValue={
-                            selected?.agency?.id ? selected?.agency?.id : '' 
+                            selected?.project_component_id
                         }
                     >
                         <Select
                             showSearch
                             optionFilterProp="children"
-
+                            onChange={handleOnComponentChange}
                         >
-                            {
-                            agencies?.map((agency) => (
-                                <Select.Option value={agency.id}>{agency.name}</Select.Option>
+                            {components.map((component) => (
+                                <Select.Option value={component.id}>{component.name}</Select.Option>
                             ))}
                         </Select>
                     </Form.Item>
-                    {/* end: Agency */}
+                    {/* end:Component */}
 
-                    {/* start:Description */}
+                    {/* start:SubComponent */}
                     <Form.Item
                         label="Project Sub-Component"
                         name="project_sub_component_id"
                         title="Project sub-component Description e.g water recyle project"
-                        rules={[
-                            {
-                                required: true,
-                                message: "Project sub-component is required",
-                            },
-                        ]}
                         initialValue={
                             selected?.project_sub_component?.id
                         }
                     >
                         <Select showSearch optionFilterProp="children"   >
-                            {projectSubComponents.map((sub_component) => (
+                            {subComponents.map((sub_component) => (
                                 <Select.Option value={sub_component.id}>{sub_component.name}</Select.Option>
                             ))}
                         </Select>
                     </Form.Item>
-                    {/* end:Description */}
+                    {/* end:SubComponent */}
 
                     {/* start:form actions */}
                     <Form.Item wrapperCol={{ span: 24 }} className='formAction'>

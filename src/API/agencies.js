@@ -32,6 +32,13 @@ const getSupervisingAgencies = () =>
  * */
 const getAgencies = () =>
     axios.get(`/implementing_agencies`).then((response) => response.data);
+/**
+ * @function
+ * @name getAllAgencies
+ * @description get agencies
+ * */
+const getAllAgencies = () =>
+    axios.get(`/agencies`).then((response) => response.data);
 
 /**
  * @function
@@ -73,6 +80,7 @@ export default {
     getPhases,
     getAgencies,
     getContractors,
+    getAllAgencies,
     getSupervisingAgencies,
     fetchAgencies
 }
