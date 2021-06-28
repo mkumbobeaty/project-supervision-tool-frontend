@@ -39,6 +39,7 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
   const [regions, setRegions] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [features, setFeatures] = useState([]);
+  const [shapefiles, setShapefiles] = useState([]);
 
   useEffect(() => {
     getProjects();
@@ -55,10 +56,15 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
 
 
   const handleOnProjectChange = (value) => {
-    const project = projects.filter(({id}) => id === value)[0];
-      API.getWfsLayerData(project.shapefiles[0] )
-          .then(res => setFeatures(res.features))
+    const project = projects.find(({id}) => id === value);
     setProjectComponents(project.components)
+    setShapefiles(project.shapefiles)
+  };
+
+
+  const handleOnShapefileChange = (shapefile) => {
+      API.getWfsLayerData(shapefile)
+          .then(res => setFeatures(res.features))
   };
 
   const handleOnProjectComponentChange = (value) => {
@@ -88,7 +94,6 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
     closeSubProjectForm();
   };
 
-  console.log("feature", features)
 
   return (
       <Form
@@ -132,6 +137,30 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
           </Form.Item>
           {/*end: project id */}
 
+
+          {/*start: shapefiles*/}
+          <Form.Item
+              label="Project Shapefiles"
+              name="shapefile"
+              rules={[
+                  {
+                      required: true,
+                      message: "Please select project shapefile",
+                  },
+              ]}
+          >
+              <Select onChange={handleOnShapefileChange}>
+                  {shapefiles.map((shapefile) => (
+                      <Select.Option
+                          value={shapefile}
+                      >
+                          {shapefile}
+                      </Select.Option>
+                  ))}
+              </Select>
+          </Form.Item>
+          {/*end: shapefiles */}
+
           {/*start: geo_json id */}
           <Form.Item
               label="Select SubProject from project shapefile"
@@ -145,7 +174,7 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
           >
               <Select>
                   {features.map(({ properties }) => (
-                      <Select.Option value={properties.fid}>{properties.road_name}</Select.Option>
+                      <Select.Option value={properties.fid}>{properties?.road_name || properties?.unique_id}</Select.Option>
                   ))}
               </Select>
           </Form.Item>
@@ -183,42 +212,74 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
                           },
                       ]}
                   >
-                      <InputNumber style={{width: 180}}/> <span>KM</span>
+                      <InputNumber style={{width: 180}}/>
                   </Form.Item>
                   {/*end: quantity id */}
               </Col>
           </Row>
 
-        {/* start:sub project name */}
-        <Form.Item
-            label="Sub project Name"
-            name="name"
-            rules={[
-              {
-                required: true,
-                message: "Sub Project name is required",
-              },
-            ]}
-        >
-          <Input/>
-        </Form.Item>
-        {/* end:sub project name */}
+          {/* start:sub project name */}
+          <Form.Item
+              label="Sub project Name"
+              name="name"
+              rules={[
+                  {
+                      required: true,
+                      message: "Sub Project name is required",
+                  },
+              ]}
+          >
+              <Input/>
+          </Form.Item>
+          {/* end:sub project name */}
 
-        {/* start:Description */}
-        <Form.Item
-            label="Description"
-            name="description"
-            rules={[
-              {
-                required: false,
-                message: "SubProject description is required",
-              },
-            ]}
-        >
-          <Input/>
-        </Form.Item>
-        {/* end:Description */}
+          {/* start:Description */}
+          <Form.Item
+              label="Description"
+              name="description"
+              rules={[
+                  {
+                      required: false,
+                      message: "SubProject description is required",
+                  },
+              ]}
+          >
+              <Input/>
+          </Form.Item>
+          {/* end:Description */}
 
+          <Row>
+              <Col lg={11}>
+                  {/*start: financial progress */}
+                  <Form.Item
+                      label="Financial Progress"
+                      name="financial_progress"
+                      rules={[
+                          {
+                              required: false,
+                          },
+                      ]}
+                  >
+                      <InputNumber />
+                  </Form.Item>
+                  {/*end: financial progress */}
+              </Col>
+              <Col lg={11} offset={2}>
+                  {/*start: physical progress */}
+                  <Form.Item
+                      label="Physical Progress"
+                      name="physical_progress"
+                      rules={[
+                          {
+                              required: false,
+                          },
+                      ]}
+                  >
+                      <InputNumber />
+                  </Form.Item>
+                  {/*end: physical progress */}
+              </Col>
+          </Row>
 
           {/*start: region id */}
           <Form.Item

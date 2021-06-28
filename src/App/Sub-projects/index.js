@@ -71,7 +71,7 @@ class SubProjects extends Component {
         // 'filter[procuring_entity_package_id]': match.params?.id,
         'filter[procuring_entity_package_id]': 1,
       }
-      fetchSubProjects(filter);
+      fetchSubProjects();
     }
     else if (match.path === '/projects/:id/sub_projects') {
       const filter = {

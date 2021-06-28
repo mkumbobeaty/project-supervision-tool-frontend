@@ -64,13 +64,13 @@ const PackageDetails = ({match, procuringEntityPackage, getProcuringEntityPackag
 
                                         <Col {...projectCoordinatorSpan}>
                                             <h4>Contractor</h4>
-                                            <p>{procuringEntityPackage?.contract?.contractor.name || 'N/A'}</p>
+                                            <p>{procuringEntityPackage?.contract?.contractor?.name || 'N/A'}</p>
 
                                         </Col>
 
                                         <Col {...implementingAgencySpan}>
                                             <h4>Construction Supervision Consultant</h4>
-                                            <p>{procuringEntityPackage?.contract?.contractor.name || 'N/A'}</p>
+                                            <p>{procuringEntityPackage?.contract?.supervising_consultant?.name || 'N/A'}</p>
                                         </Col>
                                         <Col {...projectsLocationSpan}>
                                             <h4>SubProjects</h4>
