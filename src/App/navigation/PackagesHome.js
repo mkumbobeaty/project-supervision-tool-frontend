@@ -16,6 +16,30 @@ const routes = [
         icon: subProjectsIcon,
         description: modules.initiatives,
     },
+
+    {
+        name: 'Milestones',
+        path: '/tickets',
+        icon: subProjectsDisabledIcon,
+        description: modules.initiatives,
+        disabled: true,
+    },
+
+    {
+        name: 'Human Resources',
+        path: '/tickets',
+        icon: subProjectsDisabledIcon,
+        description: modules.initiatives,
+        disabled: true,
+    },
+
+    {
+        name: 'Human Equipment Mobilization',
+        path: '/tickets',
+        icon: subProjectsDisabledIcon,
+        description: modules.initiatives,
+        disabled: true,
+    },
     {
         name: 'Tickets',
         path: '/tickets',
