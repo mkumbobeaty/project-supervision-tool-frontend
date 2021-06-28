@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { ProcuringEntityActions, ProcuringEntitySelectors, } from '../../redux/modules/ProcuringEntities';
 import PropTypes from 'prop-types';
 import { Col, Drawer } from "antd";
@@ -9,14 +8,14 @@ import Topbar from "../components/Topbar";
 import PackagesList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
-import { projectActions, projectSelectors } from "../../redux/modules/projects";
 import { moneyFormat, showArchiveConfirm } from "../../Util";
+import PackageForm from './componets/Form';
 
 import "./styles.css";
 
 
 /* constants */
-const nameSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 19, xs: 19};
+const nameSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 19, xs: 19 };
 const descriptionSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 0, xs: 0 };
 const contractNoSpan = { xxl: 3, xl: 3, lg: 3, md: 3, sm: 4, xs: 2 };
 const contractorSpan = { xxl: 3, xl: 3, lg: 3, md: 3, sm: 0, xs: 0 };
@@ -35,22 +34,55 @@ const headerLayout = [
 
 ];
 
-const Packages = ({ 
-    getPackes, 
-    packages, 
+const Packages = ({
+    getPackes,
+    packages,
     loading,
-    match,
-    deletePackage
+    showForm,
+    deletePackage,
+    createPackage,
+    updatePackage,
+    procuringEntities,
+    openPackageForm,
+    closePackageForm,
+    selectPackage,
+    selected,
+    getProcuringEntities
 }) => {
 
-    const [ isEditForm, setIsEditForm ] = useState(false);
-    const history = useHistory();
+    const [isEditForm, setIsEditForm] = useState(false);
+    const [visible, setVisible] = useState(false);
 
     useEffect(() => {
         getPackes()
     }, [])
 
-  
+
+    /**
+      * @function
+      * @name handleOpenPackageForm
+      * @description Open form
+      *
+      * @version 0.1.0
+      * @since 0.1.0
+      */
+    const handleOpenPackageForm = () => {
+        openPackageForm();
+    };
+
+    /**
+     * @function
+     * @name handleClosePackageForm
+     * @description close form
+     * @version 0.1.0
+     * @since 0.1.0
+     */
+    const handleClosePackageForm = () => {
+        setIsEditForm(false);
+        setVisible(false);
+        selectPackage(null);
+        closePackageForm();
+    };
 
     /**   
    * @function
@@ -63,14 +95,31 @@ const Packages = ({
     const handleRefresh = () => {
         getPackes();
     };
-;
+    ;
 
-  const getAmount = (data) => {
-    const { amount, currency } = data
-    const { iso } = currency;
-    const money = moneyFormat(amount);
-    return `${money} ${iso} `;
-  }
+    /**
+   * @function
+   * @name handleEdit
+   * @description Handle on Edit action for list item
+   *
+   * @param {object} project Action Catalogue to be edited
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+    const handleEdit = (item) => {
+        selectPackage(item);
+        setIsEditForm(true)
+        openPackageForm();
+    };
+
+
+    const getAmount = (data) => {
+        const { amount, currency } = data
+        const { iso } = currency;
+        const money = moneyFormat(amount);
+        return `${money} ${iso} `;
+    }
 
     return (
         <div>
@@ -87,7 +136,7 @@ const Packages = ({
                         icon: <PlusOutlined />,
                         size: "large",
                         title: "Add New Package",
-                        onClick: '',
+                        onClick: handleOpenPackageForm,
                     },
                 ]}
             />
@@ -114,7 +163,7 @@ const Packages = ({
                                     edit={{
                                         name: "Edit Package",
                                         title: "Update Package details",
-                                        onClick: '',
+                                        onClick: () => handleEdit(item),
                                     }}
                                     archive={{
                                         name: "Archive Package",
@@ -145,24 +194,48 @@ const Packages = ({
                                 {item?.contract?.contract_no ? item?.contract?.contract_no : "N/A"}
                             </Col>
                             <Col {...contractorSpan} className="contentEllipse">
-                                {  item?.contract?.contractor ? item?.contract?.contractor?.name :'N/A' }
+                                {item?.contract?.contractor ? item?.contract?.contractor?.name : 'N/A'}
                             </Col>
                             <Col {...estimentedAmountNoSpan} className="contentEllipse">
-                                {  item?.contract?.contract_cost ? getAmount(item?.contract?.contract_cost?.estimated_final_contract_price) :'N/A' }
+                                {item?.contract?.contract_cost ? getAmount(item?.contract?.contract_cost?.estimated_final_contract_price) : 'N/A'}
                             </Col>
                             <Col {...awardedAmountNoSpan} className="contentEllipse">
-                                {  item?.contract?.contract_cost ? getAmount(item?.contract?.contract_cost?.contract_award_value) :'N/A' }
+                                {item?.contract?.contract_cost ? getAmount(item?.contract?.contract_cost?.contract_award_value) : 'N/A'}
                             </Col>
                             <Col {...completeDateSpan} className="contentEllipse">
-                            {item ? new Date(item?.contract?.contract_time?.intended_completion_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
+                                {item ? new Date(item?.contract?.contract_time?.intended_completion_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
                             </Col>
-                            
+
                             {/* eslint-enable react/jsx-props-no-spreading */}
                         </ListItem>
                     )}
             />
             {/* end list */}
 
+            <Drawer
+                title={
+                    isEditForm ? "Edit Package" : "Add New Package"
+                } width={550}
+                onClose={handleClosePackageForm}
+                footer={null}
+                visible={showForm}
+                bodyStyle={{ paddingBottom: 80 }}
+                destroyOnClose
+                maskClosable={false}
+                className="projectForm"
+            >
+                <PackageForm
+                    isEditForm={isEditForm}
+                    selected={selected}
+                    createPackage={createPackage}
+                    loading={loading}
+                    updatePackage={updatePackage}
+                    procuringEntities={procuringEntities}
+                    getProcuringEntities={getProcuringEntities}
+
+                />
+
+            </Drawer>
 
         </div>
 
@@ -173,30 +246,39 @@ const Packages = ({
 const mapStateToProps = (state) => {
     return {
         packages: ProcuringEntitySelectors.getPackagesSelector(state),
-        loading: ProcuringEntitySelectors.getPackagesloaderSelector(state),
+        loading: ProcuringEntitySelectors.loadingPackages(state),
+        procuringEntities: ProcuringEntitySelectors.getProcuringEntities(state),
+        showForm: ProcuringEntitySelectors.showPackageFormSelector(state),
+        selected: ProcuringEntitySelectors.selectedPackageSelector(state)
     }
 }
 
 const mapDispatchToProps = {
     getPackes: ProcuringEntityActions.getPackagesStart,
     deletePackage: ProcuringEntityActions.deletePackageStart,
+    createPackage: ProcuringEntityActions.createPackageStart,
+    updatePackage: ProcuringEntityActions.updatePackageStart,
+    getProcuringEntities: ProcuringEntityActions.getProcuringEntitiesStart,
+    openPackageForm: ProcuringEntityActions.openPackageForm,
+    closePackageForm: ProcuringEntityActions.closePackageForm,
+    selectPackage: ProcuringEntityActions.selectPackage,
 }
 
 Packages.propTypes = {
     getPackage: PropTypes.func.isRequired,
-    contractors: PropTypes.array.isRequired,
+    packages: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
-    openProcuringEntityForm:PropTypes.func.isRequired,
-    closeProcuringEntityForm:PropTypes.func.isRequired,
-    selectProcuringEntity:PropTypes.func.isRequired,
+    openPackageForm: PropTypes.func.isRequired,
+    closePackageForm: PropTypes.func.isRequired,
+    selectPackage: PropTypes.func.isRequired,
     showForm: PropTypes.bool,
 };
 
 Packages.defaultProps = {
-    contractors: null,
+    packages: null,
     loading: null,
     isEditForm: null,
-    showForm:null
+    showForm: null
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Packages);
