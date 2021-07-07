@@ -24,7 +24,7 @@ function SubProjectPoints({ subProjects, getSubproject, subProjectLoading, subPr
         <>
             { subProjects.map((subProject) => {
                 const { name, id } = subProject;
-                const geo_json = subProject.geo_json.id === 'ref_roads_merge.18868' ? subProject.geo_json : reproject(subProject.geo_json, 'EPSG:21037', 'EPSG:4326', epsg);
+                const geo_json = subProject.geo_json?.srid === 'EPSG:4326' ? subProject.geo_json : reproject(subProject.geo_json, subProject.geo_json?.srid, 'EPSG:4326', epsg);
                 const polygon = geo_json.geometry;
                 const { geometry } = turf.pointOnFeature(polygon);
 

@@ -40,6 +40,7 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
   const [districts, setDistricts] = useState([]);
   const [features, setFeatures] = useState([]);
   const [shapefiles, setShapefiles] = useState([]);
+  const [srid, setSrid] = useState('');
 
   useEffect(() => {
     getProjects();
@@ -63,6 +64,8 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
 
 
   const handleOnShapefileChange = (shapefile) => {
+      const layer = shapefiles.find(({ typename}) => typename === shapefile);
+      setSrid(layer.srid);
       API.getWfsLayerData(shapefile)
           .then(res => setFeatures(res.features))
   };
@@ -89,7 +92,8 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
 
 
   const onFinish = (values) => {
-      const geo_json = features.find(({properties}) => properties.fid === values.sub_project_geo_data_id)
+      const data = features.find(({properties}) => properties.fid === values.sub_project_geo_data_id);
+      const geo_json = { ...data, srid};
     createSubProject({...values, geo_json, code: values.name});
     closeSubProjectForm();
   };
@@ -150,11 +154,11 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
               ]}
           >
               <Select onChange={handleOnShapefileChange}>
-                  {shapefiles.map((shapefile) => (
+                  {shapefiles.map(({title, typename}) => (
                       <Select.Option
-                          value={shapefile}
+                          value={typename}
                       >
-                          {shapefile}
+                          {title}
                       </Select.Option>
                   ))}
               </Select>
