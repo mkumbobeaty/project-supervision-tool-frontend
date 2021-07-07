@@ -117,11 +117,13 @@ function ProjectForm({
         const approval_date = generateDateString(values.approval_date);
         const approval_fy = generateYearString(values.approval_fy);
         const closing_date = generateDateString(values.closing_date);
+        const shapefiles = layers.filter(({ id }) => values.layers.includes(id));
         const payload = {
             ...values,
             approval_date,
             approval_fy,
             closing_date,
+            shapefiles,
             commitment_amount_id: commitment_amount_id ? commitment_amount_id : selected?.commitment_amount.id,
             total_project_cost_id: total_project_cost_id ? total_project_cost_id : selected?.total_project_cost.id
         };
@@ -185,7 +187,7 @@ function ProjectForm({
                         leaders: selected?.leaders.map(leader => leader.id),
                         regions: selected?.regions.map(region => region.id),
                         description: selected?.description,
-                        shapefiles: selected?.shapefiles?.map(shapefile => shapefile),
+                        layers: selected?.shapefiles?.map(({ title}) => title),
                         funding_organisation_id: selected?.funding_organisation?.id,
                         implementing_agency_id: selected?.implementing_agency?.id,
                         project_status_id: selected?.status?.id,
@@ -275,7 +277,7 @@ function ProjectForm({
                             {/* start:shapefile */}
                             <Form.Item
                                 label="Projects ShapeFIle"
-                                name="shapefiles"
+                                name="layers"
                                 title="Shapefile"
                                 rules={[
                                     {
@@ -284,8 +286,8 @@ function ProjectForm({
                                 ]}
                             >
                                 <Select mode="multiple">
-                                    {layers.map(({ title, typename }) => (
-                                        <Select.Option value={typename}>{title}</Select.Option>
+                                    {layers.map(({ title, id }) => (
+                                        <Select.Option value={id}>{title}</Select.Option>
                                     ))}
                                 </Select>
 
