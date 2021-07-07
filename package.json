@@ -14,6 +14,7 @@
     "axios": "^0.21.1",
     "canvasjs-react-charts": "^1.0.5",
     "chart.js": "^2.9.4",
+    "epsg": "^0.5.0",
     "history": "^4.10.1",
     "inflection": "^1.12.0",
     "leaflet": "^1.7.1",
@@ -35,6 +36,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-observable": "^1.2.0",
     "redux-thunk": "^2.3.0",
+    "reproject": "^1.2.6",
     "rxjs": "^6.6.3",
     "wms-capabilities": "^0.4.1",
     "xml-js": "^1.6.11"

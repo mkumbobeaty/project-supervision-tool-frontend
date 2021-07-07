@@ -174,7 +174,7 @@ function SubProjectForm ({  createSubProject, selected,projects,closeSubProjectF
           >
               <Select>
                   {features.map(({ properties }) => (
-                      <Select.Option value={properties.fid}>{properties?.road_name || properties?.unique_id}</Select.Option>
+                      <Select.Option value={properties.fid}>{properties?.name || properties?.road_name || properties?.unique_id}</Select.Option>
                   ))}
               </Select>
           </Form.Item>

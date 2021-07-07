@@ -2,6 +2,8 @@
 import { Marker, useMapEvents, GeoJSON, Popup } from "react-leaflet";
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
+import {reproject} from 'reproject';
+import epsg from 'epsg'
 import * as turf from '@turf/turf';
 import SubProjectPopupDetail from "./SubProjectPopup";
 
@@ -20,7 +22,9 @@ function SubProjectPoints({ subProjects, getSubproject, subProjectLoading, subPr
 
     return (
         <>
-            { subProjects.map(({ geo_json, name, id }) => {
+            { subProjects.map((subProject) => {
+                const { name, id } = subProject;
+                const geo_json = subProject.geo_json.id === 'ref_roads_merge.18868' ? subProject.geo_json : reproject(subProject.geo_json, 'EPSG:21037', 'EPSG:4326', epsg);
                 const polygon = geo_json.geometry;
                 const { geometry } = turf.pointOnFeature(polygon);
 
