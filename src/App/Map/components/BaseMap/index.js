@@ -37,7 +37,6 @@ const BaseMap = ({children, position}) => {
             <LayerControl />
             <BaseMapSwitcher />
             <ControlBar />
-            {/*<ZoomControl position="topright"/>*/}
             {children}
         </MapContainer>
     )

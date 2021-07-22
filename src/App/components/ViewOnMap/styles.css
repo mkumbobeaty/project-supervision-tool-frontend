@@ -4,6 +4,7 @@
 
 .map-modal-survey-results .ant-modal-close {
     z-index: 800;
+    left: 0;
 }
 
 .map-modal-survey-results .ant-modal {
