@@ -6,7 +6,7 @@ import { Modal } from "antd";
 import BaseMap from "../../Map/components/BaseMap";
 import './styles.css';
 
-function ShowFeature({ data, leaflet }) {
+function ShowFeature({ data }) {
     const map = useMap();
 
     const onEachFeature = (feature, layer) => {
@@ -15,11 +15,11 @@ function ShowFeature({ data, leaflet }) {
             return map.setView(latLng, 18);
         }
 
-        return leaflet.map.fitBounds(layer.getBounds());
+        return map.fitBounds(layer.getBounds());
     }
 
-    const randerGeoJson = (geoJsons) => geoJsons.map(({ regions }) => {
-        return <GeoJSON data={regions.geom} />
+    const randerGeoJson = (geoJsons) => geoJsons.map(({ geometry }) => {
+        return <GeoJSON data={geometry} />
 
     });
 
@@ -50,8 +50,6 @@ function ViewOnMap({ data, showMApModal, handleOnCancel }) {
             <BaseMap zoomControl={true} position={[state.lat, state.lng]}>
              <ShowFeature data={data} />
             </BaseMap>
-
-            
             </Modal>
         </div>
     );
