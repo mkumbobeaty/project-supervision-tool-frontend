@@ -1,10 +1,10 @@
 .leaflet-control-zoom-to-start {
-    background: #fff url(../../../../../../assets/icons/zoom-to-start-26.png) no-repeat 0 0;
+    background: #fff url(../../../../assets/icons/zoom-to-start-26.png) no-repeat 0 0;
     background-size: 26px 26px
 }
 
 .leaflet-control-zoom-to-area {
-    background: #fff url(../../../../../../assets/icons/zoom-to-area-26.png) no-repeat 0 0;
+    background: #fff url(../../../../assets/icons/zoom-to-area-26.png) no-repeat 0 0;
     background-size: 26px 26px
 }
 
@@ -14,10 +14,10 @@
 
 @media (-webkit-min-device-pixel-ratio: 2),(min-resolution: 192dpi) {
     .leaflet-control-zoom-to-start {
-        background-image: url(../../../../../../assets/icons/zoom-to-start-26.png)
+        background-image: url(../../../../assets/icons/zoom-to-start-26.png)
     }
 
     .leaflet-control-zoom-to-area {
-        background-image: url(../../../../../../assets/icons/zoom-to-area-26.png)
+        background-image: url(../../../../assets/icons/zoom-to-area-26.png)
     }
 }
