@@ -25,8 +25,7 @@ function ShowFeature({ data }) {
 
     });
 
-
-    return data.length > 1 ? (<GeoJSON data={data[0]} onEachFeature={onEachFeature} />) : randerGeoJson(data);
+    return data.length > 1 ? randerGeoJson(data): (<GeoJSON data={data[0]} onEachFeature={onEachFeature} />);
 }
 
 
