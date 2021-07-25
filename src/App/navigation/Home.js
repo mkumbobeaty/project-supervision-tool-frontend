@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import projectIcon from '../../assets/icons/projects.svg';
 import adminPanelIcons from '../../assets/icons/admin-panel-grey.svg';
 import NavigationMenu from '../components/NavigationMenu';
-import subProjectsIcon from '../../assets/icons/sub-projects.svg';
-import mapsIcon from "../../assets/icons/maps.svg";
+import subProjectsIcon from '../../assets/icons/sub-projects-grey.svg';
+import mapsIcon from "../../assets/icons/maps-grey.svg";
 import contractsIcons from '../../assets/icons/contract-management-grey.svg';
 import documentIcons from '../../assets/icons/shared-documents-grey.svg';
 import modules from '../../modules.json';
@@ -25,12 +25,14 @@ const routes = [
     path: '/sub_projects',
     icon: subProjectsIcon,
     description: modules.initiatives,
+    disabled: true,
   },
   {
     name: 'MAPS',
     path: '/map',
     icon: mapsIcon,
     description: modules.map,
+    disabled: true,
   },
   {
     name: 'Admin Panel',
