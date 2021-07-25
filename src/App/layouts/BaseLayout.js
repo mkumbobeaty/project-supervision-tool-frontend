@@ -119,13 +119,15 @@ const breadcrumbNameMap = {
  * @version 0.1.0
  * @since 0.1.0
  */
-const BaseLayout = ({ location, match: { url: baseUrl } }) => {
+const BaseLayout = (props) => {
+  const { location, match } = props;
+  const { url: baseUrl } = match;
   const pathSnippets = location.pathname.split("/").filter((i) => i);
   const lastPath = pathSnippets[pathSnippets.length - 1];
 
   // generate dynamic breadcrumb items
   const extraBreadcrumbItems = pathSnippets.map((_, index) => {
-    const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
+      const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
 
     if (breadcrumbNameMap[url]) {
       return (
@@ -146,6 +148,7 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
 
   // TODO clean this up
   const breadcrumbItems = [].concat(extraBreadcrumbItems);
+
   return (
     <Layout className="BaseLayout">
       <Header className="BaseLayoutHeader">
@@ -174,123 +177,8 @@ const BaseLayout = ({ location, match: { url: baseUrl } }) => {
           <PrivateRoute exact path={`${baseUrl}/`} component={Home} />
           {/* Projects PrivateRoutes */}
           <PrivateRoute
-            exact
             path={`${baseUrl}/projects`}
             component={Projects}
-          />
-
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/projects/:id`}
-            render={({ match }, props) => <Project match={match} {...props} />}
-          />
-
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/projects/:id/sub_projects`}
-            render={({ match }, props) => <SubProjects match={match} {...props} />}
-          />
-
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/projects/:id/procuring-entities`}
-            render={({ match }, props) => <ProcuringEntity match={match} {...props} />}
-          />
-
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/projects/:id/tickets`}
-            render={({ match }, props) => <Tickets match={match} {...props} />}
-          />
-
-
-          <PrivateRoute exact path={`${baseUrl}/sub_projects`} component={SubProjects} />
-
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/sub_projects/:id`}
-            render={({ match }, props) => <SubProject match={match} {...props} />}
-          />
-
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/procuring_entities/:id`}
-            render={({ match }, props) => <ProcuringEntityDetails match={match} {...props} />}
-          />
-
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/procuring_entities/:id/packages`}
-            render={({ match }, props) => <Packages match={match} {...props} />}
-          />
-
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/tickets`}
-            component={Tickets}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/tickets/:id`}
-            component={TicketDetails}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/procuring-entity`}
-            component={ProcuringEntity}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/procuring-entity/:id`}
-            component={TicketDetails}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/packages`}
-            component={Packages}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/packages/:id`}
-            render={({ match }, props) => <PackageDetails match={match} {...props} />}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/packages/:id/sub_projects`}
-            render={({ match }, props) => <SubProjects match={match} {...props} />}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/admin-panel/users`}
-            component={Users}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/admin-panel/roles`}
-            component={Roles}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/admin-panel/agencies`}
-            component={Agencies}
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/admin-panel`}
-            component={AdminPanel}
-            disabled
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/admin-panel/permission`}
-            component={Permission}
-            disabled
-          />
-          <PrivateRoute
-            exact
-            path={`${baseUrl}/contracts`}
-            component={Contracts}
-            disabled
           />
           <PrivateRoute component={PageNotFound} />
         </Switch>
