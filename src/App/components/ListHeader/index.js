@@ -57,12 +57,14 @@ ListHeader.propTypes = {
     })
   ).isRequired,
   onSelectAll: PropTypes.func.isRequired,
-  onDeselectAll: PropTypes.func.isRequired,
+  onDeselectAll: PropTypes.func,
   isBulkSelected: PropTypes.bool,
 };
 
 ListHeader.defaultProps = {
   isBulkSelected: false,
+  onDeselectAll: () => {},
+  onSelectAll: () => {},
 };
 
 export default ListHeader;
