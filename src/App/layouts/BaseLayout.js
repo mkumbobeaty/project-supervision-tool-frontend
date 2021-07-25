@@ -1,153 +1,66 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Breadcrumb, Col, Layout, Row } from "antd";
-import { Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 import UserMenu from "../navigation/UserMenu";
-import PageNotFound from "../PageNotFound";
-import Home from "../navigation/Home";
-import Permission from "../Permission";
-import Projects from "../Projects";
-import SubProjects from "../Sub-projects/";
-import Project from "../Projects/components/ProjectsDetails";
-import SubProject from "../Sub-projects/components/SubProjectsDetails/"
-import Agencies from "../Agencies";
-import AdminPanel from "../AdminPanel";
-import PrivateRoute from '../Auth/PrivateRoute';
-import Users from "../Users";
-import Contracts from "../Contracts";
-import Roles from "../Roles";
 import "./styles.css";
-import Tickets from "../Tickets";
-import TicketDetails from "../Tickets/components/Details";
-import ProcuringEntity from "../ProcuringEntities";
-import ProcuringEntityDetails from "../ProcuringEntities/componets/Details";
-import Packages from "../Packages";
-import PackageDetails from "../Packages/componets/Details";
 
 /* constants */
 const { Header, Content } = Layout;
 const breadcrumbNameMap = {
-  "/app": {
-    name: "Home",
-    title: "Projects Supervison Tool",
+  "/projects/": {
+    name: "Projects",
+    param: null,
+    title: "List of Projects"
   },
-
-  /* Projects routes */
-  "/app/projects": {
-    name: "projects",
-    title: "projects Module",
-  },
-  "/app/sub_projects": {
-    name: "Sub Projects",
-    title: "List of all Subprojects",
-  },
-
-  "/app/projects/:type": {
+  "/projects/:id": {
     name: "Project",
-    title: "Detail of single project",
-  },
-
-  "/app/projects/:types/sub_projects": {
-    name: "SubProject",
-    title: "Project SubProjects",
-  },
-  "/app/sub_projects/:type": {
-    name: "Sub Project",
-    title: "Detail of single sub project",
-  },
-
-  "/app/admin-panel": {
-    name: "Admin Panel",
-    title: "Admin Panel module",
-  },
-
-  /* users routes */
-  "/app/users": {
-    name: "users",
-    title: "users Module",
-  },
-  /* Contracts routes */
-  "/app/contracts": {
-    name: "contracts",
-    title: "contracts Module",
-  },
-
-  /* Tickets routes */
-  "/app/tickets": {
-    name: "tickets",
-    title: "Tickets Module",
-  },
-  "/app/tickets:types": {
-    name: "Issue Tracking",
-    title: "Issue tracking Module",
-  },
-
-  /* Procuring entity routes */
-  "/app/procuring-entity": {
-    name: "Procuring Entity",
-    title: "Procuring Entity Module",
-  },
-  "/app/procuring-entity:types": {
-    name: "Single Procuring Entity",
-    title: "Single Procuring Entity Module",
-  },
-  "/app/procuring-entities:types": {
-    name: "Single Procuring Entity",
-    title: "Single Procuring Entity Module",
-  },
-  /* Package routes */
-  "/app/packages": {
-    name: "Packages",
-    title: "package Module",
-  },
-
-  "/app/packages/:types": {
-    name: "Packages",
-    title: "package Module",
-  },
+    param: "id",
+    title: "Project Dashboard"
+  }
 };
 
 /**
  * @function
  * @name BaseLayout
- * @description Render base layout for EWEA app
+ * @description Render base layout for the app
  * @param {object} props Properties inject by router
  * @param {object} props.location Location object from react router
  * @param {object} props.match Match prop from react router
- * @param {string} props.match.url Current Url
  * @returns {object} BaseLayout component
  * @version 0.1.0
  * @since 0.1.0
  */
 const BaseLayout = (props) => {
-  const { location, match } = props;
-  const { url: baseUrl } = match;
-  const pathSnippets = location.pathname.split("/").filter((i) => i);
-  const lastPath = pathSnippets[pathSnippets.length - 1];
 
-  // generate dynamic breadcrumb items
-  const extraBreadcrumbItems = pathSnippets.map((_, index) => {
-      const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
+   // generate dynamic breadcrumb items
+   const generateBreadCrumbItems = () => {
+    const {location, match} = props;
+   const pathSnippets = location.pathname.split("/").filter((i) => i);
+   const lastPath = pathSnippets[pathSnippets.length - 1];
 
-    if (breadcrumbNameMap[url]) {
-      return (
-        <Breadcrumb.Item key={url}>
-          <Link to={url} title={breadcrumbNameMap[url].title}>
-            {breadcrumbNameMap[url].name}
-          </Link>
-        </Breadcrumb.Item>
-      );
-    }
+   return pathSnippets.map((_, index) => {
+     const url = `/${pathSnippets.slice(0, index + 1).join("/")}`;
 
-    return (
-      <Breadcrumb.Item key={url}>
-        <span title={lastPath}>{lastPath}</span>
-      </Breadcrumb.Item>
-    );
-  });
+     if (breadcrumbNameMap[match.path]) {
+       return (
+         <Breadcrumb.Item key={url}>
+           <Link to={url} title={breadcrumbNameMap[match.path].title}>
+             {breadcrumbNameMap[match.path].name}
+           </Link>
+         </Breadcrumb.Item>
+       );
+     }
 
-  // TODO clean this up
-  const breadcrumbItems = [].concat(extraBreadcrumbItems);
+     return (
+       <Breadcrumb.Item key={url}>
+         <span title={lastPath}>{lastPath}</span>
+       </Breadcrumb.Item>
+     );
+   });
+
+
+ }
 
   return (
     <Layout className="BaseLayout">
@@ -157,7 +70,7 @@ const BaseLayout = (props) => {
           <Col xxl={22} xl={22} lg={22} md={22} sm={20} xs={20} justify="start">
             <Row type="flex" justify="start">
               <Breadcrumb className="Breadcrumb" separator=">">
-                {breadcrumbItems}
+                {generateBreadCrumbItems()}
               </Breadcrumb>
             </Row>
           </Col>
@@ -173,15 +86,7 @@ const BaseLayout = (props) => {
         </Row>
       </Header>
       <Content className="BaseLayoutContent">
-        <Switch>
-          <PrivateRoute exact path={`${baseUrl}/`} component={Home} />
-          {/* Projects PrivateRoutes */}
-          <PrivateRoute
-            path={`${baseUrl}/projects`}
-            component={Projects}
-          />
-          <PrivateRoute component={PageNotFound} />
-        </Switch>
+        {props.children}
       </Content>
     </Layout>
   );
@@ -191,6 +96,7 @@ BaseLayout.propTypes = {
   location: PropTypes.shape({ pathname: PropTypes.string }).isRequired,
   match: PropTypes.shape({ url: PropTypes.string, path: PropTypes.string })
     .isRequired,
+    children: PropTypes.node.isRequired
 };
 
 export default BaseLayout;

@@ -1,36 +1,40 @@
 
-import React, { Component } from "react";
-import { Switch } from "react-router-dom";
+import React, { useState } from "react";
+import { Switch, Link } from "react-router-dom";
+import { Breadcrumb, Col, Layout, Row } from "antd";
 import Project from "./components/ProjectsDetails";
 import PrivateRoute from "../Auth/PrivateRoute";
 import ProjectsList from "./components/ProjectsList";
+import UserMenu from "../navigation/UserMenu";
+
+// Constants
+const { Content, Header } = Layout;
 
 
 /**
- * @class
+ * @function
  * @name Projects
  * @description render the projects page
  *
  * @version 0.1.0
  * @since 0.1.0
  */
-class Projects extends Component {
-  render() {
-    return  (
-        <Switch>
-          <PrivateRoute
-          exact
-            path={`${this.props.match.url}/`}
-            component={props => <ProjectsList {...props} />}
-          />
-          <PrivateRoute
-            exact
-            path={`${this.props.match.url}/:id`}
-            component={props => <Project {...props} />}
-          />
-        </Switch>
-    );
-  }
+function Projects(props) {
+  return (
+    <Switch>
+    <PrivateRoute
+      exact
+      path={`${props.match.url}/`}
+      component={props => <ProjectsList {...props}/>}
+    />
+    <PrivateRoute
+      exact
+      path={`${props.match.url}/:id`}
+      component={props => <Project {...props} />}
+    />
+  </Switch>
+  );
+
 }
 
 export default Projects;

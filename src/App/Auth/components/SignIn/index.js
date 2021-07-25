@@ -31,7 +31,7 @@ class SignIn extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.accessToken !== this.props.accessToken) {
             if (this.props.accessToken) {
-                this.props.history.push('/app/projects');
+                this.props.history.push('/projects');
             }
         }
     }

@@ -8,12 +8,13 @@ import "./styles.css";
 import { mapSubProjectSelectors } from "../../../../redux/modules/map/subProjects";
 import { ticketActions, ticketSelectors } from "../../../../redux/modules/Tickets";
 import ProjectHome from "../../../navigation/ProjectHome";
+import BaseLayout from "../../../layouts/BaseLayout";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
 
-const Project = ({ project, loading, getProject, subProjects, getTicketByProject, tickets, match }) => {
+const Project = ({ project, loading, getProject, subProjects, getTicketByProject, tickets, match, location }) => {
 
   useEffect(() => {
     getProject(match.params.id);
@@ -36,6 +37,7 @@ const Project = ({ project, loading, getProject, subProjects, getTicketByProject
   const closing_date = project?.closing_date ? isoDateToHumanReadableDate(project?.closing_date) : 'N/A'
 
   return (
+   <BaseLayout location={location} match={match}>
     <Layout className="project-layout">
       <Spin spinning={loading} tip="Loading..." >
         <Content className="contents">
@@ -66,6 +68,7 @@ const Project = ({ project, loading, getProject, subProjects, getTicketByProject
         </Content>
       </Spin>
     </Layout>
+   </BaseLayout>
   )
 }
 
