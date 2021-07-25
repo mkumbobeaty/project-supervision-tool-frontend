@@ -2,8 +2,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { projectActions, projectSelectors } from '../../../../redux/modules/projects';
-import { Col, Drawer, Spin,  Layout, Row,Breadcrumb } from "antd";
+import { Col, Drawer, Spin, Layout, Row, Breadcrumb } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import Topbar from "../../../components/Topbar";
 import CustomList from "../../../components/List";
@@ -310,6 +311,16 @@ class ProjectsList extends Component {
 
     const { isEditForm, previewOnMap } = this.state;
 
+    const breadcrumbs = (
+      <Breadcrumb className="Breadcrumb" separator=">">
+        <Breadcrumb.Item key="/projects">
+          <Link to="/projects" title="list of Projects">
+            Projects
+          </Link>
+        </Breadcrumb.Item>
+      </Breadcrumb>
+    );
+
     return previewOnMap ? <div className="MapDashboard">
       <SideNav />
       <Spin spinning={mapLoading} tip="Loading data...">
@@ -318,209 +329,209 @@ class ProjectsList extends Component {
         </BaseMap>
       </Spin>
     </div> : (
-      <BaseLayout location={location} match={match}>
-      <div>
-        {/* Topbar */}
-        <Topbar
-          search={{
-            size: "large",
-            placeholder: "Search for Projects here ...",
-            onChange: this.handleSearch,
-            value: searchQuery,
-          }}
-          actions={[
-            {
-              label: "New Project",
-              icon: <PlusOutlined />,
+      <BaseLayout breadcrumbs={breadcrumbs}>
+        <div>
+          {/* Topbar */}
+          <Topbar
+            search={{
               size: "large",
-              title: "Add New Project",
-              onClick: this.openProjectForm,
-            },
-          ]}
-        />
-        {/* end Topbar */}
+              placeholder: "Search for Projects here ...",
+              onChange: this.handleSearch,
+              value: searchQuery,
+            }}
+            actions={[
+              {
+                label: "New Project",
+                icon: <PlusOutlined />,
+                size: "large",
+                title: "Add New Project",
+                onClick: this.openProjectForm,
+              },
+            ]}
+          />
+          {/* end Topbar */}
 
-        {/* list starts */}
-        <CustomList
-          itemName="Projects"
-          items={projects}
-          page={page}
-          loading={loading}
-          itemCount={total}
-          onFilter={this.openFiltersModal}
-          onRefresh={this.handleRefresh}
-          onMapView={this.handleViewMap}
-          onPaginate={(nextPage) => {
-            paginateProject({ page: nextPage });
-          }}
-          headerLayout={headerLayout}
-          renderListItem={({
-            item,
-            isSelected,
-          }) => (
-            <ListItem
-              key={item.id} // eslint-disable-line
-              name={item.name}
-              item={item}
-              avatarBackgroundColor={item.color}
-              isSelected={isSelected}
-              renderActions={() => (
-                <ListItemActions
-                  edit={{
-                    name: "Edit project",
-                    title: "Update project details",
-                    onClick: () => this.handleEdit(item),
-                  }}
-                  archive={{
-                    name: "Archive project",
-                    title:
-                      "Remove project from list of active Projects",
-                    onClick: () => showArchiveConfirm(item, deleteProject),
-                  }}
-                  component={{
-                    name: "Add Component",
-                    title:
-                      "Add component to the project",
-                    onClick: () => this.openProjectComponentForm(item),
-                  }}
-                  subComponent={{
-                    name: "Add sub Component",
-                    title:
-                      "Add sub component to the project",
-                    onClick: () => this.openProjectSubComponentForm(item),
-                  }}
-                  openIssues={{
-                    name: "Create New Ticket",
-                    title:
-                      "Open Ticket to the project",
-                    onClick: () => this.openIssueForm(item),
-                  }}
-                  view={
-                    {
-                      name: "View Detail",
-                      title: "View more detail of selected project",
-                      onClick: () => this.handleViewDetails(item.id)
+          {/* list starts */}
+          <CustomList
+            itemName="Projects"
+            items={projects}
+            page={page}
+            loading={loading}
+            itemCount={total}
+            onFilter={this.openFiltersModal}
+            onRefresh={this.handleRefresh}
+            onMapView={this.handleViewMap}
+            onPaginate={(nextPage) => {
+              paginateProject({ page: nextPage });
+            }}
+            headerLayout={headerLayout}
+            renderListItem={({
+              item,
+              isSelected,
+            }) => (
+              <ListItem
+                key={item.id} // eslint-disable-line
+                name={item.name}
+                item={item}
+                avatarBackgroundColor={item.color}
+                isSelected={isSelected}
+                renderActions={() => (
+                  <ListItemActions
+                    edit={{
+                      name: "Edit project",
+                      title: "Update project details",
+                      onClick: () => this.handleEdit(item),
+                    }}
+                    archive={{
+                      name: "Archive project",
+                      title:
+                        "Remove project from list of active Projects",
+                      onClick: () => showArchiveConfirm(item, deleteProject),
+                    }}
+                    component={{
+                      name: "Add Component",
+                      title:
+                        "Add component to the project",
+                      onClick: () => this.openProjectComponentForm(item),
+                    }}
+                    subComponent={{
+                      name: "Add sub Component",
+                      title:
+                        "Add sub component to the project",
+                      onClick: () => this.openProjectSubComponentForm(item),
+                    }}
+                    openIssues={{
+                      name: "Create New Ticket",
+                      title:
+                        "Open Ticket to the project",
+                      onClick: () => this.openIssueForm(item),
+                    }}
+                    view={
+                      {
+                        name: "View Detail",
+                        title: "View more detail of selected project",
+                        onClick: () => this.handleViewDetails(item.id)
+                      }
                     }
-                  }
-                  onMapPreview={
-                    {
-                      name: "Preview on Map",
-                      title: "View Project on map",
-                      onClick: () => this.handleMapPreview(item)
+                    onMapPreview={
+                      {
+                        name: "Preview on Map",
+                        title: "View Project on map",
+                        onClick: () => this.handleMapPreview(item)
+                      }
                     }
-                  }
-                />
+                  />
 
-              )}
-            >
-              {/* eslint-disable react/jsx-props-no-spreading */}
-              <Col
-                {...nameSpan}
-                className="contentEllipse"
-                title={item.descrition}
-                onClick={() => this.handleViewDetails(item.id)}
-                style={{ cursor: 'pointer' }}
+                )}
               >
-                {item.name}
-              </Col>
-              <Col {...projectIdSpan} className="contentEllipse">
-                {" "}
+                {/* eslint-disable react/jsx-props-no-spreading */}
+                <Col
+                  {...nameSpan}
+                  className="contentEllipse"
+                  title={item.descrition}
+                  onClick={() => this.handleViewDetails(item.id)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {item.name}
+                </Col>
+                <Col {...projectIdSpan} className="contentEllipse">
+                  {" "}
 
-                {item ? item.wb_project_id : "All"}
-              </Col>
-              <Col {...codeSpan} title={item.name} className="contentEllipse" >{item ? item?.code.toUpperCase() : 'N/A'}</Col>
-              <Col {...statusSpan}>{item?.status?.name ? item?.status?.name : 'N/A'}</Col>
-              <Col {...approvalSpan}>
-                {item ? new Date(item?.approval_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
-              </Col>
-              <Col {...closingSpan}>
-                {item ? new Date(item?.closing_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
-              </Col>
+                  {item ? item.wb_project_id : "All"}
+                </Col>
+                <Col {...codeSpan} title={item.name} className="contentEllipse" >{item ? item?.code.toUpperCase() : 'N/A'}</Col>
+                <Col {...statusSpan}>{item?.status?.name ? item?.status?.name : 'N/A'}</Col>
+                <Col {...approvalSpan}>
+                  {item ? new Date(item?.approval_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
+                </Col>
+                <Col {...closingSpan}>
+                  {item ? new Date(item?.closing_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
+                </Col>
 
-              <Col {...projectCoordinatorSpan} className="contentEllipse">{item?.implementing_agency ? item?.implementing_agency?.name : 'N/A'}</Col>
-              <Col {...projectLeadSpan}> {item?.lga_count ? item?.lga_count : 'N/A'}</Col>
-              {/* eslint-enable react/jsx-props-no-spreading */}
-            </ListItem>
-          )}
-        />
-        {/* end list */}
-        <Drawer
-          title={
-            isEditForm ? "Edit Project" : "Add New Project"
-          } width={550}
-          onClose={this.closeProjectForm}
-          footer={null}
-          visible={showForm}
-          bodyStyle={{ paddingBottom: 80 }}
-          destroyOnClose
-          maskClosable={false}
-          afterClose={this.handleAfterCloseForm}
-          className="projectForm"
-        >
-          <CommonProjectForm
-            selected={selected}
-            isEditForm={isEditForm}
-            createProject={createProject}
-            focalPeoples={focalPeoples}
-            Projects={projects}
-            handleAfterCloseForm={this.handleAfterCloseForm}
-            handleAfterSubmit={this.closeProjectForm} />
-        </Drawer>
-
-        <Drawer
-          title={
-            isEditForm ? "Edit Project Component" : "Add New Project Component"
-          } width={550}
-          onClose={this.closeProjectComponentForm}
-          footer={null}
-          visible={showComponentForm}
-          bodyStyle={{ paddingBottom: 80 }}
-          destroyOnClose
-          maskClosable={false}
-          afterClose={this.handleAfterCloseForm}
-          className="projectForm"
-        >
-          <ProjectComponentForm
-            selected={selected}
+                <Col {...projectCoordinatorSpan} className="contentEllipse">{item?.implementing_agency ? item?.implementing_agency?.name : 'N/A'}</Col>
+                <Col {...projectLeadSpan}> {item?.lga_count ? item?.lga_count : 'N/A'}</Col>
+                {/* eslint-enable react/jsx-props-no-spreading */}
+              </ListItem>
+            )}
           />
-        </Drawer>
+          {/* end list */}
+          <Drawer
+            title={
+              isEditForm ? "Edit Project" : "Add New Project"
+            } width={550}
+            onClose={this.closeProjectForm}
+            footer={null}
+            visible={showForm}
+            bodyStyle={{ paddingBottom: 80 }}
+            destroyOnClose
+            maskClosable={false}
+            afterClose={this.handleAfterCloseForm}
+            className="projectForm"
+          >
+            <CommonProjectForm
+              selected={selected}
+              isEditForm={isEditForm}
+              createProject={createProject}
+              focalPeoples={focalPeoples}
+              Projects={projects}
+              handleAfterCloseForm={this.handleAfterCloseForm}
+              handleAfterSubmit={this.closeProjectForm} />
+          </Drawer>
 
-        <Drawer
-          title={
-            isEditForm ? "Edit Project SubComponent" : "Add New Project SubComponent"
-          } width={550}
-          onClose={this.closeProjectSubComponentForm}
-          footer={null}
-          visible={showSubComponentForm}
-          bodyStyle={{ paddingBottom: 80 }}
-          destroyOnClose
-          maskClosable={false}
-          afterClose={this.handleAfterCloseForm}
-          className="projectForm"
-        >
-          <ProjectSubComponentForm
-            selected={selected}
-          />
-        </Drawer>
+          <Drawer
+            title={
+              isEditForm ? "Edit Project Component" : "Add New Project Component"
+            } width={550}
+            onClose={this.closeProjectComponentForm}
+            footer={null}
+            visible={showComponentForm}
+            bodyStyle={{ paddingBottom: 80 }}
+            destroyOnClose
+            maskClosable={false}
+            afterClose={this.handleAfterCloseForm}
+            className="projectForm"
+          >
+            <ProjectComponentForm
+              selected={selected}
+            />
+          </Drawer>
 
-        <Drawer
-          title={
-            isEditForm ? "Edit Ticket" : "Add New Ticket"
-          } width={550}
-          onClose={this.closeIssueForm}
-          footer={null}
-          visible={showTicketForm}
-          bodyStyle={{ paddingBottom: 80 }}
-          destroyOnClose
-          maskClosable={false}
-          afterClose={this.handleAfterCloseForm}
-          className="projectForm"
-        >
-          <TicketForm
-            selected={selected}
-          />
-        </Drawer>
-      </div>
+          <Drawer
+            title={
+              isEditForm ? "Edit Project SubComponent" : "Add New Project SubComponent"
+            } width={550}
+            onClose={this.closeProjectSubComponentForm}
+            footer={null}
+            visible={showSubComponentForm}
+            bodyStyle={{ paddingBottom: 80 }}
+            destroyOnClose
+            maskClosable={false}
+            afterClose={this.handleAfterCloseForm}
+            className="projectForm"
+          >
+            <ProjectSubComponentForm
+              selected={selected}
+            />
+          </Drawer>
+
+          <Drawer
+            title={
+              isEditForm ? "Edit Ticket" : "Add New Ticket"
+            } width={550}
+            onClose={this.closeIssueForm}
+            footer={null}
+            visible={showTicketForm}
+            bodyStyle={{ paddingBottom: 80 }}
+            destroyOnClose
+            maskClosable={false}
+            afterClose={this.handleAfterCloseForm}
+            className="projectForm"
+          >
+            <TicketForm
+              selected={selected}
+            />
+          </Drawer>
+        </div>
       </BaseLayout>
     );
   }

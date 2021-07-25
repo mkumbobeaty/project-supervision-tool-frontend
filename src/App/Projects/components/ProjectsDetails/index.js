@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import {Layout, Spin, Table, Tabs} from 'antd';
+import {Layout, Spin, Breadcrumb, Tabs} from 'antd';
+import { Link } from 'react-router-dom';
 import OverviewDetails from "./components/OverviewDetails";
 import { connect } from "react-redux";
 import { projectActions, projectSelectors } from "../../../../redux/modules/projects";
@@ -22,7 +23,23 @@ const Project = ({ project, loading, getProject, subProjects, getTicketByProject
 
   }, [])
 
-  console.log(tickets)
+
+  const breadcrumbs = project && (
+    <Breadcrumb className="Breadcrumb" separator=">">
+      <Breadcrumb.Item key="/projects">
+        <Link to="/projects" title="list of Projects">
+          Projects
+        </Link>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item key={match.url}>
+        <Link to={match.url} title={`Details for ${project?.name}`}>
+          {project?.code}
+        </Link>
+      </Breadcrumb.Item>
+    </Breadcrumb>
+  );
+
+
 
   const getCommitmentAmount = (data) => {
     const { amount, currency } = data
@@ -37,7 +54,7 @@ const Project = ({ project, loading, getProject, subProjects, getTicketByProject
   const closing_date = project?.closing_date ? isoDateToHumanReadableDate(project?.closing_date) : 'N/A'
 
   return (
-   <BaseLayout location={location} match={match}>
+   <BaseLayout breadcrumbs={breadcrumbs}>
     <Layout className="project-layout">
       <Spin spinning={loading} tip="Loading..." >
         <Content className="contents">
