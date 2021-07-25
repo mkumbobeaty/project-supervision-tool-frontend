@@ -23,7 +23,7 @@ class App extends Component{
                 <HashRouter hashType="hashbang">
                     <Switch>
                         <Route path="/app" component={BaseLayout} />
-                        <PrivateRoute path="/map" component={MapDashboard} />
+                        <PrivateRoute path="/map" component={props => <MapDashboard {...props} />} />
                         <Route path="/signin" component={SignIn} />
                         <Redirect to="/signin" />
                     </Switch>

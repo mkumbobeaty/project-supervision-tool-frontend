@@ -517,15 +517,6 @@ class ProjectsList extends Component {
             selected={selected}
           />
         </Drawer>
-
-        <Switch>
-          <PrivateRoute
-            exact
-            path={`${this.props.match.url}/:id`}
-            component={Project}
-            // render={({ match }, props) => <Project match={match} {...props} />}
-          />
-        </Switch>
       </div>
     );
   }

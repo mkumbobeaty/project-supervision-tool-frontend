@@ -21,12 +21,12 @@ class Projects extends Component {
           <PrivateRoute
           exact
             path={`${this.props.match.url}/`}
-            component={ProjectsList}
+            component={props => <ProjectsList {...props} />}
           />
           <PrivateRoute
             exact
             path={`${this.props.match.url}/:id`}
-            component={Project}
+            component={props => <Project {...props} />}
           />
         </Switch>
     );
