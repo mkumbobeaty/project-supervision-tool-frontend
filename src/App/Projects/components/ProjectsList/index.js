@@ -2,9 +2,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { projectActions, projectSelectors } from '../../../../redux/modules/projects';
-import { Col, Drawer, Spin, Layout, Row, Breadcrumb } from "antd";
+import { Col, Drawer, Spin, Layout } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";
 import Topbar from "../../../components/Topbar";
 import CustomList from "../../../components/List";
@@ -25,6 +24,7 @@ import "./styles.css";
 import { ticketActions, ticketSelectors } from "../../../../redux/modules/Tickets";
 import TicketForm from '../../../Tickets/components/Form';
 import BaseLayout from "../../../layouts/BaseLayout";
+import DynamicBreadcrumbs from "../../../components/DynamicBreadcrumbs";
 
 /* constants */
 const { Content, Header } = Layout;
@@ -311,15 +311,13 @@ class ProjectsList extends Component {
 
     const { isEditForm, previewOnMap } = this.state;
 
-    const breadcrumbs = (
-      <Breadcrumb className="Breadcrumb" separator=">">
-        <Breadcrumb.Item key="/projects">
-          <Link to="/projects" title="list of Projects">
-            Projects
-          </Link>
-        </Breadcrumb.Item>
-      </Breadcrumb>
-    );
+    const breadcrumbs = [
+      {
+          title: 'Projects',
+          url: '/projects',
+          name: 'Projects'
+      }
+  ]
 
     return previewOnMap ? <div className="MapDashboard">
       <SideNav />
@@ -329,7 +327,7 @@ class ProjectsList extends Component {
         </BaseMap>
       </Spin>
     </div> : (
-      <BaseLayout breadcrumbs={breadcrumbs}>
+      <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs} />}>
         <div>
           {/* Topbar */}
           <Topbar
