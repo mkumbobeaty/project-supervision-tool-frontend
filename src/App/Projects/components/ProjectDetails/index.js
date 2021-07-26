@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import {Layout, Spin, Breadcrumb, Tabs} from 'antd';
-import { Link } from 'react-router-dom';
+import {Layout, Spin, Tabs} from 'antd';
 import OverviewDetails from "./components/OverviewDetails";
 import { connect } from "react-redux";
 import { projectActions, projectSelectors } from "../../../../redux/modules/projects";
@@ -8,6 +7,7 @@ import { isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
 import "./styles.css";
 import { mapSubProjectSelectors } from "../../../../redux/modules/map/subProjects";
 import { ticketActions, ticketSelectors } from "../../../../redux/modules/Tickets";
+import DynamicBreadcrumbs from '../../../components/DynamicBreadcrumbs';
 import ProjectHome from "../../../navigation/ProjectHome";
 import BaseLayout from "../../../layouts/BaseLayout";
 
@@ -24,20 +24,18 @@ const Project = ({ project, loading, getProject, subProjects, getTicketByProject
   }, [])
 
 
-  const breadcrumbs = project && (
-    <Breadcrumb className="Breadcrumb" separator=">">
-      <Breadcrumb.Item key="/projects">
-        <Link to="/projects" title="list of Projects">
-          Projects
-        </Link>
-      </Breadcrumb.Item>
-      <Breadcrumb.Item key={match.url}>
-        <Link to={match.url} title={`Details for ${project?.name}`}>
-          {project?.code}
-        </Link>
-      </Breadcrumb.Item>
-    </Breadcrumb>
-  );
+  const breadcrumbs = project ? [
+    {
+        title: 'Projects',
+        url: '/projects',
+        name: 'Projects'
+    },
+    {
+        title: project.code,
+        url: match.url,
+        name: project.name
+    }
+] : [];
 
 
 
@@ -54,7 +52,7 @@ const Project = ({ project, loading, getProject, subProjects, getTicketByProject
   const closing_date = project?.closing_date ? isoDateToHumanReadableDate(project?.closing_date) : 'N/A'
 
   return (
-   <BaseLayout breadcrumbs={breadcrumbs}>
+  <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs} />}>
     <Layout className="project-layout">
       <Spin spinning={loading} tip="Loading..." >
         <Content className="contents">

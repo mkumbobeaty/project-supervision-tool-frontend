@@ -1,15 +1,10 @@
 
-import React, { useState } from "react";
-import { Switch, Link } from "react-router-dom";
-import { Breadcrumb, Col, Layout, Row } from "antd";
-import Project from "./components/ProjectsDetails";
+import React from "react";
+import { Switch } from "react-router-dom";
+import { Layout } from "antd";
 import PrivateRoute from "../Auth/PrivateRoute";
 import ProjectsList from "./components/ProjectsList";
-import UserMenu from "../navigation/UserMenu";
-
-// Constants
-const { Content, Header } = Layout;
-
+import ProjectDetails from "./components/ProjectDetails";
 
 /**
  * @function
@@ -30,7 +25,7 @@ function Projects(props) {
     <PrivateRoute
       exact
       path={`${props.match.url}/:id`}
-      component={props => <Project {...props} />}
+      component={props => <ProjectDetails {...props} />}
     />
   </Switch>
   );
