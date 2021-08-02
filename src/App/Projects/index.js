@@ -4,7 +4,7 @@ import { Switch } from "react-router-dom";
 import { Layout } from "antd";
 import PrivateRoute from "../Auth/PrivateRoute";
 import ProjectsList from "./components/ProjectsList";
-import ProjectDetails from "./components/ProjectDetails";
+import Project from "./components/Project";
 
 /**
  * @function
@@ -25,7 +25,7 @@ function Projects(props) {
     <PrivateRoute
       exact
       path={`${props.match.url}/:id`}
-      component={props => <ProjectDetails {...props} />}
+      component={props => <Project {...props} />}
     />
   </Switch>
   );
