@@ -6,6 +6,8 @@ import ProjectHome from "../../../navigation/ProjectHome";
 import { isoDateToHumanReadableDate } from '../../../../Util'
 import './styles.css';
 import ProcuringEntityHomeNavMenu from "../../../navigation/ProcuringEntitiesHome";
+import BaseLayout from '../../../layouts/BaseLayout';
+import DynamicBreadcrumbs from '../../../components/DynamicBreadcrumbs';
 const { Content } = Layout;
 
 const totalCostSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
@@ -27,73 +29,98 @@ const ProcuringEntityDetails = ({match, procuringEntity, getProcuringEntity}) =>
         getProcuringEntity(match.params?.id);
     }, []);
 
+    const breadcrumbs =  procuringEntity ? [
+        {
+            title: 'Projects',
+            url: '/projects',
+            name: 'Projects'
+        },
+        {
+            title: procuringEntity.project.code,
+            url: `/projects/${procuringEntity.project.id}`,
+            name: procuringEntity.project.name
+        },
+        {
+            title: `Procuring Entities`,
+            url: match.url,
+            name: `Procuring Entities under ${procuringEntity.project.name}(${procuringEntity.project.code})`
+        },
+        {
+            title: `${procuringEntity.agency.name}-${procuringEntity.project_sub_component.name}`,
+            url: match.url,
+            name: `${procuringEntity.agency.name}-${procuringEntity.project_sub_component.name}`
+        }
+    ] : [];
+
     return procuringEntity ? (
-        <Layout className="project-layout">
-            <Spin spinning={false} tip="Loading..." >
-                <Content className="contents">
-                    <h3>{`${procuringEntity.agency.name} - ${procuringEntity.project_sub_component.name}`}</h3>
-                    <Layout className="project-inner-layout" >
-                        <Content className="project-contents">
-                            <div className="card-container">
-                                <div className="keyDetails grey-bgr">
-                                    <h2 id="sider-title">Key Details</h2>
-                                <section className="container">
-                                    <Row className="key-details">
-                                        <Col {...projectIdSpan}>
-                                            <h4>Project</h4>
-                                            <p>{`${procuringEntity.project.name}(${procuringEntity.project.code})`}</p>
-                                        </Col>
-                                        <Col {...statusSpan}>
-                                            <h4>Project Component</h4>
-                                            <p>{procuringEntity.project_component?.name ? procuringEntity.project_component?.name : 'N/A'}</p>
-                                        </Col>
-                                        <Col {...totalCostSpan}>
-                                            <h4>Project SubComponent</h4>
-                                            <p>{procuringEntity.project_sub_component?.name ? procuringEntity.project_sub_component?.name : 'N/A'}</p>
-                                        </Col>
-                                        <Col {...commitmentSpan}>
-                                            <h4>Entity</h4>
-                                            <p>{procuringEntity.agency?.name ? procuringEntity.agency?.name : 'N/A'}</p>
-                                        </Col>
+        <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs} />}>
+            <Layout className="project-layout">
+                <Spin spinning={false} tip="Loading..." >
+                    <Content className="contents">
+                        <h3>{`${procuringEntity.agency.name} - ${procuringEntity.project_sub_component.name}`}</h3>
+                        <Layout className="project-inner-layout" >
+                            <Content className="project-contents">
+                                <div className="card-container">
+                                    <div className="keyDetails grey-bgr">
+                                        <h2 id="sider-title">Key Details</h2>
+                                    <section className="container">
+                                        <Row className="key-details">
+                                            <Col {...projectIdSpan}>
+                                                <h4>Project</h4>
+                                                <p>{`${procuringEntity.project.name}(${procuringEntity.project.code})`}</p>
+                                            </Col>
+                                            <Col {...statusSpan}>
+                                                <h4>Project Component</h4>
+                                                <p>{procuringEntity.project_component?.name ? procuringEntity.project_component?.name : 'N/A'}</p>
+                                            </Col>
+                                            <Col {...totalCostSpan}>
+                                                <h4>Project SubComponent</h4>
+                                                <p>{procuringEntity.project_sub_component?.name ? procuringEntity.project_sub_component?.name : 'N/A'}</p>
+                                            </Col>
+                                            <Col {...commitmentSpan}>
+                                                <h4>Entity</h4>
+                                                <p>{procuringEntity.agency?.name ? procuringEntity.agency?.name : 'N/A'}</p>
+                                            </Col>
 
-                                        <Col {...projectLeadSpan}>
-                                            <h4>Packages</h4>
-                                            <p>{procuringEntity.packages.length}</p>
+                                            <Col {...projectLeadSpan}>
+                                                <h4>Packages</h4>
+                                                <p>{procuringEntity.packages.length}</p>
 
-                                        </Col>
+                                            </Col>
 
-                                        <Col {...projectCoordinatorSpan}>
-                                            <h4>Contracts</h4>
-                                            <p>{procuringEntity.contracts.length}</p>
+                                            <Col {...projectCoordinatorSpan}>
+                                                <h4>Contracts</h4>
+                                                <p>{procuringEntity.contracts.length}</p>
 
-                                        </Col>
+                                            </Col>
 
-                                        <Col {...implementingAgencySpan}>
-                                            <h4>Contractors</h4>
-                                            <p>{procuringEntity.contractors.length}</p>
-                                        </Col>
-                                        <Col {...projectsLocationSpan}>
-                                            <h4>Supervising Consultants</h4>
-                                            {procuringEntity.supervisingConsultants.length}
-                                        </Col>
-                                        <Col {...projectCoordinatorSpan}>
-                                            <h4>SubProjects</h4>
-                                            <p>{procuringEntity.subProjects.length}</p>
-                                        </Col>
-                                        <Col {...lastUpdateSpan} >
-                                            <h4>Last updated</h4>
-                                            <p>{isoDateToHumanReadableDate(procuringEntity.updated_at)}</p>
-                                        </Col>
-                                    </Row>
-                                </section>
+                                            <Col {...implementingAgencySpan}>
+                                                <h4>Contractors</h4>
+                                                <p>{procuringEntity.contractors.length}</p>
+                                            </Col>
+                                            <Col {...projectsLocationSpan}>
+                                                <h4>Supervising Consultants</h4>
+                                                {procuringEntity.supervisingConsultants.length}
+                                            </Col>
+                                            <Col {...projectCoordinatorSpan}>
+                                                <h4>SubProjects</h4>
+                                                <p>{procuringEntity.subProjects.length}</p>
+                                            </Col>
+                                            <Col {...lastUpdateSpan} >
+                                                <h4>Last updated</h4>
+                                                <p>{isoDateToHumanReadableDate(procuringEntity.updated_at)}</p>
+                                            </Col>
+                                        </Row>
+                                    </section>
+                                    </div>
+                                    <ProcuringEntityHomeNavMenu match={match} />
                                 </div>
-                                <ProcuringEntityHomeNavMenu match={match} />
-                            </div>
-                        </Content>
-                    </Layout>
-                </Content>
-            </Spin>
-        </Layout>
+                            </Content>
+                        </Layout>
+                    </Content>
+                </Spin>
+            </Layout>
+        </BaseLayout>
     ) : '';
 }
 
