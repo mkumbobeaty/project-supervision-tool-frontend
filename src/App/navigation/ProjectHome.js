@@ -10,7 +10,7 @@ import modules from '../../modules.json';
 const routes = [
     {
         name: 'Procuring Entities',
-        path: '/procuring-entities',
+        path: '/procuring_entities',
         icon: subProjectsIcon,
         description: modules.initiatives,
     },

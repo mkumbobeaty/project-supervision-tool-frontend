@@ -418,3 +418,20 @@ function padZero(str, len) {
       },
     });
   };
+
+/**
+   * @function
+   * @name getIdFromUrlPath
+   * @description take path of the url and returns the id param
+   * @param {string} path url path
+   * @param {index} expected index of id param when url is split into array
+   * 
+   * @returns {any} id param of the url
+   *
+   * @version 0.1.0
+   * @since 0.1.0
+   */
+ export const getIdFromUrlPath = (path,index) => {
+    const urlPathParts = path.split('/');
+    return urlPathParts[index];
+  };

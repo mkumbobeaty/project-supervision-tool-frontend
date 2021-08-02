@@ -5,6 +5,7 @@ import { Layout } from "antd";
 import PrivateRoute from "../Auth/PrivateRoute";
 import ProjectsList from "./components/ProjectsList";
 import Project from "./components/Project";
+import ProcuringEntities from "../ProcuringEntities";
 
 /**
  * @function
@@ -23,7 +24,6 @@ function Projects(props) {
       component={props => <ProjectsList {...props}/>}
     />
     <PrivateRoute
-      exact
       path={`${props.match.url}/:id`}
       component={props => <Project {...props} />}
     />

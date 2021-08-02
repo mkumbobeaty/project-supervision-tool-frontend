@@ -25,7 +25,7 @@ class App extends Component{
                     <Switch>
                         <Route path="/app" component={BaseLayout} />
                         <PrivateRoute path="/map" component={props => <MapDashboard {...props} />} />
-                        <PrivateRoute path="/projects" component={props => <Projects {...props} />}/>
+                        <PrivateRoute  path="/projects" component={props => <Projects {...props} />}/>
                         <Route path="/signin" component={SignIn} />
                         <Redirect to="/signin" />
                     </Switch>

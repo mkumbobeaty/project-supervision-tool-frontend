@@ -25,7 +25,7 @@ const routes = [
 
     {
         name: 'Contracts',
-        path: '/procuring-entities',
+        path: '/procuring_entities',
         icon: subProjectsIcon,
         description: modules.initiatives,
     },
