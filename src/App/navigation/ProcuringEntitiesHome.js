@@ -19,15 +19,9 @@ const routes = [
     {
         name: 'SubProjects',
         path: '/sub_projects',
-        icon: subProjectsIcon,
+        icon: subProjectsDisabledIcon,
         description: modules.initiatives,
-    },
-
-    {
-        name: 'Contracts',
-        path: '/procuring_entities',
-        icon: subProjectsIcon,
-        description: modules.initiatives,
+        disabled: true,
     },
     {
         name: 'Contractors',

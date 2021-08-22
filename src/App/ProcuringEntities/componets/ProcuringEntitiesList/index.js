@@ -18,15 +18,11 @@ import DynamicBreadcrumbs from '../../../components/DynamicBreadcrumbs';
 
 
 /* constants */
-const nameSpan = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 19, xs: 19};
-const websiteSpan = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 4, xs: 2 };
-const subComponentSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 0, xs: 0 };
-const packageSpan = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 0, xs: 0 };
+const nameSpan = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 5, xs: 5};
+const packageSpan = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 5, xs: 5 };
 
 const headerLayout = [
     { ...nameSpan, header: "Name" },
-    { ...websiteSpan, header: "Website" },
-    { ...subComponentSpan, header: "ProcuringEntities Sub-Component" },
     { ...packageSpan, header: "Package" },
 ];
 
@@ -216,13 +212,6 @@ const  handleEdit = (item) => {
 
                                         <Col {...nameSpan} >
                                             {item?.agency?.name ? item?.agency?.name : 'N/A'}
-                                        </Col>
-                                        <Col {...websiteSpan}  >
-
-                                            {item?.agency?.website ? item?.agency?.website : "N/A"}
-                                        </Col>
-                                        <Col {...subComponentSpan} className="contentEllipse">
-                                            {item?.project_sub_component ? item?.project_sub_component.name : 'N/A'}
                                         </Col>
                                 
                                         <Col {...packageSpan} className="contentEllipse">

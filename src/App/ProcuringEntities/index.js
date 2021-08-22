@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 import PrivateRoute from "../Auth/PrivateRoute";
 import ProcuringEntitiesList from "./componets/ProcuringEntitiesList";
-import ProcuringEntity from "./componets/Details";
+import ProcuringEntity from "./componets/ProcuringEntity";
 
 const ProcuringEntities = (props) => {
 
