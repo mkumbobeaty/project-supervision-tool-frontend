@@ -54,7 +54,7 @@ const ProcuringEntitiesList = ({
     const [ isEditForm, setIsEditForm ] = useState(false);
     const [ visible, setVisible ] =  useState(false);
     const projectId = getIdFromUrlPath(match.path, 2);
-    const filter = {'filter[projectSubComponent.projectComponent.project_id]': projectId};
+    const filter = {'filter[project_id]': projectId};
     const history = useHistory();
 
     useEffect(() => {
