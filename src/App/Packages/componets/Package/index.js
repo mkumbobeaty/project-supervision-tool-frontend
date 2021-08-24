@@ -2,10 +2,9 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 import PrivateRoute from "../../../Auth/PrivateRoute";
 import PackageDetails from "../Details";
-import SubProject from "../../../Sub-projects/components/SubProjectsDetails";
+import SubProjects from "../../../Sub-projects";
 
-const ProcuringEntities = (props) => {
-
+const Package = (props) => {
     return (
         <Switch>
             <PrivateRoute
@@ -14,11 +13,10 @@ const ProcuringEntities = (props) => {
                 component={props => <PackageDetails {...props}/>}
             />
             <PrivateRoute
-                path={`${props.match.url}/:id/sub_projects`}
-                component={props => <SubProject {...props} />}
+                path={`${props.match.url}/sub_projects`}
+                component={props => <SubProjects {...props} />}
             />
         </Switch>
     );
 }
-
-export default ProcuringEntities;
+export default Package;

@@ -9,7 +9,7 @@ import SubProjectsList from "../components/List";
 import ListItem from "../components/ListItem";
 import ListItemActions from "../components/ListItemActions";
 import { Link } from "react-router-dom";
-import { getSurveyIdByCategory } from "../../Util";
+import {getIdFromUrlPath, getSurveyIdByCategory} from "../../Util";
 import SubProjectForm from "./components/Form";
 import { subProjectsActions, subProjectsSelectors } from "../../redux/modules/subProjects"
 import { bindActionCreators } from "redux";
@@ -25,11 +25,8 @@ import "./styles.css";
 const subProjectNameSpan = { xxl: 3, xl: 4, lg: 4, md: 5, sm: 20, xs: 20 };
 const projectIdSpan = { xxl: 2, xl: 2, lg: 2, md: 3, sm: 0, xs: 0 };
 const itemsSpan = { xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0 };
-const locationSpan = { xxl: 3, xl: 3, lg: 0, md: 0, sm: 0, xs: 0 };
+const locationSpan = { xxl: 3, xl: 3, lg: 3, md: 3, sm: 0, xs: 0 };
 const statusSpan = { xxl: 3, xl: 3, lg: 4, md: 3, sm: 0, xs: 0 };
-const physicalProgressSpan = { xxl: 3, xl: 2, lg: 3, md: 3, sm: 0, xs: 0 };
-const financialSpan = { xxl: 2, xl: 2, lg: 4, md: 2, sm: 0, xs: 0 };
-const contractorSpan = { xxl: 3, xl: 3, lg: 3, md: 2, sm: 0, xs: 0 };
 
 
 const headerLayout = [
@@ -38,9 +35,6 @@ const headerLayout = [
   { ...itemsSpan, header: "Type" },
   { ...locationSpan, header: "Location" },
   { ...statusSpan, header: "Status" },
-  { ...physicalProgressSpan, header: "Physical Progress" },
-  { ...financialSpan, header: "Financial Progress" },
-  { ...contractorSpan, header: "Contractor" },
 
 ];
 
@@ -66,22 +60,8 @@ class SubProjects extends Component {
 
   componentDidMount() {
     const { fetchSubProjects, match } = this.props;
-    if (match.path === '/app/packages/:id/sub_projects') {
-      const filter = {
-        'filter[procuring_entity_package_id]': match.params?.id,
-      }
-      fetchSubProjects();
-    }
-    else if (match.path === '/projects/:id/sub_projects') {
-      const filter = {
-        'filter[procuringEntityPackage.procuringEntity.projectSubComponent.projectComponent.project_id]': match.params?.id,
-      }
-      fetchSubProjects(filter);
-    }
-    else {
-      fetchSubProjects();
-    }
-
+    const id = getIdFromUrlPath(match.url,7)
+    fetchSubProjects(id);
   }
 
 
@@ -416,19 +396,10 @@ class SubProjects extends Component {
                   {item?.type ? item?.type?.name : 'N/A'}
                 </Col>
                 <Col {...locationSpan} className="contentEllipse">
-                  {item.districts.length === 0 ? "N/A" : item.districts.map(({ name }, index) => {
-                    return (index ? ", " : "") + name;
-                  })}
+                  {item.district.name}
                 </Col>
                 <Col {...statusSpan}>
                   {item?.status ? item?.status.name : 'N/A'}
-                </Col>
-                <Col {...physicalProgressSpan} className="contentEllipse">{item?.physical_progress ? item?.physical_progress : "N/A"}</Col>
-
-                <Col {...financialSpan} className="contentEllipse" title={item?.financial_progress ? item?.financial_progress : "N/A"}>{item?.financial_progress ? item?.financial_progress : "N/A"}</Col>
-                <Col {...contractorSpan} >
-
-                  {item?.package?.contract?.contractor ? item?.package?.contract?.contractor.name : "N/A"}
                 </Col>
                 {/* eslint-enable react/jsx-props-no-spreading */}
               </ListItem>

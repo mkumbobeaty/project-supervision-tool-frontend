@@ -104,7 +104,7 @@ const PackagesList = ({
      * @since 0.1.0
      */
     const handleViewDetails = (item) => {
-        const path = `/app/packages/${item.id}`;
+        const path = `${match.url}/${item.id}`;
         history.push(path);
     };
 

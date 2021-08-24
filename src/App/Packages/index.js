@@ -1,13 +1,10 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import PrivateRoute from "../Auth/PrivateRoute";
-import ProcuringEntity from "./componets/Details";
 import PackagesList from "./componets/PackagesList";
+import Package from "./componets/Package";
 
 const Packages = (props) => {
-
-    console.log('inside packages', props.match.url);
-
     return (
         <Switch>
             <PrivateRoute
@@ -17,7 +14,7 @@ const Packages = (props) => {
             />
             <PrivateRoute
                 path={`${props.match.url}/:id`}
-                component={props => <ProcuringEntity {...props} />}
+                component={props => <Package {...props} />}
             />
         </Switch>
     );
