@@ -100,7 +100,6 @@ const OverviewDetails = ({ sub_project, mapLoading,subProjectTickets }) => {
                     />
                 </Col>
                 <Col {...secondSpan} offset={1}>
-                    <Spin spinning={mapLoading} tip="Loading data...">
                         <h5>Sub Project Location</h5>
                         <div className="project-map">
                             <BaseMap zoomControl={true} position={[geometry.coordinates[1], geometry.coordinates[0]]}>
@@ -109,7 +108,6 @@ const OverviewDetails = ({ sub_project, mapLoading,subProjectTickets }) => {
 
                         </div>
 
-                    </Spin>
                 </Col>
             </Row>
           <Tickets tickets={subProjectTickets} />
