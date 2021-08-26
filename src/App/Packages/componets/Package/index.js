@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 import PrivateRoute from "../../../Auth/PrivateRoute";
 import PackageDetails from "../Details";
-import SubProjects from "../../../Sub-projects";
+import SubProjects from "../../../Sub-projects/components/SubProjectsList";
 
 const Package = (props) => {
     return (
