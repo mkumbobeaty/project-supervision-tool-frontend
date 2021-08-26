@@ -15,7 +15,7 @@ import "./styles.css";
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
-function SubProject({ getSubProject, getSubProjectTicket, match: { params }, sub_project, loading, mapLoading, permissions, subProjectTickets }) {
+function SubProjectDetails({ getSubProject, getSubProjectTicket, match: { params }, sub_project, loading, mapLoading, permissions, subProjectTickets }) {
 
   useEffect(() => {
     getSubProject(params.id);
@@ -73,6 +73,6 @@ const mapDispatchToProps = {
   getSubProjectTicket: ticketActions.getTicketBySubProjectStart
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubProject);
+export default connect(mapStateToProps, mapDispatchToProps)(SubProjectDetails);
 
 

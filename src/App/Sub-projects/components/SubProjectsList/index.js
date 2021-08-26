@@ -107,9 +107,9 @@ class SubProjectsList extends Component {
      * @since 0.1.0
      */
     handleViewDetails = (item_id) => {
-        const {getSubProject} = this.props;
+        const {getSubProject, match} = this.props;
         getSubProject(item_id);
-        let path = `/app/sub_projects/${item_id}`;
+        let path = `${match.url}/${item_id}`;
         this.props.history.push(path);
     };
 

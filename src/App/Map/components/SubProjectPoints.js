@@ -24,8 +24,15 @@ function SubProjectPoints({ subProjects, getSubproject, subProjectLoading, subPr
         <>
             { subProjects.map((subProject) => {
                 const { name, id } = subProject;
-                const geo_json = subProject.geo_json?.srid === 'EPSG:4326' ? subProject.geo_json : reproject(subProject.geo_json, subProject.geo_json?.srid, 'EPSG:4326', epsg);
-                const polygon = geo_json.geometry;
+                let polygon, geo_json;
+                if (subProject?.geo_json) {
+                    geo_json = subProject.geo_json?.srid === 'EPSG:4326' ? subProject.geo_json : reproject(subProject.geo_json, subProject.geo_json?.srid, 'EPSG:4326', epsg);
+                    polygon = geo_json.geometry;
+                }
+                else {
+                    polygon = JSON.parse(subProject.district.geom);
+                    geo_json = JSON.parse(subProject.district.geom);
+                }
                 const { geometry } = turf.pointOnFeature(polygon);
 
                 return (
