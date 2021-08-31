@@ -17,15 +17,17 @@ const routes = [
     {
         name: 'Sub Projects',
         path: '/sub_projects',
-        icon: subProjectsIcon,
+        icon: subProjectsDisabledIcon,
         description: modules.initiatives,
+        disabled: true,
     },
 
     {
         name: 'Tickets',
         path: '/tickets',
-        icon: subProjectsIcon,
+        icon: subProjectsDisabledIcon,
         description: modules.initiatives,
+        disabled: true,
     },
     {
         name: 'Agreed Actions',

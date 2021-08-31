@@ -19,10 +19,10 @@ const defaultSubProjects = {
 * @param {Object} action
 * @return {Object} updated state
 */
-const subProjects = (state = { defaultSubProjects }, action) => {
+const subProjects = (state = defaultSubProjects, action) => {
   switch (action.type) {
     case types.GET_SUB_PROJECTS_START:
-      return { state, loading: true, page: 1, total: 0 }
+      return { ...state, loading: true, page: 1, total: 0 }
     case types.GET_SUB_PROJECTS_SUCCESS:
       return {
         ...state, data: action.payload.data, loading: false, total: action.payload.meta.total,
