@@ -164,7 +164,8 @@ ProcuringEntityForm.defaultProps = {
     selected: {},
     projectSubComponents: [],
     projects: [],
-    agencies: []
+    agencies: [],
+    getProjects:()=> {}
 }
 
 export default ProcuringEntityForm;

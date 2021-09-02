@@ -193,7 +193,7 @@ CustomList.defaultProps = {
   generateExportUrl: null,
   onShare: null,
   onPaginate: null,
-  onMapView: null,
+  onMapView: () => {},
 };
 
 export default CustomList;
