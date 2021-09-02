@@ -141,7 +141,7 @@ ListItem.propTypes = {
   }).isRequired,
   name: PropTypes.string,
   avatarBackgroundColor: PropTypes.string,
-  isSelected: PropTypes.bool.isRequired,
+  isSelected: PropTypes.bool,
   onSelectItem: PropTypes.func,
   onDeselectItem: PropTypes.func,
   renderActions: PropTypes.func.isRequired,
@@ -151,6 +151,7 @@ ListItem.propTypes = {
 ListItem.defaultProps = {
   name: undefined,
   avatarBackgroundColor: undefined,
+  
 };
 
 export default ListItem;

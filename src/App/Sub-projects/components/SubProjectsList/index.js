@@ -19,9 +19,10 @@ import SurveyForm from "../SurveyForm";
 import DisplaySurveyForm from "../../../components/DisplaySurveyForm";
 import {ticketActions, ticketSelectors} from "../../../../redux/modules/Tickets";
 import TicketForm from '../../../Tickets/components/Form';
-import "./styles.css";
 import BaseLayout from "../../../layouts/BaseLayout";
 import DynamicBreadcrumbs from "../../../components/DynamicBreadcrumbs";
+import { ProcuringEntityActions,ProcuringEntitySelectors } from "../../../../redux/modules/ProcuringEntities";
+import "./styles.css";
 
 /* constants */
 const subProjectNameSpan = {xxl: 3, xl: 4, lg: 4, md: 5, sm: 20, xs: 20};
@@ -61,9 +62,12 @@ class SubProjectsList extends Component {
     };
 
     componentDidMount() {
-        const {fetchSubProjects, match} = this.props;
-        const id = getIdFromUrlPath(match.url, 7)
+        const {fetchSubProjects, match, getProcuringEntityPackage} = this.props;
+        const id = getIdFromUrlPath(match.url, 7);
         fetchSubProjects(id);
+        const packageId = getIdFromUrlPath(match.url, 6)
+        getProcuringEntityPackage(packageId)
+    
     }
 
 
@@ -285,7 +289,8 @@ class SubProjectsList extends Component {
             showCreateSurveyForm,
             closeSurveyForm,
             selected,
-            deleteSubproject
+            deleteSubproject,
+            procuringEntityPackage
         } = this.props;
 
 
@@ -459,11 +464,10 @@ class SubProjectsList extends Component {
                         bodyStyle={{paddingBottom: 80}}
                         destroyOnClose
                         maskClosable={false}
-                        afterClose={() => {
-                        }}
+                
                         className="subProjectForm"
                     >
-                        <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm}
+                        <SubProjectForm isEditForm={isEditForm} onCancel={this.closeSubProjectForm} procuringEntityPackage={procuringEntityPackage}
                                         closeSubProjectForm={this.closeSubProjectForm} selected={selected}/>
                     </Drawer>
 
@@ -542,6 +546,7 @@ const mapStateToProps = (state) => {
         total: subProjectsSelectors.getSubProjectsTotalSelector(state),
         selected: subProjectsSelectors.selectedSubProject(state),
         showTicketForm: ticketSelectors.getTicketShowFormSelector(state),
+        procuringEntityPackage: ProcuringEntitySelectors.getPackageSelector(state)
 
     };
 };
@@ -566,6 +571,8 @@ const mapDispatchToProps = (dispatch) => ({
     getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
     openTicketForm: bindActionCreators(ticketActions.openTicketForm, dispatch),
     closeTicketForm: bindActionCreators(ticketActions.closeTicketForm, dispatch),
+    getProcuringEntityPackage: bindActionCreators(ProcuringEntityActions.getPackageStart, dispatch)
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjectsList);

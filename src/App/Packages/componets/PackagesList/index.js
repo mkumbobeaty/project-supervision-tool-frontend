@@ -8,7 +8,7 @@ import Topbar from "../../../components/Topbar";
 import CustomList from "../../../components/List";
 import ListItem from "../../../components/ListItem";
 import ListItemActions from "../../../components/ListItemActions";
-import { moneyFormat, showArchiveConfirm } from "../../../../Util";
+import { getIdFromUrlPath, moneyFormat, showArchiveConfirm } from "../../../../Util";
 import PackageForm from '../Form';
 
 import "./styles.css";
@@ -45,20 +45,21 @@ const PackagesList = ({
     deletePackage,
     createPackage,
     updatePackage,
-    procuringEntities,
+    procuringEntity,
     openPackageForm,
     closePackageForm,
     selectPackage,
     selected,
     match,
-    getProcuringEntities
+    getProcuringEntity
 }) => {
 
 
     const history = useHistory();
-    const filter = {'filter[procuring_entity_id]': match.params?.id}
     const [isEditForm, setIsEditForm] = useState(false);
     const [visible, setVisible] = useState(false);
+    const procuringEntityId = getIdFromUrlPath(match.path, 4);
+    const filter = {'filter[procuring_entity_id]': procuringEntityId}
 
 
     const breadcrumbs =  packages.length > 0 ? [
@@ -92,6 +93,8 @@ const PackagesList = ({
 
     useEffect(() => {
         getPackes(filter)
+        const id = getIdFromUrlPath(match.path, 4);
+        getProcuringEntity(procuringEntityId);
     }, []);
 
 
@@ -282,9 +285,7 @@ const PackagesList = ({
                         createPackage={createPackage}
                         loading={loading}
                         updatePackage={updatePackage}
-                        procuringEntities={procuringEntities}
-                        getProcuringEntities={getProcuringEntities}
-
+                        procuringEntity={procuringEntity}
                     />
 
                 </Drawer>
@@ -300,7 +301,7 @@ const mapStateToProps = (state) => {
     return {
         packages: ProcuringEntitySelectors.getPackagesSelector(state),
         loading: ProcuringEntitySelectors.loadingPackages(state),
-        procuringEntities: ProcuringEntitySelectors.getProcuringEntities(state),
+        procuringEntity: ProcuringEntitySelectors.getProcuringEntitySelector(state),
         showForm: ProcuringEntitySelectors.showPackageFormSelector(state),
         selected: ProcuringEntitySelectors.selectedPackageSelector(state)
     }
@@ -311,10 +312,11 @@ const mapDispatchToProps = {
     deletePackage: ProcuringEntityActions.deletePackageStart,
     createPackage: ProcuringEntityActions.createPackageStart,
     updatePackage: ProcuringEntityActions.updatePackageStart,
-    getProcuringEntities: ProcuringEntityActions.getProcuringEntitiesStart,
     openPackageForm: ProcuringEntityActions.openPackageForm,
     closePackageForm: ProcuringEntityActions.closePackageForm,
     selectPackage: ProcuringEntityActions.selectPackage,
+    getProcuringEntity: ProcuringEntityActions.getProcuringEntityStart
+
 }
 
 PackagesList.propTypes = {
@@ -325,13 +327,15 @@ PackagesList.propTypes = {
     closePackageForm: PropTypes.func.isRequired,
     selectPackage: PropTypes.func.isRequired,
     showForm: PropTypes.bool,
+    getProcuringEntity: PropTypes.func,
 };
 
 PackagesList.defaultProps = {
     packages: null,
     loading: null,
     isEditForm: null,
-    showForm: null
+    showForm: null,
+    getPackage: () => {}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PackagesList);

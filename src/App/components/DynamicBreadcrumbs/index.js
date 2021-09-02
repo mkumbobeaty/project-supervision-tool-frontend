@@ -32,11 +32,11 @@ function DynamicBreadcrumbs ({breadcrumbs}) {
 
 }
 DynamicBreadcrumbs.propTypes = { 
-    breadcrumbs: PropTypes.shape([{
-        title: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired
-    }]).isRequired
+    breadcrumbs: PropTypes.arrayOf(PropTypes.shape([{
+      title: PropTypes.string.isRequired,
+      url: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired
+  }]).isRequired)
 };
 
 export default DynamicBreadcrumbs;
