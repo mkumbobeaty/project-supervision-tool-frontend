@@ -62,7 +62,7 @@ const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity }) 
                                             <Row className="key-details">
                                                 <Col {...projectIdSpan}>
                                                     <h4>Project</h4>
-                                                    <p>{`${procuringEntity.project.name}(${procuringEntity.project.code})`}</p>
+                                                    <p>{`${procuringEntity?.project?.name}(${procuringEntity.project.code})`}</p>
                                                 </Col>
                                                 <Col {...commitmentSpan}>
                                                     <h4>Procuring Entity</h4>
@@ -71,22 +71,22 @@ const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity }) 
 
                                                 <Col {...projectLeadSpan}>
                                                     <h4>Packages</h4>
-                                                    <p>{procuringEntity.packages.length}</p>
+                                                    <p>{procuringEntity?.packages.length}</p>
 
                                                 </Col>
 
                                                 <Col {...projectCoordinatorSpan}>
                                                     <h4>Contract</h4>
-                                                    <p>{procuringEntity?.contract.name}</p>
+                                                    <p>{procuringEntity?.contract?.name}</p>
 
                                                 </Col>
                                                 <Col {...projectsLocationSpan}>
                                                     <h4>Supervising Consultants</h4>
-                                                    {procuringEntity?.contract.consultants.length}
+                                                    {procuringEntity?.contract?.consultants.length}
                                                 </Col>
                                                 <Col {...projectCoordinatorSpan}>
                                                     <h4>SubProjects</h4>
-                                                    <p>{procuringEntity.subProjects.length}</p>
+                                                    <p>{procuringEntity?.subProjects.length}</p>
                                                 </Col>
                                                 <Col {...lastUpdateSpan} >
                                                     <h4>Last updated</h4>

@@ -66,7 +66,6 @@ class SubProjectsList extends Component {
         const id = getIdFromUrlPath(match.url, 7);
         fetchSubProjects(id);
         const packageId = getIdFromUrlPath(match.url, 6)
-        console.log(packageId)
         getProcuringEntityPackage(packageId)
     
     }

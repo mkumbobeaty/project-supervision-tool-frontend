@@ -42,9 +42,9 @@ const ProcuringEntitiesList = ({
     getProjectSubComponent,
     projectSubComponents,
     updateProcuringEntity,
-    projects,
+    project,
     match,
-    getProjects,
+    getProject,
 }) => {
 
     const [isEditForm, setIsEditForm] = useState(false);
@@ -54,7 +54,8 @@ const ProcuringEntitiesList = ({
     const history = useHistory();
 
     useEffect(() => {
-        getProcuringEntities(filter)
+        getProcuringEntities(filter);
+        getProject(projectId)
     }, [])
 
 
@@ -252,9 +253,9 @@ const ProcuringEntitiesList = ({
                         getProjectSubComponent={getProjectSubComponent}
                         projectSubComponents={projectSubComponents}
                         updateProcuringEntity={updateProcuringEntity}
-                        projects={projects}
+                        project={project}
                         match={match}
-                        getProjects={getProjects}
+                        getProject={getProject}
                     />
 
                 </Drawer>
@@ -274,7 +275,7 @@ const mapStateToProps = (state) => {
         showForm: ProcuringEntitySelectors.getShowFormSelector(state),
         agencies: ProcuringEntitySelectors.getActorsSelector(state),
         projectSubComponents: projectSelectors.getProjectSubComponents(state),
-        projects: projectSelectors.getProjectsSelector(state),
+        project: projectSelectors.getProjectSelector(state),
     }
 }
 
@@ -288,7 +289,8 @@ const mapDispatchToProps = {
     getProjectSubComponent: projectActions.getProjectSubComponentStart,
     createProcuringEntity: ProcuringEntityActions.createProcuringEntityStart,
     updateProcuringEntity: ProcuringEntityActions.updateProcuringEntityStart,
-    getProjects: projectActions.getProjectsStart,
+    getProject: projectActions.getProjectStart,
+    
 }
 
 ProcuringEntitiesList.propTypes = {

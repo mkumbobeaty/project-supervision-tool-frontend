@@ -61,7 +61,6 @@ function SubProjectForm({ createSubProject, selected, procuringEntityPackage, cl
             project_id,
             district_id:"TZ0703"
         }
-        debugger
         createSubProject(subProjectValue);
         closeSubProjectForm();
     };
