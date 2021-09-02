@@ -1,7 +1,6 @@
 import { Col, Row, } from "antd";
 import PropTypes from 'prop-types';
 import React from "react";
-import DetailsSection from "../ComponentSubComponent";
 import ProjectPoints from "../../../../../Map/components/ProjectPoints";
 import * as turf from '@turf/turf';
 import BaseMap from "../../../../../Map/components/BaseMap";
@@ -129,7 +128,6 @@ const OverviewDetails = ({
 
 
         </Col>
-       {project?.components.length > 0 ?  <DetailsSection components={project?.components} /> : ''}
       </Row>
     </>
   )
