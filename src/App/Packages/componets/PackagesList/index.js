@@ -19,19 +19,17 @@ import "./styles.css";
 const nameSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 19, xs: 19 };
 const descriptionSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 0, xs: 0 };
 const contractNoSpan = { xxl: 3, xl: 3, lg: 3, md: 3, sm: 4, xs: 2 };
-const contractorSpan = { xxl: 3, xl: 3, lg: 3, md: 3, sm: 0, xs: 0 };
+const contractorSpan = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 4, xs: 0 };
 const estimentedAmountNoSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 4, xs: 2 };
-const awardedAmountNoSpan = { xxl: 2, xl: 2, lg: 2, md: 2, sm: 4, xs: 2 };
 const completeDateSpan = { xxl: 3, xl: 3, lg: 3, md: 3, sm: 0, xs: 0 };
 
 const headerLayout = [
     { ...nameSpan, header: "Name" },
     { ...descriptionSpan, header: "Description" },
     { ...contractNoSpan, header: "Contract No" },
-    { ...contractorSpan, header: "Contractor" },
-    { ...estimentedAmountNoSpan, header: "Estimated Amount" },
-    { ...awardedAmountNoSpan, header: "Awarded Amount" },
-    { ...completeDateSpan, header: "Complete Date" },
+    { ...contractorSpan, header: "Contractor(s)" },
+    { ...estimentedAmountNoSpan, header: "Original contract sum" },
+    { ...completeDateSpan, header: "Completion Date" },
 
 ];
 
@@ -167,9 +165,8 @@ const PackagesList = ({
 
     const getAmount = (data) => {
         const { amount, currency } = data
-        const { iso } = currency;
         const money = moneyFormat(amount);
-        return `${money} ${iso} `;
+        return `${money} ${currency} `;
     }
 
     return (
@@ -249,13 +246,10 @@ const PackagesList = ({
                                 {item?.contract?.contractor ? item?.contract?.contractor?.name : 'N/A'}
                             </Col>
                             <Col {...estimentedAmountNoSpan} className="contentEllipse">
-                                {item?.contract?.contract_cost ? getAmount(item?.contract?.contract_cost?.estimated_final_contract_price) : 'N/A'}
-                            </Col>
-                            <Col {...awardedAmountNoSpan} className="contentEllipse">
-                                {item?.contract?.contract_cost ? getAmount(item?.contract?.contract_cost?.contract_award_value) : 'N/A'}
+                                {item?.contract?.original_contract_sum ? getAmount(item?.contract?.original_contract_sum) : 'N/A'}
                             </Col>
                             <Col {...completeDateSpan} className="contentEllipse">
-                                {item ? new Date(item?.contract?.contract_time?.intended_completion_date).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
+                                {item ? new Date(item?.contract?.date_of_contract_completion).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' }) : 'N/A'}
                             </Col>
 
                             {/* eslint-enable react/jsx-props-no-spreading */}

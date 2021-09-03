@@ -239,7 +239,6 @@ const ProcuringEntitiesList = ({
                     bodyStyle={{ paddingBottom: 80 }}
                     destroyOnClose
                     maskClosable={false}
-                    // afterClose={handleAfterCloseForm}
                     className="projectForm"
                 >
                     <ProcuringEntityForm

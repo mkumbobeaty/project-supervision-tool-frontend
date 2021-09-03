@@ -2,20 +2,21 @@ import React, { useEffect } from 'react';
 import { Col, Layout, Row, Spin } from "antd";
 import { ProcuringEntityActions, ProcuringEntitySelectors } from '../../../../redux/modules/ProcuringEntities';
 import { connect } from "react-redux";
-import { getIdFromUrlPath, isoDateToHumanReadableDate } from '../../../../Util'
-import './styles.css';
+import { getIdFromUrlPath, isoDateToHumanReadableDate, moneyFormat } from '../../../../Util'
 import ProcuringEntityHomeNavMenu from "../../../navigation/ProcuringEntitiesHome";
 import BaseLayout from '../../../layouts/BaseLayout';
 import DynamicBreadcrumbs from '../../../components/DynamicBreadcrumbs';
+import './styles.css';
+
 const { Content } = Layout;
 
-const projectIdSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
-const commitmentSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
-const projectLeadSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
-const projectCoordinatorSpan = { xxl: 6, xl: 6, lg: 6, md: 0, sm: 12, xs: 12 };
-const projectsLocationSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
-const lastUpdateSpan = { xxl: 6, xl: 6, lg: 6, md: 0, sm: 12, xs: 12 };
+const columnSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
 
+const getAmount = (data) => {
+    const { amount, currency } = data
+    const money = moneyFormat(amount);
+    return `${currency} ${money}`;
+}
 
 const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity }) => {
 
@@ -60,37 +61,57 @@ const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity }) 
                                         <h2 id="sider-title">Key Details</h2>
                                         <section className="container">
                                             <Row className="key-details">
-                                                <Col {...projectIdSpan}>
-                                                    <h4>Project</h4>
-                                                    <p>{`${procuringEntity?.project?.name}(${procuringEntity.project.code})`}</p>
-                                                </Col>
-                                                <Col {...commitmentSpan}>
-                                                    <h4>Procuring Entity</h4>
-                                                    <p>{procuringEntity.agency?.name ? procuringEntity.agency?.name : 'N/A'}</p>
-                                                </Col>
-
-                                                <Col {...projectLeadSpan}>
-                                                    <h4>Packages</h4>
-                                                    <p>{procuringEntity?.packages.length}</p>
-
-                                                </Col>
-
-                                                <Col {...projectCoordinatorSpan}>
-                                                    <h4>Contract</h4>
+                                                <Col {...columnSpan}>
+                                                    <h4>Project Name</h4>
                                                     <p>{procuringEntity?.contract?.name}</p>
+                                                </Col>
+
+                                                <Col {...columnSpan}>
+                                                    <h4>Contract Number</h4>
+                                                    {procuringEntity?.contract?.contract_no}
+                                                </Col>
+                                                <Col {...columnSpan}>
+                                                    <h4>Original Contract Sum </h4>
+                                                    <p>{getAmount(procuringEntity?.contract.original_contract_sum)}</p>
+                                                </Col>
+
+                                                <Col {...columnSpan}>
+                                                    <h4>Revised Contract Sum</h4>
+                                                    <p>{getAmount(procuringEntity?.contract.revised_contract_sum)}</p>
+                                                </Col>
+                                                <Col {...columnSpan}>
+                                                    <h4>Packages</h4>
+                                                    <p>{procuringEntity?.packages.map(({ name }, index) => { return (index ? ", " : "") + name })}</p>
 
                                                 </Col>
-                                                <Col {...projectsLocationSpan}>
-                                                    <h4>Supervising Consultants</h4>
-                                                    {procuringEntity?.contract?.consultants.length}
+                                                <Col {...columnSpan}>
+                                                    <h4>Supervision Consultant</h4>
+                                                    <p>{procuringEntity?.contract?.consultants.map(({ name }, index) => { return (index ? ", " : "") + name })}</p>
+
                                                 </Col>
-                                                <Col {...projectCoordinatorSpan}>
-                                                    <h4>SubProjects</h4>
-                                                    <p>{procuringEntity?.subProjects.length}</p>
+                                                <Col {...columnSpan} >
+                                                    <h4>Original Signing Date</h4>
+                                                    <p>{isoDateToHumanReadableDate(procuringEntity?.contract?.original_signing_date)}</p>
                                                 </Col>
-                                                <Col {...lastUpdateSpan} >
-                                                    <h4>Last updated</h4>
-                                                    <p>{isoDateToHumanReadableDate(procuringEntity.updated_at)}</p>
+                                                <Col {...columnSpan} >
+                                                    <h4>Revised signing Date</h4>
+                                                    <p>{isoDateToHumanReadableDate(procuringEntity?.contract?.revised_signing_date)}</p>
+                                                </Col>
+                                                <Col {...columnSpan} >
+                                                    <h4>Commencement Date</h4>
+                                                    <p>{isoDateToHumanReadableDate(procuringEntity?.contract?.commencement_date)}</p>
+                                                </Col>
+                                                <Col {...columnSpan} >
+                                                    <h4>Revised end date of contract</h4>
+                                                    <p>{isoDateToHumanReadableDate(procuringEntity?.contract?.revised_end_date_of_contract)}</p>
+                                                </Col>
+                                                <Col {...columnSpan} >
+                                                    <h4> Original contract period</h4>
+                                                    <p>{procuringEntity?.contract?.contract_period} months</p>
+                                                </Col>
+                                                <Col {...columnSpan} >
+                                                    <h4>Extended contract period</h4>
+                                                    <p>{isoDateToHumanReadableDate(procuringEntity?.contract?.extended_contract_period ? procuringEntity?.contract?.extended_contract_period : 'N/A')}</p>
                                                 </Col>
                                             </Row>
                                         </section>
