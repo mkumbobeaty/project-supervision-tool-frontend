@@ -80,7 +80,7 @@ class SubProjectsList extends Component {
      * @since 0.1.0
      */
     handleMapPreview = (item_id) => {
-        const {getSubProject, match: {params}} = this.props;
+        const {getSubProject} = this.props;
         this.setState({previewOnMap: true})
         getSubProject(item_id);
         console.log(item_id)

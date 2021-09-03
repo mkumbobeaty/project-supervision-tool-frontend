@@ -200,7 +200,6 @@ function ProjectForm({
                     }}
                     autoComplete="off"
                     className="ProjectForm"
-                    marginBottom='0px'
                 >
                     <h4>Please Fill the form correctly</h4>
 
@@ -287,7 +286,7 @@ function ProjectForm({
                             >
                                 <Select mode="multiple">
                                     {layers.map(({ title, id }) => (
-                                        <Select.Option value={id}>{title}</Select.Option>
+                                        <Select.Option key={id} value={id}>{title}</Select.Option>
                                     ))}
                                 </Select>
 
@@ -303,7 +302,7 @@ function ProjectForm({
                             >
                                 <Select mode="multiple"  >
                                     {users.map((user) => (
-                                        <Select.Option value={user.id}>{user.first_name} {user.last_name}</Select.Option>
+                                        <Select.Option key={user.id} value={user.id}>{user.first_name} {user.last_name}</Select.Option>
                                     ))}
                                 </Select>
                             </Form.Item>
@@ -321,7 +320,7 @@ function ProjectForm({
                             >
                                 <Select showSearch optionFilterProp="children">
                                     {partiners.map((partiner) => (
-                                        <Select.Option value={partiner.id}>{partiner.name}</Select.Option>
+                                        <Select.Option key={partiner.id} value={partiner.id}>{partiner.name}</Select.Option>
                                     ))}
                                 </Select>
                             </Form.Item>
@@ -342,7 +341,7 @@ function ProjectForm({
 
                                 >
                                     {agencies.map((agency) => (
-                                        <Select.Option value={agency.id}>{agency.name}</Select.Option>
+                                        <Select.Option key={agency.id} value={agency.id}>{agency.name}</Select.Option>
                                     ))}
                                 </Select>
                             </Form.Item>
@@ -372,7 +371,7 @@ function ProjectForm({
 
                                 >
                                     {statuses.map(({ name, id }) => (
-                                        <Select.Option value={id} style={{ textTransform: 'Capitalize' }}>{name}</Select.Option>
+                                        <Select.Option key={id} value={id} style={{ textTransform: 'Capitalize' }}>{name}</Select.Option>
                                     ))}
                                 </Select>
                             </Form.Item>
@@ -393,7 +392,7 @@ function ProjectForm({
                             >
                                 <Select mode="multiple">
                                     {regions.map(({ id, name }) => (
-                                        <Select.Option value={id}>{name}</Select.Option>
+                                        <Select.Option key={id} value={id}>{name}</Select.Option>
                                     ))}
                                 </Select>
                             </Form.Item>
@@ -461,7 +460,7 @@ function ProjectForm({
                             >
                                 <Select>
                                     {borrowers.map((borrower) => (
-                                        <Select.Option value={borrower.id}>{borrower.name}</Select.Option>
+                                        <Select.Option key={borrower.id} value={borrower.id}>{borrower.name}</Select.Option>
                                     ))}
                                 </Select>
                             </Form.Item>
@@ -477,7 +476,7 @@ function ProjectForm({
                             >
                                 <Select showSearch optionFilterProp="children" >
                                     {environmentalCategories.map((environmentalCategory) => (
-                                        <Select.Option value={environmentalCategory.id}>{environmentalCategory.name}</Select.Option>
+                                        <Select.Option key={environmentalCategory.id}value={environmentalCategory.id}>{environmentalCategory.name}</Select.Option>
                                     ))}
                                 </Select>
                             </Form.Item>

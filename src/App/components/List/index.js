@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'antd';
 import map from 'lodash/map';
-import uniq from 'lodash/uniq';
-import uniqBy from 'lodash/uniqBy';
 import remove from 'lodash/remove';
 
 import Toolbar from '../Toolbar';
@@ -49,7 +47,6 @@ const CustomList = ({
   renderListItem,
 }) => {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [selectedPages, setSelectedPages] = useState([]);
 
   /**
    * @function
@@ -73,44 +70,44 @@ const CustomList = ({
     setSelectedItems(selectedList);
   };
 
-  /**
-   * @function
-   * @name handleSelectPageItems
-   * @description Handle select all items actions from current page
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  const handleSelectPageItems = () => {
-    const uniqueSelectedItems = uniqBy([...selectedItems, ...items], '_id');
-    const uniquePages = uniq([...selectedPages, page]);
+  // /**
+  //  * @function
+  //  * @name handleSelectPageItems
+  //  * @description Handle select all items actions from current page
+  //  *
+  //  * @version 0.1.0
+  //  * @since 0.1.0
+  //  */
+  // const handleSelectPageItems = () => {
+  //   const uniqueSelectedItems = uniqBy([...selectedItems, ...items], '_id');
+  //   const uniquePages = uniq([...selectedPages, page]);
 
-    setSelectedItems(uniqueSelectedItems);
-    setSelectedPages(uniquePages);
-  };
+  //   setSelectedItems(uniqueSelectedItems);
+  //   setSelectedPages(uniquePages);
+  // };
 
-  /**
-   * @function
-   * @name handleDeselectPageItems
-   * @description Handle deselect all items in a current page
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-  const handleDeselectPageItems = () => {
-    const uniqueSelectedList = uniqBy([...selectedItems], '_id');
-    const uniquePages = uniq([...selectedPages]);
+  // /**
+  //  * @function
+  //  * @name handleDeselectPageItems
+  //  * @description Handle deselect all items in a current page
+  //  *
+  //  * @version 0.1.0
+  //  * @since 0.1.0
+  //  */
+  // const handleDeselectPageItems = () => {
+  //   const uniqueSelectedList = uniqBy([...selectedItems], '_id');
+  //   const uniquePages = uniq([...selectedPages]);
 
-    remove(uniquePages, (item) => item === page);
+  //   remove(uniquePages, (item) => item === page);
 
-    items.forEach((item) => {
-      // eslint-disable-next-line
-      remove(uniqueSelectedList, (listItem) => listItem._id === item._id);
-    });
+  //   items.forEach((item) => {
+  //     // eslint-disable-next-line
+  //     remove(uniqueSelectedList, (listItem) => listItem._id === item._id);
+  //   });
 
-    setSelectedItems(uniqueSelectedList);
-    setSelectedPages(uniquePages);
-  };
+  //   setSelectedItems(uniqueSelectedList);
+  //   setSelectedPages(uniquePages);
+  // };
 
   /**
    * @function

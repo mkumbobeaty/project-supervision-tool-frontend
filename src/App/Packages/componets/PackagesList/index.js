@@ -10,12 +10,10 @@ import ListItem from "../../../components/ListItem";
 import ListItemActions from "../../../components/ListItemActions";
 import { getIdFromUrlPath, moneyFormat, showArchiveConfirm } from "../../../../Util";
 import PackageForm from '../Form';
-
-import "./styles.css";
 import {useHistory} from "react-router-dom";
 import BaseLayout from "../../../layouts/BaseLayout";
 import DynamicBreadcrumbs from "../../../components/DynamicBreadcrumbs";
-
+import "./styles.css";
 
 /* constants */
 const nameSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 19, xs: 19 };
@@ -93,7 +91,6 @@ const PackagesList = ({
 
     useEffect(() => {
         getPackes(filter)
-        const id = getIdFromUrlPath(match.path, 4);
         getProcuringEntity(procuringEntityId);
     }, []);
 

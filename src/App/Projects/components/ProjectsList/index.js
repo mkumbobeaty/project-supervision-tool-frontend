@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { projectActions, projectSelectors } from '../../../../redux/modules/projects';
-import { Col, Drawer, Spin, Layout } from "antd";
+import { Col, Drawer, Spin } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import PropTypes from "prop-types";
 import Topbar from "../../../components/Topbar";
@@ -27,7 +27,6 @@ import BaseLayout from "../../../layouts/BaseLayout";
 import DynamicBreadcrumbs from "../../../components/DynamicBreadcrumbs";
 
 /* constants */
-const { Content, Header } = Layout;
 const codeSpan = { xxl: 2, xl: 3, lg: 3, md: 4, sm: 0, xs: 0 };
 const projectIdSpan = { xxl: 3, xl: 2, lg: 2, md: 3, sm: 0, xs: 0 };
 const nameSpan = { xxl: 5, xl: 5, lg: 5, md: 7, sm: 20, xs: 20 };
@@ -61,7 +60,6 @@ class ProjectsList extends Component {
   // eslint-disable-next-line react/state-in-constructor
   state = {
     isEditForm: false,
-    cached: null,
     visible: false,
     previewOnMap: false,
   };
@@ -248,7 +246,7 @@ class ProjectsList extends Component {
   * @since 0.1.0
   */
   handleViewDetails = (item_id) => {
-    const { getProject, getSubProjectsByProjectId, getTicketByProject } = this.props;
+    const { getProject, getSubProjectsByProjectId } = this.props;
     getSubProjectsByProjectId(item_id)
     getProject(item_id);
     let path = `/projects/${item_id}`;
@@ -301,8 +299,6 @@ class ProjectsList extends Component {
       createProject,
       mapLoading,
       project,
-      location,
-      match,
       showTicketForm,
       deleteProject,
       showComponentForm,
@@ -313,11 +309,11 @@ class ProjectsList extends Component {
 
     const breadcrumbs = [
       {
-          title: 'Projects',
-          url: '/projects',
-          name: 'Projects'
+        title: 'Projects',
+        url: '/projects',
+        name: 'Projects'
       }
-  ]
+    ]
 
     return previewOnMap ? <div className="MapDashboard">
       <SideNav />
@@ -463,7 +459,6 @@ class ProjectsList extends Component {
             bodyStyle={{ paddingBottom: 80 }}
             destroyOnClose
             maskClosable={false}
-            afterClose={this.handleAfterCloseForm}
             className="projectForm"
           >
             <CommonProjectForm
@@ -486,7 +481,6 @@ class ProjectsList extends Component {
             bodyStyle={{ paddingBottom: 80 }}
             destroyOnClose
             maskClosable={false}
-            afterClose={this.handleAfterCloseForm}
             className="projectForm"
           >
             <ProjectComponentForm
@@ -504,7 +498,6 @@ class ProjectsList extends Component {
             bodyStyle={{ paddingBottom: 80 }}
             destroyOnClose
             maskClosable={false}
-            afterClose={this.handleAfterCloseForm}
             className="projectForm"
           >
             <ProjectSubComponentForm
@@ -522,7 +515,6 @@ class ProjectsList extends Component {
             bodyStyle={{ paddingBottom: 80 }}
             destroyOnClose
             maskClosable={false}
-            afterClose={this.handleAfterCloseForm}
             className="projectForm"
           >
             <TicketForm

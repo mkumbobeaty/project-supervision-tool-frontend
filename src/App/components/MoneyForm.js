@@ -83,7 +83,7 @@ const MoneyForm = ({ visible, onCancel, currency, handleSetMoneyId, formName, fo
                 >
                     <Select style={{ width: 180 }}>
                         {currency.map(({ id, name }) => (
-                            <Select.Option value={id}>{name}</Select.Option>
+                            <Select.Option key={id} value={id}>{name}</Select.Option>
                         ))}
                     </Select>
                 </Form.Item>

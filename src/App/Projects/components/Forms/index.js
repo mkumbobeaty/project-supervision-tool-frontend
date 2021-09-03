@@ -1,6 +1,5 @@
 
 import React, { Component } from "react";
-import { Steps } from 'antd';
 import { connect } from "react-redux";
 import ProjectForm from './components/projectForm';
 import { projectOperation, projectSelectors } from '../../../../redux/modules/projects';
@@ -8,8 +7,6 @@ import ProjectDetailsForm from "./components/projectDetailsForm";
 import { projectDetailsActions } from "../../../../redux/modules/projectDetails";
 import { projectSectorsActions } from "../../../../redux/modules/ProjectsSectors";
 
-
-const { Step } = Steps;
 
 class CommonProjectForm extends Component {
     state = {
@@ -70,7 +67,6 @@ class CommonProjectForm extends Component {
     }
 
     render() {
-        const { current } = this.state
         const { focalPeoples, project, selected, isEditForm } = this.props
         console.log('selected', selected);
         const steps = [
