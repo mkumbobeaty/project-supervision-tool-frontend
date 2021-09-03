@@ -12,7 +12,7 @@ const { Content } = Layout;
 
 const columnSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
 
-const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity }) => {
+const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity, loading }) => {
 
     useEffect(() => {
         const id = getIdFromUrlPath(match.path, 4);
@@ -41,11 +41,13 @@ const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity }) 
             name: `${procuringEntity.agency.name}`
         }
     ] : [];
+    console.log(loading)
 
     return procuringEntity ? (
+        
         <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs} />}>
             <Layout className="project-layout">
-                <Spin spinning={false} tip="Loading..." >
+            <Spin spinning={loading} tip="Loading..." >
                     <Content className="contents">
                         <h3>{procuringEntity.agency.name}</h3>
                         <Layout className="project-inner-layout" >
@@ -55,27 +57,27 @@ const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity }) 
                                         <h2 id="sider-title">Key Details</h2>
                                         <section className="container">
                                             <Row className="key-details">
-                                                <Col {...columnSpan}>
+                                                <Col {...columnSpan} className="contractName" >
                                                     <h4>Project Name</h4>
-                                                    <p>{procuringEntity?.contract?.name}</p>
+                                                    <p>{procuringEntity?.contract?.name || 'N/A'}</p>
                                                 </Col>
 
                                                 <Col {...columnSpan}>
                                                     <h4>Contract Number</h4>
-                                                    {procuringEntity?.contract?.contract_no}
+                                                    {procuringEntity?.contract?.contract_no || "N/A"}
                                                 </Col>
                                                 <Col {...columnSpan}>
                                                     <h4>Original Contract Sum </h4>
-                                                    <p>{getAmount(procuringEntity?.contract.original_contract_sum)}</p>
+                                                    <p>{procuringEntity?.contract.original_contract_sum ? getAmount(procuringEntity?.contract.original_contract_sum): "N/A"}</p>
                                                 </Col>
 
                                                 <Col {...columnSpan}>
                                                     <h4>Revised Contract Sum</h4>
-                                                    <p>{getAmount(procuringEntity?.contract.revised_contract_sum)}</p>
+                                                    <p>{procuringEntity?.contract.revised_contract_sum ? getAmount(procuringEntity?.contract.revised_contract_sum): 'N/A'}</p>
                                                 </Col>
                                                 <Col {...columnSpan}>
                                                     <h4>Packages</h4>
-                                                    <p>{procuringEntity?.packages.map(({ name }, index) => { return (index ? ", " : "") + name })}</p>
+                                                    <p>{procuringEntity?.packages.map(({ name }, index) => { return (index ? ", " : "") + name }) || "N/A"}</p>
 
                                                 </Col>
                                                 <Col {...columnSpan}>
@@ -122,7 +124,8 @@ const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity }) 
 }
 
 const mapStateToProps = state => ({
-    procuringEntity: ProcuringEntitySelectors.getProcuringEntitySelector(state)
+    procuringEntity: ProcuringEntitySelectors.getProcuringEntitySelector(state),
+    loading: ProcuringEntitySelectors.loadProcuringEntitySelector(state)
 });
 
 const mapDispatchToProps = {

@@ -15,7 +15,7 @@ const firstSpan = { xxl: 12, xl: 12, lg: 12, md: 12, sm: 24, xs: 24 };
 const secondSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 24, xs: 24 };
 
 
-const PackageDetails = ({ match, procuringEntityPackage, getProcuringEntityPackage }) => {
+const PackageDetails = ({ match, procuringEntityPackage, getProcuringEntityPackage,loading }) => {
 
     useEffect(() => {
         const id = getIdFromUrlPath(match.url, 6)
@@ -65,7 +65,7 @@ const PackageDetails = ({ match, procuringEntityPackage, getProcuringEntityPacka
     return procuringEntityPackage ? (
         <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs} />} >
             <Layout className="project-layout">
-                <Spin spinning={false} tip="Loading..." >
+                <Spin spinning={loading} tip="Loading..." >
                     <Content className="contents">
                         <h3>{procuringEntityPackage.name || 'N/A'}</h3>
                         <Layout className="project-inner-layout" >
@@ -198,7 +198,9 @@ const PackageDetails = ({ match, procuringEntityPackage, getProcuringEntityPacka
 }
 
 const mapStateToProps = state => ({
-    procuringEntityPackage: ProcuringEntitySelectors.getPackageSelector(state)
+    procuringEntityPackage: ProcuringEntitySelectors.getPackageSelector(state),
+    loading: ProcuringEntitySelectors.getPackageloaderSelector(state)
+
 });
 
 const mapDispatchToProps = {

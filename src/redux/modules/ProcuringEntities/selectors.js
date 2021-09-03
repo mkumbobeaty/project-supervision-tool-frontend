@@ -29,6 +29,13 @@ export const getProcuringEntitySelector = (state) => state?.procuringEntityResou
 
 /**
  * @function
+ * @name getProcuringEntitySelector
+ * @param {Object} state redux state
+ */
+ export const loadProcuringEntitySelector = (state) => state?.procuringEntityResource?.procuringEntity.loading;
+
+/**
+ * @function
  * @name getPackageSelector
  * @param {Object} state redux state
  */
@@ -44,7 +51,7 @@ export const getShowFormSelector = (state) => state?.procuringEntityResource?.pr
 
 /**
  * @function
- * @name getActors
+ * @name getActorsSelector
  * @param {Object} state redux state
  * @return {Object} 
  */
@@ -52,7 +59,7 @@ export const getActorsSelector = (state) => state?.procuringEntityResource?.acto
 
 /**
  * @function
- * @name getPackages
+ * @name getPackagesSelector
  * @param {Object} state redux state
  */
 
@@ -60,11 +67,11 @@ export const getPackagesSelector = (state) => state?.procuringEntityResource?.pa
 
 /**
  * @function
- * @name getPackages
+ * @name getPackageloaderSelector
  * @param {Object} state redux state
  */
 
-export const getPackagesloaderSelector = (state) => state?.procuringEntityResource?.packages?.loading;
+export const getPackageloaderSelector = (state) => state?.procuringEntityResource?.packageDetail?.loading;
 
 /**
  * @function
