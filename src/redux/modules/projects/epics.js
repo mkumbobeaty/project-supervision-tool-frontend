@@ -5,6 +5,7 @@ import {ofType, combineEpics} from 'redux-observable';
 import {of, from} from 'rxjs';
 import {switchMap, catchError,} from "rxjs/operators";
 import {mapProjectActions} from "../map/projects";
+import { subProjectsActions } from '../subProjects';
 
 export const projectsListEpic = action$ => {
     return action$.pipe(
@@ -93,7 +94,7 @@ const createSubProjectEpic = action$ => {
             return from(API.createSubProject(payload))
                 .pipe(
                     switchMap(res => {
-                        return of(actions.createSubProjectSuccess(res))
+                        return of(actions.createSubProjectSuccess(res), subProjectsActions.getSubProjectsStart())
                     }),
                     catchError(error => of(actions.createSubProjectFailure(error)))
                 )

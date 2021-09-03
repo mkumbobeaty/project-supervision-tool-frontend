@@ -9,7 +9,7 @@ import CustomList from "../../../components/List";
 import ListItem from "../../../components/ListItem";
 import ListItemActions from "../../../components/ListItemActions";
 import {Link} from "react-router-dom";
-import {getIdFromUrlPath, getSurveyIdByCategory} from "../../../../Util";
+import {getIdFromUrlPath, getSurveyIdByCategory, showArchiveConfirm} from "../../../../Util";
 import SubProjectForm from "../Form";
 import {subProjectsActions, subProjectsSelectors} from "../../../../redux/modules/subProjects"
 import {bindActionCreators} from "redux";
@@ -389,7 +389,7 @@ class SubProjectsList extends Component {
                                             name: "Archive Sub-project",
                                             title:
                                                 "Remove Sub project from list of active Sub Projects",
-                                            onClick: () => this.showArchiveConfirm(item, deleteSubproject),
+                                            onClick: () => showArchiveConfirm(item, deleteSubproject),
                                         }}
                                         view={
                                             {
