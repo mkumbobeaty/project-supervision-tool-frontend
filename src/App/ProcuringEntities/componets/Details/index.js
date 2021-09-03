@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Col, Layout, Row, Spin } from "antd";
 import { ProcuringEntityActions, ProcuringEntitySelectors } from '../../../../redux/modules/ProcuringEntities';
 import { connect } from "react-redux";
-import { getIdFromUrlPath, isoDateToHumanReadableDate, moneyFormat } from '../../../../Util'
+import { getAmount, getIdFromUrlPath, isoDateToHumanReadableDate } from '../../../../Util'
 import ProcuringEntityHomeNavMenu from "../../../navigation/ProcuringEntitiesHome";
 import BaseLayout from '../../../layouts/BaseLayout';
 import DynamicBreadcrumbs from '../../../components/DynamicBreadcrumbs';
@@ -11,12 +11,6 @@ import './styles.css';
 const { Content } = Layout;
 
 const columnSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
-
-const getAmount = (data) => {
-    const { amount, currency } = data
-    const money = moneyFormat(amount);
-    return `${currency} ${money}`;
-}
 
 const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity }) => {
 

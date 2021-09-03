@@ -8,7 +8,7 @@ import Topbar from "../../../components/Topbar";
 import CustomList from "../../../components/List";
 import ListItem from "../../../components/ListItem";
 import ListItemActions from "../../../components/ListItemActions";
-import { getIdFromUrlPath, moneyFormat, showArchiveConfirm } from "../../../../Util";
+import { getIdFromUrlPath, getAmount, showArchiveConfirm } from "../../../../Util";
 import PackageForm from '../Form';
 import {useHistory} from "react-router-dom";
 import BaseLayout from "../../../layouts/BaseLayout";
@@ -161,13 +161,6 @@ const PackagesList = ({
         setIsEditForm(true)
         openPackageForm();
     };
-
-
-    const getAmount = (data) => {
-        const { amount, currency } = data
-        const money = moneyFormat(amount);
-        return `${money} ${currency} `;
-    }
 
     return (
         <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs} />} >
