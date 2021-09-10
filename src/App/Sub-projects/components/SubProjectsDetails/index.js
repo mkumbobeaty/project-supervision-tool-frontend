@@ -8,7 +8,6 @@ import * as appPermissions from '../../../../Util/permissions';
 import FieldNotes from "./components/FieldNotes";
 import FieldImages from "./components/FieldImages";
 import { authSelectors } from "../../../../redux/modules/auth";
-import { ticketActions, ticketSelectors } from "../../../../redux/modules/Tickets";
 
 import "./styles.css";
 import {getIdFromUrlPath} from "../../../../Util";
@@ -18,9 +17,8 @@ import DynamicBreadcrumbs from "../../../components/DynamicBreadcrumbs";
 const { Content } = Layout;
 const { TabPane } = Tabs;
 
-function SubProjectDetails({ getSubProject, getSubProjectTicket, match, sub_project, loading, mapLoading, permissions, subProjectTickets }) {
+function SubProjectDetails({ getSubProject, match, sub_project, loading, mapLoading, permissions, }) {
 
-  const { params } = match;
   const breadcrumbs = sub_project ? [
     {
       title: 'Projects',

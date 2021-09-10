@@ -33,15 +33,21 @@ function SubProjectForm({ createSubProject, selected, procuringEntityPackage, cl
 
 
     const [status, setStatus] = useState([]);
+    const [units, setUnits] = useState([]);
     const [types, setTypes] = useState([]);
     const [features, setFeatures] = useState([]);
     const [srid, setSrid] = useState('');
+    const [regions, setRegions] = useState([]);
+    const [districts, setDistricts] = useState([]);
 
     useEffect(() => {
         API.getSubProjectStatus()
             .then(res => setStatus(res.data));
         API.getSubProjectTypes()
             .then(res => setTypes(res.data));
+        API.getUnit().then(res => setUnits(res.data));
+        API.getRegions()
+            .then(res => setRegions(res.data));
     }, []);
 
 
@@ -59,13 +65,20 @@ function SubProjectForm({ createSubProject, selected, procuringEntityPackage, cl
             procuring_entity_package_id,
             procuring_entity_id,
             project_id,
-            district_id:"TZ0703"
+            quantity: {
+                amount: values.quantity,
+                unit: values.unit
+            }
         }
+        debugger
         createSubProject(subProjectValue);
         closeSubProjectForm();
     };
 
-    console.log(procuringEntityPackage)
+    const handleOnRegionChange = (value) => {
+        API.getDistricts(value)
+            .then(res => setDistricts(res.data));
+    };
 
 
     return (
@@ -85,30 +98,6 @@ function SubProjectForm({ createSubProject, selected, procuringEntityPackage, cl
 
         >
             <h4>Please Fill the form correctly</h4>
-
-
-            {/*start: shapefiles*/}
-            {/* <Form.Item
-                label="Project Shapefiles"
-                name="shapefile"
-                rules={[
-                    {
-                        required: true,
-                        message: "Please select project shapefile",
-                    },
-                ]}
-            >
-                <Select onChange={handleOnShapefileChange}>
-                    {shapefiles.map(({title, typename}) => (
-                        <Select.Option
-                            value={typename}
-                        >
-                            {title}
-                        </Select.Option>
-                    ))}
-                </Select>
-            </Form.Item> */}
-            {/*end: shapefiles */}
 
 
             {/* start:sub project name */}
@@ -159,8 +148,6 @@ function SubProjectForm({ createSubProject, selected, procuringEntityPackage, cl
             </Form.Item>
             {/*end: type id */}
 
-
-
             <Form.Item
                 label="Subproject Status"
                 name="sub_project_status_id"
@@ -179,6 +166,45 @@ function SubProjectForm({ createSubProject, selected, procuringEntityPackage, cl
             </Form.Item>
             {/*end: sub project status id */}
 
+            {/*start: region id */}
+            <Form.Item
+                label="Region"
+                name="region_id"
+                rules={[
+                    {
+                        required: true,
+                        message: "Region is required",
+                    },
+                ]}
+            >
+                <Select onChange={handleOnRegionChange}>
+                    {regions.map(({ id, name }) => (
+                        <Select.Option value={id}>{name}</Select.Option>
+                    ))}
+                </Select>
+            </Form.Item>
+            {/*end: region id */}
+
+
+            {/*start: district id */}
+            <Form.Item
+                label="District"
+                name="district_id"
+                rules={[
+                    {
+                        required: true,
+                        message: "District is required",
+                    },
+                ]}
+            >
+                <Select onChange={handleOnRegionChange}>
+                    {districts.map(({ id, name }) => (
+                        <Select.Option value={id}>{name}</Select.Option>
+                    ))}
+                </Select>
+            </Form.Item>
+            {/*end: district id */}
+
             <Row>
                 <Col lg={10}>
                     {/*start: quantity id */}
@@ -192,12 +218,12 @@ function SubProjectForm({ createSubProject, selected, procuringEntityPackage, cl
                         ]}
                     >
                         <InputNumber style={{ width: 180 }} />
+
                     </Form.Item>
                     {/*end: quantity id */}
                 </Col>
                 <Col lg={10} >
                     {/*start: unit id */}
-
                     <Form.Item
                         label="Unit"
                         name="unit"
@@ -208,54 +234,15 @@ function SubProjectForm({ createSubProject, selected, procuringEntityPackage, cl
                             },
                         ]}
                     >
-                        <Input />
+                        <Select>
+                            {units.map(({ id, code }) => (
+                                <Select.Option value={code} key={id}>{code}</Select.Option>
+                            ))}
+                        </Select>
                     </Form.Item>
                     {/*end: type id */}
                 </Col>
             </Row>
-
-
-            {/*start: project component id */}
-            {/* <Form.Item
-                label="Project Component"
-                name="project_component_id"
-                rules={[
-                {
-                    required: true,
-                    message: "Project Component is required",
-                },
-                ]}
-            >
-            <Select onChange={handleOnProjectComponentChange}>
-                {projectComponents.map(({id, name}) => (
-                    <Select.Option value={id}>{name}</Select.Option>
-                ))}
-            </Select>
-            </Form.Item> */}
-            {/*end: project component id */}
-
-
-            {/*start: project sub component id */}
-            {/* <Form.Item
-                label="Project Sub Component"
-                name="project_sub_component_id"
-                rules={[
-                {
-                    required: true,
-                    message: "Project Sub Component is required",
-                },
-                ]}
-            >
-            <Select onChange={handleOnProjectSubComponentChange}>
-                {projectSubComponents.map(({id, name}) => (
-                    <Select.Option value={id}>{name}</Select.Option>
-                ))}
-            </Select>
-            </Form.Item> */}
-            {/*end: project sub component id */}
-
-
-
 
             {/* start:form actions */}
             <Form.Item wrapperCol={{ span: 24 }} style={{ textAlign: "right" }}>

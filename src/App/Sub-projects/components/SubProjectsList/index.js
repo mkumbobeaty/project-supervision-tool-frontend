@@ -9,7 +9,7 @@ import CustomList from "../../../components/List";
 import ListItem from "../../../components/ListItem";
 import ListItemActions from "../../../components/ListItemActions";
 import {Link} from "react-router-dom";
-import {getIdFromUrlPath, getSurveyIdByCategory} from "../../../../Util";
+import {getIdFromUrlPath, getSurveyIdByCategory, showArchiveConfirm} from "../../../../Util";
 import SubProjectForm from "../Form";
 import {subProjectsActions, subProjectsSelectors} from "../../../../redux/modules/subProjects"
 import {bindActionCreators} from "redux";
@@ -25,11 +25,11 @@ import { ProcuringEntityActions,ProcuringEntitySelectors } from "../../../../red
 import "./styles.css";
 
 /* constants */
-const subProjectNameSpan = {xxl: 3, xl: 4, lg: 4, md: 5, sm: 20, xs: 20};
-const projectIdSpan = {xxl: 2, xl: 2, lg: 2, md: 3, sm: 0, xs: 0};
-const itemsSpan = {xxl: 2, xl: 2, lg: 4, md: 0, sm: 0, xs: 0};
-const locationSpan = {xxl: 3, xl: 3, lg: 3, md: 3, sm: 0, xs: 0};
-const statusSpan = {xxl: 3, xl: 3, lg: 4, md: 3, sm: 0, xs: 0};
+const subProjectNameSpan = {xxl: 5, xl: 5, lg: 5, md: 5, sm: 20, xs: 20};
+const projectIdSpan = {xxl: 4, xl: 4, lg: 4, md: 4, sm: 0, xs: 0};
+const itemsSpan = {xxl: 4, xl: 4, lg: 4, md: 4, sm: 0, xs: 0};
+const locationSpan = {xxl: 4, xl: 4, lg: 4, md: 4, sm: 0, xs: 0};
+const statusSpan = {xxl: 4, xl: 4, lg: 4, md: 4, sm: 0, xs: 0};
 
 
 const headerLayout = [
@@ -80,7 +80,7 @@ class SubProjectsList extends Component {
      * @since 0.1.0
      */
     handleMapPreview = (item_id) => {
-        const {getSubProject, match: {params}} = this.props;
+        const {getSubProject} = this.props;
         this.setState({previewOnMap: true})
         getSubProject(item_id);
         console.log(item_id)
@@ -199,7 +199,7 @@ class SubProjectsList extends Component {
      * @since 0.1.0
      */
     handleEdit = (subProject) => {
-        const {selectSubProject, openSubProjectForm, selected} = this.props;
+        const {selectSubProject, openSubProjectForm, } = this.props;
         selectSubProject(subProject);
         this.setState({isEditForm: true});
         openSubProjectForm();
@@ -389,7 +389,7 @@ class SubProjectsList extends Component {
                                             name: "Archive Sub-project",
                                             title:
                                                 "Remove Sub project from list of active Sub Projects",
-                                            onClick: () => this.showArchiveConfirm(item, deleteSubproject),
+                                            onClick: () => showArchiveConfirm(item, deleteSubproject),
                                         }}
                                         view={
                                             {

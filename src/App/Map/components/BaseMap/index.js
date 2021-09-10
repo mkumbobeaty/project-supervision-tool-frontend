@@ -77,5 +77,6 @@ BaseMap.propTypes = {
 }
 
 BaseMap.defaultProps = {
-    zoomControl: true
+    zoomControl: true,
+    projects: []
 }
