@@ -68,12 +68,12 @@ const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity, lo
                                                 </Col>
                                                 <Col {...columnSpan}>
                                                     <h4>Original Contract Sum </h4>
-                                                    <p>{procuringEntity?.contract.original_contract_sum ? getAmount(procuringEntity?.contract.original_contract_sum): "N/A"}</p>
+                                                    <p>{procuringEntity?.contract?.original_contract_sum ? getAmount(procuringEntity?.contract?.original_contract_sum): "N/A"}</p>
                                                 </Col>
 
                                                 <Col {...columnSpan}>
                                                     <h4>Revised Contract Sum</h4>
-                                                    <p>{procuringEntity?.contract.revised_contract_sum ? getAmount(procuringEntity?.contract.revised_contract_sum): 'N/A'}</p>
+                                                    <p>{procuringEntity?.contract?.revised_contract_sum ? getAmount(procuringEntity?.contract?.revised_contract_sum): 'N/A'}</p>
                                                 </Col>
                                                 <Col {...columnSpan}>
                                                     <h4>Packages</h4>
