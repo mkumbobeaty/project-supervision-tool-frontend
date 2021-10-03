@@ -94,7 +94,7 @@ const createSubProjectEpic = action$ => {
             return from(API.createSubProject(payload))
                 .pipe(
                     switchMap(res => {
-                        return of(actions.createSubProjectSuccess(res), subProjectsActions.getSubProjectsStart())
+                        return of(actions.createSubProjectSuccess(res))
                     }),
                     catchError(error => of(actions.createSubProjectFailure(error)))
                 )

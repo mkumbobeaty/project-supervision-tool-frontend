@@ -52,6 +52,8 @@ const headerLayout = [
  */
 class SubProjectsList extends Component {
 
+    packageId = getIdFromUrlPath(this.props.match.url, 6);
+    subProjectsFilter = {'filter[procuring_entity_package_id]': this.packageId};
     state = {
         showShare: false,
         isEditForm: false,
@@ -62,12 +64,9 @@ class SubProjectsList extends Component {
     };
 
     componentDidMount() {
-        const {fetchSubProjects, match, getProcuringEntityPackage} = this.props;
-        const id = getIdFromUrlPath(match.url, 7);
-        fetchSubProjects(id);
-        const packageId = getIdFromUrlPath(match.url, 6)
-        getProcuringEntityPackage(packageId)
-    
+        const {fetchSubProjects, getProcuringEntityPackage} = this.props;
+        fetchSubProjects(this.subProjectsFilter );
+        getProcuringEntityPackage(this.packageId);
     }
 
 
@@ -169,7 +168,7 @@ class SubProjectsList extends Component {
      */
     closeSubProjectForm = () => {
         this.setState({isEditForm: false, visible: false});
-        const {closeSubProjectForm, selectSubProject} = this.props;
+        const {closeSubProjectForm, selectSubProject,fetchSubProjects} = this.props;
         selectSubProject(null)
         closeSubProjectForm();
     };
@@ -214,8 +213,8 @@ class SubProjectsList extends Component {
      * @since 0.1.0
      */
     handleRefreshSubProjects = () => {
-        const {page, paginateSubProject} = this.props;
-        paginateSubProject(page);
+        const {page, fetchSubProjects} = this.props;
+        fetchSubProjects({...this.subProjectsFilter, page});
     };
 
     /**
@@ -292,45 +291,44 @@ class SubProjectsList extends Component {
             deleteSubproject,
             procuringEntityPackage
         } = this.props;
-
-
-        const breadcrumbs = subProjects.length > 0 ? [
+        
+        const breadcrumbs = procuringEntityPackage ? [
             {
                 title: 'Projects',
                 url: '/projects',
                 name: 'Projects'
             },
             {
-                title: subProjects[0].project.code,
-                url: `/projects/${subProjects[0].project.id}/`,
-                name: subProjects[0].project.name
+                title: procuringEntityPackage?.procuring_entity?.project.code,
+                url: `/projects/${procuringEntityPackage?.procuring_entity?.project.id}/`,
+                name: procuringEntityPackage?.procuring_entity?.project.name
             },
             {
                 title: `Procuring Entities`,
-                url: `/projects/${subProjects[0].project.id}/procuring_entities`,
-                name: `Procuring Entities under ${subProjects[0].project.name}(${subProjects[0].project.code})`
+                url: `/projects/${procuringEntityPackage?.procuring_entity?.project.id}/procuring_entities`,
+                name: `Procuring Entities under ${procuringEntityPackage?.procuring_entity?.project.name}(${procuringEntityPackage?.procuring_entity?.project.code})`
             },
             {
-                title: `${subProjects[0].procuring_entity.agency.name}`,
-                url: `/projects/${subProjects[0].project.id}/procuring_entities/${subProjects[0].procuring_entity.id}`,
-                name: `${subProjects[0].procuring_entity.agency.name}`
+                title: `${procuringEntityPackage?.procuring_entity?.agency.name}`,
+                url: `/projects/${procuringEntityPackage?.procuring_entity?.project.id}/procuring_entities/${procuringEntityPackage?.procuring_entity?.id}`,
+                name: `${procuringEntityPackage?.procuring_entity?.agency.name}`
             },
             {
                 title: `Packages`,
-                url: `/projects/${subProjects[0].project.id}/procuring_entities/${subProjects[0].procuring_entity.id}/packages`,
-                name: `Packages procured in ${subProjects[0].procuring_entity.agency.name}`
+                url: `/projects/${procuringEntityPackage?.procuring_entity?.project.id}/procuring_entities/${procuringEntityPackage?.procuring_entity?.id}/packages`,
+                name: `Packages procured in ${procuringEntityPackage?.procuring_entity?.agency.name}`
             },
             {
-                title: `${subProjects[0].package?.name}`,
-                url: `/projects/${subProjects[0].project.id}/procuring_entities/${subProjects[0].procuring_entity.id}/packages/${subProjects[0].package?.id}`,
-                name: `${subProjects[0].package?.contract?.name}`
+                title: `${procuringEntityPackage?.name}`,
+                url: `/projects/${procuringEntityPackage?.procuring_entity?.project.id}/procuring_entities/${procuringEntityPackage?.procuring_entity?.id}/packages/${procuringEntityPackage?.id}`,
+                name: `${procuringEntityPackage?.contract?.name}`
             },
             {
                 title: `SubProjects`,
                 url: this.props.match.url,
                 name: `List of Sub Projects`
             }
-        ] : [];
+        ]: [];
 
 
         const survey_id = selected?.surveys ? getSurveyIdByCategory('field_notes', selected?.surveys) : null;

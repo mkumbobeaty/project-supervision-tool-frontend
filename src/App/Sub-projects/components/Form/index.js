@@ -70,7 +70,6 @@ function SubProjectForm({ createSubProject, selected, procuringEntityPackage, cl
                 unit: values.unit
             }
         }
-        debugger
         createSubProject(subProjectValue);
         closeSubProjectForm();
     };
@@ -266,7 +265,6 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-    closeSubProjectForm: projectActions.closeSubProjectForm,
     createSubProject: projectActions.createSubProjectStart,
     updateSubProject: subProjectsActions.updateSubProjectStart,
 

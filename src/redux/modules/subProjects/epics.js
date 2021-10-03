@@ -78,7 +78,7 @@ const createSubProjectItemEpic = action$ => {
             return from(API.createSubProjectItem(payload))
         }),
         switchMap(res => {
-            return (of(actions.createSubProjectItemSuccess(res)), of(actions.getSubProjectItemsStart))
+            return (of(actions.createSubProjectItemSuccess(res)))
         }),
         catchError(error => { return of(actions.createSubProjectItemFailure(error)) })
 
