@@ -150,7 +150,7 @@ const createPackagePic = action$ => {
             return from(API.createPackage(payload))
         }),
         switchMap(res => {
-            return of(actions.createPackageSuccess(res), actions.getPackagesStart())
+            return of(actions.createPackageSuccess(res))
         }),
         catchError(error => of(actions.createPackageFailure(error)))
     )

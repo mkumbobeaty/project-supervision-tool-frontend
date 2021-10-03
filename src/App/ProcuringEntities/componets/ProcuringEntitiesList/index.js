@@ -127,21 +127,21 @@ const ProcuringEntitiesList = ({
         openProcuringEntityForm();
     };
 
-    const breadcrumbs = procuringEntities.length > 0 ? [
+    const breadcrumbs = project ? [
         {
             title: 'Projects',
             url: '/projects',
             name: 'Projects'
         },
         {
-            title: procuringEntities[0].project.code,
-            url: `/projects/${procuringEntities[0].project.id}`,
-            name: procuringEntities[0].project.name
+            title: project.code,
+            url: `/projects/${project.id}`,
+            name: project.name
         },
         {
             title: `Procuring Entities`,
             url: match.url,
-            name: `Procuring Entities under ${procuringEntities[0].project.name}(${procuringEntities[0].project.code})`
+            name: `Procuring Entities under ${project.name}(${project.code})`
         }
     ] : [];
 
@@ -295,6 +295,7 @@ const mapDispatchToProps = {
 ProcuringEntitiesList.propTypes = {
     getProcuringEntities: PropTypes.func.isRequired,
     procuringEntities: PropTypes.array,
+    project: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired,
     openProcuringEntityForm: PropTypes.func.isRequired,
     closeProcuringEntityForm: PropTypes.func.isRequired,

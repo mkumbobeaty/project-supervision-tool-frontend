@@ -34,7 +34,7 @@ const headerLayout = [
 ];
 
 const PackagesList = ({
-    getPackes,
+    getPackages,
     packages,
     loading,
     showForm,
@@ -58,37 +58,37 @@ const PackagesList = ({
     const filter = {'filter[procuring_entity_id]': procuringEntityId}
 
 
-    const breadcrumbs =  packages.length > 0 ? [
+    const breadcrumbs =  procuringEntity ? [
         {
             title: 'Projects',
             url: '/projects',
             name: 'Projects'
         },
         {
-            title: packages[0].procuring_entity.project.code,
-            url: `/projects/${packages[0].procuring_entity.project.id}/`,
-            name: packages[0].procuring_entity.project.name
+            title: procuringEntity.project.code,
+            url: `/projects/${procuringEntity.project.id}/`,
+            name: procuringEntity.project.name
         },
         {
             title: `Procuring Entities`,
-            url: `/projects/${packages[0].procuring_entity.project.id}/procuring_entities`,
-            name: `Procuring Entities under ${packages[0].procuring_entity.project.name}(${packages[0].procuring_entity.project.code})`
+            url: `/projects/${procuringEntity.project.id}/procuring_entities`,
+            name: `Procuring Entities under ${procuringEntity.project.name}(${procuringEntity.project.code})`
         },
         {
-            title: `${packages[0].procuring_entity.agency.name}`,
-            url: `/projects/${packages[0].procuring_entity.project.id}/procuring_entities/${packages[0].procuring_entity.id}`,
-            name: `${packages[0].procuring_entity.agency.name}`
+            title: `${procuringEntity.agency.name}`,
+            url: `/projects/${procuringEntity.project.id}/procuring_entities/${procuringEntity.id}`,
+            name: `${procuringEntity.agency.name}`
         },
         {
             title: `Packages`,
             url: match.url,
-            name: `Packages procured in ${packages[0].procuring_entity.agency.name}`
+            name: `Packages procured in ${procuringEntity.agency.name}`
         }
     ] : [];
 
 
     useEffect(() => {
-        getPackes(filter)
+        getPackages(filter)
         getProcuringEntity(procuringEntityId);
     }, []);
 
@@ -142,7 +142,7 @@ const PackagesList = ({
    * @since 0.1.0
    */
     const handleRefresh = () => {
-        getPackes(filter);
+        getPackages(filter);
     };
     ;
 
@@ -292,7 +292,7 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-    getPackes: ProcuringEntityActions.getPackagesStart,
+    getPackages: ProcuringEntityActions.getPackagesStart,
     deletePackage: ProcuringEntityActions.deletePackageStart,
     createPackage: ProcuringEntityActions.createPackageStart,
     updatePackage: ProcuringEntityActions.updatePackageStart,
@@ -306,6 +306,7 @@ const mapDispatchToProps = {
 PackagesList.propTypes = {
     getPackage: PropTypes.func.isRequired,
     packages: PropTypes.array.isRequired,
+    procuringEntity: PropTypes.object.isRequired,
     loading: PropTypes.bool.isRequired,
     openPackageForm: PropTypes.func.isRequired,
     closePackageForm: PropTypes.func.isRequired,
