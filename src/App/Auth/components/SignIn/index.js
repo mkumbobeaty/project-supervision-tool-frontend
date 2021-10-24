@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import {Input, Button, Form} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
@@ -6,6 +6,7 @@ import "./styles.css";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {authActions, authSelectors} from "../../../../redux/modules/auth";
+import { useHistory } from "react-router-dom";
 
 
 /**
@@ -15,29 +16,27 @@ import {authActions, authSelectors} from "../../../../redux/modules/auth";
  * @version 0.1.0
  * @since 0.1.0
  */
-class SignIn extends Component {
+const SignIn = ({accessToken, loading, login, errorMsg}) => {
 
-    /**
+    let history  = useHistory();
+    useEffect(() => {
+        if(accessToken){
+            history.push('/projects');
+        }
+
+    }, [accessToken]);
+
+     /**
      * @function
      * @name onFinish
      * @description collects values submitted in form
      * and dispatches login start action
      * @param {Object} values
      */
-    onFinish = (values) => {
-        this.props.login(values)
+     const onFinish = (values) => {
+        login(values)
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (prevProps.accessToken !== this.props.accessToken) {
-            if (this.props.accessToken) {
-                this.props.history.push('/projects');
-            }
-        }
-    }
-
-    render() {
-        const {loading, errorMsg} = this.props;
         return (
             <div className="SignIn">
                     <div className="SignInForm">
@@ -46,7 +45,7 @@ class SignIn extends Component {
                             <h5>Please Login to your account</h5>
                         </div>
                         <div style={{color: 'red'}}>{!loading && errorMsg ? errorMsg : ''}</div>
-                        <Form autoComplete="off" onFinish={this.onFinish}>
+                        <Form autoComplete="off" onFinish={onFinish}>
                             {/* username field */}
                             <Form.Item
                                 name="email"
@@ -95,7 +94,6 @@ class SignIn extends Component {
                         </div>
             </div>
         );
-    }
 }
 
 SignIn.propTypes = {
@@ -103,6 +101,7 @@ SignIn.propTypes = {
         push: PropTypes.func.isRequired,
     }).isRequired,
     loading: PropTypes.bool.isRequired,
+    errorMsg:PropTypes.string
 };
 
 SignIn.defaultProps = {
