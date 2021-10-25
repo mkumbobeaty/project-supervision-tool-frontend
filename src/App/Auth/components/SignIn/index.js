@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import {Input, Button, Form} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import "./styles.css";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {authActions, authSelectors} from "../../../../redux/modules/auth";
 import { useHistory } from "react-router-dom";
+import "./styles.css";
 
 
 /**
@@ -60,6 +60,8 @@ const SignIn = ({accessToken, loading, login, errorMsg}) => {
                                 <Input
                                     prefix={<UserOutlined style={{color: "rgba(0,0,0,.25)"}}/>}
                                     placeholder="Email"
+                                    data-testid="email"
+
                                 />
                             </Form.Item>
                             {/* end username field */}
@@ -74,6 +76,8 @@ const SignIn = ({accessToken, loading, login, errorMsg}) => {
                                 <Input.Password
                                     prefix={<LockOutlined style={{color: "rgba(0,0,0,.25)"}}/>}
                                     placeholder="Password"
+                                    data-testid="password"
+
                                 />
                             </Form.Item>
                             {/* end password field */}
@@ -98,14 +102,15 @@ const SignIn = ({accessToken, loading, login, errorMsg}) => {
 
 SignIn.propTypes = {
     history: PropTypes.shape({
-        push: PropTypes.func.isRequired,
+        push: PropTypes.func,
     }).isRequired,
-    loading: PropTypes.bool.isRequired,
+    loading: PropTypes.bool,
     errorMsg:PropTypes.string
 };
 
+
 SignIn.defaultProps = {
-    loading: null
+    history: {}
 }
 
 const mapStateToProps = (state) => {
