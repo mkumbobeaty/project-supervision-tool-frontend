@@ -21,6 +21,7 @@
     "leaflet-basemaps": "^0.3.4",
     "leaflet-fullscreen": "^1.0.2",
     "moment": "^2.26.0",
+    "msw": "^0.35.0",
     "overlapping-marker-spiderfier-leaflet": "^0.2.7",
     "prop-types": "^15.7.2",
     "randomcolor": "^0.5.4",
@@ -43,7 +44,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "commit": "git-cz",
+    "commit": "cz",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -65,7 +66,8 @@
   },
   "devDependencies": {
     "commitizen": "^4.2.2",
-    "cz-conventional-changelog": "^3.3.0"
+    "cz-conventional-changelog": "^3.3.0",
+    "redux-mock-store": "^1.5.4"
   },
   "config": {
     "commitizen": {
