@@ -1,13 +1,22 @@
 import '@testing-library/jest-dom/extend-expect'
 import React from 'react';
-import SignIn from '../components/SignIn';
-import { renderAuthConnected, fireEvent, screen, cleanup } from '../../../testUtils/auth'
+import SignIn from '../Auth/components/SignIn';
+import { renderAuthConnected, fireEvent, screen, cleanup, waitForElement  } from './testUtils/authUtil'
+import { setupServer } from 'msw/node'
+import { handlers } from '../../mocks/handler';
 
 let emailInput;
 let passwordInput;
-let signInButton;
+
+let payload = {
+  email: "charsbeaty@gmail.com",
+  password: 'password',
+
+}
 
 describe("Signin form", () => {
+
+const server = setupServer(...handlers);
 
   beforeAll(() => {
     Object.defineProperty(window, "matchMedia", {
@@ -23,20 +32,26 @@ describe("Signin form", () => {
         dispatchEvent: jest.fn(),
       }))
     });
+    server.listen()
+
   });
 
-  const onFinish = jest.fn(() => Promise.resolve());
+  const onFinish = jest.fn()
+  .mockReturnValueOnce(payload);
 
   beforeEach(() => {
     renderAuthConnected(<SignIn login={onFinish} />)
     emailInput = screen.getByTestId('email');
     passwordInput = screen.getByTestId('password');
-    signInButton = screen.getByRole('button', {name: 'Log In'})
   })
 
   afterEach(() => {
-    cleanup()
+    cleanup();
+    server.resetHandlers();
   })
+
+  afterAll(() => server.close())
+
 
   const loginUser = (email, password) => {
       fireEvent.change(emailInput, {target: { value : email}});
@@ -72,10 +87,17 @@ describe("Signin form", () => {
       expect(passwordInput.value).toBe('password')
   });
 
-  it('should submit the username and password', () => {
-    
-  }
-  )
+  it('should submit the username and password', async () => {
+   const signInButton = screen.getByRole('button', {name: /Log In/i})
+    loginUser(payload.email, payload.password);
+    fireEvent.submit(signInButton);
+    waitForElement(() => {
+      expect(onFinish).toBeCalled();
+      expect(onFinish).toHaveBeenCalledTimes(1);
+      expect(onFinish.mock.calls.length).toBeGreaterThanOrEqual(1)
+      expect(onFinish).toHaveBeenNthCalledWith(1, payload);
+  });
+  })
 
 
 

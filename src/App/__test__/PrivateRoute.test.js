@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
-import PrivateRoute from "../PrivateRoute";
+import PrivateRoute from "../Auth/PrivateRoute";
 
 describe('private route', () => {
   it("redirects unauthenticated users to SignIn", async () => {
