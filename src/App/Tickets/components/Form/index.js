@@ -67,11 +67,9 @@ function TicketForm({
                 project_id: selected?.project_id,
 
             }
-            debugger
             createSubProjectTicket(subProjectPayload)
         }
         else {
-            debugger
             createProjectTicket(payload);
         }
     };

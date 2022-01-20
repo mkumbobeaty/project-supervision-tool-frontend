@@ -56,7 +56,6 @@ function ProcuringEntityForm({
             ...values,
             project_id : id
         };
-        debugger
         if (isEditForm) {
             updateProcuringEntity(payload, selected.id);
         }

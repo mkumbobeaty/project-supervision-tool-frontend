@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { useHistory } from "react-router";
 import { Col, Drawer, Spin } from "antd";
@@ -11,7 +11,6 @@ import ListItem from "../../../components/ListItem";
 import ListItemActions from "../../../components/ListItemActions";
 import { projectActions, projectSelectors } from '../../../../redux/modules/projects';
 import CommonProjectForm from "../Forms";
-import { focalPeopleActions, focalPeopleSelectors } from "../../../FocalPeople/duck";
 import ProjectLocations from "../../../Map/components/ProjectLocations";
 import BaseMap from "../../../Map/components/BaseMap";
 import SideNav from "../../../Map/components/SideNav";
@@ -26,6 +25,8 @@ import TicketForm from '../../../Tickets/components/Form';
 import BaseLayout from "../../../layouts/BaseLayout";
 import DynamicBreadcrumbs from "../../../components/DynamicBreadcrumbs";
 import "./styles.css";
+import { useToggle } from '../../../../hooks/useToggle';
+import { openForm } from '../../../../Util/bulkAction';
 
 /* constants */
 const codeSpan = { xxl: 2, xl: 3, lg: 3, md: 4, sm: 0, xs: 0 };
@@ -60,7 +61,6 @@ const headerLayout = [
 const ProjectsList  = ( 
   {
   fetchProjects,
-  focalPeople,
   projects,
   loading,
   page,
@@ -69,8 +69,6 @@ const ProjectsList  = (
   searchQuery,
   showForm,
   selected,
-  focalPeoples,
-  createProject,
   mapLoading,
   project,
   showTicketForm,
@@ -87,21 +85,17 @@ const ProjectsList  = (
   closeProjectSubComponent,
   openTicketForm,
   closeTicketForm,
-  getSubProjectsByProjectId,
   getProjectOnMap,
   searchProject
   }
   ) =>  {
   // eslint-disable-next-line react/state-in-constructor
 
-  const [ isEditForm, setIsEditForm] = useState(false);
-  const [ visible, setVisible] = useState(false);
-  const [ previewOnMap, setPreviewOnMap] = useState(false);
+  const [ isEditForm, setIsEditForm, previewOnMap, setVisible ] = useToggle(false);
   const history = useHistory();
 
   useEffect(() => {
     fetchProjects();
-    focalPeople()
   }, [])
 
 
@@ -121,18 +115,7 @@ const ProjectsList  = (
     openProjectForm();
   };
 
-  /**
-   * @function
-   * @name openProjectCreateForm
-   * @description Open form
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
-const openProjectCreateForm = () => {
-    openProjectForm();
-  };
-
+  
   /**
    * @function
    * @name closeProjectCreateForm
@@ -150,32 +133,6 @@ const openProjectCreateForm = () => {
 
   /**
  * @function
- * @name openProjectSubComponentForm
- * @description Open form
- *
- * @version 0.1.0
- * @since 0.1.0
- */
-  const openProjectSubComponentForm = (project) => {
-    selectProject(project);
-    openProjectSubComponent();
-  };
-
-  /**
- * @function
- * @name openProjectComponentForm
- * @description Open form
- *
- * @version 0.1.0
- * @since 0.1.0
- */
- const openProjectComponentForm = (project) => {
-    selectProject(project);
-    openProjectComponent();
-  };
-
-  /**
- * @function
  * @name closeProjectForm
  * @description close form
  *
@@ -183,7 +140,8 @@ const openProjectCreateForm = () => {
  * @since 0.1.0
  */
 const closeProjectComponentForm = () => {
-    setIsEditForm({ isEditForm: false, visible: false });
+    setIsEditForm(false)
+    setVisible(false);
     closeProjectComponent();
   };
 
@@ -202,19 +160,6 @@ const closeProjectComponentForm = () => {
   };
 
   /**
-* @function
-* @name openIssueForm
-* @description Open form
-*
-* @version 0.1.0
-* @since 0.1.0
-*/
- const openIssueForm = (project) => {
-    selectProject(project);
-    openTicketForm();
-  };
-
-  /**
  * @function
  * @name closeIssueForm
  * @description close form
@@ -225,19 +170,6 @@ const closeProjectComponentForm = () => {
  const closeIssueForm = () => {
     setIsEditForm( false)
     closeTicketForm();
-  };
-
-  /**
-     * @function
-     * @name handleAfterCloseForm
-     * @description Perform post close form cleanups
-     *
-     * @version 0.1.0
-     * @since 0.1.0
-     */
-const  handleAfterCloseForm = () => {
-    selectProject(null);
-    setIsEditForm( false)
   };
 
   /**   
@@ -273,7 +205,6 @@ const handleRefresh = () => {
   * @since 0.1.0
   */
 const handleViewDetails = (item_id) => {
-    getSubProjectsByProjectId(item_id)
     getProject(item_id);
     let path = `/projects/${item_id}`;  
     history.push(path);
@@ -340,7 +271,7 @@ const handleViewMap = () => {
                 icon: <PlusOutlined />,
                 size: "large",
                 title: "Add New Project",
-                onClick: openProjectCreateForm,
+                onClick: openProjectForm,
               },
             ]}
           />
@@ -353,10 +284,8 @@ const handleViewMap = () => {
             page={page}
             loading={loading}
             itemCount={total}
-            onRefresh={
-              handleRefresh}
-            onMapView={
-              handleViewMap}
+            onRefresh={handleRefresh}
+            onMapView={handleViewMap}
             onPaginate={(nextPage) => {
               paginateProject({ page: nextPage });
             }}
@@ -388,21 +317,21 @@ const handleViewMap = () => {
                       title:
                         "Add component to the project",
                       onClick: () => 
-                      openProjectComponentForm(item),
+                      openForm(item,selectProject,openProjectComponent),
                     }}
                     subComponent={{
                       name: "Add sub Component",
                       title:
                         "Add sub component to the project",
                       onClick: () => 
-                      openProjectSubComponentForm(item),
+                      openForm(item, selectProject,openProjectSubComponent),
                     }}
                     openIssues={{
                       name: "Create New Ticket",
                       title:
                         "Open Ticket to the project",
                       onClick: () => 
-                      openIssueForm(item),
+                      openForm(item,selectProject,openTicketForm),
                     }}
                     view={
                       {
@@ -438,7 +367,7 @@ const handleViewMap = () => {
                 <Col {...projectIdSpan} className="contentEllipse">
                   {" "}
 
-                  {item ? item.wb_project_id : "All"}
+                  {item ? item?.wb_project_id : "All"}
                 </Col>
                 <Col {...codeSpan} title={item.name} className="contentEllipse" >{item ? item?.code.toUpperCase() : 'N/A'}</Col>
                 <Col {...statusSpan}>{item?.status?.name ? item?.status?.name : 'N/A'}</Col>
@@ -471,13 +400,8 @@ const handleViewMap = () => {
             <CommonProjectForm
               selected={selected}
               isEditForm={isEditForm}
-              createProject={createProject}
-              focalPeoples={focalPeoples}
               Projects={projects}
-              handleAfterCloseForm={
-                handleAfterCloseForm}
-              handleAfterSubmit={
-                closeProjectForm} />
+              handleAfterSubmit={closeProjectForm} />
           </Drawer>
 
           <Drawer
@@ -542,7 +466,6 @@ const handleViewMap = () => {
 const mapStateToProps = (state) => {
   return {
     projects: projectSelectors.getProjectsSelector(state),
-    focalPeoples: focalPeopleSelectors.getFocalPeople(state),
     loading: projectSelectors.getProjectsLoadingSelector(state),
     page: projectSelectors.getProjectsPageSelector(state),
     total: projectSelectors.getProjectsTotalSelector(state),
@@ -561,15 +484,12 @@ const mapDispatchToProps = {
   fetchProjects: projectActions.getProjectsStart,
   deleteProject: projectActions.deleteProjectStart,
   selectProject: projectActions.selectProject,
-  focalPeople: focalPeopleActions.getFocalPeopleStart,
-  createProject: projectActions.createProjectStart,
   openProjectForm: projectActions.openProjectForm,
   closeProjectForm: projectActions.closeProjectForm,
   paginateProject: projectActions.getProjectsStart,
   searchProject: projectActions.searchProjects,
   getProject: projectActions.getProjectStart,
   getProjectOnMap: mapProjectActions.getProjectStart,
-  getSubProjectsByProjectId: mapSubProjectActions.getSubProjectByProjectId,
   openProjectComponent: projectActions.openProjectComponentForm,
   openProjectSubComponent: projectActions.openProjectSubComponentForm,
   closeProjectComponent: projectActions.closeProjectComponentForm,

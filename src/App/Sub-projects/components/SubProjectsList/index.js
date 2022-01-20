@@ -504,7 +504,6 @@ class SubProjectsList extends Component {
                         bodyStyle={{paddingBottom: 80}}
                         destroyOnClose
                         maskClosable={false}
-                        afterClose={this.handleAfterCloseForm}
                         className="projectForm"
                     >
                         <TicketForm

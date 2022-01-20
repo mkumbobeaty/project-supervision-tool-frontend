@@ -57,7 +57,7 @@ function ProjectComponentForm({
             >
 
                 {/* start:component  */}
-                <Form.Item
+                {/* <Form.Item
                     label="Component"
                     name="project_component_id"
                     title="Component i.e Institutional Strengthening"
@@ -69,11 +69,11 @@ function ProjectComponentForm({
                     ]}
                 >
                     <Select showSearch optionFilterProp="children">
-                        {selected.components.map((component) => (
+                        {selected?.components.map((component) => (
                             <Select.Option key={component.id} value={component.id}>{component.name}</Select.Option>
                         ))}
                     </Select>
-                </Form.Item>
+                </Form.Item> */}
                 {/* end:Component */}
 
                 {/* start:project name */}

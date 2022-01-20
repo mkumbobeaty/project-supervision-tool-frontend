@@ -13,7 +13,6 @@ export const projectsListEpic = action$ => {
         switchMap((action) => {
             return from(API.getProjects(action.payload)).pipe(
                 switchMap(res => {
-                    debugger;
                     return of(actions.getProjectsSuccess(res.data))
                 }),
                 catchError(error => of(actions.getProjectsFailure(error)))

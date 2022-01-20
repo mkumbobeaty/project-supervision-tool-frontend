@@ -44,7 +44,6 @@ function PackageForm({
             ...values,
             procuring_entity_id: procuringEntity.id
         };
-debugger
         if (isEditForm) {
             updatePackage(payload, selected.id);
         }
