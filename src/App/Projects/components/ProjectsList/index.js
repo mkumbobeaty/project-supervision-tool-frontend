@@ -16,7 +16,6 @@ import BaseMap from "../../../Map/components/BaseMap";
 import SideNav from "../../../Map/components/SideNav";
 import { mapSelectors } from "../../../../redux/modules/map";
 import { mapProjectActions } from "../../../../redux/modules/map/projects";
-import { mapSubProjectActions } from "../../../../redux/modules/map/subProjects";
 import { showArchiveConfirm } from "../../../../Util";
 import ProjectComponentForm from "../Forms/components/projectComponentForm";
 import ProjectSubComponentForm from "../Forms/components/projectSubComponentForm";
@@ -24,9 +23,9 @@ import { ticketActions, ticketSelectors } from "../../../../redux/modules/Ticket
 import TicketForm from '../../../Tickets/components/Form';
 import BaseLayout from "../../../layouts/BaseLayout";
 import DynamicBreadcrumbs from "../../../components/DynamicBreadcrumbs";
-import "./styles.css";
 import { useToggle } from '../../../../hooks/useToggle';
 import { openForm } from '../../../../Util/bulkAction';
+import "./styles.css";
 
 /* constants */
 const codeSpan = { xxl: 2, xl: 3, lg: 3, md: 4, sm: 0, xs: 0 };

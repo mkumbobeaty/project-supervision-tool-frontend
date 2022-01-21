@@ -4,7 +4,6 @@ import OverviewDetails from "./components/OverviewDetails";
 import { connect } from "react-redux";
 import { projectActions, projectSelectors } from "../../../../redux/modules/projects";
 import { getIdFromUrlPath, isoDateToHumanReadableDate, moneyFormat } from "../../../../Util";
-import { ticketActions, } from "../../../../redux/modules/Tickets";
 import DynamicBreadcrumbs from '../../../components/DynamicBreadcrumbs';
 import ProjectHome from "../../../navigation/ProjectHome";
 import BaseLayout from "../../../layouts/BaseLayout";
@@ -14,12 +13,11 @@ import "./styles.css";
 
 const { Content } = Layout;
 
-const ProjectDetails = ({ project, loading, getProject, getTicketByProject, match }) => {
+const ProjectDetails = ({ project, loading, getProject, match }) => {
 
   useEffect(() => {
     const id  = getIdFromUrlPath(match.path,2);
     getProject(id);
-    getTicketByProject(id);
 
   }, [])
 
@@ -99,8 +97,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   getProject: projectActions.getProjectStart,
-  getTicketByProject: ticketActions.getTicketByProjectStart
-
 };
 
 ProjectDetails.propTypes = {
