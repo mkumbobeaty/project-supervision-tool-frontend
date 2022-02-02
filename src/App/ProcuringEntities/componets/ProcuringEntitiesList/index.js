@@ -11,10 +11,10 @@ import ListItem from "../../../components/ListItem";
 import ListItemActions from "../../../components/ListItemActions";
 import { getIdFromUrlPath, showArchiveConfirm } from '../../../../Util';
 import { projectActions, projectSelectors } from "../../../../redux/modules/projects";
-import "./styles.css";
 import ProcuringEntityForm from '../Form';
 import BaseLayout from '../../../layouts/BaseLayout';
 import DynamicBreadcrumbs from '../../../components/DynamicBreadcrumbs';
+import "./styles.css";
 
 
 /* constants */

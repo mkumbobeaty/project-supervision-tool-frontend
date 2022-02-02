@@ -62,6 +62,7 @@ const createProjectPic = action$ => {
 }
 
 /**
+ * 
  * @function
  * @name updateProjectPic
  * @param action$

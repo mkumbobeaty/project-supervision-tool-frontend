@@ -1,8 +1,8 @@
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Form, Button, Select, Input,
+    Form, Button, Input,
 } from 'antd';
 /* ui */
 const labelCol = {
