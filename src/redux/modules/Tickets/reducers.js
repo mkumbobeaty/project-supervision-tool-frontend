@@ -70,7 +70,7 @@ const ticket = (state = { data: {}, loading: false, error: null }, action) => {
 
 const agencies = (state = { data: {}, loading: false, error: null }, action) => {
   switch (action.type) {
-    case types.GET_AGENCY_FAILURE:
+    case types.GET_AGENCY_START:
       return { ...state, loading: true }
     case types.GET_AGENCY_SUCCESS:
       return { data: action.payload, loading: false, }

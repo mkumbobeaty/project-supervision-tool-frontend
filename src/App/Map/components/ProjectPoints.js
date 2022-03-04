@@ -51,7 +51,7 @@ function ProjectPoints({ projects, loading, getProject }) {
                     });
 
                     return (
-                        <>
+                        <div key={id}>
                             <Marker
                                 position={[geometry.coordinates[1], geometry.coordinates[0]]}
                                 title={region.name}
@@ -63,7 +63,7 @@ function ProjectPoints({ projects, loading, getProject }) {
                                 </Popup>
                             </Marker>
                             <Legend projects={projects} />
-                        </>
+                        </div>
 
                     );
                 }) : '';

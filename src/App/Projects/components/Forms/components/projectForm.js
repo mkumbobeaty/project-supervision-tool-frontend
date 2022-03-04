@@ -71,6 +71,8 @@ function ProjectForm({
     const [total_project_cost_id, setTotalProjetCost] = useState(false);
 
     useEffect(() => {
+           // eslint-disable-next-line react-hooks/exhaustive-deps
+
         getProjectStatus();
         getBorrowers();
         getFundingOrgs();

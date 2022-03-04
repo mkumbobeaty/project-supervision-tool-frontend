@@ -84,7 +84,6 @@ const ProjectsList  = (
   closeProjectSubComponent,
   openTicketForm,
   closeTicketForm,
-  getProjectOnMap,
   searchProject
   }
   ) =>  {
@@ -223,20 +222,6 @@ const handleViewMap = () => {
     history.push(path);
   };
 
-  /**
-   * @function
-   * @name handleMapPreview
-   * @description Handle map preview
-   *
-   * @version 0.1.0
-   * @since 0.1.0
-   */
- const handleMapPreview = (item) => {
-    let path = `/map`;  
-   history.push(path);
-    getProjectOnMap(item.id);
-  };
-
 
     const breadcrumbs = [
       {
@@ -338,14 +323,6 @@ const handleViewMap = () => {
                         title: "View more detail of selected project",
                         onClick: () => 
                         handleViewDetails(item.id)
-                      }
-                    }
-                    onMapPreview={
-                      {
-                        name: "Preview on Map",
-                        title: "View Project on map",
-                        onClick: () => 
-                        handleMapPreview(item)
                       }
                     }
                   />
@@ -488,7 +465,6 @@ const mapDispatchToProps = {
   paginateProject: projectActions.getProjectsStart,
   searchProject: projectActions.searchProjects,
   getProject: projectActions.getProjectStart,
-  getProjectOnMap: mapProjectActions.getProjectStart,
   openProjectComponent: projectActions.openProjectComponentForm,
   openProjectSubComponent: projectActions.openProjectSubComponentForm,
   closeProjectComponent: projectActions.closeProjectComponentForm,

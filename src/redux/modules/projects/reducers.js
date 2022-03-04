@@ -209,28 +209,6 @@ const selectedProject = (state = null, action) => {
 };
 
 
-/**
- * @function
- * @name subProjectElement
- * @description reducer that manages sub project element instance
- * @param {Object} state
- * @param {Object} action
- * @return {Object} updated state
- */
-const subProjectElement = (state = { data: null, error: null, loading: false }, action) => {
-    switch (action.type) {
-        case types.GET_SUB_PROJECT_ELEMENT_START:
-            return { ...state, loading: true };
-        case types.GET_SUB_PROJECT_ELEMENT_SUCCESS:
-            return { ...state, data: action.payload, loading: false };
-        case types.GET_SUB_PROJECT_ELEMENT_FAILURE:
-            return { ...state, error: action.payload, loading: false };
-        case types.CLEAR_SUB_PROJECT_ELEMENT:
-            return { ...state, data: null };
-        default:
-            return state;
-    }
-}
 
 const items = (state = { data: [], error: null, loading: false }, action) => {
     switch (action.type) {
@@ -316,7 +294,7 @@ const subComponents = (state = { data: [], error: null, loading: false }, action
             return { ...state, loading: true }
         case types.GET_PROJECT_SUB_COMPONENTS_SUCCESS:
             return { ...state, data: action.payload, loading: false, }
-        case types.GET_SUB_PROJECT_ELEMENT_FAILURE:
+        case types.GET_PROJECT_SUB_COMPONENTS_FAILURE:
             return { ...state, error: action.message, loading: false };
         default:
             return state;
@@ -330,7 +308,6 @@ export const resources = combineReducers({
     locations,
     regions,
     districts,
-    subProjectElement,
     environmentalCategories,
     items,
     progress,

@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-    Form, Input, Button, Select,
+    Form, Input, Button,
 } from 'antd';
 import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
 /* ui */
