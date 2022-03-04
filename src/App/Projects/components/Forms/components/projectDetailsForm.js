@@ -8,8 +8,7 @@ import {
   Row,
   Col,
   Typography,
-  Select,
-
+  
 } from "antd";
 import { generateDateString, generateYearString } from "../../../../../Util";
 import { connect } from "react-redux";
@@ -17,7 +16,7 @@ import { projectDetailsActions, projectDetailsSelectors } from "../../../../../r
 import {projectActions, projectSelectors} from "../../../../../redux/modules/projects";
 import CommitmentAmountForm from "./CommitmentAmountForm";
 import TotalProjectCostForm from "./TotalProjectCostForm";
-import {projectSectorsActions, projectSectorsSelectors} from "../../../../../redux/modules/ProjectsSectors";
+import {projectSectorsActions} from "../../../../../redux/modules/ProjectsSectors";
 
 /* state actions */
 

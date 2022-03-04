@@ -11,6 +11,19 @@ const defaultSubProjects = {
   page: null,
   sub_project: {},
 };
+
+const subProjectState = {
+  data: null,
+  error: null,
+  loading: false,
+  showForm: false,
+  showCreateSurveyForm: false,
+  showSurveyForm: false,
+  posting: false
+};
+
+
+
 /**
 * @function
 * @name subProjects
@@ -102,9 +115,72 @@ const sub_project_equipments = (state = { data: [], error: null, loading: false 
   }
 };
 
+/**
+ * @function
+ * @name subProject
+ * @description reducer that manages sub project instance
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} updated state
+ */
+ const subProject = (state = subProjectState, action) => {
+  switch (action.type) {
+      case types.GET_SUB_PROJECT_START:
+          return { ...state, loading: true };
+      case types.OPEN_SUB_PROJECT_FORM:
+          return { ...state, showForm: true };
+      case types.OPEN_SUB_PROJECT_SURVEY_FORM:
+          return { ...state, showCreateSurveyForm: true };
+      case types.OPEN_SURVEY_FORM:
+          return { ...state, showSurveyForm: true };
+      case types.CLOSE_SUB_PROJECT_FORM:
+          return { ...state, showForm: false };
+      case types.CLOSE_SUB_PROJECT_SURVEY_FORM:
+          return { ...state, showCreateSurveyForm: false };
+      case types.CLOSE_SURVEY_FORM:
+          return { ...state, showSurveyForm: false };
+      case types.GET_SUB_PROJECT_SUCCESS:
+          return { ...state, data: action.payload, loading: false };
+      case types.CREATE_SUB_PROJECT_SUCCESS:
+          return { ...state, data: action.payload, loading: false };
+      case types.GET_SUB_PROJECT_FAILURE:
+          return { ...state, error: action.payload, loading: false };
+      case types.CLEAR_SUB_PROJECT:
+          return { ...state, data: null };
+      default:
+          return state;
+  }
+}
+
+
+/**
+ * @function
+ * @name sub_projects
+ * @description reducer that manages sub projects
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} updated state
+ */
+ const sub_projects = (state = defaultSubProjects, action) => {
+  switch (action.type) {
+      case types.DELETE_SUB_PROJECT_START:
+          return { ...state };
+      case types.DELETE_SUB_PROJECT_SUCCESS:
+          return { ...state, sub_project: action.payload };
+      case types.DELETE_SUB_PROJECT_FAILURE:
+          return { ...state, error: action.payload };
+      default:
+          return state;
+  }
+};
+
+
 export const subProjectResources = combineReducers({
   sub_project_items,
   sub_project_equipments,
   subProjects,
-  selectedSubProject
+  subProject,
+  selectedSubProject,
+  sub_projects,
+
 })
