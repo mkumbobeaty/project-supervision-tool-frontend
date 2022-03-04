@@ -34,6 +34,8 @@ const ListItem = ({
   renderActions,
   children,
 }) => {
+
+  /* eslint-disable no-unused-vars */
   const [isHovered, setHovered] = useState(false);
   const avatarBackground = avatarBackgroundColor || randomColor();
 

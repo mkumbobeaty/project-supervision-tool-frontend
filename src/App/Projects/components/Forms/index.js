@@ -10,7 +10,7 @@ import { focalPeopleActions, focalPeopleSelectors } from "../../../FocalPeople/d
 
 
 class CommonProjectForm extends Component {
-    
+
     state = {
         current: 0
     }
@@ -69,12 +69,14 @@ class CommonProjectForm extends Component {
     }
 
     handleConfirmButton = () => {
-        const {  handleAfterSubmit } = this.props;
+        const { handleAfterSubmit } = this.props;
         handleAfterSubmit();
     }
 
     render() {
         const { focalPeoples, project, selected, isEditForm } = this.props
+        /* eslint-disable no-unused-vars */
+
         const steps = [
             {
                 title: 'Step 1',
@@ -113,7 +115,7 @@ class CommonProjectForm extends Component {
                     isEditForm={isEditForm}
 
                 />
-                
+
             </>
         );
     }
