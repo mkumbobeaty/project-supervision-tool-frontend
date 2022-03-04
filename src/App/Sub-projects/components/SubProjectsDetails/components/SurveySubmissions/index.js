@@ -48,11 +48,11 @@ function SurveySubmissions({surveys, handleGoBack, showBackButton}) {
         const spatialColumn = columns.filter((c) => c.type === 'geoshape' || c.type === 'geotrace' || c.type === 'geopoint')[0];
         const data = dataSource.map((d) => stringToGeoJson(d[spatialColumn.key], spatialColumn.type));
         setFeatures(data);
-    }, [dataSource]);
+    }, [dataSource]);  // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
         setSurveyId(surveys[0].uid);
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
     const showModal = () => {
@@ -138,7 +138,7 @@ function SurveySubmissions({surveys, handleGoBack, showBackButton}) {
 
     useEffect(() => {
         if (survey_id) getData(survey_id);
-    }, [survey_id]);
+    }, [survey_id]); // eslint-disable-line react-hooks/exhaustive-deps
 
     return survey_id ? (
         <section className="container">

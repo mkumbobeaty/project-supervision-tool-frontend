@@ -56,7 +56,7 @@ const ProcuringEntitiesList = ({
     useEffect(() => {
         getProcuringEntities(filter);
         getProject(projectId)
-    }, [])
+    }, [])  // eslint-disable-line react-hooks/exhaustive-deps
 
 
     /**

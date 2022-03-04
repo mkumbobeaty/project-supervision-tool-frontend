@@ -17,7 +17,7 @@ const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity, lo
     useEffect(() => {
         const id = getIdFromUrlPath(match.path, 4);
         getProcuringEntity(id);
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const breadcrumbs = procuringEntity ? [
         {

@@ -93,7 +93,7 @@ const ProjectsList  = (
 
   useEffect(() => {
     fetchProjects();
-  }, [])
+  }, [])  // eslint-disable-line react-hooks/exhaustive-deps
 
 
   /**

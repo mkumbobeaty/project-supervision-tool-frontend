@@ -15,7 +15,8 @@ function DisplaySurveyForm({ survey_id }) {
     useEffect(() => {
         API.getAsset(survey_id)
             .then(res => setSurvey(res));
-    }, []);
+    }, [survey_id]);
+
     return (
         <iframe
             src={survey?.deployment__links?.iframe_url}

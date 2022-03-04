@@ -24,7 +24,7 @@ const SignIn = ({accessToken, loading, login, errorMsg}) => {
             history.push('/projects');
         }
 
-    }, [accessToken]);
+    }, [accessToken]); // eslint-disable-line react-hooks/exhaustive-deps
 
      /**
      * @function

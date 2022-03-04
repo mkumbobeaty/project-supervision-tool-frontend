@@ -43,7 +43,7 @@ function TicketForm({
 
     useEffect(() => {
         getAgencies();
-    }, [])
+    }, [])  // eslint-disable-line react-hooks/exhaustive-deps
 
     const onFinish = (values) => {
         const payload = {

@@ -90,7 +90,7 @@ const PackagesList = ({
     useEffect(() => {
         getPackages(filter)
         getProcuringEntity(procuringEntityId);
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
 
     /**

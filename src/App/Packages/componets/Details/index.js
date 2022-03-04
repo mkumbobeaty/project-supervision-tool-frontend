@@ -21,7 +21,7 @@ const PackageDetails = ({ match, procuringEntityPackage, getProcuringEntityPacka
     useEffect(() => {
         const id = getIdFromUrlPath(match.url, 6)
         getProcuringEntityPackage(id);
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const completed = procuringEntityPackage?.contract?.financial_progress || 0
     const remained = 100 - completed;

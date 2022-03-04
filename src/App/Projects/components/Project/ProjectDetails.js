@@ -19,7 +19,7 @@ const ProjectDetails = ({ project, loading, getProject, match }) => {
     const id  = getIdFromUrlPath(match.path,2);
     getProject(id);
 
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
 
   const breadcrumbs = project ? [

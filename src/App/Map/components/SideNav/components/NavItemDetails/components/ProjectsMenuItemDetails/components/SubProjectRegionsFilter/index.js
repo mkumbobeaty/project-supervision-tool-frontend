@@ -16,7 +16,7 @@ const SubProjectRegionsFilter = ({ project, getDistricts, districts, setSubProje
 
     useEffect(() => {
         getDistricts(regionsFilterData.map(({ id }) => id));
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
 

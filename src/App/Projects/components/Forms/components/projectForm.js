@@ -82,7 +82,7 @@ function ProjectForm({
         getLayers();
         getCurrency();
         getUsers();
-    }, []);
+    }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
 
     const showTotalProjectCostModal = () => {

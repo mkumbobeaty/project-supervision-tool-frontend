@@ -65,7 +65,7 @@ function SubProjectDetails({ getSubProject, match, sub_project, loading, mapLoad
   useEffect(() => {
     const id = getIdFromUrlPath(match.url, 8);  
     getSubProject(id);
-  }, [match]);
+  }, [match]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return sub_project ? (
       <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs} />} >
