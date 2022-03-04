@@ -15,7 +15,6 @@ import ProjectLocations from "../../../Map/components/ProjectLocations";
 import BaseMap from "../../../Map/components/BaseMap";
 import SideNav from "../../../Map/components/SideNav";
 import { mapSelectors } from "../../../../redux/modules/map";
-import { mapProjectActions } from "../../../../redux/modules/map/projects";
 import { showArchiveConfirm } from "../../../../Util";
 import ProjectComponentForm from "../Forms/components/projectComponentForm";
 import ProjectSubComponentForm from "../Forms/components/projectSubComponentForm";

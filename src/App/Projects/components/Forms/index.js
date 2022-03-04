@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import ProjectForm from './components/projectForm';
-import { projectActions, projectOperation, projectSelectors } from '../../../../redux/modules/projects';
+import { projectActions, projectSelectors } from '../../../../redux/modules/projects';
 import ProjectDetailsForm from "./components/projectDetailsForm";
 import { projectDetailsActions } from "../../../../redux/modules/projectDetails";
 import { projectSectorsActions } from "../../../../redux/modules/ProjectsSectors";

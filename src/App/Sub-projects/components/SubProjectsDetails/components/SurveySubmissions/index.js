@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Drawer, Table, Image, Button, Select, Form, Alert,notification} from "antd";
+import {Drawer, Table, Image, Button, Select, Form,notification} from "antd";
 import PropTypes from 'prop-types';
 import API from "../../../../../../API";
 import {isoDateToHumanReadableDate, stringToGeoJson} from "../../../../../../Util";
