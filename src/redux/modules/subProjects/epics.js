@@ -20,6 +20,27 @@ const getsubProjectsEpic = action$ => {
     )
 };
 
+/**
+ * @function
+ * @name createSubProjectEpic
+ * @param action$
+ * @return action$
+ */
+ const createSubProjectEpic = action$ => {
+    return action$.pipe(
+        ofType(types.CREATE_SUB_PROJECT_START),
+        switchMap(({payload}) => {
+            return from(API.createSubProject(payload))
+                .pipe(
+                    switchMap(res => {
+                        return of(actions.createSubProjectSuccess(res))
+                    }),
+                    catchError(error => of(actions.createSubProjectFailure(error)))
+                )
+        }),
+    )
+}
+
 
 /**
  * @function
@@ -42,6 +63,39 @@ const updateSubProjectEpic = action$ => {
     )
 }
 
+/**
+ * @function
+ * @name getSubProjectEpic
+ * @param action$
+ * @return action$
+ */
+ export const getSubProjectEpic = action$ => {
+    return action$.pipe(
+        ofType(types.GET_SUB_PROJECT_START),
+        switchMap(({payload}) => {
+            return from(API.getSubProject(payload)).pipe(
+                switchMap(res => {
+                    return of(actions.getSubProjectSuccess(res.data))
+                }),
+                catchError(error => of(actions.getSubProjectFailure(error)))
+            );
+        }),
+    )
+};
+
+const deleteSubProjectEpic = action$ => {
+    return action$.pipe(
+        ofType(types.DELETE_SUB_PROJECT_START),
+        switchMap(({payload}) => {
+            return from(API.deleteSubProject(payload)).pipe(
+                switchMap(res => {
+                    return of(actions.deleteSubProjectSuccess(res))
+                }),
+            )
+        }),
+        catchError(error => of(actions.deleteSubProjectFailure(error)))
+    );
+}
 /**
  * @function
  * @name getSubProjectItemsEpic
@@ -125,11 +179,16 @@ const uploadPhotoEpic = action$ => {
     )
 }
 
+
+
 export const subProjectsEpic = combineEpics(
     getsubProjectsEpic,
+    getSubProjectEpic,
     getSubProjectItemsEpic,
     createSubProjectItemEpic,
     getSubProjectEquipmentsEpic,
     updateSubProjectEpic,
-    uploadPhotoEpic
+    uploadPhotoEpic,
+    deleteSubProjectEpic,
+    createSubProjectEpic
 )

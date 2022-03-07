@@ -31,7 +31,7 @@ const wrapperCol = {
 
 function SubProjectForm({ createSubProject, selected, procuringEntityPackage, closeSubProjectForm, }) {
 
-
+      /* eslint-disable no-unused-vars */
     const [status, setStatus] = useState([]);
     const [units, setUnits] = useState([]);
     const [types, setTypes] = useState([]);

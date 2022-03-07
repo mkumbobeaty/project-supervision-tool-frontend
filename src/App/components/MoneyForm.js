@@ -9,13 +9,14 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
     const prevVisibleRef = useRef();
     useEffect(() => {
         prevVisibleRef.current = visible;
-    }, [visible]);
+    }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
+
     const prevVisible = prevVisibleRef.current;
     useEffect(() => {
         if (!visible && prevVisible) {
             form.resetFields();
         }
-    }, [visible]);
+    }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 };
 
 const MoneyForm = ({ visible, onCancel, currency, handleSetMoneyId, formName, formTitle, isEditForm, selected }) => {

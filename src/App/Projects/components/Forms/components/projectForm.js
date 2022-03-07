@@ -6,7 +6,6 @@ import {
     Form, Input, Button, Row, Col, Select,
     DatePicker,
 } from 'antd';
-import RegionLocationForm from "../../../../components/RegionLocationForm";
 import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
 import { bindActionCreators } from "redux";
 import { projectDetailsActions, projectDetailsSelectors } from '../../../../../redux/modules/projectDetails';
@@ -15,6 +14,7 @@ import CommitmentAmountForm from "./CommitmentAmountForm";
 import TotalProjectCostForm from "./TotalProjectCostForm";
 import { usersActions, usersSelectors } from '../../../../../redux/modules/users';
 import TypographyComponent from '../../../../components/Typography';
+import { useToggle } from '../../../../../hooks/useToggle';
 /* ui */
 const labelCol = {
     xs: { span: 24 },
@@ -64,14 +64,15 @@ function ProjectForm({
     isEditForm,
     updateProject,
 }) {
-    const [visible, setVisible] = useState(false);
-    const [locations, setLocations] = useState([]);
+    const [visible, setVisible] = useToggle(false);
     const [visibleTotalProjectCost, setVisibleTotalProjectCost] = useState(false);
     const [VisibleCommitmentAmount, setVisibleCommitmentAmount] = useState(false);
     const [commitment_amount_id, setCommitmentAmount] = useState(null);
     const [total_project_cost_id, setTotalProjetCost] = useState(false);
 
     useEffect(() => {
+           // eslint-disable-next-line react-hooks/exhaustive-deps
+
         getProjectStatus();
         getBorrowers();
         getFundingOrgs();
@@ -81,11 +82,8 @@ function ProjectForm({
         getLayers();
         getCurrency();
         getUsers();
-    }, []);
+    }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
-    const hideUserModal = () => {
-        setVisible(false);
-    };
 
     const showTotalProjectCostModal = () => {
         setVisibleTotalProjectCost(true);
@@ -589,13 +587,6 @@ function ProjectForm({
                     isEditForm={isEditForm}
                     selected={selected}
 
-                />
-                <RegionLocationForm
-                    visible={visible}
-                    onCancel={hideUserModal}
-                    locations={locations}
-                    regions={regions}
-                    setLocations={setLocations}
                 />
             </Form.Provider>
         </>

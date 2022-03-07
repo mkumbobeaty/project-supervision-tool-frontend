@@ -43,7 +43,7 @@ function TicketForm({
 
     useEffect(() => {
         getAgencies();
-    }, [])
+    }, [])  // eslint-disable-line react-hooks/exhaustive-deps
 
     const onFinish = (values) => {
         const payload = {
@@ -67,11 +67,9 @@ function TicketForm({
                 project_id: selected?.project_id,
 
             }
-            debugger
             createSubProjectTicket(subProjectPayload)
         }
         else {
-            debugger
             createProjectTicket(payload);
         }
     };

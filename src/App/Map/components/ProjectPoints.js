@@ -1,4 +1,4 @@
-import { Popup, CircleMarker, Marker } from "react-leaflet";
+import { Popup, Marker } from "react-leaflet";
 import { divIcon } from 'leaflet';
 import React from "react";
 import PropTypes from 'prop-types';
@@ -51,7 +51,7 @@ function ProjectPoints({ projects, loading, getProject }) {
                     });
 
                     return (
-                        <>
+                        <div key={id}>
                             <Marker
                                 position={[geometry.coordinates[1], geometry.coordinates[0]]}
                                 title={region.name}
@@ -63,7 +63,7 @@ function ProjectPoints({ projects, loading, getProject }) {
                                 </Popup>
                             </Marker>
                             <Legend projects={projects} />
-                        </>
+                        </div>
 
                     );
                 }) : '';

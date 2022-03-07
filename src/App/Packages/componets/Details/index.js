@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { Col, Layout, Row, Spin } from "antd";
 import { ProcuringEntityActions, ProcuringEntitySelectors } from '../../../../redux/modules/ProcuringEntities';
 import { connect } from "react-redux";
-import { getAmount, getIdFromUrlPath, isoDateToHumanReadableDate } from '../../../../Util'
-import './styles.css';
+import { getAmount, getIdFromUrlPath } from '../../../../Util'
 import PackageHomeNavMenu from "../../../navigation/PackagesHome";
 import BaseLayout from "../../../layouts/BaseLayout";
 import DynamicBreadcrumbs from "../../../components/DynamicBreadcrumbs";
 import ProgressBar from '../../../components/Progress';
+import './styles.css';
+
 const { Content } = Layout;
 
 const columnSpan = { xxl: 6, xl: 6, lg: 6, md: 6, sm: 12, xs: 12 };
@@ -20,7 +21,7 @@ const PackageDetails = ({ match, procuringEntityPackage, getProcuringEntityPacka
     useEffect(() => {
         const id = getIdFromUrlPath(match.url, 6)
         getProcuringEntityPackage(id);
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const completed = procuringEntityPackage?.contract?.financial_progress || 0
     const remained = 100 - completed;

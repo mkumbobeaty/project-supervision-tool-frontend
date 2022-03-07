@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-    Form, Input, Button, Select,
+    Form, Input, Button,
 } from 'antd';
 import { projectActions, projectSelectors } from "../../../../../redux/modules/projects";
 /* ui */
@@ -57,7 +57,7 @@ function ProjectComponentForm({
             >
 
                 {/* start:component  */}
-                <Form.Item
+                {/* <Form.Item
                     label="Component"
                     name="project_component_id"
                     title="Component i.e Institutional Strengthening"
@@ -69,11 +69,11 @@ function ProjectComponentForm({
                     ]}
                 >
                     <Select showSearch optionFilterProp="children">
-                        {selected.components.map((component) => (
+                        {selected?.components.map((component) => (
                             <Select.Option key={component.id} value={component.id}>{component.name}</Select.Option>
                         ))}
                     </Select>
-                </Form.Item>
+                </Form.Item> */}
                 {/* end:Component */}
 
                 {/* start:project name */}
