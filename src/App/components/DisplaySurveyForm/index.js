@@ -30,5 +30,5 @@ function DisplaySurveyForm({ survey_id }) {
 export default DisplaySurveyForm;
 
 DisplaySurveyForm.propTypes = {
-    survey_id: PropTypes.string.isRequired
+    survey_id: PropTypes.string
 }

@@ -123,8 +123,6 @@ CustomList.propTypes = {
   headerLayout: PropTypes.arrayOf(PropTypes.shape({ header: PropTypes.string }))
     .isRequired,
   itemName: PropTypes.string.isRequired,
-  page: PropTypes.number.isRequired,
-  itemCount: PropTypes.number.isRequired,
   onPaginate: PropTypes.func,
   onRefresh: PropTypes.func.isRequired,
   onMapView: PropTypes.func.isRequired,

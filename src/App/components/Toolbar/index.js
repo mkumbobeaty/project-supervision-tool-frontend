@@ -133,8 +133,8 @@ const Toolbar = ({
 /* props validation */
 Toolbar.propTypes = {
   itemName: PropTypes.string.isRequired,
-  page: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  page: PropTypes.number,
+  total: PropTypes.number,
   exportUrl: PropTypes.string,
   selectedItemsCount: PropTypes.number.isRequired,
   onPaginate: PropTypes.func.isRequired,
