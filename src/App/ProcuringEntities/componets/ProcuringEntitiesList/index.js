@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { ProcuringEntityActions, ProcuringEntitySelectors } from '../../../../redux/modules/ProcuringEntities';
@@ -14,6 +14,7 @@ import { projectActions, projectSelectors } from "../../../../redux/modules/proj
 import ProcuringEntityForm from '../Form';
 import BaseLayout from '../../../layouts/BaseLayout';
 import DynamicBreadcrumbs from '../../../components/DynamicBreadcrumbs';
+import { useToggle } from '../../../../hooks/useToggle';
 import "./styles.css";
 
 
@@ -45,10 +46,11 @@ const ProcuringEntitiesList = ({
     project,
     match,
     getProject,
+    searchProcuring,
+    searchQuery
 }) => {
 
-    const [isEditForm, setIsEditForm] = useState(false);
-    const [visible, setVisible] = useState(false);
+    const { isEditForm, setIsEditForm, setVisible } = useToggle(false);
     const projectId = getIdFromUrlPath(match.path, 2);
     const filter = { 'filter[project_id]': projectId };
     const history = useHistory();
@@ -127,6 +129,18 @@ const ProcuringEntitiesList = ({
         openProcuringEntityForm();
     };
 
+    /**   
+ * @function
+ * @name handleSearch
+ * @description Handle list search action
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+    const handleSearch = (event) => {
+        searchProcuring(event.target.value)
+    };
+
     const breadcrumbs = project ? [
         {
             title: 'Projects',
@@ -155,7 +169,8 @@ const ProcuringEntitiesList = ({
                     search={{
                         size: "large",
                         placeholder: "Search for Procuring Entities here ...",
-                        onSearch: '',
+                        onChange: handleSearch,
+                        value: searchQuery
                     }}
                     actions={[
                         {
@@ -275,6 +290,8 @@ const mapStateToProps = (state) => {
         agencies: ProcuringEntitySelectors.getActorsSelector(state),
         projectSubComponents: projectSelectors.getProjectSubComponents(state),
         project: projectSelectors.getProjectSelector(state),
+        searchQuery: projectSelectors.searchQuery(state),
+
     }
 }
 
@@ -288,14 +305,15 @@ const mapDispatchToProps = {
     getProjectSubComponent: projectActions.getProjectSubComponentStart,
     createProcuringEntity: ProcuringEntityActions.createProcuringEntityStart,
     updateProcuringEntity: ProcuringEntityActions.updateProcuringEntityStart,
+    searchProcuring: ProcuringEntityActions.searchProcuring,
     getProject: projectActions.getProjectStart,
-    
+
 }
 
 ProcuringEntitiesList.propTypes = {
     getProcuringEntities: PropTypes.func.isRequired,
     procuringEntities: PropTypes.array,
-    project: PropTypes.object.isRequired,
+    project: PropTypes.object,
     loading: PropTypes.bool.isRequired,
     openProcuringEntityForm: PropTypes.func.isRequired,
     closeProcuringEntityForm: PropTypes.func.isRequired,
@@ -308,7 +326,7 @@ ProcuringEntitiesList.defaultProps = {
     procuringEntities: [],
     loading: null,
     isEditForm: null,
-    showForm: null
+    showForm: null,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProcuringEntitiesList);
