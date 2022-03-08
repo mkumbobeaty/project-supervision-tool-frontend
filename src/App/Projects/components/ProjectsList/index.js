@@ -88,7 +88,7 @@ const ProjectsList  = (
   ) =>  {
   // eslint-disable-next-line react/state-in-constructor
 
-  const [ isEditForm, setIsEditForm, previewOnMap, setVisible ] = useToggle(false);
+  const { isEditForm, setIsEditForm, previewOnMap, setVisible } = useToggle(false);
   const history = useHistory();
 
   useEffect(() => {
