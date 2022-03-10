@@ -22,6 +22,14 @@ export const selectedProcuringEntity = (state) => state?.procuringEntityResource
 
 /**
  * @function
+ * @name searchQuery
+ * @param {Object} state redux state
+ * @return {Object} 
+ */
+ export const searchQuery = (state) => state?.procuringEntityResource?.search.data;
+
+/**
+ * @function
  * @name getProcuringEntitySelector
  * @param {Object} state redux state
  */

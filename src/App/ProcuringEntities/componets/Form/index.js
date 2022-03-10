@@ -152,7 +152,7 @@ ProcuringEntityForm.propTypes = {
     handleAfterSubmit: PropTypes.func.isRequired,
     getProjects: PropTypes.func.isRequired,
     loading: PropTypes.bool,
-    isEditForm: PropTypes.bool.isRequired,
+    isEditForm: PropTypes.bool,
     selected: PropTypes.object,
     projectSubComponents: PropTypes.array.isRequired,
     projects: PropTypes.array.isRequired,

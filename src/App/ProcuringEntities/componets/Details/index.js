@@ -41,7 +41,6 @@ const ProcuringEntityDetails = ({ match, procuringEntity, getProcuringEntity, lo
             name: `${procuringEntity.agency.name}`
         }
     ] : [];
-    console.log(loading)
 
     return procuringEntity ? (
         

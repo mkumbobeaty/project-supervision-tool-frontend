@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {projectActions, projectOperation, projectSelectors} from '../../../../redux/modules/projects';
 import {Col, Drawer} from "antd";
 import {PlusOutlined} from "@ant-design/icons";
 import PropTypes from "prop-types";
@@ -517,28 +516,14 @@ class SubProjectsList extends Component {
     }
 }
 
-SubProjectsList.propTypes = {
-    loading: PropTypes.bool.isRequired,
-    projects: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string}))
-        .isRequired,
-    page: PropTypes.number.isRequired,
-    searchQuery: PropTypes.string,
-    total: PropTypes.number.isRequired,
-};
-
-SubProjectsList.defaultProps = {
-    projects: null,
-    searchQuery: undefined,
-    loading: null,
-};
 
 const mapStateToProps = (state) => {
     return {
         subProjects: subProjectsSelectors.getSubProjectsSelector(state),
         loading: subProjectsSelectors.getSubProjectsLoadingSelector(state),
-        showForm: projectSelectors.getSubProjectShowFormSelector(state),
-        showSurveyForm: projectSelectors.getShowSurveyFormSelector(state),
-        showCreateSurveyForm: projectSelectors.getShowCreateSurveyFormSelector(state),
+        showForm: subProjectsSelectors.getSubProjectShowFormSelector(state),
+        showSurveyForm: subProjectsSelectors.getShowSurveyFormSelector(state),
+        showCreateSurveyForm: subProjectsSelectors.getShowCreateSurveyFormSelector(state),
         page: subProjectsSelectors.getSubProjectsPageSelector(state),
         total: subProjectsSelectors.getSubProjectsTotalSelector(state),
         selected: subProjectsSelectors.selectedSubProject(state),
@@ -550,20 +535,20 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
     fetchSubProjects: bindActionCreators(subProjectsActions.getSubProjectsStart, dispatch),
-    deleteSubproject: bindActionCreators(projectOperation.deleteSubProjectStart, dispatch),
+    deleteSubproject: bindActionCreators(subProjectsActions.deleteSubProjectStart, dispatch),
     paginateSubProject(page) {
         dispatch(subProjectsActions.getSubProjectsStart({page}));
     },
     searchSubProject(searchQuery) {
         dispatch(subProjectsActions.getSubProjectsStart({searchQuery}));
     },
-    getSubProject: bindActionCreators(projectActions.getSubProjectStart, dispatch),
-    openSubProjectForm: bindActionCreators(projectActions.openSubProjectForm, dispatch),
-    openCreateSurveyForm: bindActionCreators(projectActions.openSubProjectSurveyForm, dispatch),
-    closeCreateSurveyForm: bindActionCreators(projectActions.closeSubProjectSurveyForm, dispatch),
-    openSurveyForm: bindActionCreators(projectActions.openSurveyForm, dispatch),
-    closeSurveyForm: bindActionCreators(projectActions.closeSurveyForm, dispatch),
-    closeSubProjectForm: bindActionCreators(projectActions.closeSubProjectForm, dispatch),
+    getSubProject: bindActionCreators(subProjectsActions.getSubProjectStart, dispatch),
+    openSubProjectForm: bindActionCreators(subProjectsActions.openSubProjectForm, dispatch),
+    openCreateSurveyForm: bindActionCreators(subProjectsActions.openSubProjectSurveyForm, dispatch),
+    closeCreateSurveyForm: bindActionCreators(subProjectsActions.closeSubProjectSurveyForm, dispatch),
+    openSurveyForm: bindActionCreators(subProjectsActions.openSurveyForm, dispatch),
+    closeSurveyForm: bindActionCreators(subProjectsActions.closeSurveyForm, dispatch),
+    closeSubProjectForm: bindActionCreators(subProjectsActions.closeSubProjectForm, dispatch),
     selectSubProject: bindActionCreators(subProjectsActions.selectedSubProject, dispatch),
     getWfsLayerData: bindActionCreators(mapActions.getWfsLayerDataStart, dispatch),
     openTicketForm: bindActionCreators(ticketActions.openTicketForm, dispatch),
@@ -575,3 +560,18 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(mapStateToProps, mapDispatchToProps)(SubProjectsList);
 
 
+
+SubProjectsList.propTypes = {
+    loading: PropTypes.bool.isRequired,
+    subProjects: PropTypes.arrayOf(PropTypes.shape({name: PropTypes.string}))
+        .isRequired,
+    page: PropTypes.number,
+    searchQuery: PropTypes.string,
+    total: PropTypes.number,
+};
+
+SubProjectsList.defaultProps = {
+    subProjects: [],
+    searchQuery: undefined,
+    loading: null,
+};

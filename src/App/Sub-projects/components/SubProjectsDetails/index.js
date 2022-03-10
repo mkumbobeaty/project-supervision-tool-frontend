@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
 import { Layout, Spin, Tabs } from 'antd';
 import { connect } from "react-redux";
-import { projectOperation, projectSelectors } from "../../../../redux/modules/projects";
 import { mapActions, mapSelectors } from "../../../../redux/modules/map";
 import OverviewDetails from "./components/OverviewDetails";
 import * as appPermissions from '../../../../Util/permissions';
 import FieldNotes from "./components/FieldNotes";
 import FieldImages from "./components/FieldImages";
 import { authSelectors } from "../../../../redux/modules/auth";
-
-import "./styles.css";
 import {getIdFromUrlPath} from "../../../../Util";
 import BaseLayout from "../../../layouts/BaseLayout";
 import DynamicBreadcrumbs from "../../../components/DynamicBreadcrumbs";
+import { subProjectsActions, subProjectsSelectors } from "../../../../redux/modules/subProjects";
+import "./styles.css";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -105,8 +104,8 @@ function SubProjectDetails({ getSubProject, match, sub_project, loading, mapLoad
 }
 const mapStateToProps = (state) => {
   return {
-    sub_project: projectSelectors.getSubProjectSelector(state),
-    loading: projectSelectors.getSubProjectLoadingSelector(state),
+    sub_project: subProjectsSelectors.getSubProjectSelector(state),
+    loading: subProjectsSelectors.getSubProjectLoadingSelector(state),
     mapLoading: mapSelectors.getMapLoadingSelector(state),
     permissions: authSelectors.authUserPermissionsSelector(state),
 
@@ -114,7 +113,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  getSubProject: projectOperation.getSubProjectStart,
+  getSubProject: subProjectsActions.getSubProjectStart,
   getWfsLayerData: mapActions.getWfsLayerDataStart,
 };
 

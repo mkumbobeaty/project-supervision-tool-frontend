@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from "react-redux";
 import { ProcuringEntityActions, ProcuringEntitySelectors, } from '../../../../redux/modules/ProcuringEntities';
 import PropTypes from 'prop-types';
@@ -14,6 +14,7 @@ import {useHistory} from "react-router-dom";
 import BaseLayout from "../../../layouts/BaseLayout";
 import DynamicBreadcrumbs from "../../../components/DynamicBreadcrumbs";
 import "./styles.css";
+import { useToggle } from '../../../../hooks/useToggle';
 
 /* constants */
 const nameSpan = { xxl: 4, xl: 4, lg: 4, md: 4, sm: 19, xs: 19 };
@@ -52,8 +53,7 @@ const PackagesList = ({
 
 
     const history = useHistory();
-    const [isEditForm, setIsEditForm] = useState(false);
-    const [visible, setVisible] = useState(false);
+    const { isEditForm, setIsEditForm, setVisible } = useToggle(false);
     const procuringEntityId = getIdFromUrlPath(match.path, 4);
     const filter = {'filter[procuring_entity_id]': procuringEntityId}
 
@@ -306,7 +306,7 @@ const mapDispatchToProps = {
 PackagesList.propTypes = {
     getPackage: PropTypes.func.isRequired,
     packages: PropTypes.array.isRequired,
-    procuringEntity: PropTypes.object.isRequired,
+    procuringEntity: PropTypes.object,
     loading: PropTypes.bool.isRequired,
     openPackageForm: PropTypes.func.isRequired,
     closePackageForm: PropTypes.func.isRequired,
