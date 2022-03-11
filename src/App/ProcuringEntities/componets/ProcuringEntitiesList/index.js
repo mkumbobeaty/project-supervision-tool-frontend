@@ -46,8 +46,9 @@ const ProcuringEntitiesList = ({
     project,
     match,
     getProject,
+    searchProcuring,
+    searchQuery
 }) => {
-
 
     const { isEditForm, setIsEditForm, setVisible } = useToggle(false);
     const projectId = getIdFromUrlPath(match.path, 2);
@@ -128,6 +129,18 @@ const ProcuringEntitiesList = ({
         openProcuringEntityForm();
     };
 
+    /**   
+ * @function
+ * @name handleSearch
+ * @description Handle list search action
+ *
+ * @version 0.1.0
+ * @since 0.1.0
+ */
+    const handleSearch = (event) => {
+        searchProcuring(event.target.value)
+    };
+
     const breadcrumbs = project ? [
         {
             title: 'Projects',
@@ -156,7 +169,8 @@ const ProcuringEntitiesList = ({
                     search={{
                         size: "large",
                         placeholder: "Search for Procuring Entities here ...",
-                        onSearch: '',
+                        onChange: handleSearch,
+                        value: searchQuery
                     }}
                     actions={[
                         {
@@ -276,6 +290,8 @@ const mapStateToProps = (state) => {
         agencies: ProcuringEntitySelectors.getActorsSelector(state),
         projectSubComponents: projectSelectors.getProjectSubComponents(state),
         project: projectSelectors.getProjectSelector(state),
+        searchQuery: projectSelectors.searchQuery(state),
+
     }
 }
 
@@ -289,8 +305,9 @@ const mapDispatchToProps = {
     getProjectSubComponent: projectActions.getProjectSubComponentStart,
     createProcuringEntity: ProcuringEntityActions.createProcuringEntityStart,
     updateProcuringEntity: ProcuringEntityActions.updateProcuringEntityStart,
+    searchProcuring: ProcuringEntityActions.searchProcuring,
     getProject: projectActions.getProjectStart,
-    
+
 }
 
 ProcuringEntitiesList.propTypes = {

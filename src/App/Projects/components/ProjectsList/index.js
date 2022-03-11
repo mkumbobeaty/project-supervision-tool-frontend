@@ -73,6 +73,7 @@ const ProjectsList  = (
   deleteProject,
   showComponentForm,
   showSubComponentForm,
+  
   getProject,
   openProjectForm,
   selectProject,

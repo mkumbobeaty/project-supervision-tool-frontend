@@ -64,7 +64,7 @@ function ProjectForm({
     isEditForm,
     updateProject,
 }) {
-    const { setVisible } = useToggle(false);
+    const { setVisible }= useToggle(false);
     const [visibleTotalProjectCost, setVisibleTotalProjectCost] = useState(false);
     const [VisibleCommitmentAmount, setVisibleCommitmentAmount] = useState(false);
     const [commitment_amount_id, setCommitmentAmount] = useState(null);
