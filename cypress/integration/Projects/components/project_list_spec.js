@@ -1,12 +1,17 @@
 describe('Projects', () => {
 
-    beforeEach(() => {
-        cy.visit('http://localhost:3000/#!/projects')
+    before(() => {
+        cy.visit('http://localhost:3000/')
         cy.get('#email').type('testing@project-supervision-tool.com');
         cy.get('#password').type('Pass@Tool');
+        cy.intercept('GET', '/api/v1/projects', {fixture: 'Projects/projects_200.json'}).as('projects');
         cy.get('button[type=submit]').should('exist').should('contain', 'Log In').click();
     });
 
+    it('should show loader before rendering projects', () => {
+        cy.get('.ant-spin-spinning').should('have.css', 'font-size', '14px')
+    }) 
+    
     it('should render the top navigation bar', () => {
         cy.get('.Breadcrumb a').should('contain', 'Projects');
         cy.get('.UserMenu').should('be.visible').as('userIcon')
@@ -20,5 +25,8 @@ describe('Projects', () => {
         cy.get('.UserProfileMenu > li').should('not.be.visible');
 
     });
+
+  
+
 
 })
