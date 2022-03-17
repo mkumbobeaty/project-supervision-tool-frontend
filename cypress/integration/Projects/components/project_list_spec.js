@@ -25,15 +25,18 @@ describe('Projects', () => {
 
     });
 
-    it('should display list of project(s) if there is any', () => {
+    it.only('should display list of project(s) if there is any', () => {
         cy.get('.List .ListHeader > div').should(($div) => { expect($div).to.have.length(9) });
         cy.get('.List ul > div').should(($item) => { expect($item).to.have.length(3) });
-        cy.get('.ListItem > div').should('contain', 'Dar es Salaam Metropolitan Development Project')
-         .and('contain', 'P123134')
-         .and('contain','DMDP')
-         .and('contain','active')
+        cy.get('.ListItem > div').then( listitem => {
+            expect(listitem[0]).to.contain('Dar es Salaam Metropolitan Development Project', 'P123134', 'DMDP')
+            expect(listitem[2]).to.contain( 'P165128', 'BIGZ')
+            expect(listitem[4]).to.contain('Tanzania Cities Transforming Infrastructure & Competitiveness Project')
 
-    })
+        })         
+
+    });
+
 
 
 
