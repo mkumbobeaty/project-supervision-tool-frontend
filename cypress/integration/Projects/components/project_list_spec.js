@@ -26,10 +26,12 @@ describe('Projects', () => {
     });
 
     it('should display list of project(s) if there is any', () => {
-        cy.get('.List .ListHeader > div').should(($div) => {
-            expect($div).to.have.length(9);
-        });
-
+        cy.get('.List .ListHeader > div').should(($div) => { expect($div).to.have.length(9) });
+        cy.get('.List ul > div').should(($item) => { expect($item).to.have.length(3) });
+        cy.get('.ListItem > div').should('contain', 'Dar es Salaam Metropolitan Development Project')
+         .and('contain', 'P123134')
+         .and('contain','DMDP')
+         .and('contain','active')
 
     })
 
