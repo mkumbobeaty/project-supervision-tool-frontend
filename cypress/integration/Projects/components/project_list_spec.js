@@ -1,6 +1,6 @@
 describe('Projects', () => {
 
-    beforeEach(() => {
+    before(() => {
         cy.visit('http://localhost:3000/')
         cy.get('#email').type('testing@project-supervision-tool.com');
         cy.get('#password').type('Pass@Tool');
@@ -41,8 +41,7 @@ describe('Projects', () => {
 
     });
 
-
-    it.only('search projects successful', () => {
+    it('search projects successful', () => {
         cy.get('.TopbarSearch').should('be.visible')
         cy.intercept('GET', '/api/v1/projects?filter[name]=d', { fixture: 'Projects/search_projects.json' })
         cy.get('[data-cy=search]').type('d{enter}').get('.ListItem > div').then(listitem => {
@@ -53,15 +52,25 @@ describe('Projects', () => {
         cy.intercept('GET', '/api/v1/projects?filter[name]=da', { fixture: 'Projects/search_project_200.json' })
         cy.intercept('GET', '/api/v1/projects?filter[name]=dar', { fixture: 'Projects/search_project_200.json' })
         cy.get('[data-cy=search]').type('ar{enter}').get('.ListItem > div').then(listitem => {
-                expect(listitem[0]).to.contain('Dar es Salaam Metropolitan Development Project')
-            });
-    })  
+            expect(listitem[0]).to.contain('Dar es Salaam Metropolitan Development Project')
+        });
 
-    // it('should cancel search successful', () => {
-    //     cy.get('span[role=button]').should('be.visible').as('cancel')
-    //     cy.intercept('GET', '/api/v1/projects?filter[name]=', { fixture: 'Projects/projects_200.json' })
-    //     cy.get('@cancel')
-    // })
+    });
 
+    it('should cancel search successful and return all projects', () => {
+        cy.intercept('GET', '/api/v1/projects?filter[name]=', { fixture: 'Projects/projects_200.json' })
+        cy.get('span[role=button]').should('be.visible').click()
+        cy.get('.ListItem > div').should(($itemList) => {
+            expect($itemList[0]).to.contain('Dar es Salaam Metropolitan Development Project', 'P123134', 'DMDP')
+            expect($itemList[2]).to.contain('P165128', 'BIGZ')
+            expect($itemList[4]).to.contain('Tanzania Cities Transforming Infrastructure & Competitiveness Project')
+
+        });
+    });
+
+    it('should display no data if search is not matched', () => {
+        cy.intercept('GET', '/api/v1/projects?filter[name]=omm', { fixture: 'Projects/search_no_result.json' })
+        cy.get('[data-cy=search]').type('omm{enter}').get('.ant-empty-description').should('contain', 'No Data')
+    });
 
 })
