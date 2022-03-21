@@ -4,8 +4,9 @@ describe('Projects', () => {
         cy.visit('http://localhost:3000/')
         cy.get('#email').type('testing@project-supervision-tool.com');
         cy.get('#password').type('Pass@Tool');
-        cy.intercept('GET', '/api/v1/projects', { fixture: 'Projects/projects_200.json' }).as('projects');
+        cy.intercept('GET', '/api/v1/projects', { fixture: 'Projects/projects_200.json' })
         cy.get('button[type=submit]').should('exist').should('contain', 'Log In').click();
+
     });
 
     // beforeEach(() => {
@@ -41,6 +42,7 @@ describe('Projects', () => {
 
     });
 
+
     it('search projects successful', () => {
         cy.get('.TopbarSearch').should('be.visible')
         cy.intercept('GET', '/api/v1/projects?filter[name]=d', { fixture: 'Projects/search_projects.json' })
@@ -69,8 +71,14 @@ describe('Projects', () => {
     });
 
     it('should display no data if search is not matched', () => {
-        cy.intercept('GET', '/api/v1/projects?filter[name]=omm', { fixture: 'Projects/search_no_result.json' })
+        cy.intercept('GET', '/api/v1/projects?filter[name]=omm', { fixture: 'Projects/projects_no_result.json' })
         cy.get('[data-cy=search]').type('omm{enter}').get('.ant-empty-description').should('contain', 'No Data')
+    });
+
+    it('should show no data when project is empty', () => {
+        cy.intercept('GET', '/api/v1/projects', { fixture: 'Projects/projects_no_result.json' })
+        cy.get('.ant-empty-description').should('contain', 'No Data')
+
     });
 
 })
