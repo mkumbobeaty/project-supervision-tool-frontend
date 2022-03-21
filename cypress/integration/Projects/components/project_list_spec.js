@@ -1,12 +1,7 @@
 describe('Projects', () => {
 
     before(() => {
-        cy.visit('http://localhost:3000/')
-        cy.get('#email').type('testing@project-supervision-tool.com');
-        cy.get('#password').type('Pass@Tool');
-        cy.intercept('GET', '/api/v1/projects', { fixture: 'Projects/projects_200.json' })
-        cy.get('button[type=submit]').should('exist').should('contain', 'Log In').click();
-
+        cy.Signin('testing@project-supervision-tool.com', 'Pass@Tool')
     });
 
     // beforeEach(() => {
