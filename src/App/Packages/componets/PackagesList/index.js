@@ -172,15 +172,6 @@ const PackagesList = ({
                         placeholder: "Search for Packages here ...",
                         onSearch: '',
                     }}
-                    actions={[
-                        {
-                            label: "New Package",
-                            icon: <PlusOutlined />,
-                            size: "large",
-                            title: "Add New Package",
-                            onClick: handleOpenPackageForm,
-                        },
-                    ]}
                 />
                 {/* end Topbar */}
 
@@ -202,17 +193,6 @@ const PackagesList = ({
                             item={item}
                             renderActions={() => (
                                 <ListItemActions
-                                    edit={{
-                                        name: "Edit Package",
-                                        title: "Update Package details",
-                                        onClick: () => handleEdit(item),
-                                    }}
-                                    archive={{
-                                        name: "Archive Package",
-                                        title:
-                                            "Remove Sub project from list of active Package",
-                                        onClick: () => showArchiveConfirm(item, deletePackage),
-                                    }}
                                     view={
                                         {
                                             name: "View Details",
