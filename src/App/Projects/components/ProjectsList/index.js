@@ -296,27 +296,9 @@ const handleViewMap = () => {
                         "Remove project from list of active Projects",
                       onClick: () => showArchiveConfirm(item, deleteProject),
                     }}
-                    component={{
-                      name: "Add Component",
-                      title:
-                        "Add component to the project",
-                      onClick: () => 
-                      openForm(item,selectProject,openProjectComponent),
-                    }}
-                    subComponent={{
-                      name: "Add sub Component",
-                      title:
-                        "Add sub component to the project",
-                      onClick: () => 
-                      openForm(item, selectProject,openProjectSubComponent),
-                    }}
-                    openIssues={{
-                      name: "Create New Ticket",
-                      title:
-                        "Open Ticket to the project",
-                      onClick: () => 
-                      openForm(item,selectProject,openTicketForm),
-                    }}
+                    
+                    
+                    
                     view={
                       {
                         name: "View Detail",
