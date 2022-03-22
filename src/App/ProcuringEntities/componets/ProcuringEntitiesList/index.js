@@ -172,15 +172,7 @@ const ProcuringEntitiesList = ({
                         onChange: handleSearch,
                         value: searchQuery
                     }}
-                    actions={[
-                        {
-                            label: "New Procuring Entity",
-                            icon: <PlusOutlined />,
-                            size: "large",
-                            title: "Add New Procuring Entity",
-                            onClick: handleOpenProcuringEntityForm,
-                        },
-                    ]}
+                    
                 />
                 {/* end Topbar */}
 
@@ -202,17 +194,6 @@ const ProcuringEntitiesList = ({
                             item={item}
                             renderActions={() => (
                                 <ListItemActions
-                                    edit={{
-                                        name: "Edit Procuring Entity",
-                                        title: "Update Procuring Entity details",
-                                        onClick: () => handleEdit(item),
-                                    }}
-                                    archive={{
-                                        name: "Archive Procuring Entity",
-                                        title:
-                                            "Remove Sub project from list of active Procuring Entity",
-                                        onClick: () => showArchiveConfirm(item, deleteProcuringEntity),
-                                    }}
                                     view={
                                         {
                                             name: "View Details",
