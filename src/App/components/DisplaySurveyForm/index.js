@@ -23,6 +23,7 @@ function DisplaySurveyForm({ survey_id }) {
         <iframe
             src={survey?.deployment__links?.iframe_url}
             style={{width: '100%', height: '88vh', border: 'none'}}
+            title={survey?.name}
         />
     );
 }
