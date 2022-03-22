@@ -1,14 +1,13 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import {Col, Drawer} from "antd";
-import {PlusOutlined} from "@ant-design/icons";
 import PropTypes from "prop-types";
 import Topbar from "../../../components/Topbar";
 import CustomList from "../../../components/List";
 import ListItem from "../../../components/ListItem";
 import ListItemActions from "../../../components/ListItemActions";
 import {Link} from "react-router-dom";
-import {getIdFromUrlPath, getSurveyIdByCategory, showArchiveConfirm} from "../../../../Util";
+import {getIdFromUrlPath, getSurveyIdByCategory} from "../../../../Util";
 import SubProjectForm from "../Form";
 import {subProjectsActions, subProjectsSelectors} from "../../../../redux/modules/subProjects"
 import {bindActionCreators} from "redux";
@@ -287,7 +286,6 @@ class SubProjectsList extends Component {
             showCreateSurveyForm,
             closeSurveyForm,
             selected,
-            deleteSubproject,
             procuringEntityPackage
         } = this.props;
         
