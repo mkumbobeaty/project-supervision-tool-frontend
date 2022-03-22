@@ -344,15 +344,6 @@ class SubProjectsList extends Component {
                             onSearch: this.searchSubProject,
                             value: searchQuery
                         }}
-                        actions={[
-                            {
-                                label: "New Sub-project",
-                                icon: <PlusOutlined/>,
-                                size: "large",
-                                title: "Add New Sub-project",
-                                onClick: this.openSubProjectForm,
-                            },
-                        ]}
                     />
                     {/* end Topbar */}
 
@@ -377,17 +368,6 @@ class SubProjectsList extends Component {
                                 item={item}
                                 renderActions={() => (
                                     <ListItemActions
-                                        edit={{
-                                            name: "Edit Sub-project",
-                                            title: "Update Sub-project details",
-                                            onClick: () => this.handleEdit(item),
-                                        }}
-                                        archive={{
-                                            name: "Archive Sub-project",
-                                            title:
-                                                "Remove Sub project from list of active Sub Projects",
-                                            onClick: () => showArchiveConfirm(item, deleteSubproject),
-                                        }}
                                         view={
                                             {
                                                 name: "View Details",
@@ -395,19 +375,6 @@ class SubProjectsList extends Component {
                                                 onClick: () => this.handleViewDetails(item.id)
                                             }
                                         }
-                                        createSurvey={
-                                            {
-                                                name: "Create Survey",
-                                                title: "Create sub project survey",
-                                                onClick: () => this.openSubProjectSurveyForm(item)
-                                            }
-                                        }
-                                        openIssues={{
-                                            name: "Create New Ticket",
-                                            title:
-                                                "Open Ticket to the this sub project",
-                                            onClick: () => this.openIssueForm(item),
-                                        }}
                                     />
                                 )}
                             >
