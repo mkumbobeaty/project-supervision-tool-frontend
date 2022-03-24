@@ -110,9 +110,9 @@ code {
       margin-top: 0 !important;
     }
   }
-  @media screen and (min-width: 375px) {
+  @media screen and (min-width: 360px) {
     .SignIn .ant-form {
-      width: 350px !important;
+      width: 335px !important;
     }
     .SignIn h5 {
       padding-top: 20px !important;
@@ -126,3 +126,4 @@ code {
     width: 70% !important;
   }
 }
+
