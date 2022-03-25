@@ -32,7 +32,7 @@
   }
 
   .contentEllipse {
-    padding: 8px;
+    padding-left: 10px;
   }
 
   .project-layout h3, .sub-project-layout h3 {
@@ -48,7 +48,7 @@
 @media screen and (max-width: 360px) {
 
   .contentEllipse {
-    padding: 8px;
+    padding-left: 8px;
   }
 
   .project-layout h3, .sub-project-layout h3 {
