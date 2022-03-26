@@ -18,8 +18,8 @@ import "./styles.css";
 
 
 /* constants */
-const nameSpan = { xxl: 10, xl: 10, lg: 10, md: 10, sm: 10, xs: 10 };
-const packageSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 11, xs: 11 };
+const nameSpan = { xxl: 10, xl: 10, lg: 10, md: 10, sm: 20, xs: 20 };
+const packageSpan = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 0, xs: 0};
 
 const headerLayout = [
     { ...nameSpan, header: "Name" },
@@ -177,7 +177,7 @@ const ProcuringEntitiesList = ({
                         >
                             {/* eslint-disable react/jsx-props-no-spreading */}
 
-                            <Col {...nameSpan} >
+                            <Col {...nameSpan} className="contentEllipse" >
                                 {item?.agency?.name ? item?.agency?.name : 'N/A'}
                             </Col>
 
