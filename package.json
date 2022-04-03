@@ -43,7 +43,7 @@
     "xml-js": "^1.6.11"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "BROWSER='google chrome' BROWSER_ARGS='--remote-debugging-port=9222' react-scripts start",
     "cypress:open": "cypress open",
     "commit": "cz",
     "build": "react-scripts build",
