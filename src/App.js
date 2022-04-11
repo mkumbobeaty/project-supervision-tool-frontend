@@ -11,6 +11,7 @@ import { appActions } from './redux/modules/app';
 import PrivateRoute from "./App/Auth/PrivateRoute";
 import MapDashboard from "./App/Map";
 import Projects from './App/Projects';
+import AppLayout from './App/layouts/appLayout';
 
 Spin.setDefaultIndicator(<LoadingOutlined style={{ fontSize: 24 }} spin />);
 function App(props) {
@@ -30,6 +31,7 @@ function App(props) {
                     <Route path="/app" component={BaseLayout} />
                     <PrivateRoute path="/map" component={props => <MapDashboard {...props} />} />
                     <PrivateRoute path="/projects" component={props => <Projects {...props} />} />
+                    <PrivateRoute path="/overview" component={props => <AppLayout {...props} />} />
                     <Route path="/signin" component={SignIn} />
                     <Redirect to="/signin" />
                 </Switch>

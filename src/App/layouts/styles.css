@@ -2,6 +2,7 @@
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background: #fff;
 }
 
 .BaseLayoutHeader {
@@ -40,3 +41,36 @@
     padding: 10px;
   }
 }
+
+.logo {
+ font-size: 24px;
+ font-weight: bold;
+  color: #0f6788;
+  margin-left: 0.5rem;
+}
+
+.ant-row-rtl .logo {
+  float: right;
+  margin: 16px 0 16px 24px;
+}
+.header{
+  background: #fff;
+  border-bottom: 1px solid #dddddd;
+}
+
+.header-logo{
+  display: flex;
+
+}
+
+.header .TopbarSearch{
+  margin-top: 0.8rem;
+}
+
+.sider-layout .ant-menu.ant-menu-dark,
+.sider-layout .ant-menu-dark .ant-menu-inline.ant-menu-sub{
+  background: #f0f2f5
+
+}
+
+
