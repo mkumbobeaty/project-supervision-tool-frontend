@@ -21,6 +21,7 @@ const PrivateRoute = (properties) => {
     if (localStorage.getItem('accessToken')) {
         return true;
     }
+    debugger
     return false;
 } 
 
