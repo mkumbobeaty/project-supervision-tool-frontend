@@ -17,7 +17,7 @@
 
 .BaseLayoutContent {
   background-color: #fff;
-  overflow-y: auto;
+  overflow-y: hidden;
   overflow-x: hidden;
 }
 
@@ -66,9 +66,7 @@
 .header .TopbarSearch {
   margin-top: 0.8rem;
 }
-.sider-layout {
-  margin-block-start: 2rem;
-}
+
 .sider-layout .ant-menu.ant-menu-dark,
 .sider-layout .ant-menu-dark .ant-menu-inline.ant-menu-sub {
   background: #f5f5f5;
@@ -77,14 +75,13 @@
 .sider-layout .ant-menu-dark .ant-menu-item {
   margin: 0 !important;
 }
+
 .sider-layout .ant-menu-dark .ant-menu-item > a {
   color: #333;
 }
 
 .CustomizedIcon {
   background: #a8a8a8;
-  height: 4rem;
-  width: 4rem;
   padding: 6px 14px;
   margin-inline-end: 1.4em;
 }

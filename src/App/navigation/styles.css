@@ -31,3 +31,14 @@
   margin-left: 8px;
   border-radius: 50%;
 }
+
+.ProjectMenu{
+  padding-block-start: 2rem;
+}
+
+.ProjectMenu h3{
+  padding-inline-start: 24px;
+    font-weight: 600;
+    font-size: 16px;
+    padding-block-end: 1rem;
+}

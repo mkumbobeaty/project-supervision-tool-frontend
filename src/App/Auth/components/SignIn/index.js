@@ -21,7 +21,7 @@ const SignIn = ({accessToken, loading, login, errorMsg}) => {
     let history  = useHistory();
     useEffect(() => {
         if(accessToken){
-            history.push('/app');
+            history.push('/app/projects');
         }
 
     }, [accessToken]); // eslint-disable-line react-hooks/exhaustive-deps

@@ -11,14 +11,22 @@ import ProjectsList from "../Projects/components/ProjectsList";
 import MapDashboard from "../Map";
 import Dashboards from "../Dashboards";
 import Contracts from "../Contracts";
+import ProjectDetails from "../Projects/components/Project/ProjectDetails";
+import Procuring_entities from "../../API/procuring_entities";
+import ProcuringEntitiesList from "../ProcuringEntities/componets/ProcuringEntitiesList";
+import PackagesList from "../Packages/componets/PackagesList";
+import SubProjectsList from "../Sub-projects/components/SubProjectsList";
+import { projectSelectors } from "../../redux/modules/projects";
+import { connect } from "react-redux";
+import ProjectMenu from "../navigation/ProjectMenu";
 
 const { Header, Content, Sider } = Layout;
 const { Search } = Input;
 
-const AppLayout = ({ location, match: { url: baseUrl } }) => {
+const AppLayout = ({ location, match: { url: baseUrl }, project }) => {
   const [collapsed, setCollapse] = useState(false);
 
-  console.log(baseUrl);
+  console.log(project);
 
   const toggle = () => {
     setCollapse({
@@ -64,7 +72,7 @@ const AppLayout = ({ location, match: { url: baseUrl } }) => {
           <Menu
             mode="inline"
             defaultSelectedKeys={["1"]}
-            style={{ height: "100%", borderRight: 0 }}
+            style={{ height: "100%", borderRight: 0, paddingBlockStart:"2rem" }}
             theme="dark"
           >
             <Menu.Item>
@@ -83,7 +91,14 @@ const AppLayout = ({ location, match: { url: baseUrl } }) => {
               <span className="CustomizedIcon" />
               <Link to={`${baseUrl}/contractors`}>Contractors</Link>
             </Menu.Item>
+            <hr />
+            {project ? (
+            <ProjectMenu project={project} baseUrl={baseUrl} />
+          ) : (
+            <></>
+          )}
           </Menu>
+          
         </Sider>
         <Layout style={{ padding: "0 24px 24px" }} className="BaseLayout">
           <Breadcrumb style={{ margin: "16px 0" }}>
@@ -93,7 +108,6 @@ const AppLayout = ({ location, match: { url: baseUrl } }) => {
           </Breadcrumb>
           <Content
             style={{
-              padding: 24,
               margin: 0,
             }}
             className="BaseLayoutContent"
@@ -101,8 +115,27 @@ const AppLayout = ({ location, match: { url: baseUrl } }) => {
             <Switch>
               <PrivateRoute
                 path={`${baseUrl}/projects`}
-                component={ProjectsList}
+                component={({ match }) => <ProjectsList match={match} />}
               />
+              <PrivateRoute
+                path={`${baseUrl}/projects/:id`}
+                component={({ match }) => <ProjectDetails match={match} />}
+              />
+              <PrivateRoute
+                path={`${baseUrl}/projects/procuring-entity`}
+                component={({ match }) => (
+                  <ProcuringEntitiesList match={match} />
+                )}
+              />
+              <PrivateRoute
+                path={`${baseUrl}/projects/packages`}
+                component={({ match }) => <PackagesList match={match} />}
+              />
+              <PrivateRoute
+                path={`${baseUrl}/projects/sub-projects`}
+                component={({ match }) => <SubProjectsList match={match} />}
+              />
+
               <PrivateRoute path={`${baseUrl}/map`} component={MapDashboard} />
               <PrivateRoute
                 path={`${baseUrl}/dashboards`}
@@ -120,4 +153,10 @@ const AppLayout = ({ location, match: { url: baseUrl } }) => {
   );
 };
 
-export default AppLayout;
+const mapStateToProps = (state) => {
+  return {
+    project: projectSelectors.getProjectSelector(state),
+  };
+};
+
+export default connect(mapStateToProps)(AppLayout);
