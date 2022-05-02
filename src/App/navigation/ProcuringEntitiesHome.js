@@ -37,6 +37,13 @@ const routes = [
         description: modules.initiatives,
         disabled: true,
     },
+    {
+        name: 'Progress Reports',
+        path: '/reports',
+        icon: subProjectsDisabledIcon,
+        description: modules.initiatives,
+        disabled: true,
+    },
 ];
 
 /**
