@@ -55,9 +55,9 @@ const ListItemActions = ({
                         <EyeOutlined /> {view.name}
                     </Menu.Item>
                 )}
-                {downloadReport && (<a href={downloadReport.url} download><Menu.Item key="downloadReport" title={downloadReport.title}>
-                    <EyeOutlined /> {downloadReport.name}
-                </Menu.Item></a>)}
+                {downloadReport && (<Menu.Item key="downloadReport" title={downloadReport.title}>
+                <a href={downloadReport.url} download> <FileProtectOutlined /> {downloadReport.name}</a>
+                </Menu.Item>)}
                 {fillSurvey && (
                     <Menu.Item key="fillSurvey" onClick={fillSurvey.onClick} title={fillSurvey.title}>
                         <BookOutlined /> {fillSurvey.name}
