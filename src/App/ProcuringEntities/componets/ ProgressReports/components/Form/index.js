@@ -25,7 +25,7 @@ const wrapperCol = {
 
 const { RangePicker } = DatePicker;
 
-function ProgressReportForm({ closeForm, procuringEntity }) {
+function ProgressReportForm({ procuringEntity, createReport }) {
 
     const onFinish = (values) => {
         const {report_number, report_title, summary, start_end_date} = values;
@@ -34,14 +34,12 @@ function ProgressReportForm({ closeForm, procuringEntity }) {
             report_number,
             report_title,
             summary,
-            start_date: start_end_date[0].format('YYYY-MM-DD'),
-            end_date: start_end_date[1].format('YYYY-MM-DD'),
+            start: start_end_date[0].format('YYYY-MM-DD'),
+            end: start_end_date[1].format('YYYY-MM-DD'),
             procuring_entity_id: procuringEntity.id
         };
 
-        console.log('payload', payload);
-
-        closeForm();
+        createReport(payload);
     };
 
     return (

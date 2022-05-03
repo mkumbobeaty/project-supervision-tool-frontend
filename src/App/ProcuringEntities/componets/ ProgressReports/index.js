@@ -30,18 +30,37 @@ const headerLayout = [
 function ProgressReports({ match, procuringEntity, getProcuringEntity }) {
 
     const [progressReports, setProgressReports] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [showForm, setShowForm] = useState(false);
 
     const handleOnOpenForm = () => setShowForm(true);
     const handleOnCloseForm = () => setShowForm(false);
 
+    const createReport = async (payload) => {
+        setIsLoading(true);
+        handleOnCloseForm();
+        const response = await API.createProcuringEntitiesProgressReports(payload);
+        setProgressReports([response.data, ...progressReports]);
+        setIsLoading(false);
+        
+
+    }
+    
+    const getReports = async () => {
+        setIsLoading(true);
+        const payload = `filter[procuring_entity_id]=${match.params.id}`
+        const response = await API.getProcuringEntitiesProgressReports(payload);
+        setProgressReports(response.data);
+        setIsLoading(false);
+    }
+    
+
     useEffect(() => {
         getProcuringEntity(match.params.id);
-        const payload = `filter[procuring_entity_id]=${match.params.id}`
-        API.getProcuringEntitiesProgressReports(payload)
-            .then(response => setProgressReports(response.data))
-            .catch(error => console.log(error));
+        getReports();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+
 
     const breadcrumbs = procuringEntity ? [
         {
@@ -102,7 +121,7 @@ function ProgressReports({ match, procuringEntity, getProcuringEntity }) {
                     items={progressReports}
                     page={1}
                     itemCount={0}
-                    loading={progressReports.length < 1}
+                    loading={isLoading}
                     onRefresh={() => { }}
                     headerLayout={headerLayout}
                     renderListItem={({
@@ -162,6 +181,7 @@ function ProgressReports({ match, procuringEntity, getProcuringEntity }) {
                     <ProgressReportForm
                         closeForm={handleOnCloseForm}
                         procuringEntity={procuringEntity}
+                        createReport={createReport}
                     />
                 </Drawer>
 
