@@ -12,6 +12,7 @@ import API from "../../../../API";
 import { API_BASE_URL } from "../../../../API/config";
 import { ProcuringEntityActions, ProcuringEntitySelectors } from '../../../../redux/modules/ProcuringEntities';
 import { isoDateToHumanReadableDate } from "../../../../Util";
+import ProgressReportForm from "./components/Form";
 
 const reportTitle = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 10, xs: 20 };
 const reportNumber = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 10, xs: 0 };
@@ -158,24 +159,10 @@ function ProgressReports({ match, procuringEntity, getProcuringEntity }) {
                     maskClosable={false}
                     className="projectForm"
                 >
-                    {/* <ProcuringEntityForm
-                        isEditForm={isEditForm}
-                        selected={selected}
-                        handleAfterSubmit={handleCloseProcuringEntityForm}
-                        createProcuringEntity={createProcuringEntity}
-                        getAgenciesActors={getAgenciesActors}
-                        loading={loading}
-                        agencies={agencies}
-                        getProjectSubComponent={getProjectSubComponent}
-                        projectSubComponents={projectSubComponents}
-                        updateProcuringEntity={updateProcuringEntity}
-                        project={project}
-                        match={match}
-                        getProject={getProject}
-                    /> */}
-
-                    <h1>CREATE REPORT FORM</h1>
-
+                    <ProgressReportForm
+                        closeForm={handleOnCloseForm}
+                        procuringEntity={procuringEntity}
+                    />
                 </Drawer>
 
             </div>
