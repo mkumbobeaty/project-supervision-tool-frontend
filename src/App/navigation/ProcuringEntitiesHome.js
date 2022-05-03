@@ -25,6 +25,14 @@ const routes = [
     },
 
     {
+        name: "Consultant's Staff",
+        path: '/monitoring-and-evaluation',
+        icon: subProjectsDisabledIcon,
+        description: modules.initiatives,
+        disabled: true,
+    },
+
+    {
         name: 'SubProjects',
         path: '/sub_projects',
         icon: subProjectsDisabledIcon,
@@ -39,13 +47,7 @@ const routes = [
         description: modules.initiatives,
         disabled: true,
     },
-    {
-        name: 'Supervising Consultants',
-        path: '/monitoring-and-evaluation',
-        icon: subProjectsDisabledIcon,
-        description: modules.initiatives,
-        disabled: true,
-    },
+    
    
 ];
 
