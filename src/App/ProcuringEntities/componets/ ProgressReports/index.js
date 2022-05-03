@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { PlusOutlined } from "@ant-design/icons";
 import { Col, Drawer } from "antd";
 import Topbar from "../../../components/Topbar";
 import CustomList from "../../../components/List";
@@ -8,16 +9,16 @@ import ListItemActions from "../../../components/ListItemActions";
 import DynamicBreadcrumbs from "../../../components/DynamicBreadcrumbs";
 import BaseLayout from "../../../layouts/BaseLayout";
 import API from "../../../../API";
-import {API_BASE_URL} from "../../../../API/config";
+import { API_BASE_URL } from "../../../../API/config";
 import { ProcuringEntityActions, ProcuringEntitySelectors } from '../../../../redux/modules/ProcuringEntities';
 import { isoDateToHumanReadableDate } from "../../../../Util";
 
 const reportTitle = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 10, xs: 20 };
-const reportNumber = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 10, xs: 0};
-const reportingPeriod = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 0, xs: 0};
+const reportNumber = { xxl: 5, xl: 5, lg: 5, md: 5, sm: 10, xs: 0 };
+const reportingPeriod = { xxl: 11, xl: 11, lg: 11, md: 11, sm: 0, xs: 0 };
 
 const headerLayout = [
-    {...reportTitle, header: "Title"},
+    { ...reportTitle, header: "Title" },
     { ...reportNumber, header: "Report Number" },
     { ...reportingPeriod, header: "Reporting Period" },
 ];
@@ -25,16 +26,20 @@ const headerLayout = [
 
 
 
-function ProgressReports ({match, procuringEntity, getProcuringEntity}) {
+function ProgressReports({ match, procuringEntity, getProcuringEntity }) {
 
     const [progressReports, setProgressReports] = useState([]);
+    const [showForm, setShowForm] = useState(false);
+
+    const handleOnOpenForm = () => setShowForm(true);
+    const handleOnCloseForm = () => setShowForm(false);
 
     useEffect(() => {
         getProcuringEntity(match.params.id);
         const payload = `filter[procuring_entity_id]=${match.params.id}`
         API.getProcuringEntitiesProgressReports(payload)
-        .then(response => setProgressReports(response.data))
-        .catch(error => console.log(error));
+            .then(response => setProgressReports(response.data))
+            .catch(error => console.log(error));
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const breadcrumbs = procuringEntity ? [
@@ -65,18 +70,28 @@ function ProgressReports ({match, procuringEntity, getProcuringEntity}) {
         }
     ] : [];
 
-  return (
-      <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs} />}>
-           <div>
+    return (
+        <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs} />}>
+            <div>
                 {/* Topbar */}
                 <Topbar
                     search={{
                         size: "large",
                         placeholder: "Search for Progress Reports here ...",
-                        onChange: () => {},
+                        onChange: () => { },
                         value: ''
                     }}
-                    
+
+                    actions={[
+                        {
+                            label: "New Report",
+                            icon: <PlusOutlined />,
+                            size: "large",
+                            title: "Add Procuring Progress Report",
+                            onClick: handleOnOpenForm,
+                        },
+                    ]}
+
                 />
                 {/* end Topbar */}
 
@@ -87,7 +102,7 @@ function ProgressReports ({match, procuringEntity, getProcuringEntity}) {
                     page={1}
                     itemCount={0}
                     loading={progressReports.length < 1}
-                    onRefresh={() => {}}
+                    onRefresh={() => { }}
                     headerLayout={headerLayout}
                     renderListItem={({
                         item,
@@ -103,8 +118,8 @@ function ProgressReports ({match, procuringEntity, getProcuringEntity}) {
                                             name: "Download Report",
                                             title: "Click to download the report",
                                             url: `${API_BASE_URL}/api/v1/procuring_entity_reports/${item?.media?.id}`,
-                                            
-                                        }: undefined
+
+                                        } : undefined
                                     }
 
                                 />
@@ -112,7 +127,7 @@ function ProgressReports ({match, procuringEntity, getProcuringEntity}) {
                         >
                             {/* eslint-disable react/jsx-props-no-spreading */}
 
-                            <Col {...reportTitle} className="contentEllipse" title={ item?.report_title || 'N/A'}>
+                            <Col {...reportTitle} className="contentEllipse" title={item?.report_title || 'N/A'}>
                                 {item?.report_title || 'N/A'}
                             </Col>
 
@@ -122,7 +137,7 @@ function ProgressReports ({match, procuringEntity, getProcuringEntity}) {
 
                             <Col {...reportingPeriod} className="contentEllipse">
                                 {
-                                    `${  isoDateToHumanReadableDate(item.start)} - ${  isoDateToHumanReadableDate(item?.end)}`
+                                    `${isoDateToHumanReadableDate(item.start)} - ${isoDateToHumanReadableDate(item?.end)}`
                                 }
                             </Col>
 
@@ -132,11 +147,10 @@ function ProgressReports ({match, procuringEntity, getProcuringEntity}) {
                 />
                 {/* end list */}
 
-                {/* <Drawer
-                    title={
-                        isEditForm ? "Edit Procuring Entity" : "Add New Procuring Entity"
-                    } width={550}
-                    onClose={handleCloseProcuringEntityForm}
+                <Drawer
+                    title={"Add New Procuring Entity Progress Report"}
+                    width={550}
+                    onClose={handleOnCloseForm}
                     footer={null}
                     visible={showForm}
                     bodyStyle={{ paddingBottom: 80 }}
@@ -144,7 +158,7 @@ function ProgressReports ({match, procuringEntity, getProcuringEntity}) {
                     maskClosable={false}
                     className="projectForm"
                 >
-                    <ProcuringEntityForm
+                    {/* <ProcuringEntityForm
                         isEditForm={isEditForm}
                         selected={selected}
                         handleAfterSubmit={handleCloseProcuringEntityForm}
@@ -158,14 +172,16 @@ function ProgressReports ({match, procuringEntity, getProcuringEntity}) {
                         project={project}
                         match={match}
                         getProject={getProject}
-                    />
+                    /> */}
 
-                </Drawer> */}
+                    <h1>CREATE REPORT FORM</h1>
+
+                </Drawer>
 
             </div>
-      </BaseLayout>
+        </BaseLayout>
 
-  );
+    );
 }
 
 
