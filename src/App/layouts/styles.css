@@ -85,3 +85,29 @@
   padding: 6px 14px;
   margin-inline-end: 1.4em;
 }
+
+.sider-layout
+  .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal)
+  .ant-menu-item-selected {
+  background-color: inherit;
+}
+
+.sider-layout
+  .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal)
+  .ant-menu-item-selected
+  > a {
+  color: #1890ff;
+}
+
+.BaseLayoutContent h3{ 
+  color: #1890ff;
+
+}
+
+.sider-layout h3{
+  padding-inline-start: 24px;
+    font-weight: 600;
+    font-size: 16px;
+    padding-block-end: 1rem;
+    text-transform: uppercase;
+}

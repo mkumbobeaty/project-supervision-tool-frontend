@@ -89,26 +89,7 @@ class Contracts extends Component {
     const { isEditForm } = this.state;
     return (
       <div>
-        {/* Topbar */}
-        <Topbar
-          search={{
-            size: "large",
-            placeholder: "Search for contracts here ...",
-            onSearch: this.handleSearch,
-            onChange: this.searchInitiative,
-            value: searchQuery,
-          }}
-          actions={[
-            {
-              label: "New Contract",
-              icon: <PlusOutlined />,
-              size: "large",
-              title: "Add New Contract",
-              onClick: this.openContractForm,
-            },
-          ]}
-        />
-        {/* end Topbar */}
+
         {/* list starts */}
         <ContractsList
           itemName="Contracts"

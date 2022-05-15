@@ -131,21 +131,8 @@ const ProcuringEntitiesList = ({
 
 
     return (
-        <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs} />}>
-
             <div>
-                {/* Topbar */}
-                <Topbar
-                    search={{
-                        size: "large",
-                        placeholder: "Search for Procuring Entities here ...",
-                        onChange: handleSearch,
-                        value: searchQuery
-                    }}
-                    
-                />
-                {/* end Topbar */}
-
+    
                 {/* list starts */}
                 <CustomList
                     itemName="ProcuringEntities"
@@ -226,7 +213,6 @@ const ProcuringEntitiesList = ({
                 </Drawer>
 
             </div>
-        </BaseLayout>
 
     )
 }

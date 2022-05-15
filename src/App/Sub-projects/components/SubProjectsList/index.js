@@ -332,18 +332,8 @@ class SubProjectsList extends Component {
 
         const {isEditForm, previewOnMap, isSelected} = this.state;
         return previewOnMap ? <PreviewOnMap data={selected}/> : (
-            <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs}/>}>
                 <div>
-                    {/* Topbar */}
-                    <Topbar
-                        search={{
-                            size: "large",
-                            placeholder: "Search for Sub-project here ...",
-                            onSearch: this.searchSubProject,
-                            value: searchQuery
-                        }}
-                    />
-                    {/* end Topbar */}
+
 
                     {/* list starts */}
                     <CustomList
@@ -476,7 +466,6 @@ class SubProjectsList extends Component {
                         />
                     </Drawer>
                 </div>
-            </BaseLayout>
         );
     }
 }

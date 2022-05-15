@@ -132,17 +132,7 @@ const PackagesList = ({
     };
 
     return (
-        <BaseLayout breadcrumbs={<DynamicBreadcrumbs breadcrumbs={breadcrumbs} />} >
             <div>
-                {/* Topbar */}
-                <Topbar
-                    search={{
-                        size: "large",
-                        placeholder: "Search for Packages here ...",
-                        onSearch: '',
-                    }}
-                />
-                {/* end Topbar */}
 
                 {/* list starts */}
                 <CustomList
@@ -224,7 +214,6 @@ const PackagesList = ({
                 </Drawer>
 
             </div>
-        </BaseLayout>
 
     )
 }
