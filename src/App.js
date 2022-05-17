@@ -23,7 +23,7 @@ function App(props) {
     <div className="App">
       <HashRouter hashType="hashbang">
         <Switch>
-          <PrivateRoute path="/app" component={AppLayout} />
+          <Route path="/app" component={AppLayout} />
 
           <Route path="/signin" component={SignIn} />
           <Redirect to="/signin" />

@@ -2,19 +2,16 @@ import React from "react";
 
 import { Layout, Menu, Breadcrumb } from "antd";
 
-import { Link, Switch } from "react-router-dom";
-import PrivateRoute from "../Auth/PrivateRoute";
-import ProjectsList from "../Projects/components/ProjectsList";
+import { Link, Route, Switch } from "react-router-dom";
 import MapDashboard from "../Map";
-import Dashboards from "../Dashboards";
 import Contracts from "../Contracts";
-import ProcuringEntitiesList from "../ProcuringEntities/componets/ProcuringEntitiesList";
 import PackagesList from "../Packages/componets/PackagesList";
 import SubProjectsList from "../Sub-projects/components/SubProjectsList";
+import SafeGuard from "../Csc/components/safeguad";
+import Reports from "../Csc/components/Reports";
 
 import "./styles.css";
-import SafeGuard from "../Csc/safeguad";
-import Reports from "../Csc/Reports";
+import Overview from "../Csc/components/overview";
 
 const { Content, Sider } = Layout;
 
@@ -33,7 +30,7 @@ const CscLayout = ({ baseUrl }) => {
 
           <Menu.Item>
             <span className="CustomizedIcon" />
-            <Link to={`${baseUrl}/procuring_entity`}>Overview</Link>
+            <Link to={`${baseUrl}/procuring_entity/overview`}>Overview</Link>
           </Menu.Item>
           <Menu.Item>
             <span className="CustomizedIcon" />
@@ -77,30 +74,30 @@ const CscLayout = ({ baseUrl }) => {
         >
             <h3>Overview</h3>
           <Switch>
-            <PrivateRoute
-              path={`${baseUrl}/procuring_entity`}
-              component={({ match }) => <ProcuringEntitiesList match={match} />}
+            <Route
+              path={`${baseUrl}/procuring_entity/overview`}
+              component={({ match }) => <Overview match={match} />}
             />
-            <PrivateRoute
+            <Route
               path={`${baseUrl}/safeguard`}
               component={({ match }) => <SafeGuard />}
             />
-            <PrivateRoute
+            <Route
               path={`${baseUrl}/packages`}
               component={({ match }) => <PackagesList match={match} />}
             />
-            <PrivateRoute
+            <Route
               path={`${baseUrl}/reports`}
               component={({ match }) => <Reports />}
             />
-            <PrivateRoute
+            <Route
               path={`${baseUrl}/sub-projects`}
               component={({ match }) => <SubProjectsList match={match} />}
             />
 
-            <PrivateRoute path={`${baseUrl}/map`} component={MapDashboard} />
+            <Route path={`${baseUrl}/map`} component={MapDashboard} />
 
-            <PrivateRoute
+            <Route
               path={`${baseUrl}/contractors`}
               component={(props) => <Contracts />}
             />
